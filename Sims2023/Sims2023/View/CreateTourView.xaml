@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Sims2023.View"
+        xmlns:local="clr-namespace:Sims2023.View" xmlns:model="clr-namespace:Sims2023.Model" d:DataContext="{d:DesignInstance Type=model:Tour}"
         mc:Ignorable="d"
         Title="CreateTourView" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
@@ -25,7 +25,8 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="0">Naziv</Label>
-        <Label Grid.Row="1" Grid.Column="0">Lokacija</Label>
+        <Label Grid.Row="1" Grid.Column="0">Lokacija Grad</Label>
+        <Label Grid.Column="1" Margin="300,43,190,43" Grid.RowSpan="3">Drzava</Label>
         <Label Grid.Row="2" Grid.Column="0">Opis</Label>
         <Label Grid.Row="3" Grid.Column="0">Jezik</Label>
         <Label Grid.Row="4" Grid.Column="0">Maks broj gostiju</Label>
@@ -34,18 +35,26 @@
         <Label Grid.Row="7" Grid.Column="0">Trajanje</Label>
         <Label Grid.Row="8" Grid.Column="0">Slike</Label>
         <TextBox Grid.Row="0" Grid.Column="1" Width="400" Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="1" Grid.Column="1" Width="400" Text="{Binding Path=Tour.Location, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="1" Width="150" Text="{Binding Path=Location.City, UpdateSourceTrigger=PropertyChanged}" Margin="100,43,350,43" Grid.RowSpan="3"/>
+        <TextBox Grid.Column="1" Width="150" Text="{Binding Path=Location.Country, UpdateSourceTrigger=PropertyChanged}" Margin="350,43,100,43" Grid.RowSpan="3"/>
         <TextBox Grid.Row="2" Grid.Column="1" Width="400" Text="{Binding Path=Tour.Description, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <ComboBox Grid.Row="3" Grid.Column="1" Width="400" Text="{Binding Path=Tour.Language, UpdateSourceTrigger=PropertyChanged}">
             <ComboBoxItem>English</ComboBoxItem>
             <ComboBoxItem>Serbian</ComboBoxItem>
             <ComboBoxItem>German</ComboBoxItem>
+            <ComboBoxItem>French</ComboBoxItem>
+            <ComboBoxItem>Spanish</ComboBoxItem>
+            <ComboBoxItem>Italian</ComboBoxItem>
+            <ComboBoxItem>Chinese</ComboBoxItem>
+            <ComboBoxItem>Japanese</ComboBoxItem>
         </ComboBox>
         <TextBox Grid.Row="4" Grid.Column="1" Width="400" Text="{Binding Path=Tour.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <!-- For KeyPoints there is only a textbox, I don't know what else to put at the moment -->
-        <TextBox Grid.Row="5" Grid.Column="1" Width="400" Text="{Binding Path=Tour.KeyPoints, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="6" Grid.Column="1" Width="400" Text="{Binding Path=Tour.Start, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="5" Grid.Column="1" Width="400" Text="{Binding Path=Tour.KeyPointsString, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="6" Grid.Column="1" Width="400" Text="{Binding Path=Tour.Start, UpdateSourceTrigger=PropertyChanged}" Name="startTextBox"></TextBox>
+        <Button Click="AddMoreDates" Grid.Row="6" Grid.Column="2">+</Button>
         <TextBox Grid.Row="7" Grid.Column="1" Width="400" Text="{Binding Path=Tour.Length, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="8" Grid.Column="1" Width="400" Text="{Binding Path=Tour.PicturesString, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <Button Click="SubmitButtonClicked" Grid.Row="9" Grid.Column="1" Width="100">Submit</Button>
         <Button Click="CancelButtonClicked" Grid.Row="9" Grid.Column="1" Width="70" Margin="400, 0, 0, 0">Cancel</Button>
     </Grid>

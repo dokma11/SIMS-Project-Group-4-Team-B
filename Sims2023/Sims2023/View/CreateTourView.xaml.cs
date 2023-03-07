@@ -1,22 +1,11 @@
 ﻿using Sims2023.Controller;
 using Sims2023.Model;
-using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Sims2023.View
 {
@@ -25,25 +14,48 @@ namespace Sims2023.View
     /// </summary>
     public partial class CreateTourView : Window
     {
-        private TourController _controller;
+        private TourController _tourController;
+        private LocationController _locationController;
+        private List<DateTime> dateTimeList;
         public Tour Tour { get; set; }
-        public CreateTourView(TourController controller)
+        public Location Location { get; set; }
+        public CreateTourView(TourController tourController, LocationController locationController)
         {
             InitializeComponent();
             DataContext = this;
             Tour = new Tour();
+            Location = new Location();
+            dateTimeList = new List<DateTime>();
 
-            _controller = controller;
+            _tourController = tourController;
+            _locationController = locationController;
         }
         private void SubmitButtonClicked(object sender, RoutedEventArgs e)
         {
-            _controller.Create(Tour);
+            _tourController.Create(Tour);
+            _locationController.Create(Location);
+            _tourController.AddToursLocation(Tour, Location);
             Close();
         }
 
         private void CancelButtonClicked(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void AddMoreDates(object sender, RoutedEventArgs e) 
+        {
+            string inputString = startTextBox.Text;
+            DateTime dateTime;
+
+            if (DateTime.TryParse(inputString, out dateTime))
+            {
+                dateTimeList.Add(dateTime);
+            }
+            else
+            {
+                MessageBox.Show("Invalid DateTime format.");
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

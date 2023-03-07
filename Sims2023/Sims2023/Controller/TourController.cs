@@ -26,6 +26,10 @@ namespace Sims2023.Controller
         {
             _tours.Add(tour);
         }
+        public void AddToursLocation(Tour tour, Location location) 
+        {
+            _tours.AddToursLocation(tour, location);
+        }
         public void Delete(Tour tour)
         {
             _tours.Remove(tour);

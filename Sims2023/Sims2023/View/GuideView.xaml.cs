@@ -23,7 +23,8 @@ namespace Sims2023.View
     /// </summary>
     public partial class GuideView : Window, IObserver 
     {
-        private TourController _controller;
+        private TourController _tourController;
+        private LocationController _locationController;
         public Tour Tour { get; set; }
         public Tour SelectedTour { get; set; }
         public ObservableCollection<Tour> tours { get; set; }
@@ -32,15 +33,18 @@ namespace Sims2023.View
             InitializeComponent();
             DataContext = this;
 
-            _controller = new TourController();
-            _controller.Subscribe(this);
-            tours = new ObservableCollection<Tour>(_controller.GetAllTours());
+            _tourController = new TourController();
+            _tourController.Subscribe(this);
+            tours = new ObservableCollection<Tour>(_tourController.GetAllTours());
+
+            _locationController = new LocationController();
+            _locationController.Subscribe(this);
         }
 
         private void CreateButtonClicked(object sender, RoutedEventArgs e)
         {
-            CreateTourView createTourView = new CreateTourView(_controller);
-            createTourView.Show();
+            CreateTourView createTourView = new CreateTourView(_tourController, _locationController);
+            createTourView.Show();  
         }
 
         public void Update()
@@ -51,7 +55,7 @@ namespace Sims2023.View
         public void UpdateTourList()
         {
             tours.Clear();
-            foreach(var tour in _controller.GetAllTours()) 
+            foreach(var tour in _tourController.GetAllTours()) 
             {
                 tours.Add(tour);
             }
