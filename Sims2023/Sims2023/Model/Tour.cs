@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Sims2023.Serialization;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Sims2023.Model
 {
-    public class Tour
+    public class Tour: ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -37,12 +39,14 @@ namespace Sims2023.Model
             KeyPoints = keyPoints;
             Start = start;
             Length = length;
-            //CurrentState = State.Created;           Probably don't need it in a file
+            //CurrentState = State.Created;           Probably don't need it in a file, will add if it is necessary
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, Location, Description, GuideLanguage.ToString(), MaxGuestNumber.ToString(), KeyPoints, Start.ToString(), Length.ToString(), CurrentState.ToString() };  //Need to check if it works for start and all the other enums
+            string[] csvValues = { Id.ToString(), Name, Location, Description, GuideLanguage.ToString(), MaxGuestNumber.ToString(), KeyPoints, Start.ToString(), Length.ToString()};  //Didn't add CurrentState will later on if necessary
             return csvValues;
         }
 

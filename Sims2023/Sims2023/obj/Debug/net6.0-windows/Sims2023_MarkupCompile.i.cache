@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\App.xaml
-2-417687190
+3-759316824
 
-7-1982456813
+15-1960481485
 194101785492
-MainWindow.xaml;View\GuideView.xaml;
+MainWindow.xaml;View\CreateTourView.xaml;View\GuideView.xaml;
 
-True
+False
 

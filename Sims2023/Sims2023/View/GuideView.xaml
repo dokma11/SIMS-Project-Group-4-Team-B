@@ -12,9 +12,20 @@
                 <Button Click="CreateButtonClicked">Create</Button>
             </ToolBar>
         </DockPanel>
-        <DataGrid Height="300" ItemsSource="{Binding Path=tours, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid Height="300" Width="750" ItemsSource="{Binding Path=tours, UpdateSourceTrigger=PropertyChanged}"
         SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}">
-
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Lokacija" Binding="{Binding Location}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Opis" Binding="{Binding Description}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Maks br gostiju" Binding="{Binding MaxGuestNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Kljucne tacke" Binding="{Binding KeyPoints}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Start" Binding="{Binding Start}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Trajanje" Binding="{Binding Length}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Stanje" Binding="{Binding CurrentState}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Slike" Binding="{Binding Pictures}"></DataGridTextColumn>
+            </DataGrid.Columns>
         </DataGrid>
     </StackPanel>
 </Window>

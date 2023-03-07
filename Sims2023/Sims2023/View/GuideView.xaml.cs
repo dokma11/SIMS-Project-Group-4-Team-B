@@ -1,4 +1,6 @@
-﻿using Sims2023.Model;
+﻿using Sims2023.Controller;
+using Sims2023.Model;
+using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,22 +21,40 @@ namespace Sims2023.View
     /// <summary>
     /// Interaction logic for GuideView.xaml
     /// </summary>
-    public partial class GuideView : Window
+    public partial class GuideView : Window, IObserver 
     {
-        ObservableCollection<Tour> tours = new ObservableCollection<Tour>();
+        private TourController _controller;
+        public Tour Tour { get; set; }
         public Tour SelectedTour { get; set; }
+        public ObservableCollection<Tour> tours { get; set; }
         public GuideView()
         {
             InitializeComponent();
             DataContext = this;
 
-            //tours = new ObservableCollection<Tour>(_tourController.GetAllTours());
+            _controller = new TourController();
+            _controller.Subscribe(this);
+            tours = new ObservableCollection<Tour>(_controller.GetAllTours());
         }
 
         private void CreateButtonClicked(object sender, RoutedEventArgs e)
         {
-            //CreateTourView createTourView = new CreateTourView();
-            //createTourView.Show();
+            CreateTourView createTourView = new CreateTourView(_controller);
+            createTourView.Show();
+        }
+
+        public void Update()
+        {
+            UpdateTourList();
+        }
+
+        public void UpdateTourList()
+        {
+            tours.Clear();
+            foreach(var tour in _controller.GetAllTours()) 
+            {
+                tours.Add(tour);
+            }
         }
     }
 }
