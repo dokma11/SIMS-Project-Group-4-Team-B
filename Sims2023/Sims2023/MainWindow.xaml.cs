@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sims2023.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,8 +41,8 @@ namespace Sims2023
 
         private void GuideClick(object sender, RoutedEventArgs e)
         {
-            // var OpenCreateTourView = new OpenCreateTourView();
-            // OpenCreateTourView.show();
+            GuideView guideView = new GuideView();
+            guideView.Show();
         }
 
         private void Guest2Click(object sender, RoutedEventArgs e)

@@ -19,3 +19,26 @@ C:\Users\Nedeljko\source\repos\Sims2023\Sims2023\obj\Debug\net6.0-windows\refint
 C:\Users\Nedeljko\source\repos\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.pdb
 C:\Users\Nedeljko\source\repos\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.genruntimeconfig.cache
 C:\Users\Nedeljko\source\repos\Sims2023\Sims2023\obj\Debug\net6.0-windows\ref\Sims2023.dll
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\bin\Debug\net6.0-windows\Sims2023.exe
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\bin\Debug\net6.0-windows\Sims2023.deps.json
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\bin\Debug\net6.0-windows\Sims2023.runtimeconfig.json
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\bin\Debug\net6.0-windows\Sims2023.dll
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\bin\Debug\net6.0-windows\Sims2023.pdb
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.csproj.AssemblyReference.cache
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\MainWindow.g.cs
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\App.g.cs
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023_MarkupCompile.cache
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023_MarkupCompile.lref
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\MainWindow.baml
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.g.resources
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.AssemblyInfoInputs.cache
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.AssemblyInfo.cs
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.csproj.CoreCompileInputs.cache
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.dll
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\refint\Sims2023.dll
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.pdb
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.genruntimeconfig.cache
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\ref\Sims2023.dll
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\GuideView.g.cs
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\GuideView.baml
