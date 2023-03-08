@@ -20,6 +20,8 @@ namespace Sims2023.Model
         public int CancelDays { get; set; }
         public List<string> ImageUrls { get; set; }
 
+        string ImageUrl { get; set; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
@@ -30,9 +32,9 @@ namespace Sims2023.Model
 
         public Accommodation()
         {
-            
+            ImageUrls = new List<string>();
         }
-        public Accommodation(int id,string name, string city, string country, string type, int maxGuests, int minDays, int cancelDays, List<string> imageUrls)
+        public Accommodation(int id,string name, string city, string country, string type, int maxGuests, int minDays, int cancelDays, string ImageUrls)
         {
             Id = id;
             Name = name;
@@ -42,7 +44,8 @@ namespace Sims2023.Model
             MaxGuests = maxGuests;
             MinDays = minDays;
             CancelDays = cancelDays;
-            ImageUrls = imageUrls;
+            ImageUrl = ImageUrls;
+
         }
 
 
@@ -57,7 +60,9 @@ namespace Sims2023.Model
                 Type,
                 MaxGuests.ToString(),
                 MinDays.ToString(),
-                CancelDays.ToString()
+                CancelDays.ToString(),
+                ImageUrl
+
             };
             return csvValues;
         }
@@ -73,6 +78,7 @@ namespace Sims2023.Model
             MaxGuests = int.Parse(values[5]);
             MinDays = int.Parse(values[6]);
             CancelDays = int.Parse(values[7]);
+            ImageUrl = values[8];
 
         }
 
