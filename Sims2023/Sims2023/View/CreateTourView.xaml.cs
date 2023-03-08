@@ -32,9 +32,19 @@ namespace Sims2023.View
         }
         private void SubmitButtonClicked(object sender, RoutedEventArgs e)
         {
-            _tourController.Create(Tour);
-            _locationController.Create(Location);
-            _tourController.AddToursLocation(Tour, Location);
+            if(dateTimeList.Count == 0) 
+            {
+                _tourController.Create(Tour, dateTimeList);
+                _locationController.Create(Location);
+                _tourController.AddToursLocation(Tour, Location);
+            }
+            else 
+            {
+                _locationController.Create(Location);
+                _tourController.Create(Tour, dateTimeList);
+                _tourController.AddToursLocation(Tour, Location);
+            }
+
             Close();
         }
 
@@ -47,14 +57,66 @@ namespace Sims2023.View
         {
             string inputString = startTextBox.Text;
             DateTime dateTime;
+            int counter = 0;
 
             if (DateTime.TryParse(inputString, out dateTime))
             {
-                dateTimeList.Add(dateTime);
+                foreach(var dateTimeInstance in dateTimeList)
+                {
+                    if(dateTimeInstance == dateTime) 
+                    {
+                        counter++;
+                    }
+                }
+                if(counter == 0)
+                {
+                    dateTimeList.Add(dateTime);
+                }
+                counter = 0;
             }
             else
             {
-                MessageBox.Show("Invalid DateTime format.");
+                MessageBox.Show("Uneli ste nepravilan format datuma.");
+            }
+        }
+
+        private void ComboBoxSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            ComboBox cBox = (ComboBox)sender;
+            ComboBoxItem cbItem = (ComboBoxItem)cBox.SelectedItem;
+            string language = (string)cbItem.Content;
+            //The numbers represent the order in which the enum members are arranged, the first is Serbian (number 0), the second English (number 1) etc...
+            if (language == "Serbian")
+            {
+                Tour.GuideLanguage = (Tour.Language)0;
+            }
+            else if(language == "English")
+            {
+                Tour.GuideLanguage = (Tour.Language)1;
+            }
+            if (language == "German")
+            {
+                Tour.GuideLanguage = (Tour.Language)2;
+            }
+            if (language == "French")
+            {
+                Tour.GuideLanguage = (Tour.Language)3;
+            }
+            if (language == "Spanish")
+            {
+                Tour.GuideLanguage = (Tour.Language)4;
+            }
+            if (language == "Italian")
+            {
+                Tour.GuideLanguage = (Tour.Language)5;
+            }
+            if (language == "Chinese")
+            {
+                Tour.GuideLanguage = (Tour.Language)6;
+            }
+            if (language == "Japanese")
+            {
+                Tour.GuideLanguage = (Tour.Language)7;
             }
         }
 

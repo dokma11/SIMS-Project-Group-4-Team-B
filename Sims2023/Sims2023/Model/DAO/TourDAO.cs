@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sims2023.Model.DAO
 {
@@ -22,12 +23,29 @@ namespace Sims2023.Model.DAO
         public int NextId()
         {
             if (_tours.Count == 0) return 1;
-            return _tours.Max(s => s.Id) + 1;
+            return _tours.Max(t => t.Id) + 1;
         }
-        public void Add(Tour tour)
+        public void Add(Tour tour, List<DateTime> dateTimes)
         {
-            tour.Id = NextId();
-            _tours.Add(tour);
+            List<Tour> newList = new List<Tour>();
+
+            foreach(var date in dateTimes) 
+            {
+                Tour newTour = new Tour();
+                newList.Add(newTour);
+            }
+
+            foreach (var date in dateTimes)
+            {
+                Tour newTour = new Tour();
+                string dtstring = date.ToString();
+                MessageBox.Show("Ovo je: " + dtstring);
+                tour.Id = NextId();
+                MessageBox.Show("Id: " + tour.Id);
+                tour.Start = date;
+                newTour = tour;
+                _tours.Add(newTour);
+            }
             _repository.Save(_tours);
             NotifyObservers();
         }

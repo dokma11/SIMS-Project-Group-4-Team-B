@@ -11,28 +11,51 @@ namespace Sims2023.Controller
 {
     public class LocationController
     {
-        private LocationDAO _locations;
+        private LocationDAO _location;
         public LocationController()
         {
-            _locations = new LocationDAO();
+            _location = new LocationDAO();
         }
 
         public List<Location> GetAllLocations()
         {
-            return _locations.GetAll();
+            return _location.GetAll();
         }
 
         public void Create(Location location)
         {
-            _locations.Add(location);
+            List<Location> locations = new List<Location>();
+            locations = _location.GetAll();
+            int counter = 0;
+
+            if(locations.Count ==  0) 
+            {
+                _location.Add(location);
+            }
+            else
+            {
+                foreach(var locationInstance in locations)
+                {
+                    if(location.City == locationInstance.City && location.Country == locationInstance.Country) 
+                    {
+                        counter++;
+                        break;
+                    }
+                }
+                if(counter == 0)
+                {
+                    _location.Add(location);
+                }
+                counter = 0;
+            }
         }
         public void Delete(Location location)
         {
-            _locations.Remove(location);
+            _location.Remove(location);
         }
         public void Subscribe(IObserver observer)
         {
-            _locations.Subscribe(observer);
+            _location.Subscribe(observer);
         }
 
     }

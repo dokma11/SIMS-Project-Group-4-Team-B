@@ -38,7 +38,7 @@
         <TextBox Grid.Column="1" Width="150" Text="{Binding Path=Location.City, UpdateSourceTrigger=PropertyChanged}" Margin="100,43,350,43" Grid.RowSpan="3"/>
         <TextBox Grid.Column="1" Width="150" Text="{Binding Path=Location.Country, UpdateSourceTrigger=PropertyChanged}" Margin="350,43,100,43" Grid.RowSpan="3"/>
         <TextBox Grid.Row="2" Grid.Column="1" Width="400" Text="{Binding Path=Tour.Description, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <ComboBox Grid.Row="3" Grid.Column="1" Width="400" Text="{Binding Path=Tour.Language, UpdateSourceTrigger=PropertyChanged}">
+        <ComboBox Grid.Row="3" Grid.Column="1" Width="400" Text="{Binding Path=Tour.Language, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBoxSelectionChanged">
             <ComboBoxItem>English</ComboBoxItem>
             <ComboBoxItem>Serbian</ComboBoxItem>
             <ComboBoxItem>German</ComboBoxItem>
