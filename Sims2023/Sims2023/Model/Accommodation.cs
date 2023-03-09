@@ -83,7 +83,7 @@ namespace Sims2023.Model
 
         public string isVaild(Accommodation a)
         {
-            if (string.IsNullOrEmpty(a.name) || string.IsNullOrEmpty(a.city) || string.IsNullOrEmpty(a.country) || string.IsNullOrEmpty(a.type) || string.IsNullOrEmpty(ImageUrl))
+            if (string.IsNullOrEmpty(a.name) || string.IsNullOrEmpty(a.type) || string.IsNullOrEmpty(ImageUrl))
                 return "morate popuniti sve podatke";
 
             if (a.canceldays == -1 || a.maxguests == -1 || a.mindays == -1)

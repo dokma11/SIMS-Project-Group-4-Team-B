@@ -23,6 +23,7 @@ namespace Sims2023.View
     {
         private string outputText;
         private AccommodationController accommodationCtrl;
+        private AccomodationLocationController accommodationLocationCtrl;
 
         public OpenAccommodationRegistrationView()
         {
@@ -30,14 +31,14 @@ namespace Sims2023.View
             InitializeComponent();
             DataContext = this;
             accommodationCtrl = new AccommodationController();
-           
+            accommodationLocationCtrl = new AccomodationLocationController();
         }
 
 
 
         private void addAccommodationClick(object sender, RoutedEventArgs e)
         {
-            var addAccommodation = new addAccommodationView(accommodationCtrl);
+            var addAccommodation = new addAccommodationView(accommodationCtrl, accommodationLocationCtrl);
             addAccommodation.Show();
         }
     }

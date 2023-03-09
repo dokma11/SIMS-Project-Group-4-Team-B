@@ -22,22 +22,48 @@ namespace Sims2023.View
     public partial class addAccommodationView : Window
     {
         private AccommodationController accommodationCtrl;
+        private AccomodationLocationController accomodationLocationctrl;
         private Accommodation accommodation { get; set; }
+        private AccommodationLocation acmLocation { get; set; }
         string outputText;
-        public addAccommodationView(AccommodationController accommodationCtrl1)
+        public addAccommodationView(AccommodationController accommodationCtrl1, AccomodationLocationController accommodationLocationCtrll)
         {
             InitializeComponent();
             DataContext= this;
+            
             accommodationCtrl = accommodationCtrl1;
+
+            accomodationLocationctrl = accommodationLocationCtrll;
+
             accommodation = new Accommodation();
+
+            acmLocation = new AccommodationLocation();
         }
 
         private void Registration_Click(object sender, RoutedEventArgs e)
         {
             int Id = 0;
+            int Id2 = 0;
             string Name = textBox.Text;
             string Town = textBox1.Text;
+            int idLocation=0;
+
+          
             string Country = textBox2.Text;
+            acmLocation = new AccommodationLocation(Id2, Town, Country);
+
+            // if location doesnt exist I create a new one
+
+            if (accomodationLocationctrl.findIdByCityCountry(acmLocation.city,acmLocation.country) == -1)
+            {
+                if (acmLocation.isVaild(acmLocation) == null)
+                accomodationLocationctrl.Create(acmLocation);
+            }
+
+           
+           // now need to find what Id it has
+           idLocation = accomodationLocationctrl.findIdByCityCountry(acmLocation.city,acmLocation.country);
+
             string Type = comboBox.Text;
             string MaxGuests1 = textBox3.Text;
           
@@ -57,8 +83,8 @@ namespace Sims2023.View
 
 
 
-            int CancelDays = string.IsNullOrEmpty(CancelDayss) ? -1 : int.Parse(CancelDayss);
-            accommodation = new Accommodation(Id,Name, Town, Country, Type, MaxGuests, Mindays, CancelDays, outputText);
+            int CancelDays = string.IsNullOrEmpty(CancelDayss) ? 1 : int.Parse(CancelDayss);
+            accommodation = new Accommodation(Id,Name, idLocation, Type, MaxGuests, Mindays, CancelDays, outputText);
 
             if (accommodation.isVaild(accommodation) == null)
             {

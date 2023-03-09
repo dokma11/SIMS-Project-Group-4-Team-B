@@ -11,7 +11,7 @@ namespace Sims2023.Repository
     internal class AccommodationLocationRepository
     {
 
-        private const string StoragePath = "../../../Resources/Data/accomodationLocations.csv";
+        private const string StoragePath = "../../../Resources/Data/accommodationLocations.csv";
 
         private Serializer<AccommodationLocation> _serializer;
 

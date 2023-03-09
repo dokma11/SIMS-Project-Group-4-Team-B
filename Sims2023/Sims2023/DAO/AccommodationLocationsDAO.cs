@@ -25,6 +25,8 @@ namespace Sims2023.DAO
             _observers = new List<IObserver>();
         }
 
+        
+
         public int NextId()
         {
             return _accommodationLocations.Max(s => s.id) + 1;
