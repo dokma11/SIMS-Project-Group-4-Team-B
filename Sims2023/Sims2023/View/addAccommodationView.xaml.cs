@@ -40,18 +40,41 @@ namespace Sims2023.View
             string Country = textBox2.Text;
             string Type = comboBox.Text;
             string MaxGuests1 = textBox3.Text;
-            int MaxGuests = int.Parse(MaxGuests1);
+          
+
+            int MaxGuests = string.IsNullOrEmpty(MaxGuests1) ? -1 : int.Parse(MaxGuests1);
 
             string mindays = textBox4.Text;
-            int Mindays = int.Parse(mindays);
+           
+            int Mindays = string.IsNullOrEmpty(mindays) ? -1 : int.Parse(mindays);
             string CancelDayss = textBox5.Text;
-            int CancelDays = int.Parse(CancelDayss);
 
+
+           
+          
+
+
+
+
+
+            int CancelDays = string.IsNullOrEmpty(CancelDayss) ? -1 : int.Parse(CancelDayss);
             accommodation = new Accommodation(Id,Name, Town, Country, Type, MaxGuests, Mindays, CancelDays, outputText);
 
-            accommodationCtrl.Create(accommodation);
+            if (accommodation.isVaild(accommodation) == null)
+            {
+                accommodationCtrl.Create(accommodation);
+                MessageBox.Show("uspijsna registracija smjestaja");
+                Close();
+            }
+            else
+            {
+                string s = accommodation.isVaild(accommodation);
+                MessageBox.Show(s);
+            }
 
-            Close();
+            
+
+            
 
         }
 

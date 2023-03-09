@@ -5,20 +5,21 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace Sims2023.Model
 {
     public class Accommodation : Serializable, INotifyPropertyChanged
     {
-        public int Id { get; set; }
-        public string Name { get; set;  }
-        public string City { get; set; }
-        public string Country { get; set; }
-        public string Type { get; set; }
-        public int MaxGuests { get; set; }
-        public int MinDays { get; set; }
-        public int CancelDays { get; set; }
-        public List<string> ImageUrls { get; set; }
+        public int id { get; set; }
+        public string name { get; set;  }
+        public string city { get; set; }
+        public string country { get; set; }
+        public string type { get; set; }
+        public int maxguests { get; set; }
+        public int mindays { get; set; }
+        public int canceldays { get; set; }
+        public List<string> imageurls { get; set; }
 
         string ImageUrl { get; set; }
 
@@ -32,18 +33,18 @@ namespace Sims2023.Model
 
         public Accommodation()
         {
-            ImageUrls = new List<string>();
+            imageurls = new List<string>();
         }
-        public Accommodation(int id,string name, string city, string country, string type, int maxGuests, int minDays, int cancelDays, string ImageUrls)
+        public Accommodation(int Id,string Name, string City, string Country, string Type, int MaxGuests, int MinDays, int CancelDays, string ImageUrls)
         {
-            Id = id;
-            Name = name;
-            City = city;
-            Country = country;
-            Type = type;
-            MaxGuests = maxGuests;
-            MinDays = minDays;
-            CancelDays = cancelDays;
+            id = Id;
+            name = Name;
+            city = City;
+            country = Country;
+            type = Type;
+            maxguests = MaxGuests;
+            mindays = MinDays;
+            canceldays = CancelDays;
             ImageUrl = ImageUrls;
 
         }
@@ -53,14 +54,14 @@ namespace Sims2023.Model
         {
             string[] csvValues =
             {
-                Id.ToString(),
-                Name,
-                City,
-                Country,
-                Type,
-                MaxGuests.ToString(),
-                MinDays.ToString(),
-                CancelDays.ToString(),
+                id.ToString(),
+                name,
+                city,
+                country,
+                type,
+                maxguests.ToString(),
+                mindays.ToString(),
+                canceldays.ToString(),
                 ImageUrl
 
             };
@@ -69,18 +70,36 @@ namespace Sims2023.Model
 
         public void FromCSV(string[] values)
         {
-            Id = int.Parse(values[0]);
-            Name = values[1];
-            City = values[2];
+            id = int.Parse(values[0]);
+            name = values[1];
+            city = values[2];
 
-            Country = values[3];
-            Type = values[4];
-            MaxGuests = int.Parse(values[5]);
-            MinDays = int.Parse(values[6]);
-            CancelDays = int.Parse(values[7]);
+            country = values[3];
+            type = values[4];
+            maxguests = int.Parse(values[5]);
+            mindays = int.Parse(values[6]);
+            canceldays = int.Parse(values[7]);
             ImageUrl = values[8];
 
         }
+
+        public string isVaild(Accommodation a)
+        {
+            if (string.IsNullOrEmpty(a.name) || string.IsNullOrEmpty(a.city) || string.IsNullOrEmpty(a.country) || string.IsNullOrEmpty(a.type) || string.IsNullOrEmpty(ImageUrl))
+                return "morate popuniti sve podatke";
+
+            if (a.canceldays == -1 || a.maxguests == -1 || a.mindays == -1)
+            {
+                return "morate popuniti sve podatke";
+            }
+
+          
+
+
+            return null;
+        }
+
+       
 
 
 

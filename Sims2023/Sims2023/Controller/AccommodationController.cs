@@ -18,7 +18,7 @@ namespace Sims2023.Controller
             _accomodations = new AccommodationDAO();
         }
 
-        public List<Accommodation> GetAllProfesor()
+        public List<Accommodation> GetAllAccommodations()
         {
             return _accomodations.GetAll();
         }

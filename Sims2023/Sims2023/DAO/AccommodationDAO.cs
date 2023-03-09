@@ -28,12 +28,12 @@ namespace Sims2023.DAO
 
         public int NextId()
         {
-            return _accommodations.Max(s => s.Id) + 1;
+            return _accommodations.Max(s => s.id) + 1;
         }
 
         public void Add(Accommodation accommodation)
         {
-            accommodation.Id = NextId();
+            accommodation.id = NextId();
             _accommodations.Add(accommodation);
             _repository.Save(_accommodations);
             NotifyObservers();
@@ -48,7 +48,7 @@ namespace Sims2023.DAO
 
         public void Update(Accommodation accommodation)
         {
-            int index = _accommodations.FindIndex(p => p.Id == accommodation.Id);
+            int index = _accommodations.FindIndex(p => p.id == accommodation.id);
             if (index != -1)
             {
                 _accommodations[index] = accommodation;

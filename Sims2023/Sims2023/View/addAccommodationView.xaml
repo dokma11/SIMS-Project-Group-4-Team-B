@@ -25,12 +25,12 @@
 
         </ComboBox>
         <TextBox x:Name="textBox3" HorizontalAlignment="Left" Margin="300,320,0,0" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Center" VerticalAlignment="Top" Width="144" Height="26"/>
-        <TextBox x:Name="textBox4" HorizontalAlignment="Left" Margin="300,365,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="144" Height="26"/>
-        <TextBox x:Name="textBox5" HorizontalAlignment="Left" Margin="300,421,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="144" Height="26"/>
-        <TextBox x:Name="textBox6" HorizontalAlignment="Left" Margin="625,119,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="165" Height="27"/>
+        <TextBox x:Name="textBox4" HorizontalAlignment="Left" Margin="300,365,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="144" Height="26"/>
+        <TextBox x:Name="textBox5" HorizontalAlignment="Left" Margin="300,421,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="144" Height="26"/>
+        <TextBox x:Name="textBox6" HorizontalAlignment="Left" Margin="625,119,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="151" Height="27"/>
         <Label x:Name="label8" Content="link slike smještaja" HorizontalAlignment="Left" Margin="506,119,0,0" VerticalAlignment="Top" Width="114" Height="27"/>
-        <Button x:Name="button" Content="Dodaj" HorizontalAlignment="Left" Margin="625,166,0,0" VerticalAlignment="Top" Width="165" Click="SaveButton_Click" Height="26"/>
-        <ListBox x:Name="lstOutput" Margin="506,213,0,71" />
+        <Button x:Name="button" Content="Dodaj" HorizontalAlignment="Left" Margin="625,166,0,0" VerticalAlignment="Top" Width="151" Click="SaveButton_Click" Height="26"/>
+        <ListBox x:Name="lstOutput" Margin="506,213,24,71" />
         <Button x:Name="button1" Content="Registruj" HorizontalAlignment="Left" Margin="42,492,0,0" VerticalAlignment="Top" Width="140" Height="44" Click="Registration_Click"/>
         <Button x:Name="button2" Content="Odustani" HorizontalAlignment="Left" Margin="270,492,0,0" VerticalAlignment="Top" Height="44" Width="130" Click="Close_Click" />
 
