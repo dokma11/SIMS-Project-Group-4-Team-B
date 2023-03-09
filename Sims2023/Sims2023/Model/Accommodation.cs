@@ -15,6 +15,8 @@ namespace Sims2023.Model
         public string name { get; set;  }
         public string city { get; set; }
         public string country { get; set; }
+
+        public int locationId { get; set; }
         public string type { get; set; }
         public int maxguests { get; set; }
         public int mindays { get; set; }
@@ -35,12 +37,11 @@ namespace Sims2023.Model
         {
             imageurls = new List<string>();
         }
-        public Accommodation(int Id,string Name, string City, string Country, string Type, int MaxGuests, int MinDays, int CancelDays, string ImageUrls)
+        public Accommodation(int Id,string Name,int LocationId, string Type, int MaxGuests, int MinDays, int CancelDays, string ImageUrls)
         {
             id = Id;
             name = Name;
-            city = City;
-            country = Country;
+            locationId = LocationId;
             type = Type;
             maxguests = MaxGuests;
             mindays = MinDays;
@@ -56,8 +57,7 @@ namespace Sims2023.Model
             {
                 id.ToString(),
                 name,
-                city,
-                country,
+                locationId.ToString(),
                 type,
                 maxguests.ToString(),
                 mindays.ToString(),
@@ -72,14 +72,12 @@ namespace Sims2023.Model
         {
             id = int.Parse(values[0]);
             name = values[1];
-            city = values[2];
-
-            country = values[3];
-            type = values[4];
-            maxguests = int.Parse(values[5]);
-            mindays = int.Parse(values[6]);
-            canceldays = int.Parse(values[7]);
-            ImageUrl = values[8];
+            locationId = int.Parse(values[2]);
+            type = values[3];
+            maxguests = int.Parse(values[4]);
+            mindays = int.Parse(values[5]);
+            canceldays = int.Parse(values[6]);
+            ImageUrl = values[7];
 
         }
 
