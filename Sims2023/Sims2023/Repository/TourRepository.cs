@@ -10,7 +10,7 @@ namespace Sims2023.Repository
 {
     public class TourRepository
     {
-        public List<Tour> _tours;
+        private List<Tour> _tours;
         private readonly Serializer<Tour> _serializer;
         private const string FilePath = "../../../Resources/Data/tours.csv";
 
@@ -23,7 +23,7 @@ namespace Sims2023.Repository
         public Tour GetById(int id)
         {
             _tours = _serializer.FromCSV(FilePath);
-            return _tours.FirstOrDefault(t => t.Id == id);
+            return _tours.FirstOrDefault(t => t.id == id);
         }
 
         public List<Tour> Load() 

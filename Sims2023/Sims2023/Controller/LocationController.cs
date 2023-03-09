@@ -36,7 +36,7 @@ namespace Sims2023.Controller
             {
                 foreach(var locationInstance in locations)
                 {
-                    if(location.City == locationInstance.City && location.Country == locationInstance.Country) 
+                    if(location.city == locationInstance.city && location.country == locationInstance.country) 
                     {
                         counter++;
                         break;

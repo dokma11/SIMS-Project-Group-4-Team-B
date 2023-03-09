@@ -25,17 +25,17 @@ namespace Sims2023.Controller
             return _tour.GetAll();
         }
 
-        public void Create(Tour tour, List<DateTime> dateTimes)
+        public void Create(Tour tour, List<DateTime> dateTimes, Location location)
         {
-            _tour.Add(tour, dateTimes);
+            _tour.Add(tour, dateTimes, location);
         }
-        public void AddToursLocation(Tour tour, Location location) 
+        public void AddToursLocation(Tour tour, Location location, List<DateTime> dateTimes) 
         {
             List<Location> locations = new List<Location>();
             locations = _location.GetAll();
             int counter = 0;
 
-            if(location.City == null || location.Country == null)
+            if(location.city == null || location.country == null)
             {
                 MessageBox.Show("Unesite lokaciju ");
             }
@@ -48,7 +48,7 @@ namespace Sims2023.Controller
             {
                 foreach(var locationInstance in locations)
                 {
-                    if(location.City == locationInstance.City && location.Country == locationInstance.Country)
+                    if(location.city == locationInstance.city && location.country == locationInstance.country)
                     {
                         counter++;
                         _tour.AddToursLocation(tour, locationInstance);

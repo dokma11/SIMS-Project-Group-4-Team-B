@@ -26,25 +26,19 @@ namespace Sims2023.View
             Tour = new Tour();
             Location = new Location();
             dateTimeList = new List<DateTime>();
+            
+            submitButton.IsEnabled = false;
+            addMoreDatesButton.IsEnabled = false;
+            addKeyPointsButton.IsEnabled = false;
 
             _tourController = tourController;
             _locationController = locationController;
         }
         private void SubmitButtonClicked(object sender, RoutedEventArgs e)
         {
-            if(dateTimeList.Count == 0) 
-            {
-                _tourController.Create(Tour, dateTimeList);
-                _locationController.Create(Location);
-                _tourController.AddToursLocation(Tour, Location);
-            }
-            else 
-            {
-                _locationController.Create(Location);
-                _tourController.Create(Tour, dateTimeList);
-                _tourController.AddToursLocation(Tour, Location);
-            }
-
+            _locationController.Create(Location);
+            _tourController.Create(Tour, dateTimeList, Location);
+            _tourController.AddToursLocation(Tour, Location, dateTimeList);
             Close();
         }
 
@@ -55,7 +49,7 @@ namespace Sims2023.View
 
         private void AddMoreDates(object sender, RoutedEventArgs e) 
         {
-            string inputString = startTextBox.Text;
+            string inputString = dateTimeTextBox.Text;
             DateTime dateTime;
             int counter = 0;
 
@@ -88,35 +82,67 @@ namespace Sims2023.View
             //The numbers represent the order in which the enum members are arranged, the first is Serbian (number 0), the second English (number 1) etc...
             if (language == "Serbian")
             {
-                Tour.GuideLanguage = (Tour.Language)0;
+                Tour.guideLanguage = (Tour.Language)0;
             }
             else if(language == "English")
             {
-                Tour.GuideLanguage = (Tour.Language)1;
+                Tour.guideLanguage = (Tour.Language)1;
             }
             if (language == "German")
             {
-                Tour.GuideLanguage = (Tour.Language)2;
+                Tour.guideLanguage = (Tour.Language)2;
             }
             if (language == "French")
             {
-                Tour.GuideLanguage = (Tour.Language)3;
+                Tour.guideLanguage = (Tour.Language)3;
             }
             if (language == "Spanish")
             {
-                Tour.GuideLanguage = (Tour.Language)4;
+                Tour.guideLanguage = (Tour.Language)4;
             }
             if (language == "Italian")
             {
-                Tour.GuideLanguage = (Tour.Language)5;
+                Tour.guideLanguage = (Tour.Language)5;
             }
             if (language == "Chinese")
             {
-                Tour.GuideLanguage = (Tour.Language)6;
+                Tour.guideLanguage = (Tour.Language)6;
             }
             if (language == "Japanese")
             {
-                Tour.GuideLanguage = (Tour.Language)7;
+                Tour.guideLanguage = (Tour.Language)7;
+            }
+        }
+
+        private void AddKeyPoints(object sender, RoutedEventArgs e)
+        {
+            string inputText = keyPointTextBox.Text;
+            keyPointsOutput.Items.Add(inputText);
+            keyPointTextBox.Clear();
+
+        }
+
+        private void keyPointTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(keyPointTextBox.Text.Length == 0)
+            {
+                addKeyPointsButton.IsEnabled = false;
+            }
+            else
+            {
+                addKeyPointsButton.IsEnabled = true;
+            }
+        }
+
+        private void dateTimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (dateTimeTextBox.Text.Length == 0)
+            {
+                addMoreDatesButton.IsEnabled = false;
+            }
+            else
+            {
+                addMoreDatesButton.IsEnabled = true;
             }
         }
 

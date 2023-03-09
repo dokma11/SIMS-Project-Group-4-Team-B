@@ -23,42 +23,33 @@ namespace Sims2023.Model.DAO
         public int NextId()
         {
             if (_tours.Count == 0) return 1;
-            return _tours.Max(t => t.Id) + 1;
+            return _tours.Max(t => t.id) + 1;
         }
-        public void Add(Tour tour, List<DateTime> dateTimes)
+        public void Add(Tour tour, List<DateTime> dateTimes, Location location)
         {
-            List<Tour> newList = new List<Tour>();
-
-            foreach(var date in dateTimes) 
-            {
-                Tour newTour = new Tour();
-                newList.Add(newTour);
-            }
-
             foreach (var date in dateTimes)
             {
-                Tour newTour = new Tour();
-                string dtstring = date.ToString();
-                MessageBox.Show("Ovo je: " + dtstring);
-                tour.Id = NextId();
-                MessageBox.Show("Id: " + tour.Id);
-                tour.Start = date;
-                newTour = tour;
-                _tours.Add(newTour);
+                _tours = _repository.Load();
+                tour.id = NextId();
+                tour.start = date;
+                AddToursLocation(tour, location);
+                _tours.Add(tour);
+                _repository.Save(_tours);
+                NotifyObservers();
             }
-            _repository.Save(_tours);
-            NotifyObservers();
         }
 
         public void AddToursLocation(Tour tour, Location location) 
         {
-            tour.LocationId = location.Id;
+            tour.locationId = location.id;
             _repository.Save(_tours);
             NotifyObservers();
         }
         public void Remove(Tour tour) 
         {
-                
+            _tours.Remove(tour);
+            _repository.Save(_tours);   
+            NotifyObservers();
         }
         public List<Tour> GetAll()
         {

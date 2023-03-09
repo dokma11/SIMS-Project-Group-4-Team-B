@@ -11,30 +11,30 @@ namespace Sims2023.Model
 {
     public class Location: ISerializable, INotifyPropertyChanged
     {
-        public int Id { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
+        public int id { get; set; }
+        public string city { get; set; }
+        public string country { get; set; }
         public Location() { }
         public Location(int id, string city, string country) 
         {
-            Id = id;
-            City = city;
-            Country = country;
+            this.id = id;
+            this.city = city;
+            this.country = country;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), City, Country}; 
+            string[] csvValues = { id.ToString(), city, country}; 
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-            Id = Convert.ToInt32(values[0]);
-            City = values[1];
-            Country = values[2];
+            id = Convert.ToInt32(values[0]);
+            city = values[1];
+            country = values[2];
         }
     }
 }

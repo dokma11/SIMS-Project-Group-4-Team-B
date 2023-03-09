@@ -10,7 +10,7 @@ namespace Sims2023.Repository
 {
     public class LocationRepository
     {
-        public List<Location> _locations;
+        private List<Location> _locations;
         private readonly Serializer<Location> _serializer;
         private const string FilePath = "../../../Resources/Data/locations.csv";
 
@@ -23,7 +23,7 @@ namespace Sims2023.Repository
         public Location GetById(int id)
         {
             _locations = _serializer.FromCSV(FilePath);
-            return _locations.FirstOrDefault(t => t.Id == id);
+            return _locations.FirstOrDefault(t => t.id == id);
         }
 
         public List<Location> Load()
