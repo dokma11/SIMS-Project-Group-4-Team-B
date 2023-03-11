@@ -18,9 +18,9 @@ namespace Sims2023.Model
 
         public int locationId { get; set; }
         public string type { get; set; }
-        public int maxguests { get; set; }
-        public int mindays { get; set; }
-        public int canceldays { get; set; }
+        public int maxGuests { get; set; }
+        public int minDays { get; set; }
+        public int cancelDays { get; set; }
         public List<string> imageurls { get; set; }
 
         string ImageUrl { get; set; }
@@ -43,9 +43,9 @@ namespace Sims2023.Model
             name = Name;
             locationId = LocationId;
             type = Type;
-            maxguests = MaxGuests;
-            mindays = MinDays;
-            canceldays = CancelDays;
+            maxGuests = MaxGuests;
+            minDays = MinDays;
+            cancelDays = CancelDays;
             ImageUrl = ImageUrls;
 
         }
@@ -59,9 +59,9 @@ namespace Sims2023.Model
                 name,
                 locationId.ToString(),
                 type,
-                maxguests.ToString(),
-                mindays.ToString(),
-                canceldays.ToString(),
+                maxGuests.ToString(),
+                minDays.ToString(),
+                cancelDays.ToString(),
                 ImageUrl
 
             };
@@ -74,9 +74,9 @@ namespace Sims2023.Model
             name = values[1];
             locationId = int.Parse(values[2]);
             type = values[3];
-            maxguests = int.Parse(values[4]);
-            mindays = int.Parse(values[5]);
-            canceldays = int.Parse(values[6]);
+            maxGuests = int.Parse(values[4]);
+            minDays = int.Parse(values[5]);
+            cancelDays = int.Parse(values[6]);
             ImageUrl = values[7];
 
         }
@@ -86,7 +86,7 @@ namespace Sims2023.Model
             if (string.IsNullOrEmpty(a.name) || string.IsNullOrEmpty(a.type) || string.IsNullOrEmpty(ImageUrl))
                 return "morate popuniti sve podatke";
 
-            if (a.canceldays == -1 || a.maxguests == -1 || a.mindays == -1)
+            if (a.cancelDays == -1 || a.maxGuests == -1 || a.minDays == -1 || a.locationId == -1)
             {
                 return "morate popuniti sve podatke";
             }

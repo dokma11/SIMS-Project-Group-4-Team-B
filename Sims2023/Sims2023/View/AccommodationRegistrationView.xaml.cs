@@ -19,14 +19,14 @@ namespace Sims2023.View
     /// <summary>
     /// Interaction logic for addAccommodationView.xaml
     /// </summary>
-    public partial class addAccommodationView : Window
+    public partial class AccommodationRegistrationView : Window
     {
         private AccommodationController accommodationCtrl;
         private AccomodationLocationController accomodationLocationctrl;
         private Accommodation accommodation { get; set; }
         private AccommodationLocation acmLocation { get; set; }
         string outputText;
-        public addAccommodationView(AccommodationController accommodationCtrl1, AccomodationLocationController accommodationLocationCtrll)
+        public AccommodationRegistrationView(AccommodationController accommodationCtrl1, AccomodationLocationController accommodationLocationCtrll)
         {
             InitializeComponent();
             DataContext= this;
@@ -57,7 +57,8 @@ namespace Sims2023.View
             if (accomodationLocationctrl.findIdByCityCountry(acmLocation.city,acmLocation.country) == -1)
             {
                 if (acmLocation.isVaild(acmLocation) == null)
-                accomodationLocationctrl.Create(acmLocation);
+                    accomodationLocationctrl.Create(acmLocation);
+               
             }
 
            

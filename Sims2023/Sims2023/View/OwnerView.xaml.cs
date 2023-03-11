@@ -19,13 +19,13 @@ namespace Sims2023.View
     /// <summary>
     /// Interaction logic for OpenAccommodationRegistrationView.xaml
     /// </summary>
-    public partial class OpenAccommodationRegistrationView : Window
+    public partial class OwnerView : Window
     {
         private string outputText;
         private AccommodationController accommodationCtrl;
         private AccomodationLocationController accommodationLocationCtrl;
 
-        public OpenAccommodationRegistrationView()
+        public OwnerView()
         {
             
             InitializeComponent();
@@ -38,7 +38,7 @@ namespace Sims2023.View
 
         private void addAccommodationClick(object sender, RoutedEventArgs e)
         {
-            var addAccommodation = new addAccommodationView(accommodationCtrl, accommodationLocationCtrl);
+            var addAccommodation = new AccommodationRegistrationView(accommodationCtrl, accommodationLocationCtrl);
             addAccommodation.Show();
         }
     }

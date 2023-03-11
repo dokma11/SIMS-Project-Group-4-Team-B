@@ -7,10 +7,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="View\addAccommodationView.xaml.cs">
+    <Compile Update="View\AccommodationRegistrationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\OpenAccommodationRegistrationView.xaml.cs">
+    <Compile Update="View\OwnerView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -18,10 +18,10 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\addAccommodationView.xaml">
+    <Page Update="View\AccommodationRegistrationView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\OpenAccommodationRegistrationView.xaml">
+    <Page Update="View\OwnerView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

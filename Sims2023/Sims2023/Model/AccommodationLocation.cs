@@ -40,7 +40,7 @@ namespace Sims2023.Model
         public string isVaild(AccommodationLocation a)
         {
             if (string.IsNullOrEmpty(a.city) || string.IsNullOrEmpty(a.country))
-                return "morate popuniti sve podatke";
+                return "morate popuniti sve podatke za grad i drzavu";
             return null;
         }
     }

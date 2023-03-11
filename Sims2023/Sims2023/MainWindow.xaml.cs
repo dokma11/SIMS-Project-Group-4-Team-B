@@ -29,7 +29,7 @@ namespace Sims2023
 
         private void OwnerClick(object sender, RoutedEventArgs e)
         {
-             var newWindow = new OpenAccommodationRegistrationView();
+             var newWindow = new OwnerView();
              newWindow.Show();
         }
 

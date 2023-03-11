@@ -46,6 +46,8 @@ namespace Sims2023.DAO
             NotifyObservers();
         }
 
+
+
         public void Update(Accommodation accommodation)
         {
             int index = _accommodations.FindIndex(p => p.id == accommodation.id);

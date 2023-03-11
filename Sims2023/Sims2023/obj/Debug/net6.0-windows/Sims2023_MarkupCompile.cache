@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\Nedeljko\Desktop\Sims 2023\SIMS-Project\Sims2023\Sims2023\App.xaml
-31155967243
+3-522314399
 
-17-1027816611
+17-1212255176
 194-2004305220
-MainWindow.xaml;View\addAccommodationView.xaml;View\OpenAccommodationRegistrationView.xaml;
+MainWindow.xaml;View\AccommodationRegistrationView.xaml;View\OwnerView.xaml;
 
 False
 
