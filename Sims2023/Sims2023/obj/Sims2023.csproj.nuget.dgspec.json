@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nedeljko\\source\\repos\\Sims2023\\Sims2023\\Sims2023.csproj": {}
+    "C:\\Users\\Nedeljko\\Desktop\\Sims 2023\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nedeljko\\source\\repos\\Sims2023\\Sims2023\\Sims2023.csproj": {
+    "C:\\Users\\Nedeljko\\Desktop\\Sims 2023\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nedeljko\\source\\repos\\Sims2023\\Sims2023\\Sims2023.csproj",
+        "projectUniqueName": "C:\\Users\\Nedeljko\\Desktop\\Sims 2023\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj",
         "projectName": "Sims2023",
-        "projectPath": "C:\\Users\\Nedeljko\\source\\repos\\Sims2023\\Sims2023\\Sims2023.csproj",
+        "projectPath": "C:\\Users\\Nedeljko\\Desktop\\Sims 2023\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj",
         "packagesPath": "C:\\Users\\Nedeljko\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nedeljko\\source\\repos\\Sims2023\\Sims2023\\obj\\",
+        "outputPath": "C:\\Users\\Nedeljko\\Desktop\\Sims 2023\\SIMS-Project\\Sims2023\\Sims2023\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Nedeljko\\AppData\\Roaming\\NuGet\\NuGet.Config",
