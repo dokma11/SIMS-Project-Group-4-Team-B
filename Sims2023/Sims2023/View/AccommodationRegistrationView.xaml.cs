@@ -67,25 +67,46 @@ namespace Sims2023.View
 
             string Type = comboBox.Text;
             string MaxGuests1 = textBox3.Text;
-          
 
-            int MaxGuests = string.IsNullOrEmpty(MaxGuests1) ? -1 : int.Parse(MaxGuests1);
+            // making sure user enters integer
+            int MaxGuests;
+            bool isMaxGuestsValid = int.TryParse(MaxGuests1, out MaxGuests);
 
+            if (!isMaxGuestsValid)
+            {
+                MessageBox.Show("Morate unijeti cijeli broj za dane");
+                return;
+            }
+            MaxGuests = string.IsNullOrEmpty(MaxGuests1) ? -1 : int.Parse(MaxGuests1);
+           
+            
+            // same for minimum days
+            
             string mindays = textBox4.Text;
-           
-            int Mindays = string.IsNullOrEmpty(mindays) ? -1 : int.Parse(mindays);
+             int MinDays;
+            bool isMaxGuestsValid1 = int.TryParse(mindays, out MinDays);
+
+            if (!isMaxGuestsValid1)
+            {
+                MessageBox.Show("Morate unijeti cijeli broj za dane");
+                return;
+            }
+            MinDays = string.IsNullOrEmpty(mindays) ? -1 : int.Parse(mindays);
+
+
+            // and of course for cancel days
             string CancelDayss = textBox5.Text;
+            int CancelDays;
+            bool isMaxGuestsValid2 = int.TryParse(CancelDayss, out CancelDays);
 
+            if (!isMaxGuestsValid1)
+            {
+                MessageBox.Show("Morate unijeti cijeli broj za dane");
+                return;
+            }
 
-           
-          
-
-
-
-
-
-            int CancelDays = string.IsNullOrEmpty(CancelDayss) ? 1 : int.Parse(CancelDayss);
-            accommodation = new Accommodation(Id,Name, idLocation, Type, MaxGuests, Mindays, CancelDays, outputText);
+            CancelDays = string.IsNullOrEmpty(CancelDayss) ? 1 : int.Parse(CancelDayss);
+            accommodation = new Accommodation(Id,Name, idLocation, Type, MaxGuests, MinDays, CancelDays, outputText);
 
             if (accommodation.isVaild(accommodation) == null)
             {
