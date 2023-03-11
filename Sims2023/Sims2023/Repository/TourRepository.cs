@@ -23,7 +23,7 @@ namespace Sims2023.Repository
         public Tour GetById(int id)
         {
             _tours = _serializer.FromCSV(FilePath);
-            return _tours.FirstOrDefault(t => t.id == id);
+            return _tours.FirstOrDefault(t => t.Id == id);
         }
 
         public List<Tour> Load() 

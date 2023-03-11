@@ -29,38 +29,42 @@ namespace Sims2023.Controller
         {
             _tour.Add(tour, dateTimes, location);
         }
-        public void AddToursLocation(Tour tour, Location location, List<DateTime> dateTimes) 
+        public void AddToursLocation(Tour tour, Location location, int newToursNumber) 
         {
             List<Location> locations = new List<Location>();
             locations = _location.GetAll();
             int counter = 0;
+            int toursId = tour.Id - newToursNumber + 1;
 
-            if(location.city == null || location.country == null)
+            if(location.City == null || location.Country == null)
             {
                 MessageBox.Show("Unesite lokaciju ");
             }
 
             if(locations.Count == 0) 
             {
-                _tour.AddToursLocation(tour, location);
+                _tour.AddToursLocation(toursId, location);
             }
             else
             {
-                foreach(var locationInstance in locations)
+                for(int i=0; i<newToursNumber; i++)
                 {
-                    if(location.city == locationInstance.city && location.country == locationInstance.country)
+                    foreach (var locationInstance in locations)
                     {
-                        counter++;
-                        _tour.AddToursLocation(tour, locationInstance);
-                        break;
+                        if (location.City == locationInstance.City && location.Country == locationInstance.Country)
+                        {
+                            counter++;
+                            _tour.AddToursLocation(toursId, locationInstance);
+                            break;
+                        }
                     }
-                }
-                if(counter == 0)
-                {
-                    _tour.AddToursLocation(tour, location);
+                    if (counter == 0)
+                    {
+                        _tour.AddToursLocation(toursId, location);
+                    }
+                    toursId++;
                 }
             }
-            
         }
         public void Delete(Tour tour)
         {

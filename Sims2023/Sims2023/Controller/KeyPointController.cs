@@ -22,9 +22,9 @@ namespace Sims2023.Controller
             return _keyPoint.GetAll();
         }
 
-        public void Create(KeyPoint keyPoint)
+        public void Create(KeyPoint keyPoint, List<string> keyPointNames, int toursId, int newToursNumber)
         {
-            _keyPoint.Add(keyPoint);
+            _keyPoint.Add(keyPoint, keyPointNames, toursId, newToursNumber);
         }
         public void Delete(KeyPoint keyPoint)
         {

@@ -22,11 +22,11 @@ namespace Sims2023.Model.DAO
         public int NextId()
         {
             if (_locations.Count == 0) return 1;
-            return _locations.Max(l => l.id) + 1;
+            return _locations.Max(l => l.Id) + 1;
         }
         public void Add(Location location)
         {
-            location.id = NextId();
+            location.Id = NextId();
             _locations.Add(location);
             _repository.Save(_locations);
             NotifyObservers();

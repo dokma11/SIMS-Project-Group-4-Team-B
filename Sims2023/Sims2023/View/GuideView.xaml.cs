@@ -25,6 +25,7 @@ namespace Sims2023.View
     {
         private TourController _tourController;
         private LocationController _locationController;
+        private KeyPointController _keyPointController;
         public Tour Tour { get; set; }
         public Tour SelectedTour { get; set; }
         public ObservableCollection<Tour> tours { get; set; }
@@ -39,11 +40,14 @@ namespace Sims2023.View
 
             _locationController = new LocationController();
             _locationController.Subscribe(this);
+
+            _keyPointController = new KeyPointController();
+            _keyPointController.Subscribe(this);
         }
 
         private void CreateButtonClicked(object sender, RoutedEventArgs e)
         {
-            CreateTourView createTourView = new CreateTourView(_tourController, _locationController);
+            CreateTourView createTourView = new CreateTourView(_tourController, _locationController, _keyPointController);
             createTourView.Show();  
         }
 

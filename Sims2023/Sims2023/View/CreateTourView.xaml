@@ -34,11 +34,11 @@
         <Label Grid.Row="6" Grid.Column="0">Datum i vreme pocetka</Label>
         <Label Grid.Row="7" Grid.Column="0">Trajanje</Label>
         <Label Grid.Row="8" Grid.Column="0">Slike</Label>
-        <TextBox Grid.Row="0" Grid.Column="1" Width="400" Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Column="1" Width="150" Text="{Binding Path=Location.City, UpdateSourceTrigger=PropertyChanged}" Margin="100,43,350,43" Grid.RowSpan="3"/>
-        <TextBox Grid.Column="1" Width="150" Text="{Binding Path=Location.Country, UpdateSourceTrigger=PropertyChanged}" Margin="350,43,100,43" Grid.RowSpan="3"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Width="400" Text="{Binding Path=Tour.Description, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <ComboBox Grid.Row="2" Grid.Column="1" Width="100" Text="{Binding Path=Tour.Language, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBoxSelectionChanged" Margin="100,43,400,43" Grid.RowSpan="3">
+        <TextBox Name="nameTextBox" Grid.Row="0" Grid.Column="1" Width="400" Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+        <TextBox Name="cityTextBox" Grid.Column="1" Width="150" Text="{Binding Path=Location.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="100,43,350,43" Grid.RowSpan="3"/>
+        <TextBox Name="countryTextBox" Grid.Column="1" Width="150" Text="{Binding Path=Location.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="350,43,100,43" Grid.RowSpan="3"/>
+        <TextBox Name="descriptionTextBox" Grid.Row="2" Grid.Column="1" Width="400" Text="{Binding Path=Tour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+        <ComboBox Name="languageTextBox" Grid.Row="2" Grid.Column="1" Width="100" Text="{Binding Path=Tour.GuideLanguage, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" SelectionChanged="ComboBoxSelectionChanged" Margin="100,43,400,43" Grid.RowSpan="3">
             <ComboBoxItem>English</ComboBoxItem>
             <ComboBoxItem>Serbian</ComboBoxItem>
             <ComboBoxItem>German</ComboBoxItem>
@@ -48,15 +48,15 @@
             <ComboBoxItem>Chinese</ComboBoxItem>
             <ComboBoxItem>Japanese</ComboBoxItem>
         </ComboBox>
-        <TextBox Grid.Row="2" Grid.Column="1" Width="150" Text="{Binding Path=Tour.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}" Margin="350,43,100,43" Grid.RowSpan="3"/>
+        <TextBox Name="maxGuestNumberTextBox" Grid.Row="2" Grid.Column="1" Width="150" Text="{Binding Path=Tour.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="350,43,100,43" Grid.RowSpan="3" PreviewTextInput="maxGuestNumberTextBox_PreviewTextInput"/>
         <!-- For KeyPoints there is only a textbox, I don't know what else to put at the moment -->
-        <TextBox Name="keyPointTextBox" Grid.Row="4" Grid.Column="1" Text="{Binding Path=Tour.KeyPointsString, UpdateSourceTrigger=PropertyChanged}" Margin="100,43,355,0" Grid.RowSpan="2" TextChanged="keyPointTextBox_TextChanged"/>
-        <ListBox Name="keyPointsOutput" Grid.Row="4" Grid.Column="1" Margin="355,7,0,7" Grid.RowSpan="2"/>
+        <TextBox Name="keyPointTextBox" Grid.Row="4" Grid.Column="1" Margin="100,43,355,0" Grid.RowSpan="2" TextChanged="keyPointTextBox_TextChanged"/>
+        <ListBox Name="keyPointsOutput" Grid.Row="4" Grid.Column="1" Margin="355,7,0,7" Grid.RowSpan="2" ItemsSource="{Binding Tour.KeyPointsList}"/>
         <Button Name="addKeyPointsButton" Click="AddKeyPoints" Grid.Row="4" Grid.Column="1" Margin="250,43,250,0" Grid.RowSpan="2">+</Button>
-        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=Tour.Start, UpdateSourceTrigger=PropertyChanged}" Name="dateTimeTextBox" Margin="100,43,267,43" Grid.RowSpan="3" TextChanged="dateTimeTextBox_TextChanged"/>
+        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=Tour.Start, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Name="dateTimeTextBox" Margin="100,43,267,43" Grid.RowSpan="3" TextChanged="dateTimeTextBox_TextChanged"/>
         <Button Name="addMoreDatesButton" Click="AddMoreDates" Grid.Row="5" Grid.Column="1" Margin="425,43,50,43" Grid.RowSpan="3">+</Button>
-        <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Path=Tour.Length, UpdateSourceTrigger=PropertyChanged}" Margin="100,0,350,0"/>
-        <TextBox Grid.Row="8" Grid.Column="1" Width="400" Text="{Binding Path=Tour.PicturesString, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Name="lengthTextBox" Grid.Row="7" Grid.Column="1" Text="{Binding Path=Tour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="100,0,350,0" PreviewTextInput="lengthTextBox_PreviewTextInput"/>
+        <TextBox Name="picturesTextBox" Grid.Row="8" Grid.Column="1" Width="400" Text="{Binding Path=Tour.PicturesString, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
         <Button Name="submitButton" Click="SubmitButtonClicked" Grid.Row="9" Grid.Column="1" Width="100">Submit</Button>
         <Button Click="CancelButtonClicked" Grid.Row="9" Grid.Column="1" Width="70" Margin="400, 0, 0, 0">Cancel</Button>
     </Grid>

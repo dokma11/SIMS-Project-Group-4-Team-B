@@ -23,7 +23,7 @@ namespace Sims2023.Repository
         public KeyPoint GetById(int id)
         {
             _keyPoints = _serializer.FromCSV(FilePath);
-            return _keyPoints.FirstOrDefault(k => k.id == id);
+            return _keyPoints.FirstOrDefault(k => k.Id == id);
         }
 
         public List<KeyPoint> Load()

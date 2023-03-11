@@ -23,7 +23,7 @@ namespace Sims2023.Repository
         public Location GetById(int id)
         {
             _locations = _serializer.FromCSV(FilePath);
-            return _locations.FirstOrDefault(t => t.id == id);
+            return _locations.FirstOrDefault(t => t.Id == id);
         }
 
         public List<Location> Load()

@@ -22,14 +22,25 @@ namespace Sims2023.Model.DAO
         public int NextId()
         {
             if (_keyPoints.Count == 0) return 1;
-            return _keyPoints.Max(k => k.id) + 1;
+            return _keyPoints.Max(k => k.Id) + 1;
         }
-        public void Add(KeyPoint keyPoint)
+        public void Add(KeyPoint keyPoint, List<string> keyPointNames, int toursId, int newToursNumber)
         {
-            keyPoint.id = NextId();
-            _keyPoints.Add(keyPoint);
-            _repository.Save(_keyPoints);
-            NotifyObservers();
+            for(int i = 1; i <= newToursNumber; i++)
+            {
+                foreach (string keyPointName in keyPointNames)
+                {
+                    _keyPoints = _repository.Load();
+                    keyPoint.Id = NextId();
+                    keyPoint.ToursId = toursId;
+                    keyPoint.Name = keyPointName;
+                    keyPoint.CurrentState = KeyPoint.State.NotVisited;
+                    _keyPoints.Add(keyPoint);
+                    _repository.Save(_keyPoints);
+                    NotifyObservers();
+                }
+                toursId++;
+            }
         }
         public void Remove(KeyPoint keyPoint)
         {
