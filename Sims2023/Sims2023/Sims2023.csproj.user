@@ -7,6 +7,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="View\CreateTourView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\GuideView.xaml.cs">
     <Compile Update="View\AccommodationRegistrationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -18,6 +22,10 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\CreateTourView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\GuideView.xaml">
     <Page Update="View\AccommodationRegistrationView.xaml">
       <SubType>Designer</SubType>
     </Page>

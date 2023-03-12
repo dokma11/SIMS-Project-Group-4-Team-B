@@ -41,8 +41,8 @@ namespace Sims2023
 
         private void GuideClick(object sender, RoutedEventArgs e)
         {
-            // var OpenCreateTourView = new OpenCreateTourView();
-            // OpenCreateTourView.show();
+            GuideView guideView = new GuideView();
+            guideView.Show();
         }
 
         private void Guest2Click(object sender, RoutedEventArgs e)

@@ -2,24 +2,28 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Sims2023.Serialization
 {
-    public class Serializer<T> where T : Serializable, new()
+    class Serializer<T> where T : ISerializable, new()
     {
-        private static char DELIMITER = '|';
+        private const char Delimiter = '|';
+
         public void ToCSV(string fileName, List<T> objects)
         {
-            StreamWriter streamWriter = new StreamWriter(fileName);
+            StringBuilder csv = new StringBuilder();
 
-            foreach (Serializable obj in objects)
+            foreach (T obj in objects)
             {
-                string line = string.Join(DELIMITER.ToString(), obj.ToCSV());
-                streamWriter.WriteLine(line);
+                string line = string.Join(Delimiter.ToString(), obj.ToCSV());
+                csv.AppendLine(line);
             }
-            streamWriter.Close();
+
+            File.WriteAllText(fileName, csv.ToString());
+
         }
 
         public List<T> FromCSV(string fileName)
