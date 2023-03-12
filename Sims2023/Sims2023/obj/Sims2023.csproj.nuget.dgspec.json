@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP Pavilion\\Documents\\GitHub\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj": {}
+    "C:\\Users\\Nedeljko\\Desktop\\Sims 2023\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP Pavilion\\Documents\\GitHub\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj": {
+    "C:\\Users\\Nedeljko\\Desktop\\Sims 2023\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP Pavilion\\Documents\\GitHub\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj",
+        "projectUniqueName": "C:\\Users\\Nedeljko\\Desktop\\Sims 2023\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj",
         "projectName": "Sims2023",
-        "projectPath": "C:\\Users\\HP Pavilion\\Documents\\GitHub\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj",
-        "packagesPath": "C:\\Users\\HP Pavilion\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP Pavilion\\Documents\\GitHub\\SIMS-Project\\Sims2023\\Sims2023\\obj\\",
+        "projectPath": "C:\\Users\\Nedeljko\\Desktop\\Sims 2023\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj",
+        "packagesPath": "C:\\Users\\Nedeljko\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Nedeljko\\Desktop\\Sims 2023\\SIMS-Project\\Sims2023\\Sims2023\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HP Pavilion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Nedeljko\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -58,7 +58,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

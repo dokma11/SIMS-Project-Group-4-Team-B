@@ -9,7 +9,7 @@ using System.Windows.Navigation;
 
 namespace Sims2023.Model
 {
-    public class Accommodation : Serializable, INotifyPropertyChanged
+    public class Accommodation : ISerializable, INotifyPropertyChanged
     {
         public int id { get; set; }
         public string name { get; set;  }

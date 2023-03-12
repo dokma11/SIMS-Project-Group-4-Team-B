@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Repository
 {
-    internal class AccommodationLocationRepository
+    public class AccommodationLocationRepository
     {
 
         private const string StoragePath = "../../../Resources/Data/accommodationLocations.csv";

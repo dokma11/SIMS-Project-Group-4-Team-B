@@ -11,10 +11,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\GuideView.xaml.cs">
-    <Compile Update="View\AccommodationRegistrationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\OwnerView.xaml.cs">
+    <Compile Update="View\AccommodationRegistrationView.xaml.cs"> 
+      <SubType>Code</SubType>
+    </Compile>
+      <Compile Update="View\OwnerView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -25,7 +27,7 @@
     <Page Update="View\CreateTourView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\GuideView.xaml">
+    <Page Update="View\GuideView.xaml">  </Page>
     <Page Update="View\AccommodationRegistrationView.xaml">
       <SubType>Designer</SubType>
     </Page>

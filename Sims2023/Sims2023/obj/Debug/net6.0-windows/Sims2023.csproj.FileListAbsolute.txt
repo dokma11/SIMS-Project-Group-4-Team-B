@@ -69,3 +69,7 @@ C:\Users\Nedeljko\Desktop\Sims 2023\SIMS-Project\Sims2023\Sims2023\obj\Debug\net
 C:\Users\Nedeljko\Desktop\Sims 2023\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\OwnerView.baml
 C:\Users\Nedeljko\Desktop\Sims 2023\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\AccommodationRegistrationView.g.cs
 C:\Users\Nedeljko\Desktop\Sims 2023\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\AccommodationRegistrationView.baml
+C:\Users\Nedeljko\Desktop\Sims 2023\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\CreateTourView.g.cs
+C:\Users\Nedeljko\Desktop\Sims 2023\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\GuideView.g.cs
+C:\Users\Nedeljko\Desktop\Sims 2023\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\CreateTourView.baml
+C:\Users\Nedeljko\Desktop\Sims 2023\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\GuideView.baml

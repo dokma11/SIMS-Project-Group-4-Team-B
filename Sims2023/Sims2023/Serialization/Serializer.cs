@@ -10,7 +10,7 @@ namespace Sims2023.Serialization
 {
     class Serializer<T> where T : ISerializable, new()
     {
-        private const char Delimiter = '|';
+        private const char DELIMITER = '|';
 
         public void ToCSV(string fileName, List<T> objects)
         {
@@ -18,7 +18,7 @@ namespace Sims2023.Serialization
 
             foreach (T obj in objects)
             {
-                string line = string.Join(Delimiter.ToString(), obj.ToCSV());
+                string line = string.Join(DELIMITER.ToString(), obj.ToCSV());
                 csv.AppendLine(line);
             }
 

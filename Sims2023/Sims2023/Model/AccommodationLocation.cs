@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Model
 {
-    public class AccommodationLocation : Serializable, INotifyPropertyChanged
+    public class AccommodationLocation : ISerializable, INotifyPropertyChanged
     {
 
         public int id { get; set; }
