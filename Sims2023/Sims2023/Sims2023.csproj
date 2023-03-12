@@ -8,8 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Data\" />
-    <Folder Include="Resources\Images\" />
+    <None Update="Resources\Data\accommodations.csv">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 
 </Project>

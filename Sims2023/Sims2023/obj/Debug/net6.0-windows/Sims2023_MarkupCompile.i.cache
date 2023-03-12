@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\App.xaml
-3-759316824
+51606290732
 
-23-995230264
+341974147845
 194101785492
-MainWindow.xaml;View\CreateTourView.xaml;View\GuideView.xaml;
+MainWindow.xaml;View\AccommodationRegistrationView.xaml;View\CreateTourView.xaml;View\GuideView.xaml;View\OwnerView.xaml;
 
 False
 

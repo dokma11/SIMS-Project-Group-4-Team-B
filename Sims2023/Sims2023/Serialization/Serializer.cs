@@ -30,9 +30,15 @@ namespace Sims2023.Serialization
         {
             List<T> objects = new List<T>();
 
+            if (!File.Exists(fileName))
+            {
+                FileStream fs = File.Create(fileName);
+                fs.Close();
+            }
+
             foreach (string line in File.ReadLines(fileName))
             {
-                string[] csvValues = line.Split(Delimiter);
+                string[] csvValues = line.Split(DELIMITER);
                 T obj = new T();
                 obj.FromCSV(csvValues);
                 objects.Add(obj);
