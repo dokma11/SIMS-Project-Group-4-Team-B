@@ -48,14 +48,14 @@
             <ComboBoxItem>Chinese</ComboBoxItem>
             <ComboBoxItem>Japanese</ComboBoxItem>
         </ComboBox>
-        <TextBox Name="maxGuestNumberTextBox" Grid.Row="2" Grid.Column="1" Width="150" Text="{Binding Path=Tour.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="350,43,100,43" Grid.RowSpan="3" PreviewTextInput="maxGuestNumberTextBox_PreviewTextInput"/>
+        <TextBox Name="maxGuestNumberTextBox" Grid.Row="2" Grid.Column="1" Width="150" Text="{Binding Path=Tour.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="350,43,100,43" Grid.RowSpan="3" PreviewTextInput="MaxGuestNumberTextBox_PreviewTextInput"/>
         <!-- For KeyPoints there is only a textbox, I don't know what else to put at the moment -->
-        <TextBox Name="keyPointTextBox" Grid.Row="4" Grid.Column="1" Margin="100,43,355,0" Grid.RowSpan="2" TextChanged="keyPointTextBox_TextChanged"/>
-        <ListBox Name="keyPointsOutput" Grid.Row="4" Grid.Column="1" Margin="355,7,0,7" Grid.RowSpan="2" ItemsSource="{Binding Tour.KeyPointsList}"/>
+        <TextBox Name="keyPointTextBox" Grid.Row="4" Grid.Column="1" Margin="100,43,355,0" Grid.RowSpan="2" TextChanged="KeyPointTextBox_TextChanged"/>
+        <ListBox Name="keyPointsOutput" Grid.Row="4" Grid.Column="1" Margin="355,7,0,7" Grid.RowSpan="2" ItemsSource="{Binding Tour.KeyPointsString}"/>
         <Button Name="addKeyPointsButton" Click="AddKeyPoints" Grid.Row="4" Grid.Column="1" Margin="250,43,250,0" Grid.RowSpan="2">+</Button>
-        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=Tour.Start, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Name="dateTimeTextBox" Margin="100,43,267,43" Grid.RowSpan="3" TextChanged="dateTimeTextBox_TextChanged"/>
+        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=Tour.Start, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Name="dateTimeTextBox" Margin="100,43,267,43" Grid.RowSpan="3" TextChanged="DateTimeTextBox_TextChanged"/>
         <Button Name="addMoreDatesButton" Click="AddMoreDates" Grid.Row="5" Grid.Column="1" Margin="425,43,50,43" Grid.RowSpan="3">+</Button>
-        <TextBox Name="lengthTextBox" Grid.Row="7" Grid.Column="1" Text="{Binding Path=Tour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="100,0,350,0" PreviewTextInput="lengthTextBox_PreviewTextInput"/>
+        <TextBox Name="lengthTextBox" Grid.Row="7" Grid.Column="1" Text="{Binding Path=Tour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="100,0,350,0" PreviewTextInput="LengthTextBox_PreviewTextInput"/>
         <TextBox Name="picturesTextBox" Grid.Row="8" Grid.Column="1" Width="400" Text="{Binding Path=Tour.PicturesString, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
         <Button Name="submitButton" Click="SubmitButtonClicked" Grid.Row="9" Grid.Column="1" Width="100">Submit</Button>
         <Button Click="CancelButtonClicked" Grid.Row="9" Grid.Column="1" Width="70" Margin="400, 0, 0, 0">Cancel</Button>

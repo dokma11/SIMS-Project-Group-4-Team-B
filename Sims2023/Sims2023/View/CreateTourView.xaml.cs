@@ -26,6 +26,8 @@ namespace Sims2023.View
 
         private List<DateTime> _dateTimeList;
         private List<string> _keyPointsList;
+
+        private bool dateTimeButtonClicked;
         public CreateTourView(TourController tourController, LocationController locationController, KeyPointController keyPointController)
         {
             InitializeComponent();
@@ -45,17 +47,26 @@ namespace Sims2023.View
             _tourController = tourController;
             _locationController = locationController;
             _keyPointController = keyPointController;
+
+            dateTimeButtonClicked = false;
         }
         private void SubmitButtonClicked(object sender, RoutedEventArgs e)
         {
-            int newToursNumber = _dateTimeList.Count;
-            _locationController.Create(Location);
-            _tourController.Create(Tour, _dateTimeList, Location);
-            int firstToursId = Tour.Id - newToursNumber + 1;
-            _tourController.AddToursLocation(Tour, Location, newToursNumber);
-            _keyPointController.Create(KeyPoint, _keyPointsList, firstToursId, newToursNumber);
-
-            Close();
+            if(Tour.IsValid && dateTimeButtonClicked && keyPointsOutput.Items.Count > 1)
+            {
+                int newToursNumber = _dateTimeList.Count;
+                _locationController.Create(Location);
+                _tourController.Create(Tour, _dateTimeList, Location);
+                int firstToursId = Tour.Id - newToursNumber + 1;
+                _tourController.AddToursLocation(Tour, Location, newToursNumber);
+                _keyPointController.Create(KeyPoint, _keyPointsList, firstToursId, newToursNumber);
+                _tourController.AddToursKeyPoints(_keyPointsList, firstToursId);
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Popunite sva polja molim Vas");
+            }
         }
 
         private void CancelButtonClicked(object sender, RoutedEventArgs e)
@@ -66,10 +77,10 @@ namespace Sims2023.View
         private void AddMoreDates(object sender, RoutedEventArgs e) 
         {
             string inputString = dateTimeTextBox.Text;
-            DateTime dateTime;
             int counter = 0;
+            dateTimeButtonClicked = true;
 
-            if (DateTime.TryParse(inputString, out dateTime))
+            if (DateTime.TryParse(inputString, out DateTime dateTime))
             {
                 foreach(var dateTimeInstance in _dateTimeList)
                 {
@@ -82,7 +93,6 @@ namespace Sims2023.View
                 {
                     _dateTimeList.Add(dateTime);
                 }
-                counter = 0;
             }
             else
             {
@@ -154,13 +164,12 @@ namespace Sims2023.View
                 {
                     _keyPointsList.Add(inputText);  
                 }
-                counter = 0;
             }
 
             keyPointTextBox.Clear();
         }
 
-        private void keyPointTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void KeyPointTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if(keyPointTextBox.Text.Length == 0)
             {
@@ -172,7 +181,7 @@ namespace Sims2023.View
             }
         }
 
-        private void dateTimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void DateTimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (dateTimeTextBox.Text.Length == 0)
             {
@@ -183,93 +192,18 @@ namespace Sims2023.View
                 addMoreDatesButton.IsEnabled = true;
             }
         }
-
-        /*private void picturesTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-                if (nameTextBox.Text.Length != 0)
-                {
-                    if (cityTextBox.Text.Length != 0)
-                    {
-                        if (countryTextBox.Text.Length != 0)
-                        {
-                            if (descriptionTextBox.Text.Length != 0)
-                            {
-                                if (languageTextBox.Text.Length != 0)
-                                {
-                                    if (maxGuestNumberTextBox.Text.Length != 0)
-                                    {
-                                        if (keyPointsOutput.Items.Count >= 2)
-                                        {
-                                            if (dateTimeTextBox.Text.Length != 0)
-                                            {
-                                                if (lengthTextBox.Text.Length != 0)
-                                                {
-                                                    if (picturesTextBox.Text.Length != 0)
-                                                    {
-                                                        submitButton.IsEnabled = true;
-                                                    }
-                                                    else
-                                                    {
-                                                        submitButton.IsEnabled = false;
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    submitButton.IsEnabled = false;
-                                                }
-                                            }
-                                            else
-                                            {
-                                                submitButton.IsEnabled = false;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            submitButton.IsEnabled = false;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        submitButton.IsEnabled = false;
-                                    }
-                                }
-                                else
-                                {
-                                    submitButton.IsEnabled = false;
-                                }
-                            }
-                            else
-                            {
-                                submitButton.IsEnabled = false;
-                            }
-                        }
-                        else
-                        {
-                            submitButton.IsEnabled = false;
-                        }
-                    }
-                    else
-                    {
-                        submitButton.IsEnabled = false;
-                    }
-                }
-                else
-                {
-                    submitButton.IsEnabled = false;
-                }
-        } */
-
-        private void maxGuestNumberTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        //Prevent the user from entering any character other than a number
+        private void MaxGuestNumberTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = new Regex("[^0-9]+$").IsMatch(e.Text);
         }
-        private void lengthTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void LengthTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = new Regex("[^0-9]+$").IsMatch(e.Text);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

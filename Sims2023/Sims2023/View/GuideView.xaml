@@ -3,29 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Sims2023.View"
+        xmlns:local="clr-namespace:Sims2023.View" xmlns:model="clr-namespace:Sims2023.Model" d:DataContext="{d:DesignInstance Type=model:Tour}"
         mc:Ignorable="d"
         Title="GuideView" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <StackPanel>
         <DockPanel>
             <ToolBar Height="30">
-                <Button Click="CreateButtonClicked">Create</Button>
+                <Button Click="CreateButtonClicked">Create Tour</Button>
             </ToolBar>
         </DockPanel>
-        <DataGrid Height="300" Width="750" ItemsSource="{Binding Path=tours, UpdateSourceTrigger=PropertyChanged}"
-        SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Lokacija" Binding="{Binding Location}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Opis" Binding="{Binding Description}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Maks br gostiju" Binding="{Binding MaxGuestNumber}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Kljucne tacke" Binding="{Binding KeyPoints}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Start" Binding="{Binding Start}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Trajanje" Binding="{Binding Length}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Stanje" Binding="{Binding CurrentState}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Slike" Binding="{Binding Pictures}"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        
     </StackPanel>
 </Window>

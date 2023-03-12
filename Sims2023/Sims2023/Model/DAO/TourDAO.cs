@@ -41,11 +41,25 @@ namespace Sims2023.Model.DAO
 
         public void AddToursLocation(int toursId, Location location) 
         {
-            foreach(var tour in _tours)
+            foreach (var tour in _tours)
             {
                 if(tour.Id == toursId)
                 {
                     tour.LocationId = location.Id;
+                    _repository.Save(_tours);
+                    NotifyObservers();
+                    break;
+                }
+            }
+        }
+        public void AddToursKeyPoints(string keyPointsString, int firstToursId)
+        {
+            foreach(var tourInstance in _tours)
+            {
+                if(tourInstance.Id == firstToursId)
+                {
+                    tourInstance.KeyPointsString = keyPointsString;
+                    firstToursId++;
                     _repository.Save(_tours);
                     NotifyObservers();
                 }

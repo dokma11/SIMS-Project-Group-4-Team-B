@@ -31,23 +31,27 @@ namespace Sims2023.Controller
         }
         public void AddToursLocation(Tour tour, Location location, int newToursNumber) 
         {
-            List<Location> locations = new List<Location>();
-            locations = _location.GetAll();
+            List<Location> locations = _location.GetAll();
             int counter = 0;
-            int toursId = tour.Id - newToursNumber + 1;
+            int toursId = tour.Id - newToursNumber + 1;   
 
-            if(location.City == null || location.Country == null)
+            if (location.City == null || location.Country == null)
             {
                 MessageBox.Show("Unesite lokaciju ");
             }
 
             if(locations.Count == 0) 
             {
-                _tour.AddToursLocation(toursId, location);
+                for (int i = 0; i < newToursNumber; i++)
+                {
+                    _tour.AddToursLocation(toursId, location);
+                    toursId++;
+                }
             }
             else
             {
-                for(int i=0; i<newToursNumber; i++)
+                //Checking if the location already exists
+                for(int i = 0; i < newToursNumber; i++)
                 {
                     foreach (var locationInstance in locations)
                     {
@@ -65,6 +69,11 @@ namespace Sims2023.Controller
                     toursId++;
                 }
             }
+        }
+        public void AddToursKeyPoints(List<string> keyPoints, int firstToursId)
+        {
+            string keyPointsString = String.Join(",", keyPoints);
+            _tour.AddToursKeyPoints(keyPointsString, firstToursId);
         }
         public void Delete(Tour tour)
         {

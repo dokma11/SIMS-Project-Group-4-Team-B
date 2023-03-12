@@ -24,8 +24,7 @@ namespace Sims2023.Controller
 
         public void Create(Location location)
         {
-            List<Location> locations = new List<Location>();
-            locations = _location.GetAll();
+            List<Location> locations = _location.GetAll();
             int counter = 0;
 
             if(locations.Count ==  0) 
@@ -34,19 +33,21 @@ namespace Sims2023.Controller
             }
             else
             {
-                foreach(var locationInstance in locations)
+                //if the location already exists, there is no need to recreate it
+                foreach (var locationInstance in locations)
                 {
                     if(location.City == locationInstance.City && location.Country == locationInstance.Country) 
                     {
                         counter++;
+                        location.Id = locationInstance.Id;
                         break;
                     }
                 }
+                //this means that it doesn't exist, counter increases if it finds a location with same city name and country name
                 if(counter == 0)
                 {
                     _location.Add(location);
                 }
-                counter = 0;
             }
         }
         public void Delete(Location location)
