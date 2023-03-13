@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Sims2023.Controller;
+using Sims2023.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +23,176 @@ namespace Sims2023.View
     /// </summary>
     public partial class LiveTourTrackingView : Window
     {
-        public LiveTourTrackingView()
+        public Tour Tour { get; set; }
+        public KeyPoint SelectedKeyPoint { get; set; }
+
+        private KeyPointController _keyPointController;
+        public ObservableCollection<KeyPoint> KeyPointsToShow { get; set; }
+        public ObservableCollection<KeyPoint> AllKeyPoints { get; set; }
+
+        public int firstKeyPointId = -1;
+        
+        public int lastKeyPointId = -1;
+        public LiveTourTrackingView(Tour tour, KeyPointController keyPointController)
         {
             InitializeComponent();
+            DataContext = this;
+
+            Tour = tour;
+            Tour.CurrentState = Tour.State.Started;
+
+            _keyPointController = keyPointController;
+
+            KeyPointsToShow = new ObservableCollection<KeyPoint>();
+            AllKeyPoints = new ObservableCollection<KeyPoint>(_keyPointController.GetAllKeyPoints());
+            foreach(var keyPoint in AllKeyPoints)
+            {
+                if(keyPoint.ToursId == Tour.Id)
+                {
+                    KeyPointsToShow.Add(keyPoint);
+                }
+            }
+            //Finding the start of the tour (the first KeyPoint)
+            int counter = 0;
+            foreach(var keyPoint in KeyPointsToShow)
+            {
+                if(counter==0)
+                {
+                    firstKeyPointId = keyPoint.Id;
+                    counter++;
+                }
+                else
+                {
+                    if (keyPoint.Id < firstKeyPointId)
+                    {
+                        firstKeyPointId = keyPoint.Id;
+                    }
+                }      
+            }
+
+            foreach(var keyPoint in KeyPointsToShow)
+            {
+                if(keyPoint.Id == firstKeyPointId)
+                {
+                    keyPoint.CurrentState = KeyPoint.State.BeingVisited;
+                }
+            }
+            //Finding the end of the tour (the last KeyPoint)
+            foreach (var keyPoint in KeyPointsToShow)
+            {
+                if (keyPoint.Id > lastKeyPointId)
+                {
+                    lastKeyPointId = keyPoint.Id;
+                }
+            }
+        }
+
+        private void MarkKeyPointButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.NotVisited)
+            {
+                foreach (var keyPoint in KeyPointsToShow)
+                {
+                    if (keyPoint.CurrentState == KeyPoint.State.BeingVisited)
+                    {
+                        keyPoint.CurrentState = KeyPoint.State.Visited;
+                    }
+                }
+                SelectedKeyPoint.CurrentState = KeyPoint.State.BeingVisited;
+                if (SelectedKeyPoint.Id == lastKeyPointId)
+                {
+                    Update();
+                    Tour.CurrentState = Tour.State.Finished;
+                    ConfirmEnd();
+                    Close();
+                }
+                Update();
+            }
+            else if(SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited)
+            {
+                MessageBox.Show("Ne mozete oznaciti tacku na kojoj se trenutno nalazite");
+            }
+            else if(SelectedKeyPoint.CurrentState == KeyPoint.State.Visited)
+            {
+                MessageBox.Show("Ne mozete oznaciti tacku koju ste prosli");
+            }
+            else
+            {
+                MessageBox.Show("Izaberite kljucnu tacku koju zelite da oznacite");
+            }
+        }
+
+        private void MarkGuestsPresentButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CancelTourButton_Click(object sender, RoutedEventArgs e)
+        {
+            Tour.CurrentState = Tour.State.Cancelled;
+            MessageBoxResult result = ConfirmExit();
+            if (result == MessageBoxResult.Yes)
+            {
+                Tour.CurrentState = Tour.State.Cancelled;
+                Close();
+            }
+        }
+
+        /*private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) 
+        {
+            MessageBoxResult result = ConfirmExit();
+            if(result == MessageBoxResult.Yes)
+            {
+                Tour.CurrentState = Tour.State.Cancelled;
+                e.Cancel = false;
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
+        */
+        private static MessageBoxResult ConfirmExit() 
+        {
+            string sMessageBoxText = $"Izlaskom cete prekinuti trenutnu turu\n";
+            string sCaption = "Da li ste sigurni da zelite da izadjete?";
+
+            MessageBoxButton messageBoxButton = MessageBoxButton.YesNo;
+            MessageBoxImage messageBoxImage = MessageBoxImage.Warning;
+
+            MessageBoxResult result = MessageBox.Show(sMessageBoxText, sCaption, messageBoxButton, messageBoxImage);
+            return result;
+        }
+        
+        private static MessageBoxResult ConfirmEnd()
+        {
+            string sMessageBoxText = $"Vasa tura se uspesno zavrsila. Potvrdite zavrsetak pritiskom na OK\n";
+            string sCaption = "Potvrda zavrsetka";
+
+            MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+            MessageBoxImage messageBoxImage = MessageBoxImage.Asterisk;
+
+            MessageBoxResult result = MessageBox.Show(sMessageBoxText, sCaption, messageBoxButton, messageBoxImage);
+            return result;
+        }
+
+        public void Update()
+        {
+            UpdateKeyPointList();
+        }
+
+        public void UpdateKeyPointList()
+        {
+            KeyPointsToShow.Clear();
+            AllKeyPoints.Clear();
+            foreach(var keyPoint in _keyPointController.GetAllKeyPoints())
+            {
+                AllKeyPoints.Add(keyPoint);
+                if(keyPoint.ToursId == Tour.Id)
+                {
+                    KeyPointsToShow.Add(keyPoint);
+                }
+            }
         }
     }
 }

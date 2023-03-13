@@ -23,7 +23,7 @@ namespace Sims2023.Model
         public string KeyPointsString { get; set; }
         public DateTime Start { get; set; }
         public int Length { get; set; }
-        public enum State { Created, Started, Ended, Cancelled }
+        public enum State { Created, Started, Finished, Cancelled }
         public State CurrentState { get; set; }
         public List<string> Pictures { get; set; }
         //Same principle as for KeyPoints, I'm going to concatenate all of the pictures urls into one string so I can save it easier

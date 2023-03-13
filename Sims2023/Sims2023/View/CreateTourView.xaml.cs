@@ -50,7 +50,7 @@ namespace Sims2023.View
 
             dateTimeButtonClicked = false;
         }
-        private void SubmitButtonClicked(object sender, RoutedEventArgs e)
+        private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
             if(Tour.IsValid && dateTimeButtonClicked && keyPointsOutput.Items.Count > 1)
             {
@@ -69,7 +69,7 @@ namespace Sims2023.View
             }
         }
 
-        private void CancelButtonClicked(object sender, RoutedEventArgs e)
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
@@ -100,7 +100,7 @@ namespace Sims2023.View
             }
         }
 
-        private void ComboBoxSelectionChanged(object sender, RoutedEventArgs e)
+        private void ComboBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
             ComboBox cBox = (ComboBox)sender;
             ComboBoxItem cbItem = (ComboBoxItem)cBox.SelectedItem;

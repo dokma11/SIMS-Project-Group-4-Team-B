@@ -36,8 +36,15 @@ namespace Sims2023.View
             InitializeComponent();
             DataContext = this;
 
+            _locationController = new LocationController();
+            _locationController.Subscribe(this);
+
+            _keyPointController = new KeyPointController();
+            _keyPointController.Subscribe(this);
+
             _tourController = new TourController();
             _tourController.Subscribe(this);
+
             ToursToShow = new ObservableCollection<Tour>();
             AllTours = new ObservableCollection<Tour>(_tourController.GetAllTours());
             foreach(Tour tour in AllTours)
@@ -47,26 +54,20 @@ namespace Sims2023.View
                     ToursToShow.Add(tour);
                 }
             }
-
-            _locationController = new LocationController();
-            _locationController.Subscribe(this);
-
-            _keyPointController = new KeyPointController();
-            _keyPointController.Subscribe(this);
         }
 
-        private void CreateButtonClicked(object sender, RoutedEventArgs e)
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             CreateTourView createTourView = new(_tourController, _locationController, _keyPointController);
             createTourView.Show();  
         }
 
-        private void StartTourButtonClicked(object sender, RoutedEventArgs e)
+        private void StartTourButton_Click(object sender, RoutedEventArgs e)
         {
             if(SelectedTour != null)
             {
                 startTourButton.IsEnabled = false;
-                LiveTourTrackingView liveTourTrackingView = new LiveTourTrackingView();
+                LiveTourTrackingView liveTourTrackingView = new LiveTourTrackingView(SelectedTour, _keyPointController);
                 liveTourTrackingView.Closed += LiveTourTrackingView_Closed;
                 liveTourTrackingView.Show();
             }
@@ -87,6 +88,7 @@ namespace Sims2023.View
         public void UpdateTourList()
         {
             ToursToShow.Clear();
+            AllTours.Clear();
             foreach(var tour in _tourController.GetAllTours()) 
             {
                 AllTours.Add(tour);

@@ -52,6 +52,10 @@ namespace Sims2023.Model.DAO
         {
             return _keyPoints;
         }
+        public KeyPoint GetById(int id)
+        {
+            return _repository.GetById(id);
+        }
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
