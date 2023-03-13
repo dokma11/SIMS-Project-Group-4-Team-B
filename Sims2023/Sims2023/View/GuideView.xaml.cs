@@ -28,7 +28,9 @@ namespace Sims2023.View
         private KeyPointController _keyPointController;
         public Tour Tour { get; set; }
         public Tour SelectedTour { get; set; }
-        public ObservableCollection<Tour> Tours { get; set; }
+        public ObservableCollection<Tour> ToursToShow { get; set; }
+        public ObservableCollection<Tour> AllTours { get; set; }
+
         public GuideView()
         {
             InitializeComponent();
@@ -36,7 +38,15 @@ namespace Sims2023.View
 
             _tourController = new TourController();
             _tourController.Subscribe(this);
-            Tours = new ObservableCollection<Tour>(_tourController.GetAllTours());
+            ToursToShow = new ObservableCollection<Tour>();
+            AllTours = new ObservableCollection<Tour>(_tourController.GetAllTours());
+            foreach(Tour tour in AllTours)
+            {
+                if(tour.Start == DateTime.Today)
+                {
+                    ToursToShow.Add(tour);
+                }
+            }
 
             _locationController = new LocationController();
             _locationController.Subscribe(this);
@@ -51,6 +61,24 @@ namespace Sims2023.View
             createTourView.Show();  
         }
 
+        private void StartTourButtonClicked(object sender, RoutedEventArgs e)
+        {
+            if(SelectedTour != null)
+            {
+                startTourButton.IsEnabled = false;
+                LiveTourTrackingView liveTourTrackingView = new LiveTourTrackingView();
+                liveTourTrackingView.Closed += LiveTourTrackingView_Closed;
+                liveTourTrackingView.Show();
+            }
+            else
+            {
+                MessageBox.Show("Odaberite turu koju zelite da zapocnete");
+            }
+        }
+        private void LiveTourTrackingView_Closed(object sender, EventArgs e)
+        {
+            startTourButton.IsEnabled = true;
+        }
         public void Update()
         {
             UpdateTourList();
@@ -58,10 +86,14 @@ namespace Sims2023.View
 
         public void UpdateTourList()
         {
-            Tours.Clear();
+            ToursToShow.Clear();
             foreach(var tour in _tourController.GetAllTours()) 
             {
-                Tours.Add(tour);
+                AllTours.Add(tour);
+                if(tour.Start == DateTime.Today)
+                {
+                    ToursToShow.Add(tour);
+                }
             }
         }
     }
