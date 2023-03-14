@@ -62,8 +62,8 @@
                 <DataGridTextColumn Header="Tip" Binding="{Binding type}" Width="70"></DataGridTextColumn>
                 <DataGridTextColumn Header="Grad" Binding="{Binding city}" Width="70"></DataGridTextColumn>
                 <DataGridTextColumn Header="Drzava" Binding="{Binding country}" Width="70"></DataGridTextColumn>
-                <DataGridTextColumn Header="Maksimalan broj gostiju" Binding="{Binding maxguests}" Width="170"></DataGridTextColumn>
-                <DataGridTextColumn Header="Minimalni broj dana za rezervaciju" Binding="{Binding mindays}" Width="210"></DataGridTextColumn>
+                <DataGridTextColumn Header="Maksimalan broj gostiju" Binding="{Binding maxGuests}" Width="170"></DataGridTextColumn>
+                <DataGridTextColumn Header="Minimalni broj dana za rezervaciju" Binding="{Binding minDays}" Width="210"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
