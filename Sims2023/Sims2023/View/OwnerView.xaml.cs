@@ -2,6 +2,7 @@
 using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +33,40 @@ namespace Sims2023.View
             DataContext = this;
             accommodationCtrl = new AccommodationController();
             accommodationLocationCtrl = new AccomodationLocationController();
+
+
+
+
+
         }
+
+
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            string fileName = "../../../Resources/Data/lastshown.txt";
+
+            try
+            {
+                string lastShownText = File.ReadAllText(fileName);
+                DateTime lastShownDate = DateTime.Parse(lastShownText);
+
+                if (lastShownDate < DateTime.Today)
+                {
+                  
+                    MessageBox.Show("Kliknite na dugme da bi ocijenili goste koji su odsjeli u ptethodnih par dana kod vas");
+
+                    // Update the last shown date to today's date
+                    File.WriteAllText(fileName, DateTime.Today.ToString());
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                // The last shown date file does not exist, so create it with today's date
+                File.WriteAllText(fileName, DateTime.Today.ToString());
+            }
+        }
+
 
 
 

@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.View"
         mc:Ignorable="d"
+         Loaded="Window_Loaded"
+       
         Title="OwnerView" Height="450" Width="800">
     <Grid>
         <Button x:Name="button" Content="Dodaj turu" HorizontalAlignment="Left" Margin="128,217,0,0" VerticalAlignment="Top" Width="157" Height="55" Click="addAccommodationClick"/>
