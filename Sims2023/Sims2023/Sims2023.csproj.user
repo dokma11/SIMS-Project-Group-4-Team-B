@@ -19,6 +19,9 @@
     <Compile Update="View\LiveTourTrackingView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\MarkGuestsPresentView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\OwnerView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -36,6 +39,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\LiveTourTrackingView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\MarkGuestsPresentView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\OwnerView.xaml">

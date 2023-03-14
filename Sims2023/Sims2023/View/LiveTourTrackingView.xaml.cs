@@ -33,6 +33,8 @@ namespace Sims2023.View
         public int firstKeyPointId = -1;
         
         public int lastKeyPointId = -1;
+
+        public int lastVisitedKeyPointId = -1;
         public LiveTourTrackingView(Tour tour, KeyPointController keyPointController)
         {
             InitializeComponent();
@@ -75,6 +77,7 @@ namespace Sims2023.View
                 if(keyPoint.Id == firstKeyPointId)
                 {
                     keyPoint.CurrentState = KeyPoint.State.BeingVisited;
+                    lastVisitedKeyPointId = keyPoint.Id;
                 }
             }
             //Finding the end of the tour (the last KeyPoint)
@@ -89,7 +92,7 @@ namespace Sims2023.View
 
         private void MarkKeyPointButton_Click(object sender, RoutedEventArgs e)
         {
-            if(SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.NotVisited)
+            if(SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.NotVisited && SelectedKeyPoint.Id == lastVisitedKeyPointId+1)
             {
                 foreach (var keyPoint in KeyPointsToShow)
                 {
@@ -98,7 +101,10 @@ namespace Sims2023.View
                         keyPoint.CurrentState = KeyPoint.State.Visited;
                     }
                 }
+
                 SelectedKeyPoint.CurrentState = KeyPoint.State.BeingVisited;
+                lastVisitedKeyPointId = SelectedKeyPoint.Id;
+                
                 if (SelectedKeyPoint.Id == lastKeyPointId)
                 {
                     Update();
@@ -106,13 +112,14 @@ namespace Sims2023.View
                     ConfirmEnd();
                     Close();
                 }
+
                 Update();
             }
-            else if(SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited)
+            else if(SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited)
             {
                 MessageBox.Show("Ne mozete oznaciti tacku na kojoj se trenutno nalazite");
             }
-            else if(SelectedKeyPoint.CurrentState == KeyPoint.State.Visited)
+            else if(SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.Visited)
             {
                 MessageBox.Show("Ne mozete oznaciti tacku koju ste prosli");
             }
@@ -124,7 +131,15 @@ namespace Sims2023.View
 
         private void MarkGuestsPresentButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited)
+            {
+                MarkGuestsPresentView markGuestsPresentView = new(SelectedKeyPoint);
+                markGuestsPresentView.Show();
+            }
+            else
+            {
+                MessageBox.Show("Molimo odaberite kljucnu tacku za koju zelite da obelezite goste koji su se prikljucili");
+            }
         }
 
         private void CancelTourButton_Click(object sender, RoutedEventArgs e)
@@ -137,21 +152,6 @@ namespace Sims2023.View
                 Close();
             }
         }
-
-        /*private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) 
-        {
-            MessageBoxResult result = ConfirmExit();
-            if(result == MessageBoxResult.Yes)
-            {
-                Tour.CurrentState = Tour.State.Cancelled;
-                e.Cancel = false;
-            }
-            else
-            {
-                e.Cancel = true;
-            }
-        }
-        */
         private static MessageBoxResult ConfirmExit() 
         {
             string sMessageBoxText = $"Izlaskom cete prekinuti trenutnu turu\n";

@@ -64,12 +64,13 @@ namespace Sims2023.View
 
         private void StartTourButton_Click(object sender, RoutedEventArgs e)
         {
-            if(SelectedTour != null)
+            if(SelectedTour != null && SelectedTour.CurrentState == Tour.State.Created)
             {
                 startTourButton.IsEnabled = false;
-                LiveTourTrackingView liveTourTrackingView = new LiveTourTrackingView(SelectedTour, _keyPointController);
+                LiveTourTrackingView liveTourTrackingView = new(SelectedTour, _keyPointController);
                 liveTourTrackingView.Closed += LiveTourTrackingView_Closed;
                 liveTourTrackingView.Show();
+                Update();
             }
             else
             {
@@ -79,6 +80,7 @@ namespace Sims2023.View
         private void LiveTourTrackingView_Closed(object sender, EventArgs e)
         {
             startTourButton.IsEnabled = true;
+            Update();
         }
         public void Update()
         {
