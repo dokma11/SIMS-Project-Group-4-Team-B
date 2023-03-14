@@ -146,3 +146,5 @@ C:\Users\Nedeljko\Desktop\Sims 2023\SIMS-Project\Sims2023\Sims2023\obj\Debug\net
 C:\Users\Nedeljko\Desktop\Sims 2023\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\AccommodationListWindow.baml
 C:\Users\Nedeljko\Desktop\Sims 2023\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\Guest1MainWindow.baml
 C:\Users\Nedeljko\Desktop\Sims 2023\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.csproj.CopyComplete
+C:\Users\Nedeljko\Desktop\Sims 2023\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\Guest1GradeView.g.cs
+C:\Users\Nedeljko\Desktop\Sims 2023\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\Guest1GradeView.baml

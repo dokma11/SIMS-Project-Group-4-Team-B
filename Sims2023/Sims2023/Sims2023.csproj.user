@@ -10,6 +10,9 @@
     <Compile Update="View\CreateTourView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\Guest1GradeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\GuideView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -28,6 +31,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\CreateTourView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Guest1GradeView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Guest1MainWindow.xaml">
