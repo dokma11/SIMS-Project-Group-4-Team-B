@@ -68,7 +68,7 @@ namespace Sims2023.Model
         }
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, LocationId.ToString(), Description, GuideLanguage.ToString(), MaxGuestNumber.ToString(), KeyPointsString, Start.ToString(), Length.ToString(), PicturesString };
+            string[] csvValues = { Id.ToString(), Name, LocationId.ToString(), Description, GuideLanguage.ToString(), MaxGuestNumber.ToString(), KeyPointsString, Start.ToString(), Length.ToString(), PicturesString, CurrentState.ToString() };
             return csvValues;
         }
 
@@ -94,6 +94,7 @@ namespace Sims2023.Model
             {
                 Pictures.Add(picture);
             }
+            CurrentState = (State)Enum.Parse(typeof(State), values[10]);
         }
 
         public string this[string columnName]

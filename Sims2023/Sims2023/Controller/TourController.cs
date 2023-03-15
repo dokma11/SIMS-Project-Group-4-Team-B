@@ -14,6 +14,7 @@ namespace Sims2023.Controller
     {
         private TourDAO _tour;
         private LocationDAO _location;
+
         public TourController()
         {
             _tour = new TourDAO();
@@ -29,6 +30,7 @@ namespace Sims2023.Controller
         {
             _tour.Add(tour, dateTimes, location);
         }
+
         public void AddToursLocation(Tour tour, Location location, int newToursNumber) 
         {
             List<Location> locations = _location.GetAll();
@@ -70,19 +72,26 @@ namespace Sims2023.Controller
                 }
             }
         }
+
         public void AddToursKeyPoints(List<string> keyPoints, int firstToursId)
         {
             string keyPointsString = String.Join(",", keyPoints);
             _tour.AddToursKeyPoints(keyPointsString, firstToursId);
         }
+
         public void Delete(Tour tour)
         {
             _tour.Remove(tour);
         }
+
         public void Subscribe(IObserver observer)
         {
             _tour.Subscribe(observer);
         }
 
+        public void Save()
+        {
+            _tour.Save();
+        }
     }
 }

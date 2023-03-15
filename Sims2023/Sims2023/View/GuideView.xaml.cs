@@ -72,6 +72,10 @@ namespace Sims2023.View
                 liveTourTrackingView.Show();
                 Update();
             }
+            else if(SelectedTour != null && SelectedTour.CurrentState != Tour.State.Created)
+            {
+                MessageBox.Show("Ne mozete zapoceti turu koja je ranije zapoceta");
+            }
             else
             {
                 MessageBox.Show("Odaberite turu koju zelite da zapocnete");
@@ -81,7 +85,10 @@ namespace Sims2023.View
         {
             startTourButton.IsEnabled = true;
             Update();
+            _tourController.Save();
+            _keyPointController.Save();
         }
+
         public void Update()
         {
             UpdateTourList();

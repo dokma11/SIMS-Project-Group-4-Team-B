@@ -8,43 +8,50 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Model.DAO
 {
-    public class LocationDAO
+    public class UserDAO
     {
         private List<IObserver> _observers;
-        private List<Location> _locations;
-        private LocationFileHandler _fileHandler;
-        public LocationDAO()
+        private List<User> _users;
+        private UserFileHandler _fileHandler;
+
+        public UserDAO()
         {
-            _fileHandler = new LocationFileHandler();
-            _locations = _fileHandler.Load();
             _observers = new List<IObserver>();
+            _fileHandler = new UserFileHandler();
+            _users = _fileHandler.Load();
         }
+
         public int NextId()
         {
-            if (_locations.Count == 0) return 1;
-            return _locations.Max(l => l.Id) + 1;
+            if (_users.Count == 0) return 1;
+            return _users.Max(u => u.Id) + 1;
         }
-        public void Add(Location location)
+
+        public void Add(User user)
         {
-            location.Id = NextId();
-            _locations.Add(location);
-            _fileHandler.Save(_locations);
+            user.Id = NextId();
+            _users.Add(user);
+            _fileHandler.Save(_users);
             NotifyObservers();
         }
-        public void Remove(Location location)
-        { 
-            _locations.Remove(location);
-            _fileHandler.Save(_locations);
+
+        public void Remove(User user)
+        {
+            _users.Remove(user);
+            _fileHandler.Save(_users);
             NotifyObservers();
         }
-        public List<Location> GetAll()
+
+        public List<User> GetAll()
         {
-            return _locations;
+            return _users;
         }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
         }
+
         public void Unsubscribe(IObserver observer)
         {
             _observers.Remove(observer);

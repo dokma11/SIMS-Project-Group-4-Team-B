@@ -134,6 +134,7 @@ namespace Sims2023.View
             if (SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited)
             {
                 MarkGuestsPresentView markGuestsPresentView = new(SelectedKeyPoint);
+                markGuestsPresentView.Closed += MarkGuestsPresentView_Closed; 
                 markGuestsPresentView.Show();
             }
             else
@@ -142,6 +143,10 @@ namespace Sims2023.View
             }
         }
 
+        private void MarkGuestsPresentView_Closed(object sender, EventArgs e)
+        {
+            Update();
+        }
         private void CancelTourButton_Click(object sender, RoutedEventArgs e)
         {
             Tour.CurrentState = Tour.State.Cancelled;

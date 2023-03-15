@@ -7,7 +7,11 @@
         mc:Ignorable="d"
         Title="MarkGuestsPresentView" Height="350" Width="400" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid ItemsSource="{Binding Guests}" SelectedItem="{Binding SelectedGuests, Mode=TwoWay}" SelectionMode="Extended" Width="326" Height="247" Margin="37,10,37,77"/>
+        <DataGrid x:Name="guestDataGrid" ItemsSource="{Binding Guests}" SelectionMode="Extended" Width="326" Height="247" Margin="37,10,37,77" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv" Binding="{Binding}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Button x:Name="cancelButton" Click="CancelButton_Click" Content="Cancel" Margin="255,274,85,20"/>
         <Button x:Name="submitButton" Click="SubmitButton_Click" Content="Submit" Margin="81,269,259,25"/>
     </Grid>

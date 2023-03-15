@@ -1,22 +1,6 @@
-1|n|1|o|Serbian|1|1,2,3|1/1/1001 12:00:00 AM|1|12, 34, 56, 7 ,
-2|n|1|o|Serbian|1|1,2,3|1/11/1001 12:00:00 AM|1|12, 34, 56, 7 ,
-3|n|1|o|Serbian|1|1,2,3|11/11/1001 12:00:00 AM|1|12, 34, 56, 7 ,
-4|n2|1|z|French|2|z,x,c,v|1/1/3001 12:00:00 AM|1|z
-5|n2|1|z|French|2|z,x,c,v|1/13/3001 12:00:00 AM|1|z
-6|n2|1|z|French|2|z,x,c,v|10/13/3001 12:00:00 AM|1|z
-7|n|2|zxc|French|2|q,w,e|1/1/3001 12:00:00 AM|2|z
-8|n|2|zxc|French|2|q,w,e|1/13/3001 12:00:00 AM|2|z
-9|nh|1|z|German|1|2,3,4|1/21/4001 12:00:00 AM|2|z
-10|nh|1|z|German|1|2,3,4|12/21/4001 12:00:00 AM|2|z
-11|nh|1|z|German|1|2,3,4|12/21/4011 12:00:00 AM|2|z
-12|novia tura|2|neki opis|Spanish|222|1,2,3|3/13/2023 12:00:00 AM|32|asd
-13|novia tura|2|neki opis|Spanish|222|1,2,3|3/15/2023 12:00:00 AM|32|asd
-14|n123|3|opsi neki vneise nez|French|98|p,o,i|1/1/0001 12:00:00 AM|32|xcxzczx
-15|nazvi da radi|3|treba da radi|English|56|z,x,c|3/13/2023 12:00:00 AM|2|z
-16|nazvi da radi|3|treba da radi|English|56|z,x,c|4/13/2023 12:00:00 AM|2|z
-17|Obilazak tvrdjave|4|Obilazimo prelepu tvrdjavu, djava strava vuhu.|Serbian|30|centar,most,sat na tvrdjavi,bunker,kej|3/14/2023 12:00:00 AM|3|url1, url2, url3, url4, url5
-18|Obilazak tvrdjave|4|Obilazimo prelepu tvrdjavu, djava strava vuhu.|Serbian|30|centar,most,sat na tvrdjavi,bunker,kej|3/15/2023 12:00:00 AM|3|url1, url2, url3, url4, url5
-19|Obilazak tvrdjave|4|Obilazimo prelepu tvrdjavu, djava strava vuhu.|Serbian|30|centar,most,sat na tvrdjavi,bunker,kej|3/16/2023 12:00:00 AM|3|url1, url2, url3, url4, url5
-20|Obilazak Grbavice|4|Grbavica najjaca, G-3, GGB obilazimo najopasniji i najjaci deo grada. Spremite se bice svega!|Serbian|10|limanska pijaca,atomac,dvora,puskinova,tolstojeva|3/15/2023 12:00:00 AM|1|url1, url2, url3, url4, url5, url6
-21|Obilazak Grbavice|4|Grbavica najjaca, G-3, GGB obilazimo najopasniji i najjaci deo grada. Spremite se bice svega!|Serbian|10|limanska pijaca,atomac,dvora,puskinova,tolstojeva|3/14/2023 12:00:00 AM|1|url1, url2, url3, url4, url5, url6
-22|Obilazak Grbavice|4|Grbavica najjaca, G-3, GGB obilazimo najopasniji i najjaci deo grada. Spremite se bice svega!|Serbian|10|limanska pijaca,atomac,dvora,puskinova,tolstojeva|3/16/2023 12:00:00 AM|1|url1, url2, url3, url4, url5, url6
+1|Obilazak tvrdjave|1|Obilazak najpoznatije znamenitosti ovog grada nastalog 1603. godine.|Serbian|30|centar,most,sat na tvrdjavi,kej|3/15/2023 12:00:00 AM|2|url1, url2, url3, url4, url5|Finished
+2|Obilazak tvrdjave|1|Obilazak najpoznatije znamenitosti ovog grada nastalog 1603. godine.|Serbian|30|centar,most,sat na tvrdjavi,kej|3/16/2023 12:00:00 AM|2|url1, url2, url3, url4, url5|Created
+3|Obilazak tvrdjave|1|Obilazak najpoznatije znamenitosti ovog grada nastalog 1603. godine.|Serbian|30|centar,most,sat na tvrdjavi,kej|3/17/2023 12:00:00 AM|2|url1, url2, url3, url4, url5|Created
+4|Obilazak Budimpeste|2|Obilazak jednog od najlepsih gradova Evrope i upoznavanje sa neverovatnom i bujnom istorijom ovog grada.|Chinese|20|market,brdo,dvor,bastion,bazilika|3/15/2023 12:00:00 AM|5|url1, url2, url3|Cancelled
+5|Obilazak Budimpeste|2|Obilazak jednog od najlepsih gradova Evrope i upoznavanje sa neverovatnom i bujnom istorijom ovog grada.|Chinese|20|market,brdo,dvor,bastion,bazilika|3/16/2023 12:00:00 AM|5|url1, url2, url3|Created
+6|Obilazak Budimpeste|2|Obilazak jednog od najlepsih gradova Evrope i upoznavanje sa neverovatnom i bujnom istorijom ovog grada.|Chinese|20|market,brdo,dvor,bastion,bazilika|3/17/2023 12:00:00 AM|5|url1, url2, url3|Created
