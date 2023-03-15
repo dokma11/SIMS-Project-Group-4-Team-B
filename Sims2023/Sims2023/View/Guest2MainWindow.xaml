@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Sims2023"
         mc:Ignorable="d"
         Title="Guest2MainWindow" Height="450" Width="820">
@@ -12,12 +13,14 @@
                     SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged }" SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Width="500" Height="270" Margin="60,82,220,82">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Grad" Width="100" Binding="{Binding City}"/>
-                <DataGridTextColumn Header="Drzava" Width="100" Binding="{Binding Country}"/>
-                <DataGridTextColumn Header="Jezik" Width="100" Binding="{Binding GuideLanguage}" />
-                <DataGridTextColumn Header="Trajanje ture" Width="100" Binding="{Binding Length}"/>
-                <DataGridTextColumn Header="Broj ljudi" Width="100" Binding="{Binding MaxGuestNumber}"/>
-
+                <DataGridTextColumn Header="Naziv" Width="90" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Grad" Width="90" Binding="{Binding City}"/>
+                <DataGridTextColumn Header="Drzava" Width="80" Binding="{Binding Country}"/>
+                <DataGridTextColumn Header="Jezik" Width="60" Binding="{Binding GuideLanguage}" />
+                <DataGridTextColumn Header="Pocetak" Width="65" Binding="{Binding Start}"/>
+                <DataGridTextColumn Header="Trajanje" Width="50" Binding="{Binding Length}"/>
+                <DataGridTextColumn Header="Broj ljudi" Width="60" Binding="{Binding MaxGuestNumber}"/>
+                
             </DataGrid.Columns>
         </DataGrid>
 
@@ -31,7 +34,7 @@
         <Label Content="Jezik" HorizontalAlignment="Left" Margin="625,234,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="GuideLanguageSearchBox" HorizontalAlignment="Left" Margin="625,260,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
         <Label Content="Broj ljudi" HorizontalAlignment="Left" Margin="625,288,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="MaxGuestSearchBox" HorizontalAlignment="Left" Margin="625,314,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
-        
+        <TextBox x:Name="MaxGuestSearchBox1" HorizontalAlignment="Left" Margin="625,314,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <xctk:IntegerUpDown Name="MaxGuestSearchBox" HorizontalAlignment="Left" Margin="625,314,0,0" VerticalAlignment="Top" Minimum="0" Value="0" Width="120"/>
     </Grid>
 </Window>
