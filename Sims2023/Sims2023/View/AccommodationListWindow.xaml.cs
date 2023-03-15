@@ -74,8 +74,8 @@ namespace Sims2023.View
             string citySearchTerm = citySearchBox.Text;
             string countrySearchTerm = countrySearchBox.Text;
             string typeSearchTerm = typeComboBox.Text;
-           // int maxGuests = (int)numberOfGuests.Value;
-           // int minDays = (int)numberOfDays.Value;
+            int maxGuests = (int)numberOfGuests.Value;
+            int minDays = (int)numberOfDays.Value;
 
 
             foreach (Accommodation accommodation in Accommodations)
@@ -116,7 +116,7 @@ namespace Sims2023.View
                         typeCondition = false;
                     }
                 }
-                /*if (numberOfGuests.Value > 0)
+                if (numberOfGuests.Value > 0)
                 {
                     if (accommodation.maxGuests < maxGuests)
                     {
@@ -129,7 +129,7 @@ namespace Sims2023.View
                     {
                         minDaysCondition = false;
                     }
-                }*/
+                }
 
                 if (nameCondition && cityCondition && countryCondition && typeCondition && maxGuestsCondition && minDaysCondition)
                 {
