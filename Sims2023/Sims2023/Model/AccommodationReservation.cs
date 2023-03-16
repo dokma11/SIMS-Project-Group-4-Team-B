@@ -15,7 +15,7 @@ namespace Sims2023.Model
         public int AccommodationId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public int NumberOfGuests { get; set; }
+        public int NumberOfDays { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -26,13 +26,13 @@ namespace Sims2023.Model
 
 
         public AccommodationReservation() { }
-        public AccommodationReservation(int id, int accommodationId, DateTime startDate, DateTime endDate, int numberOfGuests)
+        public AccommodationReservation(int id, int accommodationId, DateTime startDate, DateTime endDate, int numberOfDays)
         {
             Id = id;
             AccommodationId = accommodationId;
             StartDate = startDate;
             EndDate = endDate;
-            NumberOfGuests = numberOfGuests;
+            NumberOfDays = numberOfDays;
         }
 
 
@@ -44,7 +44,7 @@ namespace Sims2023.Model
                 AccommodationId.ToString(),
                 StartDate.ToString(),
                 EndDate.ToString(),
-                NumberOfGuests.ToString()
+                NumberOfDays.ToString()
             };
             return csvValues;
         }
@@ -55,7 +55,7 @@ namespace Sims2023.Model
             AccommodationId = int.Parse(values[1]);
             StartDate=DateTime.Parse(values[2]);
             EndDate=DateTime.Parse(values[3]);
-            NumberOfGuests = int.Parse(values[4]);
+            NumberOfDays = int.Parse(values[4]);
 
         }
 

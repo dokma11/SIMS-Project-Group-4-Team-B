@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\Tatjana\SIMS-Project\Sims2023\Sims2023\App.xaml
-81676098394
+91110839701
 
-41-237051520
+421642873575
 199-1290502910
-MainWindow.xaml;View\AccommodationListWindow.xaml;View\AccommodationRegistrationView.xaml;View\AccommodationReservationWindow.xaml;View\CreateTourView.xaml;View\Guest1MainWindow.xaml;View\GuideView.xaml;View\OwnerView.xaml;
+MainWindow.xaml;View\AccommodationListWindow.xaml;View\AccommodationRegistrationView.xaml;View\AccommodationReservationConfirmationWindow.xaml;View\AccommodationReservationWindow.xaml;View\CreateTourView.xaml;View\Guest1MainWindow.xaml;View\GuideView.xaml;View\OwnerView.xaml;
 
 True
 

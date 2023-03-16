@@ -126,3 +126,5 @@ C:\Users\Tatjana\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\Gu
 C:\Users\Tatjana\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\Guest1MainWindow.baml
 C:\Users\Tatjana\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\AccommodationReservationWindow.g.cs
 C:\Users\Tatjana\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\AccommodationReservationWindow.baml
+C:\Users\Tatjana\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\AccommodationReservationConfirmationWindow.g.cs
+C:\Users\Tatjana\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\AccommodationReservationConfirmationWindow.baml
