@@ -23,6 +23,9 @@ namespace Sims2023.Controller
             return _accomodations.GetAll();
         }
 
+
+       
+
         public void Create(Accommodation accommodation)
         {
             _accomodations.Add(accommodation);

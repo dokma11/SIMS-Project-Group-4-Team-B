@@ -30,8 +30,8 @@ namespace Sims2023.View
         private AccomodationLocationController accommodationLocationCtrl;
         private AccommodationReservationController accommodationReservationCtrl;
         private GuestFileHandler fh;
-        private ObservableCollection<Guest> guests;
-        public ObservableCollection<AccommodationReservation> reservatons { get; set; }
+        private List<Guest> guests;
+        public List<AccommodationReservation> reservatons { get; set; }
 
         public OwnerView()
         {
@@ -41,10 +41,10 @@ namespace Sims2023.View
             accommodationCtrl = new AccommodationController();
             accommodationLocationCtrl = new AccomodationLocationController();
             fh = new GuestFileHandler();
-            guests = new ObservableCollection<Guest>(fh.Load());
+            guests = new List<Guest>(fh.Load());
             accommodationReservationCtrl = new AccommodationReservationController();
 
-            reservatons = new ObservableCollection<AccommodationReservation>(accommodationReservationCtrl.GetAllReservations());
+            reservatons = new List<AccommodationReservation>(accommodationReservationCtrl.GetAllReservations());
 
         }
 

@@ -20,6 +20,7 @@
 
             </DataGrid.Columns>
         </DataGrid>
+        <Button x:Name="button" Content="Ocijeni" Click="Grade_Click" HorizontalAlignment="Left" Margin="569,224,0,0" VerticalAlignment="Top" Width="146" Height="44"/>
 
     </Grid>
 </Window>

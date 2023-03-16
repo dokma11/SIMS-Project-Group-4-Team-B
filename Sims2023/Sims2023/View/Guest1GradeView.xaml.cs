@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sims2023.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace Sims2023.View
     public partial class Guest1GradeView : Window
     {
 
-        public Guest1GradeView()
+        public Guest1GradeView(AccommodationReservation selectedGuest)
         {
             InitializeComponent();
             DataContext = this;

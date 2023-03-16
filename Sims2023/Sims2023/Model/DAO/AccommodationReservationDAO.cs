@@ -35,6 +35,54 @@ namespace Sims2023.Model.DAO
             NotifyObservers();
         }
 
+
+
+        private void AddNameSurrnameToReservation(List<Guest> ListOfGuests, List<AccommodationReservation> reservatons)
+        {
+            foreach (var reservation in reservatons)
+            {
+                foreach (var guest in ListOfGuests)
+                {
+                    if (reservation.GuestId == guest.Id)
+                    {
+                        reservation.Name = guest.Name;
+                        reservation.Surrname = guest.Surrname;
+                    }
+                }
+            }
+        }
+
+        private void AddReservationName(List<AccommodationReservation> reservatons, List<Accommodation> accommodations)
+        {
+            foreach (var reservation in reservatons)
+            {
+                foreach (var accommodation in accommodations)
+                {
+                    if (reservation.Id == accommodation.id)
+                    {
+                        reservation.AccommodationName = accommodation.name;
+
+                    }
+                }
+            }
+        }
+
+
+        public List<AccommodationReservation> findGradableGuests(List<Guest> ListOfGuests, List<Accommodation> _accommodations, List<AccommodationReservation> reservatons)
+        {
+
+            AddNameSurrnameToReservation(ListOfGuests, reservatons);
+            AddReservationName(reservatons, _accommodations);
+
+            return reservatons;
+
+        }
+
+
+
+
+
+
         public void Remove(AccommodationReservation reservation)
         {
             _accommodationReservations.Remove(reservation);

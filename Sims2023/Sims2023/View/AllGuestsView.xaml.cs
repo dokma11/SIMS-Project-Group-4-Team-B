@@ -25,52 +25,41 @@ namespace Sims2023.View
         
         private AccommodationReservationController reservationCtrl;
         public ObservableCollection<AccommodationReservation> reservatons { get; set; }
-        public ObservableCollection<Guest> ListOfGuests { get; set; }
-        public ObservableCollection<Accommodation> accommodations { get; set; }
+        public List<Guest> ListOfGuests { get; set; }
+
+        public AccommodationReservation selectedGuest { get; set; }
+        public List<AccommodationReservation> reservatons2 { get; set; }
+        public List<Accommodation> accommodations { get; set; }
 
         private AccommodationController accommodationCtrl;
-        public AllGuestsView(ObservableCollection<Guest> guests,AccommodationReservationController acml, ObservableCollection<AccommodationReservation> reserv)
+
+
+        public AllGuestsView(List<Guest> guests,AccommodationReservationController acml, List<AccommodationReservation> reserv)
         {
             InitializeComponent();
             DataContext= this;
             accommodationCtrl = new AccommodationController();
-            accommodations = new ObservableCollection<Accommodation>(accommodationCtrl.GetAllAccommodations());
-            reservationCtrl = acml;
-            reservatons = reserv;
+            accommodations = new List<Accommodation>(accommodationCtrl.GetAllAccommodations());
+          
+            reservatons2 = reserv;
             ListOfGuests = guests;
-            AddNameSurrnameToReservation(ListOfGuests, reservatons);
-            AddReservationName(reservatons, accommodations);
+            reservatons = new ObservableCollection<AccommodationReservation>(acml.getGradableGuests(guests, accommodations, reservatons2));
+            
         }
 
-        private void AddNameSurrnameToReservation(ObservableCollection<Guest> ListOfGuests, ObservableCollection<AccommodationReservation> reservatons)
+        private void Grade_Click(object sender, EventArgs e)
         {
-            foreach (var reservation in reservatons)
+            if (selectedGuest != null)
             {
-                foreach (var guest in ListOfGuests)
-                {
-                    if (reservation.GuestId == guest.Id)
-                    {
-                        reservation.Name = guest.Name;
-                        reservation.Surrname = guest.Surrname;
-                    }
-                }
+                var grade = new Guest1GradeView(selectedGuest);
+                grade.Show();
             }
+
+
         }
 
-        private void AddReservationName(ObservableCollection<AccommodationReservation> reservatons, ObservableCollection<Accommodation> accommodations )
-        {
-            foreach (var reservation in reservatons)
-            {
-                foreach (var accommodation in accommodations)
-                {
-                    if (reservation.Id == accommodation.id)
-                    {
-                        reservation.AccommodationName = accommodation.name;
-                     
-                    }
-                }
-            }
-        }
+
+
 
     }
 }

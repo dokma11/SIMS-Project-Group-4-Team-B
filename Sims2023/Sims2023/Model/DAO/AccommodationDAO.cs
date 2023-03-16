@@ -1,8 +1,10 @@
 ﻿using Sims2023.Model;
+using Sims2023.Model.DAO;
 using Sims2023.Observer;
 using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +15,10 @@ namespace Sims2023.DAO
     {
 
         private List<IObserver> _observers;
-
+        private AccommodationReservationDAO AccommodationReservationDAO;
         private AccommodationRepository _repository;
         private List<Accommodation> _accommodations;
+        private GuestFileHandler fh;
 
 
 
@@ -24,7 +27,16 @@ namespace Sims2023.DAO
             _repository = new AccommodationRepository();
             _accommodations = _repository.Load();
             _observers = new List<IObserver>();
+            AccommodationReservationDAO = new AccommodationReservationDAO();
+            fh = new GuestFileHandler();
+
         }
+
+       
+
+
+
+
 
         public int NextId()
         {
