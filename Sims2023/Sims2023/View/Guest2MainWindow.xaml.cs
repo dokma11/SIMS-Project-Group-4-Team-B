@@ -25,10 +25,10 @@ namespace Sims2023
     public partial class Guest2MainWindow : Window, IObserver
     {
 
-        private TourController _controllerTour;//
-        public ObservableCollection<Tour> Tours { get; set; }//
+        private TourController _controllerTour;
+        public ObservableCollection<Tour> Tours { get; set; }
 
-        public Tour SelectedTour { get; set; }//
+        public Tour SelectedTour { get; set; }
 
         List<Tour> filteredData = new List<Tour>();
 
@@ -41,17 +41,18 @@ namespace Sims2023
             InitializeComponent();
             DataContext = this;
 
-            _controllerTour = new TourController();//
-            _controllerTour.Subscribe(this);//
+            _controllerTour = new TourController();
+            _controllerTour.Subscribe(this);
             _controllerLocation=new LocationController();
 
             Tours = new ObservableCollection<Tour>(_controllerTour.GetAllTours());
             Locations = new ObservableCollection<Location>(_controllerLocation.GetAllLocations());
+
             AddLocationsToTour(Locations, Tours);
             List<Tour> filteredData = new List<Tour>();
 
             int toursMaxGuestNumber = Tours.Max(y => y.MaxGuestNumber);
-            MaxGuestSearchBox.Maximum = toursMaxGuestNumber;
+            maxGuestNumberSearchBox.Maximum = toursMaxGuestNumber;
         }
 
 
@@ -76,14 +77,13 @@ namespace Sims2023
         {
             
             filteredData.Clear();
-            DataGridTours.ItemsSource = Tours;
+            dataGridTours.ItemsSource = Tours;
 
-            string citySearchTerm = CitySearchBox.Text;
-            string countrySearchTerm = CountrySearchBox.Text;
-            string lengthSearchTerm= LengthSearchBox.Text;
-            string guideLanguageSearchTerm = GuideLanguageSearchBox.Text.ToLower();
-           
-            int maxGuestNumberSearchTerm = (int)MaxGuestSearchBox.Value;
+            string citySearchTerm = citySearchBox.Text;
+            string countrySearchTerm = countrySearchBox.Text;
+            string lengthSearchTerm= lengthSearchBox.Text;
+            string guideLanguageSearchTerm = guideLanguageSearchBox.Text.ToLower();
+            int maxGuestNumberSearchTerm = (int)maxGuestNumberSearchBox.Value;
             
 
 
@@ -127,7 +127,7 @@ namespace Sims2023
                         guideLanguageCondition = false;
                     }
                 }
-                if (MaxGuestSearchBox.Value > 0)
+                if (maxGuestNumberSearchBox.Value > 0)
                 {
                     if (tour.MaxGuestNumber < maxGuestNumberSearchTerm)
                     {
@@ -144,18 +144,25 @@ namespace Sims2023
 
             }
 
-            DataGridTours.ItemsSource = filteredData;
+            dataGridTours.ItemsSource = filteredData;
 
             
 
             
         }
 
-        
+        private void UpdateToursList()
+        {
+            Tours.Clear();
+            foreach (var tour in _controllerTour.GetAllTours())
+            {
+                Tours.Add(tour);
+            }
+        }
 
         public void Update()
         {
-            throw new NotImplementedException();
+            UpdateToursList();
         }
     }
 }
