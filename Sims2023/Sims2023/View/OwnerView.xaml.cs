@@ -1,7 +1,10 @@
 ﻿using Sims2023.Controller;
+using Sims2023.Model;
 using Sims2023.Observer;
+using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -25,6 +28,10 @@ namespace Sims2023.View
         private string outputText;
         private AccommodationController accommodationCtrl;
         private AccomodationLocationController accommodationLocationCtrl;
+        private AccommodationReservationController accommodationReservationCtrl;
+        private GuestFileHandler fh;
+        private ObservableCollection<Guest> guests;
+        public ObservableCollection<AccommodationReservation> reservatons { get; set; }
 
         public OwnerView()
         {
@@ -33,10 +40,11 @@ namespace Sims2023.View
             DataContext = this;
             accommodationCtrl = new AccommodationController();
             accommodationLocationCtrl = new AccomodationLocationController();
+            fh = new GuestFileHandler();
+            guests = new ObservableCollection<Guest>(fh.Load());
+            accommodationReservationCtrl = new AccommodationReservationController();
 
-
-
-
+            reservatons = new ObservableCollection<AccommodationReservation>(accommodationReservationCtrl.GetAllReservations());
 
         }
 
@@ -68,7 +76,11 @@ namespace Sims2023.View
         }
 
 
-
+        private void grade_click(object sender, RoutedEventArgs e)
+        {
+            var guestss = new AllGuestsView(guests, accommodationReservationCtrl, reservatons);
+            guestss.Show();
+        }
 
         private void addAccommodationClick(object sender, RoutedEventArgs e)
         {

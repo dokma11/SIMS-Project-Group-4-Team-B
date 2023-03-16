@@ -9,8 +9,11 @@
        
         Title="OwnerView" Height="450" Width="800">
     <Grid>
-        <Button x:Name="button" Content="Dodaj turu" HorizontalAlignment="Left" Margin="128,217,0,0" VerticalAlignment="Top" Width="157" Height="55" Click="addAccommodationClick"/>
+        <Button x:Name="button" Content="Dodaj turu" HorizontalAlignment="Left" Margin="34,217,0,0" VerticalAlignment="Top" Width="157" Height="55" Click="addAccommodationClick"/>
         <Label x:Name="label" Content="NALOG VLASNIKA" FontSize="50" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Height="67" Width="420"/>
+        <Button x:Name="button1" Click="grade_click" Content="Ocijeni goste" HorizontalAlignment="Left" Margin="34,319,0,0" VerticalAlignment="Top" Height="55" Width="152"/>
+
+       
 
     </Grid>
 </Window>

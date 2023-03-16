@@ -19,9 +19,11 @@ namespace Sims2023.View
     /// </summary>
     public partial class Guest1GradeView : Window
     {
+
         public Guest1GradeView()
         {
             InitializeComponent();
+            DataContext = this;
         }
     }
 }
