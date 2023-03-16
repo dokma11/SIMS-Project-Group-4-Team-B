@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Repository
 {
-    public class AccommodationLocationRepository
+    public class AccommodationLocationFileHandler
     {
 
         private const string StoragePath = "../../../Resources/Data/accommodationLocations.csv";
@@ -16,7 +16,7 @@ namespace Sims2023.Repository
         private Serializer<AccommodationLocation> _serializer;
 
 
-        public AccommodationLocationRepository()
+        public AccommodationLocationFileHandler()
         {
             _serializer = new Serializer<AccommodationLocation>();
         }

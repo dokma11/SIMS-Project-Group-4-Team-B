@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tg2HMWnhUM42jQc4RPjR2AIwTKKJUDg7nDijfQt3vDRbsTQqiuK6KzkI8hr+QAupO9ZkGWSaUpiKbjxloTsNkQ==",
+  "dgSpecHash": "ofS8MauCATuDLYHl/jdS/zGuTfvugxNpsLEsc/CtXN1rEhh9LTpFkr85bRKvRbgqGmfBD+46Gq4s7IgXn7DmRg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Savic\\Documents\\lol\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj",
+  "projectFilePath": "C:\\Users\\Savic\\Documents\\simsreser\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Savic\\.nuget\\packages\\extended.wpf.toolkit\\4.5.0\\extended.wpf.toolkit.4.5.0.nupkg.sha512"
   ],

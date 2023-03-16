@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Repository
 {
-    public class TourRepository
+    public class TourFileHandler
     {
         private List<Tour> _tours;
         private readonly Serializer<Tour> _serializer;
         private const string FilePath = "../../../Resources/Data/tours.csv";
 
-        public TourRepository()
+        public TourFileHandler()
         {
             _serializer = new Serializer<Tour>();
             _tours = _serializer.FromCSV(FilePath);

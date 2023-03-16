@@ -12,11 +12,11 @@ namespace Sims2023.Model.DAO
     {
         private List<IObserver> _observers;
         private List<KeyPoint> _keyPoints;
-        private KeyPointRepository _repository;
+        private KeyPointFileHandler _fileHandler;
         public KeyPointDAO()
         {
-            _repository = new KeyPointRepository();
-            _keyPoints = _repository.Load();
+            _fileHandler = new KeyPointFileHandler();
+            _keyPoints = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
         public int NextId()
@@ -30,13 +30,13 @@ namespace Sims2023.Model.DAO
             {
                 foreach (string keyPointName in keyPointNames)
                 {
-                    _keyPoints = _repository.Load();
+                    _keyPoints = _fileHandler.Load();
                     keyPoint.Id = NextId();
                     keyPoint.ToursId = toursId;
                     keyPoint.Name = keyPointName;
                     keyPoint.CurrentState = KeyPoint.State.NotVisited;
                     _keyPoints.Add(keyPoint);
-                    _repository.Save(_keyPoints);
+                    _fileHandler.Save(_keyPoints);
                     NotifyObservers();
                 }
                 toursId++;
@@ -45,7 +45,7 @@ namespace Sims2023.Model.DAO
         public void Remove(KeyPoint keyPoint)
         {
             _keyPoints.Remove(keyPoint);
-            _repository.Save(_keyPoints);
+            _fileHandler.Save(_keyPoints);
             NotifyObservers();
         }
         public List<KeyPoint> GetAll()

@@ -13,11 +13,11 @@ namespace Sims2023.Model.DAO
     {
         private List<IObserver> _observers;
         private List<Tour> _tours;
-        private TourRepository _repository;
+        private TourFileHandler _fileHandler;
         public TourDAO()
         {
-            _repository = new TourRepository();
-            _tours = _repository.Load();
+            _fileHandler = new TourFileHandler();
+            _tours = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
         public int NextId()
@@ -29,12 +29,12 @@ namespace Sims2023.Model.DAO
         {
             foreach (var date in dateTimes)
             {
-                _tours = _repository.Load();
+                _tours = _fileHandler.Load();
                 tour.Id = NextId();
                 tour.Start = date;
                 AddToursLocation(tour.Id, location);
                 _tours.Add(tour);
-                _repository.Save(_tours);
+                _fileHandler.Save(_tours);
                 NotifyObservers();
             }
         }
@@ -46,7 +46,7 @@ namespace Sims2023.Model.DAO
                 if (tour.Id == toursId)
                 {
                     tour.LocationId = location.Id;
-                    _repository.Save(_tours);
+                    _fileHandler.Save(_tours);
                     NotifyObservers();
                     break;
                 }
@@ -60,7 +60,7 @@ namespace Sims2023.Model.DAO
                 {
                     tourInstance.KeyPointsString = keyPointsString;
                     firstToursId++;
-                    _repository.Save(_tours);
+                    _fileHandler.Save(_tours);
                     NotifyObservers();
                 }
             }
@@ -68,7 +68,7 @@ namespace Sims2023.Model.DAO
         public void Remove(Tour tour) 
         {
             _tours.Remove(tour);
-            _repository.Save(_tours);   
+            _fileHandler.Save(_tours);   
             NotifyObservers();
         }
         public List<Tour> GetAll()
