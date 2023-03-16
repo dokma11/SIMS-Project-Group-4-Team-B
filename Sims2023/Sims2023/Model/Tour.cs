@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Model
 {
-    public class Tour: ISerializable, INotifyPropertyChanged
+    public class Tour : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -25,6 +25,8 @@ namespace Sims2023.Model
         public int Length { get; set; }
         public enum State { Created, Started, Ended, Cancelled }
         public State CurrentState { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
         public List<string> Pictures { get; set; }
         //Same principle as for KeyPoints, I'm going to concatenate all of the pictures urls into one string so I can save it easier
         public string PicturesString { get; set; }
@@ -100,14 +102,14 @@ namespace Sims2023.Model
         {
             get
             {
-                if(columnName == "Name")
+                if (columnName == "Name")
                 {
                     if (string.IsNullOrEmpty(Name))
                     {
                         return "Popunite polje za naziv";
                     }
                 }
-                else if(columnName == "LocationId")
+                else if (columnName == "LocationId")
                 {
                     if (string.IsNullOrEmpty(LocationId.ToString()))
                     {
@@ -164,9 +166,9 @@ namespace Sims2023.Model
         {
             get
             {
-                foreach(var property in _validatedProperties)
+                foreach (var property in _validatedProperties)
                 {
-                    if (this[property]  != null)
+                    if (this[property] != null)
                     {
                         return false;
                     }

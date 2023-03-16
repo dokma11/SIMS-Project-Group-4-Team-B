@@ -26,7 +26,7 @@ namespace Sims2023.Model.DAO
         }
         public void Add(KeyPoint keyPoint, List<string> keyPointNames, int toursId, int newToursNumber)
         {
-            for(int i = 1; i <= newToursNumber; i++)
+            for (int i = 1; i <= newToursNumber; i++)
             {
                 foreach (string keyPointName in keyPointNames)
                 {

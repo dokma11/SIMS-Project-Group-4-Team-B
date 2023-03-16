@@ -47,8 +47,8 @@ namespace Sims2023
 
         private void Guest2Click(object sender, RoutedEventArgs e)
         {
-            // var OpenGuest2View = new OpenGuest2View();
-            // OpenGuest2View.show();
+            Guest2MainWindow guest2MainWindow= new Guest2MainWindow();
+            guest2MainWindow.Show();
         }
     }
 }

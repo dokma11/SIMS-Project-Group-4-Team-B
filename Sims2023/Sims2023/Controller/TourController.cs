@@ -40,7 +40,7 @@ namespace Sims2023.Controller
                 MessageBox.Show("Unesite lokaciju ");
             }
 
-            if(locations.Count == 0) 
+            if (locations.Count == 0)
             {
                 for (int i = 0; i < newToursNumber; i++)
                 {
@@ -51,7 +51,7 @@ namespace Sims2023.Controller
             else
             {
                 //Checking if the location already exists
-                for(int i = 0; i < newToursNumber; i++)
+                for (int i = 0; i < newToursNumber; i++)
                 {
                     foreach (var locationInstance in locations)
                     {

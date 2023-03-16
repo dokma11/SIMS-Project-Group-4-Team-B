@@ -21,6 +21,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="View\Guest2MainWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\SearchToursWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\TourLocationsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="View\Guest2MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -39,6 +53,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\OwnerView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\SearchToursWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\TourLocationsView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

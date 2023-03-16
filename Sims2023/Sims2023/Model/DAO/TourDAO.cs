@@ -43,7 +43,7 @@ namespace Sims2023.Model.DAO
         {
             foreach (var tour in _tours)
             {
-                if(tour.Id == toursId)
+                if (tour.Id == toursId)
                 {
                     tour.LocationId = location.Id;
                     _repository.Save(_tours);
@@ -54,9 +54,9 @@ namespace Sims2023.Model.DAO
         }
         public void AddToursKeyPoints(string keyPointsString, int firstToursId)
         {
-            foreach(var tourInstance in _tours)
+            foreach (var tourInstance in _tours)
             {
-                if(tourInstance.Id == firstToursId)
+                if (tourInstance.Id == firstToursId)
                 {
                     tourInstance.KeyPointsString = keyPointsString;
                     firstToursId++;
