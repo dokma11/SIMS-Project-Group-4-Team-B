@@ -47,5 +47,40 @@ namespace Sims2023.Controller
             grades.Subscribe(observer);
         }
 
+        public bool isValid(string cleaN, string Respectrules, string Communicationn, string comment)
+        {
+            int clean;
+            bool isCleanValid = int.TryParse(cleaN, out clean);
+            int RespectRules;
+            bool isRulesValid = int.TryParse(Respectrules, out RespectRules);
+            int Communication;
+            bool isCommunicationValid = int.TryParse(Communicationn, out Communication);
+
+            if (!isCleanValid)
+            {
+               
+                return false;
+            }
+
+
+            else if (!isRulesValid)
+            {
+              
+                return false;
+            }
+
+            else if (!isCommunicationValid)
+            {
+              
+                return false;
+            }
+
+            else if (string.IsNullOrEmpty(comment)) return false;
+
+            else return true;
+
+
+        }
+
     }
 }

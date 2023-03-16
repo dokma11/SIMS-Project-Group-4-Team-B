@@ -62,7 +62,7 @@ namespace Sims2023.View
                 if (lastShownDate < DateTime.Today)
                 {
                   
-                    MessageBox.Show("Kliknite na dugme da bi ocijenili goste koji su odsjeli u ptethodnih par dana kod vas");
+                    MessageBox.Show("Kliknite na dugme da bi ocijenili goste koji su odsjeli u prethodnih par dana kod vas");
 
                     // Update the last shown date to today's date
                     File.WriteAllText(fileName, DateTime.Today.ToString());

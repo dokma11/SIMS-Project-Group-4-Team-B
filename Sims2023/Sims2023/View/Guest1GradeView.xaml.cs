@@ -41,30 +41,27 @@ namespace Sims2023.View
          
         }
 
+   
         private void grade_click(object sender, EventArgs e)
         {
             int id = 0;
             string cleaN = comboBox.Text;
-            int clean = int.Parse(cleaN);
-
             string Respectrules = comboBox1.Text;
-            int RespectRules = int.Parse(Respectrules);
-
             string Communicationn = comboBox2.Text;
-            int Communication = int.Parse(Communicationn);
-
             string comment = textBox.Text;
 
-
-            grade = new GuestGrade(id, guest.AccommodationId, guest.GuestId, clean, RespectRules, Communication, comment);
-
-            gradeCtrl.Create(grade);
-            MessageBox.Show("dodan korisnik");
-            gradeEntered = true;
-            Close();
-
-            
-
+            if (gradeCtrl.isValid(cleaN, Respectrules, Communicationn, comment))
+            {
+                int clean = int.Parse(cleaN);
+                int RespectRules = int.Parse(Respectrules);
+                int Communication = int.Parse(Communicationn);
+                grade = new GuestGrade(id, guest.AccommodationId, guest.GuestId, clean, RespectRules, Communication, comment);
+                gradeCtrl.Create(grade);
+                MessageBox.Show("Uspijesno davanje ocjene");
+                gradeEntered = true;
+                Close();
+            }
+            else MessageBox.Show("Popunite sve podatke");
         }
 
     }
