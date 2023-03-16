@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Model
 {
-    class GuestGrade : ISerializable, INotifyPropertyChanged
+    public class GuestGrade : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public int AccommodationId { get; set; }
@@ -49,7 +49,7 @@ namespace Sims2023.Model
             Cleanliness = int.Parse(values[3]);
             RespectRules = int.Parse(values[4]);
             Communication= int.Parse(values[5]);
-            Comment = (values[6]);
+            Comment = values[6];
         }
 
 

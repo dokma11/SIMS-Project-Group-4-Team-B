@@ -37,7 +37,7 @@ namespace Sims2023.Model.DAO
 
 
 
-        private void AddNameSurrnameToReservation(List<Guest> ListOfGuests, List<AccommodationReservation> reservatons)
+        private void addNameSurrnameToReservation(List<Guest> ListOfGuests, List<AccommodationReservation> reservatons)
         {
             foreach (var reservation in reservatons)
             {
@@ -52,7 +52,7 @@ namespace Sims2023.Model.DAO
             }
         }
 
-        private void AddReservationName(List<AccommodationReservation> reservatons, List<Accommodation> accommodations)
+        private void addReservationName(List<AccommodationReservation> reservatons, List<Accommodation> accommodations)
         {
             foreach (var reservation in reservatons)
             {
@@ -67,13 +67,52 @@ namespace Sims2023.Model.DAO
             }
         }
 
+        private void removeAlreadyGraded(List<AccommodationReservation> reservations, List<GuestGrade> grades)
+        {
+            for (int i = reservations.Count - 1; i >= 0; i--)
+            {
+                var reservation = reservations[i];
+                foreach (var grade in grades)
+                {
+                    if (reservation.GuestId == grade.GuestId)
+                    {
+                        reservations.RemoveAt(i);
+                        
+                    }
+                }
+            }
+        }
 
-        public List<AccommodationReservation> findGradableGuests(List<Guest> ListOfGuests, List<Accommodation> _accommodations, List<AccommodationReservation> reservatons)
+        private void findGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons)
+        {
+            for (int i = reservatons.Count - 1; i >= 0; i--)
+            {
+                DateTime lastDate = reservatons[i].StartDate.AddDays(reservatons[i].NumberOfDays);
+
+                TimeSpan elapsed = DateTime.Now - lastDate;
+                int totalDays = (int)elapsed.TotalDays;
+
+                if (lastDate < DateTime.Now)
+                {
+                    if (totalDays > 5)
+                        reservatons.RemoveAt(i);
+                }              
+               else if(lastDate > DateTime.Now)
+                {
+                    reservatons.RemoveAt(i);
+                }
+
+            }
+        }
+
+
+        public List<AccommodationReservation> findGradableGuests(List<Guest> ListOfGuests, List<Accommodation> _accommodations, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
 
-            AddNameSurrnameToReservation(ListOfGuests, reservatons);
-            AddReservationName(reservatons, _accommodations);
-
+            addNameSurrnameToReservation(ListOfGuests, reservatons);
+            addReservationName(reservatons, _accommodations);
+            removeAlreadyGraded(reservatons, grades);
+            findGuestsWhoRecentlyLeft(reservatons);
             return reservatons;
 
         }

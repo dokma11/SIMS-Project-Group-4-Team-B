@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.View"
         mc:Ignorable="d"
-        Title="Guest1GradeView" Height="450" Width="800">
+        Title="Guest1GradeView" Height="500" Width="800">
     <Grid>
         <Label x:Name="label" Content="Čistoća" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="62,71,0,0" VerticalAlignment="Top" Width="115"/>
         <Label x:Name="label1" Content="Poštovanje pravila" HorizontalAlignment="Left" HorizontalContentAlignment="Center"  Margin="62,126,0,0" VerticalAlignment="Top" Width="114"/>
@@ -40,7 +40,7 @@
         <CheckBox x:Name="checkBox1" Content="ne" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="312,240,0,0" VerticalAlignment="Top" Height="26"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="252,305,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="371" Height="109"/>
         <Label x:Name="label5" Content="Ocjenjivanje gosta" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="252,10,0,0" VerticalAlignment="Top" Width="237"/>
-        <Button x:Name="button" Content="Daj ocjenu" HorizontalAlignment="Left" Margin="565,139,0,0" VerticalAlignment="Top" Height="55" Width="165"/>
+        <Button x:Name="button" Click="grade_click" Content="Daj ocjenu" HorizontalAlignment="Left" Margin="565,139,0,0" VerticalAlignment="Top" Height="55" Width="165"/>
 
 
 
