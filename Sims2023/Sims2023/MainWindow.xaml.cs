@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sims2023.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,20 +29,20 @@ namespace Sims2023
 
         private void OwnerClick(object sender, RoutedEventArgs e)
         {
-            // var OpenAccommodationRegistrationView = new OpenAccommodationRegistrationView();
-            // OpenAccommodationRegistrationView.show();
+             var newWindow = new OwnerView();
+             newWindow.Show();
         }
 
         private void Guest1Click(object sender, RoutedEventArgs e)
         {
-            // var OpenGuest1View = new OpenGuest1View();
-            // OpenGuest1View.show();
+            var Guest1MainWindow = new Guest1MainWindow();
+            Guest1MainWindow.Show();
         }
 
         private void GuideClick(object sender, RoutedEventArgs e)
         {
-            // var OpenCreateTourView = new OpenCreateTourView();
-            // OpenCreateTourView.show();
+            GuideView guideView = new GuideView();
+            guideView.Show();
         }
 
         private void Guest2Click(object sender, RoutedEventArgs e)

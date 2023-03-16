@@ -39,7 +39,7 @@ namespace Sims2023.Model.DAO
             }
         }
 
-        public void AddToursLocation(int toursId, Location location)
+        public void AddToursLocation(int toursId, Location location) 
         {
             foreach (var tour in _tours)
             {
@@ -65,10 +65,10 @@ namespace Sims2023.Model.DAO
                 }
             }
         }
-        public void Remove(Tour tour)
+        public void Remove(Tour tour) 
         {
             _tours.Remove(tour);
-            _repository.Save(_tours);
+            _repository.Save(_tours);   
             NotifyObservers();
         }
         public List<Tour> GetAll()

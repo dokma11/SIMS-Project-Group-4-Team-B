@@ -26,13 +26,13 @@ namespace Sims2023.Repository
             return _tours.FirstOrDefault(t => t.Id == id);
         }
 
-        public List<Tour> Load()
+        public List<Tour> Load() 
         {
             _tours = _serializer.FromCSV(FilePath);
             return _tours;
         }
 
-        public void Save(List<Tour> tours)
+        public void Save(List<Tour> tours) 
         {
             _serializer.ToCSV(FilePath, tours);
         }

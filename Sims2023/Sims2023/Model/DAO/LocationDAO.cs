@@ -32,7 +32,7 @@ namespace Sims2023.Model.DAO
             NotifyObservers();
         }
         public void Remove(Location location)
-        {
+        { 
             _locations.Remove(location);
             _repository.Save(_locations);
             NotifyObservers();

@@ -29,11 +29,11 @@ namespace Sims2023.Controller
         {
             _tour.Add(tour, dateTimes, location);
         }
-        public void AddToursLocation(Tour tour, Location location, int newToursNumber)
+        public void AddToursLocation(Tour tour, Location location, int newToursNumber) 
         {
             List<Location> locations = _location.GetAll();
             int counter = 0;
-            int toursId = tour.Id - newToursNumber + 1;
+            int toursId = tour.Id - newToursNumber + 1;   
 
             if (location.City == null || location.Country == null)
             {

@@ -25,7 +25,7 @@ namespace Sims2023.Model
         {
             ShowedGuestsIds = new List<int>();
         }
-        public KeyPoint(int id, string name, State currentState, string showedGuestsIdsString, int toursId)
+        public KeyPoint(int id, string name, State currentState, string showedGuestsIdsString, int toursId) 
         {
             Id = id;
             Name = name;
