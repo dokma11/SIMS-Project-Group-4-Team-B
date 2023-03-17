@@ -1,20 +1,17 @@
 ﻿using Sims2023.Model;
 using Sims2023.Serialization;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Repository
 {
-    public class KeyPointRepository
+    public class KeyPointFileHandler
     {
         private List<KeyPoint> _keyPoints;
         private readonly Serializer<KeyPoint> _serializer;
         private const string FilePath = "../../../Resources/Data/keyPoints.csv";
 
-        public KeyPointRepository()
+        public KeyPointFileHandler()
         {
             _serializer = new Serializer<KeyPoint>();
             _keyPoints = _serializer.FromCSV(FilePath);

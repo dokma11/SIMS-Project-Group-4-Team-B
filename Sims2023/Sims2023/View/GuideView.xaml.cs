@@ -26,9 +26,13 @@ namespace Sims2023.View
         private TourController _tourController;
         private LocationController _locationController;
         private KeyPointController _keyPointController;
+        private UserController _userController;
+        private TourReservationController _tourReservationController;
         public Tour Tour { get; set; }
         public Tour SelectedTour { get; set; }
-        public ObservableCollection<Tour> Tours { get; set; }
+        public ObservableCollection<Tour> ToursToDisplay { get; set; }
+        public ObservableCollection<Tour> AllTours { get; set; }
+
         public GuideView()
         {
             InitializeComponent();
@@ -36,32 +40,77 @@ namespace Sims2023.View
 
             _tourController = new TourController();
             _tourController.Subscribe(this);
-            Tours = new ObservableCollection<Tour>(_tourController.GetAllTours());
 
             _locationController = new LocationController();
             _locationController.Subscribe(this);
 
             _keyPointController = new KeyPointController();
             _keyPointController.Subscribe(this);
+
+            _userController = new UserController();
+            _userController.Subscribe(this);
+
+            _tourReservationController = new TourReservationController();
+            _tourReservationController.Subscribe(this);
+
+            ToursToDisplay = new ObservableCollection<Tour>();
+            AllTours = new ObservableCollection<Tour>(_tourController.GetAllTours());
+            //filtering tours so that only those that take place today are displayed
+            foreach (Tour tour in AllTours)
+            {
+                if(tour.Start == DateTime.Today)
+                {
+                    ToursToDisplay.Add(tour);
+                }
+            }
         }
 
-        private void CreateButtonClicked(object sender, RoutedEventArgs e)
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             CreateTourView createTourView = new(_tourController, _locationController, _keyPointController);
             createTourView.Show();  
         }
 
-        public void Update()
+        private void StartTourButton_Click(object sender, RoutedEventArgs e)
         {
-            UpdateTourList();
+            if(SelectedTour != null && SelectedTour.CurrentState == Tour.State.Created)
+            {
+                startTourButton.IsEnabled = false;
+                LiveTourTrackingView liveTourTrackingView = new(SelectedTour, _keyPointController, _tourReservationController, _userController);
+                liveTourTrackingView.Closed += LiveTourTrackingView_Closed;
+                liveTourTrackingView.Show();
+                Update();
+            }
+            else if(SelectedTour != null && SelectedTour.CurrentState != Tour.State.Created)
+            {
+                MessageBox.Show("Ne mozete zapoceti turu koja je ranije zapoceta");
+            }
+            else
+            {
+                MessageBox.Show("Odaberite turu koju zelite da zapocnete");
+            }
         }
 
-        public void UpdateTourList()
+        private void LiveTourTrackingView_Closed(object sender, EventArgs e)
         {
-            Tours.Clear();
+            startTourButton.IsEnabled = true;
+            Update();
+            _tourController.Save();
+            _keyPointController.Save();
+        }
+
+        public void Update()
+        {
+            //updating the tours that are currently displayed
+            ToursToDisplay.Clear();
+            AllTours.Clear();
             foreach(var tour in _tourController.GetAllTours()) 
             {
-                Tours.Add(tour);
+                AllTours.Add(tour);
+                if(tour.Start == DateTime.Today)
+                {
+                    ToursToDisplay.Add(tour);
+                }
             }
         }
     }

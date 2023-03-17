@@ -2,11 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Model
 {
@@ -25,7 +20,7 @@ namespace Sims2023.Model
         {
             ShowedGuestsIds = new List<int>();
         }
-        public KeyPoint(int id, string name, State currentState, string showedGuestsIdsString, int toursId) 
+        public KeyPoint(int id, string name, State currentState, string showedGuestsIdsString, int toursId)
         {
             Id = id;
             Name = name;
@@ -43,7 +38,14 @@ namespace Sims2023.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, CurrentState.ToString(), ShowedGuestsIdsString, ToursId.ToString() };
+            string[] csvValues = 
+            { 
+                Id.ToString(), 
+                Name, 
+                CurrentState.ToString(), 
+                ShowedGuestsIdsString, 
+                ToursId.ToString() 
+            };
             return csvValues;
         }
 

@@ -1,20 +1,17 @@
 ﻿using Sims2023.Model;
 using Sims2023.Serialization;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Repository
 {
-    public class LocationRepository
+    public class LocationFileHandler
     {
         private List<Location> _locations;
         private readonly Serializer<Location> _serializer;
         private const string FilePath = "../../../Resources/Data/locations.csv";
 
-        public LocationRepository()
+        public LocationFileHandler()
         {
             _serializer = new Serializer<Location>();
             _locations = _serializer.FromCSV(FilePath);

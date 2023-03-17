@@ -30,6 +30,7 @@
         <Label Grid.Row="2" Grid.Column="0">Opis</Label>
         <Label Grid.Row="3" Grid.Column="0">Jezik</Label>
         <Label Grid.Row="2" Grid.Column="1" Margin="238,43,222,43" Grid.RowSpan="3">Maks broj gostiju</Label>
+        <Label Grid.Row="4" Grid.Column="1" Margin="92,10,292,33" Grid.RowSpan="2">Dodajte ih po redosledu posete</Label>
         <Label Grid.Row="5" Grid.Column="0">Kljucne tacke</Label>
         <Label Grid.Row="6" Grid.Column="0">Datum i vreme pocetka</Label>
         <Label Grid.Row="7" Grid.Column="0">Trajanje</Label>
@@ -38,7 +39,7 @@
         <TextBox Name="cityTextBox" Grid.Column="1" Width="150" Text="{Binding Path=Location.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="100,43,350,43" Grid.RowSpan="3"/>
         <TextBox Name="countryTextBox" Grid.Column="1" Width="150" Text="{Binding Path=Location.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="350,43,100,43" Grid.RowSpan="3"/>
         <TextBox Name="descriptionTextBox" Grid.Row="2" Grid.Column="1" Width="400" Text="{Binding Path=Tour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
-        <ComboBox Name="languageTextBox" Grid.Row="2" Grid.Column="1" Width="100" Text="{Binding Path=Tour.GuideLanguage, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" SelectionChanged="ComboBoxSelectionChanged" Margin="100,43,400,43" Grid.RowSpan="3">
+        <ComboBox Name="languageTextBox" Grid.Row="2" Grid.Column="1" Width="100" Text="{Binding Path=Tour.GuideLanguage, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" SelectionChanged="ComboBox_SelectionChanged" Margin="100,43,400,43" Grid.RowSpan="3">
             <ComboBoxItem>English</ComboBoxItem>
             <ComboBoxItem>Serbian</ComboBoxItem>
             <ComboBoxItem>German</ComboBoxItem>
@@ -57,7 +58,7 @@
         <Button Name="addMoreDatesButton" Click="AddMoreDates" Grid.Row="5" Grid.Column="1" Margin="425,43,50,43" Grid.RowSpan="3">+</Button>
         <TextBox Name="lengthTextBox" Grid.Row="7" Grid.Column="1" Text="{Binding Path=Tour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="100,0,350,0" PreviewTextInput="LengthTextBox_PreviewTextInput"/>
         <TextBox Name="picturesTextBox" Grid.Row="8" Grid.Column="1" Width="400" Text="{Binding Path=Tour.PicturesString, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
-        <Button Name="submitButton" Click="SubmitButtonClicked" Grid.Row="9" Grid.Column="1" Width="100">Submit</Button>
-        <Button Click="CancelButtonClicked" Grid.Row="9" Grid.Column="1" Width="70" Margin="400, 0, 0, 0">Cancel</Button>
+        <Button Name="submitButton" Click="SubmitButton_Click" Grid.Row="9" Grid.Column="1" Width="100">Submit</Button>
+        <Button Click="CancelButton_Click" Grid.Row="9" Grid.Column="1" Width="70" Margin="400, 0, 0, 0">Cancel</Button>
     </Grid>
 </Window>
