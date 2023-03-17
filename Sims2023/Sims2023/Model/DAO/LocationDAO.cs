@@ -12,11 +12,11 @@ namespace Sims2023.Model.DAO
     {
         private List<IObserver> _observers;
         private List<Location> _locations;
-        private LocationRepository _repository;
+        private LocationFileHandler _fileHandler;
         public LocationDAO()
         {
-            _repository = new LocationRepository();
-            _locations = _repository.Load();
+            _fileHandler = new LocationFileHandler();
+            _locations = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
         public int NextId()
@@ -28,13 +28,13 @@ namespace Sims2023.Model.DAO
         {
             location.Id = NextId();
             _locations.Add(location);
-            _repository.Save(_locations);
+            _fileHandler.Save(_locations);
             NotifyObservers();
         }
         public void Remove(Location location)
         { 
             _locations.Remove(location);
-            _repository.Save(_locations);
+            _fileHandler.Save(_locations);
             NotifyObservers();
         }
         public List<Location> GetAll()

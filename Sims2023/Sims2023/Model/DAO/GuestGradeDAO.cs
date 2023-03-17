@@ -12,15 +12,15 @@ namespace Sims2023.Model.DAO
     {
         private List<IObserver> _observers;
 
-        private GuestGradeFileHandler _repository;
+        private GuestGradeFileHandler _fileHandler;
         private List<GuestGrade> grades;
 
 
 
         public GuestGradeDAO()
         {
-            _repository = new GuestGradeFileHandler();
-            grades = _repository.Load();
+            _fileHandler = new GuestGradeFileHandler();
+            grades = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
 
@@ -35,14 +35,14 @@ namespace Sims2023.Model.DAO
         {
             grade.Id = NextId();
             grades.Add(grade);
-            _repository.Save(grades);
+            _fileHandler.Save(grades);
             NotifyObservers();
         }
 
         public void Remove(GuestGrade grade)
         {
             grades.Remove(grade);
-            _repository.Save(grades);
+            _fileHandler.Save(grades);
             NotifyObservers();
         }
 
@@ -54,7 +54,7 @@ namespace Sims2023.Model.DAO
                 grades[index] = AccLoc;
             }
 
-            _repository.Save(grades);
+            _fileHandler.Save(grades);
             NotifyObservers();
         }
 

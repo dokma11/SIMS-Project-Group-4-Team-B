@@ -12,13 +12,13 @@ namespace Sims2023.Model.DAO
     {
         private List<IObserver> _observers;
 
-        private AccommodationReservationRepository _repository;
+        private AccommodationReservationFileHandler _fileHandler;
         private List<AccommodationReservation> _accommodationReservations;
 
         public AccommodationReservationDAO()
         {
-            _repository = new AccommodationReservationRepository();
-            _accommodationReservations = _repository.Load();
+            _fileHandler = new AccommodationReservationFileHandler();
+            _accommodationReservations = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
 
@@ -31,7 +31,7 @@ namespace Sims2023.Model.DAO
         {
             reservation.Id = NextId();
             _accommodationReservations.Add(reservation);
-            _repository.Save(_accommodationReservations);
+            _fileHandler.Save(_accommodationReservations);
             NotifyObservers();
         }
 
@@ -139,7 +139,7 @@ namespace Sims2023.Model.DAO
         public void Remove(AccommodationReservation reservation)
         {
             _accommodationReservations.Remove(reservation);
-            _repository.Save(_accommodationReservations);
+            _fileHandler.Save(_accommodationReservations);
             NotifyObservers();
         }
 
@@ -151,7 +151,7 @@ namespace Sims2023.Model.DAO
                 _accommodationReservations[index] = reservation;
             }
 
-            _repository.Save(_accommodationReservations);
+            _fileHandler.Save(_accommodationReservations);
             NotifyObservers();
         }
 
