@@ -10,9 +10,8 @@
         <Label x:Name="label" Content="Čistoća" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="62,71,0,0" VerticalAlignment="Top" Width="115"/>
         <Label x:Name="label1" Content="Poštovanje pravila" HorizontalAlignment="Left" HorizontalContentAlignment="Center"  Margin="62,126,0,0" VerticalAlignment="Top" Width="114"/>
         <Label x:Name="label2" Content="Komunikacija" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="62,181,0,0" VerticalAlignment="Top" Width="115"/>
-        <Label x:Name="label3" Content="Načinjena materijalna šteta" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="42,234,0,0" VerticalAlignment="Top" Width="154"/>
-        <Label x:Name="label4" Content="Dodatni komentar" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="62,305,0,0" VerticalAlignment="Top" Width="115"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="252,71,0,0" VerticalAlignment="Top" Width="119" Height="26">
+        <Label x:Name="label4" Content="Dodatni komentar" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="62,255,0,0" VerticalAlignment="Top" Width="115"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="215,71,0,0" VerticalAlignment="Top" Width="119" Height="26">
             <ComboBoxItem Content="1"/>
             <ComboBoxItem Content="2"/>
             <ComboBoxItem Content="3"/>
@@ -20,7 +19,7 @@
             <ComboBoxItem Content="5" />
 
         </ComboBox>
-        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="252,126,0,0" VerticalAlignment="Top" Width="120" Height="26">
+        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="214,123,0,0" VerticalAlignment="Top" Width="120" Height="26">
             <ComboBoxItem Content="1"/>
             <ComboBoxItem Content="2"/>
             <ComboBoxItem Content="3"/>
@@ -28,7 +27,7 @@
             <ComboBoxItem Content="5" />
 
         </ComboBox>
-        <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" Margin="252,181,0,0" VerticalAlignment="Top" Width="120" Height="26">
+        <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" Margin="214,181,0,0" VerticalAlignment="Top" Width="120" Height="26">
             <ComboBoxItem Content="1"/>
             <ComboBoxItem Content="2"/>
             <ComboBoxItem Content="3"/>
@@ -36,9 +35,7 @@
             <ComboBoxItem Content="5" />
 
         </ComboBox>
-        <CheckBox x:Name="checkBox" Content="da" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="252,241,0,0" VerticalAlignment="Top" Height="26"/>
-        <CheckBox x:Name="checkBox1" Content="ne" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="312,240,0,0" VerticalAlignment="Top" Height="26"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="252,305,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="371" Height="109"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Center" Margin="0,255,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372" Height="165"/>
         <Label x:Name="label5" Content="Ocjenjivanje gosta" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="252,10,0,0" VerticalAlignment="Top" Width="237"/>
         <Button x:Name="button" Click="grade_click" Content="Daj ocjenu" HorizontalAlignment="Left" Margin="565,139,0,0" VerticalAlignment="Top" Height="55" Width="165"/>
 
