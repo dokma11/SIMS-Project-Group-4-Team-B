@@ -29,9 +29,12 @@ namespace Sims2023.View
         private AccommodationController accommodationCtrl;
         private AccomodationLocationController accommodationLocationCtrl;
         private AccommodationReservationController accommodationReservationCtrl;
+        private GuestGradeController gradeController;
         private GuestFileHandler fh;
         private List<Guest> guests;
         public List<AccommodationReservation> reservatons { get; set; }
+        public List<AccommodationReservation> gradableGuests { get; set; }
+
 
         public OwnerView()
         {
@@ -43,8 +46,12 @@ namespace Sims2023.View
             fh = new GuestFileHandler();
             guests = new List<Guest>(fh.Load());
             accommodationReservationCtrl = new AccommodationReservationController();
+            gradeController = new GuestGradeController();
 
             reservatons = new List<AccommodationReservation>(accommodationReservationCtrl.GetAllReservations());
+
+            gradableGuests = new List<AccommodationReservation>(accommodationReservationCtrl.getGradableGuests(guests, accommodationCtrl.GetAllAccommodations(),
+                                                                                reservatons, gradeController.GetAllGrades()));
 
         }
 
@@ -61,16 +68,20 @@ namespace Sims2023.View
 
                 if (lastShownDate < DateTime.Today)
                 {
-                  
-                    MessageBox.Show("Kliknite na dugme da bi ocijenili goste koji su odsjeli u prethodnih par dana kod vas");
+                    if (gradableGuests.Count != 0)
+                    {
+                        MessageBox.Show(accommodationReservationCtrl.GetAllUngradedNames(gradableGuests));
 
-                    // Update the last shown date to today's date
-                    File.WriteAllText(fileName, DateTime.Today.ToString());
+                        // Update the last shown date to today's date
+                        File.WriteAllText(fileName, DateTime.Today.ToString());
+                    }
+
+                  
                 }
             }
             catch (FileNotFoundException)
             {
-                // The last shown date file does not exist, so create it with today's date
+             
                 File.WriteAllText(fileName, DateTime.Today.ToString());
             }
         }

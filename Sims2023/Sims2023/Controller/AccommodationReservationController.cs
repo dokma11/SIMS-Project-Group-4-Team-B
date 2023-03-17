@@ -23,7 +23,10 @@ namespace Sims2023.Controller
             return _accommodationReservations.findGradableGuests(ListOfGuests, _accommodations, reservatons, grades);
         }
 
-
+        public string GetAllUngradedNames(List<AccommodationReservation> ungradedGuests)
+        {
+            return _accommodationReservations.ungradedGuestsNameAndSurrname(ungradedGuests);
+        }
 
         public List<AccommodationReservation> GetAllReservations()
         {

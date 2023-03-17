@@ -36,7 +36,7 @@ namespace Sims2023.Model.DAO
         }
 
 
-
+        // function that gets name and surrname of each guest who has reservation
         private void addNameSurrnameToReservation(List<Guest> ListOfGuests, List<AccommodationReservation> reservatons)
         {
             foreach (var reservation in reservatons)
@@ -52,6 +52,7 @@ namespace Sims2023.Model.DAO
             }
         }
 
+        // for every guest who has reservation i get the exact name of accommodation
         private void addReservationName(List<AccommodationReservation> reservatons, List<Accommodation> accommodations)
         {
             foreach (var reservation in reservatons)
@@ -67,6 +68,7 @@ namespace Sims2023.Model.DAO
             }
         }
 
+        // guests who are already graded should not appear in a list
         private void removeAlreadyGraded(List<AccommodationReservation> reservations, List<GuestGrade> grades)
         {
             for (int i = reservations.Count - 1; i >= 0; i--)
@@ -77,12 +79,13 @@ namespace Sims2023.Model.DAO
                     if (reservation.GuestId == grade.GuestId)
                     {
                         reservations.RemoveAt(i);
-                        
+
                     }
                 }
             }
         }
 
+        // searching for the guests who left not more than 5 days ago
         private void findGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons)
         {
             for (int i = reservatons.Count - 1; i >= 0; i--)
@@ -96,8 +99,8 @@ namespace Sims2023.Model.DAO
                 {
                     if (totalDays > 5)
                         reservatons.RemoveAt(i);
-                }              
-               else if(lastDate > DateTime.Now)
+                }
+                else if (lastDate > DateTime.Now)
                 {
                     reservatons.RemoveAt(i);
                 }
@@ -105,7 +108,7 @@ namespace Sims2023.Model.DAO
             }
         }
 
-
+        // finds all guests who owner can grade
         public List<AccommodationReservation> findGradableGuests(List<Guest> ListOfGuests, List<Accommodation> _accommodations, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
 
@@ -117,7 +120,18 @@ namespace Sims2023.Model.DAO
 
         }
 
-
+        // shows all ungraded guests in a notification
+        public string ungradedGuestsNameAndSurrname(List<AccommodationReservation> ungradedGuests)
+        {
+            string string1 = "Imate neocijenjene goste: \n";
+        
+                foreach (var guest in ungradedGuests)
+                {
+                string1 += guest.Name + guest.Surrname + "\n";
+                }
+                return string1;
+        }
+         
 
 
 
