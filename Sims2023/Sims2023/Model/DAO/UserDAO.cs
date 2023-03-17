@@ -47,6 +47,11 @@ namespace Sims2023.Model.DAO
             return _users;
         }
 
+        public User GetById(int id)
+        {
+            return _fileHandler.GetById(id);
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

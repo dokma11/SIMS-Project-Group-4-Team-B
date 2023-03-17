@@ -1,10 +1,7 @@
 ﻿using Sims2023.Model;
 using Sims2023.Serialization;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Repository
 {
@@ -14,7 +11,7 @@ namespace Sims2023.Repository
         private readonly Serializer<User> _serializer;
         private const string FilePath = "../../../Resources/Data/users.csv";
 
-        public UserFileHandler() 
+        public UserFileHandler()
         {
             _serializer = new Serializer<User>();
             _users = _serializer.FromCSV(FilePath);

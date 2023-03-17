@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MarkGuestsPresentView" Height="350" Width="400" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid x:Name="guestDataGrid" ItemsSource="{Binding Guests}" SelectionMode="Extended" Width="326" Height="247" Margin="37,10,37,77" IsReadOnly="True" AutoGenerateColumns="False">
+        <DataGrid x:Name="guestDataGrid" ItemsSource="{Binding GuestsToDisplay}" SelectionMode="Extended" Width="326" Height="247" Margin="37,10,37,77" IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv" Binding="{Binding}"/>
+                <DataGridTextColumn Header="Korisnicko ime" Binding="{Binding UserName}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="cancelButton" Click="CancelButton_Click" Content="Cancel" Margin="255,274,85,20"/>

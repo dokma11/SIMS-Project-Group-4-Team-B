@@ -6,7 +6,7 @@
 6|most|NotVisited||2
 7|sat na tvrdjavi|NotVisited||2
 8|kej|NotVisited||2
-9|centar|NotVisited||3
+9|centar|BeingVisited||3
 10|most|NotVisited||3
 11|sat na tvrdjavi|NotVisited||3
 12|kej|NotVisited||3
@@ -20,8 +20,28 @@
 20|dvor|NotVisited||5
 21|bastion|NotVisited||5
 22|bazilika|NotVisited||5
-23|market|NotVisited||6
-24|brdo|NotVisited||6
-25|dvor|NotVisited||6
-26|bastion|NotVisited||6
-27|bazilika|NotVisited||6
+23|market|Visited|1 2 4 |6
+24|brdo|Visited|3 |6
+25|dvor|Visited||6
+26|bastion|Visited||6
+27|bazilika|BeingVisited||6
+28|1|NotVisited||7
+29|2|NotVisited||7
+30|q|NotVisited||8
+31|w|NotVisited||8
+32|1|Visited||9
+33|2|BeingVisited||9
+34|1|NotVisited||10
+35|2|NotVisited||10
+36|Spomenik Mileticu|Visited|2 3 2 5 |11
+37|Pravoslavna crkva|Visited|2 3 |11
+38|Spomenik Zmaju|Visited|1 4 |11
+39|Dunavski park|BeingVisited||11
+40|Spomenik Mileticu|NotVisited||12
+41|Pravoslavna crkva|NotVisited||12
+42|Spomenik Zmaju|NotVisited||12
+43|Dunavski park|NotVisited||12
+44|Spomenik Mileticu|NotVisited||13
+45|Pravoslavna crkva|NotVisited||13
+46|Spomenik Zmaju|NotVisited||13
+47|Dunavski park|NotVisited||13

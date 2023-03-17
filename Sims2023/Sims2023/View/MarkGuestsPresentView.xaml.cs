@@ -1,8 +1,8 @@
-﻿using Sims2023.Model;
+﻿using Sims2023.Controller;
+using Sims2023.Model;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Documents;
 
 namespace Sims2023.View
 {
@@ -12,105 +12,81 @@ namespace Sims2023.View
     public partial class MarkGuestsPresentView : Window
     {
         public KeyPoint KeyPoint { get; set; }
-        public ObservableCollection<string> Guests { get; set; }
-        public List<string> Guests2 { get; set; }
-        public List<string> Guests3 { get; set; }
+        public ObservableCollection<User> GuestsToDisplay { get; set; }
 
-        public MarkGuestsPresentView(KeyPoint keyPoint)
+        private UserController _userController;
+        private TourReservationController _tourReservationController;
+        public List<User> MarkedGuests { get; set; }
+        public MarkGuestsPresentView(KeyPoint keyPoint, TourReservationController tourReservationController, UserController userController, List<User> markedGuests)
         {
             InitializeComponent();
             DataContext = this;
 
-            Guests = new ObservableCollection<string>
-            {
-                "pera",
-                "mika",
-                "djoka",
-                "sale",
-                "rale"
-            };
-
-            Guests2 = new List<string>();
-            Guests3 = new List<string>();
-
             KeyPoint = keyPoint;
-            if (KeyPoint.ShowedGuestsIdsString == null)
-            {
-                KeyPoint.ShowedGuestsIdsString = "";
-            }
 
-            Update();
+            _tourReservationController = tourReservationController;
+            _userController = userController;
+
+            MarkedGuests = markedGuests;
+
+            GuestsToDisplay = new ObservableCollection<User>();
+
+            InitializeGuestsToDisplay();
+        }
+
+        private void InitializeGuestsToDisplay()
+        {
+            foreach (var tourReservation in _tourReservationController.GetAllReservations())
+            {
+                if (tourReservation.TourId == KeyPoint.ToursId)
+                {
+                    User Guest = _userController.GetById(tourReservation.UserId);
+                    if (!CheckIfGuestMarked(tourReservation, Guest))
+                    {
+                        GuestsToDisplay.Add(Guest);
+                    }
+                }
+            }
+        }
+
+        private bool CheckIfGuestMarked(TourReservation tourReservation, User guest)
+        {
+            if (!KeyPoint.ShowedGuestsIds.Contains(tourReservation.UserId))
+            {
+                foreach (var markedGuest in MarkedGuests)
+                {
+                    if (markedGuest.Id == guest.Id)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            return true;
         }
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var guest in guestDataGrid.SelectedItems)
+            if (guestDataGrid.SelectedItems.Count > 0)
             {
-                if ((string)guest == "pera")
+                //initialize the start of the string if necessary
+                if (KeyPoint.ShowedGuestsIds == null)
                 {
-                    KeyPoint.ShowedGuestsIds.Add(1);
-                    KeyPoint.ShowedGuestsIdsString += " pera";
-                    Guests3.Add((string)guest);
+                    KeyPoint.ShowedGuestsIdsString = "";
                 }
-                else if ((string)guest == "mika")
+                foreach (User user in guestDataGrid.SelectedItems)
                 {
-                    KeyPoint.ShowedGuestsIds.Add(2);
-                    KeyPoint.ShowedGuestsIdsString += " mika";
-                    Guests3.Add((string)guest);
+                    KeyPoint.ShowedGuestsIds.Add(user.Id);
+                    KeyPoint.ShowedGuestsIdsString += user.Id.ToString() + " ";
+                    MarkedGuests.Add(user);
                 }
-                else if ((string)guest == "djoka")
-                {
-                    KeyPoint.ShowedGuestsIds.Add(3);
-                    KeyPoint.ShowedGuestsIdsString += " djoka";
-                    Guests3.Add((string)guest);
-                }
-                else if ((string)guest == "sale")
-                {
-                    KeyPoint.ShowedGuestsIds.Add(4);
-                    KeyPoint.ShowedGuestsIdsString += " sale";
-                    Guests3.Add((string)guest);
-                }
-                else if ((string)guest == "rale")
-                {
-                    KeyPoint.ShowedGuestsIds.Add(5);
-                    KeyPoint.ShowedGuestsIdsString += " rale";
-                    Guests3.Add((string)guest);
-                }
-                else
-                {
-                    MessageBox.Show("Odaberite gosta kojeg zelite da dodate");
-                }
-                Close();
             }
-        }
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
             Close();
         }
 
-        public void Update()
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach(var guest in Guests)
-            {
-                Guests2.Add(guest);
-            }
-
-            Guests.Clear();
-
-            int counter = 0;
-            foreach(var guest2 in Guests2)
-            {
-                foreach(var guest3 in Guests3)
-                {
-                    if (guest2 == guest3)
-                        counter++;
-                }
-                if (!KeyPoint.ShowedGuestsIdsString.Contains(guest2) && counter == 0)
-                {
-                    Guests.Add(guest2);
-                }
-                counter = 0;
-            }
+            Close();
         }
     }
 }

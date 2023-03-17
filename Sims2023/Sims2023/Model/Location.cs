@@ -26,7 +26,12 @@ namespace Sims2023.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), City, Country}; 
+            string[] csvValues = 
+            { 
+                Id.ToString(), 
+                City, 
+                Country
+            }; 
             return csvValues;
         }
 

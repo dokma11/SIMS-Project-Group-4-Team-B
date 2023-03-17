@@ -3,18 +3,7 @@ using Sims2023.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Sims2023.View
 {
@@ -27,15 +16,18 @@ namespace Sims2023.View
         public KeyPoint SelectedKeyPoint { get; set; }
 
         private KeyPointController _keyPointController;
+        private UserController _userController;
+        private TourReservationController _tourReservationController;
         public ObservableCollection<KeyPoint> KeyPointsToShow { get; set; }
         public ObservableCollection<KeyPoint> AllKeyPoints { get; set; }
 
         public int firstKeyPointId = -1;
-        
         public int lastKeyPointId = -1;
-
         public int lastVisitedKeyPointId = -1;
-        public LiveTourTrackingView(Tour tour, KeyPointController keyPointController)
+
+        public List<User> MarkedGuests { get; set; }
+
+        public LiveTourTrackingView(Tour tour, KeyPointController keyPointController, TourReservationController tourReservationController, UserController userController)
         {
             InitializeComponent();
             DataContext = this;
@@ -44,21 +36,32 @@ namespace Sims2023.View
             Tour.CurrentState = Tour.State.Started;
 
             _keyPointController = keyPointController;
+            _tourReservationController = tourReservationController;
+            _userController = userController;
+
+            MarkedGuests = new List<User>();
 
             KeyPointsToShow = new ObservableCollection<KeyPoint>();
             AllKeyPoints = new ObservableCollection<KeyPoint>(_keyPointController.GetAllKeyPoints());
-            foreach(var keyPoint in AllKeyPoints)
+            foreach (var keyPoint in AllKeyPoints)
             {
-                if(keyPoint.ToursId == Tour.Id)
+                if (keyPoint.ToursId == Tour.Id)
                 {
                     KeyPointsToShow.Add(keyPoint);
                 }
             }
-            //Finding the start of the tour (the first KeyPoint)
+
+            firstKeyPointId = FindFirstKeyPoint();
+            lastVisitedKeyPointId = FindLastVisitedKeyPoint();
+            lastKeyPointId = FindLastKeyPoint();
+        }
+
+        private int FindFirstKeyPoint()
+        {
             int counter = 0;
-            foreach(var keyPoint in KeyPointsToShow)
+            foreach (var keyPoint in KeyPointsToShow)
             {
-                if(counter==0)
+                if (counter == 0)
                 {
                     firstKeyPointId = keyPoint.Id;
                     counter++;
@@ -69,18 +72,26 @@ namespace Sims2023.View
                     {
                         firstKeyPointId = keyPoint.Id;
                     }
-                }      
+                }
             }
+            return firstKeyPointId;
+        }
 
-            foreach(var keyPoint in KeyPointsToShow)
+        private int FindLastVisitedKeyPoint()
+        {
+            foreach (var keyPoint in KeyPointsToShow)
             {
-                if(keyPoint.Id == firstKeyPointId)
+                if (keyPoint.Id == firstKeyPointId)
                 {
                     keyPoint.CurrentState = KeyPoint.State.BeingVisited;
                     lastVisitedKeyPointId = keyPoint.Id;
                 }
             }
-            //Finding the end of the tour (the last KeyPoint)
+            return lastVisitedKeyPointId;
+        }
+
+        private int FindLastKeyPoint()
+        {
             foreach (var keyPoint in KeyPointsToShow)
             {
                 if (keyPoint.Id > lastKeyPointId)
@@ -88,15 +99,17 @@ namespace Sims2023.View
                     lastKeyPointId = keyPoint.Id;
                 }
             }
+            return lastKeyPointId;
         }
 
         private void MarkKeyPointButton_Click(object sender, RoutedEventArgs e)
         {
-            if(SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.NotVisited && SelectedKeyPoint.Id == lastVisitedKeyPointId+1)
+            if (SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.NotVisited && SelectedKeyPoint.Id == lastVisitedKeyPointId + 1)
             {
+                //mark previous key point as visited
                 foreach (var keyPoint in KeyPointsToShow)
                 {
-                    if (keyPoint.CurrentState == KeyPoint.State.BeingVisited)
+                    if (keyPoint.Id == lastVisitedKeyPointId)
                     {
                         keyPoint.CurrentState = KeyPoint.State.Visited;
                     }
@@ -104,7 +117,7 @@ namespace Sims2023.View
 
                 SelectedKeyPoint.CurrentState = KeyPoint.State.BeingVisited;
                 lastVisitedKeyPointId = SelectedKeyPoint.Id;
-                
+
                 if (SelectedKeyPoint.Id == lastKeyPointId)
                 {
                     Update();
@@ -115,11 +128,11 @@ namespace Sims2023.View
 
                 Update();
             }
-            else if(SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited)
+            else if (SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited)
             {
                 MessageBox.Show("Ne mozete oznaciti tacku na kojoj se trenutno nalazite");
             }
-            else if(SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.Visited)
+            else if (SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.Visited)
             {
                 MessageBox.Show("Ne mozete oznaciti tacku koju ste prosli");
             }
@@ -133,9 +146,10 @@ namespace Sims2023.View
         {
             if (SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited)
             {
-                MarkGuestsPresentView markGuestsPresentView = new(SelectedKeyPoint);
-                markGuestsPresentView.Closed += MarkGuestsPresentView_Closed; 
+                MarkGuestsPresentView markGuestsPresentView = new(SelectedKeyPoint, _tourReservationController, _userController, MarkedGuests);
+                markGuestsPresentView.Closed += MarkGuestsPresentView_Closed;
                 markGuestsPresentView.Show();
+                _keyPointController.Save();
             }
             else
             {
@@ -146,7 +160,17 @@ namespace Sims2023.View
         private void MarkGuestsPresentView_Closed(object sender, EventArgs e)
         {
             Update();
+            int counter = 0;
+            foreach (var tour in _tourReservationController.GetAllReservations())
+            {
+                if (tour.TourId == Tour.Id) counter++;
+            }
+            if (counter == MarkedGuests.Count)
+            {
+                markGuestsPresentButton.IsEnabled = false;
+            }
         }
+
         private void CancelTourButton_Click(object sender, RoutedEventArgs e)
         {
             Tour.CurrentState = Tour.State.Cancelled;
@@ -157,7 +181,8 @@ namespace Sims2023.View
                 Close();
             }
         }
-        private static MessageBoxResult ConfirmExit() 
+
+        private static MessageBoxResult ConfirmExit()
         {
             string sMessageBoxText = $"Izlaskom cete prekinuti trenutnu turu\n";
             string sCaption = "Da li ste sigurni da zelite da izadjete?";
@@ -168,7 +193,7 @@ namespace Sims2023.View
             MessageBoxResult result = MessageBox.Show(sMessageBoxText, sCaption, messageBoxButton, messageBoxImage);
             return result;
         }
-        
+
         private static MessageBoxResult ConfirmEnd()
         {
             string sMessageBoxText = $"Vasa tura se uspesno zavrsila. Potvrdite zavrsetak pritiskom na OK\n";
@@ -190,10 +215,10 @@ namespace Sims2023.View
         {
             KeyPointsToShow.Clear();
             AllKeyPoints.Clear();
-            foreach(var keyPoint in _keyPointController.GetAllKeyPoints())
+            foreach (var keyPoint in _keyPointController.GetAllKeyPoints())
             {
                 AllKeyPoints.Add(keyPoint);
-                if(keyPoint.ToursId == Tour.Id)
+                if (keyPoint.ToursId == Tour.Id)
                 {
                     KeyPointsToShow.Add(keyPoint);
                 }

@@ -13,7 +13,7 @@
                 <Button x:Name="startTourButton" Click="StartTourButton_Click">Zapocni turu</Button>
             </ToolBar>
         </DockPanel>
-        <DataGrid x:Name="toursDataGrid" Height="300" ItemsSource="{Binding ToursToShow, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True">
+        <DataGrid x:Name="toursDataGrid" Height="300" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True">
         </DataGrid>
     </StackPanel>
 </Window>

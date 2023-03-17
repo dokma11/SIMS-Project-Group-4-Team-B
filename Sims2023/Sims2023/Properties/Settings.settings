@@ -3,7 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="LastShownDate" Type="System.DateTime" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">2023-03-12</Value>
+    </Setting>
+    <Setting Name="NekiDejt" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">2025-03-20</Value>
     </Setting>
   </Settings>
 </SettingsFile>

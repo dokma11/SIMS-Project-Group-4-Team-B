@@ -25,12 +25,25 @@ namespace Sims2023.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2023-03-12")]
         public global::System.DateTime LastShownDate {
             get {
                 return ((global::System.DateTime)(this["LastShownDate"]));
             }
             set {
                 this["LastShownDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2025-03-20")]
+        public global::System.DateTime NekiDejt {
+            get {
+                return ((global::System.DateTime)(this["NekiDejt"]));
+            }
+            set {
+                this["NekiDejt"] = value;
             }
         }
     }

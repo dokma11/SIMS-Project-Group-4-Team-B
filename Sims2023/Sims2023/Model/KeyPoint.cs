@@ -2,19 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Model
 {
-    public class KeyPoint: ISerializable, INotifyPropertyChanged
+    public class KeyPoint : ISerializable, INotifyPropertyChanged
     {
-        public int Id {  get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public enum State { Visited, NotVisited, BeingVisited}
+        public enum State { Visited, NotVisited, BeingVisited }
         public State CurrentState { get; set; }
         //For now (while guest2 has not finished his work) I will be using only "simulated" ids from guests, will se if I'll continue like that
         public List<int> ShowedGuestsIds { get; set; }
@@ -25,7 +20,7 @@ namespace Sims2023.Model
         {
             ShowedGuestsIds = new List<int>();
         }
-        public KeyPoint(int id, string name, State currentState, string showedGuestsIdsString, int toursId) 
+        public KeyPoint(int id, string name, State currentState, string showedGuestsIdsString, int toursId)
         {
             Id = id;
             Name = name;
@@ -43,7 +38,14 @@ namespace Sims2023.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, CurrentState.ToString(), ShowedGuestsIdsString, ToursId.ToString()};
+            string[] csvValues = 
+            { 
+                Id.ToString(), 
+                Name, 
+                CurrentState.ToString(), 
+                ShowedGuestsIdsString, 
+                ToursId.ToString() 
+            };
             return csvValues;
         }
 

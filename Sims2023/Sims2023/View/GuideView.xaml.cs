@@ -26,9 +26,11 @@ namespace Sims2023.View
         private TourController _tourController;
         private LocationController _locationController;
         private KeyPointController _keyPointController;
+        private UserController _userController;
+        private TourReservationController _tourReservationController;
         public Tour Tour { get; set; }
         public Tour SelectedTour { get; set; }
-        public ObservableCollection<Tour> ToursToShow { get; set; }
+        public ObservableCollection<Tour> ToursToDisplay { get; set; }
         public ObservableCollection<Tour> AllTours { get; set; }
 
         public GuideView()
@@ -36,22 +38,29 @@ namespace Sims2023.View
             InitializeComponent();
             DataContext = this;
 
+            _tourController = new TourController();
+            _tourController.Subscribe(this);
+
             _locationController = new LocationController();
             _locationController.Subscribe(this);
 
             _keyPointController = new KeyPointController();
             _keyPointController.Subscribe(this);
 
-            _tourController = new TourController();
-            _tourController.Subscribe(this);
+            _userController = new UserController();
+            _userController.Subscribe(this);
 
-            ToursToShow = new ObservableCollection<Tour>();
+            _tourReservationController = new TourReservationController();
+            _tourReservationController.Subscribe(this);
+
+            ToursToDisplay = new ObservableCollection<Tour>();
             AllTours = new ObservableCollection<Tour>(_tourController.GetAllTours());
-            foreach(Tour tour in AllTours)
+            //filtering tours so that only those that take place today are displayed
+            foreach (Tour tour in AllTours)
             {
                 if(tour.Start == DateTime.Today)
                 {
-                    ToursToShow.Add(tour);
+                    ToursToDisplay.Add(tour);
                 }
             }
         }
@@ -67,7 +76,7 @@ namespace Sims2023.View
             if(SelectedTour != null && SelectedTour.CurrentState == Tour.State.Created)
             {
                 startTourButton.IsEnabled = false;
-                LiveTourTrackingView liveTourTrackingView = new(SelectedTour, _keyPointController);
+                LiveTourTrackingView liveTourTrackingView = new(SelectedTour, _keyPointController, _tourReservationController, _userController);
                 liveTourTrackingView.Closed += LiveTourTrackingView_Closed;
                 liveTourTrackingView.Show();
                 Update();
@@ -81,6 +90,7 @@ namespace Sims2023.View
                 MessageBox.Show("Odaberite turu koju zelite da zapocnete");
             }
         }
+
         private void LiveTourTrackingView_Closed(object sender, EventArgs e)
         {
             startTourButton.IsEnabled = true;
@@ -91,19 +101,15 @@ namespace Sims2023.View
 
         public void Update()
         {
-            UpdateTourList();
-        }
-
-        public void UpdateTourList()
-        {
-            ToursToShow.Clear();
+            //updating the tours that are currently displayed
+            ToursToDisplay.Clear();
             AllTours.Clear();
             foreach(var tour in _tourController.GetAllTours()) 
             {
                 AllTours.Add(tour);
                 if(tour.Start == DateTime.Today)
                 {
-                    ToursToShow.Add(tour);
+                    ToursToDisplay.Add(tour);
                 }
             }
         }

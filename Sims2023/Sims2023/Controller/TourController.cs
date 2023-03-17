@@ -1,11 +1,8 @@
-﻿using Sims2023.Model.DAO;
-using Sims2023.Model;
+﻿using Sims2023.Model;
+using Sims2023.Model.DAO;
+using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sims2023.Observer;
 using System.Windows;
 
 namespace Sims2023.Controller
@@ -31,18 +28,18 @@ namespace Sims2023.Controller
             _tour.Add(tour, dateTimes, location);
         }
 
-        public void AddToursLocation(Tour tour, Location location, int newToursNumber) 
+        public void AddToursLocation(Tour tour, Location location, int newToursNumber)
         {
             List<Location> locations = _location.GetAll();
             int counter = 0;
-            int toursId = tour.Id - newToursNumber + 1;   
+            int toursId = tour.Id - newToursNumber + 1;
 
             if (location.City == null || location.Country == null)
             {
-                MessageBox.Show("Unesite lokaciju ");
+                MessageBox.Show("Lokacija nije uneta");
             }
 
-            if(locations.Count == 0) 
+            if (locations.Count == 0)
             {
                 for (int i = 0; i < newToursNumber; i++)
                 {
@@ -53,7 +50,7 @@ namespace Sims2023.Controller
             else
             {
                 //Checking if the location already exists
-                for(int i = 0; i < newToursNumber; i++)
+                for (int i = 0; i < newToursNumber; i++)
                 {
                     foreach (var locationInstance in locations)
                     {
