@@ -18,7 +18,7 @@ namespace Sims2023.View
     /// <summary>
     /// Interaction logic for AccommodationReservationConfirmationWindow.xaml
     /// </summary>
-    public partial class AccommodationReservationDateWindow : Window
+    public partial class AccommodationReservationDateView : Window
     {
 
         public List<AccommodationStay> stays = new List<AccommodationStay>();
@@ -26,7 +26,7 @@ namespace Sims2023.View
         public AccommodationStay selectedAccommodationStay { get; set; }
 
         int daysNumber;
-        public AccommodationReservationDateWindow(Accommodation selectedAccommodationS,List<AccommodationStay> stays, int daysNUmber)
+        public AccommodationReservationDateView(Accommodation selectedAccommodationS,List<AccommodationStay> stays, int daysNUmber)
         {
             InitializeComponent();
             DataContext = this;
@@ -52,8 +52,8 @@ namespace Sims2023.View
                 MessageBox.Show("MDoslo je do greske.");
                 return;
             }
-            AccommodationReservationConfirmationWindow accommodationReservationConfirmationWindow = new AccommodationReservationConfirmationWindow(selectedAccommodation,selectedAccommodationStay,daysNumber);
-            accommodationReservationConfirmationWindow.Show();
+            AccommodationReservationConfirmationView accommodationReservationConfirmationView = new AccommodationReservationConfirmationView(selectedAccommodation,selectedAccommodationStay,daysNumber);
+            accommodationReservationConfirmationView.Show();
         }
 
         private void buttonDateCancelation_Click(object sender, RoutedEventArgs e)

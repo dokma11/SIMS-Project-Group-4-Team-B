@@ -19,16 +19,15 @@ namespace Sims2023.View
     /// <summary>
     /// Interaction logic for AccommodationReservationConfirmationWindow.xaml
     /// </summary>
-    /// public Accommodation selectedAccommodation { get; set; }
     
-    public partial class AccommodationReservationConfirmationWindow : Window
+    public partial class AccommodationReservationConfirmationView : Window
     {
         public Accommodation selectedAccommodation { get; set; }
         public AccommodationStay selectedAccommodationStay { get; set; }
         private AccommodationReservationController _accommodationReservationController { get; set; }
 
         int days;
-        public AccommodationReservationConfirmationWindow(Accommodation selectedAccommodationS, AccommodationStay selectedAccommodationStayS, int daysNumber)
+        public AccommodationReservationConfirmationView(Accommodation selectedAccommodationS, AccommodationStay selectedAccommodationStayS, int daysNumber)
         {
             InitializeComponent();
             DataContext=this;
@@ -42,15 +41,15 @@ namespace Sims2023.View
             accommodatioCityTextBox.Text = selectedAccommodationS.city;
             accommodatioCountryTextBox.Text = selectedAccommodationS.country;
             accommodatioTypeTextBox.Text = selectedAccommodationS.type.ToString();
-            accommodatioStartDateTextBox.Text = selectedAccommodationStayS.StartDate.ToString();
-            accommodatioEndDateTextBox.Text = selectedAccommodationStayS.StartDate.ToString();
+            accommodatioStartDateTextBox.Text = selectedAccommodationStayS.StartDate.ToString("MM/dd/yyyy");
+            accommodatioEndDateTextBox.Text = selectedAccommodationStayS.EndDate.ToString("MM/dd/yyyy");
 
         }
 
         private void reservationButton_Click(object sender, RoutedEventArgs e)
         {
             
-            AccommodationReservation accommodationReservation = new AccommodationReservation(-1, selectedAccommodation.id, selectedAccommodationStay.StartDate , selectedAccommodationStay.EndDate, days);
+            AccommodationReservation accommodationReservation = new AccommodationReservation(-1, 1,  selectedAccommodation.id, selectedAccommodationStay.StartDate , selectedAccommodationStay.EndDate, days);
             _accommodationReservationController.Create(accommodationReservation);
 
             MessageBox.Show("Uspesno ste rezervisali objekat!");
