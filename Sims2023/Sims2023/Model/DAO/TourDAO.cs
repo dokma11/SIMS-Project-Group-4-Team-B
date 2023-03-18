@@ -38,8 +38,14 @@ namespace Sims2023.Model.DAO
                 NotifyObservers();
             }
         }
-
-        public void AddToursLocation(int toursId, Location location)
+        public void AddEdited(Tour tour)
+        {
+            _tours.Add(tour);
+            _fileHandler.Save(_tours); ;
+            NotifyObservers();
+        }
+        
+        public void AddToursLocation(int toursId, Location location) 
         {
             foreach (var tour in _tours)
             {

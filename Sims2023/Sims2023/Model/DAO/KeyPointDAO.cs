@@ -13,7 +13,6 @@ namespace Sims2023.Model.DAO
         private List<IObserver> _observers;
         private List<KeyPoint> _keyPoints;
         private KeyPointFileHandler _fileHandler;
-
         public KeyPointDAO()
         {
             _fileHandler = new KeyPointFileHandler();
