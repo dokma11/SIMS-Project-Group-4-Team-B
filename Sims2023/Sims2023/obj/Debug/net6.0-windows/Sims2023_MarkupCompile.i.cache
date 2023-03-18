@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\
+C:\Users\Savic\Documents\simsreser\SIMS-Project-Group-4-Team-B\Sims2023\Sims2023\obj\Debug\net6.0-windows\
 Sims2023
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\App.xaml
-10-1424098879
+C:\Users\Savic\Documents\simsreser\SIMS-Project-Group-4-Team-B\Sims2023\Sims2023\App.xaml
+17-2126919120
 
-47-243264981
+661200778469
 199-2057131495
-MainWindow.xaml;View\AccommodationListWindow.xaml;View\AccommodationRegistrationView.xaml;View\CreateTourView.xaml;View\Guest1MainWindow.xaml;View\Guest2View.xaml;View\GuideView.xaml;View\OwnerView.xaml;View\SearchToursWindow.xaml;View\TourLocationsView.xaml;
+MainWindow.xaml;View\AccommodationListWindow.xaml;View\AccommodationRegistrationView.xaml;View\AccommodationReservationConfirmationWindow.xaml;View\AccommodationReservationDateWindow.xaml;View\AccommodationReservationWindow.xaml;View\AllGuestsView.xaml;View\CreateTourView.xaml;View\Guest1GradeView.xaml;View\Guest1MainWindow.xaml;View\Guest2View.xaml;View\GuideView.xaml;View\LiveTourTrackingView.xaml;View\MarkGuestsPresentView.xaml;View\OwnerView.xaml;View\SearchToursWindow.xaml;View\TourLocationsView.xaml;
 
-True
+False
 

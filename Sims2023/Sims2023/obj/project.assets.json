@@ -122,11 +122,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Savic\\Documents\\simsreser\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj",
+      "projectUniqueName": "C:\\Users\\Savic\\Documents\\simsreser\\SIMS-Project-Group-4-Team-B\\Sims2023\\Sims2023\\Sims2023.csproj",
       "projectName": "Sims2023",
-      "projectPath": "C:\\Users\\Savic\\Documents\\simsreser\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj",
+      "projectPath": "C:\\Users\\Savic\\Documents\\simsreser\\SIMS-Project-Group-4-Team-B\\Sims2023\\Sims2023\\Sims2023.csproj",
       "packagesPath": "C:\\Users\\Savic\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Savic\\Documents\\simsreser\\SIMS-Project\\Sims2023\\Sims2023\\obj\\",
+      "outputPath": "C:\\Users\\Savic\\Documents\\simsreser\\SIMS-Project-Group-4-Team-B\\Sims2023\\Sims2023\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Savic\\AppData\\Roaming\\NuGet\\NuGet.Config",
