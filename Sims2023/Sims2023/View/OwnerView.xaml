@@ -3,12 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Sims2023.View"
+       
         mc:Ignorable="d"
+         Loaded="Window_Loaded"
+       
         Title="OwnerView" Height="450" Width="800">
     <Grid>
-        <Button x:Name="button" Content="Dodaj turu" HorizontalAlignment="Left" Margin="128,217,0,0" VerticalAlignment="Top" Width="157" Height="55" Click="addAccommodationClick"/>
+        <Button x:Name="button" Content="Registruj smjestaj" HorizontalAlignment="Left" Margin="34,217,0,0" VerticalAlignment="Top" Width="157" Height="55" Click="addAccommodationClick"/>
         <Label x:Name="label" Content="NALOG VLASNIKA" FontSize="50" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Height="67" Width="420"/>
+        <Button x:Name="button1" Click="grade_click" Content="Ocijeni goste" HorizontalAlignment="Left" Margin="34,319,0,0" VerticalAlignment="Top" Height="55" Width="152"/>
+
+       
 
     </Grid>
 </Window>
