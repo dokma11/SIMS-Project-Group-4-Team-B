@@ -22,7 +22,7 @@ namespace Sims2023.View
     /// <summary>
     /// Interaction logic for ReservationWindow.xaml
     /// </summary>
-    public partial class AccommodationReservationWindow : Window
+    public partial class AccommodationReservationView : Window
     {
         private AccommodationController _accommodationController;
         public ObservableCollection<Accommodation> Accommodations { get; set; }
@@ -37,7 +37,7 @@ namespace Sims2023.View
         public List<AccommodationStay> stays = new List<AccommodationStay>();
         bool todaysDay;
 
-        public AccommodationReservationWindow(Accommodation selectedAccommodationL)
+        public AccommodationReservationView(Accommodation selectedAccommodationL)
         {
             InitializeComponent();
             DataContext = this;
@@ -72,6 +72,7 @@ namespace Sims2023.View
             int stayLength = (int)numberOfDays.Value;
             
             int possibleDatesNumber = CheckDates(startDateSelected, endDateSelected, stayLength, availableDates);
+
             if (availableDates.Count > 0)
             {
                 CreateAvailableStayList(availableDates, stayLength);
@@ -101,8 +102,8 @@ namespace Sims2023.View
 
             }
 
-            AccommodationReservationDateWindow accommodationReservationConfirmationWindow = new AccommodationReservationDateWindow(selectedAccommodation, stays, stayLength);
-            accommodationReservationConfirmationWindow.Show();
+            AccommodationReservationDateView accommodationReservationConfirmationView = new AccommodationReservationDateView(selectedAccommodation, stays, stayLength);
+            accommodationReservationConfirmationView.Show();
 
         }
         private int CheckDates(DateTime startDateSelected, DateTime endDateSelected,int stayLength, List<DateTime> datesList)

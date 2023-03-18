@@ -44,7 +44,7 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\AccommodationListWindow.xaml">
+    <Page Update="View\AccommodationListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\AllGuestsView.xaml">
@@ -56,7 +56,7 @@
     <Page Update="View\Guest1GradeView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\Guest1MainWindow.xaml">
+    <Page Update="View\Guest1MainView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\GuideView.xaml">

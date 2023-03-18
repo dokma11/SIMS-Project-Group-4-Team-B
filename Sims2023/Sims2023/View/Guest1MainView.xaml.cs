@@ -17,9 +17,9 @@ namespace Sims2023.View
     /// <summary>
     /// Interaction logic for Guest1MainWindow.xaml
     /// </summary>
-    public partial class Guest1MainWindow : Window
+    public partial class Guest1MainView : Window
     {
-        public Guest1MainWindow()
+        public Guest1MainView()
         {
             InitializeComponent();
             DataContext = this;
@@ -27,8 +27,13 @@ namespace Sims2023.View
 
         private void viewAccommodationClick(object sender, RoutedEventArgs e)
         {
-            var AccommodationListWindow = new AccommodationListWindow();
-            AccommodationListWindow.Show();
+            var AccommodationListView = new AccommodationListView();
+            AccommodationListView.Show();
+        }
+
+        private void buttonLogOut_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

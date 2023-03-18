@@ -35,8 +35,8 @@ namespace Sims2023
 
         private void Guest1Click(object sender, RoutedEventArgs e)
         {
-            var Guest1MainWindow = new Guest1MainWindow();
-            Guest1MainWindow.Show();
+            var Guest1MainView = new Guest1MainView();
+            Guest1MainView.Show();
         }
 
         private void GuideClick(object sender, RoutedEventArgs e)

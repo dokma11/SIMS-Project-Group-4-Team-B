@@ -22,7 +22,7 @@ using System.Xml.Linq;
 
 namespace Sims2023.View
 {
-    public partial class AccommodationListWindow : Window
+    public partial class AccommodationListView : Window
     {
         private AccommodationController _accommodationController;
         public ObservableCollection<Accommodation> Accommodations { get; set; }
@@ -36,7 +36,7 @@ namespace Sims2023.View
         List<Accommodation> filteredData = new List<Accommodation>();
 
 
-        public AccommodationListWindow()
+        public AccommodationListView()
         {
             InitializeComponent();
             DataContext = this;
@@ -79,7 +79,13 @@ namespace Sims2023.View
             int maxGuests = (int)numberOfGuests.Value;
             int minDays = (int)numberOfDays.Value;
 
+            checkSetConditions(nameSearchTerm, citySearchTerm, countrySearchTerm, typeSearchTerm, maxGuests, minDays);
 
+            myDataGrid.ItemsSource = filteredData;
+
+        }
+        private void checkSetConditions(string nameSearchTerm, string citySearchTerm, string countrySearchTerm, string typeSearchTerm, int maxGuests, int minDays)
+        {
             foreach (Accommodation accommodation in Accommodations)
             {
                 bool nameCondition = true;
@@ -127,7 +133,7 @@ namespace Sims2023.View
                 }
                 if (numberOfDays.Value > 0)
                 {
-                    if (accommodation.minDays < minDays)
+                    if (accommodation.minDays > minDays)
                     {
                         minDaysCondition = false;
                     }
@@ -140,11 +146,7 @@ namespace Sims2023.View
                 }
 
             }
-
-            myDataGrid.ItemsSource = filteredData;
-
         }
-
         private void giveUpSearchClick(object sender, RoutedEventArgs e)
         {
             filteredData.Clear();
@@ -159,8 +161,13 @@ namespace Sims2023.View
                 MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da rezervisete.");
                 return;
             }
-            AccommodationReservationWindow accommodationReservationWindow = new AccommodationReservationWindow(selectedAccommodation);
-            accommodationReservationWindow.Show();
+            AccommodationReservationView accommodationReservationView = new AccommodationReservationView(selectedAccommodation);
+            accommodationReservationView.Show();
+        }
+
+        private void back_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
