@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Repository
 {
-    class AccommodationReservationFileHandler
+    internal class AccommodationReservationFileHandler
     {
-        private const string StoragePath = "../../../Resources/Data/reservations.csv";
+        private const string StoragePath = "../../../Resources/Data/accommodationReservations.csv";
 
         private Serializer<AccommodationReservation> _serializer;
 
