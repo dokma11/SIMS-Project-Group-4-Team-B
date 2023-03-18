@@ -1,10 +1,7 @@
 ﻿using Sims2023.Observer;
 using Sims2023.Repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Model.DAO
 {
@@ -12,39 +9,45 @@ namespace Sims2023.Model.DAO
     {
         private List<IObserver> _observers;
         private List<Location> _locations;
-        private LocationFileHandler _repository;
+        private LocationFileHandler _fileHandler;
         public LocationDAO()
         {
-            _repository = new LocationFileHandler();
-            _locations = _repository.Load();
+            _fileHandler = new LocationFileHandler();
+            _locations = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
+
         public int NextId()
         {
             if (_locations.Count == 0) return 1;
             return _locations.Max(l => l.Id) + 1;
         }
+
         public void Add(Location location)
         {
             location.Id = NextId();
             _locations.Add(location);
-            _repository.Save(_locations);
+            _fileHandler.Save(_locations);
             NotifyObservers();
         }
+
         public void Remove(Location location)
-        { 
+        {
             _locations.Remove(location);
-            _repository.Save(_locations);
+            _fileHandler.Save(_locations);
             NotifyObservers();
         }
+
         public List<Location> GetAll()
         {
             return _locations;
         }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
         }
+
         public void Unsubscribe(IObserver observer)
         {
             _observers.Remove(observer);

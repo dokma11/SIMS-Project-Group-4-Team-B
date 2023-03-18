@@ -7,19 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sims2023.DAO
+namespace Sims2023.Model.DAO
 {
-    internal class AccommodationReservationDAO
+    class AccommodationReservationDAO : ISubject
     {
         private List<IObserver> _observers;
 
-        private AccommodationReservationFileHandler _repository;
+        private AccommodationReservationFileHandler _fileHandler;
         private List<AccommodationReservation> _accommodationReservations;
 
         public AccommodationReservationDAO()
         {
-            _repository = new AccommodationReservationFileHandler();
-            _accommodationReservations = _repository.Load();
+            _fileHandler = new AccommodationReservationFileHandler();
+            _accommodationReservations = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
 
@@ -33,14 +33,115 @@ namespace Sims2023.DAO
         {
             reservation.Id = NextId();
             _accommodationReservations.Add(reservation);
-            _repository.Save(_accommodationReservations);
+            _fileHandler.Save(_accommodationReservations);
             NotifyObservers();
         }
+
+
+        // function that gets name and surrname of each guest who has reservation
+        private void AddNameSurrnameToReservation(List<Guest> ListOfGuests, List<AccommodationReservation> reservatons)
+        {
+            foreach (var reservation in reservatons)
+            {
+                foreach (var guest in ListOfGuests)
+                {
+                    if (reservation.GuestId == guest.Id)
+                    {
+                        reservation.Name = guest.Name;
+                        reservation.Surrname = guest.Surrname;
+                    }
+                }
+            }
+        }
+
+        // for every guest who has reservation i get the exact name of accommodation
+        private void AddReservationName(List<AccommodationReservation> reservatons, List<Accommodation> accommodations)
+        {
+            foreach (var reservation in reservatons)
+            {
+                foreach (var accommodation in accommodations)
+                {
+                    if (reservation.Id == accommodation.id)
+                    {
+                        reservation.AccommodationName = accommodation.name;
+
+                    }
+                }
+            }
+        }
+
+        // guests who are already graded should not appear in a list
+        private void RemoveAlreadyGraded(List<AccommodationReservation> reservations, List<GuestGrade> grades)
+        {
+            for (int i = reservations.Count - 1; i >= 0; i--)
+            {
+                var reservation = reservations[i];
+                foreach (var grade in grades)
+                {
+                    if (reservation.GuestId == grade.GuestId)
+                    {
+                        reservations.RemoveAt(i);
+
+                    }
+                }
+            }
+        }
+
+        // searching for the guests who left not more than 5 days ago
+        private void FindGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons)
+        {
+            for (int i = reservatons.Count - 1; i >= 0; i--)
+            {
+                DateTime lastDate = reservatons[i].StartDate.AddDays(reservatons[i].NumberOfDays);
+
+                TimeSpan elapsed = DateTime.Now - lastDate;
+                int totalDays = (int)elapsed.TotalDays;
+
+                if (lastDate < DateTime.Now)
+                {
+                    if (totalDays > 5)
+                        reservatons.RemoveAt(i);
+                }
+                else if (lastDate > DateTime.Now)
+                {
+                    reservatons.RemoveAt(i);
+                }
+
+            }
+        }
+
+        // finds all guests who owner can grade
+        public List<AccommodationReservation> findGradableGuests(List<Guest> ListOfGuests, List<Accommodation> _accommodations, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
+        {
+
+            AddNameSurrnameToReservation(ListOfGuests, reservatons);
+            AddReservationName(reservatons, _accommodations);
+            RemoveAlreadyGraded(reservatons, grades);
+            FindGuestsWhoRecentlyLeft(reservatons);
+            return reservatons;
+
+        }
+
+        // shows all ungraded guests in a notification
+        public string ungradedGuestsNameAndSurrname(List<AccommodationReservation> ungradedGuests)
+        {
+            string string1 = "Imate neocijenjene goste: \n";
+        
+                foreach (var guest in ungradedGuests)
+                {
+                string1 += guest.Name + guest.Surrname + "\n";
+                }
+                return string1;
+        }
+         
+
+
+
 
         public void Remove(AccommodationReservation reservation)
         {
             _accommodationReservations.Remove(reservation);
-            _repository.Save(_accommodationReservations);
+            _fileHandler.Save(_accommodationReservations);
             NotifyObservers();
         }
 
@@ -52,7 +153,7 @@ namespace Sims2023.DAO
                 _accommodationReservations[index] = reservation;
             }
 
-            _repository.Save(_accommodationReservations);
+            _fileHandler.Save(_accommodationReservations);
             NotifyObservers();
         }
 

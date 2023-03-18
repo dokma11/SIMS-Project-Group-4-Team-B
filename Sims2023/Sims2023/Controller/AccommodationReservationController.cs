@@ -1,4 +1,4 @@
-﻿using Sims2023.DAO;
+﻿using Sims2023.Model.DAO;
 using Sims2023.Model;
 using Sims2023.Observer;
 using System;
@@ -9,13 +9,23 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Controller
 {
-    internal class AccommodationReservationController
+    public class AccommodationReservationController
     {
         private AccommodationReservationDAO _accommodationReservations;
 
         public AccommodationReservationController()
         {
             _accommodationReservations = new AccommodationReservationDAO();
+        }
+
+        public List<AccommodationReservation> GetGradableGuests(List<Guest> ListOfGuests, List<Accommodation> _accommodations, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
+        {
+            return _accommodationReservations.findGradableGuests(ListOfGuests, _accommodations, reservatons, grades);
+        }
+
+        public string GetAllUngradedNames(List<AccommodationReservation> ungradedGuests)
+        {
+            return _accommodationReservations.ungradedGuestsNameAndSurrname(ungradedGuests);
         }
 
         public List<AccommodationReservation> GetAllReservations()

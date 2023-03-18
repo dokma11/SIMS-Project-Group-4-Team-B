@@ -27,7 +27,7 @@ namespace Sims2023.View
         private List<DateTime> _dateTimeList;
         private List<string> _keyPointsList;
 
-        private bool dateTimeButtonClicked;
+        private bool dateTimeButtonClicked = false;
         public CreateTourView(TourController tourController, LocationController locationController, KeyPointController keyPointController)
         {
             InitializeComponent();
@@ -47,12 +47,11 @@ namespace Sims2023.View
             _tourController = tourController;
             _locationController = locationController;
             _keyPointController = keyPointController;
-
-            dateTimeButtonClicked = false;
         }
-        private void SubmitButtonClicked(object sender, RoutedEventArgs e)
+
+        private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            if(Tour.IsValid && dateTimeButtonClicked && keyPointsOutput.Items.Count > 1)
+            if (Tour.IsValid && dateTimeButtonClicked && keyPointsOutput.Items.Count > 1)
             {
                 int newToursNumber = _dateTimeList.Count;
                 _locationController.Create(Location);
@@ -69,27 +68,19 @@ namespace Sims2023.View
             }
         }
 
-        private void CancelButtonClicked(object sender, RoutedEventArgs e)
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void AddMoreDates(object sender, RoutedEventArgs e) 
+        private void AddMoreDates(object sender, RoutedEventArgs e)
         {
             string inputString = dateTimeTextBox.Text;
-            int counter = 0;
             dateTimeButtonClicked = true;
 
             if (DateTime.TryParse(inputString, out DateTime dateTime))
             {
-                foreach(var dateTimeInstance in _dateTimeList)
-                {
-                    if(dateTimeInstance == dateTime) 
-                    {
-                        counter++;
-                    }
-                }
-                if(counter == 0)
+                if (!CheckIfDateExists(dateTime))
                 {
                     _dateTimeList.Add(dateTime);
                 }
@@ -100,7 +91,19 @@ namespace Sims2023.View
             }
         }
 
-        private void ComboBoxSelectionChanged(object sender, RoutedEventArgs e)
+        private bool CheckIfDateExists(DateTime dateTime)
+        {
+            foreach (var dateTimeInstance in _dateTimeList)
+            {
+                if (dateTimeInstance == dateTime)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
             ComboBox cBox = (ComboBox)sender;
             ComboBoxItem cbItem = (ComboBoxItem)cBox.SelectedItem;
@@ -110,7 +113,7 @@ namespace Sims2023.View
             {
                 Tour.GuideLanguage = (Tour.Language)0;
             }
-            else if(language == "English")
+            else if (language == "English")
             {
                 Tour.GuideLanguage = (Tour.Language)1;
             }
@@ -145,33 +148,35 @@ namespace Sims2023.View
             string inputText = keyPointTextBox.Text;
             keyPointsOutput.Items.Add(inputText);
 
-            int counter = 0;
             if (_keyPointsList.Count == 0)
             {
                 _keyPointsList.Add(inputText);
             }
             else
             {
-                foreach(var  keyPoint in _keyPointsList)
+                if (!CheckIfKeyPointExists(inputText))
                 {
-                    if(inputText == keyPoint)
-                    {
-                        counter++;
-                        break;
-                    }
-                }
-                if(counter == 0)
-                {
-                    _keyPointsList.Add(inputText);  
+                    _keyPointsList.Add(inputText);
                 }
             }
-
             keyPointTextBox.Clear();
+        }
+
+        private bool CheckIfKeyPointExists(string inputText)
+        {
+            foreach (var keyPoint in _keyPointsList)
+            {
+                if (inputText == keyPoint)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void KeyPointTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(keyPointTextBox.Text.Length == 0)
+            if (keyPointTextBox.Text.Length == 0)
             {
                 addKeyPointsButton.IsEnabled = false;
             }
@@ -197,12 +202,14 @@ namespace Sims2023.View
         {
             e.Handled = new Regex("[^0-9]+$").IsMatch(e.Text);
         }
+
         private void LengthTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = new Regex("[^0-9]+$").IsMatch(e.Text);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

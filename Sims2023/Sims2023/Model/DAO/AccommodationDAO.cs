@@ -1,8 +1,10 @@
 ﻿using Sims2023.Model;
+using Sims2023.Model.DAO;
 using Sims2023.Observer;
 using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,21 +15,32 @@ namespace Sims2023.DAO
     {
 
         private List<IObserver> _observers;
-
-        private AccommodationFileHandler _repository;
+        private AccommodationReservationDAO AccommodationReservationDAO;
+        private AccommodationFileHandler _fileHandler;
         private List<Accommodation> _accommodations;
+        private GuestFileHandler fh;
 
 
 
         public AccommodationDAO()
         {
-            _repository = new AccommodationFileHandler();
-            _accommodations = _repository.Load();
+            _fileHandler = new AccommodationFileHandler();
+            _accommodations = _fileHandler.Load();
             _observers = new List<IObserver>();
+            AccommodationReservationDAO = new AccommodationReservationDAO();
+            fh = new GuestFileHandler();
+
         }
+
+       
+
+
+
+
 
         public int NextId()
         {
+            if (_accommodations.Count == 0) return 1;
             return _accommodations.Max(s => s.id) + 1;
         }
 
@@ -35,14 +48,14 @@ namespace Sims2023.DAO
         {
             accommodation.id = NextId();
             _accommodations.Add(accommodation);
-            _repository.Save(_accommodations);
+            _fileHandler.Save(_accommodations);
             NotifyObservers();
         }
 
         public void Remove(Accommodation accommodation)
         {
             _accommodations.Remove(accommodation);
-            _repository.Save(_accommodations);
+            _fileHandler.Save(_accommodations);
             NotifyObservers();
         }
 
@@ -56,7 +69,7 @@ namespace Sims2023.DAO
                 _accommodations[index] = accommodation;
             }
 
-            _repository.Save(_accommodations);
+            _fileHandler.Save(_accommodations);
             NotifyObservers();
         }
 

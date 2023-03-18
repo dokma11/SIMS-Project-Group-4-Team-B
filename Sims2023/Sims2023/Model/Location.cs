@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace Sims2023.Model
 {
-    public class Location: ISerializable, INotifyPropertyChanged
+    public class Location : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public string City { get; set; }
@@ -26,7 +26,12 @@ namespace Sims2023.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), City, Country}; 
+            string[] csvValues = 
+            { 
+                Id.ToString(), 
+                City, 
+                Country
+            }; 
             return csvValues;
         }
 

@@ -70,13 +70,13 @@ namespace Sims2023.Model
 
         public void FromCSV(string[] values)
         {
-            id = int.Parse(values[0]);
+            id = Convert.ToInt32(values[0]);
             name = values[1];
-            locationId = int.Parse(values[2]);
+            locationId = Convert.ToInt32(values[2]);
             type = values[3];
-            maxGuests = int.Parse(values[4]);
-            minDays = int.Parse(values[5]);
-            cancelDays = int.Parse(values[6]);
+            maxGuests = Convert.ToInt32(values[4]);
+            minDays = Convert.ToInt32(values[5]);
+            cancelDays = Convert.ToInt32(values[6]);
             ImageUrl = values[7];
 
         }

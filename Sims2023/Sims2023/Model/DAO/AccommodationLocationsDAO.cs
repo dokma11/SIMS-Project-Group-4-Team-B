@@ -13,15 +13,15 @@ namespace Sims2023.DAO
     {
         private List<IObserver> _observers;
 
-        private AccommodationLocationFileHandler _repository;
+        private AccommodationLocationFileHandler _fileHandler;
         private List<AccommodationLocation> _accommodationLocations;
 
 
 
         public AccommodationLocationsDAO()
         {
-            _repository = new AccommodationLocationFileHandler();
-            _accommodationLocations = _repository.Load();
+            _fileHandler = new AccommodationLocationFileHandler();
+            _accommodationLocations = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
 
@@ -29,6 +29,7 @@ namespace Sims2023.DAO
 
         public int NextId()
         {
+            if (_accommodationLocations.Count == 0) return 1;
             return _accommodationLocations.Max(s => s.id) + 1;
         }
 
@@ -36,14 +37,14 @@ namespace Sims2023.DAO
         {
             AccLoc.id = NextId();
             _accommodationLocations.Add(AccLoc);
-            _repository.Save(_accommodationLocations);
+            _fileHandler.Save(_accommodationLocations);
             NotifyObservers();
         }
 
         public void Remove(AccommodationLocation AccLoc)
         {
             _accommodationLocations.Remove(AccLoc);
-            _repository.Save(_accommodationLocations);
+            _fileHandler.Save(_accommodationLocations);
             NotifyObservers();
         }
 
@@ -55,7 +56,7 @@ namespace Sims2023.DAO
                 _accommodationLocations[index] = AccLoc;
             }
 
-            _repository.Save(_accommodationLocations);
+            _fileHandler.Save(_accommodationLocations);
             NotifyObservers();
         }
 
