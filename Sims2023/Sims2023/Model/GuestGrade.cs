@@ -43,12 +43,12 @@ namespace Sims2023.Model
 
         public void FromCSV(string[] values)
         {
-            Id = int.Parse(values[0]);
-            AccommodationId = int.Parse(values[1]);
-            GuestId = int.Parse(values[2]);
-            Cleanliness = int.Parse(values[3]);
-            RespectRules = int.Parse(values[4]);
-            Communication= int.Parse(values[5]);
+            Id = Convert.ToInt32(values[0]);
+            AccommodationId = Convert.ToInt32(values[1]);
+            GuestId = Convert.ToInt32(values[2]);
+            Cleanliness = Convert.ToInt32(values[3]);
+            RespectRules = Convert.ToInt32(values[4]);
+            Communication= Convert.ToInt32(values[5]);
             Comment = values[6];
         }
 
