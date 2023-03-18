@@ -13,18 +13,19 @@ namespace Sims2023.DAO
     {
         private List<IObserver> _observers;
 
-        private AccommodationReservationRepository _repository;
+        private AccommodationReservationFileHandler _repository;
         private List<AccommodationReservation> _accommodationReservations;
 
         public AccommodationReservationDAO()
         {
-            _repository = new AccommodationReservationRepository();
+            _repository = new AccommodationReservationFileHandler();
             _accommodationReservations = _repository.Load();
             _observers = new List<IObserver>();
         }
 
         public int NextId()
         {
+            if (_accommodationReservations.Count == 0) return 1;
             return _accommodationReservations.Max(s => s.Id) + 1;
         }
 

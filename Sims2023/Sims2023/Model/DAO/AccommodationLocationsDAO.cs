@@ -13,14 +13,14 @@ namespace Sims2023.DAO
     {
         private List<IObserver> _observers;
 
-        private AccommodationLocationRepository _repository;
+        private AccommodationLocationFileHandler _repository;
         private List<AccommodationLocation> _accommodationLocations;
 
 
 
         public AccommodationLocationsDAO()
         {
-            _repository = new AccommodationLocationRepository();
+            _repository = new AccommodationLocationFileHandler();
             _accommodationLocations = _repository.Load();
             _observers = new List<IObserver>();
         }

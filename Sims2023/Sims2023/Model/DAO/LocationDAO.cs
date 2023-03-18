@@ -12,10 +12,10 @@ namespace Sims2023.Model.DAO
     {
         private List<IObserver> _observers;
         private List<Location> _locations;
-        private LocationRepository _repository;
+        private LocationFileHandler _repository;
         public LocationDAO()
         {
-            _repository = new LocationRepository();
+            _repository = new LocationFileHandler();
             _locations = _repository.Load();
             _observers = new List<IObserver>();
         }

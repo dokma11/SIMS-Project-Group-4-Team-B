@@ -13,10 +13,10 @@ namespace Sims2023.Model.DAO
     {
         private List<IObserver> _observers;
         private List<Tour> _tours;
-        private TourRepository _repository;
+        private TourFileHandler _repository;
         public TourDAO()
         {
-            _repository = new TourRepository();
+            _repository = new TourFileHandler();
             _tours = _repository.Load();
             _observers = new List<IObserver>();
         }

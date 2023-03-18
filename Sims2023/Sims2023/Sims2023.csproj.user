@@ -10,6 +10,9 @@
     <Compile Update="View\AccommodationReservationConfirmationWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\AccommodationReservationDateWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\CreateTourView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -31,6 +34,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\AccommodationReservationConfirmationWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\AccommodationReservationDateWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\AccommodationReservationWindow.xaml">

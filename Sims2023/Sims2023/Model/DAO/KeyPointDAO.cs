@@ -12,10 +12,10 @@ namespace Sims2023.Model.DAO
     {
         private List<IObserver> _observers;
         private List<KeyPoint> _keyPoints;
-        private KeyPointRepository _repository;
+        private KeyPointFileHandler _repository;
         public KeyPointDAO()
         {
-            _repository = new KeyPointRepository();
+            _repository = new KeyPointFileHandler();
             _keyPoints = _repository.Load();
             _observers = new List<IObserver>();
         }
