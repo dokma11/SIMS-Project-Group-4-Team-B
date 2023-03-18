@@ -5,14 +5,19 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Navigation;
 
 namespace Sims2023.Model
 {
     public class AccommodationReservation : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
+
+        public int GuestId { get; set; }
         public int AccommodationId { get; set; }
+
+        public string AccommodationName { get; set; }
+        public string Name { get; set; }
+        public string Surrname { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int NumberOfDays { get; set; }
@@ -26,13 +31,14 @@ namespace Sims2023.Model
 
 
         public AccommodationReservation() { }
-        public AccommodationReservation(int id, int accommodationId, DateTime startDate, DateTime endDate, int numberOfDays)
+        public AccommodationReservation(int id, int guestid, int accommodationId, DateTime startDate, DateTime endDate, int numberOfGuests)
         {
             Id = id;
+            GuestId = guestid;
             AccommodationId = accommodationId;
             StartDate = startDate;
             EndDate = endDate;
-            NumberOfDays = numberOfDays;
+            NumberOfDays = numberOfGuests;
         }
 
 
@@ -41,6 +47,7 @@ namespace Sims2023.Model
             string[] csvValues =
             {
                 Id.ToString(),
+                GuestId.ToString(),
                 AccommodationId.ToString(),
                 StartDate.ToString(),
                 EndDate.ToString(),
@@ -52,12 +59,12 @@ namespace Sims2023.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            AccommodationId = int.Parse(values[1]);
-            StartDate=DateTime.Parse(values[2]);
-            EndDate=DateTime.Parse(values[3]);
-            NumberOfDays = int.Parse(values[4]);
+            GuestId = int.Parse(values[1]);
+            AccommodationId = int.Parse(values[2]);
+            StartDate = DateTime.Parse(values[3]);
+            EndDate = DateTime.Parse(values[4]);
+            NumberOfDays = int.Parse(values[5]);
 
         }
-
     }
 }
