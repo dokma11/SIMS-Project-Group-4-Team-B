@@ -33,12 +33,25 @@ namespace Sims2023.Model.DAO
                 tour.Id = NextId();
                 tour.Start = date;
                 AddToursLocation(tour.Id, location);
+                tour.AvailableSpace = tour.MaxGuestNumber;
                 _tours.Add(tour);
                 _fileHandler.Save(_tours);
                 NotifyObservers();
             }
         }
-
+        public void AddEdited(Tour tour)
+        {
+            _tours.Add(tour);
+            _fileHandler.Save(_tours); ;
+            NotifyObservers();
+        }
+        /*public void AddEdited(Tour tour)
+        {
+            _tours=_fileHandler.Load();
+            _tours.Add(tour);
+            _fileHandler.Save(_tours);
+            NotifyObservers();
+        }*/
         public void AddToursLocation(int toursId, Location location) 
         {
             foreach (var tour in _tours)
@@ -65,6 +78,8 @@ namespace Sims2023.Model.DAO
                 }
             }
         }
+
+        
         public void Remove(Tour tour) 
         {
             _tours.Remove(tour);

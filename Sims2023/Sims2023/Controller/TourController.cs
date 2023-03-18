@@ -29,6 +29,19 @@ namespace Sims2023.Controller
         {
             _tour.Add(tour, dateTimes, location);
         }
+        public void Edit(Tour tour, Tour oldTour)
+        {
+            _tour.Remove(oldTour);
+            _tour.AddEdited(tour);
+        }
+       /* public void Edit(Tour tour,Tour newTour,int reservedSpace)
+        {
+            
+            newTour = tour;
+            newTour.AvailableSpace-=reservedSpace;
+            _tour.Remove(tour);
+            _tour.AddEdited(newTour);
+        }*/
         public void AddToursLocation(Tour tour, Location location, int newToursNumber) 
         {
             List<Location> locations = _location.GetAll();

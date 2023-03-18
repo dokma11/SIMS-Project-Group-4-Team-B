@@ -92,7 +92,6 @@ C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6
 C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\AccommodationRegistrationView.g.cs
 C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\CreateTourView.g.cs
 C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\Guest1MainWindow.g.cs
-C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\Guest2MainWindow.g.cs
 C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\GuideView.g.cs
 C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\OwnerView.g.cs
 C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\SearchToursWindow.g.cs
@@ -105,7 +104,6 @@ C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6
 C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\AccommodationRegistrationView.baml
 C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\CreateTourView.baml
 C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\Guest1MainWindow.baml
-C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\Guest2MainWindow.baml
 C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\GuideView.baml
 C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\OwnerView.baml
 C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\SearchToursWindow.baml
@@ -121,3 +119,5 @@ C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6
 C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.pdb
 C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.genruntimeconfig.cache
 C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\ref\Sims2023.dll
+C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\Guest2View.g.cs
+C:\Users\Savic\Documents\simsreser\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\Guest2View.baml

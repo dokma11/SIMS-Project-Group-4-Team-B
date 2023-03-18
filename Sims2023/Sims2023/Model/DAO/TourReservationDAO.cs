@@ -25,6 +25,10 @@ namespace Sims2023.DAO
 
         public int NextId()
         {
+            if(_tourReservations.Count == 0)
+            {
+                return 1;
+            }
             return _tourReservations.Max(s => s.Id) + 1;
         }
 
