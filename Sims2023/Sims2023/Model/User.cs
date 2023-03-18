@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Model
 {
-    public class User : ISerializable, INotifyPropertyChanged
+    public class User: ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public string UserName { get; set; }
@@ -34,7 +34,13 @@ namespace Sims2023.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), UserName, Password, UserType.ToString() };
+            string[] csvValues = 
+            { 
+                Id.ToString(), 
+                UserName, 
+                Password, 
+                UserType.ToString()
+            };
             return csvValues;
         }
 

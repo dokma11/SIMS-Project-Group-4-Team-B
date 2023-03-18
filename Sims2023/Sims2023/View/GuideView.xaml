@@ -9,9 +9,11 @@
     <StackPanel>
         <DockPanel>
             <ToolBar Height="30">
-                <Button Click="CreateButtonClicked">Create Tour</Button>
+                <Button x:Name="createButton" Click="CreateButton_Click">Kreiraj turu</Button>
+                <Button x:Name="startTourButton" Click="StartTourButton_Click">Zapocni turu</Button>
             </ToolBar>
         </DockPanel>
-        
+        <DataGrid x:Name="toursDataGrid" Height="300" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True">
+        </DataGrid>
     </StackPanel>
 </Window>

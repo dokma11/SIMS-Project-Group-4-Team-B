@@ -34,18 +34,20 @@ namespace Sims2023.View
         public ObservableCollection<AccommodationLocation> AccommodationLocations { get; set; }
 
         List<Accommodation> filteredData = new List<Accommodation>();
+
+
         public AccommodationListWindow()
         {
             InitializeComponent();
             DataContext = this;
-            _accommodationLocationController = new AccomodationLocationController();
 
+            _accommodationLocationController = new AccomodationLocationController();
             AccommodationLocations = new ObservableCollection<AccommodationLocation>(_accommodationLocationController.GetAllAccommodationLocations());
 
             _accommodationController = new AccommodationController();
-
             Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAllAccommodations());
             List<Accommodation> filteredData = new List<Accommodation>();
+
 
             AddLocationToAccommodation(AccommodationLocations, Accommodations);
         }
@@ -149,5 +151,16 @@ namespace Sims2023.View
             myDataGrid.ItemsSource = Accommodations;
         }
 
+        private void buttonReservation_Click(object sender, RoutedEventArgs e)
+        {
+            selectedAccommodation = (Accommodation)myDataGrid.SelectedItem;
+            if (selectedAccommodation == null)
+            {
+                MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da rezervisete.");
+                return;
+            }
+            AccommodationReservationWindow accommodationReservationWindow = new AccommodationReservationWindow(selectedAccommodation);
+            accommodationReservationWindow.Show();
+        }
     }
 }

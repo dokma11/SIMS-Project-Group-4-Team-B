@@ -29,6 +29,7 @@ namespace Sims2023.DAO
 
         public int NextId()
         {
+            if (_accommodationLocations.Count == 0) return 1;
             return _accommodationLocations.Max(s => s.id) + 1;
         }
 

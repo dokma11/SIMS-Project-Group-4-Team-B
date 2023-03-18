@@ -1,11 +1,8 @@
-﻿using Sims2023.Model.DAO;
-using Sims2023.Model;
+﻿using Sims2023.Model;
+using Sims2023.Model.DAO;
+using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sims2023.Observer;
 using System.Windows;
 
 namespace Sims2023.Controller
@@ -14,6 +11,7 @@ namespace Sims2023.Controller
     {
         private TourDAO _tour;
         private LocationDAO _location;
+
         public TourController()
         {
             _tour = new TourDAO();
@@ -34,23 +32,16 @@ namespace Sims2023.Controller
             _tour.Remove(oldTour);
             _tour.AddEdited(tour);
         }
-       /* public void Edit(Tour tour,Tour newTour,int reservedSpace)
-        {
-            
-            newTour = tour;
-            newTour.AvailableSpace-=reservedSpace;
-            _tour.Remove(tour);
-            _tour.AddEdited(newTour);
-        }*/
+       
         public void AddToursLocation(Tour tour, Location location, int newToursNumber) 
         {
             List<Location> locations = _location.GetAll();
             int counter = 0;
-            int toursId = tour.Id - newToursNumber + 1;   
+            int toursId = tour.Id - newToursNumber + 1;
 
             if (location.City == null || location.Country == null)
             {
-                MessageBox.Show("Unesite lokaciju ");
+                MessageBox.Show("Lokacija nije uneta");
             }
 
             if (locations.Count == 0)
@@ -83,19 +74,26 @@ namespace Sims2023.Controller
                 }
             }
         }
+
         public void AddToursKeyPoints(List<string> keyPoints, int firstToursId)
         {
             string keyPointsString = String.Join(",", keyPoints);
             _tour.AddToursKeyPoints(keyPointsString, firstToursId);
         }
+
         public void Delete(Tour tour)
         {
             _tour.Remove(tour);
         }
+
         public void Subscribe(IObserver observer)
         {
             _tour.Subscribe(observer);
         }
 
+        public void Save()
+        {
+            _tour.Save();
+        }
     }
 }

@@ -37,5 +37,10 @@ namespace Sims2023.Controller
         {
             _user.Subscribe(observer);
         }
+
+        public User GetById(int id)
+        {
+            return _user.GetById(id);
+        }
     }
 }

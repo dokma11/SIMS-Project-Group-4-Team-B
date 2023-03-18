@@ -1,15 +1,11 @@
-﻿using Sims2023.Model;
+﻿using Sims2023.FileHandler;
 using Sims2023.Observer;
-using Sims2023.Repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sims2023.DAO
+namespace Sims2023.Model.DAO
 {
-    internal class TourReservationDAO
+    public class TourReservationDAO
     {
         private List<IObserver> _observers;
 

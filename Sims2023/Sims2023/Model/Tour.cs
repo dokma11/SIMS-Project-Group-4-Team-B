@@ -72,7 +72,21 @@ namespace Sims2023.Model
         }
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, LocationId.ToString(), Description, GuideLanguage.ToString(), MaxGuestNumber.ToString(),AvailableSpace.ToString(), KeyPointsString, Start.ToString(), Length.ToString(), PicturesString, CurrentState.ToString() };
+            string[] csvValues = 
+            { 
+                Id.ToString(), 
+                Name, 
+                LocationId.ToString(), 
+                Description, 
+                GuideLanguage.ToString(), 
+                MaxGuestNumber.ToString(), 
+                AvailableSpace.ToString(), 
+                KeyPointsString, 
+                Start.ToString(), 
+                Length.ToString(), 
+                PicturesString, 
+                CurrentState.ToString() 
+            };
             return csvValues;
         }
 
@@ -165,7 +179,17 @@ namespace Sims2023.Model
                 return null;
             }
         }
-        private readonly string[] _validatedProperties = { "Name", "LocationId", "Description", "GuideLanguage", "MaxGuestNumber", "Start", "Length", "PicturesString" };
+        private readonly string[] _validatedProperties = 
+        { 
+            "Name", 
+            "LocationId", 
+            "Description", 
+            "GuideLanguage", 
+            "MaxGuestNumber", 
+            "Start", 
+            "Length", 
+            "PicturesString" 
+        };
         public bool IsValid
         {
             get

@@ -1,4 +1,4 @@
-﻿using Sims2023.DAO;
+using Sims2023.Model.DAO;
 using Sims2023.Model;
 using Sims2023.Observer;
 using System;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Controller
 {
-    internal class TourReservationController
+    public class TourReservationController
     {
         private TourReservationDAO _tourReservations;
 
