@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Model
 {
-    public class Tour: ISerializable, INotifyPropertyChanged
+    public class Tour : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -23,8 +23,11 @@ namespace Sims2023.Model
         public string KeyPointsString { get; set; }
         public DateTime Start { get; set; }
         public int Length { get; set; }
-        public enum State { Created, Started, Ended, Cancelled }
+        public enum State { Created, Started, Finished, Cancelled }
         public State CurrentState { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public int AvailableSpace { get; set; }
         public List<string> Pictures { get; set; }
         //Same principle as for KeyPoints, I'm going to concatenate all of the pictures urls into one string so I can save it easier
         public string PicturesString { get; set; }
@@ -42,6 +45,7 @@ namespace Sims2023.Model
             Description = description;
             GuideLanguage = guideLanguage;
             MaxGuestNumber = maxGuestNumber;
+            AvailableSpace = maxGuestNumber;
             KeyPointsString = keyPointsString;
             KeyPoints = new List<string>();
             string[] keyPointsStringArray = this.KeyPointsString.Split(",");
@@ -68,7 +72,21 @@ namespace Sims2023.Model
         }
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, LocationId.ToString(), Description, GuideLanguage.ToString(), MaxGuestNumber.ToString(), KeyPointsString, Start.ToString(), Length.ToString(), PicturesString };
+            string[] csvValues = 
+            { 
+                Id.ToString(), 
+                Name, 
+                LocationId.ToString(), 
+                Description, 
+                GuideLanguage.ToString(), 
+                MaxGuestNumber.ToString(), 
+                AvailableSpace.ToString(), 
+                KeyPointsString, 
+                Start.ToString(), 
+                Length.ToString(), 
+                PicturesString, 
+                CurrentState.ToString() 
+            };
             return csvValues;
         }
 
@@ -80,34 +98,36 @@ namespace Sims2023.Model
             Description = values[3];
             GuideLanguage = (Language)Enum.Parse(typeof(Language), values[4]);          
             MaxGuestNumber = Convert.ToInt32(values[5]);
-            KeyPointsString = values[6];
+            AvailableSpace = Convert.ToInt32(values[6]);
+            KeyPointsString = values[7];
             string[] keyPointsStringArray = this.KeyPointsString.Split(",");
             foreach (string keyPoint in keyPointsStringArray)
             {
                 KeyPoints.Add(keyPoint);
             }
-            Start = DateTime.Parse(values[7]);                                          
-            Length = Convert.ToInt32(values[8]);
-            PicturesString = values[9];
+            Start = DateTime.Parse(values[8]);                                          
+            Length = Convert.ToInt32(values[9]);
+            PicturesString = values[10];
             string[] picturesStringArray = this.PicturesString.Split(",");
             foreach (string picture in picturesStringArray)
             {
                 Pictures.Add(picture);
             }
+            CurrentState = (State)Enum.Parse(typeof(State), values[11]);
         }
 
         public string this[string columnName]
         {
             get
             {
-                if(columnName == "Name")
+                if (columnName == "Name")
                 {
                     if (string.IsNullOrEmpty(Name))
                     {
                         return "Popunite polje za naziv";
                     }
                 }
-                else if(columnName == "LocationId")
+                else if (columnName == "LocationId")
                 {
                     if (string.IsNullOrEmpty(LocationId.ToString()))
                     {
@@ -159,14 +179,24 @@ namespace Sims2023.Model
                 return null;
             }
         }
-        private readonly string[] _validatedProperties = { "Name", "LocationId", "Description", "GuideLanguage", "MaxGuestNumber", "Start", "Length", "PicturesString" };
+        private readonly string[] _validatedProperties = 
+        { 
+            "Name", 
+            "LocationId", 
+            "Description", 
+            "GuideLanguage", 
+            "MaxGuestNumber", 
+            "Start", 
+            "Length", 
+            "PicturesString" 
+        };
         public bool IsValid
         {
             get
             {
-                foreach(var property in _validatedProperties)
+                foreach (var property in _validatedProperties)
                 {
-                    if (this[property]  != null)
+                    if (this[property] != null)
                     {
                         return false;
                     }
