@@ -50,7 +50,7 @@ namespace Sims2023.View
 
             reservatons = new List<AccommodationReservation>(accommodationReservationCtrl.GetAllReservations());
 
-            gradableGuests = new List<AccommodationReservation>(accommodationReservationCtrl.getGradableGuests(guests, accommodationCtrl.GetAllAccommodations(),
+            gradableGuests = new List<AccommodationReservation>(accommodationReservationCtrl.GetGradableGuests(guests, accommodationCtrl.GetAllAccommodations(),
                                                                                 reservatons, gradeController.GetAllGrades()));
 
         }

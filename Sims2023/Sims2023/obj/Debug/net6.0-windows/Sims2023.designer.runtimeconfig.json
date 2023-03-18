@@ -13,7 +13,11 @@
     ],
     "additionalProbingPaths": [
       "C:\\Users\\Nedeljko\\.dotnet\\store\\|arch|\\|tfm|",
+<<<<<<< Updated upstream
       "C:\\Users\\Nedeljko\\.nuget\\packages"
+=======
+      "C:\\Users\\Savic\\.nuget\\packages"
+>>>>>>> Stashed changes
     ],
     "configProperties": {
       "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true

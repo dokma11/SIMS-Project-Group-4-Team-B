@@ -51,7 +51,7 @@ namespace Sims2023.View
             reservatons2 = reserv;
           
             gradeCtrl = new GuestGradeController();
-            reservatons = new ObservableCollection<AccommodationReservation>(reservationCtrl.getGradableGuests(guests, accommodations, reservatons2, gradeCtrl.GetAllGrades()));
+            reservatons = new ObservableCollection<AccommodationReservation>(reservationCtrl.GetGradableGuests(guests, accommodations, reservatons2, gradeCtrl.GetAllGrades()));
 
        
 

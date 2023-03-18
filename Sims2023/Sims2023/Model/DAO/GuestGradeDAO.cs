@@ -28,6 +28,7 @@ namespace Sims2023.Model.DAO
 
         public int NextId()
         {
+            if (grades.Count == 0) return 1;
             return grades.Max(s => s.Id) + 1;
         }
 

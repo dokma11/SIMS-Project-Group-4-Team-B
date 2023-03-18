@@ -24,6 +24,7 @@ namespace Sims2023.Model.DAO
 
         public int NextId()
         {
+            if (_accommodationReservations.Count == 0) return 1;
             return _accommodationReservations.Max(s => s.Id) + 1;
         }
 
@@ -37,7 +38,7 @@ namespace Sims2023.Model.DAO
 
 
         // function that gets name and surrname of each guest who has reservation
-        private void addNameSurrnameToReservation(List<Guest> ListOfGuests, List<AccommodationReservation> reservatons)
+        private void AddNameSurrnameToReservation(List<Guest> ListOfGuests, List<AccommodationReservation> reservatons)
         {
             foreach (var reservation in reservatons)
             {
@@ -53,7 +54,7 @@ namespace Sims2023.Model.DAO
         }
 
         // for every guest who has reservation i get the exact name of accommodation
-        private void addReservationName(List<AccommodationReservation> reservatons, List<Accommodation> accommodations)
+        private void AddReservationName(List<AccommodationReservation> reservatons, List<Accommodation> accommodations)
         {
             foreach (var reservation in reservatons)
             {
@@ -69,7 +70,7 @@ namespace Sims2023.Model.DAO
         }
 
         // guests who are already graded should not appear in a list
-        private void removeAlreadyGraded(List<AccommodationReservation> reservations, List<GuestGrade> grades)
+        private void RemoveAlreadyGraded(List<AccommodationReservation> reservations, List<GuestGrade> grades)
         {
             for (int i = reservations.Count - 1; i >= 0; i--)
             {
@@ -86,7 +87,7 @@ namespace Sims2023.Model.DAO
         }
 
         // searching for the guests who left not more than 5 days ago
-        private void findGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons)
+        private void FindGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons)
         {
             for (int i = reservatons.Count - 1; i >= 0; i--)
             {
@@ -112,10 +113,10 @@ namespace Sims2023.Model.DAO
         public List<AccommodationReservation> findGradableGuests(List<Guest> ListOfGuests, List<Accommodation> _accommodations, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
 
-            addNameSurrnameToReservation(ListOfGuests, reservatons);
-            addReservationName(reservatons, _accommodations);
-            removeAlreadyGraded(reservatons, grades);
-            findGuestsWhoRecentlyLeft(reservatons);
+            AddNameSurrnameToReservation(ListOfGuests, reservatons);
+            AddReservationName(reservatons, _accommodations);
+            RemoveAlreadyGraded(reservatons, grades);
+            FindGuestsWhoRecentlyLeft(reservatons);
             return reservatons;
 
         }
