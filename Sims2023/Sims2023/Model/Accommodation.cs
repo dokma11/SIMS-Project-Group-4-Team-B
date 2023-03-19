@@ -11,17 +11,17 @@ namespace Sims2023.Model
 {
     public class Accommodation : ISerializable, INotifyPropertyChanged
     {
-        public int id { get; set; }
-        public string name { get; set;  }
-        public string city { get; set; }
-        public string country { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set;  }
+        public string City { get; set; }
+        public string Country { get; set; }
 
-        public int locationId { get; set; }
-        public string type { get; set; }
-        public int maxGuests { get; set; }
-        public int minDays { get; set; }
-        public int cancelDays { get; set; }
-        public List<string> imageurls { get; set; }
+        public int LocationId { get; set; }
+        public string Type { get; set; }
+        public int MaxGuests { get; set; }
+        public int MinDays { get; set; }
+        public int CancelDays { get; set; }
+        public List<string> Imageurls { get; set; }
 
         string ImageUrl { get; set; }
 
@@ -35,17 +35,17 @@ namespace Sims2023.Model
 
         public Accommodation()
         {
-            imageurls = new List<string>();
+            Imageurls = new List<string>();
         }
         public Accommodation(int Id,string Name,int LocationId, string Type, int MaxGuests, int MinDays, int CancelDays, string ImageUrls)
         {
-            id = Id;
-            name = Name;
-            locationId = LocationId;
-            type = Type;
-            maxGuests = MaxGuests;
-            minDays = MinDays;
-            cancelDays = CancelDays;
+            this.Id = Id;
+            this.Name = Name;
+            this.LocationId = LocationId;
+            this.Type = Type;
+            this.MaxGuests = MaxGuests;
+            this.MinDays = MinDays;
+            this.CancelDays = CancelDays;
             ImageUrl = ImageUrls;
 
         }
@@ -55,13 +55,13 @@ namespace Sims2023.Model
         {
             string[] csvValues =
             {
-                id.ToString(),
-                name,
-                locationId.ToString(),
-                type,
-                maxGuests.ToString(),
-                minDays.ToString(),
-                cancelDays.ToString(),
+                Id.ToString(),
+                Name,
+                LocationId.ToString(),
+                Type,
+                MaxGuests.ToString(),
+                MinDays.ToString(),
+                CancelDays.ToString(),
                 ImageUrl
 
             };
@@ -70,23 +70,23 @@ namespace Sims2023.Model
 
         public void FromCSV(string[] values)
         {
-            id = Convert.ToInt32(values[0]);
-            name = values[1];
-            locationId = Convert.ToInt32(values[2]);
-            type = values[3];
-            maxGuests = Convert.ToInt32(values[4]);
-            minDays = Convert.ToInt32(values[5]);
-            cancelDays = Convert.ToInt32(values[6]);
+            Id = Convert.ToInt32(values[0]);
+            Name = values[1];
+            LocationId = Convert.ToInt32(values[2]);
+            Type = values[3];
+            MaxGuests = Convert.ToInt32(values[4]);
+            MinDays = Convert.ToInt32(values[5]);
+            CancelDays = Convert.ToInt32(values[6]);
             ImageUrl = values[7];
 
         }
 
-        public string isVaild(Accommodation a)
+        public string IsVaild(Accommodation a)
         {
-            if (string.IsNullOrEmpty(a.name) || string.IsNullOrEmpty(a.type) || string.IsNullOrEmpty(ImageUrl))
+            if (string.IsNullOrEmpty(a.Name) || string.IsNullOrEmpty(a.Type) || string.IsNullOrEmpty(ImageUrl))
                 return "morate popuniti sve podatke";
 
-            if (a.cancelDays == -1 || a.maxGuests == -1 || a.minDays == -1 || a.locationId == -1)
+            if (a.CancelDays == -1 || a.MaxGuests == -1 || a.MinDays == -1 || a.LocationId == -1)
             {
                 return "morate popuniti sve podatke";
             }

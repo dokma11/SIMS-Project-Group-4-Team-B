@@ -1,15 +1,10 @@
 ﻿using Sims2023.Serialization;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Model
 {
-    public class Guest: ISerializable, INotifyPropertyChanged
+    public class Guest : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -27,7 +22,12 @@ namespace Sims2023.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, Surrname };
+            string[] csvValues =
+            {
+                Id.ToString(),
+                Name,
+                Surrname
+            };
             return csvValues;
         }
 

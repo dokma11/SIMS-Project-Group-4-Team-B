@@ -58,10 +58,10 @@ namespace Sims2023.View
             {
                 foreach(var location in accommodationLocations)
                 {
-                    if(accommodation.locationId==location.id)
+                    if(accommodation.LocationId==location.Id)
                     {
-                        accommodation.city = location.city;
-                        accommodation.country = location.country;
+                        accommodation.City = location.City;
+                        accommodation.Country = location.Country;
                     }
                 }
             }
@@ -97,7 +97,7 @@ namespace Sims2023.View
 
                 if (!string.IsNullOrEmpty(nameSearchTerm))
                 {
-                    if (!accommodation.name.ToLower().Contains(nameSearchTerm.ToLower()))
+                    if (!accommodation.Name.ToLower().Contains(nameSearchTerm.ToLower()))
                     {
                         nameCondition = false;
                     }
@@ -105,35 +105,35 @@ namespace Sims2023.View
 
                 if (!string.IsNullOrEmpty(citySearchTerm))
                 {
-                    if (!accommodation.city.ToLower().Contains(citySearchTerm.ToLower()))
+                    if (!accommodation.City.ToLower().Contains(citySearchTerm.ToLower()))
                     {
                         cityCondition = false;
                     }
                 }
                 if (!string.IsNullOrEmpty(countrySearchTerm))
                 {
-                    if (!accommodation.country.ToLower().Contains(countrySearchTerm.ToLower()))
+                    if (!accommodation.Country.ToLower().Contains(countrySearchTerm.ToLower()))
                     {
                         countryCondition = false;
                     }
                 }
                 if (!string.IsNullOrEmpty(typeSearchTerm))
                 {
-                    if (!accommodation.type.ToLower().Contains(typeSearchTerm.ToLower()))
+                    if (!accommodation.Type.ToLower().Contains(typeSearchTerm.ToLower()))
                     {
                         typeCondition = false;
                     }
                 }
                 if (numberOfGuests.Value > 0)
                 {
-                    if (accommodation.maxGuests < maxGuests)
+                    if (accommodation.MaxGuests < maxGuests)
                     {
                         maxGuestsCondition = false;
                     }
                 }
                 if (numberOfDays.Value > 0)
                 {
-                    if (accommodation.minDays > minDays)
+                    if (accommodation.MinDays > minDays)
                     {
                         minDaysCondition = false;
                     }

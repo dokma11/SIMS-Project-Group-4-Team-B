@@ -30,12 +30,12 @@ namespace Sims2023.DAO
         public int NextId()
         {
             if (_accommodationLocations.Count == 0) return 1;
-            return _accommodationLocations.Max(s => s.id) + 1;
+            return _accommodationLocations.Max(s => s.Id) + 1;
         }
 
         public void Add(AccommodationLocation AccLoc)
         {
-            AccLoc.id = NextId();
+            AccLoc.Id = NextId();
             _accommodationLocations.Add(AccLoc);
             _fileHandler.Save(_accommodationLocations);
             NotifyObservers();
@@ -50,7 +50,7 @@ namespace Sims2023.DAO
 
         public void Update(AccommodationLocation AccLoc)
         {
-            int index = _accommodationLocations.FindIndex(p => p.id == AccLoc.id);
+            int index = _accommodationLocations.FindIndex(p => p.Id == AccLoc.Id);
             if (index != -1)
             {
                 _accommodationLocations[index] = AccLoc;

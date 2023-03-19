@@ -13,21 +13,21 @@ namespace Sims2023.Controller
     public class AccomodationLocationController
     {
 
-        private AccommodationLocationsDAO _accomodationLocations;
+        private AccommodationLocationsDAO _accomodationLocation;
 
         public AccomodationLocationController()
         {
-            _accomodationLocations = new AccommodationLocationsDAO();
+            _accomodationLocation = new AccommodationLocationsDAO();
         }
 
         public List<AccommodationLocation> GetAllAccommodationLocations()
         {
-            return _accomodationLocations.GetAll();
+            return _accomodationLocation.GetAll();
         }
 
         public void Create(AccommodationLocation loc)
         {
-            _accomodationLocations.Add(loc);
+            _accomodationLocation.Add(loc);
         }
 
 
@@ -36,43 +36,43 @@ namespace Sims2023.Controller
         {
             foreach (AccommodationLocation location in GetAllAccommodationLocations())
             {
-                if (acmLoc.id == location.id) return location.id;
+                if (acmLoc.Id == location.Id) return location.Id;
             }
             return -1;
          }
 
-        public Boolean isAlreadyThere(AccommodationLocation acmLoc)
+        public Boolean IsAlreadyThere(AccommodationLocation acmLoc)
         {
             foreach (AccommodationLocation location in GetAllAccommodationLocations())
             {
-                if (acmLoc.city == location.city && acmLoc.country == location.country) return true;
+                if (acmLoc.City == location.City && acmLoc.Country == location.Country) return true;
             }
             return false;
 
         }
 
-        public int findIdByCityCountry(string city, string country)
+        public int FindIdByCityCountry(string city, string country)
         {
             foreach (AccommodationLocation location in GetAllAccommodationLocations())
             {
-                if (location.country== country && location.city== city) return location.id;
+                if (location.Country== country && location.City== city) return location.Id;
             }
             return -1;
         }
 
         public void Delete(AccommodationLocation loc)
         {
-            _accomodationLocations.Remove(loc);
+            _accomodationLocation.Remove(loc);
         }
 
         public void Update(AccommodationLocation loc)
         {
-            _accomodationLocations.Update(loc);
+            _accomodationLocation.Update(loc);
         }
 
         public void Subscribe(IObserver observer)
         {
-            _accomodationLocations.Subscribe(observer);
+            _accomodationLocation.Subscribe(observer);
         }
 
     }

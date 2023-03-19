@@ -60,6 +60,38 @@ namespace Sims2023.View
             // maxGuestNumberSearchBox.Maximum = toursMaxGuestNumber;
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DisplayMessageBox())
+            {
+                ConfirmParticipation();
+            }
+        }
+
+        private bool DisplayMessageBox() 
+        {
+            foreach(var tourReservation in _tourReservationController.GetAllReservations())
+            {
+                if (tourReservation.ShouldConfirmParticipation)
+                {
+                    tourReservation.ShouldConfirmParticipation = false;
+                    _tourReservationController.Save();
+                    return true;
+                }
+            }
+            return false;
+        }
+        private static MessageBoxResult ConfirmParticipation()
+        {
+            string sMessageBoxText = $"Potvrdite Vase prisustvo na turi pritskom na taster OK\n";
+            string sCaption = "Potvrda prisustva";
+
+            MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+            MessageBoxImage messageBoxImage = MessageBoxImage.Asterisk;
+
+            MessageBoxResult result = MessageBox.Show(sMessageBoxText, sCaption, messageBoxButton, messageBoxImage);
+            return result;
+        }
 
         private void AddLocationsToTour(ObservableCollection<Location> locations, ObservableCollection<Tour> tours)
         {

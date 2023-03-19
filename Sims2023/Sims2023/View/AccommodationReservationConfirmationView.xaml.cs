@@ -37,10 +37,10 @@ namespace Sims2023.View
 
             _accommodationReservationController = new AccommodationReservationController();
 
-            accommodatioNameTextBox.Text = selectedAccommodationS.name;
-            accommodatioCityTextBox.Text = selectedAccommodationS.city;
-            accommodatioCountryTextBox.Text = selectedAccommodationS.country;
-            accommodatioTypeTextBox.Text = selectedAccommodationS.type.ToString();
+            accommodatioNameTextBox.Text = selectedAccommodationS.Name;
+            accommodatioCityTextBox.Text = selectedAccommodationS.City;
+            accommodatioCountryTextBox.Text = selectedAccommodationS.Country;
+            accommodatioTypeTextBox.Text = selectedAccommodationS.Type.ToString();
             accommodatioStartDateTextBox.Text = selectedAccommodationStayS.StartDate.ToString("MM/dd/yyyy");
             accommodatioEndDateTextBox.Text = selectedAccommodationStayS.EndDate.ToString("MM/dd/yyyy");
 
@@ -49,7 +49,7 @@ namespace Sims2023.View
         private void ReservationButton_Click(object sender, RoutedEventArgs e)
         {
             
-            AccommodationReservation accommodationReservation = new AccommodationReservation(-1, 1,  SelectedAccommodation.id, SelectedAccommodationStay.StartDate , SelectedAccommodationStay.EndDate, days);
+            AccommodationReservation accommodationReservation = new AccommodationReservation(-1, 1,  SelectedAccommodation.Id, SelectedAccommodationStay.StartDate , SelectedAccommodationStay.EndDate, days);
             _accommodationReservationController.Create(accommodationReservation);
 
             MessageBox.Show("Uspesno ste rezervisali objekat!");

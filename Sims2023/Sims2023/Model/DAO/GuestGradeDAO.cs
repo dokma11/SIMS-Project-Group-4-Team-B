@@ -1,26 +1,23 @@
 ﻿using Sims2023.Observer;
 using Sims2023.Repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Model.DAO
 {
-     class GuestGradeDAO : ISubject
+    class GuestGradeDAO : ISubject
     {
         private List<IObserver> _observers;
 
         private GuestGradeFileHandler _fileHandler;
-        private List<GuestGrade> grades;
+        private List<GuestGrade> _grades;
 
 
 
         public GuestGradeDAO()
         {
             _fileHandler = new GuestGradeFileHandler();
-            grades = _fileHandler.Load();
+            _grades = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
 
@@ -28,40 +25,40 @@ namespace Sims2023.Model.DAO
 
         public int NextId()
         {
-            if (grades.Count == 0) return 1;
-            return grades.Max(s => s.Id) + 1;
+            if (_grades.Count == 0) return 1;
+            return _grades.Max(s => s.Id) + 1;
         }
 
         public void Add(GuestGrade grade)
         {
             grade.Id = NextId();
-            grades.Add(grade);
-            _fileHandler.Save(grades);
+            _grades.Add(grade);
+            _fileHandler.Save(_grades);
             NotifyObservers();
         }
 
         public void Remove(GuestGrade grade)
         {
-            grades.Remove(grade);
-            _fileHandler.Save(grades);
+            _grades.Remove(grade);
+            _fileHandler.Save(_grades);
             NotifyObservers();
         }
 
         public void Update(GuestGrade AccLoc)
         {
-            int index = grades.FindIndex(p => p.Id == AccLoc.Id);
+            int index = _grades.FindIndex(p => p.Id == AccLoc.Id);
             if (index != -1)
             {
-                grades[index] = AccLoc;
+                _grades[index] = AccLoc;
             }
 
-            _fileHandler.Save(grades);
+            _fileHandler.Save(_grades);
             NotifyObservers();
         }
 
         public List<GuestGrade> GetAll()
         {
-            return grades;
+            return _grades;
         }
 
         public void Subscribe(IObserver observer)

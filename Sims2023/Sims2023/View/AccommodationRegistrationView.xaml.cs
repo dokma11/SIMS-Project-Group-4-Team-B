@@ -42,16 +42,16 @@ namespace Sims2023.View
 
             // if location doesnt exist I create a new one
 
-            if (_accomodationLocationController.findIdByCityCountry(AccommodationLocation.city, AccommodationLocation.country) == -1)
+            if (_accomodationLocationController.FindIdByCityCountry(AccommodationLocation.City, AccommodationLocation.Country) == -1)
             {
-                if (AccommodationLocation.isVaild(AccommodationLocation) == null)
+                if (AccommodationLocation.IsVaild(AccommodationLocation) == null)
                     _accomodationLocationController.Create(AccommodationLocation);
 
             }
 
 
             // now need to find what Id it has
-            idLocation = _accomodationLocationController.findIdByCityCountry(AccommodationLocation.city, AccommodationLocation.country);
+            idLocation = _accomodationLocationController.FindIdByCityCountry(AccommodationLocation.City, AccommodationLocation.Country);
 
             string Type = comboBox.Text;
             string MaxGuests1 = textBox3.Text;
@@ -96,7 +96,7 @@ namespace Sims2023.View
             CancelDays = string.IsNullOrEmpty(CancelDayss) ? 1 : int.Parse(CancelDayss);
             Accommodation = new Accommodation(Id, Name, idLocation, Type, MaxGuests, MinDays, CancelDays, outputText);
 
-            if (Accommodation.isVaild(Accommodation) == null)
+            if (Accommodation.IsVaild(Accommodation) == null)
             {
                 _accommodationController.Create(Accommodation);
                 MessageBox.Show("uspijsna registracija smjestaja");
@@ -104,7 +104,7 @@ namespace Sims2023.View
             }
             else
             {
-                string s = Accommodation.isVaild(Accommodation);
+                string s = Accommodation.IsVaild(Accommodation);
                 MessageBox.Show(s);
             }
 

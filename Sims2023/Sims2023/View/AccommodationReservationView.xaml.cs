@@ -156,7 +156,7 @@ namespace Sims2023.View
             DateTime endDateSelected = endDatePicker.SelectedDate.Value;
             int daysNumber = (int)numberOfDays.Value;
 
-            int minDays = SelectedAccommodation.minDays;
+            int minDays = SelectedAccommodation.MinDays;
 
             if (startDateSelected == DateTime.Today)
             {
@@ -168,7 +168,7 @@ namespace Sims2023.View
                 MessageBox.Show("Molimo Vas selektujete pravilno datume.");
                 return false;
             }
-            if (daysNumber < SelectedAccommodation.minDays)
+            if (daysNumber < SelectedAccommodation.MinDays)
             {
                 MessageBox.Show($"Za ovaj smestaj minimalni broj dana koji mozete rezervisati je  {minDays} .");
                 return false;
@@ -185,7 +185,7 @@ namespace Sims2023.View
         {
             foreach (AccommodationReservation reservation in _accommodationReservationController.GetAllReservations())
             {
-                if (reservation.AccommodationId==SelectedAccommodation.id)
+                if (reservation.AccommodationId==SelectedAccommodation.Id)
                 {
                     for (DateTime i=reservation.StartDate; i <= reservation.EndDate; i = i.AddDays(1))
                     {

@@ -233,7 +233,6 @@ C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\n
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\LiveTourTrackingView.g.cs
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\MarkGuestsPresentView.g.cs
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\OwnerView.g.cs
-C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\SearchToursWindow.g.cs
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\TourLocationsView.g.cs
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\App.g.cs
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023_MarkupCompile.cache
@@ -252,7 +251,6 @@ C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\n
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\GuideView.baml
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\LiveTourTrackingView.baml
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\MarkGuestsPresentView.baml
-C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\SearchToursWindow.baml
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\TourLocationsView.baml
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.g.resources
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.GeneratedMSBuildEditorConfig.editorconfig
@@ -265,3 +263,5 @@ C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\n
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.pdb
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\Sims2023.genruntimeconfig.cache
 C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\ref\Sims2023.dll
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\SearchToursView.g.cs
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\View\SearchToursView.baml

@@ -50,7 +50,7 @@ namespace Sims2023.View
             string Communicationn = comboBox2.Text;
             string comment = textBox.Text;
 
-            if (_gradeController.isValid(cleaN, Respectrules, Communicationn, comment))
+            if (_gradeController.IsValid(cleaN, Respectrules, Communicationn, comment))
             {
                 int clean = int.Parse(cleaN);
                 int RespectRules = int.Parse(Respectrules);

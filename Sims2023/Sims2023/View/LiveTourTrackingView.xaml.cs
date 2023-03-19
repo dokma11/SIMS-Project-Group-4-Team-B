@@ -3,6 +3,7 @@ using Sims2023.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Security.Cryptography;
 using System.Windows;
 
 namespace Sims2023.View
@@ -52,7 +53,7 @@ namespace Sims2023.View
             }
 
             firstKeyPointId = FindFirstKeyPoint();
-            lastVisitedKeyPointId = FindLastVisitedKeyPoint();
+            lastVisitedKeyPointId = firstKeyPointId;
             lastKeyPointId = FindLastKeyPoint();
         }
 
@@ -74,20 +75,30 @@ namespace Sims2023.View
                     }
                 }
             }
+            MarkFirstKeyPoint();
             return firstKeyPointId;
         }
 
-        private int FindLastVisitedKeyPoint()
+        private void MarkFirstKeyPoint()
         {
             foreach (var keyPoint in KeyPointsToShow)
             {
                 if (keyPoint.Id == firstKeyPointId)
                 {
                     keyPoint.CurrentState = KeyPoint.State.BeingVisited;
-                    lastVisitedKeyPointId = keyPoint.Id;
                 }
             }
-            return lastVisitedKeyPointId;
+        }
+
+        private void MarkLastVisitedKeyPoint()
+        {
+            foreach (var keyPoint in KeyPointsToShow)
+            {
+                if (keyPoint.Id == lastVisitedKeyPointId)
+                {
+                    keyPoint.CurrentState = KeyPoint.State.Visited;
+                }
+            }
         }
 
         private int FindLastKeyPoint()
@@ -100,6 +111,17 @@ namespace Sims2023.View
                 }
             }
             return lastKeyPointId;
+        }
+
+        private void MarkLastKeyPoint()
+        {
+            foreach (var keyPoint in KeyPointsToShow)
+            {
+                if (keyPoint.Id == lastKeyPointId)
+                {
+                    keyPoint.CurrentState = KeyPoint.State.Visited;
+                }
+            }
         }
 
         private void MarkKeyPointButton_Click(object sender, RoutedEventArgs e)
@@ -122,6 +144,7 @@ namespace Sims2023.View
                 {
                     Update();
                     Tour.CurrentState = Tour.State.Finished;
+                    MarkLastKeyPoint();
                     ConfirmEnd();
                     Close();
                 }
@@ -178,6 +201,7 @@ namespace Sims2023.View
             if (result == MessageBoxResult.Yes)
             {
                 Tour.CurrentState = Tour.State.Cancelled;
+                MarkLastVisitedKeyPoint();
                 Close();
             }
         }
