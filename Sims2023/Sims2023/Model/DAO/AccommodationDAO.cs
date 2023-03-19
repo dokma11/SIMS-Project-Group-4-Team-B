@@ -2,12 +2,8 @@
 using Sims2023.Model.DAO;
 using Sims2023.Observer;
 using Sims2023.Repository;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.DAO
 {
@@ -32,7 +28,7 @@ namespace Sims2023.DAO
 
         }
 
-       
+
 
 
 
@@ -41,12 +37,12 @@ namespace Sims2023.DAO
         public int NextId()
         {
             if (_accommodations.Count == 0) return 1;
-            return _accommodations.Max(s => s.id) + 1;
+            return _accommodations.Max(s => s.Id) + 1;
         }
 
         public void Add(Accommodation accommodation)
         {
-            accommodation.id = NextId();
+            accommodation.Id = NextId();
             _accommodations.Add(accommodation);
             _fileHandler.Save(_accommodations);
             NotifyObservers();
@@ -63,7 +59,7 @@ namespace Sims2023.DAO
 
         public void Update(Accommodation accommodation)
         {
-            int index = _accommodations.FindIndex(p => p.id == accommodation.id);
+            int index = _accommodations.FindIndex(p => p.Id == accommodation.Id);
             if (index != -1)
             {
                 _accommodations[index] = accommodation;

@@ -1,27 +1,22 @@
-﻿using Sims2023.DAO;
-using Sims2023.Model;
+﻿using Sims2023.Model;
 using Sims2023.Model.DAO;
 using Sims2023.Observer;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Controller
 {
     internal class GuestGradeController
     {
-        private GuestGradeDAO grades;
+        private GuestGradeDAO _grade;
 
         public GuestGradeController()
         {
-            grades = new GuestGradeDAO();
+            _grade = new GuestGradeDAO();
         }
 
         public List<GuestGrade> GetAllGrades()
         {
-            return grades.GetAll();
+            return _grade.GetAll();
         }
 
 
@@ -29,25 +24,25 @@ namespace Sims2023.Controller
 
         public void Create(GuestGrade grade)
         {
-            grades.Add(grade);
+            _grade.Add(grade);
         }
 
         public void Delete(GuestGrade grade)
         {
-            grades.Remove(grade);
+            _grade.Remove(grade);
         }
 
         public void Update(GuestGrade grade)
         {
-            grades.Update(grade);
+            _grade.Update(grade);
         }
 
         public void Subscribe(IObserver observer)
         {
-            grades.Subscribe(observer);
+            _grade.Subscribe(observer);
         }
 
-        public bool isValid(string cleaN, string Respectrules, string Communicationn, string comment)
+        public bool IsValid(string cleaN, string Respectrules, string Communicationn, string comment)
         {
             int clean;
             bool isCleanValid = int.TryParse(cleaN, out clean);

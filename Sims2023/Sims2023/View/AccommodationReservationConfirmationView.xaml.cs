@@ -22,34 +22,34 @@ namespace Sims2023.View
     
     public partial class AccommodationReservationConfirmationView : Window
     {
-        public Accommodation selectedAccommodation { get; set; }
-        public AccommodationStay selectedAccommodationStay { get; set; }
-        private AccommodationReservationController _accommodationReservationController { get; set; }
+        public Accommodation SelectedAccommodation { get; set; }
+        public AccommodationStay SelectedAccommodationStay { get; set; }
+        private AccommodationReservationController _accommodationReservationController;
 
         int days;
         public AccommodationReservationConfirmationView(Accommodation selectedAccommodationS, AccommodationStay selectedAccommodationStayS, int daysNumber)
         {
             InitializeComponent();
             DataContext=this;
-            selectedAccommodation = selectedAccommodationS;
-            selectedAccommodationStay = selectedAccommodationStayS;
+            SelectedAccommodation = selectedAccommodationS;
+            SelectedAccommodationStay = selectedAccommodationStayS;
             days = daysNumber;
 
             _accommodationReservationController = new AccommodationReservationController();
 
-            accommodatioNameTextBox.Text = selectedAccommodationS.name;
-            accommodatioCityTextBox.Text = selectedAccommodationS.city;
-            accommodatioCountryTextBox.Text = selectedAccommodationS.country;
-            accommodatioTypeTextBox.Text = selectedAccommodationS.type.ToString();
+            accommodatioNameTextBox.Text = selectedAccommodationS.Name;
+            accommodatioCityTextBox.Text = selectedAccommodationS.City;
+            accommodatioCountryTextBox.Text = selectedAccommodationS.Country;
+            accommodatioTypeTextBox.Text = selectedAccommodationS.Type.ToString();
             accommodatioStartDateTextBox.Text = selectedAccommodationStayS.StartDate.ToString("MM/dd/yyyy");
             accommodatioEndDateTextBox.Text = selectedAccommodationStayS.EndDate.ToString("MM/dd/yyyy");
 
         }
 
-        private void reservationButton_Click(object sender, RoutedEventArgs e)
+        private void ReservationButton_Click(object sender, RoutedEventArgs e)
         {
             
-            AccommodationReservation accommodationReservation = new AccommodationReservation(-1, 1,  selectedAccommodation.id, selectedAccommodationStay.StartDate , selectedAccommodationStay.EndDate, days);
+            AccommodationReservation accommodationReservation = new AccommodationReservation(-1, 1,  SelectedAccommodation.Id, SelectedAccommodationStay.StartDate , SelectedAccommodationStay.EndDate, days);
             _accommodationReservationController.Create(accommodationReservation);
 
             MessageBox.Show("Uspesno ste rezervisali objekat!");
@@ -58,7 +58,7 @@ namespace Sims2023.View
             
         }
 
-        private void buttonDateCancelation_Click(object sender, RoutedEventArgs e)
+        private void ButtonDateCancelation_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }

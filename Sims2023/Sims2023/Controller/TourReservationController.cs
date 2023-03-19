@@ -42,5 +42,10 @@ namespace Sims2023.Controller
         {
             _tourReservations.Subscribe(observer);
         }
+
+        public void Save()
+        {
+            _tourReservations.Save();
+        }
     }
 }

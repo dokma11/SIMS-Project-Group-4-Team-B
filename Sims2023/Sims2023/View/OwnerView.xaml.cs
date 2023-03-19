@@ -26,14 +26,14 @@ namespace Sims2023.View
     public partial class OwnerView : Window
     {
         private string outputText;
-        private AccommodationController accommodationCtrl;
-        private AccomodationLocationController accommodationLocationCtrl;
-        private AccommodationReservationController accommodationReservationCtrl;
-        private GuestGradeController gradeController;
+        private AccommodationController _accommodationController;
+        private AccomodationLocationController _accommodationLocationController;
+        private AccommodationReservationController _accommodationReservationController;
+        private GuestGradeController _gradeController;
         private GuestFileHandler fh;
-        private List<Guest> guests;
-        public List<AccommodationReservation> reservatons { get; set; }
-        public List<AccommodationReservation> gradableGuests { get; set; }
+        private List<Guest> Guests;
+        public List<AccommodationReservation> Reservatons { get; set; }
+        public List<AccommodationReservation> GradableGuests { get; set; }
 
 
         public OwnerView()
@@ -41,17 +41,17 @@ namespace Sims2023.View
             
             InitializeComponent();
             DataContext = this;
-            accommodationCtrl = new AccommodationController();
-            accommodationLocationCtrl = new AccomodationLocationController();
+            _accommodationController = new AccommodationController();
+            _accommodationLocationController = new AccomodationLocationController();
             fh = new GuestFileHandler();
-            guests = new List<Guest>(fh.Load());
-            accommodationReservationCtrl = new AccommodationReservationController();
-            gradeController = new GuestGradeController();
+            Guests = new List<Guest>(fh.Load());
+            _accommodationReservationController = new AccommodationReservationController();
+            _gradeController = new GuestGradeController();
 
-            reservatons = new List<AccommodationReservation>(accommodationReservationCtrl.GetAllReservations());
+            Reservatons = new List<AccommodationReservation>(_accommodationReservationController.GetAllReservations());
 
-            gradableGuests = new List<AccommodationReservation>(accommodationReservationCtrl.GetGradableGuests(guests, accommodationCtrl.GetAllAccommodations(),
-                                                                                reservatons, gradeController.GetAllGrades()));
+            GradableGuests = new List<AccommodationReservation>(_accommodationReservationController.GetGradableGuests(Guests, _accommodationController.GetAllAccommodations(),
+                                                                                Reservatons, _gradeController.GetAllGrades()));
 
         }
 
@@ -68,9 +68,9 @@ namespace Sims2023.View
 
                 if (lastShownDate < DateTime.Today)
                 {
-                    if (gradableGuests.Count != 0)
+                    if (GradableGuests.Count != 0)
                     {
-                        MessageBox.Show(accommodationReservationCtrl.GetAllUngradedNames(gradableGuests));
+                        MessageBox.Show(_accommodationReservationController.GetAllUngradedNames(GradableGuests));
 
                         // Update the last shown date to today's date
                         File.WriteAllText(fileName, DateTime.Today.ToString());
@@ -87,15 +87,15 @@ namespace Sims2023.View
         }
 
 
-        private void grade_click(object sender, RoutedEventArgs e)
+        private void Grade_Click(object sender, RoutedEventArgs e)
         {
-            var guestss = new AllGuestsView(guests, accommodationReservationCtrl, reservatons);
+            var guestss = new AllGuestsView(Guests, _accommodationReservationController, Reservatons);
             guestss.Show();
         }
 
-        private void addAccommodationClick(object sender, RoutedEventArgs e)
+        private void AddAccommodation_Click(object sender, RoutedEventArgs e)
         {
-            var addAccommodation = new AccommodationRegistrationView(accommodationCtrl, accommodationLocationCtrl);
+            var addAccommodation = new AccommodationRegistrationView(_accommodationController, _accommodationLocationController);
             addAccommodation.Show();
         }
     }

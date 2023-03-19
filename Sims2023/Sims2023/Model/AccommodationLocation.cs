@@ -11,35 +11,40 @@ namespace Sims2023.Model
     public class AccommodationLocation : ISerializable, INotifyPropertyChanged
     {
 
-        public int id { get; set; }
-        public string city { get; set; }
-        public string country { get; set; }
+        public int Id { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
         public AccommodationLocation() { }
         public AccommodationLocation(int Id, string City, string Country)
         {
-            id = Id;
-            city = City;
-            country = Country;
+            this.Id = Id;
+            this.City = City;
+            this.Country = Country;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public string[] ToCSV()
         {
-            string[] csvValues = { id.ToString(), city, country };
+            string[] csvValues = 
+            { 
+                Id.ToString(), 
+                City, 
+                Country 
+            };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-            id = Convert.ToInt32(values[0]);
-            city = values[1];
-            country = values[2];
+            Id = Convert.ToInt32(values[0]);
+            City = values[1];
+            Country = values[2];
         }
 
-        public string isVaild(AccommodationLocation a)
+        public string IsVaild(AccommodationLocation a)
         {
-            if (string.IsNullOrEmpty(a.city) || string.IsNullOrEmpty(a.country))
+            if (string.IsNullOrEmpty(a.City) || string.IsNullOrEmpty(a.Country))
                 return "morate popuniti sve podatke za grad i drzavu";
             return null;
         }

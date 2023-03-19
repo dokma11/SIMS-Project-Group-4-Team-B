@@ -61,9 +61,9 @@ namespace Sims2023.Model.DAO
             {
                 foreach (var accommodation in accommodations)
                 {
-                    if (reservation.Id == accommodation.id)
+                    if (reservation.Id == accommodation.Id)
                     {
-                        reservation.AccommodationName = accommodation.name;
+                        reservation.AccommodationName = accommodation.Name;
 
                     }
                 }
@@ -123,7 +123,7 @@ namespace Sims2023.Model.DAO
         }
 
         // shows all ungraded guests in a notification
-        public string ungradedGuestsNameAndSurrname(List<AccommodationReservation> ungradedGuests)
+        public string UngradedGuestsNameAndSurrname(List<AccommodationReservation> ungradedGuests)
         {
             string string1 = "Imate neocijenjene goste: \n";
         

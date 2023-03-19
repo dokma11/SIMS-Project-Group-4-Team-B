@@ -11,16 +11,16 @@ namespace Sims2023.Controller
 {
     public class AccommodationController
     {
-        private AccommodationDAO _accomodations;
+        private AccommodationDAO _accomodation;
 
         public AccommodationController()
         {
-            _accomodations = new AccommodationDAO();
+            _accomodation = new AccommodationDAO();
         }
 
         public List<Accommodation> GetAllAccommodations()
         {
-            return _accomodations.GetAll();
+            return _accomodation.GetAll();
         }
 
 
@@ -28,22 +28,22 @@ namespace Sims2023.Controller
 
         public void Create(Accommodation accommodation)
         {
-            _accomodations.Add(accommodation);
+            _accomodation.Add(accommodation);
         }
 
         public void Delete(Accommodation accommodation)
         {
-            _accomodations.Remove(accommodation);
+            _accomodation.Remove(accommodation);
         }
 
         public void Update(Accommodation accommodation)
         {
-            _accomodations.Update(accommodation);
+            _accomodation.Update(accommodation);
         }
 
         public void Subscribe(IObserver observer)
         {
-            _accomodations.Subscribe(observer);
+            _accomodation.Subscribe(observer);
         }
 
 

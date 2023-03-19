@@ -1,10 +1,6 @@
 ﻿using Sims2023.Serialization;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Model
 {
@@ -31,13 +27,22 @@ namespace Sims2023.Model
             Communication = communication;
             Comment = comment;
         }
-       
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), GuestId.ToString(), Cleanliness.ToString(), RespectRules.ToString(), Communication.ToString(), Comment };
+            string[] csvValues =
+            { 
+                Id.ToString(),
+                AccommodationId.ToString(),
+                GuestId.ToString(),
+                Cleanliness.ToString(),
+                RespectRules.ToString(),
+                Communication.ToString(),
+                Comment
+            };
             return csvValues;
         }
 
@@ -48,7 +53,7 @@ namespace Sims2023.Model
             GuestId = Convert.ToInt32(values[2]);
             Cleanliness = Convert.ToInt32(values[3]);
             RespectRules = Convert.ToInt32(values[4]);
-            Communication= Convert.ToInt32(values[5]);
+            Communication = Convert.ToInt32(values[5]);
             Comment = values[6];
         }
 

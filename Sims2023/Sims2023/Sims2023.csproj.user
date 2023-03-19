@@ -30,7 +30,7 @@
     <Compile Update="View\Guest2View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\SearchToursWindow.xaml.cs">
+    <Compile Update="View\SearchToursView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\TourLocationsView.xaml.cs">
@@ -67,7 +67,7 @@
     <Page Update="View\OwnerView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\SearchToursWindow.xaml">
+    <Page Update="View\SearchToursView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\TourLocationsView.xaml">

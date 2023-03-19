@@ -60,6 +60,12 @@ namespace Sims2023.Model.DAO
             return _tourReservations;
         }
 
+        public void Save() 
+        {
+            _fileHandler.Save(_tourReservations);
+            NotifyObservers();
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

@@ -11,46 +11,46 @@ namespace Sims2023.Controller
 {
     public class AccommodationReservationController
     {
-        private AccommodationReservationDAO _accommodationReservations;
+        private AccommodationReservationDAO _accommodationReservation;
 
         public AccommodationReservationController()
         {
-            _accommodationReservations = new AccommodationReservationDAO();
+            _accommodationReservation = new AccommodationReservationDAO();
         }
 
         public List<AccommodationReservation> GetGradableGuests(List<Guest> ListOfGuests, List<Accommodation> _accommodations, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
-            return _accommodationReservations.findGradableGuests(ListOfGuests, _accommodations, reservatons, grades);
+            return _accommodationReservation.findGradableGuests(ListOfGuests, _accommodations, reservatons, grades);
         }
 
         public string GetAllUngradedNames(List<AccommodationReservation> ungradedGuests)
         {
-            return _accommodationReservations.ungradedGuestsNameAndSurrname(ungradedGuests);
+            return _accommodationReservation.UngradedGuestsNameAndSurrname(ungradedGuests);
         }
 
         public List<AccommodationReservation> GetAllReservations()
         {
-            return _accommodationReservations.GetAll();
+            return _accommodationReservation.GetAll();
         }
 
         public void Create(AccommodationReservation reservation)
         {
-            _accommodationReservations.Add(reservation);
+            _accommodationReservation.Add(reservation);
         }
 
         public void Delete(AccommodationReservation reservation)
         {
-            _accommodationReservations.Remove(reservation);
+            _accommodationReservation.Remove(reservation);
         }
 
         public void Update(AccommodationReservation reservation)
         {
-            _accommodationReservations.Update(reservation);
+            _accommodationReservation.Update(reservation);
         }
 
         public void Subscribe(IObserver observer)
         {
-            _accommodationReservations.Subscribe(observer);
+            _accommodationReservation.Subscribe(observer);
         }
     }
 }

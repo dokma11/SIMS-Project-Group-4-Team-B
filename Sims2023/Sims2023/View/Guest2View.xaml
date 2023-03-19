@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Sims2023.View"
         mc:Ignorable="d"
-        Title="Guest2View" Height="450" Width="970">
+        Title="Guest2View" Height="450" Width="970" Loaded="Window_Loaded">
     <Grid>
 
         <DataGrid x:Name="dataGridTours" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"

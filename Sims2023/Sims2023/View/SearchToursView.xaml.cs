@@ -17,9 +17,9 @@ namespace Sims2023.View
     /// <summary>
     /// Interaction logic for SearchToursWindow.xaml
     /// </summary>
-    public partial class SearchToursWindow : Window
+    public partial class SearchToursView : Window
     {
-        public SearchToursWindow()
+        public SearchToursView()
         {
             InitializeComponent();
         }
