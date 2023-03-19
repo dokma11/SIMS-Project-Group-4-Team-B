@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button x:Name="button1" Content="Owner" HorizontalAlignment="Left" Margin="68,184,0,0" VerticalAlignment="Top" Height="72" Width="99" Click="OwnerClick" />
-        <Button x:Name="button2" Content="Guest1" HorizontalAlignment="Left" Margin="265,184,0,0" VerticalAlignment="Top" Width="109" Height="72" Click="Guest1Click"/>
-        <Button x:Name="button3" Content="Guide" HorizontalAlignment="Left" Margin="461,184,0,0" VerticalAlignment="Top" Width="99" Height="72" Click="GuideClick"/>
-        <Button x:Name="button4" Content="Guest2" HorizontalAlignment="Left" Margin="648,184,0,0" VerticalAlignment="Top" Width="104" Height="72" Click="Guest2Click"/>
+        <Button x:Name="button1" Content="Owner" HorizontalAlignment="Left" Margin="68,184,0,0" VerticalAlignment="Top" Height="72" Width="99" Click="Owner_Click" />
+        <Button x:Name="button2" Content="Guest1" HorizontalAlignment="Left" Margin="265,184,0,0" VerticalAlignment="Top" Width="109" Height="72" Click="Guest1_Click"/>
+        <Button x:Name="button3" Content="Guide" HorizontalAlignment="Left" Margin="461,184,0,0" VerticalAlignment="Top" Width="99" Height="72" Click="Guide_Click"/>
+        <Button x:Name="button4" Content="Guest2" HorizontalAlignment="Left" Margin="648,184,0,0" VerticalAlignment="Top" Width="104" Height="72" Click="Guest2_Click"/>
     </Grid>
 </Window>

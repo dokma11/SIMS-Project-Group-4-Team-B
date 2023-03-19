@@ -25,13 +25,13 @@ namespace Sims2023.View
             DataContext = this;
         }
 
-        private void viewAccommodationClick(object sender, RoutedEventArgs e)
+        private void VewAccommodation_Click(object sender, RoutedEventArgs e)
         {
             var AccommodationListView = new AccommodationListView();
             AccommodationListView.Show();
         }
 
-        private void buttonLogOut_Click(object sender, RoutedEventArgs e)
+        private void ButtonLogOut_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }

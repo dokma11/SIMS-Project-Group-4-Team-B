@@ -24,18 +24,18 @@ namespace Sims2023.View
     public partial class AllGuestsView : Window
     {
         
-        private AccommodationReservationController reservationCtrl;
-        public ObservableCollection<AccommodationReservation> reservatons { get; set; }
+        private AccommodationReservationController _reservationController;
+        public ObservableCollection<AccommodationReservation> Reservatons { get; set; }
        
 
-        public AccommodationReservation selectedGuest { get; set; }
-        public List<AccommodationReservation> reservatons2 { get; set; }
-        public List<Accommodation> accommodations { get; set; }
-        public List<AccommodationReservation> reservationsList  { get; set; }
+        public AccommodationReservation SelectedGuest { get; set; }
+        public List<AccommodationReservation> Reservatons2 { get; set; }
+        public List<Accommodation> Accommodations { get; set; }
+        public List<AccommodationReservation> ReservationsList  { get; set; }
 
-        private AccommodationController accommodationCtrl;
+        private AccommodationController _accommodationController;
 
-        private GuestGradeController gradeCtrl;
+        private GuestGradeController _gradeController;
 
 
         public AllGuestsView(List<Guest> guests,AccommodationReservationController acml, List<AccommodationReservation> reserv)
@@ -43,15 +43,15 @@ namespace Sims2023.View
             InitializeComponent();
             DataContext= this;
           
-            accommodationCtrl = new AccommodationController();
+            _accommodationController = new AccommodationController();
             
-            accommodations = new List<Accommodation>(accommodationCtrl.GetAllAccommodations());
+            Accommodations = new List<Accommodation>(_accommodationController.GetAllAccommodations());
             
-            reservationCtrl = acml;
-            reservatons2 = reserv;
+            _reservationController = acml;
+            Reservatons2 = reserv;
           
-            gradeCtrl = new GuestGradeController();
-            reservatons = new ObservableCollection<AccommodationReservation>(reservationCtrl.GetGradableGuests(guests, accommodations, reservatons2, gradeCtrl.GetAllGrades()));
+            _gradeController = new GuestGradeController();
+            Reservatons = new ObservableCollection<AccommodationReservation>(_reservationController.GetGradableGuests(guests, Accommodations, Reservatons2, _gradeController.GetAllGrades()));
 
        
 
@@ -63,9 +63,9 @@ namespace Sims2023.View
         private void Grade_Click(object sender, EventArgs e)
         {
             
-            if (selectedGuest != null)
+            if (SelectedGuest != null)
             {
-                var gradeView = new Guest1GradeView(selectedGuest, reservatons);
+                var gradeView = new Guest1GradeView(SelectedGuest, Reservatons);
                 gradeView.Closed += GradeView_Closed;
                 gradeView.Show();
             }
@@ -76,9 +76,9 @@ namespace Sims2023.View
         {
             var gradeView = (Guest1GradeView)sender;
 
-            if (gradeView.gradeEntered)
+            if (gradeView.GradeEntered)
             {
-                reservatons.Remove(selectedGuest);
+                Reservatons.Remove(SelectedGuest);
             }
         }
 

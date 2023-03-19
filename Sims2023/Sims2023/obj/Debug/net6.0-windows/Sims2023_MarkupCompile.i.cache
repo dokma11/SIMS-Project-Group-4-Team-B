@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\Tatjana\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\obj\Debug\net6.0-windows\
 Sims2023
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\Tatjana\SIMS-Project\Sims2023\Sims2023\App.xaml
+C:\Users\HP Pavilion\Documents\GitHub\SIMS-Project\Sims2023\Sims2023\App.xaml
 17752502210
 
 66696946371
-199-1290502910
+199-8650532
 MainWindow.xaml;View\AccommodationListView.xaml;View\AccommodationRegistrationView.xaml;View\AccommodationReservationConfirmationView.xaml;View\AccommodationReservationDateView.xaml;View\AccommodationReservationView.xaml;View\AllGuestsView.xaml;View\CreateTourView.xaml;View\Guest1GradeView.xaml;View\Guest1MainView.xaml;View\Guest2View.xaml;View\GuideView.xaml;View\LiveTourTrackingView.xaml;View\MarkGuestsPresentView.xaml;View\OwnerView.xaml;View\SearchToursWindow.xaml;View\TourLocationsView.xaml;
 
 True

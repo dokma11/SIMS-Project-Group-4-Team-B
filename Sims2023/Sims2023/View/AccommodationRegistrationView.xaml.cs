@@ -1,18 +1,6 @@
 ﻿using Sims2023.Controller;
 using Sims2023.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Sims2023.View
 {
@@ -21,23 +9,23 @@ namespace Sims2023.View
     /// </summary>
     public partial class AccommodationRegistrationView : Window
     {
-        private AccommodationController accommodationCtrl;
-        private AccomodationLocationController accomodationLocationctrl;
-        private Accommodation accommodation { get; set; }
-        private AccommodationLocation acmLocation { get; set; }
+        private AccommodationController _accommodationController;
+        private AccomodationLocationController _accomodationLocationController;
+        private Accommodation Accommodation { get; set; }
+        private AccommodationLocation AccommodationLocation { get; set; }
         string outputText;
         public AccommodationRegistrationView(AccommodationController accommodationCtrl1, AccomodationLocationController accommodationLocationCtrll)
         {
             InitializeComponent();
-            DataContext= this;
-            
-            accommodationCtrl = accommodationCtrl1;
+            DataContext = this;
 
-            accomodationLocationctrl = accommodationLocationCtrll;
+            _accommodationController = accommodationCtrl1;
 
-            accommodation = new Accommodation();
+            _accomodationLocationController = accommodationLocationCtrll;
 
-            acmLocation = new AccommodationLocation();
+            Accommodation = new Accommodation();
+
+            AccommodationLocation = new AccommodationLocation();
         }
 
         private void Registration_Click(object sender, RoutedEventArgs e)
@@ -46,24 +34,24 @@ namespace Sims2023.View
             int Id2 = 0;
             string Name = textBox.Text;
             string Town = textBox1.Text;
-            int idLocation=0;
+            int idLocation = 0;
 
-          
+
             string Country = textBox2.Text;
-            acmLocation = new AccommodationLocation(Id2, Town, Country);
+            AccommodationLocation = new AccommodationLocation(Id2, Town, Country);
 
             // if location doesnt exist I create a new one
 
-            if (accomodationLocationctrl.findIdByCityCountry(acmLocation.city,acmLocation.country) == -1)
+            if (_accomodationLocationController.findIdByCityCountry(AccommodationLocation.city, AccommodationLocation.country) == -1)
             {
-                if (acmLocation.isVaild(acmLocation) == null)
-                    accomodationLocationctrl.Create(acmLocation);
-               
+                if (AccommodationLocation.isVaild(AccommodationLocation) == null)
+                    _accomodationLocationController.Create(AccommodationLocation);
+
             }
 
-           
-           // now need to find what Id it has
-           idLocation = accomodationLocationctrl.findIdByCityCountry(acmLocation.city,acmLocation.country);
+
+            // now need to find what Id it has
+            idLocation = _accomodationLocationController.findIdByCityCountry(AccommodationLocation.city, AccommodationLocation.country);
 
             string Type = comboBox.Text;
             string MaxGuests1 = textBox3.Text;
@@ -78,12 +66,12 @@ namespace Sims2023.View
                 return;
             }
             MaxGuests = string.IsNullOrEmpty(MaxGuests1) ? -1 : int.Parse(MaxGuests1);
-           
-            
+
+
             // same for minimum days
-            
+
             string mindays = textBox4.Text;
-             int MinDays;
+            int MinDays;
             bool isMaxGuestsValid1 = int.TryParse(mindays, out MinDays);
 
             if (!isMaxGuestsValid1)
@@ -106,23 +94,23 @@ namespace Sims2023.View
             }
 
             CancelDays = string.IsNullOrEmpty(CancelDayss) ? 1 : int.Parse(CancelDayss);
-            accommodation = new Accommodation(Id,Name, idLocation, Type, MaxGuests, MinDays, CancelDays, outputText);
+            Accommodation = new Accommodation(Id, Name, idLocation, Type, MaxGuests, MinDays, CancelDays, outputText);
 
-            if (accommodation.isVaild(accommodation) == null)
+            if (Accommodation.isVaild(Accommodation) == null)
             {
-                accommodationCtrl.Create(accommodation);
+                _accommodationController.Create(Accommodation);
                 MessageBox.Show("uspijsna registracija smjestaja");
                 Close();
             }
             else
             {
-                string s = accommodation.isVaild(accommodation);
+                string s = Accommodation.isVaild(Accommodation);
                 MessageBox.Show(s);
             }
 
-            
 
-            
+
+
 
         }
 

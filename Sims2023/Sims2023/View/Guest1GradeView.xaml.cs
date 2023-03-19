@@ -22,27 +22,27 @@ namespace Sims2023.View
     /// </summary>
     public partial class Guest1GradeView : Window
     {
-        private GuestGrade grade { get; set; }
-        private AccommodationReservation guest { get; set; }
+        private GuestGrade Grade { get; set; }
+        private AccommodationReservation Guest { get; set; }
 
-        private GuestGradeController gradeCtrl;
+        private GuestGradeController _gradeController;
 
-        public bool gradeEntered { get; set; }
+        public bool GradeEntered { get; set; }
          
         public Guest1GradeView(AccommodationReservation selectedGuest, ObservableCollection<AccommodationReservation> resevations)
         {
             InitializeComponent();
             DataContext = this;
-            grade = new GuestGrade();
-            guest = selectedGuest;
-            gradeCtrl = new GuestGradeController();
+            Grade = new GuestGrade();
+            Guest = selectedGuest;
+            _gradeController = new GuestGradeController();
            
-            gradeEntered = false;
+            GradeEntered = false;
          
         }
 
    
-        private void grade_click(object sender, EventArgs e)
+        private void Grade_click(object sender, EventArgs e)
         {
             int id = 0;
             string cleaN = comboBox.Text;
@@ -50,15 +50,15 @@ namespace Sims2023.View
             string Communicationn = comboBox2.Text;
             string comment = textBox.Text;
 
-            if (gradeCtrl.isValid(cleaN, Respectrules, Communicationn, comment))
+            if (_gradeController.isValid(cleaN, Respectrules, Communicationn, comment))
             {
                 int clean = int.Parse(cleaN);
                 int RespectRules = int.Parse(Respectrules);
                 int Communication = int.Parse(Communicationn);
-                grade = new GuestGrade(id, guest.AccommodationId, guest.GuestId, clean, RespectRules, Communication, comment);
-                gradeCtrl.Create(grade);
+                Grade = new GuestGrade(id, Guest.AccommodationId, Guest.GuestId, clean, RespectRules, Communication, comment);
+                _gradeController.Create(Grade);
                 MessageBox.Show("Uspijesno davanje ocjene");
-                gradeEntered = true;
+                GradeEntered = true;
                 Close();
             }
             else MessageBox.Show("Popunite sve podatke");

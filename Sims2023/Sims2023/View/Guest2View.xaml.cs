@@ -1,26 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Sims2023.Controller;
+using Sims2023.Model;
+using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Sims2023.Controller;
-using Sims2023.Model;
-using Sims2023.Observer;
-using Sims2023.View;
 
 
 namespace Sims2023.View
@@ -31,22 +16,22 @@ namespace Sims2023.View
     public partial class Guest2View : Window, IObserver
     {
 
-        private TourController _controllerTour;
+        private TourController _tourController;
 
-        private LocationController _controllerLocation;
+        private LocationController _locationController;
 
-        private TourReservationController _controllerTourReservation;
+        private TourReservationController _tourReservationController;
         public ObservableCollection<Tour> Tours { get; set; }
         public ObservableCollection<Location> Locations { get; set; }
         public Tour SelectedTour { get; set; }
         public Tour EditedTour { get; set; }
 
-        List<Tour> filteredData = new List<Tour>();
+        public List<Tour> FilteredData = new List<Tour>();
 
-        
-        
 
-        
+
+
+
 
         public TourReservation TourReservation { get; set; }
 
@@ -55,63 +40,63 @@ namespace Sims2023.View
             InitializeComponent();
             DataContext = this;
 
-            _controllerTour = new TourController();
-            _controllerTour.Subscribe(this);
-            _controllerLocation = new LocationController();
-            _controllerLocation.Subscribe(this);
-            _controllerTourReservation = new TourReservationController();
-            _controllerTourReservation.Subscribe(this);
+            _tourController = new TourController();
+            _tourController.Subscribe(this);
+            _locationController = new LocationController();
+            _locationController.Subscribe(this);
+            _tourReservationController = new TourReservationController();
+            _tourReservationController.Subscribe(this);
 
-            Tours = new ObservableCollection<Tour>(_controllerTour.GetAllTours());
-            Locations = new ObservableCollection<Location>(_controllerLocation.GetAllLocations());
+            Tours = new ObservableCollection<Tour>(_tourController.GetAllTours());
+            Locations = new ObservableCollection<Location>(_locationController.GetAllLocations());
 
             SelectedTour = new Tour();
             EditedTour = new Tour();
-            filteredData = new List<Tour>();
-            
+            FilteredData = new List<Tour>();
+
             AddLocationsToTour(Locations, Tours);
 
             //int toursMaxGuestNumber = Tours.Max(y => y.MaxGuestNumber);
-           // maxGuestNumberSearchBox.Maximum = toursMaxGuestNumber;
+            // maxGuestNumberSearchBox.Maximum = toursMaxGuestNumber;
         }
 
 
         private void AddLocationsToTour(ObservableCollection<Location> locations, ObservableCollection<Tour> tours)
         {
-            
-                foreach (var tour in tours)
+
+            foreach (var tour in tours)
+            {
+                foreach (var location in locations)
                 {
-                    foreach (var location in locations)
+                    if (tour.LocationId == location.Id)
                     {
-                        if (tour.LocationId == location.Id)
-                        {
-                            tour.City = location.City;
-                            tour.Country = location.Country;
-                        }
+                        tour.City = location.City;
+                        tour.Country = location.Country;
                     }
                 }
-            
+            }
+
         }
 
         private void SearchTours_Click(object sender, RoutedEventArgs e)
         {
-            
-            filteredData.Clear();
+
+            FilteredData.Clear();
             dataGridTours.ItemsSource = Tours;
 
             string citySearchTerm = citySearchBox.Text;
             string countrySearchTerm = countrySearchBox.Text;
-            string lengthSearchTerm= lengthSearchBox.Text;
+            string lengthSearchTerm = lengthSearchBox.Text;
             string guideLanguageSearchTerm = guideLanguageSearchBox.Text.ToLower();
             int maxGuestNumberSearchTerm = (int)guestNumberBox.Value;
-            
+
 
 
 
 
             foreach (Tour tour in Tours)
             {
-                
+
                 bool cityCondition = true;
                 bool countryCondition = true;
                 bool lengthCondition = true;
@@ -158,17 +143,17 @@ namespace Sims2023.View
 
                 if (cityCondition && countryCondition && lengthCondition && guideLanguageCondition && maxGuestNumberCondition)
                 {
-                    filteredData.Add(tour);
+                    FilteredData.Add(tour);
 
                 }
 
             }
 
-            dataGridTours.ItemsSource = filteredData;
+            dataGridTours.ItemsSource = FilteredData;
 
-            
 
-            
+
+
         }
 
         private void ReserveTour_Click(object sender, RoutedEventArgs e)
@@ -177,9 +162,9 @@ namespace Sims2023.View
             int reservedSpace = (int)guestNumberBox.Value;
 
 
-            if (isNull(SelectedTour))
+            if (IsNull(SelectedTour))
                 return;
-            if (isEmpty(userIdBox))
+            if (IsEmpty(userIdBox))
                 return;
 
             if (SelectedTour.AvailableSpace >= reservedSpace)
@@ -190,7 +175,7 @@ namespace Sims2023.View
                 tourReservation.TourId = SelectedTour.Id;
                 tourReservation.UserId = Convert.ToInt32(userIdBox.Text);
                 tourReservation.GuestNumber = reservedSpace;
-                _controllerTourReservation.Create(tourReservation);
+                _tourReservationController.Create(tourReservation);
                 UpdateTours(reservedSpace);
                 dataGridTours.ItemsSource = Tours;
             }
@@ -200,13 +185,13 @@ namespace Sims2023.View
             }
             else
             {
-                
+
                 DisplayAlternativeTours(reservedSpace);
             }
 
         }
 
-        private bool isNull(Tour selectedTour)
+        private bool IsNull(Tour selectedTour)
         {
             if (selectedTour == null)
             {
@@ -218,9 +203,9 @@ namespace Sims2023.View
         }
 
 
-        
 
-        private bool isEmpty(TextBox textBox)
+
+        private bool IsEmpty(TextBox textBox)
         {
             int value;
             if (string.IsNullOrEmpty(textBox.Text))
@@ -244,7 +229,7 @@ namespace Sims2023.View
                 if (EditedTour == tour)
                 {
                     EditedTour.AvailableSpace -= reservedSpace;
-                    _controllerTour.Edit(EditedTour, tour);
+                    _tourController.Edit(EditedTour, tour);
                     break;
                 }
             }
@@ -253,35 +238,35 @@ namespace Sims2023.View
 
         private void DisplayAlternativeTours(int reserveSpace)
         {
-            filteredData.Clear();
+            FilteredData.Clear();
             dataGridTours.ItemsSource = Tours;
             foreach (Tour tour in Tours)
             {
                 if (tour.LocationId == SelectedTour.LocationId && tour.AvailableSpace >= reserveSpace)
-                    filteredData.Add(tour);
+                    FilteredData.Add(tour);
             }
 
-            dataGridTours.ItemsSource = filteredData;
+            dataGridTours.ItemsSource = FilteredData;
             MessageBox.Show("Izabrana tura je popunjena al u ponudi imamo ove ture sa istom lokacijom");
         }
 
         private void DisplaySelectedTour()
         {
-            filteredData.Clear();
+            FilteredData.Clear();
             dataGridTours.ItemsSource = Tours;
             foreach (Tour tour in Tours)
             {
                 if (tour == SelectedTour)
-                    filteredData.Add(tour);
+                    FilteredData.Add(tour);
             }
 
-            dataGridTours.ItemsSource = filteredData;
+            dataGridTours.ItemsSource = FilteredData;
             MessageBox.Show("U ponudi je ostalo jos navedeni broj slobodnih mesta");
         }
         private void UpdateToursList()
         {
             Tours.Clear();
-            foreach (var tour in _controllerTour.GetAllTours())
+            foreach (var tour in _tourController.GetAllTours())
             {
                 Tours.Add(tour);
             }

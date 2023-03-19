@@ -27,25 +27,25 @@ namespace Sims2023
             DataContext = this;
         }
 
-        private void OwnerClick(object sender, RoutedEventArgs e)
+        private void Owner_Click(object sender, RoutedEventArgs e)
         {
              var newWindow = new OwnerView();
              newWindow.Show();
         }
 
-        private void Guest1Click(object sender, RoutedEventArgs e)
+        private void Guest1_Click(object sender, RoutedEventArgs e)
         {
             var Guest1MainView = new Guest1MainView();
             Guest1MainView.Show();
         }
 
-        private void GuideClick(object sender, RoutedEventArgs e)
+        private void Guide_Click(object sender, RoutedEventArgs e)
         {
             GuideView guideView = new GuideView();
             guideView.Show();
         }
 
-        private void Guest2Click(object sender, RoutedEventArgs e)
+        private void Guest2_Click(object sender, RoutedEventArgs e)
         {
             Guest2View guest2View= new Guest2View();
             guest2View.Show();

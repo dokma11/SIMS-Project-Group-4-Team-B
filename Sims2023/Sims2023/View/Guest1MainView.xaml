@@ -9,7 +9,7 @@
     <Grid>
         <Label x:Name="label" Content="Moguce funkcionalnosti: " FontSize="25" HorizontalAlignment="Left" Margin="40,10,0,0" VerticalAlignment="Top" Width="320" Height="48"/>
         <Button Content="Prikaz i pretraga smestaja"  FontSize="20" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top"
-                    Click="viewAccommodationClick" Width="301" Margin="59,89,0,0" Height="116"/>
-        <Button x:Name="buttonLogOut" Content="Log out" HorizontalAlignment="Left" FontSize="20" Height="44" Margin="800,500,0,0" VerticalAlignment="Top" Width="131" Click="buttonLogOut_Click"/>
+                    Click="VewAccommodation_Click" Width="301" Margin="59,89,0,0" Height="116"/>
+        <Button x:Name="buttonLogOut" Content="Log out" HorizontalAlignment="Left" FontSize="20" Height="44" Margin="800,500,0,0" VerticalAlignment="Top" Width="131" Click="ButtonLogOut_Click"/>
     </Grid>
 </Window>

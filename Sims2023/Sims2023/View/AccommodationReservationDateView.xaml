@@ -26,7 +26,7 @@
                 <DataGridTextColumn Header="Krajnji datum" Binding="{Binding EndDate, StringFormat={}{0:d}}" Width="250"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="buttonDateConfirmation" Content="Potvrdite datum" HorizontalAlignment="Left" Height="50" Margin="550,0,0,0" FontSize="15" Grid.Row="2" VerticalAlignment="Center" Width="162" Click="buttonDateConfirmation_Click"/>
-        <Button x:Name="buttonDateCancelation" Content="Odustani" HorizontalAlignment="Left" Height="50" Margin="102,0,0,0" FontSize="15" Grid.Row="2" VerticalAlignment="Center" Width="162" Click="buttonDateCancelation_Click"/>
+        <Button x:Name="buttonDateConfirmation" Content="Potvrdite datum" HorizontalAlignment="Left" Height="50" Margin="550,0,0,0" FontSize="15" Grid.Row="2" VerticalAlignment="Center" Width="162" Click="ButtonDateConfirmation_Click"/>
+        <Button x:Name="buttonDateCancelation" Content="Odustani" HorizontalAlignment="Left" Height="50" Margin="102,0,0,0" FontSize="15" Grid.Row="2" VerticalAlignment="Center" Width="162" Click="ButtonDateCancelation_Click"/>
     </Grid>
 </Window>

@@ -22,8 +22,8 @@ namespace Sims2023.View
     {
 
         public List<AccommodationStay> stays = new List<AccommodationStay>();
-        public Accommodation selectedAccommodation { get; set; }
-        public AccommodationStay selectedAccommodationStay { get; set; }
+        public Accommodation SelectedAccommodation { get; set; }
+        public AccommodationStay SelectedAccommodationStay { get; set; }
 
         int daysNumber;
         public AccommodationReservationDateView(Accommodation selectedAccommodationS,List<AccommodationStay> stays, int daysNUmber)
@@ -34,29 +34,29 @@ namespace Sims2023.View
             daysNumber=daysNUmber;
 
             stays = stays;
-            selectedAccommodation = selectedAccommodationS;
+            SelectedAccommodation = selectedAccommodationS;
             availableDatesGrid.ItemsSource = stays;
 
         }
 
-        private void buttonDateConfirmation_Click(object sender, RoutedEventArgs e)
+        private void ButtonDateConfirmation_Click(object sender, RoutedEventArgs e)
         {
-            selectedAccommodationStay = (AccommodationStay)availableDatesGrid.SelectedItem;
-            if (selectedAccommodationStay == null)
+            SelectedAccommodationStay = (AccommodationStay)availableDatesGrid.SelectedItem;
+            if (SelectedAccommodationStay == null)
             {
                 MessageBox.Show("Molimo Vas selektujte datume koje zelite da rezervisete.");
                 return;
             }
-            if (selectedAccommodation == null)
+            if (SelectedAccommodation == null)
             {
                 MessageBox.Show("MDoslo je do greske.");
                 return;
             }
-            AccommodationReservationConfirmationView accommodationReservationConfirmationView = new AccommodationReservationConfirmationView(selectedAccommodation,selectedAccommodationStay,daysNumber);
+            AccommodationReservationConfirmationView accommodationReservationConfirmationView = new AccommodationReservationConfirmationView(SelectedAccommodation,SelectedAccommodationStay,daysNumber);
             accommodationReservationConfirmationView.Show();
         }
 
-        private void buttonDateCancelation_Click(object sender, RoutedEventArgs e)
+        private void ButtonDateCancelation_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
