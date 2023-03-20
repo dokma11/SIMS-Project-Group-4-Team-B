@@ -1,10 +1,7 @@
 ﻿using Sims2023.Observer;
 using Sims2023.Repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Model.DAO
 {

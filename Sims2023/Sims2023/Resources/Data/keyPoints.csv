@@ -1,58 +1,40 @@
-1|centar|NotVisited||1
-2|most|NotVisited||1
+1|most|NotVisited|1 |1
+2|tvrdjava|NotVisited||1
 3|sat na tvrdjavi|NotVisited||1
 4|kej|NotVisited||1
-5|centar|NotVisited||2
-6|most|NotVisited||2
+5|most|NotVisited||2
+6|tvrdjava|NotVisited||2
 7|sat na tvrdjavi|NotVisited||2
 8|kej|NotVisited||2
-9|centar|BeingVisited||3
-10|most|NotVisited||3
+9|most|NotVisited||3
+10|tvrdjava|NotVisited||3
 11|sat na tvrdjavi|NotVisited||3
 12|kej|NotVisited||3
-13|market|NotVisited||4
-14|brdo|NotVisited||4
-15|dvor|NotVisited||4
-16|bastion|NotVisited||4
-17|bazilika|NotVisited||4
-18|market|NotVisited||5
-19|brdo|NotVisited||5
-20|dvor|NotVisited||5
-21|bastion|NotVisited||5
-22|bazilika|NotVisited||5
-23|market|Visited|1 2 4 |6
-24|brdo|Visited|3 |6
-25|dvor|Visited||6
-26|bastion|Visited||6
-27|bazilika|BeingVisited||6
-28|1|NotVisited||7
-29|2|NotVisited||7
-30|q|NotVisited||8
-31|w|NotVisited||8
-32|1|Visited||9
-33|2|BeingVisited||9
-34|1|NotVisited||10
-35|2|NotVisited||10
-36|Spomenik Mileticu|Visited|2 3 2 5 |11
-37|Pravoslavna crkva|Visited|2 3 |11
-38|Spomenik Zmaju|Visited|1 4 |11
-39|Dunavski park|BeingVisited||11
-40|Spomenik Mileticu|NotVisited||12
-41|Pravoslavna crkva|NotVisited||12
-42|Spomenik Zmaju|NotVisited||12
-43|Dunavski park|NotVisited||12
-44|Spomenik Mileticu|Visited|3 1 |13
-45|Pravoslavna crkva|Visited||13
-46|Spomenik Zmaju|Visited||13
-47|Dunavski park|Visited||13
-48|1|Visited||14
-49|2|Visited||14
-50|3|NotVisited||14
-51|4|NotVisited||14
-52|1|Visited|2 3 |15
-53|2|NotVisited||15
-54|3|NotVisited||15
-55|4|NotVisited||15
-56|1|Visited||16
-57|2|Visited||16
-58|3|Visited||16
+13|velika trznica|NotVisited||4
+14|sveto  brdo gelerta|NotVisited||4
+15|budimski dvor|NotVisited||4
+16|ribarski bastion|NotVisited||4
+17|madjarska narodna opera|NotVisited||4
+18|milenijumski spomenik|NotVisited||4
+19|velika trznica|NotVisited||5
+20|sveto  brdo gelerta|NotVisited||5
+21|budimski dvor|NotVisited||5
+22|ribarski bastion|NotVisited||5
+23|madjarska narodna opera|NotVisited||5
+24|milenijumski spomenik|NotVisited||5
+25|liman 1|NotVisited||6
+26|liman 2|NotVisited||6
+27|liman 3|NotVisited||6
+28|liman 4|NotVisited||6
+29|liman 1|NotVisited||7
+30|liman 2|NotVisited||7
+31|liman 3|NotVisited||7
+32|liman 4|NotVisited||7
+33|liman 1|NotVisited||8
+34|liman 2|NotVisited||8
+35|liman 3|NotVisited||8
+36|liman 4|NotVisited||8
+37|liman 1|NotVisited||9
+38|liman 2|NotVisited||9
+39|liman 3|NotVisited||9
+40|liman 4|NotVisited||9

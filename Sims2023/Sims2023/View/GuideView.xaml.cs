@@ -55,10 +55,15 @@ namespace Sims2023.View
 
             ToursToDisplay = new ObservableCollection<Tour>();
             AllTours = new ObservableCollection<Tour>(_tourController.GetAllTours());
-            //filtering tours so that only those that take place today are displayed
+            
+            DisplayTodaysTours();
+        }
+
+        private void DisplayTodaysTours()
+        {
             foreach (Tour tour in AllTours)
             {
-                if(tour.Start == DateTime.Today)
+                if (tour.Start == DateTime.Today)
                 {
                     ToursToDisplay.Add(tour);
                 }

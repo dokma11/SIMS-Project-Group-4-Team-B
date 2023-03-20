@@ -46,10 +46,12 @@ namespace Sims2023.Controller
                 }
             }
         }
+
         public void Delete(Location location)
         {
             _location.Remove(location);
         }
+
         public void Subscribe(IObserver observer)
         {
             _location.Subscribe(observer);

@@ -2,10 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Model
 {
@@ -18,7 +15,7 @@ namespace Sims2023.Model
         public enum Language { Serbian, English, German, French, Spanish, Italian, Chinese, Japanese }
         public Language GuideLanguage { get; set; }
         public int MaxGuestNumber { get; set; }
-        public List<string> KeyPoints { get; set; } 
+        public List<string> KeyPoints { get; set; }
         //Going to concatenate all of the KeyPoints into one string just so I can save it easier in csv 
         public string KeyPointsString { get; set; }
         public DateTime Start { get; set; }
@@ -31,7 +28,7 @@ namespace Sims2023.Model
         public List<string> Pictures { get; set; }
         //Same principle as for KeyPoints, I'm going to concatenate all of the pictures urls into one string so I can save it easier
         public string PicturesString { get; set; }
-        public Tour() 
+        public Tour()
         {
             KeyPoints = new List<string>();
             Pictures = new List<string>();
@@ -68,24 +65,24 @@ namespace Sims2023.Model
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));  
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public string[] ToCSV()
         {
-            string[] csvValues = 
-            { 
-                Id.ToString(), 
-                Name, 
-                LocationId.ToString(), 
-                Description, 
-                GuideLanguage.ToString(), 
-                MaxGuestNumber.ToString(), 
-                AvailableSpace.ToString(), 
-                KeyPointsString, 
-                Start.ToString(), 
-                Length.ToString(), 
-                PicturesString, 
-                CurrentState.ToString() 
+            string[] csvValues =
+            {
+                Id.ToString(),
+                Name,
+                LocationId.ToString(),
+                Description,
+                GuideLanguage.ToString(),
+                MaxGuestNumber.ToString(),
+                AvailableSpace.ToString(),
+                KeyPointsString,
+                Start.ToString(),
+                Length.ToString(),
+                PicturesString,
+                CurrentState.ToString()
             };
             return csvValues;
         }
@@ -96,7 +93,7 @@ namespace Sims2023.Model
             Name = values[1];
             LocationId = Convert.ToInt32(values[2]);
             Description = values[3];
-            GuideLanguage = (Language)Enum.Parse(typeof(Language), values[4]);          
+            GuideLanguage = (Language)Enum.Parse(typeof(Language), values[4]);
             MaxGuestNumber = Convert.ToInt32(values[5]);
             AvailableSpace = Convert.ToInt32(values[6]);
             KeyPointsString = values[7];
@@ -105,7 +102,7 @@ namespace Sims2023.Model
             {
                 KeyPoints.Add(keyPoint);
             }
-            Start = DateTime.Parse(values[8]);                                          
+            Start = DateTime.Parse(values[8]);
             Length = Convert.ToInt32(values[9]);
             PicturesString = values[10];
             string[] picturesStringArray = this.PicturesString.Split(",");
@@ -179,16 +176,16 @@ namespace Sims2023.Model
                 return null;
             }
         }
-        private readonly string[] _validatedProperties = 
-        { 
-            "Name", 
-            "LocationId", 
-            "Description", 
-            "GuideLanguage", 
-            "MaxGuestNumber", 
-            "Start", 
-            "Length", 
-            "PicturesString" 
+        private readonly string[] _validatedProperties =
+        {
+            "Name",
+            "LocationId",
+            "Description",
+            "GuideLanguage",
+            "MaxGuestNumber",
+            "Start",
+            "Length",
+            "PicturesString"
         };
         public bool IsValid
         {

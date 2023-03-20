@@ -13,7 +13,7 @@
                 <Button x:Name="markGuestsPresentButton" Click="MarkGuestsPresentButton_Click">Oznaci prisutne goste</Button>            
             </ToolBar>
         </DockPanel>
-        <DataGrid ItemsSource="{Binding KeyPointsToShow, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedKeyPoint, UpdateSourceTrigger=PropertyChanged}" Height="240" IsReadOnly="True"/>
+        <DataGrid ItemsSource="{Binding KeyPointsToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedKeyPoint, UpdateSourceTrigger=PropertyChanged}" Height="240" IsReadOnly="True"/>
         <Button x:Name="cancelTourButton" Click="CancelTourButton_Click" Content="Prekini turu" Height="50" Width="100" Margin="0, 70, 0, 0"/>
     </StackPanel>
 </Window>

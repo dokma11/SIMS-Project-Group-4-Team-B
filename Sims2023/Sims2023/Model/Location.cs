@@ -1,11 +1,6 @@
 ﻿using Sims2023.Serialization;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Sims2023.Model
 {
@@ -15,7 +10,7 @@ namespace Sims2023.Model
         public string City { get; set; }
         public string Country { get; set; }
         public Location() { }
-        public Location(int id, string city, string country) 
+        public Location(int id, string city, string country)
         {
             Id = id;
             City = city;
@@ -26,12 +21,12 @@ namespace Sims2023.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = 
-            { 
-                Id.ToString(), 
-                City, 
+            string[] csvValues =
+            {
+                Id.ToString(),
+                City,
                 Country
-            }; 
+            };
             return csvValues;
         }
 
