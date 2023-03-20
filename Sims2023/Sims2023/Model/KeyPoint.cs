@@ -11,7 +11,6 @@ namespace Sims2023.Model
         public string Name { get; set; }
         public enum State { Visited, NotVisited, BeingVisited }
         public State CurrentState { get; set; }
-        //For now (while guest2 has not finished his work) I will be using only "simulated" ids from guests, will se if I'll continue like that
         public List<int> ShowedGuestsIds { get; set; }
         //Just so I can save it to file, I will concatenate all of them into one string
         public string ShowedGuestsIdsString { get; set; }

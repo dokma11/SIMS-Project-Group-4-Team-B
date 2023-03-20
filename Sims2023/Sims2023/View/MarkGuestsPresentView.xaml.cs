@@ -79,17 +79,22 @@ namespace Sims2023.View
                     KeyPoint.ShowedGuestsIds.Add(user.Id);
                     KeyPoint.ShowedGuestsIdsString += user.Id.ToString() + " ";
                     MarkedGuests.Add(user);
-                    foreach(var tourReservation in _tourReservationController.GetAllReservations())
-                    {
-                        if(tourReservation.UserId == user.Id && tourReservation.TourId == KeyPoint.ToursId)
-                        {
-                            tourReservation.ShouldConfirmParticipation = true;
-                            _tourReservationController.Save();
-                        }
-                    }
+                    ShouldConfirmParticipation(user);
                 }
             }
             Close();
+        }
+
+        private void ShouldConfirmParticipation(User user)
+        {
+            foreach (var tourReservation in _tourReservationController.GetAllReservations())
+            {
+                if (tourReservation.UserId == user.Id && tourReservation.TourId == KeyPoint.ToursId)
+                {
+                    tourReservation.ShouldConfirmParticipation = true;
+                    _tourReservationController.Save();
+                }
+            }
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

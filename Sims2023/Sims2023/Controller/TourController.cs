@@ -3,6 +3,7 @@ using Sims2023.Model.DAO;
 using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Windows;
 
 namespace Sims2023.Controller
@@ -36,7 +37,6 @@ namespace Sims2023.Controller
         public void AddToursLocation(Tour tour, Location location, int newToursNumber) 
         {
             List<Location> locations = _location.GetAll();
-            int counter = 0;
             int toursId = tour.Id - newToursNumber + 1;
 
             if (location.City == null || location.Country == null)
@@ -54,24 +54,31 @@ namespace Sims2023.Controller
             }
             else
             {
-                //Checking if the location already exists
-                for (int i = 0; i < newToursNumber; i++)
+                CheckIfLocationExists(newToursNumber, locations, location, toursId);
+            }
+        }
+
+        private void CheckIfLocationExists(int newToursNumber, List<Location> locations, Location location, int toursId)
+        {
+            int counter = 0;
+            for (int i = 0; i < newToursNumber; i++)
+            {
+                foreach (var locationInstance in locations)
                 {
-                    foreach (var locationInstance in locations)
+                    //if location exists just add the already existing one
+                    if (location.City == locationInstance.City && location.Country == locationInstance.Country)
                     {
-                        if (location.City == locationInstance.City && location.Country == locationInstance.Country)
-                        {
-                            counter++;
-                            _tour.AddToursLocation(toursId, locationInstance);
-                            break;
-                        }
+                        counter++;
+                        _tour.AddToursLocation(toursId, locationInstance);
+                        break;
                     }
-                    if (counter == 0)
-                    {
-                        _tour.AddToursLocation(toursId, location);
-                    }
-                    toursId++;
                 }
+                //if it doesn't exist add the newly created one
+                if (counter == 0)
+                {
+                    _tour.AddToursLocation(toursId, location);
+                }
+                toursId++;
             }
         }
 

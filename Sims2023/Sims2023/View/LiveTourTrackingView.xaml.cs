@@ -19,7 +19,7 @@ namespace Sims2023.View
         private KeyPointController _keyPointController;
         private UserController _userController;
         private TourReservationController _tourReservationController;
-        public ObservableCollection<KeyPoint> KeyPointsToShow { get; set; }
+        public ObservableCollection<KeyPoint> KeyPointsToDisplay { get; set; }
         public ObservableCollection<KeyPoint> AllKeyPoints { get; set; }
 
         public int firstKeyPointId = -1;
@@ -42,13 +42,13 @@ namespace Sims2023.View
 
             MarkedGuests = new List<User>();
 
-            KeyPointsToShow = new ObservableCollection<KeyPoint>();
+            KeyPointsToDisplay = new ObservableCollection<KeyPoint>();
             AllKeyPoints = new ObservableCollection<KeyPoint>(_keyPointController.GetAllKeyPoints());
             foreach (var keyPoint in AllKeyPoints)
             {
                 if (keyPoint.ToursId == Tour.Id)
                 {
-                    KeyPointsToShow.Add(keyPoint);
+                    KeyPointsToDisplay.Add(keyPoint);
                 }
             }
 
@@ -60,7 +60,7 @@ namespace Sims2023.View
         private int FindFirstKeyPoint()
         {
             int counter = 0;
-            foreach (var keyPoint in KeyPointsToShow)
+            foreach (var keyPoint in KeyPointsToDisplay)
             {
                 if (counter == 0)
                 {
@@ -81,7 +81,7 @@ namespace Sims2023.View
 
         private void MarkFirstKeyPoint()
         {
-            foreach (var keyPoint in KeyPointsToShow)
+            foreach (var keyPoint in KeyPointsToDisplay)
             {
                 if (keyPoint.Id == firstKeyPointId)
                 {
@@ -92,7 +92,7 @@ namespace Sims2023.View
 
         private void MarkLastVisitedKeyPoint()
         {
-            foreach (var keyPoint in KeyPointsToShow)
+            foreach (var keyPoint in KeyPointsToDisplay)
             {
                 if (keyPoint.Id == lastVisitedKeyPointId)
                 {
@@ -103,7 +103,7 @@ namespace Sims2023.View
 
         private int FindLastKeyPoint()
         {
-            foreach (var keyPoint in KeyPointsToShow)
+            foreach (var keyPoint in KeyPointsToDisplay)
             {
                 if (keyPoint.Id > lastKeyPointId)
                 {
@@ -115,7 +115,7 @@ namespace Sims2023.View
 
         private void MarkLastKeyPoint()
         {
-            foreach (var keyPoint in KeyPointsToShow)
+            foreach (var keyPoint in KeyPointsToDisplay)
             {
                 if (keyPoint.Id == lastKeyPointId)
                 {
@@ -126,10 +126,10 @@ namespace Sims2023.View
 
         private void MarkKeyPointButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.NotVisited && SelectedKeyPoint.Id == lastVisitedKeyPointId + 1)
+            if (SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.NotVisited && SelectedKeyPoint.Id == lastVisitedKeyPointId + 1) //the latter disables key point skipping
             {
                 //mark previous key point as visited
-                foreach (var keyPoint in KeyPointsToShow)
+                foreach (var keyPoint in KeyPointsToDisplay)
                 {
                     if (keyPoint.Id == lastVisitedKeyPointId)
                     {
@@ -237,14 +237,14 @@ namespace Sims2023.View
 
         public void UpdateKeyPointList()
         {
-            KeyPointsToShow.Clear();
+            KeyPointsToDisplay.Clear();
             AllKeyPoints.Clear();
             foreach (var keyPoint in _keyPointController.GetAllKeyPoints())
             {
                 AllKeyPoints.Add(keyPoint);
                 if (keyPoint.ToursId == Tour.Id)
                 {
-                    KeyPointsToShow.Add(keyPoint);
+                    KeyPointsToDisplay.Add(keyPoint);
                 }
             }
         }
