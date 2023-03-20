@@ -50,7 +50,7 @@
                 <RowDefinition Height="92*"/>
                 <RowDefinition Height="195*"/>
             </Grid.RowDefinitions>
-            <ItemsControl Grid.Row="0" ItemsSource="{Binding selectedAccommodation.imageurls}" KeyboardNavigation.DirectionalNavigation="Cycle" Margin="30,30,30,30">
+            <ItemsControl Grid.Row="0" ItemsSource="{Binding SelectedAccommodation.imageurls}" KeyboardNavigation.DirectionalNavigation="Cycle" Margin="30,30,30,30">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Image Source="{Binding}" Stretch="Uniform"/>
