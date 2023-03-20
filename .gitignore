@@ -617,3 +617,10 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore,aspnetcore,windows,linux,macos,visualstudio,visualstudiocode
+Sims2023/Sims2023/obj/Debug/net6.0-windows/Sims2023.pdb
+Sims2023/Sims2023/obj/Debug/net6.0-windows/Sims2023.pdb
+Sims2023/Sims2023/obj/Debug/net6.0-windows/Sims2023.g.resources
+Sims2023/.vs/Sims2023/DesignTimeBuild/.dtbcache.v2
+Sims2023/Sims2023/obj/Debug/net6.0-windows/Sims2023.pdb
+Sims2023/.vs/Sims2023/DesignTimeBuild/.dtbcache.v2
+/Sims2023/.vs/Sims2023/v17/.suo

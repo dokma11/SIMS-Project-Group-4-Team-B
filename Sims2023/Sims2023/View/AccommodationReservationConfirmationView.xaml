@@ -1,0 +1,66 @@
+﻿<Window x:Class="Sims2023.View.AccommodationReservationConfirmationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sims2023.View"
+        mc:Ignorable="d"
+        Title="AccommodationReservationConfirmationView" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="550"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0" Margin="0,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label x:Name="accommodatioNameLabel" Content="Naziv smestaja:" FontSize="25" Margin="40,0,0,10" Grid.Row="2" Grid.Column="0"/>
+            <Label x:Name="accommodatioCityLabel" Content="Grad:" FontSize="25" Margin="40,0,0,10" Grid.Row="3" Grid.Column="0"/>
+            <Label x:Name="accommodatioCountryLabel" Content="Drzava:" FontSize="25" Margin="40,0,0,10" Grid.Row="4" Grid.Column="0"/>
+            <Label x:Name="accommodatioTypeLabel" Content="Tip smestaja:" FontSize="25" Margin="40,0,0,10" Grid.Row="5" Grid.Column="0"/>
+            <Label x:Name="accommodatioStartDateLabel" Content="Pocetni datum:" FontSize="25" Margin="40,0,0,10" Grid.Row="6" Grid.Column="0"/>
+            <Label x:Name="accommodatioEndDateLabel" Content="Krajnji datum:" FontSize="25" Margin="40,0,0,10" Grid.Row="7" Grid.Column="0"/>
+
+            <TextBox x:Name="accommodatioNameTextBox" IsReadOnly="True"  FontSize="25" Margin="0,0,0,10" Grid.Row="2" Grid.Column="1"/>
+            <TextBox x:Name="accommodatioCityTextBox" IsReadOnly="True" FontSize="25" Margin="0,0,0,10" Grid.Row="3" Grid.Column="1"/>
+            <TextBox x:Name="accommodatioCountryTextBox" IsReadOnly="True" FontSize="25" Margin="0,0,0,10" Grid.Row="4" Grid.Column="1"/>
+            <TextBox x:Name="accommodatioTypeTextBox" IsReadOnly="True" FontSize="25" Margin="0,0,0,10" Grid.Row="5" Grid.Column="1"/>
+            <TextBox x:Name="accommodatioStartDateTextBox" IsReadOnly="True" FontSize="25" Margin="0,0,0,10" Grid.Row="6" Grid.Column="1"/>
+            <TextBox x:Name="accommodatioEndDateTextBox" IsReadOnly="True" FontSize="25" Margin="0,0,0,10" Grid.Row="7" Grid.Column="1"/>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="1" Margin="0,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="297*"/>
+                <RowDefinition Height="92*"/>
+                <RowDefinition Height="195*"/>
+            </Grid.RowDefinitions>
+            <ItemsControl Grid.Row="0" ItemsSource="{Binding selectedAccommodation.imageurls}" KeyboardNavigation.DirectionalNavigation="Cycle" Margin="30,30,30,30">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding}" Stretch="Uniform"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Label x:Name="reservationConfirmation" Content="Potvrdi rezervaciju:" FontSize="25" Margin="90,33,90,0" Grid.Row="1"/>
+            <Button x:Name="reservationButton" Content="Rezervisi" FontSize="25" Margin="90,14,90,97" Grid.Row="2" Click="ReservationButton_Click"/>
+            <Button x:Name="buttonDateCancelation" Content="Odustani" HorizontalAlignment="Left" Height="30" Margin="258,131,0,0" FontSize="15" Grid.Row="2" VerticalAlignment="Top" Width="162" Click="ButtonDateCancelation_Click"/>
+        </Grid>
+
+    </Grid>
+</Window>

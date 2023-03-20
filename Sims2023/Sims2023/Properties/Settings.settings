@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Sims2023.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="LastShownDate" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">2023-03-12</Value>
+    </Setting>
+    <Setting Name="NekiDejt" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">2025-03-20</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
