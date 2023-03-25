@@ -49,7 +49,7 @@ namespace Sims2023.View
 
             _userController = new UserController();
             _userController.Subscribe(this);
-
+            
             _tourReservationController = new TourReservationController();
             _tourReservationController.Subscribe(this);
 
@@ -102,6 +102,19 @@ namespace Sims2023.View
             Update();
             _tourController.Save();
             _keyPointController.Save();
+        }
+
+        private void ReviewsButton_Click(object sender, RoutedEventArgs eventArgs)
+        {
+            if(SelectedTour != null)
+            {
+                GuestReviewsView guestReviewsView = new GuestReviewsView();
+                guestReviewsView.Show();
+            }
+            else
+            {
+                MessageBox.Show("Odaberite turu za koju zelite da vidite recenzije");
+            }
         }
 
         public void Update()
