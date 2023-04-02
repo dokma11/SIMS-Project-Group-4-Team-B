@@ -24,7 +24,7 @@ namespace Sims2023.Model
             Id = id;
             Name = name;
             CurrentState = currentState;
-            string[] showedGuestsIdsStringArray = showedGuestsIdsString.Split(",");
+            string[] showedGuestsIdsStringArray = showedGuestsIdsString.Split(" ");
             foreach (var instanceString in showedGuestsIdsStringArray)
             {
                 int instance = int.Parse(instanceString);
@@ -54,6 +54,16 @@ namespace Sims2023.Model
             Name = values[1];
             CurrentState = (State)Enum.Parse(typeof(State), values[2]);
             ShowedGuestsIdsString = values[3];
+            if (!String.IsNullOrEmpty(ShowedGuestsIdsString)){
+                
+                string[] showedGuestsIdsStringArray = ShowedGuestsIdsString.Split(" ");
+                foreach (var instanceString in showedGuestsIdsStringArray)
+                {
+                    int instance = Convert.ToInt32(instanceString);
+                    ShowedGuestsIds.Add(instance);
+                }
+
+            }
             ToursId = Convert.ToInt32(values[4]);
         }
     }

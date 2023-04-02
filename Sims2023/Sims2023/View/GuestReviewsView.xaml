@@ -5,17 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.View"
         mc:Ignorable="d"
-        Title="GuestReviewsView" Height="450" Width="800" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <DataGrid>
-            <DataGrid.Columns ItemsSource="{Binding ReviewsToDisplay}" IsReadOnly="True" AutoGenerateColumns="False">
-                <DataGridTextColumn Header="Ime" Binding="{Binding Review.User.Name}"/>
-                <DataGridTextColumn Header="Prezime" Binding="{Binding Review.User.Surname}"/>
-                <DataGridTextColumn Header="Korisnicko ime" Binding="{Binding Review.User.UserName}"/>
-                <DataGridTextColumn Header="Kljucna tacka na kojoj se prikljucio" Binding="{Binding Review.KeyPoint}"/>
-                <DataGridTextColumn Header="Ocena" Binding="{Binding Review.Grade}"/>
-                <DataGridTextColumn Header="Validna recenzija" Binding="{Binding Review.IsValid}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-    </Grid>
+        Title="GuestReviewsView" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
+    <StackPanel>
+        <Label Content="Recenzije" FontSize="40" Width="190" HorizontalAlignment="Center"/>
+        <Label Content="Odaberire turu za koju želite da vidite sve recenzije gostiju" FontSize="24" HorizontalAlignment="Center"></Label>
+        <DockPanel Height="460">
+            <DataGrid Width="625" Height="375" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Naziv" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Lokacija" Binding="{Binding LocationId}"/>
+                    <DataGridTextColumn Header="Jezik" Binding="{Binding Language}"/>
+                    <DataGridTextColumn Header="Datum i  vreme početka ture" Binding="{Binding Start}"/>
+                    <DataGridTextColumn Header="Broj gostiju" Binding="{Binding MaxGuestNumber}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid Width="590" Height="375" ItemsSource="{Binding ReviewsToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedReview, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Ime" Binding="{Binding Guest.Name}"/>
+                    <DataGridTextColumn Header="Prezime" Binding="{Binding Guest.Surname}"/>
+                    <DataGridTextColumn Header="Korsničko ime" Binding="{Binding Guest.UserName}"/>
+                    <DataGridTextColumn Header="Gde se priključio" Binding="{Binding KeyPointJoined.Name}"/>
+                    <DataGridTextColumn Header="Ocena" Binding="{Binding AverageGrade}"/>
+                    <DataGridTextColumn Header="Validna recenzija" Binding="{Binding IsValid}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="Uspešno ste prijavili recenziju!" Margin="450,0,0,0" FontSize="24" VerticalAlignment="Center" Visibility="Hidden"></Label>
+            <Button Click="ReportReviewButton_Click" Width="150" Height="50" Margin="0,0,0,0" Content="Prijavi recenziju"/>
+            <Button Click="DisplayReviewsButton_Click" Width="150" Height="50" Margin="10,0,0,0" Content="Prikazi recenzije"/>
+            <Button Click="DisplayCommentButton_Click" Width="150" Height="50" Margin="0,0,25,0" Content="Prikazi komentar"/>
+        </DockPanel>
+    </StackPanel>
 </Window>

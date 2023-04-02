@@ -28,6 +28,7 @@ namespace Sims2023.View
         private KeyPointController _keyPointController;
         private UserController _userController;
         private TourReservationController _tourReservationController;
+        private TourReviewController _tourReviewController;
         public Tour Tour { get; set; }
         public Tour SelectedTour { get; set; }
         public ObservableCollection<Tour> ToursToDisplay { get; set; }
@@ -52,6 +53,9 @@ namespace Sims2023.View
             
             _tourReservationController = new TourReservationController();
             _tourReservationController.Subscribe(this);
+
+            _tourReviewController = new TourReviewController();
+            _tourReviewController.Subscribe(this);
 
             ToursToDisplay = new ObservableCollection<Tour>();
             AllTours = new ObservableCollection<Tour>(_tourController.GetAllTours());
@@ -106,15 +110,8 @@ namespace Sims2023.View
 
         private void ReviewsButton_Click(object sender, RoutedEventArgs eventArgs)
         {
-            if(SelectedTour != null)
-            {
-                GuestReviewsView guestReviewsView = new GuestReviewsView();
-                guestReviewsView.Show();
-            }
-            else
-            {
-                MessageBox.Show("Odaberite turu za koju zelite da vidite recenzije");
-            }
+            GuestReviewsView guestReviewsView = new GuestReviewsView(_tourController, _tourReviewController, _keyPointController);
+            guestReviewsView.Show();
         }
 
         public void Update()
