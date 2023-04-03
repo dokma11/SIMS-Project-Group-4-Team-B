@@ -23,7 +23,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Ime" Binding="{Binding Guest.Name}" Width="115"/>
                     <DataGridTextColumn Header="Prezime" Binding="{Binding Guest.Surname}" Width="115"/>
-                    <DataGridTextColumn Header="Korsničko ime" Binding="{Binding Guest.UserName}" Width="100"/>
+                    <DataGridTextColumn Header="Korsničko ime" Binding="{Binding Guest.Username}" Width="100"/>
                     <DataGridTextColumn Header="Gde se priključio" Binding="{Binding KeyPointJoined.Name}" Width="100"/>
                     <DataGridTextColumn Header="Ocena" Binding="{Binding AverageGrade}" Width="50"/>
                     <DataGridTextColumn Header="Validna recenzija" Binding="{Binding IsValid}" Width="100"/>
