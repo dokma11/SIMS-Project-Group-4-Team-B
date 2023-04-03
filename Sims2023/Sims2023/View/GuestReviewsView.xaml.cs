@@ -1,9 +1,13 @@
 ﻿using Sims2023.Controller;
 using Sims2023.Model;
 using Sims2023.Observer;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Threading;
 
 namespace Sims2023.View
 {
@@ -16,32 +20,28 @@ namespace Sims2023.View
         public List<Tour> AllTours { get; set; }
         public ObservableCollection<Tour> ToursToDisplay { get; set; }
 
-        private TourController _tourController;
         public TourReview SelectedReview { get; set; }
         public List<TourReview> AllReviews { get; set; }
         public ObservableCollection<TourReview> ReviewsToDisplay { get; set; }
-
         private TourReviewController _tourReviewController;
 
-        private KeyPointController _keyPointController;
+        public List<KeyPoint> AllKeyPoints;
 
         public GuestReviewsView(TourController tourController, TourReviewController tourReviewController, KeyPointController keyPointController)
         {
             InitializeComponent();
             DataContext = this;
 
-            _tourController = tourController;
-            AllTours = _tourController.GetAllTours();
+            AllTours = tourController.GetAllTours();
             ToursToDisplay = new ObservableCollection<Tour>();
 
             _tourReviewController = tourReviewController;
             AllReviews = _tourReviewController.GetAllTourReviews();
             ReviewsToDisplay = new ObservableCollection<TourReview>();
 
-            _keyPointController = keyPointController;
+            AllKeyPoints = keyPointController.GetAllKeyPoints();
 
             DisplayTours();
-
         }
 
         public void DisplayTours()
@@ -51,22 +51,41 @@ namespace Sims2023.View
                 if (tour.CurrentState == Tour.State.Finished)
                 {
                     ToursToDisplay.Add(tour);
-                    GetJoinedKeyPoints(tour);
+                    GetToursReviews(tour);
                 }
             }
         }
 
         private void ReportReviewButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedReview != null)
+            if (SelectedReview != null && SelectedReview.IsValid)
             {
                 SelectedReview.IsValid = false;
                 Update();
+                SuccessfulReportLabelEvent();
             }
             else
             {
-                MessageBox.Show("Molimo Vas odaberite recenziju koju zelite da prijavite");
+                MessageBox.Show("Molimo Vas odaberite recenziju koju želite da prijavite");
             }
+        }
+
+        private void SuccessfulReportLabelEvent()
+        {
+            SuccessfulReportLabel.Visibility = Visibility.Visible;
+            DispatcherTimer timer = new()
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            SuccessfulReportLabel.Visibility = Visibility.Hidden;
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
         }
 
         private void DisplayReviewsButton_Click(object sender, RoutedEventArgs e)
@@ -77,34 +96,36 @@ namespace Sims2023.View
             }
             else
             {
-                MessageBox.Show("Molimo Vas odaberite turu ");
+                MessageBox.Show("Molimo Vas odaberite turu za koju želite da vidite recenzije");
             }
         }
 
         private void DisplayReviews(Tour selectedTour)
         {
-            foreach (var review in AllReviews)
+            foreach (var tourReview in AllReviews)
             {
-                if (selectedTour.Id == review.Tour.Id)
+                if (selectedTour.Id == tourReview.Tour.Id)
                 {
-                    ReviewsToDisplay.Add(review);
+                    ReviewsToDisplay.Add(tourReview);
                 }
             }
         }
 
-        private void GetJoinedKeyPoints(Tour selectedTour)
+        private void GetToursReviews(Tour selectedTour)
         {
-            foreach(var review in AllReviews)
+            foreach (var tourReview in AllReviews)
             {
-                foreach(var keyPoint in _keyPointController.GetAllKeyPoints())
+                GetJoinedKeyPoints(selectedTour, tourReview);
+            }
+        }
+
+        private void GetJoinedKeyPoints(Tour selectedTour, TourReview tourReview)
+        {
+            foreach (var keyPoint in AllKeyPoints)
+            {
+                if (keyPoint.Tour.Id == selectedTour.Id && keyPoint.ShowedGuestsIds.Contains(tourReview.Guest.Id))
                 {
-                    if(keyPoint.ToursId == selectedTour.Id)
-                    {
-                        if (keyPoint.ShowedGuestsIds.Contains(review.Guest.Id))
-                        {
-                            review.KeyPointJoined = keyPoint;
-                        }
-                    }
+                    tourReview.KeyPointJoined = keyPoint;
                 }
             }
         }
@@ -117,7 +138,7 @@ namespace Sims2023.View
             }
             else
             {
-                MessageBox.Show("Molimo Vas odaberite recenziju ");
+                MessageBox.Show("Molimo Vas odaberite recenziju čiji komentar želite da vidite");
             }
         }
 

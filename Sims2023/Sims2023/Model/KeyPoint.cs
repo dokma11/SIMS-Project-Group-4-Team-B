@@ -1,4 +1,5 @@
-﻿using Sims2023.Serialization;
+﻿using Sims2023.Controller;
+using Sims2023.Serialization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,12 +15,12 @@ namespace Sims2023.Model
         public List<int> ShowedGuestsIds { get; set; }
         //Just so I can save it to file, I will concatenate all of them into one string
         public string ShowedGuestsIdsString { get; set; }
-        public int ToursId { get; set; }
+        public Tour Tour { get; set; }
         public KeyPoint()
         {
             ShowedGuestsIds = new List<int>();
         }
-        public KeyPoint(int id, string name, State currentState, string showedGuestsIdsString, int toursId)
+        public KeyPoint(int id, string name, State currentState, string showedGuestsIdsString, Tour tour)
         {
             Id = id;
             Name = name;
@@ -30,20 +31,20 @@ namespace Sims2023.Model
                 int instance = int.Parse(instanceString);
                 ShowedGuestsIds.Add(instance);
             }
-            ToursId = toursId;
+            Tour = tour;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public string[] ToCSV()
         {
-            string[] csvValues = 
-            { 
-                Id.ToString(), 
-                Name, 
-                CurrentState.ToString(), 
-                ShowedGuestsIdsString, 
-                ToursId.ToString() 
+            string[] csvValues =
+            {
+                Id.ToString(),
+                Name,
+                CurrentState.ToString(),
+                ShowedGuestsIdsString,
+                Tour.Id.ToString()
             };
             return csvValues;
         }
@@ -54,8 +55,9 @@ namespace Sims2023.Model
             Name = values[1];
             CurrentState = (State)Enum.Parse(typeof(State), values[2]);
             ShowedGuestsIdsString = values[3];
-            if (!String.IsNullOrEmpty(ShowedGuestsIdsString)){
-                
+            if (!String.IsNullOrEmpty(ShowedGuestsIdsString))
+            {
+
                 string[] showedGuestsIdsStringArray = ShowedGuestsIdsString.Split(" ");
                 foreach (var instanceString in showedGuestsIdsStringArray)
                 {
@@ -64,7 +66,12 @@ namespace Sims2023.Model
                 }
 
             }
-            ToursId = Convert.ToInt32(values[4]);
+            Tour tour = new()
+            {
+                Id = Convert.ToInt32(values[4])
+            };
+            TourController tourController = new();
+            Tour = tourController.GetById(tour.Id);
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Sims2023.View
         {
             foreach (var tourReservation in _tourReservationController.GetAllReservations())
             {
-                if (tourReservation.TourId == KeyPoint.ToursId)
+                if (tourReservation.TourId == KeyPoint.Tour.Id)
                 {
                     User Guest = _userController.GetById(tourReservation.UserId);
                     if (!CheckIfGuestMarked(tourReservation, Guest))
@@ -89,7 +89,7 @@ namespace Sims2023.View
         {
             foreach (var tourReservation in _tourReservationController.GetAllReservations())
             {
-                if (tourReservation.UserId == user.Id && tourReservation.TourId == KeyPoint.ToursId)
+                if (tourReservation.UserId == user.Id && tourReservation.TourId == KeyPoint.Tour.Id)
                 {
                     tourReservation.ShouldConfirmParticipation = true;
                     _tourReservationController.Save();

@@ -110,7 +110,7 @@ namespace Sims2023.View
 
         private void ReviewsButton_Click(object sender, RoutedEventArgs eventArgs)
         {
-            GuestReviewsView guestReviewsView = new GuestReviewsView(_tourController, _tourReviewController, _keyPointController);
+            GuestReviewsView guestReviewsView = new(_tourController, _tourReviewController, _keyPointController);
             guestReviewsView.Show();
         }
 
