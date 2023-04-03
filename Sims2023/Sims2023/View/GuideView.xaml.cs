@@ -34,7 +34,7 @@ namespace Sims2023.View
         public ObservableCollection<Tour> ToursToDisplay { get; set; }
         public ObservableCollection<Tour> AllTours { get; set; }
 
-        public GuideView()
+        public GuideView(User user)
         {
             InitializeComponent();
             DataContext = this;

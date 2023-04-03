@@ -12,7 +12,7 @@ namespace Sims2023.Model
     public class User: ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public string UserName { get; set; }
+        public string Username { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -23,10 +23,10 @@ namespace Sims2023.Model
         //Treba i sliku dodati
         public User() { }
 
-        public User(int id, string userName, string password, string name, string surname, string phoneNumber, string email, Type userType)
+        public User(int id, string username, string password, string name, string surname, string phoneNumber, string email, Type userType)
         {
             Id = id;
-            UserName = userName;
+            Username = username;
             Password = password;
             Name = name;
             Surname = surname;
@@ -46,7 +46,7 @@ namespace Sims2023.Model
             string[] csvValues = 
             { 
                 Id.ToString(), 
-                UserName,
+                Username,
                 Password,
                 Name, 
                 Surname,
@@ -60,7 +60,7 @@ namespace Sims2023.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            UserName = values[1];
+            Username = values[1];
             Password = values[2];
             Name = values[3];
             Surname = values[4];
