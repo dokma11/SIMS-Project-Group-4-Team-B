@@ -102,5 +102,10 @@ namespace Sims2023.Controller
         {
             _tour.Save();
         }
+
+        public Tour GetById(int id)
+        {
+            return _tour.GetById(id);
+        }
     }
 }

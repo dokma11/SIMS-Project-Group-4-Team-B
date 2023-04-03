@@ -14,15 +14,24 @@ namespace Sims2023.Model
         public int Id { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
         public enum Type { Owner, Guest1, Guide, Guest2 }
         public Type UserType { get; set; }
+        //Treba i sliku dodati
         public User() { }
 
-        public User(int id, string userName, string password, Type userType)
+        public User(int id, string userName, string password, string name, string surname, string phoneNumber, string email, Type userType)
         {
             Id = id;
             UserName = userName;
             Password = password;
+            Name = name;
+            Surname = surname;
+            PhoneNumber = phoneNumber;
+            Email = email;
             UserType = userType;
         }
 
@@ -37,8 +46,12 @@ namespace Sims2023.Model
             string[] csvValues = 
             { 
                 Id.ToString(), 
-                UserName, 
-                Password, 
+                UserName,
+                Password,
+                Name, 
+                Surname,
+                PhoneNumber,
+                Email,
                 UserType.ToString()
             };
             return csvValues;
@@ -49,7 +62,11 @@ namespace Sims2023.Model
             Id = Convert.ToInt32(values[0]);
             UserName = values[1];
             Password = values[2];
-            UserType = (Type)Enum.Parse(typeof(Type), values[3]);
+            Name = values[3];
+            Surname = values[4];
+            PhoneNumber = values[5];
+            Email = values[6];
+            UserType = (Type)Enum.Parse(typeof(Type), values[7]);
         }
     }
 }

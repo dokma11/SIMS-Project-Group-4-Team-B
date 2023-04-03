@@ -46,7 +46,7 @@ namespace Sims2023.View
             AllKeyPoints = new ObservableCollection<KeyPoint>(_keyPointController.GetAllKeyPoints());
             foreach (var keyPoint in AllKeyPoints)
             {
-                if (keyPoint.ToursId == Tour.Id)
+                if (keyPoint.Tour.Id == Tour.Id)
                 {
                     KeyPointsToDisplay.Add(keyPoint);
                 }
@@ -242,7 +242,7 @@ namespace Sims2023.View
             foreach (var keyPoint in _keyPointController.GetAllKeyPoints())
             {
                 AllKeyPoints.Add(keyPoint);
-                if (keyPoint.ToursId == Tour.Id)
+                if (keyPoint.Tour.Id == Tour.Id)
                 {
                     KeyPointsToDisplay.Add(keyPoint);
                 }

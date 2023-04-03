@@ -85,6 +85,11 @@ namespace Sims2023.Model.DAO
             return _tours;
         }
 
+        public Tour GetById(int id)
+        {
+            return _fileHandler.GetById(id);
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
