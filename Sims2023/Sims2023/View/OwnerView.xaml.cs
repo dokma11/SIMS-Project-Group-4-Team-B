@@ -98,5 +98,11 @@ namespace Sims2023.View
             var addAccommodation = new AccommodationRegistrationView(_accommodationController, _accommodationLocationController);
             addAccommodation.Show();
         }
+
+        private void Grades_Given_From_Guests(object sender, RoutedEventArgs e)
+        {
+            var GuestsGrades = new GradesFromGuestsView(Guests);
+            GuestsGrades.Show();
+        }
     }
 }

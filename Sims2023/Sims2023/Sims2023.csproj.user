@@ -13,6 +13,12 @@
     <Compile Update="View\CreateTourView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\DetailedGradeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\GradesFromGuestsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\Guest1GradeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -38,6 +44,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="View\DetailedGradeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\GradesFromGuestsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Guest2View.xaml">
       <SubType>Designer</SubType>
     </Page>
