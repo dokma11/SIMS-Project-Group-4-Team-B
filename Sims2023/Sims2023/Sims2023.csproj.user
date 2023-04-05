@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="View\AllGuestOneReservationsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\AllGuestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -14,6 +17,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Guest1GradeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Guest1\AccommodationAndOwnerGradingView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\GuideView.xaml.cs">
@@ -38,6 +44,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="View\AllGuestOneReservationsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Guest1\AccommodationAndOwnerGradingView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Guest2View.xaml">
       <SubType>Designer</SubType>
     </Page>

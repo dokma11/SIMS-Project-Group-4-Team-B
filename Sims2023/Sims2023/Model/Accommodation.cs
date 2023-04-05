@@ -90,17 +90,8 @@ namespace Sims2023.Model
             {
                 return "morate popuniti sve podatke";
             }
-
-          
-
-
             return null;
         }
-
-       
-
-
-
     }
 
  

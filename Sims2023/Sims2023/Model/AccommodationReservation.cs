@@ -16,8 +16,9 @@ namespace Sims2023.Model
         public int AccommodationId { get; set; }
 
         public string AccommodationName { get; set; }
+        public string AccommodationCity { get; set; }
         public string Name { get; set; }
-        public string Surrname { get; set; }
+        public string Surname { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int NumberOfDays { get; set; }

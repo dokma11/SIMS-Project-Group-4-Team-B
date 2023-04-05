@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP Pavilion\\Documents\\GitHub\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj": {}
+    "C:\\Users\\Tatjana\\Desktop\\SIMS-Project-Group-4-Team-B\\Sims2023\\Sims2023\\Sims2023.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP Pavilion\\Documents\\GitHub\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj": {
+    "C:\\Users\\Tatjana\\Desktop\\SIMS-Project-Group-4-Team-B\\Sims2023\\Sims2023\\Sims2023.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP Pavilion\\Documents\\GitHub\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj",
+        "projectUniqueName": "C:\\Users\\Tatjana\\Desktop\\SIMS-Project-Group-4-Team-B\\Sims2023\\Sims2023\\Sims2023.csproj",
         "projectName": "Sims2023",
-        "projectPath": "C:\\Users\\HP Pavilion\\Documents\\GitHub\\SIMS-Project\\Sims2023\\Sims2023\\Sims2023.csproj",
-        "packagesPath": "C:\\Users\\HP Pavilion\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP Pavilion\\Documents\\GitHub\\SIMS-Project\\Sims2023\\Sims2023\\obj\\",
+        "projectPath": "C:\\Users\\Tatjana\\Desktop\\SIMS-Project-Group-4-Team-B\\Sims2023\\Sims2023\\Sims2023.csproj",
+        "packagesPath": "C:\\Users\\Tatjana\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Tatjana\\Desktop\\SIMS-Project-Group-4-Team-B\\Sims2023\\Sims2023\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\HP Pavilion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Tatjana\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -64,7 +69,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

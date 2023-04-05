@@ -48,7 +48,7 @@ namespace Sims2023.Model.DAO
                     if (reservation.GuestId == guest.Id)
                     {
                         reservation.Name = guest.Name;
-                        reservation.Surrname = guest.Surrname;
+                        reservation.Surname = guest.Surrname;
                     }
                 }
             }
@@ -129,7 +129,7 @@ namespace Sims2023.Model.DAO
         
                 foreach (var guest in ungradedGuests)
                 {
-                string1 += guest.Name + guest.Surrname + "\n";
+                string1 += guest.Name + guest.Surname + "\n";
                 }
                 return string1;
         }

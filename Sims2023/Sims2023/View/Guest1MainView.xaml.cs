@@ -35,5 +35,11 @@ namespace Sims2023.View
         {
             Close();
         }
+
+        private void buttonGrading_Click(object sender, RoutedEventArgs e)
+        {
+            var AllGuestOneReservationsView = new AllGuestOneReservationsView();
+            AllGuestOneReservationsView.Show();
+        }
     }
 }
