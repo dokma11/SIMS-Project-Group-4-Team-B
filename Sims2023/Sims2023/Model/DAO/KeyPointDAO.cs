@@ -1,4 +1,5 @@
-﻿using Sims2023.Observer;
+﻿using Sims2023.Controller;
+using Sims2023.Observer;
 using Sims2023.Repository;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,8 @@ namespace Sims2023.Model.DAO
                 {
                     _keyPoints = _fileHandler.Load();
                     keyPoint.Id = NextId();
-                    keyPoint.ToursId = toursId;
+                    TourController tourController = new TourController();
+                    keyPoint.Tour = tourController.GetById(toursId);
                     keyPoint.Name = keyPointName;
                     keyPoint.CurrentState = KeyPoint.State.NotVisited;
                     _keyPoints.Add(keyPoint);

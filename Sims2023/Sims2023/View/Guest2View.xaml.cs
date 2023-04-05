@@ -35,7 +35,7 @@ namespace Sims2023.View
 
         public TourReservation TourReservation { get; set; }
 
-        public Guest2View()
+        public Guest2View(User user)
         {
             InitializeComponent();
             DataContext = this;

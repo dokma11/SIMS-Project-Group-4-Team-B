@@ -8,8 +8,8 @@
         Title="AllGuestsView" Height="450" Width="800">
     <Grid>
         <DataGrid x:Name="myDataGrid"
-                  ItemsSource="{Binding Path=reservatons, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path=selectedGuest, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Path=Reservatons, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedGuest, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="121,45,354,90"
                   Grid.Row="0" Grid.Column="0">
             <DataGrid.Columns>

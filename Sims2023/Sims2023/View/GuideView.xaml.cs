@@ -28,12 +28,13 @@ namespace Sims2023.View
         private KeyPointController _keyPointController;
         private UserController _userController;
         private TourReservationController _tourReservationController;
+        private TourReviewController _tourReviewController;
         public Tour Tour { get; set; }
         public Tour SelectedTour { get; set; }
         public ObservableCollection<Tour> ToursToDisplay { get; set; }
         public ObservableCollection<Tour> AllTours { get; set; }
 
-        public GuideView()
+        public GuideView(User user)
         {
             InitializeComponent();
             DataContext = this;
@@ -49,9 +50,12 @@ namespace Sims2023.View
 
             _userController = new UserController();
             _userController.Subscribe(this);
-
+            
             _tourReservationController = new TourReservationController();
             _tourReservationController.Subscribe(this);
+
+            _tourReviewController = new TourReviewController();
+            _tourReviewController.Subscribe(this);
 
             ToursToDisplay = new ObservableCollection<Tour>();
             AllTours = new ObservableCollection<Tour>(_tourController.GetAllTours());
@@ -102,6 +106,12 @@ namespace Sims2023.View
             Update();
             _tourController.Save();
             _keyPointController.Save();
+        }
+
+        private void ReviewsButton_Click(object sender, RoutedEventArgs eventArgs)
+        {
+            GuestReviewsView guestReviewsView = new(_tourController, _tourReviewController, _keyPointController);
+            guestReviewsView.Show();
         }
 
         public void Update()
