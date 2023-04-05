@@ -36,7 +36,7 @@ namespace Sims2023.View
         public List<AccommodationReservation> GradableGuests { get; set; }
 
 
-        public OwnerView()
+        public OwnerView(User user)
         {
             
             InitializeComponent();

@@ -30,11 +30,20 @@
 30|liman 2|NotVisited||7
 31|liman 3|NotVisited||7
 32|liman 4|NotVisited||7
-33|liman 1|NotVisited||8
-34|liman 2|NotVisited||8
+33|liman 1|NotVisited|1 7 8|8
+34|liman 2|NotVisited|5|8
 35|liman 3|NotVisited||8
-36|liman 4|NotVisited||8
+36|liman 4|NotVisited|2|8
 37|liman 1|NotVisited||9
 38|liman 2|NotVisited||9
 39|liman 3|NotVisited||9
 40|liman 4|NotVisited||9
+41|1|NotVisited||10
+42|2|NotVisited||10
+43|3|NotVisited||10
+44|1|NotVisited||11
+45|2|NotVisited||11
+46|3|NotVisited||11
+47|1|NotVisited||12
+48|2|NotVisited||12
+49|3|NotVisited||12

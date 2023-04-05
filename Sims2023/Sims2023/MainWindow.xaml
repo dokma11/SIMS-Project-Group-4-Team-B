@@ -6,10 +6,13 @@
         xmlns:local="clr-namespace:Sims2023"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Button x:Name="button1" Content="Owner" HorizontalAlignment="Left" Margin="68,184,0,0" VerticalAlignment="Top" Height="72" Width="99" Click="Owner_Click" />
-        <Button x:Name="button2" Content="Guest1" HorizontalAlignment="Left" Margin="265,184,0,0" VerticalAlignment="Top" Width="109" Height="72" Click="Guest1_Click"/>
-        <Button x:Name="button3" Content="Guide" HorizontalAlignment="Left" Margin="461,184,0,0" VerticalAlignment="Top" Width="99" Height="72" Click="Guide_Click"/>
-        <Button x:Name="button4" Content="Guest2" HorizontalAlignment="Left" Margin="648,184,0,0" VerticalAlignment="Top" Width="104" Height="72" Click="Guest2_Click"/>
-    </Grid>
+    <StackPanel>
+        <Label FontSize="40" HorizontalAlignment="Center" Margin="0,50,0,0">Dobrodošli u Horizont!</Label>
+        <Label FontSize="24" HorizontalAlignment="Center">Prijavite se kako biste nastavili dalje</Label>
+        <Label HorizontalAlignment="Center" Margin="0,20,160,0">Korisničko ime: </Label>
+        <TextBox x:Name="UsernameTextBox" HorizontalAlignment="Center" Width="240" Height="27"></TextBox>
+        <Label HorizontalAlignment="Center" Margin="0,0,195,0">Lozinka: </Label>
+        <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Center" Width="240" Height="27"></PasswordBox>
+        <Button x:Name="LoginButton" Click="LoginButton_Click" Content="Prijavi se" Margin="0,20,0,0" Width="200" Height="40"/>
+    </StackPanel>
 </Window>

@@ -22,6 +22,9 @@
     <Compile Update="View\Guest1GradeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\GuestReviewsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\GuideView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -69,6 +72,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Guest1MainView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\GuestReviewsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\GuideView.xaml">
