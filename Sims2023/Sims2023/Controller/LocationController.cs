@@ -56,6 +56,10 @@ namespace Sims2023.Controller
         {
             _location.Subscribe(observer);
         }
+        public Location GetById(int id)
+        {
+            return _location.GetById(id);
+        }
 
     }
 }

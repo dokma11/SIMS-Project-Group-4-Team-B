@@ -39,20 +39,20 @@ namespace Sims2023.Model.DAO
 
 
         // function that gets name and surrname of each guest who has reservation
-        private void AddNameSurrnameToReservation(List<Guest> ListOfGuests, List<AccommodationReservation> reservatons)
+        /*private void AddNameSurrnameToReservation(List<Guest> ListOfGuests, List<AccommodationReservation> reservatons)
         {
             foreach (var reservation in reservatons)
             {
                 foreach (var guest in ListOfGuests)
                 {
-                    if (reservation.GuestId == guest.Id)
+                    if (reservation.Guest.Id == guest.Id)
                     {
                         reservation.Name = guest.Name;
-                        reservation.Surrname = guest.Surrname;
+                        reservation.Surname = guest.Surrname;
                     }
                 }
             }
-        }
+        }*/
 
         // for every guest who has reservation i get the exact name of accommodation
         private void AddReservationName(List<AccommodationReservation> reservatons, List<Accommodation> accommodations)
@@ -63,7 +63,7 @@ namespace Sims2023.Model.DAO
                 {
                     if (reservation.Id == accommodation.Id)
                     {
-                        reservation.AccommodationName = accommodation.Name;
+                        reservation.Accommodation.Name = accommodation.Name;
 
                     }
                 }
@@ -78,7 +78,7 @@ namespace Sims2023.Model.DAO
                 var reservation = reservations[i];
                 foreach (var grade in grades)
                 {
-                    if (reservation.GuestId == grade.GuestId)
+                    if (reservation.Guest.Id == grade.GuestId)
                     {
                         reservations.RemoveAt(i);
 
@@ -114,7 +114,7 @@ namespace Sims2023.Model.DAO
         public List<AccommodationReservation> findGradableGuests(List<Guest> ListOfGuests, List<Accommodation> _accommodations, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
 
-            AddNameSurrnameToReservation(ListOfGuests, reservatons);
+            //AddNameSurrnameToReservation(ListOfGuests, reservatons);
             AddReservationName(reservatons, _accommodations);
             RemoveAlreadyGraded(reservatons, grades);
             FindGuestsWhoRecentlyLeft(reservatons);
@@ -129,15 +129,10 @@ namespace Sims2023.Model.DAO
         
                 foreach (var guest in ungradedGuests)
                 {
-                string1 += guest.Name + guest.Surrname + "\n";
+                string1 += guest.Guest.Name + guest.Guest.Surname + "\n";
                 }
                 return string1;
         }
-         
-
-
-
-
         public void Remove(AccommodationReservation reservation)
         {
             _accommodationReservations.Remove(reservation);

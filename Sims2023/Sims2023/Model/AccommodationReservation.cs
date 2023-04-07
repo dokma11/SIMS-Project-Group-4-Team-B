@@ -1,26 +1,28 @@
-﻿using Sims2023.Serialization;
+﻿using Sims2023.Controller;
+using Sims2023.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sims2023.Model
 {
     public class AccommodationReservation : ISerializable, INotifyPropertyChanged
     {
+        public ObservableCollection<Accommodation> Accommodations { get; set; }
+        public ObservableCollection<User> Users { get; set; }
         public int Id { get; set; }
-
-        public int GuestId { get; set; }
-        public int AccommodationId { get; set; }
-
-        public string AccommodationName { get; set; }
-        public string Name { get; set; }
-        public string Surrname { get; set; }
+        public User Guest { get; set; }
+        public Accommodation Accommodation{ get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int NumberOfDays { get; set; }
+
+        public bool Graded { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -29,29 +31,29 @@ namespace Sims2023.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-
         public AccommodationReservation() { }
-        public AccommodationReservation(int id,int guestid, int accommodationId, DateTime startDate, DateTime endDate, int numberOfGuests)
+        public AccommodationReservation(int id,User guest, Accommodation accommodation, DateTime startDate, DateTime endDate, int numberOfGuests, bool graded)
         {
             Id = id;
-            GuestId = guestid;
-            AccommodationId = accommodationId;
+            Guest = guest;
+            Accommodation = accommodation;
             StartDate = startDate;
             EndDate = endDate;
             NumberOfDays = numberOfGuests;
+            Graded = graded;
         }
-
 
         public string[] ToCSV()
         {
             string[] csvValues =
             {
                 Id.ToString(),
-                GuestId.ToString(),
-                AccommodationId.ToString(),
+                Guest.Id.ToString(),
+                Accommodation.Id.ToString(),
                 StartDate.ToString(),
                 EndDate.ToString(),
-                NumberOfDays.ToString()
+                NumberOfDays.ToString(),
+                Graded.ToString()
             };
             return csvValues;
         }
@@ -59,12 +61,22 @@ namespace Sims2023.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            GuestId = Convert.ToInt32(values[1]);
-            AccommodationId = Convert.ToInt32(values[2]);
+            User guest = new()
+            {
+                Id = Convert.ToInt32(values[1])
+            };
+            UserController userController = new();
+            Guest = userController.GetById(guest.Id);
+            Accommodation accommodation = new()
+            {
+                Id = Convert.ToInt32(values[2])
+            };
+            AccommodationController accommodationController = new();
+            Accommodation = accommodationController.GetById(accommodation.Id);
             StartDate = DateTime.Parse(values[3]);
             EndDate = DateTime.Parse(values[4]);
             NumberOfDays = Convert.ToInt32(values[5]);
-
+            Graded = Convert.ToBoolean(values[6]);
         }
     }
 }

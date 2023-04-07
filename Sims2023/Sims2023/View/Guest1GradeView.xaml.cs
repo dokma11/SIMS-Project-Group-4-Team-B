@@ -55,7 +55,7 @@ namespace Sims2023.View
                 int clean = int.Parse(cleaN);
                 int RespectRules = int.Parse(Respectrules);
                 int Communication = int.Parse(Communicationn);
-                Grade = new GuestGrade(id, Guest.AccommodationId, Guest.GuestId, clean, RespectRules, Communication, comment);
+                Grade = new GuestGrade(id, Guest.Accommodation.Id, Guest.Guest.Id, clean, RespectRules, Communication, comment);
                 _gradeController.Create(Grade);
                 MessageBox.Show("Uspijesno davanje ocjene");
                 GradeEntered = true;

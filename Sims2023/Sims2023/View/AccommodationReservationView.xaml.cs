@@ -32,16 +32,19 @@ namespace Sims2023.View
         private AccommodationReservationController _accommodationReservationController;
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
 
+        public User User { get; set; }
+
         public List<DateTime> AvailableDates = new List<DateTime>();
         public List<DateTime> AdditionalAvailableDates = new List<DateTime>();
         public List<AccommodationStay> Stays = new List<AccommodationStay>();
         bool todaysDay;
 
-        public AccommodationReservationView(Accommodation selectedAccommodationL)
+        public AccommodationReservationView(Accommodation selectedAccommodationL,User guest1)
         {
             InitializeComponent();
             DataContext = this;
 
+            User = guest1;
             SelectedAccommodation = selectedAccommodationL;
 
             _accommodationController = new AccommodationController();
@@ -102,7 +105,7 @@ namespace Sims2023.View
 
             }
 
-            AccommodationReservationDateView accommodationReservationConfirmationView = new AccommodationReservationDateView(SelectedAccommodation, Stays, stayLength);
+            AccommodationReservationDateView accommodationReservationConfirmationView = new AccommodationReservationDateView(SelectedAccommodation, Stays, stayLength, User);
             accommodationReservationConfirmationView.Show();
 
         }
@@ -185,7 +188,7 @@ namespace Sims2023.View
         {
             foreach (AccommodationReservation reservation in _accommodationReservationController.GetAllReservations())
             {
-                if (reservation.AccommodationId==SelectedAccommodation.Id)
+                if (reservation.Accommodation.Id==SelectedAccommodation.Id)
                 {
                     for (DateTime i=reservation.StartDate; i <= reservation.EndDate; i = i.AddDays(1))
                     {
