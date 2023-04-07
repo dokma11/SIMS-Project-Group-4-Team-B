@@ -1,10 +1,10 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
 using Sims2023.Serialization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Sims2023.Model
+namespace Sims2023.Domain.Models
 {
     public class KeyPoint : ISerializable, INotifyPropertyChanged
     {
@@ -55,7 +55,7 @@ namespace Sims2023.Model
             Name = values[1];
             CurrentState = (State)Enum.Parse(typeof(State), values[2]);
             ShowedGuestsIdsString = values[3];
-            if (!String.IsNullOrEmpty(ShowedGuestsIdsString))
+            if (!string.IsNullOrEmpty(ShowedGuestsIdsString))
             {
 
                 string[] showedGuestsIdsStringArray = ShowedGuestsIdsString.Split(" ");
@@ -70,7 +70,7 @@ namespace Sims2023.Model
             {
                 Id = Convert.ToInt32(values[4])
             };
-            TourController tourController = new();
+            TourService tourController = new();
             Tour = tourController.GetById(tour.Id);
         }
     }

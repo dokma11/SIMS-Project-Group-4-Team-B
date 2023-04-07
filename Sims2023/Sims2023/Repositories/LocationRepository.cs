@@ -1,16 +1,16 @@
-﻿using Sims2023.Observer;
-using Sims2023.Repository;
+﻿using Sims2023.Domain.Models;
+using Sims2023.Observer;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sims2023.Model.DAO
+namespace Sims2023.Repository
 {
-    public class LocationDAO
+    public class LocationRepository
     {
-        private List<IObserver> _observers;
-        private List<Location> _locations;
-        private LocationFileHandler _fileHandler;
-        public LocationDAO()
+        private readonly List<IObserver> _observers;
+        private readonly List<Location> _locations;
+        private readonly LocationFileHandler _fileHandler;
+        public LocationRepository()
         {
             _fileHandler = new LocationFileHandler();
             _locations = _fileHandler.Load();
@@ -21,6 +21,36 @@ namespace Sims2023.Model.DAO
         {
             if (_locations.Count == 0) return 1;
             return _locations.Max(l => l.Id) + 1;
+        }
+
+        public void CheckAdd(Location location)
+        {
+            List<Location> locations = _locations;
+
+            if (locations.Count == 0)
+            {
+                Add(location);
+            }
+            else
+            {
+                if (!LocationExists(location, locations))
+                {
+                    Add(location);
+                }
+            }
+        }
+
+        public static bool LocationExists(Location location, List<Location> locations)
+        {
+            foreach (var locationInstance in locations)
+            {
+                if (location.City == locationInstance.City && location.Country == locationInstance.Country)
+                {
+                    location.Id = locationInstance.Id;
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void Add(Location location)

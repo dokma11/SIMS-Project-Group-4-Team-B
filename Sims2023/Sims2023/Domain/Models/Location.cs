@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Sims2023.Model
+namespace Sims2023.Domain.Models
 {
     public class Location : ISerializable, INotifyPropertyChanged
     {

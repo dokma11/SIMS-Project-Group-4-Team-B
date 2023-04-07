@@ -1,20 +1,17 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
 using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Threading;
 
-namespace Sims2023.View
+namespace Sims2023.WPF.ViewModels
 {
-    /// <summary>
-    /// Interaction logic for GuestReviewsView.xaml
-    /// </summary>
-    public partial class GuestReviewsView : Window, IObserver
+    public partial class GuestReviewsViewModel : IObserver
     {
         public Tour SelectedTour { get; set; }
         public List<Tour> AllTours { get; set; }
@@ -27,7 +24,7 @@ namespace Sims2023.View
 
         public List<KeyPoint> AllKeyPoints;
 
-        public GuestReviewsView(TourController tourController, TourReviewController tourReviewController, KeyPointController keyPointController)
+        public GuestReviewsViewModel(TourService tourController, TourReviewController tourReviewController, KeyPointService keyPointController)
         {
             InitializeComponent();
             DataContext = this;

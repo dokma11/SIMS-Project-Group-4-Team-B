@@ -1,34 +1,34 @@
-﻿using Sims2023.Controller;
-using Sims2023.Model;
+﻿using Sims2023.Application.Services;
+using Sims2023.Domain.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows;
+using System.ComponentModel;
 
-namespace Sims2023.View
+namespace Sims2023.WPF.ViewModels
 {
-    /// <summary>
-    /// Interaction logic for CreateTourView.xaml
-    /// </summary>
-    public partial class CreateTourView : Window
+    public partial class CreateTourViewModel : INotifyPropertyChanged
     {
         public Tour Tour { get; set; }
         public Location Location { get; set; }
         public KeyPoint KeyPoint { get; set; }
 
-        private TourController _tourController;
-        private LocationController _locationController;
-        private KeyPointController _keyPointController;
+        private TourService _tourService;
+        private LocationService _locationService;
+        private KeyPointService _keyPointService;
 
         private List<DateTime> _dateTimeList;
         private List<string> _keyPointsList;
 
         private bool dateTimeButtonClicked = false;
-        public CreateTourView(TourController tourController, LocationController locationController, KeyPointController keyPointController)
+        public CreateTourViewModel(TourService tourController, LocationService locationController, KeyPointService keyPointController)
         {
             InitializeComponent();
             DataContext = this;
@@ -44,9 +44,9 @@ namespace Sims2023.View
             addMoreDatesButton.IsEnabled = false;
             addKeyPointsButton.IsEnabled = false;
 
-            _tourController = tourController;
-            _locationController = locationController;
-            _keyPointController = keyPointController;
+            _tourService = tourController;
+            _locationService = locationController;
+            _keyPointService = keyPointController;
         }
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
@@ -54,12 +54,12 @@ namespace Sims2023.View
             if (Tour.IsValid && dateTimeButtonClicked && keyPointsOutput.Items.Count > 1)
             {
                 int newToursNumber = _dateTimeList.Count;
-                _locationController.Create(Location);
-                _tourController.Create(Tour, _dateTimeList, Location);
+                _locationService.Create(Location);
+                _tourService.Create(Tour, _dateTimeList, Location);
                 int firstToursId = Tour.Id - newToursNumber + 1;
-                _tourController.AddToursLocation(Tour, Location, newToursNumber);
-                _keyPointController.Create(KeyPoint, _keyPointsList, firstToursId, newToursNumber);
-                _tourController.AddToursKeyPoints(_keyPointsList, firstToursId);
+                _tourService.AddToursLocation(Tour, Location, newToursNumber);
+                _keyPointService.Create(KeyPoint, _keyPointsList, firstToursId, newToursNumber);
+                _tourService.AddToursKeyPoints(_keyPointsList, firstToursId);
                 Close();
             }
             else
@@ -106,40 +106,34 @@ namespace Sims2023.View
         private void ComboBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
             ComboBox cBox = (ComboBox)sender;
-            ComboBoxItem cbItem = (ComboBoxItem)cBox.SelectedItem;
-            string language = (string)cbItem.Content;
-            //The numbers represent the order in which the enum members are arranged, the first is Serbian (number 0), the second English (number 1) etc...
-            if (language == "Serbian")
+            string language = ((ComboBoxItem)cBox.SelectedItem).Content.ToString();
+
+            switch (language)
             {
-                Tour.GuideLanguage = (Tour.Language)0;
-            }
-            else if (language == "English")
-            {
-                Tour.GuideLanguage = (Tour.Language)1;
-            }
-            if (language == "German")
-            {
-                Tour.GuideLanguage = (Tour.Language)2;
-            }
-            if (language == "French")
-            {
-                Tour.GuideLanguage = (Tour.Language)3;
-            }
-            if (language == "Spanish")
-            {
-                Tour.GuideLanguage = (Tour.Language)4;
-            }
-            if (language == "Italian")
-            {
-                Tour.GuideLanguage = (Tour.Language)5;
-            }
-            if (language == "Chinese")
-            {
-                Tour.GuideLanguage = (Tour.Language)6;
-            }
-            if (language == "Japanese")
-            {
-                Tour.GuideLanguage = (Tour.Language)7;
+                case "Serbian":
+                    Tour.GuideLanguage = Tour.Language.Serbian;
+                    break;
+                case "English":
+                    Tour.GuideLanguage = Tour.Language.English;
+                    break;
+                case "German":
+                    Tour.GuideLanguage = Tour.Language.German;
+                    break;
+                case "French":
+                    Tour.GuideLanguage = Tour.Language.French;
+                    break;
+                case "Spanish":
+                    Tour.GuideLanguage = Tour.Language.Spanish;
+                    break;
+                case "Italian":
+                    Tour.GuideLanguage = Tour.Language.Italian;
+                    break;
+                case "Chinese":
+                    Tour.GuideLanguage = Tour.Language.Chinese;
+                    break;
+                case "Japanese":
+                    Tour.GuideLanguage = Tour.Language.Japanese;
+                    break;
             }
         }
 
@@ -208,7 +202,7 @@ namespace Sims2023.View
             e.Handled = new Regex("[^0-9]+$").IsMatch(e.Text);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler ?PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
