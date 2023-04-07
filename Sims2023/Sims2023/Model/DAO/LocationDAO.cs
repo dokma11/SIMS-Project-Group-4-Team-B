@@ -16,7 +16,10 @@ namespace Sims2023.Model.DAO
             _locations = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
-
+        public Location GetById(int id)
+        {
+            return _fileHandler.GetById(id);
+        }
         public int NextId()
         {
             if (_locations.Count == 0) return 1;

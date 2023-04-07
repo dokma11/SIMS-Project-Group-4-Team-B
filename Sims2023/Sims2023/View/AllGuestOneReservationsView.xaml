@@ -21,13 +21,13 @@
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="50,10,50,30"
                   Grid.Row="2">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Ime" Binding="{Binding AccommodationName}" Width="190"></DataGridTextColumn>
-                <DataGridTextColumn Header="Grad" Binding="{Binding AccommodationCity}" Width="190"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ime" Binding="{Binding Accommodation.Name}" Width="190"></DataGridTextColumn>
+                <DataGridTextColumn Header="Grad" Binding="{Binding Accommodation.Location.City}" Width="190"></DataGridTextColumn>
                 <DataGridTextColumn Header="Vlasnik" Width="190">
                     <DataGridTextColumn.Binding>
                         <MultiBinding StringFormat="{}{0} {1}">
-                            <Binding Path="Name"/>
-                            <Binding Path="Surname"/>
+                            <Binding Path="Accommodation.Owner.Name"/>
+                            <Binding Path="Accommodation.Owner.Surname"/>
                         </MultiBinding>
                     </DataGridTextColumn.Binding>
                 </DataGridTextColumn>

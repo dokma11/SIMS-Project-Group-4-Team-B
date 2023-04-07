@@ -45,7 +45,10 @@ namespace Sims2023.Controller
         {
             _accomodation.Subscribe(observer);
         }
-
+        public Accommodation GetById(int id)
+        {
+            return _accomodation.GetById(id);
+        }
 
     }
 }

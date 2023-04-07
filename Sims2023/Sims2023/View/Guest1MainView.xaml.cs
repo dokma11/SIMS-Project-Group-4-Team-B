@@ -20,15 +20,18 @@ namespace Sims2023.View
     /// </summary>
     public partial class Guest1MainView : Window
     {
-        public Guest1MainView(User user)
+        public User User { get; set; }
+        public Guest1MainView(User guest1)
         {
             InitializeComponent();
             DataContext = this;
+
+            User = guest1;
         }
 
         private void VewAccommodation_Click(object sender, RoutedEventArgs e)
         {
-            var AccommodationListView = new AccommodationListView();
+            var AccommodationListView = new AccommodationListView(User);
             AccommodationListView.Show();
         }
 
@@ -39,7 +42,7 @@ namespace Sims2023.View
 
         private void buttonGrading_Click(object sender, RoutedEventArgs e)
         {
-            var AllGuestOneReservationsView = new AllGuestOneReservationsView();
+            var AllGuestOneReservationsView = new AllGuestOneReservationsView(User);
             AllGuestOneReservationsView.Show();
         }
     }

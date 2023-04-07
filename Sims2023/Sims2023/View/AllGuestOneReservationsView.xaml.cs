@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Sims2023.Controller;
 using Sims2023.Model;
+using Sims2023.Observer;
 using Sims2023.View.Guest1;
 
 namespace Sims2023.View
@@ -22,7 +23,7 @@ namespace Sims2023.View
     /// <summary>
     /// Interaction logic for AllGuestOneReservationsView.xaml
     /// </summary>
-    public partial class AllGuestOneReservationsView : Window
+    public partial class AllGuestOneReservationsView : Window, IObserver
     {
         public AccommodationReservation SelectedAccommodationReservation { get; set; }
 
@@ -34,12 +35,22 @@ namespace Sims2023.View
 
         private AccomodationLocationController _accommodationLocationController;
         public ObservableCollection<AccommodationLocation> AccommodationLocations { get; set; }
+        public ObservableCollection<AccommodationGrade> AccommodationGrades { get; set; }
 
-        public AllGuestOneReservationsView()
+        List<AccommodationReservation> FilteredData=new List<AccommodationReservation>();   
+
+        public User User { get; set; }
+
+        public AllGuestOneReservationsView(User guest1)
         {
             InitializeComponent();
             DataContext = this;
+
+            User = guest1;
+
             _accommodationReservationController = new AccommodationReservationController();
+            _accommodationReservationController.Subscribe(this);
+
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationController.GetAllReservations());
 
             _accommodationController = new AccommodationController();
@@ -48,20 +59,54 @@ namespace Sims2023.View
             _accommodationLocationController = new AccomodationLocationController();
             AccommodationLocations = new ObservableCollection<AccommodationLocation>(_accommodationLocationController.GetAllAccommodationLocations());
 
-            AddLocationToAccommodation(AccommodationLocations, Accommodations);
-            getAccommodationNameCityOwner(AccommodationReservations,Accommodations);
+            FilteredData = FindSuitableReservations(AccommodationReservations);
+            myDataGrid.ItemsSource = FilteredData;
+        }
+
+        private List<AccommodationReservation> FindSuitableReservations(ObservableCollection<AccommodationReservation> accommodationReservations)
+        {
+            List<AccommodationReservation> FilteredReservations = new List<AccommodationReservation>();
+            foreach (AccommodationReservation accommodationReservation in accommodationReservations)
+            {
+               if( CheckReservation(accommodationReservation))
+                {
+                    FilteredReservations.Add(accommodationReservation);
+                }
+            }
+            return FilteredReservations;
+        }
+
+        private bool CheckReservation(AccommodationReservation accommodationReservation)
+        {
+            TimeSpan difference = DateTime.Today - accommodationReservation.EndDate;
+            if (difference.TotalDays <= 5 && difference.TotalDays>=0 && accommodationReservation.Guest.Id==User.Id && accommodationReservation.Graded==false)
+            {
+                return true;
+            }
+            return false;
+            
         }
 
         private void grading_Click(object sender, RoutedEventArgs e)
         {
             SelectedAccommodationReservation = (AccommodationReservation)myDataGrid.SelectedItem;
+            
             if (SelectedAccommodationReservation == null)
             {
                 MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da ocenite.");
                 return;
             }
-            var AccommodationAndOwnerGradingView = new AccommodationAndOwnerGradingView(SelectedAccommodationReservation);
-            AccommodationAndOwnerGradingView.ShowDialog();
+            if (!SelectedAccommodationReservation.Graded)
+            {
+                var AccommodationAndOwnerGradingView = new AccommodationAndOwnerGradingView(SelectedAccommodationReservation, User, _accommodationReservationController);
+                AccommodationAndOwnerGradingView.ShowDialog();
+                Update();
+            }
+            else
+            {
+                MessageBox.Show("Vec ste ocenili ovaj smestaj.");
+                return;
+            }
         }
 
         private void renovation_Click(object sender, RoutedEventArgs e)
@@ -72,43 +117,15 @@ namespace Sims2023.View
                 MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da ocenite.");
                 return;
             }
-            var AccommodationAndOwnerGradingView = new AccommodationAndOwnerGradingView(SelectedAccommodationReservation);
+            var AccommodationAndOwnerGradingView = new AccommodationAndOwnerGradingView(SelectedAccommodationReservation,User, _accommodationReservationController);
             AccommodationAndOwnerGradingView.ShowDialog();
         }
 
-        private void AddLocationToAccommodation(ObservableCollection<AccommodationLocation> accommodationLocations, ObservableCollection<Accommodation> accommodations)
+        public void Update()
         {
-            foreach (var accommodation in accommodations)
-            {
-                foreach (var location in accommodationLocations)
-                {
-                    if (accommodation.LocationId == location.Id)
-                    {
-                        accommodation.City = location.City;
-                        accommodation.Country = location.Country;
-                    }
-                }
-            }
-        }
-        private void getAccommodationNameCityOwner(ObservableCollection<AccommodationReservation> accommodationReservations, ObservableCollection<Accommodation> accommodations)
-        {
-            foreach (AccommodationReservation accommodationReservation in AccommodationReservations)
-            {
-                findAccommodationInfo(accommodationReservation, accommodations);
-            }
-        }
-        public void findAccommodationInfo(AccommodationReservation accommodationReservation, ObservableCollection<Accommodation> accommodations)
-        {
-            foreach (Accommodation accommodation in Accommodations)
-            {
-                if (accommodationReservation.AccommodationId == accommodation.Id)
-                {
-                    accommodationReservation.AccommodationName = accommodation.Name;
-                    accommodationReservation.AccommodationCity = accommodation.City;
-                    accommodationReservation.Name = "Pera";
-                    accommodationReservation.Surname = "Peric";
-                }
-            }
+            FilteredData.Clear();
+            FilteredData = FindSuitableReservations(AccommodationReservations);
+            myDataGrid.ItemsSource = FilteredData;
         }
     }
 }

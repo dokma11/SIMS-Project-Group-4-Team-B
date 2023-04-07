@@ -13,11 +13,15 @@ namespace Sims2023.View
         private AccomodationLocationController _accomodationLocationController;
         private Accommodation Accommodation { get; set; }
         private AccommodationLocation AccommodationLocation { get; set; }
+        public User User { get; set; }
+
         string outputText;
-        public AccommodationRegistrationView(AccommodationController accommodationCtrl1, AccomodationLocationController accommodationLocationCtrll)
+        public AccommodationRegistrationView(AccommodationController accommodationCtrl1, AccomodationLocationController accommodationLocationCtrll,User owner)
         {
             InitializeComponent();
             DataContext = this;
+
+            User = owner;
 
             _accommodationController = accommodationCtrl1;
 
@@ -93,8 +97,10 @@ namespace Sims2023.View
                 return;
             }
 
+            Location Location = new Location(Id2, Town, Country);
+
             CancelDays = string.IsNullOrEmpty(CancelDayss) ? 1 : int.Parse(CancelDayss);
-            Accommodation = new Accommodation(Id, Name, idLocation, Type, MaxGuests, MinDays, CancelDays, outputText);
+            Accommodation = new Accommodation(Id, Name, Location, Type, MaxGuests, MinDays, CancelDays, outputText, User);
 
             if (Accommodation.IsVaild(Accommodation) == null)
             {

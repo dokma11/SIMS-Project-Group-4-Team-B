@@ -24,44 +24,56 @@ namespace Sims2023
     /// </summary>
     public partial class MainWindow : Window, IObserver
     {
+        private string _username;
+        private string _password;
+        private UserController _userController;
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
+
+            _userController = new UserController();
+            _userController.Subscribe(this);
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            if(!String.IsNullOrEmpty(UsernameTextBox.Text) && !String.IsNullOrEmpty(PasswordBox.Password))
+            if (!String.IsNullOrEmpty(UsernameTextBox.Text) && !String.IsNullOrEmpty(PasswordBox.Password))
             {
                 _username = UsernameTextBox.Text;
                 _password = PasswordBox.Password;
                 GetUser(_username, _password);
             }
+            else
+            {
+                MessageBox.Show("Molimo Vas da popunite sva polja");
+            }
+        }
 
         private void GetUser(String username, String password)
         {
             bool loggedIn = false;
-            foreach(var user in _userController.GetAllUsers())
+            foreach (var user in _userController.GetAllUsers())
             {
-                if(user.Username == username && user.Password == password)
+                if (user.Username == username && user.Password == password)
                 {
                     OpenUserView(user);
                     loggedIn = true;
                     Close();
                 }
             }
-            if(!loggedIn)
+            if (!loggedIn)
             {
                 MessageBox.Show("Data kombinacija ne postoji");
                 UsernameTextBox.Text = "";
                 PasswordBox.Password = "";
             }
+        }
 
         private void OpenUserView(User user)
         {
-            if(user.UserType == User.Type.Guest1) 
-            { 
+            if (user.UserType == User.Type.Guest1)
+            {
                 Guest1MainView guest1MainView = new(user);
                 guest1MainView.Show();
             }
@@ -80,6 +92,7 @@ namespace Sims2023
                 GuideView guideView = new(user);
                 guideView.Show();
             }
+        }
 
         public void Update()
         {

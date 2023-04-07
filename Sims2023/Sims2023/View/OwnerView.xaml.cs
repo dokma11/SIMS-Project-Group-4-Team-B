@@ -35,12 +35,15 @@ namespace Sims2023.View
         public List<AccommodationReservation> Reservatons { get; set; }
         public List<AccommodationReservation> GradableGuests { get; set; }
 
-
-        public OwnerView(User user)
+        public User User { get; set; } 
+        public OwnerView(User owner)
         {
             
             InitializeComponent();
             DataContext = this;
+
+            User = owner;
+
             _accommodationController = new AccommodationController();
             _accommodationLocationController = new AccomodationLocationController();
             fh = new GuestFileHandler();
@@ -95,7 +98,7 @@ namespace Sims2023.View
 
         private void AddAccommodation_Click(object sender, RoutedEventArgs e)
         {
-            var addAccommodation = new AccommodationRegistrationView(_accommodationController, _accommodationLocationController);
+            var addAccommodation = new AccommodationRegistrationView(_accommodationController, _accommodationLocationController,User);
             addAccommodation.Show();
         }
     }
