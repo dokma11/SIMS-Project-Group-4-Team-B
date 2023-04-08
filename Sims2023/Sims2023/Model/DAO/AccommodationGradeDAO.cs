@@ -46,7 +46,12 @@ namespace Sims2023.Model.DAO
                 }
         }
 
-
+        public double FindAverage(AccommodationGrade grade)
+        {
+            double prosjek;
+            prosjek = grade.Cleanliness + grade.Comfort + grade.Location / 3;
+            return prosjek;
+        }
         public int NextId()
         {
             if (_accommodationGrades.Count == 0) return 1;

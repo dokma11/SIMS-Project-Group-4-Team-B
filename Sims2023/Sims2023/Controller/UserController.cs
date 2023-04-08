@@ -18,6 +18,11 @@ namespace Sims2023.Controller
             _user = new UserDAO();
         }
 
+        public void MarkSuperOwner()
+        {
+            _user.FindSuperOwners();
+        }
+
         public List<User> GetAllUsers()
         {
             return _user.GetAll();

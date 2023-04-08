@@ -20,10 +20,12 @@ namespace Sims2023.Model
         public string Email { get; set; }
         public enum Type { Owner, Guest1, Guide, Guest2 }
         public Type UserType { get; set; }
+
+        public bool superOwner { get; set; }
         //Treba i sliku dodati
         public User() { }
 
-        public User(int id, string username, string password, string name, string surname, string phoneNumber, string email, Type userType)
+        public User(int id, string username, string password, string name, string surname, string phoneNumber, string email, Type userType, bool superOwner)
         {
             Id = id;
             Username = username;
@@ -33,6 +35,7 @@ namespace Sims2023.Model
             PhoneNumber = phoneNumber;
             Email = email;
             UserType = userType;
+            this.superOwner = superOwner;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -52,7 +55,8 @@ namespace Sims2023.Model
                 Surname,
                 PhoneNumber,
                 Email,
-                UserType.ToString()
+                UserType.ToString(),
+                superOwner.ToString()
             };
             return csvValues;
         }
@@ -67,6 +71,7 @@ namespace Sims2023.Model
             PhoneNumber = values[5];
             Email = values[6];
             UserType = (Type)Enum.Parse(typeof(Type), values[7]);
+            superOwner = Convert.ToBoolean(values[8]);
         }
     }
 }

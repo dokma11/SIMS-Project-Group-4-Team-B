@@ -1,10 +1,21 @@
-1|Babic d.o.o|1|apartman|2|5|1|1|
-2|AndricSmjestaj|3|koliba|5|6|1|1|file:///C:/Users/Tatjana/Pictures/%C4%8Deska/IMG_20171019_114126.jpg,file:///C:/Users/Tatjana/Pictures/%C4%8Deska/IMG_20171019_114140.jpg,file:///C:/Users/Tatjana/Pictures/%C4%8Deska/IMG_20171019_114245.jpg,file:///C:/Users/Tatjana/Pictures/%C4%8Deska/IMG_20171019_114247.jpg
-3|PericD.O.O|3|kuća|5|7|1|3|file:///C:/Users/Tatjana/Pictures/%C4%8Deska/IMG_20171019_114245.jpg,file:///C:/Users/Tatjana/Pictures/%C4%8Deska/IMG_20171019_114247.jpg,file:///C:/Users/Tatjana/Pictures/%C4%8Deska/IMG_20171019_114251.jpg
-4|Smjestaji|4|apartman|6|4|1|1|
-5|Monte|5|kuća|10|5|1|1|
-6|MajevicaTour|6|koliba|10|5|1|1|
-7|Stanovi|1|koliba|3|3|3|3|,najjaci stanov
-8|ee|4|kuća|5|5|5|3|,rtgv
-9|u|9|koliba|5|5|5|3|,4trhh
-10|qwe|10|kuća|5|5|5|3|,ersg
+1|Babic d.o.o|1|apartman|2|5|1|4|klm,|False
+2|AndricSmjestaj|3|koliba|5|6|1|4|file:///C:/Users/Tatjana/Pictures/%C4%8Deska/IMG_20171019_114126.jpg,file:///C:/Users/Tatjana/Pictures/%C4%8Deska/IMG_20171019_114140.jpg,file:///C:/Users/Tatjana/Pictures/%C4%8Deska/IMG_20171019_114245.jpg,file:///C:/Users/Tatjana/Pictures/%C4%8Deska/IMG_20171019_114247.jpg|False
+3|PericD.O.O|3|kuća|5|7|1|4|file:///C:/Users/Tatjana/Pictures/%C4%8Deska/IMG_20171019_114245.jpg,file:///C:/Users/Tatjana/Pictures/%C4%8Deska/IMG_20171019_114247.jpg,file:///C:/Users/Tatjana/Pictures/%C4%8Deska/IMG_20171019_114251.jpg|False
+4|Smjestaji|4|apartman|6|4|1|4|df|False
+5|Monte|5|kuća|10|5|1|3|ef|False
+6|MajevicaTour|6|koliba|10|5|1|4|efe|False
+7|Stanovi|1|koliba|3|3|3|3|,najjaci stanov|False
+8|ee|4|kuća|5|5|5|3|,rtgv|False
+9|u|9|koliba|5|5|5|3|,4trhh|False
+10|qwe|7|kuća|5|5|5|11|,ersg|False
+11|qwe|8|kuća|5|5|5|11|,ersg|False
+12|qwe|9|kuća|5|5|5|11|,ersg|False
+13|qwe|10|kuća|5|5|5|3|,ersg|False
+14|qwe|7|kuća|5|5|5|3|,ersg|False
+15|qwe|8|kuća|5|5|5|3|,ersg|False
+16|qwe|9|kuća|5|5|5|3|,ersg|False
+17|qwe|10|kuća|5|5|5|3|,ersg|False
+18|qwe|7|kuća|5|5|5|3|,ersg|False
+19|qwe|7|kuća|5|5|5|3|,ersg|False
+20|qwe|6|kuća|5|5|5|11|,ersg|False
+21|x|11|apartman|2|2|2|4|,gtg|False

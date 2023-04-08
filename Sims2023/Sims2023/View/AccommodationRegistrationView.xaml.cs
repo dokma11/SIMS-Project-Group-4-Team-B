@@ -86,7 +86,8 @@ namespace Sims2023.View
             _locationController.Create(Location);
 
             CancelDays = string.IsNullOrEmpty(CancelDayss) ? 1 : int.Parse(CancelDayss);
-            Accommodation = new Accommodation(Id, Name, Location, Type, MaxGuests, MinDays, CancelDays, outputText, User);
+            bool super = false;
+            Accommodation = new Accommodation(Id, Name, Location, Type, MaxGuests, MinDays, CancelDays, outputText, User, super);
 
             if (Accommodation.IsVaild(Accommodation) == null)
             {
