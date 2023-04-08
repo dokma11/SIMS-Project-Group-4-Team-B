@@ -49,9 +49,9 @@ namespace Sims2023.View
             _accommodationLocationController = new AccomodationLocationController();
             AccommodationLocations = new ObservableCollection<AccommodationLocation>(_accommodationLocationController.GetAllAccommodationLocations());
 
-            _accommodationController = new AccommodationController();
             _userController.MarkSuperOwner();
-         //   _accommodationController.Update();
+            _accommodationController = new AccommodationController();
+            //   _accommodationController.Update();
             Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAllAccommodations());
             List<Accommodation> FilteredData = new List<Accommodation>();
 

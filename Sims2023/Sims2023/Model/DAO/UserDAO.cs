@@ -55,7 +55,7 @@ namespace Sims2023.Model.DAO
                 foreach (AccommodationGrade grade in guests.GetAll())
                 {
                    
-                    if(grade.Accommodation.Id == user.Id)
+                    if(grade.Accommodation.Owner.Id == user.Id)
                     {
                         counter++;
                         zbir += guests.FindAverage(grade);
