@@ -11,8 +11,8 @@
         <ListView ItemsSource="{Binding people}" SelectedItem="{Binding SelectedPerson}" Margin="-10,0,10,0">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Ime" Width="100" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Prezime"  Width="120" DisplayMemberBinding="{Binding Surrname}" />
+                    <GridViewColumn Header="Ime" Width="100" DisplayMemberBinding="{Binding Guest.Name}" />
+                    <GridViewColumn Header="Prezime"  Width="120" DisplayMemberBinding="{Binding Guest.Surname}" />
                 </GridView>
             </ListView.View>
         </ListView>

@@ -26,6 +26,25 @@ namespace Sims2023.Model.DAO
             _observers = new List<IObserver>();
         }
 
+        public List<AccommodationGrade> GetAllGuestsWhoGraded(List<AccommodationGrade> people, List<GuestGrade> ListOfGuests)
+        {
+        //    AddNameSurrnameToReservation(ListOfGuests, people);
+            RemoveUngradedGuests(people,ListOfGuests);
+            return people;
+
+        }
+
+        private void RemoveUngradedGuests(List<AccommodationGrade> people, List<GuestGrade> guestGrades)
+        {
+                for (int i = people.Count - 1; i >= 0; i--)
+                {
+                    var person = people[i];
+                    if (!guestGrades.Any(g => g.Guest.Id == person.Guest.Id))
+                    {
+                        people.RemoveAt(i);
+                    }
+                }
+        }
 
 
         public int NextId()

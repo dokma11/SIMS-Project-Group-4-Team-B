@@ -22,21 +22,24 @@ namespace Sims2023.View
     /// </summary>
     public partial class GradesFromGuestsView : Window
     {
-        public ObservableCollection<OwnerAndAccommodationGrade> people { get; set; }  
+        public ObservableCollection<AccommodationGrade> people { get; set; }  
         
-        private OwnerAndAccommodationGradeController OwnerAndAccommodationGradeControllerowner;
+        private AccommodationGradeController _accommodationGradeController;
 
-        public OwnerAndAccommodationGrade SelectedPerson { get; set; }
+        private GuestGradeController _guestGradeController;
 
-        public GradesFromGuestsView(List<Guest> guests)
+        public AccommodationGrade SelectedPerson { get; set; }
+
+        public GradesFromGuestsView()
         {
             InitializeComponent();
             DataContext= this;
 
-            OwnerAndAccommodationGradeControllerowner = new OwnerAndAccommodationGradeController();
+            _accommodationGradeController = new AccommodationGradeController();
 
-            people = new ObservableCollection<OwnerAndAccommodationGrade>(OwnerAndAccommodationGradeControllerowner.
-                FindAllGuestsWhoGraded(OwnerAndAccommodationGradeControllerowner.GetAllGrades(), guests));
+            _guestGradeController = new GuestGradeController();
+            people = new ObservableCollection<AccommodationGrade>(_accommodationGradeController.
+                FindAllGuestsWhoGraded(_accommodationGradeController.GetAllAccommodationGrades(), _guestGradeController.GetAllGrades()));
         }
 
         private void Details_Click(object sender, RoutedEventArgs e)
@@ -47,7 +50,6 @@ namespace Sims2023.View
                 GuestsGrades.Show();
             }
         }
-
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Close();

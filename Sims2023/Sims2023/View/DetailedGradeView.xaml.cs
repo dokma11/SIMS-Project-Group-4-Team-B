@@ -20,34 +20,28 @@ namespace Sims2023.View
     /// </summary>
     public partial class DetailedGradeView : Window
     {
-        public String Name { get; set; }
-        public String Surrname { get; set; }
-        public String Accommodation { get; set; }
-        public String Clean { get; set; }
-        public String Correct { get; set; }
-        public String Respect { get; set; }
-
         public String name { get; set; }
         public String surrname { get; set; }
+
+        public String accommodationName { get; set; }
         public String clean { get; set; }
         public String correct { get; set; }
-        public String communication { get; set; }
+        public String value { get; set; }
         public String comment { get; set; }
         
-        public DetailedGradeView(OwnerAndAccommodationGrade SelectedPerson)
+        public DetailedGradeView(AccommodationGrade SelectedPerson)
         {
             InitializeComponent();
             DataContext = this;
 
-            name = SelectedPerson.Name;
-            surrname = SelectedPerson.Surrname;
+            name = SelectedPerson.Guest.Name;
+            surrname = SelectedPerson.Guest.Surname;
+            accommodationName = SelectedPerson.Accommodation.Name;
             clean = SelectedPerson.Cleanliness.ToString();
-            correct = SelectedPerson.Correct.ToString();
-            communication= SelectedPerson.Communication.ToString();
+            correct = SelectedPerson.Comfort.ToString();
+            value= SelectedPerson.ValueForMoney.ToString();
             comment = SelectedPerson.Comment.ToString();
         }
-
-
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Close();
