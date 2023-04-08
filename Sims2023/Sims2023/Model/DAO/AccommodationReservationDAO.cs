@@ -52,7 +52,7 @@ namespace Sims2023.Model.DAO
                     }
                 }
             }
-        }*/
+        }
 
         // for every guest who has reservation i get the exact name of accommodation
         private void AddReservationName(List<AccommodationReservation> reservatons, List<Accommodation> accommodations)
@@ -68,7 +68,7 @@ namespace Sims2023.Model.DAO
                     }
                 }
             }
-        }
+        }  */
 
         // guests who are already graded should not appear in a list
         private void RemoveAlreadyGraded(List<AccommodationReservation> reservations, List<GuestGrade> grades)
@@ -78,7 +78,7 @@ namespace Sims2023.Model.DAO
                 var reservation = reservations[i];
                 foreach (var grade in grades)
                 {
-                    if (reservation.Guest.Id == grade.GuestId)
+                    if (reservation.Guest.Id == grade.Guest.Id)
                     {
                         reservations.RemoveAt(i);
 
@@ -111,11 +111,11 @@ namespace Sims2023.Model.DAO
         }
 
         // finds all guests who owner can grade
-        public List<AccommodationReservation> findGradableGuests(List<Guest> ListOfGuests, List<Accommodation> _accommodations, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
+        public List<AccommodationReservation> findGradableGuests(List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
 
             //AddNameSurrnameToReservation(ListOfGuests, reservatons);
-            AddReservationName(reservatons, _accommodations);
+         //   AddReservationName(reservatons, _accommodations);
             RemoveAlreadyGraded(reservatons, grades);
             FindGuestsWhoRecentlyLeft(reservatons);
             return reservatons;
@@ -126,12 +126,12 @@ namespace Sims2023.Model.DAO
         public string UngradedGuestsNameAndSurrname(List<AccommodationReservation> ungradedGuests)
         {
             string string1 = "Imate neocijenjene goste: \n";
-        
-                foreach (var guest in ungradedGuests)
-                {
+
+            foreach (var guest in ungradedGuests)
+            {
                 string1 += guest.Guest.Name + guest.Guest.Surname + "\n";
-                }
-                return string1;
+            }
+            return string1;
         }
         public void Remove(AccommodationReservation reservation)
         {

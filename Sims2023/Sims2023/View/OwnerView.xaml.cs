@@ -30,8 +30,8 @@ namespace Sims2023.View
         private AccomodationLocationController _accommodationLocationController;
         private AccommodationReservationController _accommodationReservationController;
         private GuestGradeController _gradeController;
-        private GuestFileHandler fh;
-        private List<Guest> Guests;
+      
+        
         public List<AccommodationReservation> Reservatons { get; set; }
         public List<AccommodationReservation> GradableGuests { get; set; }
 
@@ -46,15 +46,15 @@ namespace Sims2023.View
 
             _accommodationController = new AccommodationController();
             _accommodationLocationController = new AccomodationLocationController();
-            fh = new GuestFileHandler();
-            Guests = new List<Guest>(fh.Load());
+           
+           
             _accommodationReservationController = new AccommodationReservationController();
             _gradeController = new GuestGradeController();
 
             Reservatons = new List<AccommodationReservation>(_accommodationReservationController.GetAllReservations());
 
-            GradableGuests = new List<AccommodationReservation>(_accommodationReservationController.GetGradableGuests(Guests, _accommodationController.GetAllAccommodations(),
-                                                                                Reservatons, _gradeController.GetAllGrades()));
+            GradableGuests = new List<AccommodationReservation>(_accommodationReservationController.GetGradableGuests(Reservatons, _gradeController.GetAllGrades()));
+
 
         }
 
@@ -92,7 +92,7 @@ namespace Sims2023.View
 
         private void Grade_Click(object sender, RoutedEventArgs e)
         {
-            var guestss = new AllGuestsView(Guests, _accommodationReservationController, Reservatons);
+            var guestss = new AllGuestsView(_accommodationReservationController, Reservatons);
             guestss.Show();
         }
 
@@ -100,6 +100,12 @@ namespace Sims2023.View
         {
             var addAccommodation = new AccommodationRegistrationView(_accommodationController, _accommodationLocationController,User);
             addAccommodation.Show();
+        }
+
+        private void Grades_Given_From_Guests(object sender, RoutedEventArgs e)
+        {
+            var GuestsGrades = new GradesFromGuestsView();
+            GuestsGrades.Show();
         }
     }
 }

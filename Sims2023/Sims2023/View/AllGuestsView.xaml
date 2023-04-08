@@ -13,9 +13,9 @@
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="121,45,354,90"
                   Grid.Row="0" Grid.Column="0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Ime" Binding="{Binding Name}" Width="70"></DataGridTextColumn>
-                <DataGridTextColumn Header="Prezime" Binding="{Binding Surrname}" Width="80"></DataGridTextColumn>
-                <DataGridTextColumn Header="Boravak" Binding="{Binding AccommodationName}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ime" Binding="{Binding Guest.Name}" Width="70"></DataGridTextColumn>
+                <DataGridTextColumn Header="Prezime" Binding="{Binding Guest.Surname}" Width="80"></DataGridTextColumn>
+                <DataGridTextColumn Header="Boravak" Binding="{Binding Accommodation.Name}" Width="*"></DataGridTextColumn>
 
 
             </DataGrid.Columns>

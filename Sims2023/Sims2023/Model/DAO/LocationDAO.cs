@@ -1,6 +1,7 @@
 ﻿using Sims2023.Observer;
 using Sims2023.Repository;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 
 namespace Sims2023.Model.DAO
@@ -19,6 +20,15 @@ namespace Sims2023.Model.DAO
         public Location GetById(int id)
         {
             return _fileHandler.GetById(id);
+        }
+
+        public int GetIdByLocation(string city, string country)
+        {
+            foreach (Location location in GetAll())
+            {
+                if (location.Country == country && location.City == city) return location.Id;
+            }
+            return 0;
         }
         public int NextId()
         {
