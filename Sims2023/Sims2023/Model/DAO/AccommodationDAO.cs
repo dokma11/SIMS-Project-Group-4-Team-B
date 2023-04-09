@@ -13,14 +13,13 @@ namespace Sims2023.DAO
         private List<IObserver> _observers;
         private AccommodationFileHandler _fileHandler;
         private List<Accommodation> _accommodations;
+        
      
         public AccommodationDAO()
         {
             _fileHandler = new AccommodationFileHandler();
             _accommodations = _fileHandler.Load();
             _observers = new List<IObserver>();
-            
-
         }
 
         public Accommodation GetById(int id)
@@ -60,8 +59,7 @@ namespace Sims2023.DAO
             _fileHandler.Save(_accommodations);
             NotifyObservers();
         }
-
-        public List<Accommodation> GetAll()
+       public List<Accommodation> GetAll()
         {
             return _accommodations;
         }

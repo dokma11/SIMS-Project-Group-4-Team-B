@@ -23,7 +23,6 @@ namespace Sims2023.Model
         public int MinDays { get; set; }
         public int CancelDays { get; set; }
         public List<string> Imageurls { get; set; }
-
         public string ImageUrl { get; set; }
 
 
@@ -49,9 +48,8 @@ namespace Sims2023.Model
             this.CancelDays = CancelDays;
             this.Owner = Owner;
             this.ImageUrl = ImageUrl;
-
+           
         }
-
 
         public string[] ToCSV()
         {
@@ -65,9 +63,8 @@ namespace Sims2023.Model
                 MinDays.ToString(),
                 CancelDays.ToString(),
                 Owner.Id.ToString(),
-                ImageUrl
-
-            };
+                ImageUrl,
+             };
             return csvValues;
         }
 
@@ -92,7 +89,7 @@ namespace Sims2023.Model
             UserService userController = new();
             Owner = userController.GetById(owner.Id);
             ImageUrl = values[8];
-
+           
         }
 
         public string IsVaild(Accommodation a)

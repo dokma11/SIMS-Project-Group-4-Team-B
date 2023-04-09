@@ -37,6 +37,8 @@ namespace Sims2023.Model.DAO
             NotifyObservers();
         }
 
+      
+
         public void Remove(GuestGrade grade)
         {
             _grades.Remove(grade);

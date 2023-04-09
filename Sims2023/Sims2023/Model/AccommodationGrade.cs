@@ -60,7 +60,7 @@ namespace Sims2023.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            User guest = new()
+            Accommodation accommodation = new()
             {
                 Id = Convert.ToInt32(values[1])
             };
@@ -70,8 +70,9 @@ namespace Sims2023.Model
             {
                 Id = Convert.ToInt32(values[2])
             };
-            AccommodationController accommodationController = new();
-            Accommodation = accommodationController.GetById(accommodation.Id);
+            UserController userController = new();
+            Guest = userController.GetById(guest.Id);
+            
             Cleanliness = Convert.ToInt32(values[3]);
             Comfort = Convert.ToInt32(values[4]);
             Location = Convert.ToInt32(values[5]);
