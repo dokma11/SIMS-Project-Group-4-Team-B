@@ -73,7 +73,7 @@ namespace Sims2023.View
                 {
                     if (GradableGuests.Count != 0)
                     {
-                        MessageBox.Show(_accommodationReservationController.GetAllUngradedNames(GradableGuests));
+                  //      MessageBox.Show(_accommodationReservationController.GetAllUngradedNames(GradableGuests));
 
                         // Update the last shown date to today's date
                         File.WriteAllText(fileName, DateTime.Today.ToString());
