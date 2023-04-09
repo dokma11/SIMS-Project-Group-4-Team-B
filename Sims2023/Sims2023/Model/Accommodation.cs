@@ -1,4 +1,6 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Serialization;
 using System;
 using System.Collections.Generic;
@@ -77,8 +79,8 @@ namespace Sims2023.Model
             {
                 Id = Convert.ToInt32(values[2])
             };
-            LocationController locationController = new();
-            Location = locationController.GetById(location.Id);
+            LocationService locationService = new();
+            Location = locationService.GetById(location.Id);
             Type = values[3];
             MaxGuests = Convert.ToInt32(values[4]);
             MinDays = Convert.ToInt32(values[5]);

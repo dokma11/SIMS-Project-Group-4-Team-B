@@ -18,6 +18,11 @@ namespace Sims2023.Application.Services
             return _location.GetAll();
         }
 
+        public Location GetById(int id)
+        {
+            return _location.GetById(id);
+        }
+
         public void Create(Location location)
         {
             _location.CheckAdd(location);

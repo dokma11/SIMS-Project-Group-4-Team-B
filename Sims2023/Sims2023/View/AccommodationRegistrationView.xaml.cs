@@ -1,6 +1,8 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
 using Sims2023.Model;
 using System.Windows;
+using Sims2023.Domain.Models;
 
 namespace Sims2023.View
 {
@@ -15,7 +17,7 @@ namespace Sims2023.View
         private AccommodationLocation AccommodationLocation { get; set; }
         public User User { get; set; }
 
-        private LocationController _locationController;
+        private LocationService _locationService;
 
         string outputText;
         public AccommodationRegistrationView(AccommodationController accommodationCtrl1, AccomodationLocationController accommodationLocationCtrll,User owner)
@@ -32,7 +34,7 @@ namespace Sims2023.View
 
             AccommodationLocation = new AccommodationLocation();
 
-            _locationController = new LocationController();
+            _locationService = new LocationService();
         }
 
         private void Registration_Click(object sender, RoutedEventArgs e)
@@ -83,7 +85,7 @@ namespace Sims2023.View
             }
 
             Location Location = new Location(0, Town, Country);
-            _locationController.Create(Location);
+            _locationService.Create(Location);
 
             CancelDays = string.IsNullOrEmpty(CancelDayss) ? 1 : int.Parse(CancelDayss);
             Accommodation = new Accommodation(Id, Name, Location, Type, MaxGuests, MinDays, CancelDays, outputText, User);

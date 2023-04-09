@@ -10,9 +10,6 @@
     <Compile Update="View\AllGuestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\CreateTourView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\DetailedGradeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
