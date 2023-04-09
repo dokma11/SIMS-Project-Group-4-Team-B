@@ -58,8 +58,6 @@ namespace Sims2023.View
 
         }
 
-
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             string fileName = "../../../Resources/Data/lastshown.txt";
@@ -88,7 +86,6 @@ namespace Sims2023.View
                 File.WriteAllText(fileName, DateTime.Today.ToString());
             }
         }
-
 
         private void Grade_Click(object sender, RoutedEventArgs e)
         {

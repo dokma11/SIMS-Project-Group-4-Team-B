@@ -17,16 +17,12 @@ namespace Sims2023.Model.DAO
         private AccommodationGradeFileHandler _fileHandler;
         private List<AccommodationGrade> _accommodationGrades;
 
-
-
         public AccommodationGradeDAO()
         {
             _fileHandler = new AccommodationGradeFileHandler();
             _accommodationGrades = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
-
-
 
         public int NextId()
         {
@@ -60,7 +56,6 @@ namespace Sims2023.Model.DAO
             _fileHandler.Save(_accommodationGrades);
             NotifyObservers();
         }
-
         public List<AccommodationGrade> GetAll()
         {
             return _accommodationGrades;
@@ -83,7 +78,5 @@ namespace Sims2023.Model.DAO
                 observer.Update();
             }
         }
-
-
     }
 }

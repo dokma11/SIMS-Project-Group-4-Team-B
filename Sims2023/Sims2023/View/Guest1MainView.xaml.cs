@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Sims2023.View.Guest1;
 
 namespace Sims2023.View
 {
@@ -44,6 +45,12 @@ namespace Sims2023.View
         {
             var AllGuestOneReservationsView = new AllGuestOneReservationsView(User);
             AllGuestOneReservationsView.Show();
+        }
+
+        private void AccommodationCancellation_Click(object sender, RoutedEventArgs e)
+        {
+            var AccommodationReservationCancellationView = new AccommodationReservationCancellationView(User);
+            AccommodationReservationCancellationView.Show();
         }
     }
 }

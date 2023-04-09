@@ -38,7 +38,6 @@ namespace Sims2023.View
         public ObservableCollection<AccommodationGrade> AccommodationGrades { get; set; }
 
         List<AccommodationReservation> FilteredData=new List<AccommodationReservation>();   
-
         public User User { get; set; }
 
         public AllGuestOneReservationsView(User guest1)
