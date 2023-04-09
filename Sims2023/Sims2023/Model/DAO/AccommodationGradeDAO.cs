@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Model.DAO
 {
-    internal class AccommodationGradeDAO: ISubject
+    internal class AccommodationGradeDAO : ISubject
     {
 
         private List<IObserver> _observers;
@@ -26,13 +26,19 @@ namespace Sims2023.Model.DAO
             _observers = new List<IObserver>();
         }
 
-        public List<AccommodationGrade> GetAllGuestsWhoGraded(List<AccommodationGrade> people, List<GuestGrade> ListOfGuests)
+        public List<AccommodationGrade> GetAllGuestsWhoGraded(List<AccommodationGrade> people, List<GuestGrade> ListOfGuests, User owner)
         {
-        //    AddNameSurrnameToReservation(ListOfGuests, people);
-            RemoveUngradedGuests(people,ListOfGuests);
+            //    AddNameSurrnameToReservation(ListOfGuests, people);
+            FindGradesForOwner(people, owner);
+            RemoveUngradedGuests(people, ListOfGuests);
             return people;
 
         }
+        private void FindGradesForOwner(List<AccommodationGrade> people, User owner)
+        {
+            people.RemoveAll(r => r.Accommodation.Owner.Id != owner.Id);
+        }
+
 
         private void RemoveUngradedGuests(List<AccommodationGrade> people, List<GuestGrade> guestGrades)
         {

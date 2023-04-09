@@ -53,7 +53,7 @@ namespace Sims2023.View
 
             Reservatons = new List<AccommodationReservation>(_accommodationReservationController.GetAllReservations());
 
-            GradableGuests = new List<AccommodationReservation>(_accommodationReservationController.GetGradableGuests(Reservatons, _gradeController.GetAllGrades()));
+            GradableGuests = new List<AccommodationReservation>(_accommodationReservationController.GetGradableGuests(User,Reservatons, _gradeController.GetAllGrades()));
 
 
         }
@@ -92,7 +92,7 @@ namespace Sims2023.View
 
         private void Grade_Click(object sender, RoutedEventArgs e)
         {
-            var guestss = new AllGuestsView(_accommodationReservationController, Reservatons);
+            var guestss = new AllGuestsView(User,_accommodationReservationController, Reservatons);
             guestss.Show();
         }
 
@@ -104,7 +104,7 @@ namespace Sims2023.View
 
         private void Grades_Given_From_Guests(object sender, RoutedEventArgs e)
         {
-            var GuestsGrades = new GradesFromGuestsView();
+            var GuestsGrades = new GradesFromGuestsView(User);
             GuestsGrades.Show();
         }
     }

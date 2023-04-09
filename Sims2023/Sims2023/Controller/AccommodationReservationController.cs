@@ -18,9 +18,9 @@ namespace Sims2023.Controller
             _accommodationReservation = new AccommodationReservationDAO();
         }
 
-        public List<AccommodationReservation> GetGradableGuests(List<AccommodationReservation> reservatons, List<GuestGrade> grades)
+        public List<AccommodationReservation> GetGradableGuests(User user,List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
-            return _accommodationReservation.findGradableGuests(reservatons, grades);
+            return _accommodationReservation.findGradableGuests(user,reservatons, grades);
         }
 
         public string GetAllUngradedNames(List<AccommodationReservation> ungradedGuests)

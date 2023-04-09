@@ -92,30 +92,37 @@ namespace Sims2023.Model.DAO
         {
             for (int i = reservatons.Count - 1; i >= 0; i--)
             {
-                DateTime lastDate = reservatons[i].StartDate.AddDays(reservatons[i].NumberOfDays);
+                
+                    DateTime lastDate = reservatons[i].StartDate.AddDays(reservatons[i].NumberOfDays);
 
-                TimeSpan elapsed = DateTime.Now - lastDate;
-                int totalDays = (int)elapsed.TotalDays;
+                    TimeSpan elapsed = DateTime.Now - lastDate;
+                    int totalDays = (int)elapsed.TotalDays;
 
-                if (lastDate < DateTime.Now)
-                {
-                    if (totalDays > 5)
+                    if (lastDate < DateTime.Now)
+                    {
+                        if (totalDays > 5)
+                            reservatons.RemoveAt(i);
+                    }
+                    else if (lastDate > DateTime.Now)
+                    {
                         reservatons.RemoveAt(i);
-                }
-                else if (lastDate > DateTime.Now)
-                {
-                    reservatons.RemoveAt(i);
-                }
-
+                    }               
             }
         }
 
+        private void FindGuestsParticularOwner(List<AccommodationReservation> reservatons, User user)
+        {
+            reservatons.RemoveAll(r => r.Accommodation.Owner.Id != user.Id);
+        }
+
+
         // finds all guests who owner can grade
-        public List<AccommodationReservation> findGradableGuests(List<AccommodationReservation> reservatons, List<GuestGrade> grades)
+        public List<AccommodationReservation> findGradableGuests(User user,List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
 
             //AddNameSurrnameToReservation(ListOfGuests, reservatons);
-         //   AddReservationName(reservatons, _accommodations);
+            //   AddReservationName(reservatons, _accommodations);
+            FindGuestsParticularOwner(reservatons, user);   
             RemoveAlreadyGraded(reservatons, grades);
             FindGuestsWhoRecentlyLeft(reservatons);
             return reservatons;

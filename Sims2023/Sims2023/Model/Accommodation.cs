@@ -21,9 +21,6 @@ namespace Sims2023.Model
         public int MinDays { get; set; }
         public int CancelDays { get; set; }
         public List<string> Imageurls { get; set; }
-
-        public bool isSpecial { get; set; }
-
         public string ImageUrl { get; set; }
 
 
@@ -38,7 +35,7 @@ namespace Sims2023.Model
         {
             Imageurls = new List<string>();
         }
-        public Accommodation(int Id,string Name, Location Location, string Type, int MaxGuests, int MinDays, int CancelDays, string ImageUrl, User Owner, bool isSpecial)
+        public Accommodation(int Id,string Name, Location Location, string Type, int MaxGuests, int MinDays, int CancelDays, string ImageUrl, User Owner)
         {
             this.Id = Id;
             this.Name = Name;
@@ -49,10 +46,8 @@ namespace Sims2023.Model
             this.CancelDays = CancelDays;
             this.Owner = Owner;
             this.ImageUrl = ImageUrl;
-            this.isSpecial = isSpecial;
-          
+           
         }
-
 
         public string[] ToCSV()
         {
@@ -67,9 +62,7 @@ namespace Sims2023.Model
                 CancelDays.ToString(),
                 Owner.Id.ToString(),
                 ImageUrl,
-                isSpecial.ToString()
-
-            };
+             };
             return csvValues;
         }
 
@@ -94,8 +87,7 @@ namespace Sims2023.Model
             UserController userController = new();
             Owner = userController.GetById(owner.Id);
             ImageUrl = values[8];
-            isSpecial = Convert.ToBoolean(values[9]);
-
+           
         }
 
         public string IsVaild(Accommodation a)

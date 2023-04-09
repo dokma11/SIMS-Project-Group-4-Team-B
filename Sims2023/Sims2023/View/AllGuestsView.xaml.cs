@@ -37,12 +37,13 @@ namespace Sims2023.View
 
         private GuestGradeController _gradeController;
 
+        public User user { get; set; }
 
-        public AllGuestsView(AccommodationReservationController acml, List<AccommodationReservation> reserv)
+        public AllGuestsView(User use,AccommodationReservationController acml, List<AccommodationReservation> reserv)
         {
             InitializeComponent();
             DataContext= this;
-          
+            user = use;
             _accommodationController = new AccommodationController();
             
             Accommodations = new List<Accommodation>(_accommodationController.GetAllAccommodations());
@@ -51,7 +52,7 @@ namespace Sims2023.View
             Reservatons2 = reserv;
           
             _gradeController = new GuestGradeController();
-            Reservatons = new ObservableCollection<AccommodationReservation>(_reservationController.GetGradableGuests(reserv, _gradeController.GetAllGrades()));
+            Reservatons = new ObservableCollection<AccommodationReservation>(_reservationController.GetGradableGuests(user,reserv, _gradeController.GetAllGrades()));
         }
         private void Grade_Click(object sender, EventArgs e)
         {
