@@ -2,6 +2,7 @@
 using Sims2023.Model;
 using Sims2023.Observer;
 using Sims2023.View;
+using Sims2023.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,7 +90,7 @@ namespace Sims2023
             }
             else if (user.UserType == User.Type.Guide)
             {
-                GuideView guideView = new(user);
+                GuideViewModel guideView = new(user);
                 guideView.Show();
             }
         }

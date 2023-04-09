@@ -1,17 +1,17 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Domain.Models;
 using Sims2023.Observer;
-using Sims2023.Repository;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sims2023.Model.DAO
+namespace Sims2023.Repository
 {
-    public class KeyPointDAO
+    public class KeyPointRepository
     {
         private List<IObserver> _observers;
         private List<KeyPoint> _keyPoints;
         private KeyPointFileHandler _fileHandler;
-        public KeyPointDAO()
+        public KeyPointRepository()
         {
             _fileHandler = new KeyPointFileHandler();
             _keyPoints = _fileHandler.Load();
@@ -32,7 +32,7 @@ namespace Sims2023.Model.DAO
                 {
                     _keyPoints = _fileHandler.Load();
                     keyPoint.Id = NextId();
-                    TourController tourController = new TourController();
+                    TourService tourController = new TourService();
                     keyPoint.Tour = tourController.GetById(toursId);
                     keyPoint.Name = keyPointName;
                     keyPoint.CurrentState = KeyPoint.State.NotVisited;

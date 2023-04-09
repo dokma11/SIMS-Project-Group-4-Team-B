@@ -1,22 +1,20 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Security.Cryptography;
 using System.Windows;
 
-namespace Sims2023.View
+namespace Sims2023.WPF.ViewModels
 {
-    /// <summary>
-    /// Interaction logic for LiveTourTrackingView.xaml
-    /// </summary>
-    public partial class LiveTourTrackingView : Window
+    public partial class LiveTourTrackingViewModel
     {
         public Tour Tour { get; set; }
         public KeyPoint SelectedKeyPoint { get; set; }
 
-        private KeyPointController _keyPointController;
+        private KeyPointService _keyPointController;
         private UserController _userController;
         private TourReservationController _tourReservationController;
         public ObservableCollection<KeyPoint> KeyPointsToDisplay { get; set; }
@@ -28,11 +26,11 @@ namespace Sims2023.View
 
         public List<User> MarkedGuests { get; set; }
 
-        public LiveTourTrackingView(Tour tour, KeyPointController keyPointController, TourReservationController tourReservationController, UserController userController)
+        public LiveTourTrackingViewModel(Tour tour, KeyPointService keyPointController, TourReservationController tourReservationController, UserController userController)
         {
             InitializeComponent();
             DataContext = this;
-
+            
             Tour = tour;
             Tour.CurrentState = Tour.State.Started;
 
@@ -169,7 +167,7 @@ namespace Sims2023.View
         {
             if (SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited)
             {
-                MarkGuestsPresentView markGuestsPresentView = new(SelectedKeyPoint, _tourReservationController, _userController, MarkedGuests);
+                MarkGuestsPresentViewModel markGuestsPresentView = new(SelectedKeyPoint, _tourReservationController, _userController, MarkedGuests);
                 markGuestsPresentView.Closed += MarkGuestsPresentView_Closed;
                 markGuestsPresentView.Show();
                 _keyPointController.Save();

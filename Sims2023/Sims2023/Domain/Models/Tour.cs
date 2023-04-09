@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Sims2023.Model
+namespace Sims2023.Domain.Models
 {
     public class Tour : ISerializable, INotifyPropertyChanged
     {
@@ -45,7 +45,7 @@ namespace Sims2023.Model
             AvailableSpace = maxGuestNumber;
             KeyPointsString = keyPointsString;
             KeyPoints = new List<string>();
-            string[] keyPointsStringArray = this.KeyPointsString.Split(",");
+            string[] keyPointsStringArray = KeyPointsString.Split(",");
             foreach (string keyPoint in keyPointsStringArray)
             {
                 KeyPoints.Add(keyPoint);
@@ -55,7 +55,7 @@ namespace Sims2023.Model
             CurrentState = State.Created;
             PicturesString = picturesString;
             Pictures = new List<string>();
-            string[] picturesStringArray = this.PicturesString.Split(",");
+            string[] picturesStringArray = PicturesString.Split(",");
             foreach (string picture in picturesStringArray)
             {
                 Pictures.Add(picture);
@@ -97,7 +97,7 @@ namespace Sims2023.Model
             MaxGuestNumber = Convert.ToInt32(values[5]);
             AvailableSpace = Convert.ToInt32(values[6]);
             KeyPointsString = values[7];
-            string[] keyPointsStringArray = this.KeyPointsString.Split(",");
+            string[] keyPointsStringArray = KeyPointsString.Split(",");
             foreach (string keyPoint in keyPointsStringArray)
             {
                 KeyPoints.Add(keyPoint);
@@ -105,7 +105,7 @@ namespace Sims2023.Model
             Start = DateTime.Parse(values[8]);
             Length = Convert.ToInt32(values[9]);
             PicturesString = values[10];
-            string[] picturesStringArray = this.PicturesString.Split(",");
+            string[] picturesStringArray = PicturesString.Split(",");
             foreach (string picture in picturesStringArray)
             {
                 Pictures.Add(picture);
