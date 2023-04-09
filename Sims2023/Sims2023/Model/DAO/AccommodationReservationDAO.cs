@@ -23,6 +23,11 @@ namespace Sims2023.Model.DAO
             _observers = new List<IObserver>();
         }
 
+        public AccommodationReservation GetById(int id)
+        {
+            return _fileHandler.GetById(id);
+        }
+
         public int NextId()
         {
             if (_accommodationReservations.Count == 0) return 1;

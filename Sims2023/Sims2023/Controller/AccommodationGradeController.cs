@@ -42,6 +42,5 @@ namespace Sims2023.Controller
         {
             _accommodationGrade.Subscribe(observer);
         }
-
     }
 }

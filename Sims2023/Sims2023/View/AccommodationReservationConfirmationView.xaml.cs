@@ -1,25 +1,14 @@
 ﻿using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Sims2023.View
 {
     /// <summary>
     /// Interaction logic for AccommodationReservationConfirmationWindow.xaml
     /// </summary>
-    
+
     public partial class AccommodationReservationConfirmationView : Window
     {
         public User User { get; set; }
@@ -34,7 +23,7 @@ namespace Sims2023.View
             InitializeComponent();
             DataContext = this;
 
-            User = guest1;    
+            User = guest1;
             SelectedAccommodation = selectedAccommodationS;
             SelectedAccommodationStay = selectedAccommodationStayS;
             days = daysNumber;
@@ -52,13 +41,13 @@ namespace Sims2023.View
 
         private void ReservationButton_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationReservation accommodationReservation = new AccommodationReservation(-1, User,  SelectedAccommodation, SelectedAccommodationStay.StartDate , SelectedAccommodationStay.EndDate, days, false);
+            AccommodationReservation accommodationReservation = new AccommodationReservation(-1, User, SelectedAccommodation, SelectedAccommodationStay.StartDate, SelectedAccommodationStay.EndDate, days, false);
             _accommodationReservationController.Create(accommodationReservation);
 
             MessageBox.Show("Uspesno ste rezervisali objekat!");
 
             Close();
-            
+
         }
 
         private void ButtonDateCancelation_Click(object sender, RoutedEventArgs e)

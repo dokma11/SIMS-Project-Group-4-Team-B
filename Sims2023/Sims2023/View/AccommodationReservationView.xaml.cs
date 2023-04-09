@@ -1,4 +1,5 @@
 ﻿using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace Sims2023.View
         public List<AccommodationStay> Stays = new List<AccommodationStay>();
         bool todaysDay;
 
-        public AccommodationReservationView(Accommodation selectedAccommodationL,User guest1)
+        public AccommodationReservationView(Accommodation selectedAccommodationL, User guest1)
         {
             InitializeComponent();
             DataContext = this;

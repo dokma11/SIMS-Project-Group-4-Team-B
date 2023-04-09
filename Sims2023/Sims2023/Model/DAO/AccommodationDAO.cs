@@ -21,10 +21,12 @@ namespace Sims2023.DAO
             _accommodations = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
+
         public Accommodation GetById(int id)
         {
             return _fileHandler.GetById(id);
         }
+
         public int NextId()
         {
             if (_accommodations.Count == 0) return 1;
@@ -45,6 +47,7 @@ namespace Sims2023.DAO
             _fileHandler.Save(_accommodations);
             NotifyObservers();
         }
+
         public void Update(Accommodation accommodation)
         {
             int index = _accommodations.FindIndex(p => p.Id == accommodation.Id);
@@ -78,9 +81,5 @@ namespace Sims2023.DAO
                 observer.Update();
             }
         }
-
-
-
-
     }
 }

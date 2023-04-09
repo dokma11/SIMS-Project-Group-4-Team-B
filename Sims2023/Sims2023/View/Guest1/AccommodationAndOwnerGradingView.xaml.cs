@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
 using Sims2023.Observer;
 using System;
@@ -53,7 +54,6 @@ namespace Sims2023.View.Guest1
 
             _addedPictures = new List<string>();
             SelectedAccommodationReservation = SelectedAccommodationReservationn;
-           // PicturesListView.ItemsSource = _addedPictures;
 
         }
 
@@ -78,17 +78,17 @@ namespace Sims2023.View.Guest1
             {
                 _accommodationGradeController.Create(accommodationGrade);
                 UpdateAccommodationReservation(selectedAccommodationReservation);
-                UpdateDefaultStyleAccommodationImages(SelectedAccommodationReservation, _addedPictures);
+                UpdateAccommodationImages(SelectedAccommodationReservation, _addedPictures);
                 MessageBox.Show("Uspesno ste ocenili ovaj smestaj.");
             }
 
         }
 
-        private void UpdateDefaultStyleAccommodationImages(AccommodationReservation selectedAccommodationReservation, List<string> addedPictures)
+        private void UpdateAccommodationImages(AccommodationReservation selectedAccommodationReservation, List<string> addedPictures)
         {
             foreach(var image in addedPictures)
             {
-                SelectedAccommodationReservation.Accommodation.Imageurls.Add(image);
+                selectedAccommodationReservation.Accommodation.Imageurls.Add(image);
             }
             _accommodationController.Update(SelectedAccommodationReservation.Accommodation);
         }

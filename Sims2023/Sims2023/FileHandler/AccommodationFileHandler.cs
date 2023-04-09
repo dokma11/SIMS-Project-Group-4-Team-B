@@ -21,6 +21,7 @@ namespace Sims2023.Repository
             _accommodations = _serializer.FromCSV(StoragePath);
             return _accommodations.FirstOrDefault(u => u.Id == id);
         }
+
         public AccommodationFileHandler()
         {
             _serializer = new Serializer<Accommodation>();

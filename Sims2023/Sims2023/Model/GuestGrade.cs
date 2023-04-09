@@ -1,4 +1,6 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Serialization;
 using System;
 using System.ComponentModel;
@@ -60,8 +62,8 @@ namespace Sims2023.Model
             {
                 Id = Convert.ToInt32(values[2])
             };
-            UserController userController = new();
-            Guest = userController.GetById(guest.Id);
+            UserService userService = new();
+            Guest = userService.GetById(guest.Id);
             Cleanliness = Convert.ToInt32(values[3]);
             RespectRules = Convert.ToInt32(values[4]);
             Communication = Convert.ToInt32(values[5]);

@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
 using Sims2023.Observer;
 using Sims2023.View.Guest1;
@@ -38,7 +39,6 @@ namespace Sims2023.View
         public ObservableCollection<AccommodationGrade> AccommodationGrades { get; set; }
 
         List<AccommodationReservation> FilteredData=new List<AccommodationReservation>();   
-
         public User User { get; set; }
 
         public AllGuestOneReservationsView(User guest1)

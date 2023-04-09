@@ -1,22 +1,10 @@
 ﻿using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
-using Sims2023.Observer;
-using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Sims2023.View
 {
@@ -30,15 +18,17 @@ namespace Sims2023.View
         private AccomodationLocationController _accommodationLocationController;
         private AccommodationReservationController _accommodationReservationController;
         private GuestGradeController _gradeController;
-      
-        
+
+        private AccommodationCancellationController _accommodationCancellationController;
+        public ObservableCollection<AccommodationCancellation> AccommodationCancellations { get; set; }
+
         public List<AccommodationReservation> Reservatons { get; set; }
         public List<AccommodationReservation> GradableGuests { get; set; }
 
-        public User User { get; set; } 
+        public User User { get; set; }
         public OwnerView(User owner)
         {
-            
+
             InitializeComponent();
             DataContext = this;
 
@@ -46,8 +36,10 @@ namespace Sims2023.View
 
             _accommodationController = new AccommodationController();
             _accommodationLocationController = new AccomodationLocationController();
-           
-           
+
+            _accommodationCancellationController = new AccommodationCancellationController();
+            AccommodationCancellations = new ObservableCollection<AccommodationCancellation>(_accommodationCancellationController.GetAllAccommodationCancellations());
+
             _accommodationReservationController = new AccommodationReservationController();
             _gradeController = new GuestGradeController();
 
@@ -58,10 +50,9 @@ namespace Sims2023.View
 
         }
 
-
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            checkForNotifications();
             string fileName = "../../../Resources/Data/lastshown.txt";
 
             try
@@ -89,8 +80,20 @@ namespace Sims2023.View
             }
         }
 
+        private void checkForNotifications()
+        {
+            foreach (AccommodationCancellation accommodationCancellation in AccommodationCancellations)
+            {
+                if (accommodationCancellation.Notified == false && accommodationCancellation.Accommodation.Owner.Id == User.Id)
+                {
+                    MessageBox.Show($" Korisnik {accommodationCancellation.Guest.Name} je otkazao rezervaciju od {accommodationCancellation.StartDate.ToString("yyyy-MM-dd")} do {accommodationCancellation.EndDate.ToString("yyyy-MM-dd")}. Vas smestaj {accommodationCancellation.Accommodation.Name} je ponovo oslobodjen!");
+                    accommodationCancellation.Notified = true;
+                    _accommodationCancellationController.Update(accommodationCancellation);
+                }
+            }
+        }
 
-        private void Grade_Click(object sender, RoutedEventArgs e)
+    private void Grade_Click(object sender, RoutedEventArgs e)
         {
             var guestss = new AllGuestsView(User,_accommodationReservationController, Reservatons);
             guestss.Show();

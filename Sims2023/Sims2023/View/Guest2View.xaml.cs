@@ -1,4 +1,6 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
 using Sims2023.Observer;
 using System;
@@ -16,9 +18,9 @@ namespace Sims2023.View
     public partial class Guest2View : Window, IObserver
     {
 
-        private TourController _tourController;
+        private TourService _tourController;
 
-        private LocationController _locationController;
+        private LocationService _locationController;
 
         private TourReservationController _tourReservationController;
         public ObservableCollection<Tour> Tours { get; set; }
@@ -40,15 +42,15 @@ namespace Sims2023.View
             InitializeComponent();
             DataContext = this;
 
-            _tourController = new TourController();
+            _tourController = new TourService();
             _tourController.Subscribe(this);
-            _locationController = new LocationController();
+            _locationController = new LocationService();
             _locationController.Subscribe(this);
             _tourReservationController = new TourReservationController();
             _tourReservationController.Subscribe(this);
 
-            Tours = new ObservableCollection<Tour>(_tourController.GetAllTours());
-            Locations = new ObservableCollection<Location>(_locationController.GetAllLocations());
+            Tours = new ObservableCollection<Tour>(_tourController.GetAll());
+            Locations = new ObservableCollection<Location>(_locationController.GetAll());
 
             SelectedTour = new Tour();
             EditedTour = new Tour();
@@ -298,7 +300,7 @@ namespace Sims2023.View
         private void UpdateToursList()
         {
             Tours.Clear();
-            foreach (var tour in _tourController.GetAllTours())
+            foreach (var tour in _tourController.GetAll())
             {
                 Tours.Add(tour);
             }
