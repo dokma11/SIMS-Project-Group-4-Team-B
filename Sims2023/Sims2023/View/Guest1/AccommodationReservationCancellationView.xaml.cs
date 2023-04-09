@@ -65,13 +65,24 @@ namespace Sims2023.View.Guest1
             List<AccommodationReservation> FilteredReservations = new List<AccommodationReservation>();
             foreach (AccommodationReservation accommodationReservation in accommodationReservations)
             {
-                if (accommodationReservation.Guest.Id == User.Id)
+                if(FilterdDataSelection(accommodationReservation,User))
                 {
                     FilteredReservations.Add(accommodationReservation);
                 }
             }
             return FilteredReservations;
         }
+
+        private bool FilterdDataSelection(AccommodationReservation accommodationReservation,User guest)
+        {
+            TimeSpan difference = accommodationReservation.StartDate - DateTime.Today;
+            if (difference.TotalDays >= 0 && accommodationReservation.Guest.Id == guest.Id)
+            {
+                return true;
+            }
+            return false;
+        }
+
         private void cancellation_Click(object sender, RoutedEventArgs e)
         {
             SelectedAccommodationReservation = (AccommodationReservation)myDataGrid.SelectedItem;

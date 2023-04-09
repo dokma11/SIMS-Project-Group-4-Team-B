@@ -42,5 +42,10 @@ namespace Sims2023.Controller
         {
             return _accommodationCancellation.GetById(id);
         }
+
+        public void Update(AccommodationCancellation cancellation)
+        {
+            _accommodationCancellation.Update(cancellation);
+        }
     }
 }

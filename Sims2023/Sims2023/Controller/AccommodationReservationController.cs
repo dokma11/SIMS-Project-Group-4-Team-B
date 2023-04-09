@@ -23,7 +23,7 @@ namespace Sims2023.Controller
             return _accommodationReservation.GetById(id);
         }
 
-        public List<AccommodationReservation> GetGradableGuests(List<Guest> ListOfGuests, List<Accommodation> _accommodations, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
+        public List<AccommodationReservation> GetGradableGuests(List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
             return _accommodationReservation.findGradableGuests(reservatons, grades);
         }

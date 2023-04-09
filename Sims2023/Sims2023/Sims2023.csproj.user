@@ -19,9 +19,6 @@
     <Compile Update="View\Guest1\AccommodationReservationCancellationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\GuestReviewsView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\AccommodationRegistrationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
