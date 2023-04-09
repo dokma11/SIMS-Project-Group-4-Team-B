@@ -22,9 +22,9 @@ namespace Sims2023.Application.Services
             return _tour.GetAll();
         }
 
-        public void Create(Tour tour, List<DateTime> dateTimes, Location location)
+        public void Create(Tour tour, List<DateTime> dateTimes, Location location, User loggedInGuide)
         {
-            _tour.Add(tour, dateTimes, location);
+            _tour.Add(tour, dateTimes, location, loggedInGuide);
         }
         public void Edit(Tour tour, Tour oldTour)
         {

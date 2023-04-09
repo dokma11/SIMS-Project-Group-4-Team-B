@@ -89,7 +89,7 @@ namespace Sims2023.Model
             {
                 Id = Convert.ToInt32(values[7])
             };
-            UserController userController = new();
+            UserService userController = new();
             Owner = userController.GetById(owner.Id);
             ImageUrl = values[8];
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
 using Sims2023.Observer;
 using System;

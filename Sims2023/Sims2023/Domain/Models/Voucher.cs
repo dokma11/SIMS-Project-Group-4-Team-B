@@ -33,18 +33,10 @@ namespace Sims2023.Domain.Models
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            User user = new()
-            {
-                Id = Convert.ToInt32(values[1])
-            };
-            UserController userService = new();
-            User = userService.GetById(user.Id);
-            Tour tour = new()
-            {
-                Id = Convert.ToInt32(values[2])
-            };
+            UserService userService = new();
+            User = userService.GetById(Convert.ToInt32(values[1]));
             TourService tourService = new();
-            Tour = tourService.GetById(tour.Id);
+            Tour = tourService.GetById(Convert.ToInt32(values[2]));
             Created = DateTime.Parse(values[3]);
             Expired = DateTime.Parse(values[4]);
             AdditionalComment = values[5];

@@ -1,8 +1,10 @@
-﻿using Sims2023.Serialization;
+﻿using Sims2023.Application.Services;
+using Sims2023.Serialization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Media;
 
 namespace Sims2023.Domain.Models
 {
@@ -28,13 +30,14 @@ namespace Sims2023.Domain.Models
         public List<string> Pictures { get; set; }
         //Same principle as for KeyPoints, I'm going to concatenate all of the pictures urls into one string so I can save it easier
         public string PicturesString { get; set; }
+        public User Guide { get; set; }
         public Tour()
         {
             KeyPoints = new List<string>();
             Pictures = new List<string>();
         }
 
-        public Tour(int id, string name, int locationId, string description, Language guideLanguage, int maxGuestNumber, string keyPointsString, DateTime start, int length, string picturesString)
+        public Tour(int id, string name, int locationId, string description, Language guideLanguage, int maxGuestNumber, string keyPointsString, DateTime start, int length, string picturesString, User guide)
         {
             Id = id;
             Name = name;
@@ -60,6 +63,7 @@ namespace Sims2023.Domain.Models
             {
                 Pictures.Add(picture);
             }
+            Guide = guide;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -82,7 +86,8 @@ namespace Sims2023.Domain.Models
                 Start.ToString(),
                 Length.ToString(),
                 PicturesString,
-                CurrentState.ToString()
+                CurrentState.ToString(),
+                Guide.Id.ToString(),
             };
             return csvValues;
         }
@@ -111,6 +116,8 @@ namespace Sims2023.Domain.Models
                 Pictures.Add(picture);
             }
             CurrentState = (State)Enum.Parse(typeof(State), values[11]);
+            UserService userService = new();
+            Guide = userService.GetById(Convert.ToInt32(values[12]));
         }
 
         public string this[string columnName]

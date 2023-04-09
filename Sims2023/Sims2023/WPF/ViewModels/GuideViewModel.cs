@@ -1,12 +1,12 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Controller;
 using Sims2023.Domain.Models;
-using Sims2023.Model;
 using Sims2023.Observer;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace Sims2023.WPF.ViewModels
 {
@@ -15,7 +15,7 @@ namespace Sims2023.WPF.ViewModels
         private TourService _tourService;
         private LocationService _locationService;
         private KeyPointService _keyPointService;
-        private UserController _userService;
+        private UserService _userService;
         private TourReservationController _tourReservationService;
         private TourReviewController _tourReviewService;
         private VoucherService _voucherService;
@@ -24,7 +24,7 @@ namespace Sims2023.WPF.ViewModels
         public Tour? SelectedTour { get; set; }
         public ObservableCollection<Tour> ToursToDisplay { get; set; }
         public ObservableCollection<Tour> AllTours { get; set; }
-
+        public User LoggedInGuide { get; set; }
         public GuideViewModel(User user)
         {
             InitializeComponent();
@@ -39,7 +39,7 @@ namespace Sims2023.WPF.ViewModels
             _keyPointService = new KeyPointService();
             _keyPointService.Subscribe(this);
 
-            _userService = new UserController();
+            _userService = new UserService();
             _userService.Subscribe(this);
 
             _tourReservationService = new TourReservationController();
@@ -54,6 +54,8 @@ namespace Sims2023.WPF.ViewModels
             ToursToDisplay = new ObservableCollection<Tour>();
             AllTours = new ObservableCollection<Tour>(_tourService.GetAll());
 
+            LoggedInGuide = user;
+
             DisplayTours();
         }
 
@@ -61,7 +63,7 @@ namespace Sims2023.WPF.ViewModels
         {
             foreach (Tour tour in AllTours)
             {
-                if (tour.CurrentState == Tour.State.Created)
+                if (tour.CurrentState == Tour.State.Created && tour.Guide.Id == LoggedInGuide.Id)
                 {
                     ToursToDisplay.Add(tour);
                 }
@@ -70,7 +72,7 @@ namespace Sims2023.WPF.ViewModels
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateTourViewModel createTourViewModel = new(_tourService, _locationService, _keyPointService);
+            CreateTourViewModel createTourViewModel = new(_tourService, _locationService, _keyPointService, LoggedInGuide);
             createTourViewModel.Show();
         }
 
@@ -99,22 +101,45 @@ namespace Sims2023.WPF.ViewModels
             if (SelectedTour != null && SelectedTour.Start >= DateTime.Now.AddHours(48))
             {
                 SelectedTour.CurrentState = Tour.State.Cancelled;
-                int id = SelectedTour.Id;
-                foreach (var res in _tourReservationService.GetAllReservations())
-                {
-                    if(res.TourId == id)
-                    {
-                        string additionalComment = "Tura je otkazana jer je vodic bolestan";
-                        Voucher voucher = new(0, _userService.GetById(res.UserId), _tourService.GetById(id), DateTime.Now, DateTime.Today.AddYears(1), additionalComment, false);
-                        _voucherService.Create(voucher);
-                    }
-                }
-                MessageBox.Show("Tura je otkazana");
+                CreateVouchersForCancelledTour(SelectedTour.Id);
+                Update();
+                SuccessfulCancellationLabelEvent();
             }
             else
             {
                 MessageBox.Show("Odaberite turu koju zelite da otkazete");
             }
+        }
+
+        private void CreateVouchersForCancelledTour(int toursId)
+        {
+            string additionalComment = Microsoft.VisualBasic.Interaction.InputBox("Unesite razlog:", "Input String");
+            foreach (var reservation in _tourReservationService.GetAllReservations())
+            {
+                if (reservation.TourId == toursId)
+                {
+                    Voucher voucher = new(0, _userService.GetById(reservation.UserId), _tourService.GetById(toursId), DateTime.Now, DateTime.Today.AddYears(1), additionalComment, false);
+                    _voucherService.Create(voucher);
+                }
+            }
+        }
+
+        private void SuccessfulCancellationLabelEvent()
+        {
+            successfulCancellationLabel.Visibility = Visibility.Visible;
+            DispatcherTimer timer = new()
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            successfulCancellationLabel.Visibility = Visibility.Hidden;
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
         }
 
         private void LiveTourTrackingView_Closed(object sender, EventArgs e)

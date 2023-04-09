@@ -69,7 +69,7 @@ namespace Sims2023.WPF.ViewModels
 
         private void SuccessfulReportLabelEvent()
         {
-            SuccessfulReportLabel.Visibility = Visibility.Visible;
+            successfulReportLabel.Visibility = Visibility.Visible;
             DispatcherTimer timer = new()
             {
                 Interval = TimeSpan.FromSeconds(5)
@@ -80,7 +80,7 @@ namespace Sims2023.WPF.ViewModels
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            SuccessfulReportLabel.Visibility = Visibility.Hidden;
+            successfulReportLabel.Visibility = Visibility.Hidden;
             DispatcherTimer timer = (DispatcherTimer)sender;
             timer.Stop();
         }

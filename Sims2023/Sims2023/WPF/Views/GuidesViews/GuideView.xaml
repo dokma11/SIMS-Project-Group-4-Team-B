@@ -26,7 +26,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <DockPanel>
-            <Button x:Name="startTourButton" Click="StartTourButton_Click" Content="Započni turu" Width="150" Height="50" Margin="850,0,-70,0"/>
+            <Label x:Name="successfulCancellationLabel" Content="Uspešno ste otkazali turu!" FontSize="24" Margin="450,0,40,0" Visibility="Hidden"/>
+            <Button x:Name="startTourButton" Click="StartTourButton_Click" Content="Započni turu" Width="150" Height="50" Margin="0,0,0,0"/>
             <Button x:Name="cancelTourButton" Click="CancelTourButton_Click" Content="Otkaži turu" Width="150" Height="50"/>
         </DockPanel>
     </StackPanel>
