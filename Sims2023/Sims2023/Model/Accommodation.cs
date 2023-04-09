@@ -79,8 +79,8 @@ namespace Sims2023.Model
             {
                 Id = Convert.ToInt32(values[2])
             };
-            LocationService locationService = new();
-            Location = locationService.GetById(location.Id);
+            LocationService locationController = new();
+            Location = locationController.GetById(location.Id);
             Type = values[3];
             MaxGuests = Convert.ToInt32(values[4]);
             MinDays = Convert.ToInt32(values[5]);
@@ -89,7 +89,7 @@ namespace Sims2023.Model
             {
                 Id = Convert.ToInt32(values[7])
             };
-            UserController userController = new();
+            UserService userController = new();
             Owner = userController.GetById(owner.Id);
             ImageUrl = values[8];
 

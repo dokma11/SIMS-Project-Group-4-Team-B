@@ -3,7 +3,7 @@ using Sims2023.Serialization;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sims2023.Repository
+namespace Sims2023.FileHandler
 {
     public class TourFileHandler
     {

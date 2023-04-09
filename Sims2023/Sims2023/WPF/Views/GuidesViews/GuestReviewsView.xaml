@@ -30,7 +30,7 @@
             </DataGrid>
         </DockPanel>
         <DockPanel>
-            <Label x:Name="SuccessfulReportLabel" Content="Uspešno ste prijavili recenziju!" Margin="450,0,0,0" FontSize="24" VerticalAlignment="Center" Visibility="Hidden"></Label>
+            <Label x:Name="successfulReportLabel" Content="Uspešno ste prijavili recenziju!" Margin="450,0,0,0" FontSize="24" VerticalAlignment="Center" Visibility="Hidden"></Label>
             <Button Click="ReportReviewButton_Click" Width="150" Height="50" Margin="0,0,0,0" Content="Prijavi recenziju"/>
             <Button Click="DisplayReviewsButton_Click" Width="150" Height="50" Margin="10,0,0,0" Content="Prikazi recenzije"/>
             <Button Click="DisplayCommentButton_Click" Width="150" Height="50" Margin="0,0,25,0" Content="Prikazi komentar"/>

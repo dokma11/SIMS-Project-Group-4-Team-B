@@ -1,15 +1,11 @@
 ﻿using Sims2023.Serialization;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sims2023.Model
+namespace Sims2023.Domain.Models
 {
-    public class User: ISerializable, INotifyPropertyChanged
+    public class User : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public string Username { get; set; }
@@ -43,12 +39,12 @@ namespace Sims2023.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = 
-            { 
-                Id.ToString(), 
+            string[] csvValues =
+            {
+                Id.ToString(),
                 Username,
                 Password,
-                Name, 
+                Name,
                 Surname,
                 PhoneNumber,
                 Email,

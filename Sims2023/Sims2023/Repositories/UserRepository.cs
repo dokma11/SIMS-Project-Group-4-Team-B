@@ -1,20 +1,18 @@
-﻿using Sims2023.Observer;
-using Sims2023.Repository;
-using System;
+﻿using Sims2023.Domain.Models;
+using Sims2023.FileHandler;
+using Sims2023.Observer;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sims2023.Model.DAO
+namespace Sims2023.Repositories
 {
-    public class UserDAO
+    public class UserRepository
     {
         private List<IObserver> _observers;
         private List<User> _users;
         private UserFileHandler _fileHandler;
 
-        public UserDAO()
+        public UserRepository()
         {
             _observers = new List<IObserver>();
             _fileHandler = new UserFileHandler();

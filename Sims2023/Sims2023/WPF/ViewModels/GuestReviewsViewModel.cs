@@ -24,19 +24,19 @@ namespace Sims2023.WPF.ViewModels
 
         public List<KeyPoint> AllKeyPoints;
 
-        public GuestReviewsViewModel(TourService tourController, TourReviewController tourReviewController, KeyPointService keyPointController)
+        public GuestReviewsViewModel(TourService tourService, TourReviewController tourReviewController, KeyPointService keyPointService)
         {
             InitializeComponent();
             DataContext = this;
 
-            AllTours = tourController.GetAllTours();
+            AllTours = tourService.GetAll();
             ToursToDisplay = new ObservableCollection<Tour>();
 
             _tourReviewController = tourReviewController;
             AllReviews = _tourReviewController.GetAllTourReviews();
             ReviewsToDisplay = new ObservableCollection<TourReview>();
 
-            AllKeyPoints = keyPointController.GetAllKeyPoints();
+            AllKeyPoints = keyPointService.GetAll();
 
             DisplayTours();
         }
@@ -45,7 +45,7 @@ namespace Sims2023.WPF.ViewModels
         {
             foreach (var tour in AllTours)
             {
-                if (tour.CurrentState == Tour.State.Finished)
+                if (tour.CurrentState == Tour.State.Finished || tour.CurrentState == Tour.State.Interrupted)
                 {
                     ToursToDisplay.Add(tour);
                     GetToursReviews(tour);
@@ -69,7 +69,7 @@ namespace Sims2023.WPF.ViewModels
 
         private void SuccessfulReportLabelEvent()
         {
-            SuccessfulReportLabel.Visibility = Visibility.Visible;
+            successfulReportLabel.Visibility = Visibility.Visible;
             DispatcherTimer timer = new()
             {
                 Interval = TimeSpan.FromSeconds(5)
@@ -80,7 +80,7 @@ namespace Sims2023.WPF.ViewModels
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            SuccessfulReportLabel.Visibility = Visibility.Hidden;
+            successfulReportLabel.Visibility = Visibility.Hidden;
             DispatcherTimer timer = (DispatcherTimer)sender;
             timer.Stop();
         }

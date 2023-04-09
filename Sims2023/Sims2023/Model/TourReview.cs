@@ -71,7 +71,7 @@ namespace Sims2023.Model
             {
                 Id = Convert.ToInt32(values[1])
             };
-            UserController userController = new();
+            UserService userController = new();
             Guest = userController.GetById(guest.Id);
             User guide = new()
             {

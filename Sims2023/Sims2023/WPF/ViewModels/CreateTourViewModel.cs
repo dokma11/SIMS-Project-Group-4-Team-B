@@ -21,9 +21,9 @@ namespace Sims2023.WPF.ViewModels
 
         private List<DateTime> _dateTimeList;
         private List<string> _keyPointsList;
-
+        public User LoggedInGuide { get; set; }
         //private bool dateTimeButtonClicked = false;
-        public CreateTourViewModel(TourService tourController, LocationService locationController, KeyPointService keyPointController)
+        public CreateTourViewModel(TourService tourService, LocationService locationService, KeyPointService keyPointService, User loggedInGuide)
         {
             InitializeComponent();
             DataContext = this;
@@ -39,9 +39,11 @@ namespace Sims2023.WPF.ViewModels
             //addMoreDatesButton.IsEnabled = false;
             addKeyPointsButton.IsEnabled = false;
 
-            _tourService = tourController;
-            _locationService = locationController;
-            _keyPointService = keyPointController;
+            _tourService = tourService;
+            _locationService = locationService;
+            _keyPointService = keyPointService;
+
+            LoggedInGuide = loggedInGuide;
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
@@ -50,7 +52,7 @@ namespace Sims2023.WPF.ViewModels
             {
                 int newToursNumber = _dateTimeList.Count;
                 _locationService.Create(Location);
-                _tourService.Create(Tour, _dateTimeList, Location);
+                _tourService.Create(Tour, _dateTimeList, Location, LoggedInGuide);
                 int firstToursId = Tour.Id - newToursNumber + 1;
                 _tourService.AddToursLocation(Tour, Location, newToursNumber);
                 _keyPointService.Create(KeyPoint, _keyPointsList, firstToursId, newToursNumber);
