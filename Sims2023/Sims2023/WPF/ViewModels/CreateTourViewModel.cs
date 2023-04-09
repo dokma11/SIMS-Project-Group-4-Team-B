@@ -2,15 +2,10 @@
 using Sims2023.Domain.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Sims2023.WPF.ViewModels
 {
@@ -27,7 +22,7 @@ namespace Sims2023.WPF.ViewModels
         private List<DateTime> _dateTimeList;
         private List<string> _keyPointsList;
 
-        private bool dateTimeButtonClicked = false;
+        //private bool dateTimeButtonClicked = false;
         public CreateTourViewModel(TourService tourController, LocationService locationController, KeyPointService keyPointController)
         {
             InitializeComponent();
@@ -40,8 +35,8 @@ namespace Sims2023.WPF.ViewModels
             _dateTimeList = new List<DateTime>();
             _keyPointsList = new List<string>();
 
-            submitButton.IsEnabled = true;
-            addMoreDatesButton.IsEnabled = false;
+            //submitButton.IsEnabled = true;
+            //addMoreDatesButton.IsEnabled = false;
             addKeyPointsButton.IsEnabled = false;
 
             _tourService = tourController;
@@ -49,9 +44,9 @@ namespace Sims2023.WPF.ViewModels
             _keyPointService = keyPointController;
         }
 
-        private void SubmitButton_Click(object sender, RoutedEventArgs e)
+        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Tour.IsValid && dateTimeButtonClicked && keyPointsOutput.Items.Count > 1)
+            if (Tour.IsValid /*&& dateTimeButtonClicked */&& keyPointsOutput.Items.Count > 1)
             {
                 int newToursNumber = _dateTimeList.Count;
                 _locationService.Create(Location);
@@ -72,7 +67,7 @@ namespace Sims2023.WPF.ViewModels
         {
             Close();
         }
-
+        /*
         private void AddMoreDates(object sender, RoutedEventArgs e)
         {
             string inputString = dateTimeTextBox.Text;
@@ -102,7 +97,7 @@ namespace Sims2023.WPF.ViewModels
             }
             return false;
         }
-
+        */
         private void ComboBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
             ComboBox cBox = (ComboBox)sender;
@@ -137,7 +132,7 @@ namespace Sims2023.WPF.ViewModels
             }
         }
 
-        private void AddKeyPoints(object sender, RoutedEventArgs e)
+        private void AddKeyPointsButton_Click(object sender, RoutedEventArgs e)
         {
             string inputText = keyPointTextBox.Text;
             keyPointsOutput.Items.Add(inputText);
@@ -179,7 +174,7 @@ namespace Sims2023.WPF.ViewModels
                 addKeyPointsButton.IsEnabled = true;
             }
         }
-
+        /*
         private void DateTimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (dateTimeTextBox.Text.Length == 0)
@@ -201,8 +196,8 @@ namespace Sims2023.WPF.ViewModels
         {
             e.Handled = new Regex("[^0-9]+$").IsMatch(e.Text);
         }
-
-        public event PropertyChangedEventHandler ?PropertyChanged;
+        */
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
