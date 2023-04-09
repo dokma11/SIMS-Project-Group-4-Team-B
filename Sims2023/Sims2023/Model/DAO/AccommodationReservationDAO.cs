@@ -37,39 +37,6 @@ namespace Sims2023.Model.DAO
             NotifyObservers();
         }
 
-
-        // function that gets name and surrname of each guest who has reservation
-        /*private void AddNameSurrnameToReservation(List<Guest> ListOfGuests, List<AccommodationReservation> reservatons)
-        {
-            foreach (var reservation in reservatons)
-            {
-                foreach (var guest in ListOfGuests)
-                {
-                    if (reservation.Guest.Id == guest.Id)
-                    {
-                        reservation.Name = guest.Name;
-                        reservation.Surname = guest.Surrname;
-                    }
-                }
-            }
-        }
-
-        // for every guest who has reservation i get the exact name of accommodation
-        private void AddReservationName(List<AccommodationReservation> reservatons, List<Accommodation> accommodations)
-        {
-            foreach (var reservation in reservatons)
-            {
-                foreach (var accommodation in accommodations)
-                {
-                    if (reservation.Id == accommodation.Id)
-                    {
-                        reservation.Accommodation.Name = accommodation.Name;
-
-                    }
-                }
-            }
-        }  */
-
         // guests who are already graded should not appear in a list
         private void RemoveAlreadyGraded(List<AccommodationReservation> reservations, List<GuestGrade> grades)
         {
@@ -88,7 +55,7 @@ namespace Sims2023.Model.DAO
         }
 
         // searching for the guests who left not more than 5 days ago
-        private void FindGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons)
+       private void FindGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons)
         {
             for (int i = reservatons.Count - 1; i >= 0; i--)
             {
@@ -119,26 +86,11 @@ namespace Sims2023.Model.DAO
         // finds all guests who owner can grade
         public List<AccommodationReservation> findGradableGuests(User user,List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
-
-            //AddNameSurrnameToReservation(ListOfGuests, reservatons);
-            //   AddReservationName(reservatons, _accommodations);
             FindGuestsParticularOwner(reservatons, user);   
             RemoveAlreadyGraded(reservatons, grades);
             FindGuestsWhoRecentlyLeft(reservatons);
             return reservatons;
 
-        }
-
-        // shows all ungraded guests in a notification
-        public string UngradedGuestsNameAndSurrname(List<AccommodationReservation> ungradedGuests)
-        {
-            string string1 = "Imate neocijenjene goste: \n";
-
-            foreach (var guest in ungradedGuests)
-            {
-                string1 += guest.Guest.Name + guest.Guest.Surname + "\n";
-            }
-            return string1;
         }
         public void Remove(AccommodationReservation reservation)
         {

@@ -49,21 +49,22 @@ namespace Sims2023.Model.DAO
             guests = new AccommodationGradeDAO();
             foreach (User user in FindOwners())
             {
-                int counter = 0;
-                double zbir = 0;
+                double counter = 0.0;
+                double zbir = 0.0;
                 double Average;
                 foreach (AccommodationGrade grade in guests.GetAll())
                 {
                    
                     if(grade.Accommodation.Owner.Id == user.Id)
                     {
-                        counter++;
+                        ++counter;
                         zbir += guests.FindAverage(grade);
 
                      }
                 }
                 Average = zbir / counter;
-                if (Average > 4.5)
+               
+                if (Average > 4.5 && counter > 50)
                 {
                     user.superOwner = true;
                     Update(user);

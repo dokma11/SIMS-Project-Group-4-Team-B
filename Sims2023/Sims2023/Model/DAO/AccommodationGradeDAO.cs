@@ -28,7 +28,6 @@ namespace Sims2023.Model.DAO
 
         public List<AccommodationGrade> GetAllGuestsWhoGraded(List<AccommodationGrade> people, List<GuestGrade> ListOfGuests, User owner)
         {
-            //    AddNameSurrnameToReservation(ListOfGuests, people);
             FindGradesForOwner(people, owner);
             RemoveUngradedGuests(people, ListOfGuests);
             return people;
@@ -55,7 +54,7 @@ namespace Sims2023.Model.DAO
         public double FindAverage(AccommodationGrade grade)
         {
             double prosjek;
-            prosjek = grade.Cleanliness + grade.Comfort + grade.Location / 3;
+            prosjek = (grade.Cleanliness + grade.Comfort + grade.Location + grade.Owner + grade.ValueForMoney )/ 5;
             return prosjek;
         }
         public int NextId()

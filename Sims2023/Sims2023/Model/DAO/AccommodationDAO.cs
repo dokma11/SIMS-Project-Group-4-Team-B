@@ -56,22 +56,7 @@ namespace Sims2023.DAO
             _fileHandler.Save(_accommodations);
             NotifyObservers();
         }
-
-   /*     public void FindSuperAccommodations(List<Accommodation> accommodation)
-        {
-            users.FindSuperOwners();
-            foreach (var Accommodation in _accommodations)
-            {
-                foreach (var user in users.GetAll())
-                {
-                    if(user.superOwner == true) Accommodation.
-                }
-            }
-            
-            
-        } */
-
-        public List<Accommodation> GetAll()
+       public List<Accommodation> GetAll()
         {
             return _accommodations;
         }
