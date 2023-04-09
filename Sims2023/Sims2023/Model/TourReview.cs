@@ -1,4 +1,6 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Serialization;
 using System;
 using System.Collections.Generic;
@@ -80,13 +82,13 @@ namespace Sims2023.Model
             {
                 Id = Convert.ToInt32(values[3])
             };
-            TourController tourController = new();
+            TourService tourController = new();
             Tour = tourController.GetById(tour.Id);
             KeyPoint keyPoint = new()
             {
                 Id = Convert.ToInt32(values[4])
             };
-            KeyPointController keyPointController = new();
+            KeyPointService keyPointController = new();
             KeyPointJoined = keyPointController.GetById(keyPoint.Id);
             GuideKnowledge = Convert.ToInt32(values[5]);
             TourInterest = Convert.ToInt32(values[6]);

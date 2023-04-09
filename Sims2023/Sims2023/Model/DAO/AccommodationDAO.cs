@@ -13,13 +13,13 @@ namespace Sims2023.DAO
         private List<IObserver> _observers;
         private AccommodationFileHandler _fileHandler;
         private List<Accommodation> _accommodations;
-        private GuestFileHandler fh;
+     
         public AccommodationDAO()
         {
             _fileHandler = new AccommodationFileHandler();
             _accommodations = _fileHandler.Load();
             _observers = new List<IObserver>();
-            fh = new GuestFileHandler();
+            
 
         }
 

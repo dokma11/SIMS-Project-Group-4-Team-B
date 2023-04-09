@@ -2,20 +2,19 @@
 using System;
 using System.ComponentModel;
 
-namespace Sims2023.Model
+namespace Sims2023.Domain.Models
 {
-    public class Guest : ISerializable, INotifyPropertyChanged
+    public class Location : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Surrname { get; set; }
-
-        public Guest() { }
-        public Guest(int id, string name, string surrname)
+        public string City { get; set; }
+        public string Country { get; set; }
+        public Location() { }
+        public Location(int id, string city, string country)
         {
             Id = id;
-            Name = name;
-            Surrname = surrname;
+            City = city;
+            Country = country;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -25,8 +24,8 @@ namespace Sims2023.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                Name,
-                Surrname
+                City,
+                Country
             };
             return csvValues;
         }
@@ -34,9 +33,8 @@ namespace Sims2023.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            Name = values[1];
-            Surrname = values[2];
+            City = values[1];
+            Country = values[2];
         }
-
     }
 }

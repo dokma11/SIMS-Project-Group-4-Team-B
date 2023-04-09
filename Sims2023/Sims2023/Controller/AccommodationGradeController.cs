@@ -23,6 +23,11 @@ namespace Sims2023.Controller
             return _accommodationGrade.GetAll();
         }
 
+        public List<AccommodationGrade> FindAllGuestsWhoGraded(List<AccommodationGrade> grades, List<GuestGrade> gradedGuests)
+        {
+            return _accommodationGrade.GetAllGuestsWhoGraded(grades, gradedGuests);
+        }
+
         public void Create(AccommodationGrade accommodationGrade)
         {
             _accommodationGrade.Add(accommodationGrade);

@@ -1,4 +1,6 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Serialization;
 using System;
 using System.Collections.Generic;
@@ -22,7 +24,7 @@ namespace Sims2023.Model
         public int CancelDays { get; set; }
         public List<string> Imageurls { get; set; }
 
-        string ImageUrl { get; set; }
+        public string ImageUrl { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -36,7 +38,7 @@ namespace Sims2023.Model
         {
             Imageurls = new List<string>();
         }
-        public Accommodation(int Id,string Name, Location Location, string Type, int MaxGuests, int MinDays, int CancelDays, string ImageUrls,User owner)
+        public Accommodation(int Id,string Name, Location Location, string Type, int MaxGuests, int MinDays, int CancelDays, string ImageUrl, User Owner)
         {
             this.Id = Id;
             this.Name = Name;
@@ -45,8 +47,8 @@ namespace Sims2023.Model
             this.MaxGuests = MaxGuests;
             this.MinDays = MinDays;
             this.CancelDays = CancelDays;
-            this.Owner = owner;
-            ImageUrl = ImageUrls;
+            this.Owner = Owner;
+            this.ImageUrl = ImageUrl;
 
         }
 
@@ -63,7 +65,7 @@ namespace Sims2023.Model
                 MinDays.ToString(),
                 CancelDays.ToString(),
                 Owner.Id.ToString(),
-                string.Join(",", Imageurls)
+                ImageUrl
 
             };
             return csvValues;
@@ -77,8 +79,8 @@ namespace Sims2023.Model
             {
                 Id = Convert.ToInt32(values[2])
             };
-            LocationController locationController = new();
-            Location = locationController.GetById(location.Id);
+            LocationService locationService = new();
+            Location = locationService.GetById(location.Id);
             Type = values[3];
             MaxGuests = Convert.ToInt32(values[4]);
             MinDays = Convert.ToInt32(values[5]);
@@ -89,7 +91,7 @@ namespace Sims2023.Model
             };
             UserController userController = new();
             Owner = userController.GetById(owner.Id);
-            Imageurls = values[8].Split(',').ToList();
+            ImageUrl = values[8];
 
         }
 

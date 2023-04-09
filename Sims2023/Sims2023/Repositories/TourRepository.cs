@@ -1,17 +1,17 @@
-﻿using Sims2023.Observer;
-using Sims2023.Repository;
+﻿using Sims2023.Domain.Models;
+using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sims2023.Model.DAO
+namespace Sims2023.Repository
 {
-    public class TourDAO
+    public class TourRepository
     {
         private List<IObserver> _observers;
         private List<Tour> _tours;
         private TourFileHandler _fileHandler;
-        public TourDAO()
+        public TourRepository()
         {
             _fileHandler = new TourFileHandler();
             _tours = _fileHandler.Load();
@@ -56,6 +56,47 @@ namespace Sims2023.Model.DAO
                     NotifyObservers();
                     break;
                 }
+            }
+        }
+
+        private void CheckIfLocationExists(int newToursNumber, List<Location> locations, Location location, int toursId)
+        {
+            int counter = 0;
+            for (int i = 0; i < newToursNumber; i++)
+            {
+                foreach (var locationInstance in locations)
+                {
+                    //if location exists just add the already existing one
+                    if (location.City == locationInstance.City && location.Country == locationInstance.Country)
+                    {
+                        counter++;
+                        AddToursLocation(toursId, locationInstance);
+                        break;
+                    }
+                }
+                //if it doesn't exist add the newly created one
+                if (counter == 0)
+                {
+                    AddToursLocation(toursId, location);
+                }
+                toursId++;
+            }
+        }
+
+        public void CheckAddToursLocation(Tour tour, Location location, int newToursNumber, List<Location> locations)
+        {
+            int toursId = tour.Id - newToursNumber + 1;
+            if (locations.Count == 0)
+            {
+                for (int i = 0; i < newToursNumber; i++)
+                {
+                    AddToursLocation(toursId, location);
+                    toursId++;
+                }
+            }
+            else
+            {
+                CheckIfLocationExists(newToursNumber, locations, location, toursId);
             }
         }
 

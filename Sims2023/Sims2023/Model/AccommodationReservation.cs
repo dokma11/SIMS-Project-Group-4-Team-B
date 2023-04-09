@@ -17,7 +17,7 @@ namespace Sims2023.Model
         public ObservableCollection<User> Users { get; set; }
         public int Id { get; set; }
         public User Guest { get; set; }
-        public Accommodation Accommodation{ get; set; }
+        public Accommodation Accommodation { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int NumberOfDays { get; set; }
@@ -32,7 +32,7 @@ namespace Sims2023.Model
         }
 
         public AccommodationReservation() { }
-        public AccommodationReservation(int id,User guest, Accommodation accommodation, DateTime startDate, DateTime endDate, int numberOfGuests, bool graded)
+        public AccommodationReservation(int id, User guest, Accommodation accommodation, DateTime startDate, DateTime endDate, int numberOfGuests, bool graded)
         {
             Id = id;
             Guest = guest;

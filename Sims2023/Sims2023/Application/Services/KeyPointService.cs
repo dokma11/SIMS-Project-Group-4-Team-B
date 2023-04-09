@@ -1,16 +1,16 @@
-﻿using Sims2023.Model;
-using Sims2023.Model.DAO;
+﻿using Sims2023.Domain.Models;
 using Sims2023.Observer;
+using Sims2023.Repository;
 using System.Collections.Generic;
 
-namespace Sims2023.Controller
+namespace Sims2023.Application.Services
 {
-    public class KeyPointController
+    public class KeyPointService
     {
-        private KeyPointDAO _keyPoint;
-        public KeyPointController()
+        private readonly KeyPointRepository _keyPoint;
+        public KeyPointService()
         {
-            _keyPoint = new KeyPointDAO();
+            _keyPoint = new KeyPointRepository();
         }
 
         public List<KeyPoint> GetAllKeyPoints()

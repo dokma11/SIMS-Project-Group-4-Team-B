@@ -1,15 +1,13 @@
 ﻿using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 
-namespace Sims2023.View
+namespace Sims2023.WPF.ViewModels
 {
-    /// <summary>
-    /// Interaction logic for MarkGuestsPresentView.xaml
-    /// </summary>
-    public partial class MarkGuestsPresentView : Window
+    public partial class MarkGuestsPresentViewModel
     {
         public KeyPoint KeyPoint { get; set; }
         public ObservableCollection<User> GuestsToDisplay { get; set; }
@@ -17,7 +15,7 @@ namespace Sims2023.View
         private UserController _userController;
         private TourReservationController _tourReservationController;
         public List<User> MarkedGuests { get; set; }
-        public MarkGuestsPresentView(KeyPoint keyPoint, TourReservationController tourReservationController, UserController userController, List<User> markedGuests)
+        public MarkGuestsPresentViewModel(KeyPoint keyPoint, TourReservationController tourReservationController, UserController userController, List<User> markedGuests)
         {
             InitializeComponent();
             DataContext = this;

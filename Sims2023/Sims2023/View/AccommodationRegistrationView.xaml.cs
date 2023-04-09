@@ -1,6 +1,8 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
 using Sims2023.Model;
 using System.Windows;
+using Sims2023.Domain.Models;
 
 namespace Sims2023.View
 {
@@ -10,10 +12,12 @@ namespace Sims2023.View
     public partial class AccommodationRegistrationView : Window
     {
         private AccommodationController _accommodationController;
-        private AccomodationLocationController _accomodationLocationController;
+       
         private Accommodation Accommodation { get; set; }
         private AccommodationLocation AccommodationLocation { get; set; }
         public User User { get; set; }
+
+        private LocationService _locationService;
 
         string outputText;
         public AccommodationRegistrationView(AccommodationController accommodationCtrl1, AccomodationLocationController accommodationLocationCtrll,User owner)
@@ -25,11 +29,12 @@ namespace Sims2023.View
 
             _accommodationController = accommodationCtrl1;
 
-            _accomodationLocationController = accommodationLocationCtrll;
 
             Accommodation = new Accommodation();
 
             AccommodationLocation = new AccommodationLocation();
+
+            _locationService = new LocationService();
         }
 
         private void Registration_Click(object sender, RoutedEventArgs e)
@@ -42,21 +47,6 @@ namespace Sims2023.View
 
 
             string Country = textBox2.Text;
-            AccommodationLocation = new AccommodationLocation(Id2, Town, Country);
-
-            // if location doesnt exist I create a new one
-
-            if (_accomodationLocationController.FindIdByCityCountry(AccommodationLocation.City, AccommodationLocation.Country) == -1)
-            {
-                if (AccommodationLocation.IsVaild(AccommodationLocation) == null)
-                    _accomodationLocationController.Create(AccommodationLocation);
-
-            }
-
-
-            // now need to find what Id it has
-            idLocation = _accomodationLocationController.FindIdByCityCountry(AccommodationLocation.City, AccommodationLocation.Country);
-
             string Type = comboBox.Text;
             string MaxGuests1 = textBox3.Text;
 
@@ -70,10 +60,7 @@ namespace Sims2023.View
                 return;
             }
             MaxGuests = string.IsNullOrEmpty(MaxGuests1) ? -1 : int.Parse(MaxGuests1);
-
-
-            // same for minimum days
-
+           // same for minimum days
             string mindays = textBox4.Text;
             int MinDays;
             bool isMaxGuestsValid1 = int.TryParse(mindays, out MinDays);
@@ -97,7 +84,8 @@ namespace Sims2023.View
                 return;
             }
 
-            Location Location = new Location(Id2, Town, Country);
+            Location Location = new Location(0, Town, Country);
+            _locationService.Create(Location);
 
             CancelDays = string.IsNullOrEmpty(CancelDayss) ? 1 : int.Parse(CancelDayss);
             Accommodation = new Accommodation(Id, Name, Location, Type, MaxGuests, MinDays, CancelDays, outputText, User);
@@ -113,13 +101,7 @@ namespace Sims2023.View
                 string s = Accommodation.IsVaild(Accommodation);
                 MessageBox.Show(s);
             }
-
-
-
-
-
         }
-
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
 
