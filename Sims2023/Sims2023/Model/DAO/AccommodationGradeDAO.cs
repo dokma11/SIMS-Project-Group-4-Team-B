@@ -1,4 +1,5 @@
-﻿using Sims2023.FileHandler;
+﻿using Sims2023.Domain.Models;
+using Sims2023.FileHandler;
 using Sims2023.Observer;
 using Sims2023.Repository;
 using System;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using Sims2023.Application.Services;
 using Sims2023.Controller;
 using Sims2023.Domain.Models;
 using Sims2023.Model;
@@ -28,7 +29,7 @@ namespace Sims2023.View
         private AccommodationController _accommodationController;
         public ObservableCollection<Accommodation> Accommodations { get; set; }
 
-        public UserController _userController;
+        public UserService _userController;
         public Accommodation SelectedAccommodation { get; set; }
 
         public User User { get; set; }
@@ -45,7 +46,7 @@ namespace Sims2023.View
         {
             InitializeComponent();
             DataContext = this;
-            _userController = new UserController();
+            _userController = new UserService();
             User = guest1;
             _accommodationLocationController = new AccomodationLocationController();
             AccommodationLocations = new ObservableCollection<AccommodationLocation>(_accommodationLocationController.GetAllAccommodationLocations());

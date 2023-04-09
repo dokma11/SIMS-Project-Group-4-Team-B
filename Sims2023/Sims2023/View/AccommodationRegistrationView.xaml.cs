@@ -30,7 +30,7 @@ namespace Sims2023.View
 
             Accommodation = new Accommodation();
 
-            _locationController = new LocationController();
+            _locationService = new LocationService();
         }
 
         private void Registration_Click(object sender, RoutedEventArgs e)
