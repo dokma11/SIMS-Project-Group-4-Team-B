@@ -24,19 +24,19 @@ namespace Sims2023.WPF.ViewModels
 
         public List<KeyPoint> AllKeyPoints;
 
-        public GuestReviewsViewModel(TourService tourController, TourReviewController tourReviewController, KeyPointService keyPointController)
+        public GuestReviewsViewModel(TourService tourService, TourReviewController tourReviewController, KeyPointService keyPointService)
         {
             InitializeComponent();
             DataContext = this;
 
-            AllTours = tourController.GetAllTours();
+            AllTours = tourService.GetAll();
             ToursToDisplay = new ObservableCollection<Tour>();
 
             _tourReviewController = tourReviewController;
             AllReviews = _tourReviewController.GetAllTourReviews();
             ReviewsToDisplay = new ObservableCollection<TourReview>();
 
-            AllKeyPoints = keyPointController.GetAllKeyPoints();
+            AllKeyPoints = keyPointService.GetAll();
 
             DisplayTours();
         }
@@ -45,7 +45,7 @@ namespace Sims2023.WPF.ViewModels
         {
             foreach (var tour in AllTours)
             {
-                if (tour.CurrentState == Tour.State.Finished)
+                if (tour.CurrentState == Tour.State.Finished || tour.CurrentState == Tour.State.Interrupted)
                 {
                     ToursToDisplay.Add(tour);
                     GetToursReviews(tour);

@@ -18,9 +18,10 @@ namespace Sims2023.WPF.ViewModels
         private UserController _userService;
         private TourReservationController _tourReservationService;
         private TourReviewController _tourReviewService;
+        private VoucherService _voucherService;
 
-        public Tour ?Tour { get; set; }
-        public Tour ?SelectedTour { get; set; }
+        public Tour? Tour { get; set; }
+        public Tour? SelectedTour { get; set; }
         public ObservableCollection<Tour> ToursToDisplay { get; set; }
         public ObservableCollection<Tour> AllTours { get; set; }
 
@@ -40,24 +41,27 @@ namespace Sims2023.WPF.ViewModels
 
             _userService = new UserController();
             _userService.Subscribe(this);
-            
+
             _tourReservationService = new TourReservationController();
             _tourReservationService.Subscribe(this);
 
             _tourReviewService = new TourReviewController();
             _tourReviewService.Subscribe(this);
 
-            ToursToDisplay = new ObservableCollection<Tour>();
-            AllTours = new ObservableCollection<Tour>(_tourService.GetAllTours());
+            _voucherService = new VoucherService();
+            _voucherService.Subscribe(this);
 
-            DisplayTodaysTours();
+            ToursToDisplay = new ObservableCollection<Tour>();
+            AllTours = new ObservableCollection<Tour>(_tourService.GetAll());
+
+            DisplayTours();
         }
 
-        private void DisplayTodaysTours()
+        private void DisplayTours()
         {
             foreach (Tour tour in AllTours)
             {
-                if (tour.Start == DateTime.Today)
+                if (tour.CurrentState == Tour.State.Created)
                 {
                     ToursToDisplay.Add(tour);
                 }
@@ -90,6 +94,29 @@ namespace Sims2023.WPF.ViewModels
             }
         }
 
+        private void CancelTourButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedTour != null && SelectedTour.Start >= DateTime.Now.AddHours(48))
+            {
+                SelectedTour.CurrentState = Tour.State.Cancelled;
+                int id = SelectedTour.Id;
+                foreach (var res in _tourReservationService.GetAllReservations())
+                {
+                    if(res.TourId == id)
+                    {
+                        string additionalComment = "Tura je otkazana jer je vodic bolestan";
+                        Voucher voucher = new(0, _userService.GetById(res.UserId), _tourService.GetById(id), DateTime.Now, DateTime.Today.AddYears(1), additionalComment, false);
+                        _voucherService.Create(voucher);
+                    }
+                }
+                MessageBox.Show("Tura je otkazana");
+            }
+            else
+            {
+                MessageBox.Show("Odaberite turu koju zelite da otkazete");
+            }
+        }
+
         private void LiveTourTrackingView_Closed(object sender, EventArgs e)
         {
             startTourButton.IsEnabled = true;
@@ -106,17 +133,9 @@ namespace Sims2023.WPF.ViewModels
 
         public void Update()
         {
-            //updating the tours that are currently displayed
             ToursToDisplay.Clear();
-            AllTours.Clear();
-            foreach (var tour in _tourService.GetAllTours())
-            {
-                AllTours.Add(tour);
-                if (tour.Start == DateTime.Today)
-                {
-                    ToursToDisplay.Add(tour);
-                }
-            }
+            DisplayTours();
+            _tourService.Save();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

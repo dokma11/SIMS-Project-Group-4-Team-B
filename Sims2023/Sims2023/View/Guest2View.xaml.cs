@@ -49,8 +49,8 @@ namespace Sims2023.View
             _tourReservationController = new TourReservationController();
             _tourReservationController.Subscribe(this);
 
-            Tours = new ObservableCollection<Tour>(_tourController.GetAllTours());
-            Locations = new ObservableCollection<Location>(_locationController.GetAllLocations());
+            Tours = new ObservableCollection<Tour>(_tourController.GetAll());
+            Locations = new ObservableCollection<Location>(_locationController.GetAll());
 
             SelectedTour = new Tour();
             EditedTour = new Tour();
@@ -300,7 +300,7 @@ namespace Sims2023.View
         private void UpdateToursList()
         {
             Tours.Clear();
-            foreach (var tour in _tourController.GetAllTours())
+            foreach (var tour in _tourController.GetAll())
             {
                 Tours.Add(tour);
             }

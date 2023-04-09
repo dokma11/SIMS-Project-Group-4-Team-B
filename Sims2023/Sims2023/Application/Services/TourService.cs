@@ -17,7 +17,7 @@ namespace Sims2023.Application.Services
             _location = new LocationRepository();
         }
 
-        public List<Tour> GetAllTours()
+        public List<Tour> GetAll()
         {
             return _tour.GetAll();
         }

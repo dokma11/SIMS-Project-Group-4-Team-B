@@ -20,7 +20,7 @@ namespace Sims2023.Domain.Models
         public string KeyPointsString { get; set; }
         public DateTime Start { get; set; }
         public int Length { get; set; }
-        public enum State { Created, Started, Finished, Cancelled }
+        public enum State { Created, Started, Finished, Cancelled, Interrupted }
         public State CurrentState { get; set; }
         public string City { get; set; }
         public string Country { get; set; }

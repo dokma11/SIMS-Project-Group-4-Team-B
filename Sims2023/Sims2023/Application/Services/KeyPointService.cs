@@ -13,7 +13,7 @@ namespace Sims2023.Application.Services
             _keyPoint = new KeyPointRepository();
         }
 
-        public List<KeyPoint> GetAllKeyPoints()
+        public List<KeyPoint> GetAll()
         {
             return _keyPoint.GetAll();
         }
