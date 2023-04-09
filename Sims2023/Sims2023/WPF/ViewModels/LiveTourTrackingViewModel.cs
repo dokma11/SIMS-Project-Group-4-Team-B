@@ -15,7 +15,7 @@ namespace Sims2023.WPF.ViewModels
         public KeyPoint SelectedKeyPoint { get; set; }
 
         private KeyPointService _keyPointController;
-        private UserController _userController;
+        private UserService _userController;
         private TourReservationController _tourReservationController;
         public ObservableCollection<KeyPoint> KeyPointsToDisplay { get; set; }
         public ObservableCollection<KeyPoint> AllKeyPoints { get; set; }
@@ -26,22 +26,22 @@ namespace Sims2023.WPF.ViewModels
 
         public List<User> MarkedGuests { get; set; }
 
-        public LiveTourTrackingViewModel(Tour tour, KeyPointService keyPointController, TourReservationController tourReservationController, UserController userController)
+        public LiveTourTrackingViewModel(Tour tour, KeyPointService keyPointService, TourReservationController tourReservationController, UserService userController)
         {
             InitializeComponent();
             DataContext = this;
-            
+
             Tour = tour;
             Tour.CurrentState = Tour.State.Started;
 
-            _keyPointController = keyPointController;
+            _keyPointController = keyPointService;
             _tourReservationController = tourReservationController;
             _userController = userController;
 
             MarkedGuests = new List<User>();
 
             KeyPointsToDisplay = new ObservableCollection<KeyPoint>();
-            AllKeyPoints = new ObservableCollection<KeyPoint>(_keyPointController.GetAllKeyPoints());
+            AllKeyPoints = new ObservableCollection<KeyPoint>(_keyPointController.GetAll());
             foreach (var keyPoint in AllKeyPoints)
             {
                 if (keyPoint.Tour.Id == Tour.Id)
@@ -194,11 +194,11 @@ namespace Sims2023.WPF.ViewModels
 
         private void CancelTourButton_Click(object sender, RoutedEventArgs e)
         {
-            Tour.CurrentState = Tour.State.Cancelled;
+            Tour.CurrentState = Tour.State.Interrupted;
             MessageBoxResult result = ConfirmExit();
             if (result == MessageBoxResult.Yes)
             {
-                Tour.CurrentState = Tour.State.Cancelled;
+                Tour.CurrentState = Tour.State.Interrupted;
                 MarkLastVisitedKeyPoint();
                 Close();
             }
@@ -237,7 +237,7 @@ namespace Sims2023.WPF.ViewModels
         {
             KeyPointsToDisplay.Clear();
             AllKeyPoints.Clear();
-            foreach (var keyPoint in _keyPointController.GetAllKeyPoints())
+            foreach (var keyPoint in _keyPointController.GetAll())
             {
                 AllKeyPoints.Add(keyPoint);
                 if (keyPoint.Tour.Id == Tour.Id)

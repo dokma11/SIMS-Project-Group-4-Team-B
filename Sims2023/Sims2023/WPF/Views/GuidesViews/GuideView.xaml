@@ -5,16 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         d:DataContext="{Binding GuideViewModel}"
         mc:Ignorable="d"
-        Title="GuideView" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="GuideView" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
     <StackPanel>
         <DockPanel>
             <ToolBar Height="30">
                 <Button x:Name="createButton" Click="CreateButton_Click">Kreiraj turu</Button>
-                <Button x:Name="startTourButton" Click="StartTourButton_Click">Zapocni turu</Button>
+                <Button x:Name="startTourButtonToolbar" Click="StartTourButton_Click">Zapocni turu</Button>
                 <Button x:Name="reviewsButton" Click="ReviewsButton_Click">Vidi recenzije</Button>
             </ToolBar>
         </DockPanel>
-        <DataGrid x:Name="toursDataGrid" Height="300" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True">
+        <DataGrid x:Name="toursDataGrid" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="1100" Height="350" Margin="100" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Lokacija" Binding="{Binding LocationId}"/>
+                <DataGridTextColumn Header="Ključne tačke" Binding="{Binding KeyPointsString}"/>
+                <DataGridTextColumn Header="Maksimalan broj gostiju" Binding="{Binding MaxGuestNumber}"/>
+                <DataGridTextColumn Header="Datum i vreme polaska" Binding="{Binding Start}"/>
+                <DataGridTextColumn Header="Trajanje(h)" Binding="{Binding Length}"/>
+                <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage}"/>
+            </DataGrid.Columns>
         </DataGrid>
+        <DockPanel>
+            <Label x:Name="successfulCancellationLabel" Content="Uspešno ste otkazali turu!" FontSize="24" Margin="450,0,40,0" Visibility="Hidden"/>
+            <Button x:Name="startTourButton" Click="StartTourButton_Click" Content="Započni turu" Width="150" Height="50" Margin="0,0,0,0"/>
+            <Button x:Name="cancelTourButton" Click="CancelTourButton_Click" Content="Otkaži turu" Width="150" Height="50"/>
+        </DockPanel>
     </StackPanel>
 </Window>

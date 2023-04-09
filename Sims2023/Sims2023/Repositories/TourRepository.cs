@@ -1,4 +1,5 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
@@ -24,12 +25,13 @@ namespace Sims2023.Repository
             return _tours.Max(t => t.Id) + 1;
         }
 
-        public void Add(Tour tour, List<DateTime> dateTimes, Location location)
+        public void Add(Tour tour, List<DateTime> dateTimes, Location location, User loggedInGuide)
         {
             foreach (var date in dateTimes)
             {
                 _tours = _fileHandler.Load();
                 tour.Id = NextId();
+                tour.Guide = loggedInGuide;
                 tour.Start = date;
                 AddToursLocation(tour.Id, location);
                 tour.AvailableSpace = tour.MaxGuestNumber;

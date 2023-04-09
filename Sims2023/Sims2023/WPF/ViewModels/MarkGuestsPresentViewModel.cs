@@ -1,4 +1,5 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
 using Sims2023.Domain.Models;
 using Sims2023.Model;
 using System.Collections.Generic;
@@ -12,10 +13,10 @@ namespace Sims2023.WPF.ViewModels
         public KeyPoint KeyPoint { get; set; }
         public ObservableCollection<User> GuestsToDisplay { get; set; }
 
-        private UserController _userController;
+        private UserService _userService;
         private TourReservationController _tourReservationController;
         public List<User> MarkedGuests { get; set; }
-        public MarkGuestsPresentViewModel(KeyPoint keyPoint, TourReservationController tourReservationController, UserController userController, List<User> markedGuests)
+        public MarkGuestsPresentViewModel(KeyPoint keyPoint, TourReservationController tourReservationController, UserService userService, List<User> markedGuests)
         {
             InitializeComponent();
             DataContext = this;
@@ -23,7 +24,7 @@ namespace Sims2023.WPF.ViewModels
             KeyPoint = keyPoint;
 
             _tourReservationController = tourReservationController;
-            _userController = userController;
+            _userService = userService;
 
             MarkedGuests = markedGuests;
 
@@ -38,7 +39,7 @@ namespace Sims2023.WPF.ViewModels
             {
                 if (tourReservation.TourId == KeyPoint.Tour.Id)
                 {
-                    User Guest = _userController.GetById(tourReservation.UserId);
+                    User Guest = _userService.GetById(tourReservation.UserId);
                     if (!CheckIfGuestMarked(tourReservation, Guest))
                     {
                         GuestsToDisplay.Add(Guest);

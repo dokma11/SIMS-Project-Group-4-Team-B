@@ -1,21 +1,19 @@
-﻿using Sims2023.Model;
+﻿using Sims2023.Domain.Models;
+using Sims2023.Model;
 using Sims2023.Model.DAO;
 using Sims2023.Observer;
-using System;
+using Sims2023.Repositories;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sims2023.Controller
+namespace Sims2023.Application.Services
 {
-    public class UserController
+    public class UserService
     {
-        private UserDAO _user;
+        private UserRepository _user;
 
-        public UserController()
+        public UserService()
         {
-            _user = new UserDAO();
+            _user = new UserRepository();
         }
 
         public List<User> GetAllUsers()

@@ -1,4 +1,5 @@
-﻿using Sims2023.Model;
+﻿using Sims2023.Domain.Models;
+using Sims2023.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
