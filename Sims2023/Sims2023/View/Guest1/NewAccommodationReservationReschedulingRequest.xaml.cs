@@ -78,8 +78,8 @@ namespace Sims2023.View.Guest1
                 MessageBox.Show("Molimo Vas selektujte rezervaciju koji zelite obrisete.");
                 return;
             }
-            var accommodationReservationView = new AccommodationReservationView(SelectedAccommodationReservation.Id, SelectedAccommodationReservation.Accommodation, User);
-            accommodationReservationView.Show();
+            var accommodationReservationDateView = new AccommodationReservationDateView(SelectedAccommodationReservation.Id, SelectedAccommodationReservation.Accommodation, User);
+            accommodationReservationDateView.Show();
             Close();
         }
 

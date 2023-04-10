@@ -146,8 +146,8 @@ namespace Sims2023.View
                 MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da rezervisete.");
                 return;
             }
-            AccommodationReservationView accommodationReservationView = new AccommodationReservationView(-1,SelectedAccommodation,User);
-            accommodationReservationView.Show();
+            AccommodationReservationDateView accommodationReservationDateView = new AccommodationReservationDateView(-1,SelectedAccommodation,User);
+            accommodationReservationDateView.Show();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
