@@ -5,7 +5,6 @@ using Sims2023.Serialization;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using static Sims2023.Domain.Models.Tour;
 
 namespace Sims2023.Model
 {
@@ -64,8 +63,8 @@ namespace Sims2023.Model
             {
                 Id = Convert.ToInt32(values[1])
             };
-            AccommodationReservationController accommodationReservationController = new();
-            AccommodationReservation = accommodationReservationController.GetById(accommodationReservation.Id);
+            AccommodationReservationService accommodationReservationService = new();
+            AccommodationReservation = accommodationReservationService.GetById(accommodationReservation.Id);
             Status = (RequestStatus)Enum.Parse(typeof(RequestStatus), values[2]);
             Notified = Convert.ToBoolean(values[3]);
             NewStartDate = Convert.ToDateTime(values[4]);

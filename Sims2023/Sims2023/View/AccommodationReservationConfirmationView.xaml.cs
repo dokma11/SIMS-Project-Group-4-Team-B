@@ -1,5 +1,6 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.Controller;
 using Sims2023.Model;
 using System;
 using System.Collections.ObjectModel;
@@ -19,7 +20,7 @@ namespace Sims2023.View
         public Accommodation SelectedAccommodation { get; set; }
         public AccommodationStay SelectedAccommodationStay { get; set; }
 
-        private AccommodationReservationService _accommodationReservationController;
+        private AccommodationReservationService _accommodationReservationService;
 
         private AccommodationReservationReschedulingController _accommodationReservationReschedulingController;
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
@@ -37,7 +38,7 @@ namespace Sims2023.View
             days = daysNumber;
             ReservationId = reservationId;
 
-            _accommodationReservationController = new AccommodationReservationService();
+            _accommodationReservationService = new AccommodationReservationService();
 
             _accommodationReservationReschedulingController = new AccommodationReservationReschedulingController();
             AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingController.GetAllReservationReschedulings());
@@ -74,7 +75,7 @@ namespace Sims2023.View
         private void MakeNewAccommodationReservation()
         {
             AccommodationReservation accommodationReservation = new AccommodationReservation(-1, User, SelectedAccommodation, SelectedAccommodationStay.StartDate, SelectedAccommodationStay.EndDate, days, false);
-            _accommodationReservationController.Create(accommodationReservation);
+            _accommodationReservationService.Create(accommodationReservation);
 
             MessageBox.Show("Uspesno ste rezervisali objekat!");
         }
@@ -82,7 +83,7 @@ namespace Sims2023.View
         private void MakeNewAccommodationReservationRescheduling(int ReservationId)
         {
             AccommodationReservationRescheduling accommodationReservationRescheduling = new AccommodationReservationRescheduling();
-            accommodationReservationRescheduling.AccommodationReservation = _accommodationReservationController.GetById(ReservationId);
+            accommodationReservationRescheduling.AccommodationReservation = _accommodationReservationService.GetById(ReservationId);
             accommodationReservationRescheduling.Status = AccommodationReservationRescheduling.RequestStatus.Pending;
             accommodationReservationRescheduling.Notified = false;
             accommodationReservationRescheduling.NewStartDate = SelectedAccommodationStay.StartDate;

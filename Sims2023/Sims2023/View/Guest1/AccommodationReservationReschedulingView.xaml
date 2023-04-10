@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.View.Guest1"
         mc:Ignorable="d"
-        Title="AccommodationReservationReschedulingView" Height="600" Width="1000">
+        Title="AccommodationReservationReschedulingView" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
@@ -16,7 +16,7 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
-        <Label x:Name="label" Content="Pomeranje rezervacija" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="1"/>
+        <Label x:Name="label" Content="Zahtevi za pomeranje rezervacija" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="1"/>
         <Label x:Name="label1" Content="Prethodno podneti zahtevi:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Margin="50,0,0,0" Grid.Row="2"/>
         <DataGrid x:Name="myDataGrid"
                   ItemsSource="{Binding Path=AccommodationReservationReschedulings, UpdateSourceTrigger=PropertyChanged}"

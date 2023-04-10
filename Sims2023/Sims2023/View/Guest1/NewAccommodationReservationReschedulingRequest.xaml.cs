@@ -1,4 +1,5 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
 using Sims2023.Domain.Models;
 using Sims2023.Model;
 using Sims2023.Observer;
@@ -26,7 +27,7 @@ namespace Sims2023.View.Guest1
     {
         public AccommodationReservation SelectedAccommodationReservation { get; set; }
 
-        private AccommodationReservationController _accommodationReservationController;
+        private AccommodationReservationService _accommodationReservationService;
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
 
         List<AccommodationReservation> FilteredData = new List<AccommodationReservation>();
@@ -38,10 +39,10 @@ namespace Sims2023.View.Guest1
 
             User = guest1;
 
-            _accommodationReservationController = new AccommodationReservationController();
-            _accommodationReservationController.Subscribe(this);
+            _accommodationReservationService = new AccommodationReservationService();
+            _accommodationReservationService.Subscribe(this);
 
-            AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationController.GetAllReservations());
+            AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationService.GetAllReservations());
 
             FilteredData = FindSuitableReservations(AccommodationReservations);
             myDataGrid.ItemsSource = FilteredData;

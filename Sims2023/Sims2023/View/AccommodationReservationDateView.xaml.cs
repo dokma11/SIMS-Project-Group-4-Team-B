@@ -30,11 +30,11 @@ namespace Sims2023.View
         private ObservableCollection<AccommodationStay> _stays = new ObservableCollection<AccommodationStay>();
         public AccommodationStay SelectedAccommodationStay { get; set; }
 
-        private AccommodationController _accommodationController;
+        private AccommodationService _accommodationService;
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
 
-        private AccommodationReservationController _accommodationReservationController;
+        private AccommodationReservationService _accommodationReservationService;
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
         public User User { get; set; }
         public int ReservationId { get; set; }
@@ -56,11 +56,11 @@ namespace Sims2023.View
             SelectedAccommodation = selectedAccommodation;
 
 
-            _accommodationController = new AccommodationController();
-            Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAllAccommodations());
+            _accommodationService = new AccommodationService();
+            Accommodations = new ObservableCollection<Accommodation>(_accommodationService.GetAllAccommodations());
 
-            _accommodationReservationController = new AccommodationReservationController();
-            AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationController.GetAllReservations());
+            _accommodationReservationService = new AccommodationReservationService();
+            AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationService.GetAllReservations());
 
             AvailableDates = new List<DateTime>();
             AdditionalAvailableDates = new List<DateTime>();
@@ -207,7 +207,7 @@ namespace Sims2023.View
         }
         private bool IsDateSpanAvailable(DateTime startDate, DateTime endDate)
         {
-            foreach (AccommodationReservation reservation in _accommodationReservationController.GetAllReservations())
+            foreach (AccommodationReservation reservation in _accommodationReservationService.GetAllReservations())
             {
                 if (reservation.Accommodation.Id == SelectedAccommodation.Id)
                 {

@@ -7,19 +7,7 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="View\AllGuestsView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\DetailedGradeView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\GradesFromGuestsView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\Guest1\AccommodationReservationCancellationView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\AccommodationRegistrationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Guest1\AccommodationReservationReschedulingView.xaml.cs">
@@ -28,14 +16,8 @@
     <Compile Update="View\Guest1\NewAccommodationReservationReschedulingRequest.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\OwnerView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="View\Guest2View.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\SearchToursView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -53,34 +35,19 @@
     <Page Update="View\Guest1\NewAccommodationReservationReschedulingRequest.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\Guest2View.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\AccommodationListView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\AllGuestsView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="WPF\Views\GuidesViews\CreateTourView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\Guest1GradeView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Guest1MainView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\GuidesViews\GuestReviewsView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\AccommodationRegistrationView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\OwnerView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\SearchToursView.xaml">

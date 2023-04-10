@@ -40,6 +40,10 @@ namespace Sims2023.Application.Services
             _accommodationReservation.Remove(reservation);
         }
 
+        public AccommodationReservation GetById(int Id)
+        {
+            return _accommodationReservation.GetById(Id);
+        }
         public void Update(AccommodationReservation reservation)
         {
             _accommodationReservation.Update(reservation);
