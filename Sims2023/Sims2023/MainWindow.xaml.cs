@@ -82,7 +82,7 @@ namespace Sims2023
             }
             else if (user.UserType == User.Type.Guest2)
             {
-                Guest2View guest2View = new(user);
+                WPF.Views.Guest2Views.Guest2View guest2View = new(user);
                 guest2View.Show();
             }
             else if (user.UserType == User.Type.Owner)

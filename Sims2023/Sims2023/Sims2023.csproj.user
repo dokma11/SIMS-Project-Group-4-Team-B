@@ -27,7 +27,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="View\Guest2View.xaml.cs">
+    <Compile Update="WPF\Views\Guest2Views\Guest2View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\SearchToursView.xaml.cs">
@@ -41,7 +41,7 @@
     <Page Update="View\Guest1\AccommodationReservationCancellationView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\Guest2View.xaml">
+    <Page Update="WPF\Views\Guest2Views\Guest2View.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
