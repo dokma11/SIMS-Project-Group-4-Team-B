@@ -1,4 +1,5 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Domain.Models;
 using Sims2023.Serialization;
 using System;
 using System.Collections.Generic;
@@ -72,7 +73,7 @@ namespace Sims2023.Model
             {
                 Id = Convert.ToInt32(values[2])
             };
-            AccommodationController accommodationController = new();
+            AccommodationService accommodationController = new();
             Accommodation = accommodationController.GetById(accommodation.Id);
             StartDate = DateTime.Parse(values[3]);
             EndDate = DateTime.Parse(values[4]);

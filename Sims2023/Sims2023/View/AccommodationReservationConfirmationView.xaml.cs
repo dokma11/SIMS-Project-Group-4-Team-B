@@ -1,4 +1,4 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.Model;
 using System;
@@ -19,7 +19,7 @@ namespace Sims2023.View
         public Accommodation SelectedAccommodation { get; set; }
         public AccommodationStay SelectedAccommodationStay { get; set; }
 
-        private AccommodationReservationController _accommodationReservationController;
+        private AccommodationReservationService _accommodationReservationController;
 
         private AccommodationReservationReschedulingController _accommodationReservationReschedulingController;
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
@@ -37,7 +37,7 @@ namespace Sims2023.View
             days = daysNumber;
             ReservationId = reservationId;
 
-            _accommodationReservationController = new AccommodationReservationController();
+            _accommodationReservationController = new AccommodationReservationService();
 
             _accommodationReservationReschedulingController = new AccommodationReservationReschedulingController();
             AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingController.GetAllReservationReschedulings());

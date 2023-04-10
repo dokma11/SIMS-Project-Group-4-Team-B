@@ -1,22 +1,12 @@
-﻿using System;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
+using Sims2023.Domain.Models;
+using Sims2023.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Sims2023.Controller;
-using Sims2023.Model;
-using Sims2023.Observer;
-using Sims2023.Domain.Models;
 using System.IO;
+using System.Windows;
 
 namespace Sims2023.View
 {
@@ -26,10 +16,10 @@ namespace Sims2023.View
     public partial class OwnerView : Window
     {
         private string outputText;
-        private AccommodationController _accommodationController;
+        private AccommodationService _accommodationController;
         private AccomodationLocationController _accommodationLocationController;
-        private AccommodationReservationController _accommodationReservationController;
-        private GuestGradeController _gradeController;
+        private AccommodationReservationService _accommodationReservationController;
+        private GuestGradeService _gradeController;
 
         private AccommodationCancellationController _accommodationCancellationController;
         public ObservableCollection<AccommodationCancellation> AccommodationCancellations { get; set; }
@@ -46,18 +36,18 @@ namespace Sims2023.View
 
             User = owner;
 
-            _accommodationController = new AccommodationController();
+            _accommodationController = new AccommodationService();
             _accommodationLocationController = new AccomodationLocationController();
 
             _accommodationCancellationController = new AccommodationCancellationController();
             AccommodationCancellations = new ObservableCollection<AccommodationCancellation>(_accommodationCancellationController.GetAllAccommodationCancellations());
 
-            _accommodationReservationController = new AccommodationReservationController();
-            _gradeController = new GuestGradeController();
+            _accommodationReservationController = new AccommodationReservationService();
+            _gradeController = new GuestGradeService();
 
             Reservatons = new List<AccommodationReservation>(_accommodationReservationController.GetAllReservations());
 
-            GradableGuests = new List<AccommodationReservation>(_accommodationReservationController.GetGradableGuests(Reservatons, _gradeController.GetAllGrades()));
+            GradableGuests = new List<AccommodationReservation>(_accommodationReservationController.GetGradableGuests(User,Reservatons, _gradeController.GetAllGrades()));
 
 
         }
@@ -76,7 +66,7 @@ namespace Sims2023.View
                 {
                     if (GradableGuests.Count != 0)
                     {
-                        MessageBox.Show(_accommodationReservationController.GetAllUngradedNames(GradableGuests));
+                  //      MessageBox.Show(_accommodationReservationController.GetAllUngradedNames(GradableGuests));
 
                         // Update the last shown date to today's date
                         File.WriteAllText(fileName, DateTime.Today.ToString());
@@ -107,7 +97,7 @@ namespace Sims2023.View
 
     private void Grade_Click(object sender, RoutedEventArgs e)
         {
-            var guestss = new AllGuestsView(_accommodationReservationController, Reservatons);
+            var guestss = new AllGuestsView(User,_accommodationReservationController, Reservatons);
             guestss.Show();
         }
 
@@ -119,7 +109,7 @@ namespace Sims2023.View
 
         private void Grades_Given_From_Guests(object sender, RoutedEventArgs e)
         {
-            var GuestsGrades = new GradesFromGuestsView();
+            var GuestsGrades = new GradesFromGuestsView(User);
             GuestsGrades.Show();
         }
     }

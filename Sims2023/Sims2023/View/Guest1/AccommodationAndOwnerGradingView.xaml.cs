@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Sims2023.Application.Services;
 using Sims2023.Controller;
 using Sims2023.Domain.Models;
 using Sims2023.Model;
@@ -33,12 +34,12 @@ namespace Sims2023.View.Guest1
         private AccommodationGradeController _accommodationGradeController;
         public ObservableCollection<AccommodationGrade> AccommodationGrades { get; set; }
 
-        private AccommodationReservationController _accommodationReservationController;
+        private AccommodationReservationService _accommodationReservationController;
 
-        private AccommodationController _accommodationController;
+        private AccommodationService _accommodationController;
 
         public User User { get; set; }
-        public AccommodationAndOwnerGradingView(AccommodationReservation SelectedAccommodationReservationn, User guest1, AccommodationReservationController accommodationReservationController)
+        public AccommodationAndOwnerGradingView(AccommodationReservation SelectedAccommodationReservationn, User guest1, AccommodationReservationService accommodationReservationController)
         {
             InitializeComponent();
             DataContext = this;
@@ -50,7 +51,7 @@ namespace Sims2023.View.Guest1
             _accommodationGradeController = new AccommodationGradeController();
             AccommodationGrades = new ObservableCollection<AccommodationGrade>(_accommodationGradeController.GetAllAccommodationGrades());
 
-            _accommodationController = new AccommodationController();
+            _accommodationController = new AccommodationService();
 
             _addedPictures = new List<string>();
             SelectedAccommodationReservation = SelectedAccommodationReservationn;

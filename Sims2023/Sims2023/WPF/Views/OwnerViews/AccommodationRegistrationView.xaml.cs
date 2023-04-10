@@ -1,6 +1,5 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Controller;
-using Sims2023.Model;
 using System.Windows;
 using Sims2023.Domain.Models;
 
@@ -11,16 +10,15 @@ namespace Sims2023.View
     /// </summary>
     public partial class AccommodationRegistrationView : Window
     {
-        private AccommodationController _accommodationController;
+        private AccommodationService _accommodationController;
        
         private Accommodation Accommodation { get; set; }
-        private AccommodationLocation AccommodationLocation { get; set; }
         public User User { get; set; }
 
         private LocationService _locationService;
 
         string outputText;
-        public AccommodationRegistrationView(AccommodationController accommodationCtrl1, AccomodationLocationController accommodationLocationCtrll,User owner)
+        public AccommodationRegistrationView(AccommodationService accommodationCtrl1, AccomodationLocationController accommodationLocationCtrll,User owner)
         {
             InitializeComponent();
             DataContext = this;
@@ -29,10 +27,7 @@ namespace Sims2023.View
 
             _accommodationController = accommodationCtrl1;
 
-
             Accommodation = new Accommodation();
-
-            AccommodationLocation = new AccommodationLocation();
 
             _locationService = new LocationService();
         }
@@ -53,14 +48,13 @@ namespace Sims2023.View
             // making sure user enters integer
             int MaxGuests;
             bool isMaxGuestsValid = int.TryParse(MaxGuests1, out MaxGuests);
-
             if (!isMaxGuestsValid)
             {
                 MessageBox.Show("Morate unijeti cijeli broj za dane");
                 return;
             }
             MaxGuests = string.IsNullOrEmpty(MaxGuests1) ? -1 : int.Parse(MaxGuests1);
-           // same for minimum days
+           
             string mindays = textBox4.Text;
             int MinDays;
             bool isMaxGuestsValid1 = int.TryParse(mindays, out MinDays);
@@ -71,9 +65,7 @@ namespace Sims2023.View
                 return;
             }
             MinDays = string.IsNullOrEmpty(mindays) ? -1 : int.Parse(mindays);
-
-
-            // and of course for cancel days
+     
             string CancelDayss = textBox5.Text;
             int CancelDays;
             bool isMaxGuestsValid2 = int.TryParse(CancelDayss, out CancelDays);
@@ -88,6 +80,7 @@ namespace Sims2023.View
             _locationService.Create(Location);
 
             CancelDays = string.IsNullOrEmpty(CancelDayss) ? 1 : int.Parse(CancelDayss);
+            
             Accommodation = new Accommodation(Id, Name, Location, Type, MaxGuests, MinDays, CancelDays, outputText, User);
 
             if (Accommodation.IsVaild(Accommodation) == null)

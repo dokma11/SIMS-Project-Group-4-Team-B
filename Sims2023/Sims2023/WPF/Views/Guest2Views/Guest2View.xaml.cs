@@ -8,9 +8,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using Sims2023.WPF;
 
 
-namespace Sims2023.View
+namespace Sims2023.WPF.Views
 {
     /// <summary>
     /// Interaction logic for Guest2View.xaml
@@ -18,15 +19,21 @@ namespace Sims2023.View
     public partial class Guest2View : Window, IObserver
     {
 
-        private TourService _tourController;
+        private TourService _tourService;
 
-        private LocationService _locationController;
+        private LocationService _locationService;
 
         private TourReservationController _tourReservationController;
+
+        private VoucherService _voucherService;
+
+        private UserService _userService;
         public ObservableCollection<Tour> Tours { get; set; }
         public ObservableCollection<Location> Locations { get; set; }
         public Tour SelectedTour { get; set; }
         public Tour EditedTour { get; set; }
+
+        public User User { get; set; }
 
         public List<Tour> FilteredData = new List<Tour>();
 
@@ -42,24 +49,28 @@ namespace Sims2023.View
             InitializeComponent();
             DataContext = this;
 
-            _tourController = new TourService();
-            _tourController.Subscribe(this);
-            _locationController = new LocationService();
-            _locationController.Subscribe(this);
+            _tourService = new TourService();
+            _tourService.Subscribe(this);
+            _locationService = new LocationService();
+            _locationService.Subscribe(this);
             _tourReservationController = new TourReservationController();
             _tourReservationController.Subscribe(this);
+            _voucherService = new VoucherService();
+            _voucherService.Subscribe(this);
+            _userService = new UserService();
+            _userService.Subscribe(this);
 
-            Tours = new ObservableCollection<Tour>(_tourController.GetAll());
-            Locations = new ObservableCollection<Location>(_locationController.GetAll());
+            Tours = new ObservableCollection<Tour>(_tourService.GetAll());
+            Locations = new ObservableCollection<Location>(_locationService.GetAll());
 
             SelectedTour = new Tour();
             EditedTour = new Tour();
+            User = user;
             FilteredData = new List<Tour>();
 
             AddLocationsToTour(Locations, Tours);
 
-            //int toursMaxGuestNumber = Tours.Max(y => y.MaxGuestNumber);
-            // maxGuestNumberSearchBox.Maximum = toursMaxGuestNumber;
+           
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -198,8 +209,7 @@ namespace Sims2023.View
 
             if (IsNull(SelectedTour))
                 return;
-            if (IsEmpty(userIdBox))
-                return;
+            
 
             if (SelectedTour.AvailableSpace >= reservedSpace)
             {
@@ -207,11 +217,12 @@ namespace Sims2023.View
                 TourReservation tourReservation = new TourReservation();
 
                 tourReservation.TourId = SelectedTour.Id;
-                tourReservation.UserId = Convert.ToInt32(userIdBox.Text);
+                tourReservation.UserId = User.Id;
                 tourReservation.GuestNumber = reservedSpace;
                 _tourReservationController.Create(tourReservation);
                 UpdateTours(reservedSpace);
                 dataGridTours.ItemsSource = Tours;
+                checkVouchers(tourReservation,EditedTour);
             }
             else if (SelectedTour.AvailableSpace > 0)
             {
@@ -239,7 +250,7 @@ namespace Sims2023.View
 
 
 
-        private bool IsEmpty(TextBox textBox)
+        /*private bool IsEmpty(TextBox textBox)
         {
             int value;
             if (string.IsNullOrEmpty(textBox.Text))
@@ -254,7 +265,7 @@ namespace Sims2023.View
             }
 
             return false;
-        }
+        }*/
 
         private void UpdateTours(int reservedSpace)
         {
@@ -263,7 +274,7 @@ namespace Sims2023.View
                 if (EditedTour == tour)
                 {
                     EditedTour.AvailableSpace -= reservedSpace;
-                    _tourController.Edit(EditedTour, tour);
+                    _tourService.Edit(EditedTour, tour);
                     break;
                 }
             }
@@ -300,9 +311,28 @@ namespace Sims2023.View
         private void UpdateToursList()
         {
             Tours.Clear();
-            foreach (var tour in _tourController.GetAll())
+            foreach (var tour in _tourService.GetAll())
             {
                 Tours.Add(tour);
+            }
+        }
+
+        private void checkVouchers(TourReservation tourReservation,Tour tour)
+        {
+            int CountReservation = 0;
+         
+            foreach (var reservation in _tourReservationController.GetAllReservations())
+            {
+                if (tourReservation.UserId == reservation.UserId && tourReservation.ReservationTime.Year == reservation.ReservationTime.Year)
+                {
+                    CountReservation++;
+                }
+            }
+            if (CountReservation > 0 && CountReservation % 5 ==0)
+            {
+                    Voucher voucher= new Voucher(Voucher.VoucherType.FiveReservations, _userService.GetById(tourReservation.UserId), _tourService.GetById(tour.Id));
+                    _voucherService.Create(voucher);
+                    MessageBox.Show("Osvojili ste kupon");
             }
         }
 

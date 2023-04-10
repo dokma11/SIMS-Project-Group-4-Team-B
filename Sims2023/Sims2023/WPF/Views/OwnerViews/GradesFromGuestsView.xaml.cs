@@ -1,4 +1,6 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
 using System;
 using System.Collections.Generic;
@@ -23,23 +25,23 @@ namespace Sims2023.View
     public partial class GradesFromGuestsView : Window
     {
         public ObservableCollection<AccommodationGrade> people { get; set; }  
-        
+        public User owner { get; set; } 
         private AccommodationGradeController _accommodationGradeController;
 
-        private GuestGradeController _guestGradeController;
+        private GuestGradeService _guestGradeController;
 
         public AccommodationGrade SelectedPerson { get; set; }
 
-        public GradesFromGuestsView()
+        public GradesFromGuestsView(User user)
         {
             InitializeComponent();
             DataContext= this;
-
+            owner = user;
             _accommodationGradeController = new AccommodationGradeController();
 
-            _guestGradeController = new GuestGradeController();
+            _guestGradeController = new GuestGradeService();
             people = new ObservableCollection<AccommodationGrade>(_accommodationGradeController.
-                FindAllGuestsWhoGraded(_accommodationGradeController.GetAllAccommodationGrades(), _guestGradeController.GetAllGrades()));
+                FindAllGuestsWhoGraded(_accommodationGradeController.GetAllAccommodationGrades(), _guestGradeController.GetAllGrades(),owner));
         }
 
         private void Details_Click(object sender, RoutedEventArgs e)

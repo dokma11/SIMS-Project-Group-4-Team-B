@@ -5,6 +5,7 @@ using Sims2023.Model;
 using Sims2023.Observer;
 using Sims2023.View;
 using Sims2023.WPF.ViewModels;
+using Sims2023.WPF.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
