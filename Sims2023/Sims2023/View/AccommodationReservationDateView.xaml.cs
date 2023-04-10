@@ -25,18 +25,15 @@ namespace Sims2023.View
         public Accommodation SelectedAccommodation { get; set; }
         public AccommodationStay SelectedAccommodationStay { get; set; }
 
-        public User User { get; set; }
-
         int daysNumber;
-        public AccommodationReservationDateView(Accommodation selectedAccommodationS,List<AccommodationStay> stayss, int daysNUmber, User guest1)
+        public AccommodationReservationDateView(Accommodation selectedAccommodationS,List<AccommodationStay> stays, int daysNUmber)
         {
             InitializeComponent();
             DataContext = this;
 
-            User = guest1;
             daysNumber=daysNUmber;
 
-            stays = stayss;
+            stays = stays;
             SelectedAccommodation = selectedAccommodationS;
             availableDatesGrid.ItemsSource = stays;
 
@@ -55,7 +52,7 @@ namespace Sims2023.View
                 MessageBox.Show("MDoslo je do greske.");
                 return;
             }
-            AccommodationReservationConfirmationView accommodationReservationConfirmationView = new AccommodationReservationConfirmationView(SelectedAccommodation,SelectedAccommodationStay,daysNumber,User);
+            AccommodationReservationConfirmationView accommodationReservationConfirmationView = new AccommodationReservationConfirmationView(SelectedAccommodation,SelectedAccommodationStay,daysNumber);
             accommodationReservationConfirmationView.Show();
         }
 

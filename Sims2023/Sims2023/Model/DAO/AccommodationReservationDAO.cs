@@ -23,11 +23,6 @@ namespace Sims2023.Model.DAO
             _observers = new List<IObserver>();
         }
 
-        public AccommodationReservation GetById(int id)
-        {
-            return _fileHandler.GetById(id);
-        }
-
         public int NextId()
         {
             if (_accommodationReservations.Count == 0) return 1;
@@ -44,16 +39,16 @@ namespace Sims2023.Model.DAO
 
 
         // function that gets name and surrname of each guest who has reservation
-        /*private void AddNameSurrnameToReservation(List<Guest> ListOfGuests, List<AccommodationReservation> reservatons)
+        private void AddNameSurrnameToReservation(List<Guest> ListOfGuests, List<AccommodationReservation> reservatons)
         {
             foreach (var reservation in reservatons)
             {
                 foreach (var guest in ListOfGuests)
                 {
-                    if (reservation.Guest.Id == guest.Id)
+                    if (reservation.GuestId == guest.Id)
                     {
                         reservation.Name = guest.Name;
-                        reservation.Surname = guest.Surrname;
+                        reservation.Surrname = guest.Surrname;
                     }
                 }
             }
@@ -68,12 +63,12 @@ namespace Sims2023.Model.DAO
                 {
                     if (reservation.Id == accommodation.Id)
                     {
-                        reservation.Accommodation.Name = accommodation.Name;
+                        reservation.AccommodationName = accommodation.Name;
 
                     }
                 }
             }
-        }  */
+        }
 
         // guests who are already graded should not appear in a list
         private void RemoveAlreadyGraded(List<AccommodationReservation> reservations, List<GuestGrade> grades)
@@ -83,7 +78,7 @@ namespace Sims2023.Model.DAO
                 var reservation = reservations[i];
                 foreach (var grade in grades)
                 {
-                    if (reservation.Guest.Id == grade.Guest.Id)
+                    if (reservation.GuestId == grade.GuestId)
                     {
                         reservations.RemoveAt(i);
 
@@ -116,11 +111,11 @@ namespace Sims2023.Model.DAO
         }
 
         // finds all guests who owner can grade
-        public List<AccommodationReservation> findGradableGuests(List<AccommodationReservation> reservatons, List<GuestGrade> grades)
+        public List<AccommodationReservation> findGradableGuests(List<Guest> ListOfGuests, List<Accommodation> _accommodations, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
 
-            //AddNameSurrnameToReservation(ListOfGuests, reservatons);
-         //   AddReservationName(reservatons, _accommodations);
+            AddNameSurrnameToReservation(ListOfGuests, reservatons);
+            AddReservationName(reservatons, _accommodations);
             RemoveAlreadyGraded(reservatons, grades);
             FindGuestsWhoRecentlyLeft(reservatons);
             return reservatons;
@@ -131,13 +126,18 @@ namespace Sims2023.Model.DAO
         public string UngradedGuestsNameAndSurrname(List<AccommodationReservation> ungradedGuests)
         {
             string string1 = "Imate neocijenjene goste: \n";
-
-            foreach (var guest in ungradedGuests)
-            {
-                string1 += guest.Guest.Name + guest.Guest.Surname + "\n";
-            }
-            return string1;
+        
+                foreach (var guest in ungradedGuests)
+                {
+                string1 += guest.Name + guest.Surrname + "\n";
+                }
+                return string1;
         }
+         
+
+
+
+
         public void Remove(AccommodationReservation reservation)
         {
             _accommodationReservations.Remove(reservation);

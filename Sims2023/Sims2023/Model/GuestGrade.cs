@@ -1,5 +1,4 @@
-﻿using Sims2023.Controller;
-using Sims2023.Serialization;
+﻿using Sims2023.Serialization;
 using System;
 using System.ComponentModel;
 
@@ -8,8 +7,8 @@ namespace Sims2023.Model
     public class GuestGrade : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public Accommodation Accommodation { get; set; }
-        public User Guest { get; set; }
+        public int AccommodationId { get; set; }
+        public int GuestId { get; set; }
 
         public int Cleanliness { get; set; }
         public int RespectRules { get; set; }
@@ -18,11 +17,11 @@ namespace Sims2023.Model
 
 
         public GuestGrade() { }
-        public GuestGrade(int id, Accommodation accommodation, User user, int clean, int respect, int communication, string comment)
+        public GuestGrade(int id, int acmId, int guestid, int clean, int respect, int communication, string comment)
         {
             Id = id;
-            Accommodation = accommodation;
-            Guest = user;
+            AccommodationId = acmId;
+            GuestId = guestid;
             Cleanliness = clean;
             RespectRules = respect;
             Communication = communication;
@@ -37,8 +36,8 @@ namespace Sims2023.Model
             string[] csvValues =
             { 
                 Id.ToString(),
-                Accommodation.Id.ToString(),
-                Guest.Id.ToString(),
+                AccommodationId.ToString(),
+                GuestId.ToString(),
                 Cleanliness.ToString(),
                 RespectRules.ToString(),
                 Communication.ToString(),
@@ -50,18 +49,8 @@ namespace Sims2023.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            Accommodation accommodation = new()
-            {
-                Id = Convert.ToInt32(values[1])
-            };
-            AccommodationController accommodationController = new();
-            Accommodation = accommodationController.GetById(accommodation.Id);
-            User guest = new()
-            {
-                Id = Convert.ToInt32(values[2])
-            };
-            UserController userController = new();
-            Guest = userController.GetById(guest.Id);
+            AccommodationId = Convert.ToInt32(values[1]);
+            GuestId = Convert.ToInt32(values[2]);
             Cleanliness = Convert.ToInt32(values[3]);
             RespectRules = Convert.ToInt32(values[4]);
             Communication = Convert.ToInt32(values[5]);

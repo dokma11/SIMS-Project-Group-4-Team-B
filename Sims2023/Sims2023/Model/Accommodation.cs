@@ -1,7 +1,4 @@
-﻿using Sims2023.Application.Services;
-using Sims2023.Controller;
-using Sims2023.Domain.Models;
-using Sims2023.Serialization;
+﻿using Sims2023.Serialization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,15 +13,17 @@ namespace Sims2023.Model
     {
         public int Id { get; set; }
         public string Name { get; set;  }
-        public User Owner { get; set; }
-        public Location Location { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+
+        public int LocationId { get; set; }
         public string Type { get; set; }
         public int MaxGuests { get; set; }
         public int MinDays { get; set; }
         public int CancelDays { get; set; }
         public List<string> Imageurls { get; set; }
 
-        public string ImageUrl { get; set; }
+        string ImageUrl { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -38,17 +37,16 @@ namespace Sims2023.Model
         {
             Imageurls = new List<string>();
         }
-        public Accommodation(int Id,string Name, Location Location, string Type, int MaxGuests, int MinDays, int CancelDays, string ImageUrl, User Owner)
+        public Accommodation(int Id,string Name,int LocationId, string Type, int MaxGuests, int MinDays, int CancelDays, string ImageUrls)
         {
             this.Id = Id;
             this.Name = Name;
-            this.Location = Location;
+            this.LocationId = LocationId;
             this.Type = Type;
             this.MaxGuests = MaxGuests;
             this.MinDays = MinDays;
             this.CancelDays = CancelDays;
-            this.Owner = Owner;
-            this.ImageUrl = ImageUrl;
+            ImageUrl = ImageUrls;
 
         }
 
@@ -59,12 +57,11 @@ namespace Sims2023.Model
             {
                 Id.ToString(),
                 Name,
-                Location.Id.ToString(),
+                LocationId.ToString(),
                 Type,
                 MaxGuests.ToString(),
                 MinDays.ToString(),
                 CancelDays.ToString(),
-                Owner.Id.ToString(),
                 ImageUrl
 
             };
@@ -75,23 +72,12 @@ namespace Sims2023.Model
         {
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
-            Location location = new()
-            {
-                Id = Convert.ToInt32(values[2])
-            };
-            LocationService locationService = new();
-            Location = locationService.GetById(location.Id);
+            LocationId = Convert.ToInt32(values[2]);
             Type = values[3];
             MaxGuests = Convert.ToInt32(values[4]);
             MinDays = Convert.ToInt32(values[5]);
             CancelDays = Convert.ToInt32(values[6]);
-            User owner = new()
-            {
-                Id = Convert.ToInt32(values[7])
-            };
-            UserController userController = new();
-            Owner = userController.GetById(owner.Id);
-            ImageUrl = values[8];
+            ImageUrl = values[7];
 
         }
 
@@ -100,12 +86,21 @@ namespace Sims2023.Model
             if (string.IsNullOrEmpty(a.Name) || string.IsNullOrEmpty(a.Type) || string.IsNullOrEmpty(ImageUrl))
                 return "morate popuniti sve podatke";
 
-            if (a.CancelDays == -1 || a.MaxGuests == -1 || a.MinDays == -1 || a.Location.Id == -1)
+            if (a.CancelDays == -1 || a.MaxGuests == -1 || a.MinDays == -1 || a.LocationId == -1)
             {
                 return "morate popuniti sve podatke";
             }
+
+          
+
+
             return null;
         }
+
+       
+
+
+
     }
 
  
