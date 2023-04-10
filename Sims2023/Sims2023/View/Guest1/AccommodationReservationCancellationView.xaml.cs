@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Sims2023.Controller;
 using Sims2023.Model;
 using Sims2023.Observer;
+using Sims2023.Domain.Models;
 
 namespace Sims2023.View.Guest1
 {
@@ -26,7 +27,6 @@ namespace Sims2023.View.Guest1
         public AccommodationReservation SelectedAccommodationReservation { get; set; }
 
         private AccommodationReservationController _accommodationReservationController;
-
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
 
         private AccommodationCancellationController _accommodationCancellationController;

@@ -53,5 +53,11 @@ namespace Sims2023.View
             var AccommodationReservationCancellationView = new AccommodationReservationCancellationView(User);
             AccommodationReservationCancellationView.Show();
         }
+
+        private void buttonReservationMove_Click(object sender, RoutedEventArgs e)
+        {
+            var AccommodationReservationReschedulingView = new AccommodationReservationReschedulingView(User);
+            AccommodationReservationReschedulingView.Show();
+        }
     }
 }

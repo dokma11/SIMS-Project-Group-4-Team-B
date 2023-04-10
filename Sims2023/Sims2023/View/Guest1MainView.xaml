@@ -15,5 +15,7 @@
              Width="302" Margin="580,89,0,0" Height="116" Click="buttonGrading_Click"/>
         <Button Content="Otkazivanje rezervacija smestaja"  FontSize="20" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Center"
              Width="301" Margin="59,0,0,0" Height="116" Click="AccommodationCancellation_Click"/>
+        <Button x:Name="buttonReservationMove" Content="Pomeranje rezervacije"  FontSize="20" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Width="302" Margin="580,0,0,0" Height="116" Click="buttonReservationMove_Click"/>
     </Grid>
 </Window>

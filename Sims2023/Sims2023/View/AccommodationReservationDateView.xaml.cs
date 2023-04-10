@@ -22,24 +22,25 @@ namespace Sims2023.View
     public partial class AccommodationReservationDateView : Window
     {
 
-        public List<AccommodationStay> stays = new List<AccommodationStay>();
+        public List<AccommodationStay> Stays = new List<AccommodationStay>();
         public Accommodation SelectedAccommodation { get; set; }
         public AccommodationStay SelectedAccommodationStay { get; set; }
-
         public User User { get; set; }
+        public int ReservationId { get; set; }
 
         int daysNumber;
-        public AccommodationReservationDateView(Accommodation selectedAccommodationS,List<AccommodationStay> stayss, int daysNUmber, User guest1)
+        public AccommodationReservationDateView(int reservationId,Accommodation selectedAccommodation,List<AccommodationStay> stays, int daysNUmber, User guest1)
         {
             InitializeComponent();
             DataContext = this;
 
             User = guest1;
             daysNumber=daysNUmber;
+            ReservationId = reservationId;
 
-            stays = stayss;
-            SelectedAccommodation = selectedAccommodationS;
-            availableDatesGrid.ItemsSource = stays;
+            Stays = stays;
+            SelectedAccommodation = selectedAccommodation;
+            availableDatesGrid.ItemsSource = Stays;
 
         }
 
@@ -53,10 +54,10 @@ namespace Sims2023.View
             }
             if (SelectedAccommodation == null)
             {
-                MessageBox.Show("MDoslo je do greske.");
+                MessageBox.Show("Doslo je do greske.");
                 return;
             }
-            AccommodationReservationConfirmationView accommodationReservationConfirmationView = new AccommodationReservationConfirmationView(SelectedAccommodation,SelectedAccommodationStay,daysNumber,User);
+            AccommodationReservationConfirmationView accommodationReservationConfirmationView = new AccommodationReservationConfirmationView(ReservationId,SelectedAccommodation,SelectedAccommodationStay,daysNumber,User);
             accommodationReservationConfirmationView.Show();
         }
 

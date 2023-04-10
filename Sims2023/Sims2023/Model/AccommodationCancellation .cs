@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Sims2023.Domain.Models;
+using Sims2023.Application.Services;
 
 namespace Sims2023.Model
 {
@@ -64,7 +66,7 @@ namespace Sims2023.Model
             {
                 Id = Convert.ToInt32(values[1])
             };
-            UserController userController = new();
+            UserService userController = new();
             Guest = userController.GetById(guest.Id);
             Accommodation accommodation = new()
             {

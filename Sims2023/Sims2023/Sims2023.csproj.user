@@ -22,6 +22,12 @@
     <Compile Update="View\AccommodationRegistrationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\Guest1\AccommodationReservationReschedulingView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Guest1\NewAccommodationReservationReschedulingRequest.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\OwnerView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -39,6 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\Guest1\AccommodationReservationCancellationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Guest1\AccommodationReservationReschedulingView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Guest1\NewAccommodationReservationReschedulingRequest.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Guest2View.xaml">

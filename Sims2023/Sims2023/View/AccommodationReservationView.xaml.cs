@@ -32,21 +32,22 @@ namespace Sims2023.View
 
         private AccommodationReservationController _accommodationReservationController;
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
-
         public User User { get; set; }
+        public int ReservationId { get; set; }
 
         public List<DateTime> AvailableDates = new List<DateTime>();
         public List<DateTime> AdditionalAvailableDates = new List<DateTime>();
         public List<AccommodationStay> Stays = new List<AccommodationStay>();
         bool todaysDay;
 
-        public AccommodationReservationView(Accommodation selectedAccommodationL, User guest1)
+        public AccommodationReservationView(int reservationId,Accommodation selectedAccommodation, User guest1)
         {
             InitializeComponent();
             DataContext = this;
 
             User = guest1;
-            SelectedAccommodation = selectedAccommodationL;
+            SelectedAccommodation = selectedAccommodation;
+            ReservationId = reservationId;
 
             _accommodationController = new AccommodationController();
             Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAllAccommodations()); 
@@ -54,9 +55,9 @@ namespace Sims2023.View
             _accommodationReservationController = new AccommodationReservationController();
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationController.GetAllReservations());
 
-            List<DateTime> AvailableDates = new List<DateTime>();
-            List<DateTime> AdditionalAvailableDates = new List<DateTime>();
-            List<AccommodationStay> Stays = new List<AccommodationStay>();
+            AvailableDates = new List<DateTime>();
+            AdditionalAvailableDates = new List<DateTime>();
+            Stays = new List<AccommodationStay>();
 
             startDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
             endDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
@@ -74,8 +75,6 @@ namespace Sims2023.View
             DateTime startDateSelected = startDatePicker.SelectedDate.Value;
             DateTime endDateSelected = endDatePicker.SelectedDate.Value;
             int stayLength = (int)numberOfDays.Value;
-            
-            int possibleDatesNumber = CheckDates(startDateSelected, endDateSelected, stayLength, AvailableDates);
 
             if (AvailableDates.Count > 0)
             {
@@ -106,7 +105,7 @@ namespace Sims2023.View
 
             }
 
-            AccommodationReservationDateView accommodationReservationConfirmationView = new AccommodationReservationDateView(SelectedAccommodation, Stays, stayLength, User);
+            AccommodationReservationDateView accommodationReservationConfirmationView = new AccommodationReservationDateView(ReservationId,SelectedAccommodation, Stays, stayLength, User);
             accommodationReservationConfirmationView.Show();
 
         }
