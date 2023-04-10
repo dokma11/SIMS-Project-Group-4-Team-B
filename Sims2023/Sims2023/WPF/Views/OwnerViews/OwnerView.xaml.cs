@@ -1,4 +1,5 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
 using Sims2023.Domain.Models;
 using Sims2023.Model;
 using System;
@@ -15,10 +16,10 @@ namespace Sims2023.View
     public partial class OwnerView : Window
     {
         private string outputText;
-        private AccommodationController _accommodationController;
+        private AccommodationService _accommodationController;
         private AccomodationLocationController _accommodationLocationController;
-        private AccommodationReservationController _accommodationReservationController;
-        private GuestGradeController _gradeController;
+        private AccommodationReservationService _accommodationReservationController;
+        private GuestGradeService _gradeController;
 
         private AccommodationCancellationController _accommodationCancellationController;
         public ObservableCollection<AccommodationCancellation> AccommodationCancellations { get; set; }
@@ -35,14 +36,14 @@ namespace Sims2023.View
 
             User = owner;
 
-            _accommodationController = new AccommodationController();
+            _accommodationController = new AccommodationService();
             _accommodationLocationController = new AccomodationLocationController();
 
             _accommodationCancellationController = new AccommodationCancellationController();
             AccommodationCancellations = new ObservableCollection<AccommodationCancellation>(_accommodationCancellationController.GetAllAccommodationCancellations());
 
-            _accommodationReservationController = new AccommodationReservationController();
-            _gradeController = new GuestGradeController();
+            _accommodationReservationController = new AccommodationReservationService();
+            _gradeController = new GuestGradeService();
 
             Reservatons = new List<AccommodationReservation>(_accommodationReservationController.GetAllReservations());
 

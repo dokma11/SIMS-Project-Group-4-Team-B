@@ -1,28 +1,24 @@
-﻿using Sims2023.Observer;
+﻿using Sims2023.Domain.Models;
+using Sims2023.Observer;
 using Sims2023.Repository;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sims2023.Model.DAO
+namespace Sims2023.Repositories
 {
-    class GuestGradeDAO : ISubject
+    class GuestGradeRepository : ISubject
     {
         private List<IObserver> _observers;
 
         private GuestGradeFileHandler _fileHandler;
         private List<GuestGrade> _grades;
 
-
-
-        public GuestGradeDAO()
+       public GuestGradeRepository()
         {
             _fileHandler = new GuestGradeFileHandler();
             _grades = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
-
-
-
         public int NextId()
         {
             if (_grades.Count == 0) return 1;
@@ -37,7 +33,7 @@ namespace Sims2023.Model.DAO
             NotifyObservers();
         }
 
-      
+
 
         public void Remove(GuestGrade grade)
         {

@@ -1,6 +1,5 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Controller;
-using Sims2023.Model;
 using System.Windows;
 using Sims2023.Domain.Models;
 
@@ -11,7 +10,7 @@ namespace Sims2023.View
     /// </summary>
     public partial class AccommodationRegistrationView : Window
     {
-        private AccommodationController _accommodationController;
+        private AccommodationService _accommodationController;
        
         private Accommodation Accommodation { get; set; }
         public User User { get; set; }
@@ -19,7 +18,7 @@ namespace Sims2023.View
         private LocationService _locationService;
 
         string outputText;
-        public AccommodationRegistrationView(AccommodationController accommodationCtrl1, AccomodationLocationController accommodationLocationCtrll,User owner)
+        public AccommodationRegistrationView(AccommodationService accommodationCtrl1, AccomodationLocationController accommodationLocationCtrll,User owner)
         {
             InitializeComponent();
             DataContext = this;

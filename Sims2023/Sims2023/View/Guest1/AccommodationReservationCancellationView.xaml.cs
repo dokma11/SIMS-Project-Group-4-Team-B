@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Sims2023.Application.Services;
 using Sims2023.Controller;
 using Sims2023.Domain.Models;
 using Sims2023.Model;
@@ -26,14 +27,14 @@ namespace Sims2023.View.Guest1
     {
         public AccommodationReservation SelectedAccommodationReservation { get; set; }
 
-        private AccommodationReservationController _accommodationReservationController;
+        private AccommodationReservationService _accommodationReservationController;
 
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
 
         private AccommodationCancellationController _accommodationCancellationController;
         public ObservableCollection<AccommodationCancellation> AccommodationCancellations { get; set; }
 
-        private AccommodationController _accommodationController;
+        private AccommodationService _accommodationController;
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public ObservableCollection<AccommodationGrade> AccommodationGrades { get; set; }
 
@@ -46,12 +47,12 @@ namespace Sims2023.View.Guest1
 
             User = guest1;
 
-            _accommodationReservationController = new AccommodationReservationController();
+            _accommodationReservationController = new AccommodationReservationService();
             _accommodationReservationController.Subscribe(this);
 
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationController.GetAllReservations());
 
-            _accommodationController = new AccommodationController();
+            _accommodationController = new AccommodationService();
             Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAllAccommodations());
 
             _accommodationCancellationController = new AccommodationCancellationController();

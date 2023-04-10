@@ -1,6 +1,5 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
-using Sims2023.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,7 +24,7 @@ namespace Sims2023.View
     public partial class AllGuestsView : Window
     {
         
-        private AccommodationReservationController _reservationController;
+        private AccommodationReservationService _reservationController;
         public ObservableCollection<AccommodationReservation> Reservatons { get; set; }
        
 
@@ -34,25 +33,25 @@ namespace Sims2023.View
         public List<Accommodation> Accommodations { get; set; }
         public List<AccommodationReservation> ReservationsList  { get; set; }
 
-        private AccommodationController _accommodationController;
+        private AccommodationService _accommodationController;
 
-        private GuestGradeController _gradeController;
+        private GuestGradeService _gradeController;
 
         public User user { get; set; }
 
-        public AllGuestsView(User use,AccommodationReservationController acml, List<AccommodationReservation> reserv)
+        public AllGuestsView(User use,AccommodationReservationService acml, List<AccommodationReservation> reserv)
         {
             InitializeComponent();
             DataContext= this;
             user = use;
-            _accommodationController = new AccommodationController();
+            _accommodationController = new AccommodationService();
             
             Accommodations = new List<Accommodation>(_accommodationController.GetAllAccommodations());
             
             _reservationController = acml;
             Reservatons2 = reserv;
           
-            _gradeController = new GuestGradeController();
+            _gradeController = new GuestGradeService();
             Reservatons = new ObservableCollection<AccommodationReservation>(_reservationController.GetGradableGuests(user,reserv, _gradeController.GetAllGrades()));
         }
         private void Grade_Click(object sender, EventArgs e)

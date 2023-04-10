@@ -1,5 +1,4 @@
 ﻿using Sims2023.Application.Services;
-using Sims2023.Controller;
 using Sims2023.Domain.Models;
 using Sims2023.Serialization;
 using System;
@@ -64,7 +63,7 @@ namespace Sims2023.Model
             {
                 Id = Convert.ToInt32(values[1])
             };
-            AccommodationController accommodationController = new();
+            AccommodationService accommodationController = new();
             Accommodation = accommodationController.GetById(accommodation.Id);
             User guest = new()
             {
