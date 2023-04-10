@@ -48,17 +48,21 @@ namespace Sims2023.Repositories
             for (int i = reservations.Count - 1; i >= 0; i--)
             {
                 var reservation = reservations[i];
-                foreach (var grade in grades)
+                if (isGuestAlreadyGraded(reservation, grades))
                 {
-                    if (reservation.Guest.Id == grade.Guest.Id)
-                    {
-                        reservations.RemoveAt(i);
-
-                    }
+                    reservations.RemoveAt(i);
                 }
             }
         }
-
+        private bool isGuestAlreadyGraded(AccommodationReservation reservation, List<GuestGrade> grades)
+        {
+            foreach (var grade in grades)
+            {
+                if (reservation.Guest.Id == grade.Guest.Id) return true;
+            }
+            return false;
+        }
+    
         // searching for the guests who left not more than 5 days ago
         private void FindGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons)
         {
