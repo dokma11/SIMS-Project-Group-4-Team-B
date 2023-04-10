@@ -13,17 +13,12 @@ namespace Sims2023.Repositories
         private GuestGradeFileHandler _fileHandler;
         private List<GuestGrade> _grades;
 
-
-
-        public GuestGradeRepository()
+       public GuestGradeRepository()
         {
             _fileHandler = new GuestGradeFileHandler();
             _grades = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
-
-
-
         public int NextId()
         {
             if (_grades.Count == 0) return 1;
