@@ -14,6 +14,8 @@ namespace Sims2023.Model
         public int TourId { get; set; }
         public int UserId { get; set; }
         public int GuestNumber { get; set; }
+
+        public DateTime ReservationTime { get; set; }
         public bool ShouldConfirmParticipation { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -23,13 +25,16 @@ namespace Sims2023.Model
         }
 
 
-        public TourReservation() { }
+        public TourReservation() {
+            ReservationTime= DateTime.Now;
+        }
         public TourReservation(int id, int tourId, int userId, int guestNumber)
         {
             Id = id;
             TourId = tourId;
             UserId = userId;
             GuestNumber = guestNumber;
+            ReservationTime = DateTime.Now;
             ShouldConfirmParticipation = false;
         }
 
@@ -42,6 +47,7 @@ namespace Sims2023.Model
                 TourId.ToString(),
                 UserId.ToString(),
                 GuestNumber.ToString(), 
+                ReservationTime.ToString(),
                 ShouldConfirmParticipation.ToString()
             };
             return csvValues;
@@ -53,7 +59,8 @@ namespace Sims2023.Model
             TourId = int.Parse(values[1]);
             UserId = int.Parse(values[2]);
             GuestNumber = int.Parse(values[3]);
-            ShouldConfirmParticipation = bool.Parse(values[4]);
+            ReservationTime = DateTime.Parse(values[4]);
+            ShouldConfirmParticipation = bool.Parse(values[5]);
         }
 
     }
