@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using Sims2023.WPF;
-
+using Sims2023.WPF.Views.Guest2Views;
 
 namespace Sims2023.WPF.Views
 {
@@ -51,12 +51,16 @@ namespace Sims2023.WPF.Views
 
             _tourService = new TourService();
             _tourService.Subscribe(this);
+
             _locationService = new LocationService();
             _locationService.Subscribe(this);
+
             _tourReservationController = new TourReservationController();
             _tourReservationController.Subscribe(this);
+
             _voucherService = new VoucherService();
             _voucherService.Subscribe(this);
+
             _userService = new UserService();
             _userService.Subscribe(this);
 
@@ -223,6 +227,8 @@ namespace Sims2023.WPF.Views
                 UpdateTours(reservedSpace);
                 dataGridTours.ItemsSource = Tours;
                 checkVouchers(tourReservation,EditedTour);
+                VoucherListView voucherListView = new VoucherListView(User);
+                voucherListView.Show();
             }
             else if (SelectedTour.AvailableSpace > 0)
             {
