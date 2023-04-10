@@ -1,4 +1,4 @@
-﻿using Sims2023.Model;
+﻿using Sims2023.Domain.Models;
 using Sims2023.Model.DAO;
 using Sims2023.Observer;
 using Sims2023.Repository;

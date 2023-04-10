@@ -1,12 +1,11 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Controller;
-using Sims2023.Domain.Models;
 using Sims2023.Serialization;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace Sims2023.Model
+namespace Sims2023.Domain.Models
 {
     public class AccommodationReservation : ISerializable, INotifyPropertyChanged
     {

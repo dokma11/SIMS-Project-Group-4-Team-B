@@ -1,11 +1,10 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Controller;
-using Sims2023.Domain.Models;
 using Sims2023.Serialization;
 using System;
 using System.ComponentModel;
 
-namespace Sims2023.Model
+namespace Sims2023.Domain.Models
 {
     public class GuestGrade : ISerializable, INotifyPropertyChanged
     {
@@ -37,7 +36,7 @@ namespace Sims2023.Model
         public string[] ToCSV()
         {
             string[] csvValues =
-            { 
+            {
                 Id.ToString(),
                 Accommodation.Id.ToString(),
                 Guest.Id.ToString(),

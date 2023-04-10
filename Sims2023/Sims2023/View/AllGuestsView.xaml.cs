@@ -1,6 +1,5 @@
 ﻿using Sims2023.Controller;
 using Sims2023.Domain.Models;
-using Sims2023.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
