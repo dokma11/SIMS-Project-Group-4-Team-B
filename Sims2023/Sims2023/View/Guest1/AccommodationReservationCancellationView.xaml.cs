@@ -12,11 +12,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Sims2023.Application.Services;
 using Sims2023.Controller;
-using Sims2023.Domain.Models;
 using Sims2023.Model;
 using Sims2023.Observer;
+using Sims2023.Domain.Models;
+using Sims2023.Application.Services;
 
 namespace Sims2023.View.Guest1
 {
@@ -27,14 +27,13 @@ namespace Sims2023.View.Guest1
     {
         public AccommodationReservation SelectedAccommodationReservation { get; set; }
 
-        private AccommodationReservationService _accommodationReservationController;
-
+        private AccommodationReservationService _accommodationReservationService;
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
 
         private AccommodationCancellationController _accommodationCancellationController;
         public ObservableCollection<AccommodationCancellation> AccommodationCancellations { get; set; }
 
-        private AccommodationService _accommodationController;
+        private AccommodationService _accommodationService;
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public ObservableCollection<AccommodationGrade> AccommodationGrades { get; set; }
 
@@ -47,13 +46,13 @@ namespace Sims2023.View.Guest1
 
             User = guest1;
 
-            _accommodationReservationController = new AccommodationReservationService();
-            _accommodationReservationController.Subscribe(this);
+            _accommodationReservationService = new AccommodationReservationService();
+            _accommodationReservationService.Subscribe(this);
 
-            AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationController.GetAllReservations());
+            AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationService.GetAllReservations());
 
-            _accommodationController = new AccommodationService();
-            Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAllAccommodations());
+            _accommodationService = new AccommodationService();
+            Accommodations = new ObservableCollection<Accommodation>(_accommodationService.GetAllAccommodations());
 
             _accommodationCancellationController = new AccommodationCancellationController();
             AccommodationCancellations = new ObservableCollection<AccommodationCancellation>(_accommodationCancellationController.GetAllAccommodationCancellations());
@@ -162,7 +161,7 @@ namespace Sims2023.View.Guest1
         private void RemoveAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
         {
             AccommodationReservations.Remove(selectedAccommodationReservation);
-            _accommodationReservationController.Delete(selectedAccommodationReservation);
+            _accommodationReservationService.Delete(selectedAccommodationReservation);
             Update();
         }
 
