@@ -11,7 +11,7 @@ using System.Windows.Controls;
 using Sims2023.WPF;
 
 
-namespace Sims2023.WPF.Views.Guest2Views
+namespace Sims2023.WPF.Views
 {
     /// <summary>
     /// Interaction logic for Guest2View.xaml

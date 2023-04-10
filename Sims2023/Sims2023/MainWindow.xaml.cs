@@ -5,6 +5,7 @@ using Sims2023.Model;
 using Sims2023.Observer;
 using Sims2023.View;
 using Sims2023.WPF.ViewModels;
+using Sims2023.WPF.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,7 +83,7 @@ namespace Sims2023
             }
             else if (user.UserType == User.Type.Guest2)
             {
-                WPF.Views.Guest2Views.Guest2View guest2View = new(user);
+                Guest2View guest2View = new(user);
                 guest2View.Show();
             }
             else if (user.UserType == User.Type.Owner)
