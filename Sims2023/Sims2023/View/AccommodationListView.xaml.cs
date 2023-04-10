@@ -51,6 +51,8 @@ namespace Sims2023.View
             _accommodationLocationController = new AccomodationLocationController();
             AccommodationLocations = new ObservableCollection<AccommodationLocation>(_accommodationLocationController.GetAllAccommodationLocations());
 
+            _accommodationController = new AccommodationController();
+
             _userController.MarkSuperOwner();
             _accommodationController = new AccommodationService();
             //   _accommodationController.Update();
