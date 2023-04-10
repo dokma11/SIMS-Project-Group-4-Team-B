@@ -45,6 +45,7 @@ namespace Sims2023.View
             _accommodationLocationController = new AccomodationLocationController();
             AccommodationLocations = new ObservableCollection<AccommodationLocation>(_accommodationLocationController.GetAllAccommodationLocations());
 
+
             _accommodationController = new AccommodationController();
             Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAllAccommodations());
             List<Accommodation> FilteredData = new List<Accommodation>();
