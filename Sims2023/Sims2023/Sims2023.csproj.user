@@ -80,5 +80,8 @@
     <Page Update="View\TourLocationsView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\GuidesViews\TourStatisticsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>
