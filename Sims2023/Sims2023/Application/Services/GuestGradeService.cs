@@ -1,17 +1,17 @@
 ﻿using Sims2023.Domain.Models;
-using Sims2023.Model.DAO;
 using Sims2023.Observer;
+using Sims2023.Repositories;
 using System.Collections.Generic;
 
-namespace Sims2023.Controller
+namespace Sims2023.Application.Services
 {
-    internal class GuestGradeController
+    internal class GuestGradeService
     {
-        private GuestGradeDAO _grade;
+        private GuestGradeRepository _grade;
 
-        public GuestGradeController()
+        public GuestGradeService()
         {
-            _grade = new GuestGradeDAO();
+            _grade = new GuestGradeRepository();
         }
 
         public List<GuestGrade> GetAllGrades()
@@ -53,20 +53,20 @@ namespace Sims2023.Controller
 
             if (!isCleanValid)
             {
-               
+
                 return false;
             }
 
 
             else if (!isRulesValid)
             {
-              
+
                 return false;
             }
 
             else if (!isCommunicationValid)
             {
-              
+
                 return false;
             }
 

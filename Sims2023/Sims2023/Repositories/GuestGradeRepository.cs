@@ -4,9 +4,9 @@ using Sims2023.Repository;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sims2023.Model.DAO
+namespace Sims2023.Repositories
 {
-    class GuestGradeDAO : ISubject
+    class GuestGradeRepository : ISubject
     {
         private List<IObserver> _observers;
 
@@ -15,7 +15,7 @@ namespace Sims2023.Model.DAO
 
 
 
-        public GuestGradeDAO()
+        public GuestGradeRepository()
         {
             _fileHandler = new GuestGradeFileHandler();
             _grades = _fileHandler.Load();
@@ -38,7 +38,7 @@ namespace Sims2023.Model.DAO
             NotifyObservers();
         }
 
-      
+
 
         public void Remove(GuestGrade grade)
         {

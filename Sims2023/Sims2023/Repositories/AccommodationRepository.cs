@@ -5,17 +5,17 @@ using Sims2023.Repository;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sims2023.DAO
+namespace Sims2023.Repositories
 {
-    class AccommodationDAO : ISubject
+    class AccommodationRepository : ISubject
     {
 
         private List<IObserver> _observers;
         private AccommodationFileHandler _fileHandler;
         private List<Accommodation> _accommodations;
-        
-     
-        public AccommodationDAO()
+
+
+        public AccommodationRepository()
         {
             _fileHandler = new AccommodationFileHandler();
             _accommodations = _fileHandler.Load();
@@ -59,7 +59,7 @@ namespace Sims2023.DAO
             _fileHandler.Save(_accommodations);
             NotifyObservers();
         }
-       public List<Accommodation> GetAll()
+        public List<Accommodation> GetAll()
         {
             return _accommodations;
         }

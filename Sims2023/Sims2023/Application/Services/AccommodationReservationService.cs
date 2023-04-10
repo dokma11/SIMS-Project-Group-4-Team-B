@@ -6,21 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sims2023.Domain.Models;
+using Sims2023.Repositories;
 
-namespace Sims2023.Controller
+namespace Sims2023.Application.Services
 {
-    public class AccommodationReservationController
+    public class AccommodationReservationService
     {
-        private AccommodationReservationDAO _accommodationReservation;
+        private AccommodationReservationRepository _accommodationReservation;
 
-        public AccommodationReservationController()
+        public AccommodationReservationService()
         {
-            _accommodationReservation = new AccommodationReservationDAO();
+            _accommodationReservation = new AccommodationReservationRepository();
         }
 
-        public List<AccommodationReservation> GetGradableGuests(User user,List<AccommodationReservation> reservatons, List<GuestGrade> grades)
+        public List<AccommodationReservation> GetGradableGuests(User user, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
-            return _accommodationReservation.findGradableGuests(user,reservatons, grades);
+            return _accommodationReservation.findGradableGuests(user, reservatons, grades);
         }
 
 

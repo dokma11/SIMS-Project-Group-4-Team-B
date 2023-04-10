@@ -7,16 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sims2023.Model.DAO
+namespace Sims2023.Repositories
 {
-    class AccommodationReservationDAO : ISubject
+    class AccommodationReservationRepository : ISubject
     {
         private List<IObserver> _observers;
 
         private AccommodationReservationFileHandler _fileHandler;
         private List<AccommodationReservation> _accommodationReservations;
 
-        public AccommodationReservationDAO()
+        public AccommodationReservationRepository()
         {
             _fileHandler = new AccommodationReservationFileHandler();
             _accommodationReservations = _fileHandler.Load();
@@ -60,25 +60,25 @@ namespace Sims2023.Model.DAO
         }
 
         // searching for the guests who left not more than 5 days ago
-       private void FindGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons)
+        private void FindGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons)
         {
             for (int i = reservatons.Count - 1; i >= 0; i--)
             {
-                
-                    DateTime lastDate = reservatons[i].StartDate.AddDays(reservatons[i].NumberOfDays);
 
-                    TimeSpan elapsed = DateTime.Now - lastDate;
-                    int totalDays = (int)elapsed.TotalDays;
+                DateTime lastDate = reservatons[i].StartDate.AddDays(reservatons[i].NumberOfDays);
 
-                    if (lastDate < DateTime.Now)
-                    {
-                        if (totalDays > 5)
-                            reservatons.RemoveAt(i);
-                    }
-                    else if (lastDate > DateTime.Now)
-                    {
+                TimeSpan elapsed = DateTime.Now - lastDate;
+                int totalDays = (int)elapsed.TotalDays;
+
+                if (lastDate < DateTime.Now)
+                {
+                    if (totalDays > 5)
                         reservatons.RemoveAt(i);
-                    }               
+                }
+                else if (lastDate > DateTime.Now)
+                {
+                    reservatons.RemoveAt(i);
+                }
             }
         }
 
@@ -89,9 +89,9 @@ namespace Sims2023.Model.DAO
 
 
         // finds all guests who owner can grade
-        public List<AccommodationReservation> findGradableGuests(User user,List<AccommodationReservation> reservatons, List<GuestGrade> grades)
+        public List<AccommodationReservation> findGradableGuests(User user, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
-            FindGuestsParticularOwner(reservatons, user);   
+            FindGuestsParticularOwner(reservatons, user);
             RemoveAlreadyGraded(reservatons, grades);
             FindGuestsWhoRecentlyLeft(reservatons);
             return reservatons;

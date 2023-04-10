@@ -1,4 +1,4 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace Sims2023.View
         private GuestGrade Grade { get; set; }
         private AccommodationReservation Guest { get; set; }
 
-        private GuestGradeController _gradeController;
+        private GuestGradeService _gradeController;
 
         public bool GradeEntered { get; set; }
          
@@ -35,7 +35,7 @@ namespace Sims2023.View
             DataContext = this;
             Grade = new GuestGrade();
             Guest = selectedGuest;
-            _gradeController = new GuestGradeController();
+            _gradeController = new GuestGradeService();
            
             GradeEntered = false;
          

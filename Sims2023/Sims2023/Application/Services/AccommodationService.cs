@@ -1,21 +1,21 @@
-﻿using Sims2023.DAO;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
 using Sims2023.Observer;
+using Sims2023.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sims2023.Controller
+namespace Sims2023.Application.Services
 {
-    public class AccommodationController
+    public class AccommodationService
     {
-        private AccommodationDAO _accomodation;
+        private AccommodationRepository _accomodation;
 
-        public AccommodationController()
+        public AccommodationService()
         {
-            _accomodation = new AccommodationDAO();
+            _accomodation = new AccommodationRepository();
         }
 
         public List<Accommodation> GetAllAccommodations()

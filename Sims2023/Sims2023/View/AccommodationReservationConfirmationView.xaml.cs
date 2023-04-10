@@ -1,4 +1,4 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.Model;
 using System.Windows;
@@ -15,7 +15,7 @@ namespace Sims2023.View
         public Accommodation SelectedAccommodation { get; set; }
         public AccommodationStay SelectedAccommodationStay { get; set; }
 
-        private AccommodationReservationController _accommodationReservationController;
+        private AccommodationReservationService _accommodationReservationController;
 
         int days;
         public AccommodationReservationConfirmationView(Accommodation selectedAccommodationS, AccommodationStay selectedAccommodationStayS, int daysNumber, User guest1)
@@ -28,7 +28,7 @@ namespace Sims2023.View
             SelectedAccommodationStay = selectedAccommodationStayS;
             days = daysNumber;
 
-            _accommodationReservationController = new AccommodationReservationController();
+            _accommodationReservationController = new AccommodationReservationService();
 
             accommodatioNameTextBox.Text = selectedAccommodationS.Name;
             accommodatioCityTextBox.Text = selectedAccommodationS.Location.City;

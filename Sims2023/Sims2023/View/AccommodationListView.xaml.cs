@@ -26,7 +26,7 @@ namespace Sims2023.View
 {
     public partial class AccommodationListView : Window
     {
-        private AccommodationController _accommodationController;
+        private AccommodationService _accommodationController;
         public ObservableCollection<Accommodation> Accommodations { get; set; }
 
         public UserService _userController;
@@ -52,7 +52,7 @@ namespace Sims2023.View
             AccommodationLocations = new ObservableCollection<AccommodationLocation>(_accommodationLocationController.GetAllAccommodationLocations());
 
             _userController.MarkSuperOwner();
-            _accommodationController = new AccommodationController();
+            _accommodationController = new AccommodationService();
             //   _accommodationController.Update();
             Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAllAccommodations());
             List<Accommodation> FilteredData = new List<Accommodation>();
