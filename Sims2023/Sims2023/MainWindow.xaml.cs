@@ -1,4 +1,8 @@
-﻿using Sims2023.View;
+﻿using Sims2023.Controller;
+using Sims2023.Model;
+using Sims2023.Observer;
+using Sims2023.View;
+using Sims2023.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,36 +23,81 @@ namespace Sims2023
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IObserver
     {
+        private string _username;
+        private string _password;
+        private UserController _userController;
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
+
+            _userController = new UserController();
+            _userController.Subscribe(this);
         }
 
-        private void Owner_Click(object sender, RoutedEventArgs e)
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-             var newWindow = new OwnerView();
-             newWindow.Show();
+            if (!String.IsNullOrEmpty(UsernameTextBox.Text) && !String.IsNullOrEmpty(PasswordBox.Password))
+            {
+                _username = UsernameTextBox.Text;
+                _password = PasswordBox.Password;
+                GetUser(_username, _password);
+            }
+            else
+            {
+                MessageBox.Show("Molimo Vas da popunite sva polja");
+            }
         }
 
-        private void Guest1_Click(object sender, RoutedEventArgs e)
+        private void GetUser(String username, String password)
         {
-            var Guest1MainView = new Guest1MainView();
-            Guest1MainView.Show();
+            bool loggedIn = false;
+            foreach (var user in _userController.GetAllUsers())
+            {
+                if (user.Username == username && user.Password == password)
+                {
+                    OpenUserView(user);
+                    loggedIn = true;
+                    Close();
+                }
+            }
+            if (!loggedIn)
+            {
+                MessageBox.Show("Data kombinacija ne postoji");
+                UsernameTextBox.Text = "";
+                PasswordBox.Password = "";
+            }
         }
 
-        private void Guide_Click(object sender, RoutedEventArgs e)
+        private void OpenUserView(User user)
         {
-            GuideView guideView = new GuideView();
-            guideView.Show();
+            if (user.UserType == User.Type.Guest1)
+            {
+                Guest1MainView guest1MainView = new(user);
+                guest1MainView.Show();
+            }
+            else if (user.UserType == User.Type.Guest2)
+            {
+                Guest2View guest2View = new(user);
+                guest2View.Show();
+            }
+            else if (user.UserType == User.Type.Owner)
+            {
+                OwnerView ownerView = new(user);
+                ownerView.Show();
+            }
+            else if (user.UserType == User.Type.Guide)
+            {
+                GuideViewModel guideView = new(user);
+                guideView.Show();
+            }
         }
 
-        private void Guest2_Click(object sender, RoutedEventArgs e)
+        public void Update()
         {
-            Guest2View guest2View= new Guest2View();
-            guest2View.Show();
+            throw new NotImplementedException();
         }
     }
 }

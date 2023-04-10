@@ -23,9 +23,6 @@ namespace Sims2023.Controller
             return _accomodation.GetAll();
         }
 
-
-       
-
         public void Create(Accommodation accommodation)
         {
             _accomodation.Add(accommodation);
@@ -45,7 +42,10 @@ namespace Sims2023.Controller
         {
             _accomodation.Subscribe(observer);
         }
-
+        public Accommodation GetById(int id)
+        {
+            return _accomodation.GetById(id);
+        }
 
     }
 }

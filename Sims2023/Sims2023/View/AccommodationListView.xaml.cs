@@ -29,18 +29,19 @@ namespace Sims2023.View
 
         public Accommodation SelectedAccommodation { get; set; }
 
+        public User User { get; set; }
 
         private AccomodationLocationController _accommodationLocationController;
         public ObservableCollection<AccommodationLocation> AccommodationLocations { get; set; }
 
         public List<Accommodation> FilteredData = new List<Accommodation>();
 
-
-        public AccommodationListView()
+        public AccommodationListView(User guest1)
         {
             InitializeComponent();
             DataContext = this;
 
+            User = guest1;
             _accommodationLocationController = new AccomodationLocationController();
             AccommodationLocations = new ObservableCollection<AccommodationLocation>(_accommodationLocationController.GetAllAccommodationLocations());
 
@@ -49,23 +50,23 @@ namespace Sims2023.View
             List<Accommodation> FilteredData = new List<Accommodation>();
 
 
-            AddLocationToAccommodation(AccommodationLocations, Accommodations);
+            //AddLocationToAccommodation(AccommodationLocations, Accommodations);
         }
 
-        private void AddLocationToAccommodation(ObservableCollection<AccommodationLocation> accommodationLocations, ObservableCollection<Accommodation> accommodations)
+        /*private void AddLocationToAccommodation(ObservableCollection<AccommodationLocation> accommodationLocations, ObservableCollection<Accommodation> accommodations)
         {
             foreach(var accommodation in accommodations)
             {
                 foreach(var location in accommodationLocations)
                 {
-                    if(accommodation.LocationId==location.Id)
+                    if(accommodation.Location.Id==location.Id)
                     {
                         accommodation.City = location.City;
                         accommodation.Country = location.Country;
                     }
                 }
             }
-        }
+        }*/
 
         private void SearchAccommodation_Click(object sender, RoutedEventArgs e)
         {
@@ -105,14 +106,14 @@ namespace Sims2023.View
 
                 if (!string.IsNullOrEmpty(citySearchTerm))
                 {
-                    if (!accommodation.City.ToLower().Contains(citySearchTerm.ToLower()))
+                    if (!accommodation.Location.City.ToLower().Contains(citySearchTerm.ToLower()))
                     {
                         cityCondition = false;
                     }
                 }
                 if (!string.IsNullOrEmpty(countrySearchTerm))
                 {
-                    if (!accommodation.Country.ToLower().Contains(countrySearchTerm.ToLower()))
+                    if (!accommodation.Location.Country.ToLower().Contains(countrySearchTerm.ToLower()))
                     {
                         countryCondition = false;
                     }
@@ -156,18 +157,24 @@ namespace Sims2023.View
         private void ButtonReservation_Click(object sender, RoutedEventArgs e)
         {
             SelectedAccommodation = (Accommodation)myDataGrid.SelectedItem;
+            
             if (SelectedAccommodation == null)
             {
                 MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da rezervisete.");
                 return;
             }
-            AccommodationReservationView accommodationReservationView = new AccommodationReservationView(SelectedAccommodation);
+            AccommodationReservationView accommodationReservationView = new AccommodationReservationView(SelectedAccommodation,User);
             accommodationReservationView.Show();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void myDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
