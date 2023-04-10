@@ -1,20 +1,19 @@
-﻿using Sims2023.Serialization;
+﻿using Sims2023.Application.Services;
+using Sims2023.Domain.Models;
+using Sims2023.Serialization;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Model
 {
     public class TourReservation : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public int TourId { get; set; }
-        public int UserId { get; set; }
+        public Tour Tour { get; set; }
+        public User User { get; set; }
         public int GuestNumber { get; set; }
         public bool ShouldConfirmParticipation { get; set; }
+        public bool UsedVoucher { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
@@ -24,13 +23,14 @@ namespace Sims2023.Model
 
 
         public TourReservation() { }
-        public TourReservation(int id, int tourId, int userId, int guestNumber)
+        public TourReservation(int id, Tour tour, User user, int guestNumber, bool shouldConfirmParticipation, bool usedVoucher)
         {
             Id = id;
-            TourId = tourId;
-            UserId = userId;
+            Tour = tour;
+            User = user;
             GuestNumber = guestNumber;
-            ShouldConfirmParticipation = false;
+            ShouldConfirmParticipation = shouldConfirmParticipation;
+            UsedVoucher = usedVoucher;
         }
 
 
@@ -39,10 +39,11 @@ namespace Sims2023.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                TourId.ToString(),
-                UserId.ToString(),
-                GuestNumber.ToString(), 
-                ShouldConfirmParticipation.ToString()
+                Tour.Id.ToString(),
+                User.Id.ToString(),
+                GuestNumber.ToString(),
+                ShouldConfirmParticipation.ToString(),
+                UsedVoucher.ToString()
             };
             return csvValues;
         }
@@ -50,10 +51,13 @@ namespace Sims2023.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            TourId = int.Parse(values[1]);
-            UserId = int.Parse(values[2]);
+            TourService tourService = new();
+            Tour = tourService.GetById(Convert.ToInt32(values[1]));
+            UserService userService = new();
+            User = userService.GetById(Convert.ToInt32(values[2]));
             GuestNumber = int.Parse(values[3]);
             ShouldConfirmParticipation = bool.Parse(values[4]);
+            UsedVoucher = bool.Parse(values[5]);
         }
 
     }

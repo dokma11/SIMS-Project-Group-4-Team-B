@@ -206,9 +206,9 @@ namespace Sims2023.View
                 EditedTour = SelectedTour;
                 TourReservation tourReservation = new TourReservation();
 
-                tourReservation.TourId = SelectedTour.Id;
-                tourReservation.UserId = Convert.ToInt32(userIdBox.Text);
-                tourReservation.GuestNumber = reservedSpace;
+                tourReservation.Tour.Id = SelectedTour.Id;
+                tourReservation.Tour.Id = Convert.ToInt32(userIdBox.Text);
+                tourReservation.Tour.Id = reservedSpace;
                 _tourReservationController.Create(tourReservation);
                 UpdateTours(reservedSpace);
                 dataGridTours.ItemsSource = Tours;

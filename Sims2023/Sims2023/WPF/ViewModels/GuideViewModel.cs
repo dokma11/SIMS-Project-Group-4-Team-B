@@ -116,9 +116,9 @@ namespace Sims2023.WPF.ViewModels
             string additionalComment = Microsoft.VisualBasic.Interaction.InputBox("Unesite razlog:", "Input String");
             foreach (var reservation in _tourReservationService.GetAllReservations())
             {
-                if (reservation.TourId == toursId)
+                if (reservation.Tour.Id == toursId)
                 {
-                    Voucher voucher = new(0, _userService.GetById(reservation.UserId), _tourService.GetById(toursId), DateTime.Now, DateTime.Today.AddYears(1), additionalComment, false);
+                    Voucher voucher = new(0, _userService.GetById(reservation.Tour.Id), _tourService.GetById(toursId), DateTime.Now, DateTime.Today.AddYears(1), additionalComment, false);
                     _voucherService.Create(voucher);
                 }
             }
@@ -154,6 +154,12 @@ namespace Sims2023.WPF.ViewModels
         {
             GuestReviewsViewModel guestReviewsViewModel = new(_tourService, _tourReviewService, _keyPointService);
             guestReviewsViewModel.Show();
+        }
+
+        private void StatisticsButton_Click(object sender, RoutedEventArgs e)
+        {
+            TourStatisticsViewModel tourStatisticsViewModel = new(LoggedInGuide, _tourService, _tourReservationService);
+            tourStatisticsViewModel.Show();
         }
 
         public void Update()
