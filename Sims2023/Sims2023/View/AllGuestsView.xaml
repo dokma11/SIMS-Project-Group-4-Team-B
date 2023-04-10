@@ -8,14 +8,14 @@
         Title="AllGuestsView" Height="450" Width="800">
     <Grid>
         <DataGrid x:Name="myDataGrid"
-                  ItemsSource="{Binding Path=Reservatons, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path=SelectedGuest, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Path=reservatons, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=selectedGuest, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="121,45,354,90"
                   Grid.Row="0" Grid.Column="0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Ime" Binding="{Binding Guest.Name}" Width="70"></DataGridTextColumn>
-                <DataGridTextColumn Header="Prezime" Binding="{Binding Guest.Surname}" Width="80"></DataGridTextColumn>
-                <DataGridTextColumn Header="Boravak" Binding="{Binding Accommodation.Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ime" Binding="{Binding Name}" Width="70"></DataGridTextColumn>
+                <DataGridTextColumn Header="Prezime" Binding="{Binding Surrname}" Width="80"></DataGridTextColumn>
+                <DataGridTextColumn Header="Boravak" Binding="{Binding AccommodationName}" Width="*"></DataGridTextColumn>
 
 
             </DataGrid.Columns>

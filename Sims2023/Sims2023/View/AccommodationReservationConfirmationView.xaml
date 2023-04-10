@@ -50,18 +50,13 @@
                 <RowDefinition Height="92*"/>
                 <RowDefinition Height="195*"/>
             </Grid.RowDefinitions>
-            <ListView x:Name="PicturesListView"  Margin="50,50,50,50" ScrollViewer.VerticalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
+            <ItemsControl Grid.Row="0" ItemsSource="{Binding selectedAccommodation.imageurls}" KeyboardNavigation.DirectionalNavigation="Cycle" Margin="30,30,30,30">
+                <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Image Source="{Binding}" Width="341" Height="190"/>
+                        <Image Source="{Binding}" Stretch="Uniform"/>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
             <Label x:Name="reservationConfirmation" Content="Potvrdi rezervaciju:" FontSize="25" Margin="90,33,90,0" Grid.Row="1"/>
             <Button x:Name="reservationButton" Content="Rezervisi" FontSize="25" Margin="90,14,90,97" Grid.Row="2" Click="ReservationButton_Click"/>
             <Button x:Name="buttonDateCancelation" Content="Odustani" HorizontalAlignment="Left" Height="30" Margin="258,131,0,0" FontSize="15" Grid.Row="2" VerticalAlignment="Top" Width="162" Click="ButtonDateCancelation_Click"/>

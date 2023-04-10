@@ -58,12 +58,12 @@
                   ItemsSource="{Binding Path=Accommodations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="25,96,25,34"
-                  Grid.Row="0" Grid.Column="0" SelectionChanged="myDataGrid_SelectionChanged">
+                  Grid.Row="0" Grid.Column="0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ime" Binding="{Binding Name}" Width="70"></DataGridTextColumn>
                 <DataGridTextColumn Header="Tip" Binding="{Binding Type}" Width="70"></DataGridTextColumn>
-                <DataGridTextColumn Header="Grad" Binding="{Binding Location.City}" Width="70"></DataGridTextColumn>
-                <DataGridTextColumn Header="Drzava" Binding="{Binding Location.Country}" Width="70"></DataGridTextColumn>
+                <DataGridTextColumn Header="Grad" Binding="{Binding City}" Width="70"></DataGridTextColumn>
+                <DataGridTextColumn Header="Drzava" Binding="{Binding Country}" Width="70"></DataGridTextColumn>
                 <DataGridTextColumn Header="Maksimalan broj gostiju" Binding="{Binding MaxGuests}" Width="170"></DataGridTextColumn>
                 <DataGridTextColumn Header="Minimalni broj dana za rezervaciju" Binding="{Binding MinDays}" Width="210"></DataGridTextColumn>
             </DataGrid.Columns>

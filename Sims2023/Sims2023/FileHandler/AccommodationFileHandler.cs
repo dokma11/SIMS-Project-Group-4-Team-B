@@ -14,13 +14,7 @@ namespace Sims2023.Repository
         private const string StoragePath = "../../../Resources/Data/accommodations.csv";
 
         private Serializer<Accommodation> _serializer;
-        private List<Accommodation> _accommodations;
 
-        public Accommodation GetById(int id)
-        {
-            _accommodations = _serializer.FromCSV(StoragePath);
-            return _accommodations.FirstOrDefault(u => u.Id == id);
-        }
 
         public AccommodationFileHandler()
         {

@@ -11,9 +11,5 @@
         <Button Content="Prikaz i pretraga smestaja"  FontSize="20" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top"
                     Click="VewAccommodation_Click" Width="301" Margin="59,89,0,0" Height="116"/>
         <Button x:Name="buttonLogOut" Content="Log out" HorizontalAlignment="Left" FontSize="20" Height="44" Margin="800,500,0,0" VerticalAlignment="Top" Width="131" Click="ButtonLogOut_Click"/>
-        <Button x:Name="buttonGrading" Content="Ocenjivanje smestaja i vlasnika"  FontSize="20" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top"
-             Width="302" Margin="580,89,0,0" Height="116" Click="buttonGrading_Click"/>
-        <Button Content="Otkazivanje rezervacija smestaja"  FontSize="20" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Center"
-             Width="301" Margin="59,0,0,0" Height="116" Click="AccommodationCancellation_Click"/>
     </Grid>
 </Window>
