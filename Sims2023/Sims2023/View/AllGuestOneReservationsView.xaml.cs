@@ -13,7 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Sims2023.Application.Services;
 using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
 using Sims2023.Observer;
 using Sims2023.View.Guest1;
@@ -27,10 +29,10 @@ namespace Sims2023.View
     {
         public AccommodationReservation SelectedAccommodationReservation { get; set; }
 
-        private AccommodationReservationController _accommodationReservationController;
+        private AccommodationReservationService _accommodationReservationController;
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
 
-        private AccommodationController _accommodationController;
+        private AccommodationService _accommodationController;
         public ObservableCollection<Accommodation> Accommodations { get; set; }
 
         private AccomodationLocationController _accommodationLocationController;
@@ -38,7 +40,6 @@ namespace Sims2023.View
         public ObservableCollection<AccommodationGrade> AccommodationGrades { get; set; }
 
         List<AccommodationReservation> FilteredData=new List<AccommodationReservation>();   
-
         public User User { get; set; }
 
         public AllGuestOneReservationsView(User guest1)
@@ -48,12 +49,12 @@ namespace Sims2023.View
 
             User = guest1;
 
-            _accommodationReservationController = new AccommodationReservationController();
+            _accommodationReservationController = new AccommodationReservationService();
             _accommodationReservationController.Subscribe(this);
 
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationController.GetAllReservations());
 
-            _accommodationController = new AccommodationController();
+            _accommodationController = new AccommodationService();
             Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAllAccommodations());
 
             _accommodationLocationController = new AccomodationLocationController();

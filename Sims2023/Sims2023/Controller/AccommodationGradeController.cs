@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sims2023.Domain.Models;
 
 namespace Sims2023.Controller
 {
@@ -23,6 +24,11 @@ namespace Sims2023.Controller
             return _accommodationGrade.GetAll();
         }
 
+        public List<AccommodationGrade> FindAllGuestsWhoGraded(List<AccommodationGrade> grades, List<GuestGrade> gradedGuests,User user)
+        {
+            return _accommodationGrade.GetAllGuestsWhoGraded(grades, gradedGuests,user);
+        }
+
         public void Create(AccommodationGrade accommodationGrade)
         {
             _accommodationGrade.Add(accommodationGrade);
@@ -37,6 +43,5 @@ namespace Sims2023.Controller
         {
             _accommodationGrade.Subscribe(observer);
         }
-
     }
 }

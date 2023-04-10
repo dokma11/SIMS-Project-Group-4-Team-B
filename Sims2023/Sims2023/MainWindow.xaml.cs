@@ -1,7 +1,10 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
 using Sims2023.Observer;
 using Sims2023.View;
+using Sims2023.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,14 +29,14 @@ namespace Sims2023
     {
         private string _username;
         private string _password;
-        private UserController _userController;
+        private UserService _userService;
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
 
-            _userController = new UserController();
-            _userController.Subscribe(this);
+            _userService = new UserService();
+            _userService.Subscribe(this);
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -53,7 +56,7 @@ namespace Sims2023
         private void GetUser(String username, String password)
         {
             bool loggedIn = false;
-            foreach (var user in _userController.GetAllUsers())
+            foreach (var user in _userService.GetAllUsers())
             {
                 if (user.Username == username && user.Password == password)
                 {
@@ -89,7 +92,7 @@ namespace Sims2023
             }
             else if (user.UserType == User.Type.Guide)
             {
-                GuideView guideView = new(user);
+                GuideViewModel guideView = new(user);
                 guideView.Show();
             }
         }

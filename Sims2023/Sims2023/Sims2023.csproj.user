@@ -7,25 +7,22 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="View\AllGuestsView.xaml.cs">
+    <Compile Update="WPF\Views\OwnerViews\AllGuestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\CreateTourView.xaml.cs">
+    <Compile Update="WPF\Views\OwnerViews\DetailedGradeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\Guest1GradeView.xaml.cs">
+    <Compile Update="WPF\Views\OwnerViews\GradesFromGuestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\GuestReviewsView.xaml.cs">
+    <Compile Update="View\Guest1\AccommodationReservationCancellationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\GuideView.xaml.cs">
+    <Compile Update="WPF\Views\OwnerViews\AccommodationRegistrationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\AccommodationRegistrationView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\OwnerView.xaml.cs">
+    <Compile Update="WPF\Views\OwnerViews\OwnerView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -41,6 +38,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="View\Guest1\AccommodationReservationCancellationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Guest2View.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -50,27 +50,25 @@
     <Page Update="View\AccommodationListView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\AllGuestsView.xaml">
+    <Page Update="WPF\Views\OwnerViews\AllGuestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\CreateTourView.xaml">
+    <Page Update="WPF\Views\GuidesViews\CreateTourView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\Guest1GradeView.xaml">
+    <Page Update="WPF\Views\OwnerViews\Guest1GradeView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Guest1MainView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\GuestReviewsView.xaml">
+    <Page Update="WPF\Views\GuidesViews\GuestReviewsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\GuideView.xaml">
-    </Page>
-    <Page Update="View\AccommodationRegistrationView.xaml">
+    <Page Update="WPF\Views\OwnerViews\AccommodationRegistrationView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\OwnerView.xaml">
+    <Page Update="WPF\Views\OwnerViews\OwnerView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\SearchToursView.xaml">

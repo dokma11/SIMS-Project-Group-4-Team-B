@@ -1,4 +1,5 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
 using System;
 using System.Collections.Generic;
@@ -24,12 +25,12 @@ namespace Sims2023.View
     /// </summary>
     public partial class AccommodationReservationView : Window
     {
-        private AccommodationController _accommodationController;
+        private AccommodationService _accommodationController;
         public ObservableCollection<Accommodation> Accommodations { get; set; }
 
         public Accommodation SelectedAccommodation { get; set; }
 
-        private AccommodationReservationController _accommodationReservationController;
+        private AccommodationReservationService _accommodationReservationController;
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
 
         public User User { get; set; }
@@ -39,7 +40,7 @@ namespace Sims2023.View
         public List<AccommodationStay> Stays = new List<AccommodationStay>();
         bool todaysDay;
 
-        public AccommodationReservationView(Accommodation selectedAccommodationL,User guest1)
+        public AccommodationReservationView(Accommodation selectedAccommodationL, User guest1)
         {
             InitializeComponent();
             DataContext = this;
@@ -47,10 +48,10 @@ namespace Sims2023.View
             User = guest1;
             SelectedAccommodation = selectedAccommodationL;
 
-            _accommodationController = new AccommodationController();
+            _accommodationController = new AccommodationService();
             Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAllAccommodations()); 
 
-            _accommodationReservationController = new AccommodationReservationController();
+            _accommodationReservationController = new AccommodationReservationService();
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationController.GetAllReservations());
 
             List<DateTime> AvailableDates = new List<DateTime>();

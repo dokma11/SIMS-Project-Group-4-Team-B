@@ -1,5 +1,7 @@
 ﻿using Microsoft.Win32;
+using Sims2023.Application.Services;
 using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
 using Sims2023.Observer;
 using System;
@@ -32,12 +34,12 @@ namespace Sims2023.View.Guest1
         private AccommodationGradeController _accommodationGradeController;
         public ObservableCollection<AccommodationGrade> AccommodationGrades { get; set; }
 
-        private AccommodationReservationController _accommodationReservationController;
+        private AccommodationReservationService _accommodationReservationController;
 
-        private AccommodationController _accommodationController;
+        private AccommodationService _accommodationController;
 
         public User User { get; set; }
-        public AccommodationAndOwnerGradingView(AccommodationReservation SelectedAccommodationReservationn, User guest1, AccommodationReservationController accommodationReservationController)
+        public AccommodationAndOwnerGradingView(AccommodationReservation SelectedAccommodationReservationn, User guest1, AccommodationReservationService accommodationReservationController)
         {
             InitializeComponent();
             DataContext = this;
@@ -49,11 +51,10 @@ namespace Sims2023.View.Guest1
             _accommodationGradeController = new AccommodationGradeController();
             AccommodationGrades = new ObservableCollection<AccommodationGrade>(_accommodationGradeController.GetAllAccommodationGrades());
 
-            _accommodationController = new AccommodationController();
+            _accommodationController = new AccommodationService();
 
             _addedPictures = new List<string>();
             SelectedAccommodationReservation = SelectedAccommodationReservationn;
-           // PicturesListView.ItemsSource = _addedPictures;
 
         }
 
@@ -78,17 +79,17 @@ namespace Sims2023.View.Guest1
             {
                 _accommodationGradeController.Create(accommodationGrade);
                 UpdateAccommodationReservation(selectedAccommodationReservation);
-                UpdateDefaultStyleAccommodationImages(SelectedAccommodationReservation, _addedPictures);
+                UpdateAccommodationImages(SelectedAccommodationReservation, _addedPictures);
                 MessageBox.Show("Uspesno ste ocenili ovaj smestaj.");
             }
 
         }
 
-        private void UpdateDefaultStyleAccommodationImages(AccommodationReservation selectedAccommodationReservation, List<string> addedPictures)
+        private void UpdateAccommodationImages(AccommodationReservation selectedAccommodationReservation, List<string> addedPictures)
         {
             foreach(var image in addedPictures)
             {
-                SelectedAccommodationReservation.Accommodation.Imageurls.Add(image);
+                selectedAccommodationReservation.Accommodation.Imageurls.Add(image);
             }
             _accommodationController.Update(SelectedAccommodationReservation.Accommodation);
         }
