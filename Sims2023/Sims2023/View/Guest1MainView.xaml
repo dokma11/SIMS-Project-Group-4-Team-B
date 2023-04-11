@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.View"
         mc:Ignorable="d"
+        Loaded="Window_Loaded"
         Title="Guest1MainView" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label x:Name="label" Content="Moguce funkcionalnosti: " FontSize="25" HorizontalAlignment="Left" Margin="40,10,0,0" VerticalAlignment="Top" Width="320" Height="48"/>
@@ -15,5 +16,7 @@
              Width="302" Margin="580,89,0,0" Height="116" Click="buttonGrading_Click"/>
         <Button Content="Otkazivanje rezervacija smestaja"  FontSize="20" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Center"
              Width="301" Margin="59,0,0,0" Height="116" Click="AccommodationCancellation_Click"/>
+        <Button x:Name="buttonReservationMove" Content="Pomeranje rezervacije"  FontSize="20" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Width="302" Margin="580,0,0,0" Height="116" Click="buttonReservationMove_Click"/>
     </Grid>
 </Window>
