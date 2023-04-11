@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using Sims2023.WPF;
-
+using Sims2023.WPF.Views.Guest2Views;
 
 namespace Sims2023.WPF.Views
 {
@@ -37,13 +37,6 @@ namespace Sims2023.WPF.Views
 
         public List<Tour> FilteredData = new List<Tour>();
 
-
-
-
-
-
-        public TourReservation TourReservation { get; set; }
-
         public Guest2View(User user)
         {
             InitializeComponent();
@@ -51,12 +44,16 @@ namespace Sims2023.WPF.Views
 
             _tourService = new TourService();
             _tourService.Subscribe(this);
+
             _locationService = new LocationService();
             _locationService.Subscribe(this);
+
             _tourReservationController = new TourReservationController();
             _tourReservationController.Subscribe(this);
+
             _voucherService = new VoucherService();
             _voucherService.Subscribe(this);
+
             _userService = new UserService();
             _userService.Subscribe(this);
 
@@ -223,6 +220,8 @@ namespace Sims2023.WPF.Views
                 UpdateTours(reservedSpace);
                 dataGridTours.ItemsSource = Tours;
                 checkVouchers(tourReservation,EditedTour);
+                VoucherListView voucherListView = new VoucherListView(User);
+                voucherListView.Show();
             }
             else if (SelectedTour.AvailableSpace > 0)
             {
@@ -246,27 +245,6 @@ namespace Sims2023.WPF.Views
 
             return false;
         }
-
-
-
-
-        /*private bool IsEmpty(TextBox textBox)
-        {
-            int value;
-            if (string.IsNullOrEmpty(textBox.Text))
-            {
-                MessageBox.Show("Popuni potrebno polje");
-                return true;
-            }
-            if (!int.TryParse(textBox.Text, out value))
-            {
-                MessageBox.Show("Unesite broj");
-                return true;
-            }
-
-            return false;
-        }*/
-
         private void UpdateTours(int reservedSpace)
         {
             foreach (Tour tour in Tours)
@@ -335,6 +313,8 @@ namespace Sims2023.WPF.Views
                     MessageBox.Show("Osvojili ste kupon");
             }
         }
+
+        
 
         public void Update()
         {
