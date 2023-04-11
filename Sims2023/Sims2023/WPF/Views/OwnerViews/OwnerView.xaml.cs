@@ -2,6 +2,7 @@
 using Sims2023.Controller;
 using Sims2023.Domain.Models;
 using Sims2023.Model;
+using Sims2023.WPF.Views.OwnerViews;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -111,6 +112,12 @@ namespace Sims2023.View
         {
             var GuestsGrades = new GradesFromGuestsView(User);
             GuestsGrades.Show();
+        }
+
+        private void Reservations_Click(object sender, RoutedEventArgs e)
+        {
+            var Reschedulings = new GuestsReservationReschedulingView(User);
+            Reschedulings.Show();
         }
     }
 }

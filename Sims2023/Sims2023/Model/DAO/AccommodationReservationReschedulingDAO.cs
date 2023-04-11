@@ -1,18 +1,22 @@
-﻿using Sims2023.FileHandler;
+﻿using Sims2023.Application.Services;
+using Sims2023.Domain.Models;
+using Sims2023.FileHandler;
 using Sims2023.Observer;
+using Sims2023.Repositories;
 using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Sims2023.Model.AccommodationReservationRescheduling;
 
 namespace Sims2023.Model.DAO
 {
     public class AccommodationReservationReschedulingDAO
     {
         private List<IObserver> _observers;
-
+        private AccommodationReservationRepository reservations { get; set; }
         private AccommodationReservationReschedulingFileHandler _fileHandler;
         private List<AccommodationReservationRescheduling> _accommodationReservationReschedulings;
 
@@ -26,6 +30,33 @@ namespace Sims2023.Model.DAO
         public AccommodationReservationRescheduling GetById(int id)
         {
             return _fileHandler.GetById(id);
+        }
+
+        public List<AccommodationReservationRescheduling> FindGuestsForOwner(User owner, List<AccommodationReservationRescheduling> guests)
+        {
+            return guests.Where(g => g.AccommodationReservation.Accommodation.Owner.Id == owner.Id && g.Status == RequestStatus.Pending).ToList();
+        }
+
+        public bool IsDateSpanAvailable(AccommodationReservationRescheduling request)
+        {
+            reservations = new AccommodationReservationRepository();
+            foreach (AccommodationReservation reservation in reservations.GetAll())
+            {
+                if (reservation.Accommodation.Id == request.AccommodationReservation.Accommodation.Id)
+                {
+                    for (DateTime i = reservation.StartDate; i <= reservation.EndDate; i = i.AddDays(1))
+                    {
+                        for (DateTime j = request.NewStartDate; j <= request.NewEndDate; j = j.AddDays(1))
+                        {
+                            if (i == j)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         public int NextId()
