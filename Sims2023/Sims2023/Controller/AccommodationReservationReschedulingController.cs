@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sims2023.Domain.Models;
 
 namespace Sims2023.Controller
 {
@@ -26,6 +27,17 @@ namespace Sims2023.Controller
         public List<AccommodationReservationRescheduling> GetAllReservationReschedulings()
         {
             return _accommodationReservationRescheduling.GetAll();
+        }
+
+
+        public List<AccommodationReservationRescheduling> GetGuestsReservationMove(User owner, List<AccommodationReservationRescheduling> guests)
+        {
+            return _accommodationReservationRescheduling.FindGuestsForOwner(owner, guests);
+        }
+        
+        public bool isAccommodationFree(AccommodationReservationRescheduling request)
+        {
+            return _accommodationReservationRescheduling.IsDateSpanAvailable(request);
         }
 
         public void Create(AccommodationReservationRescheduling reservationRescheduling)

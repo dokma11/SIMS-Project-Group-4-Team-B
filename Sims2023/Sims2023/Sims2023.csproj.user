@@ -24,6 +24,15 @@
     <Compile Update="View\TourLocationsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\OwnerViews\DeclineRescheduleView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\GuestsReservationReschedulingView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\ReschedulingDetailsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\Guest1\AccommodationReservationCancellationView.xaml">
@@ -54,6 +63,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\TourLocationsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\DeclineRescheduleView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\GuestsReservationReschedulingView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\ReschedulingDetailsView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
