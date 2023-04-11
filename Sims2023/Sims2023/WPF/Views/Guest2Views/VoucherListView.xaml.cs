@@ -26,8 +26,7 @@ namespace Sims2023.WPF.Views.Guest2Views
         private VoucherService _voucherService;
         public Voucher SelectedVoucher { get; set; }
         public User User { get; set; }
-        public ObservableCollection<Voucher> Vouchers { get; set; }
-        //public List<Voucher> VouchersByUser = new List<Voucher>();
+        public List<Voucher> Vouchers { get; set; }
         public VoucherListView(User user)
         {
             InitializeComponent();
@@ -38,27 +37,20 @@ namespace Sims2023.WPF.Views.Guest2Views
 
             SelectedVoucher= new Voucher();
             User = user;
-            Vouchers = new ObservableCollection<Voucher>(_voucherService.GetAll());
-
-            dataGridVouchers.ItemsSource = FindVouchersByUser(user,Vouchers);
-
+            Vouchers = FindVouchersByUser(User);
         }
 
-        public List<Voucher> FindVouchersByUser(User user,ObservableCollection<Voucher> vouchers)
+        public List<Voucher> FindVouchersByUser(User user)
         {
-            List<Voucher> VouchersById = new List<Voucher>();
-            foreach(Voucher voucher in Vouchers )
+            List<Voucher> VouchersByUser = new List<Voucher>();
+            foreach(Voucher voucher in _voucherService.GetAll() )
             {
                 if(voucher.User.Id==user.Id && voucher.IsUsed==false)
-                    VouchersById.Add(voucher);  
+                    VouchersByUser.Add(voucher);  
             }
-            return VouchersById;
-        
-
+            return VouchersByUser;
         }
-
         
-
         private void ActivateVoucher_Click(object sender, RoutedEventArgs e)
         {
             foreach (Voucher voucher in Vouchers)
@@ -82,7 +74,7 @@ namespace Sims2023.WPF.Views.Guest2Views
 
         public void Update()
         {
-            dataGridVouchers.ItemsSource = FindVouchersByUser(User, Vouchers);
+            dataGridVouchers.ItemsSource = FindVouchersByUser(User);
         }
     }
 }

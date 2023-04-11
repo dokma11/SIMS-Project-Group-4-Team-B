@@ -37,13 +37,6 @@ namespace Sims2023.WPF.Views
 
         public List<Tour> FilteredData = new List<Tour>();
 
-
-
-
-
-
-        public TourReservation TourReservation { get; set; }
-
         public Guest2View(User user)
         {
             InitializeComponent();
@@ -252,27 +245,6 @@ namespace Sims2023.WPF.Views
 
             return false;
         }
-
-
-
-
-        /*private bool IsEmpty(TextBox textBox)
-        {
-            int value;
-            if (string.IsNullOrEmpty(textBox.Text))
-            {
-                MessageBox.Show("Popuni potrebno polje");
-                return true;
-            }
-            if (!int.TryParse(textBox.Text, out value))
-            {
-                MessageBox.Show("Unesite broj");
-                return true;
-            }
-
-            return false;
-        }*/
-
         private void UpdateTours(int reservedSpace)
         {
             foreach (Tour tour in Tours)
@@ -341,6 +313,8 @@ namespace Sims2023.WPF.Views
                     MessageBox.Show("Osvojili ste kupon");
             }
         }
+
+        
 
         public void Update()
         {

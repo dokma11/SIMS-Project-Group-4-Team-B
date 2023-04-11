@@ -15,7 +15,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Expiring" Width="150" Binding="{Binding Expired}"/>
-                <DataGridTextColumn Header="Description" Width="200" Binding="{Binding AdditionalComment}"/>
+                <DataGridTextColumn Header="Description" Width="320" Binding="{Binding AdditionalComment}"/>
 
             </DataGrid.Columns>
         </DataGrid>
