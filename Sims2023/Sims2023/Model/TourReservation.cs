@@ -14,6 +14,7 @@ namespace Sims2023.Model
         public int GuestNumber { get; set; }
 
         public DateTime ReservationTime { get; set; }
+        //needed for counting vaouchers in the year of reservation
         public bool ConfirmedParticipation { get; set; }
         public bool UsedVoucher { get; set; }
         //will delete later on 
@@ -27,6 +28,14 @@ namespace Sims2023.Model
 
 
         public TourReservation() {
+            ReservationTime= DateTime.Now;
+        }
+
+        public TourReservation(Tour tour,User user,int guestNumber)
+        {
+            Tour = tour;
+            User = user;
+            GuestNumber = guestNumber;
             ReservationTime= DateTime.Now;
         }
         public TourReservation(int id, Tour tour, User user, int guestNumber, bool confirmedParticipation, bool usedVoucher)
