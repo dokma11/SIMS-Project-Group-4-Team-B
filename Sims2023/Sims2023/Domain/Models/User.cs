@@ -67,7 +67,7 @@ namespace Sims2023.Domain.Models
             Password = values[2];
             Name = values[3];
             Surname = values[4];
-            Age = values[5];
+            Age = Convert.ToInt32(values[5]);
             PhoneNumber = values[6];
             Email = values[7];
             UserType = (Type)Enum.Parse(typeof(Type), values[8]);

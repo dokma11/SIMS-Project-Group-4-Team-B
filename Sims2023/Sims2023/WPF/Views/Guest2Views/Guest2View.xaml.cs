@@ -214,8 +214,8 @@ namespace Sims2023.WPF.Views
                 TourReservation tourReservation = new TourReservation();
 
                 tourReservation.Tour.Id = SelectedTour.Id;
-                tourReservation.Tour.Id = Convert.ToInt32(userIdBox.Text);
-                tourReservation.Tour.Id = reservedSpace;
+                tourReservation.User.Id = User.Id;
+                tourReservation.GuestNumber = reservedSpace;
                 _tourReservationController.Create(tourReservation);
                 UpdateTours(reservedSpace);
                 dataGridTours.ItemsSource = Tours;
@@ -301,14 +301,14 @@ namespace Sims2023.WPF.Views
          
             foreach (var reservation in _tourReservationController.GetAllReservations())
             {
-                if (tourReservation.UserId == reservation.UserId && tourReservation.ReservationTime.Year == reservation.ReservationTime.Year)
+                if (tourReservation.User.Id == reservation.User.Id && tourReservation.ReservationTime.Year == reservation.ReservationTime.Year)
                 {
                     CountReservation++;
                 }
             }
             if (CountReservation > 0 && CountReservation % 5 ==0)
             {
-                    Voucher voucher= new Voucher(Voucher.VoucherType.FiveReservations, _userService.GetById(tourReservation.UserId), _tourService.GetById(tour.Id));
+                    Voucher voucher= new Voucher(Voucher.VoucherType.FiveReservations, _userService.GetById(tourReservation.User.Id), _tourService.GetById(tour.Id));
                     _voucherService.Create(voucher);
                     MessageBox.Show("Osvojili ste kupon");
             }

@@ -29,8 +29,6 @@ namespace Sims2023.Model
         public TourReservation() {
             ReservationTime= DateTime.Now;
         }
-        public TourReservation(int id, int tourId, int userId, int guestNumber)
-        public TourReservation() { }
         public TourReservation(int id, Tour tour, User user, int guestNumber, bool confirmedParticipation, bool usedVoucher)
         {
             Id = id;
