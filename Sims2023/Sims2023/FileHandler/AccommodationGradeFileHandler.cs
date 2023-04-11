@@ -30,15 +30,5 @@ namespace Sims2023.FileHandler
             }
 
     }
-
-
-
-
-
-
-
-
-
-
 }
 

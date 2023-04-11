@@ -16,8 +16,6 @@ namespace Sims2023.DAO
         private AccommodationLocationFileHandler _fileHandler;
         private List<AccommodationLocation> _accommodationLocations;
 
-
-
         public AccommodationLocationsDAO()
         {
             _fileHandler = new AccommodationLocationFileHandler();
@@ -25,15 +23,13 @@ namespace Sims2023.DAO
             _observers = new List<IObserver>();
         }
 
-        
-
-        public int NextId()
+       public int NextId()
         {
             if (_accommodationLocations.Count == 0) return 1;
             return _accommodationLocations.Max(s => s.Id) + 1;
         }
 
-        public void Add(AccommodationLocation AccLoc)
+       public void Add(AccommodationLocation AccLoc)
         {
             AccLoc.Id = NextId();
             _accommodationLocations.Add(AccLoc);

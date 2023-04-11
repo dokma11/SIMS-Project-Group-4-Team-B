@@ -2,6 +2,7 @@
 using Sims2023.Observer;
 using System.Collections.Generic;
 using System.Linq;
+using Sims2023.Domain.Models;
 
 namespace Sims2023.Model.DAO
 {

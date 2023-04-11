@@ -1,32 +1,29 @@
 ﻿using Sims2023.Model.DAO;
-using Sims2023.Model;
 using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sims2023.Domain.Models;
+using Sims2023.Repositories;
 
-namespace Sims2023.Controller
+namespace Sims2023.Application.Services
 {
-    public class AccommodationReservationController
+    public class AccommodationReservationService
     {
-        private AccommodationReservationDAO _accommodationReservation;
+        private AccommodationReservationRepository _accommodationReservation;
 
-        public AccommodationReservationController()
+        public AccommodationReservationService()
         {
-            _accommodationReservation = new AccommodationReservationDAO();
+            _accommodationReservation = new AccommodationReservationRepository();
         }
 
-        public List<AccommodationReservation> GetGradableGuests(List<AccommodationReservation> reservatons, List<GuestGrade> grades)
+        public List<AccommodationReservation> GetGradableGuests(User user, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
-            return _accommodationReservation.findGradableGuests(reservatons, grades);
+            return _accommodationReservation.findGradableGuests(user, reservatons, grades);
         }
 
-        public string GetAllUngradedNames(List<AccommodationReservation> ungradedGuests)
-        {
-            return _accommodationReservation.UngradedGuestsNameAndSurrname(ungradedGuests);
-        }
 
         public List<AccommodationReservation> GetAllReservations()
         {
@@ -43,6 +40,10 @@ namespace Sims2023.Controller
             _accommodationReservation.Remove(reservation);
         }
 
+        public AccommodationReservation GetById(int Id)
+        {
+            return _accommodationReservation.GetById(Id);
+        }
         public void Update(AccommodationReservation reservation)
         {
             _accommodationReservation.Update(reservation);

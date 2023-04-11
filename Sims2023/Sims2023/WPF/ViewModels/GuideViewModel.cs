@@ -118,7 +118,7 @@ namespace Sims2023.WPF.ViewModels
             {
                 if (reservation.Tour.Id == toursId)
                 {
-                    Voucher voucher = new(0, _userService.GetById(reservation.Tour.Id), _tourService.GetById(toursId), DateTime.Now, DateTime.Today.AddYears(1), additionalComment, false);
+                    Voucher voucher = new(0,Voucher.VoucherType.CancelingTour, _userService.GetById(reservation.Tour.Id), _tourService.GetById(toursId), DateTime.Now, DateTime.Today.AddYears(1), additionalComment, false);
                     _voucherService.Create(voucher);
                 }
             }

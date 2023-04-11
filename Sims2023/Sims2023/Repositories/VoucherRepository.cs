@@ -37,6 +37,13 @@ namespace Sims2023.Repositories
             NotifyObservers();
         }
 
+        public void AddEdited(Voucher voucher)
+        {
+            _vouchers.Add(voucher);
+            _fileHandler.Save(_vouchers); ;
+            NotifyObservers();
+        }
+
         public void Remove(Voucher voucher)
         {
             _vouchers.Remove(voucher);

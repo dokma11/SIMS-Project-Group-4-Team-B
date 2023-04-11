@@ -1,31 +1,32 @@
-﻿using Sims2023.Model;
+﻿using Sims2023.Domain.Models;
 using Sims2023.Model.DAO;
 using Sims2023.Observer;
 using Sims2023.Repository;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sims2023.DAO
+namespace Sims2023.Repositories
 {
-    class AccommodationDAO : ISubject
+    class AccommodationRepository : ISubject
     {
 
         private List<IObserver> _observers;
         private AccommodationFileHandler _fileHandler;
         private List<Accommodation> _accommodations;
-     
-        public AccommodationDAO()
+
+
+        public AccommodationRepository()
         {
             _fileHandler = new AccommodationFileHandler();
             _accommodations = _fileHandler.Load();
             _observers = new List<IObserver>();
-            
-
         }
+
         public Accommodation GetById(int id)
         {
             return _fileHandler.GetById(id);
         }
+
         public int NextId()
         {
             if (_accommodations.Count == 0) return 1;
@@ -46,6 +47,7 @@ namespace Sims2023.DAO
             _fileHandler.Save(_accommodations);
             NotifyObservers();
         }
+
         public void Update(Accommodation accommodation)
         {
             int index = _accommodations.FindIndex(p => p.Id == accommodation.Id);
@@ -57,7 +59,6 @@ namespace Sims2023.DAO
             _fileHandler.Save(_accommodations);
             NotifyObservers();
         }
-
         public List<Accommodation> GetAll()
         {
             return _accommodations;
@@ -80,9 +81,5 @@ namespace Sims2023.DAO
                 observer.Update();
             }
         }
-
-
-
-
     }
 }

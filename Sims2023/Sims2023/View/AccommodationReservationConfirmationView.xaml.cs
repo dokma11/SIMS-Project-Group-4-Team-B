@@ -1,7 +1,12 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.Controller;
 using Sims2023.Model;
+using System;
+using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Data;
+using System.Windows.Media.Animation;
 
 namespace Sims2023.View
 {
@@ -15,38 +20,77 @@ namespace Sims2023.View
         public Accommodation SelectedAccommodation { get; set; }
         public AccommodationStay SelectedAccommodationStay { get; set; }
 
-        private AccommodationReservationController _accommodationReservationController;
+        private AccommodationReservationService _accommodationReservationService;
+
+        private AccommodationReservationReschedulingController _accommodationReservationReschedulingController;
+        public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
+        public int ReservationId { get; set; }
 
         int days;
-        public AccommodationReservationConfirmationView(Accommodation selectedAccommodationS, AccommodationStay selectedAccommodationStayS, int daysNumber, User guest1)
+        public AccommodationReservationConfirmationView(int reservationId,Accommodation selectedAccommodation, AccommodationStay selectedAccommodationStay, int daysNumber, User guest1)
         {
             InitializeComponent();
             DataContext = this;
 
             User = guest1;
-            SelectedAccommodation = selectedAccommodationS;
-            SelectedAccommodationStay = selectedAccommodationStayS;
+            SelectedAccommodation = selectedAccommodation;
+            SelectedAccommodationStay = selectedAccommodationStay;
             days = daysNumber;
+            ReservationId = reservationId;
 
-            _accommodationReservationController = new AccommodationReservationController();
+            _accommodationReservationService = new AccommodationReservationService();
 
-            accommodatioNameTextBox.Text = selectedAccommodationS.Name;
-            accommodatioCityTextBox.Text = selectedAccommodationS.Location.City;
-            accommodatioCountryTextBox.Text = selectedAccommodationS.Location.Country;
-            accommodatioTypeTextBox.Text = selectedAccommodationS.Type.ToString();
-            accommodatioStartDateTextBox.Text = selectedAccommodationStayS.StartDate.ToString("MM/dd/yyyy");
-            accommodatioEndDateTextBox.Text = selectedAccommodationStayS.EndDate.ToString("MM/dd/yyyy");
-            PicturesListView.ItemsSource = SelectedAccommodation.Imageurls;
+            _accommodationReservationReschedulingController = new AccommodationReservationReschedulingController();
+            AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingController.GetAllReservationReschedulings());
+
+            FillTextBoxes(SelectedAccommodation,SelectedAccommodationStay);
+            
+        }
+
+        private void FillTextBoxes(Accommodation selectedAccommodation, AccommodationStay selectedAccommodationStay)
+        {
+            accommodatioNameTextBox.Text = selectedAccommodation.Name;
+            accommodatioCityTextBox.Text = selectedAccommodation.Location.City;
+            accommodatioCountryTextBox.Text = selectedAccommodation.Location.Country;
+            accommodatioTypeTextBox.Text = selectedAccommodation.Type.ToString();
+            accommodatioStartDateTextBox.Text = selectedAccommodationStay.StartDate.ToString("MM/dd/yyyy");
+            accommodatioEndDateTextBox.Text = selectedAccommodationStay.EndDate.ToString("MM/dd/yyyy");
+            PicturesListView.ItemsSource = selectedAccommodation.Imageurls;
         }
 
         private void ReservationButton_Click(object sender, RoutedEventArgs e)
         {
+            if (ReservationId == -1)
+            {
+                MakeNewAccommodationReservation();
+            }
+            else
+            {
+                MakeNewAccommodationReservationRescheduling(ReservationId);
+            }
+            Close();
+
+        }
+
+        private void MakeNewAccommodationReservation()
+        {
             AccommodationReservation accommodationReservation = new AccommodationReservation(-1, User, SelectedAccommodation, SelectedAccommodationStay.StartDate, SelectedAccommodationStay.EndDate, days, false);
-            _accommodationReservationController.Create(accommodationReservation);
+            _accommodationReservationService.Create(accommodationReservation);
 
             MessageBox.Show("Uspesno ste rezervisali objekat!");
+        }
 
-            Close();
+        private void MakeNewAccommodationReservationRescheduling(int ReservationId)
+        {
+            AccommodationReservationRescheduling accommodationReservationRescheduling = new AccommodationReservationRescheduling();
+            accommodationReservationRescheduling.AccommodationReservation = _accommodationReservationService.GetById(ReservationId);
+            accommodationReservationRescheduling.Status = AccommodationReservationRescheduling.RequestStatus.Pending;
+            accommodationReservationRescheduling.Notified = false;
+            accommodationReservationRescheduling.NewStartDate = SelectedAccommodationStay.StartDate;
+            accommodationReservationRescheduling.NewEndDate = SelectedAccommodationStay.EndDate;
+            accommodationReservationRescheduling.Comment = "Nema komentara";
+            _accommodationReservationReschedulingController.Create(accommodationReservationRescheduling);
+            MessageBox.Show("Uspesno ste podneli zahtev za pomeranje rezervacije!");
 
         }
 

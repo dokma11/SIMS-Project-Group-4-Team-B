@@ -16,6 +16,11 @@ namespace Sims2023.Application.Services
             _user = new UserRepository();
         }
 
+        public void MarkSuperOwner()
+        {
+            _user.FindSuperOwners();
+        }
+
         public List<User> GetAllUsers()
         {
             return _user.GetAll();

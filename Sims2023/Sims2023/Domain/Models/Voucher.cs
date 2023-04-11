@@ -12,16 +12,43 @@ namespace Sims2023.Domain.Models
         public Tour Tour { get; set; }
         public DateTime Created { get; set; }
         public DateTime Expired { get; set; }
+
+        public enum VoucherType { FiveReservations, CancelingTour }
+
+        public VoucherType Name { get; set; }
         public string AdditionalComment { get; set; }
         public bool IsUsed { get; set; }
         public Voucher() { }
-        public Voucher(int id, User user, Tour tour, DateTime created, DateTime expired, string additionalComment, bool isUsed)
+
+        public Voucher(VoucherType name,User user,Tour tour)
         {
+            if (name == VoucherType.FiveReservations)
+            {
+                Name = VoucherType.FiveReservations;
+                AdditionalComment = "After five reservations you get this coupon";
+                Expired = DateTime.Now.AddMonths(6);
+            }
+            if (name == VoucherType.CancelingTour)
+            {
+                Name = VoucherType.CancelingTour;
+                AdditionalComment = "After guide cancel tour you get this coupon";
+                Expired = DateTime.Now.AddMonths(12);
+            }
+            User = user;
+            Tour = tour;
+            Created= DateTime.Now;
+            IsUsed = false;
+
+        }
+        public Voucher(int id,VoucherType name, User user, Tour tour, DateTime created, DateTime expired, string additionalComment, bool isUsed)
+        {
+            //refactor later
             Id = id;
             User = user;
             Tour = tour;
             Created = created;
             Expired = expired;
+            Name = name;
             AdditionalComment = additionalComment;
             IsUsed = isUsed;
         }
@@ -37,8 +64,9 @@ namespace Sims2023.Domain.Models
             Tour = tourService.GetById(Convert.ToInt32(values[2]));
             Created = DateTime.Parse(values[3]);
             Expired = DateTime.Parse(values[4]);
-            AdditionalComment = values[5];
-            IsUsed = bool.Parse(values[6]);
+            Name = (VoucherType)Enum.Parse(typeof(VoucherType), values[5]);
+            AdditionalComment = values[6];
+            IsUsed = bool.Parse(values[7]);
         }
 
         public string[] ToCSV()
@@ -50,6 +78,7 @@ namespace Sims2023.Domain.Models
                 Tour.Id.ToString(),
                 Created.ToString(),
                 Expired.ToString(),
+                Name.ToString(),
                 AdditionalComment,
                 IsUsed.ToString()
             };

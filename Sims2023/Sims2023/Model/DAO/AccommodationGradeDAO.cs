@@ -1,4 +1,5 @@
-﻿using Sims2023.FileHandler;
+﻿using Sims2023.Domain.Models;
+using Sims2023.FileHandler;
 using Sims2023.Observer;
 using Sims2023.Repository;
 using System;
@@ -9,15 +10,13 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Model.DAO
 {
-    internal class AccommodationGradeDAO: ISubject
+    internal class AccommodationGradeDAO : ISubject
     {
 
         private List<IObserver> _observers;
 
         private AccommodationGradeFileHandler _fileHandler;
         private List<AccommodationGrade> _accommodationGrades;
-
-
 
         public AccommodationGradeDAO()
         {
@@ -26,13 +25,18 @@ namespace Sims2023.Model.DAO
             _observers = new List<IObserver>();
         }
 
-        public List<AccommodationGrade> GetAllGuestsWhoGraded(List<AccommodationGrade> people, List<GuestGrade> ListOfGuests)
+        public List<AccommodationGrade> GetAllGuestsWhoGraded(List<AccommodationGrade> people, List<GuestGrade> ListOfGuests, User owner)
         {
-        //    AddNameSurrnameToReservation(ListOfGuests, people);
-            RemoveUngradedGuests(people,ListOfGuests);
+            FindGradesForOwner(people, owner);
+            RemoveUngradedGuests(people, ListOfGuests);
             return people;
 
         }
+        private void FindGradesForOwner(List<AccommodationGrade> people, User owner)
+        {
+            people.RemoveAll(r => r.Accommodation.Owner.Id != owner.Id);
+        }
+
 
         private void RemoveUngradedGuests(List<AccommodationGrade> people, List<GuestGrade> guestGrades)
         {
@@ -46,7 +50,12 @@ namespace Sims2023.Model.DAO
                 }
         }
 
-
+        public double FindAverage(AccommodationGrade grade)
+        {
+            double prosjek;
+            prosjek = (grade.Cleanliness + grade.Comfort + grade.Location + grade.Owner + grade.ValueForMoney )/ 5;
+            return prosjek;
+        }
         public int NextId()
         {
             if (_accommodationGrades.Count == 0) return 1;
@@ -79,7 +88,6 @@ namespace Sims2023.Model.DAO
             _fileHandler.Save(_accommodationGrades);
             NotifyObservers();
         }
-
         public List<AccommodationGrade> GetAll()
         {
             return _accommodationGrades;
@@ -102,7 +110,5 @@ namespace Sims2023.Model.DAO
                 observer.Update();
             }
         }
-
-
     }
 }

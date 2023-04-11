@@ -58,7 +58,7 @@
                   ItemsSource="{Binding Path=Accommodations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="25,96,25,34"
-                  Grid.Row="0" Grid.Column="0" SelectionChanged="myDataGrid_SelectionChanged">
+                  Grid.Row="0" Grid.Column="0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ime" Binding="{Binding Name}" Width="70"></DataGridTextColumn>
                 <DataGridTextColumn Header="Tip" Binding="{Binding Type}" Width="70"></DataGridTextColumn>

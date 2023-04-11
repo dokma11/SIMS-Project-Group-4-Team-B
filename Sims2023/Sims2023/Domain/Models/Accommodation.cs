@@ -1,6 +1,5 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Controller;
-using Sims2023.Domain.Models;
 using Sims2023.Serialization;
 using System;
 using System.Collections.Generic;
@@ -10,12 +9,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
 
-namespace Sims2023.Model
+namespace Sims2023.Domain.Models
 {
     public class Accommodation : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public string Name { get; set;  }
+        public string Name { get; set; }
         public User Owner { get; set; }
         public Location Location { get; set; }
         public string Type { get; set; }
@@ -23,7 +22,6 @@ namespace Sims2023.Model
         public int MinDays { get; set; }
         public int CancelDays { get; set; }
         public List<string> Imageurls { get; set; }
-
         public string ImageUrl { get; set; }
 
 
@@ -38,7 +36,7 @@ namespace Sims2023.Model
         {
             Imageurls = new List<string>();
         }
-        public Accommodation(int Id,string Name, Location Location, string Type, int MaxGuests, int MinDays, int CancelDays, string ImageUrl, User Owner)
+        public Accommodation(int Id, string Name, Location Location, string Type, int MaxGuests, int MinDays, int CancelDays, string ImageUrl, User Owner)
         {
             this.Id = Id;
             this.Name = Name;
@@ -52,7 +50,6 @@ namespace Sims2023.Model
 
         }
 
-
         public string[] ToCSV()
         {
             string[] csvValues =
@@ -65,9 +62,8 @@ namespace Sims2023.Model
                 MinDays.ToString(),
                 CancelDays.ToString(),
                 Owner.Id.ToString(),
-                ImageUrl
-
-            };
+                ImageUrl,
+             };
             return csvValues;
         }
 
@@ -108,5 +104,5 @@ namespace Sims2023.Model
         }
     }
 
- 
+
 }
