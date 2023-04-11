@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using Sims2023.WPF;
-
+using Sims2023.WPF.Views.Guest2Views;
 
 namespace Sims2023.WPF.Views
 {
@@ -37,13 +37,6 @@ namespace Sims2023.WPF.Views
 
         public List<Tour> FilteredData = new List<Tour>();
 
-
-
-
-
-
-        public TourReservation TourReservation { get; set; }
-
         public Guest2View(User user)
         {
             InitializeComponent();
@@ -51,12 +44,16 @@ namespace Sims2023.WPF.Views
 
             _tourService = new TourService();
             _tourService.Subscribe(this);
+
             _locationService = new LocationService();
             _locationService.Subscribe(this);
+
             _tourReservationController = new TourReservationController();
             _tourReservationController.Subscribe(this);
+
             _voucherService = new VoucherService();
             _voucherService.Subscribe(this);
+
             _userService = new UserService();
             _userService.Subscribe(this);
 
@@ -216,13 +213,15 @@ namespace Sims2023.WPF.Views
                 EditedTour = SelectedTour;
                 TourReservation tourReservation = new TourReservation();
 
-                tourReservation.TourId = SelectedTour.Id;
-                tourReservation.UserId = User.Id;
+                tourReservation.Tour.Id = SelectedTour.Id;
+                tourReservation.User.Id = User.Id;
                 tourReservation.GuestNumber = reservedSpace;
                 _tourReservationController.Create(tourReservation);
                 UpdateTours(reservedSpace);
                 dataGridTours.ItemsSource = Tours;
                 checkVouchers(tourReservation,EditedTour);
+                VoucherListView voucherListView = new VoucherListView(User);
+                voucherListView.Show();
             }
             else if (SelectedTour.AvailableSpace > 0)
             {
@@ -246,27 +245,6 @@ namespace Sims2023.WPF.Views
 
             return false;
         }
-
-
-
-
-        /*private bool IsEmpty(TextBox textBox)
-        {
-            int value;
-            if (string.IsNullOrEmpty(textBox.Text))
-            {
-                MessageBox.Show("Popuni potrebno polje");
-                return true;
-            }
-            if (!int.TryParse(textBox.Text, out value))
-            {
-                MessageBox.Show("Unesite broj");
-                return true;
-            }
-
-            return false;
-        }*/
-
         private void UpdateTours(int reservedSpace)
         {
             foreach (Tour tour in Tours)
@@ -323,18 +301,20 @@ namespace Sims2023.WPF.Views
          
             foreach (var reservation in _tourReservationController.GetAllReservations())
             {
-                if (tourReservation.UserId == reservation.UserId && tourReservation.ReservationTime.Year == reservation.ReservationTime.Year)
+                if (tourReservation.User.Id == reservation.User.Id && tourReservation.ReservationTime.Year == reservation.ReservationTime.Year)
                 {
                     CountReservation++;
                 }
             }
             if (CountReservation > 0 && CountReservation % 5 ==0)
             {
-                    Voucher voucher= new Voucher(Voucher.VoucherType.FiveReservations, _userService.GetById(tourReservation.UserId), _tourService.GetById(tour.Id));
+                    Voucher voucher= new Voucher(Voucher.VoucherType.FiveReservations, _userService.GetById(tourReservation.User.Id), _tourService.GetById(tour.Id));
                     _voucherService.Create(voucher);
                     MessageBox.Show("Osvojili ste kupon");
             }
         }
+
+        
 
         public void Update()
         {

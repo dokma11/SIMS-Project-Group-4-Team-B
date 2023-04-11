@@ -37,9 +37,9 @@ namespace Sims2023.WPF.ViewModels
         {
             foreach (var tourReservation in _tourReservationController.GetAllReservations())
             {
-                if (tourReservation.TourId == KeyPoint.Tour.Id)
+                if (tourReservation.Tour.Id == KeyPoint.Tour.Id)
                 {
-                    User Guest = _userService.GetById(tourReservation.UserId);
+                    User Guest = _userService.GetById(tourReservation.Tour.Id);
                     if (!CheckIfGuestMarked(tourReservation, Guest))
                     {
                         GuestsToDisplay.Add(Guest);
@@ -50,7 +50,7 @@ namespace Sims2023.WPF.ViewModels
 
         private bool CheckIfGuestMarked(TourReservation tourReservation, User guest)
         {
-            if (!KeyPoint.ShowedGuestsIds.Contains(tourReservation.UserId))
+            if (!KeyPoint.ShowedGuestsIds.Contains(tourReservation.Tour.Id))
             {
                 foreach (var markedGuest in MarkedGuests)
                 {
@@ -88,7 +88,7 @@ namespace Sims2023.WPF.ViewModels
         {
             foreach (var tourReservation in _tourReservationController.GetAllReservations())
             {
-                if (tourReservation.UserId == user.Id && tourReservation.TourId == KeyPoint.Tour.Id)
+                if (tourReservation.User.Id == user.Id && tourReservation.Tour.Id == KeyPoint.Tour.Id)
                 {
                     tourReservation.ShouldConfirmParticipation = true;
                     _tourReservationController.Save();

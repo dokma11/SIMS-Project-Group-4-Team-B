@@ -6,6 +6,7 @@ using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -106,6 +107,7 @@ namespace Sims2023.WPF.ViewModels
                     ReviewsToDisplay.Add(tourReview);
                 }
             }
+            
         }
 
         private void GetToursReviews(Tour selectedTour)

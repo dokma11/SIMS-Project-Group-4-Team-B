@@ -184,7 +184,7 @@ namespace Sims2023.WPF.ViewModels
             int counter = 0;
             foreach (var tour in _tourReservationController.GetAllReservations())
             {
-                if (tour.TourId == Tour.Id) counter++;
+                if (tour.Tour.Id == Tour.Id) counter++;
             }
             if (counter == MarkedGuests.Count)
             {
