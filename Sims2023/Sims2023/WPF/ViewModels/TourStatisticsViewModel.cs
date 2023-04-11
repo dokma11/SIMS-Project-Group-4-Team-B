@@ -1,16 +1,14 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Controller;
 using Sims2023.Domain.Models;
-using Sims2023.Observer;
-using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Sims2023.WPF.ViewModels
 {
-    public partial class TourStatisticsViewModel : IObserver, INotifyPropertyChanged
+    public partial class TourStatisticsViewModel
     {
         private TourService _tourService;
         private TourReservationController _tourReservationService;
@@ -42,53 +40,57 @@ namespace Sims2023.WPF.ViewModels
                 if ((tour.CurrentState == Tour.State.Finished || tour.CurrentState == Tour.State.Interrupted)
                     && tour.Guide.Id == LoggedInGuide.Id)
                 {
+                    GetAttendedGuestsNumber(tour);
                     ToursToDisplay.Add(tour);
                 }
             }
         }
 
+        private void GetAttendedGuestsNumber(Tour tour)
+        {
+            tour.AttendedGuestsNumber = _tourReservationService.GetAllReservations()
+                .Where(res => res.Tour.Id == tour.Id && res.ConfirmedParticipation)
+                .Sum(res => res.GuestNumber);
+        }
+
         private void DisplayTheMostVisitedTour()
         {
-            TheMostVisitedTour.Add(FindTheMostVisitedTour("2023"));
+            TheMostVisitedTour.Add(FindTheMostVisitedTour("Svih vremena"));
         }
 
         private Tour FindTheMostVisitedTour(string year)
         {
-            int max = 0;
-            Tour best = new();
-            foreach (var tour in _tourService.GetAll())
+            if (year == "Svih vremena")
             {
-                if ((tour.CurrentState == Tour.State.Finished || tour.CurrentState == Tour.State.Interrupted) &&
-                    tour.MaxGuestNumber > max && tour.Start.Year.ToString() == year && tour.Guide.Id == LoggedInGuide.Id)
-                {
-                    best = tour;
-                    max = tour.MaxGuestNumber;
-                }
+                return _tourService.GetAll().Where(tour => tour.Guide.Id == LoggedInGuide.Id &&
+                    (tour.CurrentState == Tour.State.Finished || tour.CurrentState == Tour.State.Interrupted))
+                    .OrderByDescending(tour => tour.AttendedGuestsNumber)
+                    .FirstOrDefault();
+
             }
-            return best;
+            var tour = _tourService.GetAll().Where(tour => tour.Guide.Id == LoggedInGuide.Id &&
+                 (tour.CurrentState == Tour.State.Finished || tour.CurrentState == Tour.State.Interrupted) &&
+                 tour.Start.Year.ToString() == year)
+                 .OrderByDescending(tour => tour.AttendedGuestsNumber)
+                 .FirstOrDefault();
+            if (tour != null)
+            {
+                return tour;
+            }
+            else
+            {
+                Tour t = new();
+                MessageBox.Show("Ne postoje ture u toj godini");
+                return t;
+            }
         }
 
         private void YearComboBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            //TheMostVisitedTour.Add(FindTheMostVisitedTour(yearComboBox.SelectedItem.ToString()));
             ComboBox cBox = (ComboBox)sender;
             string year = ((ComboBoxItem)cBox.SelectedItem).Content.ToString();
+            UpdateMostViewedTour(year);
 
-            switch (year)
-            {
-                case "2023":
-                    UpdateMostViewedTour("2023");
-                    break;
-                case "2022":
-                    UpdateMostViewedTour("2022");
-                    break;
-                case "2021":
-                    UpdateMostViewedTour("2021");
-                    break;
-                case "2020":
-                    UpdateMostViewedTour("2020");
-                    break;
-            }
         }
 
         private void UpdateMostViewedTour(string year)
@@ -112,25 +114,18 @@ namespace Sims2023.WPF.ViewModels
 
         private void FindAgeStatistics(Tour tour)
         {
-            int young = 0, middle = 0, old = 0;
-            foreach (var res in _tourReservationService.GetAllReservations())
-            {
-                if (res.Tour.Id == tour.Id)
-                {
-                    if (res.User.Age <= 18)
-                    {
-                        young += res.GuestNumber;
-                    }
-                    else if (res.User.Age <= 50)
-                    {
-                        middle += res.GuestNumber;
-                    }
-                    else
-                    {
-                        old += res.GuestNumber;
-                    }
-                }
-            }
+            int young = _tourReservationService.GetAllReservations()
+                .Where(res => res.Tour.Id == tour.Id && res.ConfirmedParticipation && res.User.Age <= 18)
+                .Sum(res => res.GuestNumber);
+
+            int middle = _tourReservationService.GetAllReservations()
+                .Where(res => res.Tour.Id == tour.Id && res.ConfirmedParticipation && res.User.Age > 18 && res.User.Age <= 50)
+                .Sum(res => res.GuestNumber);
+
+            int old = _tourReservationService.GetAllReservations()
+                .Where(res => res.Tour.Id == tour.Id && res.ConfirmedParticipation && res.User.Age > 50)
+                .Sum(res => res.GuestNumber);
+
             youngNumberLabel.Content = young.ToString();
             middleNumberLabel.Content = middle.ToString();
             oldNumberLabel.Content = old.ToString();
@@ -138,37 +133,16 @@ namespace Sims2023.WPF.ViewModels
 
         private void FindVoucherStatistics(Tour tour)
         {
-            int usedCounter = 0;
-            int notUsedCounter = 0;
-            foreach (var res in _tourReservationService.GetAllReservations())
-            {
-                if (res.Tour.Id == tour.Id)
-                {
-                    if (res.UsedVoucher)
-                    {
-                        usedCounter++;
-                    }
-                    else
-                    {
-                        notUsedCounter++;
-                    }
-                }
+            var reservations = _tourReservationService.GetAllReservations().Where(res => res.Tour.Id == tour.Id);
 
-            }
-            double usedPercentage = Convert.ToDouble(usedCounter) / Convert.ToDouble(usedCounter + notUsedCounter);
-            double notUsedPercentage = Convert.ToDouble(notUsedCounter) / Convert.ToDouble(usedCounter + notUsedCounter);
+            int usedCounter = reservations.Count(res => res.UsedVoucher && res.ConfirmedParticipation);
+            int notUsedCounter = reservations.Count(res => !res.UsedVoucher && res.ConfirmedParticipation);
+
+            double usedPercentage = (double)usedCounter / (usedCounter + notUsedCounter);
+            double notUsedPercentage = (double)notUsedCounter / (usedCounter + notUsedCounter);
+
             usedVoucherLabel.Content = usedPercentage.ToString("0.00");
             notUsedVoucherLabel.Content = notUsedPercentage.ToString("0.00");
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void Update()
-        {
-            ToursToDisplay.Clear();
-            TheMostVisitedTour.Clear();
-            DisplayTours();
-            DisplayTheMostVisitedTour();
         }
     }
 }
