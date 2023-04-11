@@ -12,6 +12,7 @@
                 <Button x:Name="createButton" Click="CreateButton_Click">Kreiraj turu</Button>
                 <Button x:Name="startTourButtonToolbar" Click="StartTourButton_Click">Zapocni turu</Button>
                 <Button x:Name="reviewsButton" Click="ReviewsButton_Click">Vidi recenzije</Button>
+                <Button x:Name="statisticsButton" Click="StatisticsButton_Click">Vidi statistiku</Button>
             </ToolBar>
         </DockPanel>
         <DataGrid x:Name="toursDataGrid" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="1100" Height="350" Margin="100" AutoGenerateColumns="False">

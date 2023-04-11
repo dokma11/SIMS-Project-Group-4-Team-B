@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Media;
 
 namespace Sims2023.Domain.Models
 {
@@ -30,6 +29,7 @@ namespace Sims2023.Domain.Models
         public List<string> Pictures { get; set; }
         //Same principle as for KeyPoints, I'm going to concatenate all of the pictures urls into one string so I can save it easier
         public string PicturesString { get; set; }
+        public int AttendedGuestsNumber { get; set; }
         public User Guide { get; set; }
         public Tour()
         {
@@ -64,6 +64,7 @@ namespace Sims2023.Domain.Models
                 Pictures.Add(picture);
             }
             Guide = guide;
+            AttendedGuestsNumber = 0;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -88,6 +89,7 @@ namespace Sims2023.Domain.Models
                 PicturesString,
                 CurrentState.ToString(),
                 Guide.Id.ToString(),
+                AttendedGuestsNumber.ToString(),
             };
             return csvValues;
         }
@@ -118,6 +120,7 @@ namespace Sims2023.Domain.Models
             CurrentState = (State)Enum.Parse(typeof(State), values[11]);
             UserService userService = new();
             Guide = userService.GetById(Convert.ToInt32(values[12]));
+            AttendedGuestsNumber = Convert.ToInt32(values[13]);
         }
 
         public string this[string columnName]
