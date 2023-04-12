@@ -1,5 +1,5 @@
-using Sims2023.Model.DAO;
-using Sims2023.Model;
+using Sims2023.Repositories;
+using Sims2023.Domain.Models;
 using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
@@ -7,18 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sims2023.Controller
+namespace Sims2023.Application.Services
 {
-    public class TourReservationController
+    public class TourReservationService
     {
-        private TourReservationDAO _tourReservations;
+        private TourReservationRepository _tourReservations;
 
-        public TourReservationController()
+        public TourReservationService()
         {
-            _tourReservations = new TourReservationDAO();
+            _tourReservations = new TourReservationRepository();
         }
 
-        public List<TourReservation> GetAllReservations()//mozda treba samo get all
+        public List<TourReservation> GetAll()
         {
             return _tourReservations.GetAll();
         }

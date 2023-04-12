@@ -1,10 +1,9 @@
 ﻿using Sims2023.Application.Services;
-using Sims2023.Domain.Models;
 using Sims2023.Serialization;
 using System;
 using System.ComponentModel;
 
-namespace Sims2023.Model
+namespace Sims2023.Domain.Models
 {
     public class TourReservation : ISerializable, INotifyPropertyChanged
     {
@@ -14,6 +13,7 @@ namespace Sims2023.Model
         public int GuestNumber { get; set; }
 
         public DateTime ReservationTime { get; set; }
+        //needed for counting vaouchers in the year of reservation
         public bool ConfirmedParticipation { get; set; }
         public bool UsedVoucher { get; set; }
         //will delete later on 
@@ -27,6 +27,14 @@ namespace Sims2023.Model
 
 
         public TourReservation() {
+            ReservationTime= DateTime.Now;
+        }
+
+        public TourReservation(Tour tour,User user,int guestNumber)
+        {
+            Tour = tour;
+            User = user;
+            GuestNumber = guestNumber;
             ReservationTime= DateTime.Now;
         }
         public TourReservation(int id, Tour tour, User user, int guestNumber, bool confirmedParticipation, bool usedVoucher)

@@ -21,11 +21,11 @@ namespace Sims2023.WPF.ViewModels
         public TourReview SelectedReview { get; set; }
         public List<TourReview> AllReviews { get; set; }
         public ObservableCollection<TourReview> ReviewsToDisplay { get; set; }
-        private TourReviewController _tourReviewController;
+        private TourReviewService _tourReviewController;
 
         public List<KeyPoint> AllKeyPoints;
 
-        public GuestReviewsViewModel(TourService tourService, TourReviewController tourReviewController, KeyPointService keyPointService)
+        public GuestReviewsViewModel(TourService tourService, TourReviewService tourReviewController, KeyPointService keyPointService)
         {
             InitializeComponent();
             DataContext = this;

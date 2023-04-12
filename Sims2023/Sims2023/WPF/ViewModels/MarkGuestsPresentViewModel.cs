@@ -14,9 +14,9 @@ namespace Sims2023.WPF.ViewModels
         public ObservableCollection<User> GuestsToDisplay { get; set; }
 
         private UserService _userService;
-        private TourReservationController _tourReservationController;
+        private TourReservationService _tourReservationController;
         public List<User> MarkedGuests { get; set; }
-        public MarkGuestsPresentViewModel(KeyPoint keyPoint, TourReservationController tourReservationController, UserService userService, List<User> markedGuests)
+        public MarkGuestsPresentViewModel(KeyPoint keyPoint, TourReservationService tourReservationController, UserService userService, List<User> markedGuests)
         {
             InitializeComponent();
             DataContext = this;
@@ -35,7 +35,7 @@ namespace Sims2023.WPF.ViewModels
 
         private void InitializeGuestsToDisplay()
         {
-            foreach (var tourReservation in _tourReservationController.GetAllReservations())
+            foreach (var tourReservation in _tourReservationController.GetAll())
             {
                 if (tourReservation.Tour.Id == KeyPoint.Tour.Id)
                 {
@@ -86,7 +86,7 @@ namespace Sims2023.WPF.ViewModels
 
         private void ShouldConfirmParticipation(User user)
         {
-            foreach (var tourReservation in _tourReservationController.GetAllReservations())
+            foreach (var tourReservation in _tourReservationController.GetAll())
             {
                 if (tourReservation.User.Id == user.Id && tourReservation.Tour.Id == KeyPoint.Tour.Id)
                 {
