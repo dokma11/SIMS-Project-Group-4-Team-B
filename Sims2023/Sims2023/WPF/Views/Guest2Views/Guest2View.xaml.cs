@@ -59,7 +59,8 @@ namespace Sims2023.WPF.Views
             _userService = new UserService();
             _userService.Subscribe(this);
 
-            Tours = new ObservableCollection<Tour>(_tourService.GetAll());
+            //Tours = new ObservableCollection<Tour>(_tourService.GetAll());
+            Tours=GetAvailableTours();
             Locations = new ObservableCollection<Location>(_locationService.GetAll());
 
             SelectedTour = new Tour();
@@ -71,6 +72,19 @@ namespace Sims2023.WPF.Views
             AddLocationsToTour(Locations, Tours);
 
            
+        }
+
+        private ObservableCollection<Tour> GetAvailableTours()
+        {
+            ObservableCollection<Tour> availableTours = new ObservableCollection<Tour>();
+            foreach(Tour tour in _tourService.GetAll())
+            {
+                if(tour.CurrentState== Tour.State.Created)
+                {
+                    availableTours.Add(tour);
+                }
+            }
+            return availableTours;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -181,6 +195,12 @@ namespace Sims2023.WPF.Views
             }
         }
 
+        private void MyReservations_Click(object sender,RoutedEventArgs e)
+        {
+            Guest2TourListView guest2TourListView = new Guest2TourListView(User);
+            guest2TourListView.Show();
+        }
+
         private void ReserveTour_Click(object sender, RoutedEventArgs e)
         {
 
@@ -269,6 +289,7 @@ namespace Sims2023.WPF.Views
             Tours.Clear();
             foreach (var tour in _tourService.GetAll())
             {
+                if(tour.CurrentState==Tour.State.Created)
                 Tours.Add(tour);
             }
         }
