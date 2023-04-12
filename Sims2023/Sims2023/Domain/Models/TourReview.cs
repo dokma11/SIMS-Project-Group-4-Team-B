@@ -1,6 +1,4 @@
 ﻿using Sims2023.Application.Services;
-using Sims2023.Controller;
-using Sims2023.Domain.Models;
 using Sims2023.Serialization;
 using System;
 using System.Collections.Generic;
@@ -10,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Sims2023.Model
+namespace Sims2023.Domain.Models
 {
     public class TourReview: ISerializable, INotifyPropertyChanged
     {

@@ -16,7 +16,7 @@ namespace Sims2023.WPF.ViewModels
 
         private KeyPointService _keyPointController;
         private UserService _userController;
-        private TourReservationController _tourReservationController;
+        private TourReservationService _tourReservationController;
         public ObservableCollection<KeyPoint> KeyPointsToDisplay { get; set; }
         public ObservableCollection<KeyPoint> AllKeyPoints { get; set; }
 
@@ -26,7 +26,7 @@ namespace Sims2023.WPF.ViewModels
 
         public List<User> MarkedGuests { get; set; }
 
-        public LiveTourTrackingViewModel(Tour tour, KeyPointService keyPointService, TourReservationController tourReservationController, UserService userController)
+        public LiveTourTrackingViewModel(Tour tour, KeyPointService keyPointService, TourReservationService tourReservationController, UserService userController)
         {
             InitializeComponent();
             DataContext = this;
@@ -182,7 +182,7 @@ namespace Sims2023.WPF.ViewModels
         {
             Update();
             int counter = 0;
-            foreach (var tour in _tourReservationController.GetAllReservations())
+            foreach (var tour in _tourReservationController.GetAll())
             {
                 if (tour.Tour.Id == Tour.Id) counter++;
             }

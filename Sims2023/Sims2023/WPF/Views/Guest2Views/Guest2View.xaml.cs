@@ -23,7 +23,7 @@ namespace Sims2023.WPF.Views
 
         private LocationService _locationService;
 
-        private TourReservationController _tourReservationController;
+        private TourReservationService _tourReservationController;
 
         private VoucherService _voucherService;
 
@@ -50,7 +50,7 @@ namespace Sims2023.WPF.Views
             _locationService = new LocationService();
             _locationService.Subscribe(this);
 
-            _tourReservationController = new TourReservationController();
+            _tourReservationController = new TourReservationService();
             _tourReservationController.Subscribe(this);
 
             _voucherService = new VoucherService();
@@ -83,7 +83,7 @@ namespace Sims2023.WPF.Views
 
         private bool DisplayMessageBox() 
         {
-            foreach(var tourReservation in _tourReservationController.GetAllReservations())
+            foreach(var tourReservation in _tourReservationController.GetAll())
             {
                 if (tourReservation.ShouldConfirmParticipation)
                 {
@@ -277,7 +277,7 @@ namespace Sims2023.WPF.Views
         {
             int CountReservation = 0;
          
-            foreach (var reservation in _tourReservationController.GetAllReservations())
+            foreach (var reservation in _tourReservationController.GetAll())
             {
                 if (tourReservation.User.Id == reservation.User.Id && tourReservation.ReservationTime.Year == reservation.ReservationTime.Year)
                 {

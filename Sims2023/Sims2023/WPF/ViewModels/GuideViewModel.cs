@@ -16,8 +16,8 @@ namespace Sims2023.WPF.ViewModels
         private LocationService _locationService;
         private KeyPointService _keyPointService;
         private UserService _userService;
-        private TourReservationController _tourReservationService;
-        private TourReviewController _tourReviewService;
+        private TourReservationService _tourReservationService;
+        private TourReviewService _tourReviewService;
         private VoucherService _voucherService;
 
         public Tour? Tour { get; set; }
@@ -42,10 +42,10 @@ namespace Sims2023.WPF.ViewModels
             _userService = new UserService();
             _userService.Subscribe(this);
 
-            _tourReservationService = new TourReservationController();
+            _tourReservationService = new TourReservationService();
             _tourReservationService.Subscribe(this);
 
-            _tourReviewService = new TourReviewController();
+            _tourReviewService = new TourReviewService();
             _tourReviewService.Subscribe(this);
 
             _voucherService = new VoucherService();
@@ -114,7 +114,7 @@ namespace Sims2023.WPF.ViewModels
         private void CreateVouchersForCancelledTour(int toursId)
         {
             string additionalComment = Microsoft.VisualBasic.Interaction.InputBox("Unesite razlog:", "Input String");
-            foreach (var reservation in _tourReservationService.GetAllReservations())
+            foreach (var reservation in _tourReservationService.GetAll())
             {
                 if (reservation.Tour.Id == toursId)
                 {

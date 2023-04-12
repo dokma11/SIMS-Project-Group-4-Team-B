@@ -1,20 +1,20 @@
 ﻿using Sims2023.FileHandler;
 using Sims2023.Observer;
-using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sims2023.Domain.Models;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sims2023.Model.DAO
+namespace Sims2023.Repositories
 {
-    public class TourReviewDAO
+    public class TourReviewRepository
     {
         private List<IObserver> _observers;
         private List<TourReview> _tourReviews;
         private TourReviewFileHandler _fileHandler;
-        public TourReviewDAO() 
+        public TourReviewRepository() 
         {
             _fileHandler = new TourReviewFileHandler();
             _tourReviews = _fileHandler.Load();

@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Sims2023.Domain.Models;
 
-namespace Sims2023.Model.DAO
+namespace Sims2023.Repositories
 {
-    public class TourReservationDAO
+    public class TourReservationRepository
     {
         private List<IObserver> _observers;
 
         private TourReservationFileHandler _fileHandler;
         private List<TourReservation> _tourReservations;
 
-        public TourReservationDAO()
+        public TourReservationRepository()
         {
             _fileHandler = new TourReservationFileHandler();
             _tourReservations = _fileHandler.Load();

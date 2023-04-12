@@ -1,5 +1,5 @@
-﻿using Sims2023.Model.DAO;
-using Sims2023.Model;
+﻿using Sims2023.Domain.Models;
+using Sims2023.Repositories;
 using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sims2023.Controller
+namespace Sims2023.Application.Services
 {
-    public class TourReviewController
+    public class TourReviewService
     {
-        private TourReviewDAO _tourReviews;
+        private TourReviewRepository _tourReviews;
 
-        public TourReviewController()
+        public TourReviewService()
         {
-            _tourReviews = new TourReviewDAO();
+            _tourReviews = new TourReviewRepository();
         }
 
         public List<TourReview> GetAllTourReviews()

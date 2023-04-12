@@ -1,10 +1,9 @@
 ﻿using Sims2023.Application.Services;
-using Sims2023.Domain.Models;
 using Sims2023.Serialization;
 using System;
 using System.ComponentModel;
 
-namespace Sims2023.Model
+namespace Sims2023.Domain.Models
 {
     public class TourReservation : ISerializable, INotifyPropertyChanged
     {
