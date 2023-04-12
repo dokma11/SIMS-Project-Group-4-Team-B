@@ -65,7 +65,7 @@
                     ItemsSource="{Binding Source={StaticResource AccommodationsList}, UpdateSourceTrigger=PropertyChanged}"
           SelectedItem="{Binding Path=SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="25,96,25,34"
-                  Grid.Row="0" Grid.Column="0" SelectionChanged="myDataGrid_SelectionChanged">
+                  Grid.Row="0" Grid.Column="0">
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <Setter Property="Background" Value="White"/>
