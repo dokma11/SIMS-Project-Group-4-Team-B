@@ -2,6 +2,7 @@
 using Sims2023.Controller;
 using Sims2023.Domain.Models;
 using Sims2023.Observer;
+using Sims2023.WPF.Views.GuidesViews;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -158,8 +159,8 @@ namespace Sims2023.WPF.ViewModels
 
         private void StatisticsButton_Click(object sender, RoutedEventArgs e)
         {
-            TourStatisticsViewModel tourStatisticsViewModel = new(LoggedInGuide, _tourService, _tourReservationService);
-            tourStatisticsViewModel.Show();
+            TourStatisticsView tourStatisticsView = new(LoggedInGuide, _tourService, _tourReservationService);
+            tourStatisticsView.Show();
         }
 
         public void Update()

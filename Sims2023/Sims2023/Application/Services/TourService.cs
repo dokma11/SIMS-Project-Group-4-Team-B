@@ -1,4 +1,6 @@
-﻿using Sims2023.Domain.Models;
+﻿using Sims2023.Controller;
+using Sims2023.Domain.Models;
+using Sims2023.Model.DAO;
 using Sims2023.Observer;
 using Sims2023.Repository;
 using System;
@@ -61,6 +63,31 @@ namespace Sims2023.Application.Services
         public Tour GetById(int id)
         {
             return _tour.GetById(id);
+        }
+
+        public List<Tour> GetFinishedTours(User loggedInGuide)
+        {
+            return _tour.GetFinishedTours(loggedInGuide);
+        }
+
+        public void GetAttendedGuestsNumber(User loggedInGuide)
+        {
+            _tour.GetAttendedGuestsNumber(loggedInGuide);
+        }
+
+        public Tour GetTheMostVisitedTour(User loggedInGuide, string year)
+        {
+            return _tour.GetTheMostVisitedTour(loggedInGuide, year);
+        }
+
+        public string GetAgeStatistics(Tour selectedTour, string ageGroup)
+        {
+            return _tour.GetAgeStatistics(selectedTour, ageGroup);
+        }
+
+        public string GetVoucherStatistics(Tour selectedTour, bool used)
+        {
+            return _tour.GetVoucherStatistics(selectedTour, used);
         }
     }
 }

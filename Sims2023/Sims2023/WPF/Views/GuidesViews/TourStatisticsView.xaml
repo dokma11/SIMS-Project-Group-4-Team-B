@@ -1,4 +1,4 @@
-﻿<Window x:Class="Sims2023.WPF.ViewModels.TourStatisticsViewModel"
+﻿<Window x:Class="Sims2023.WPF.Views.GuidesViews.TourStatisticsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -18,7 +18,7 @@
                     <DataGridTextColumn Header="Broj gostiju" Binding="{Binding AttendedGuestsNumber}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button x:Name="showStatisticsButton" Click="ShowStatisticsButton_Click" Height="50" Width="150" Content="Prikaži statistiku" Margin="475,10,0,0"/>
+            <Button x:Name="displayStatisticsButton" Click="DisplayStatisticsButton_Click" Height="50" Width="150" Content="Prikaži statistiku" Margin="475,10,0,0"/>
         </StackPanel>
         <StackPanel Width="640">
             <DockPanel>

@@ -1,9 +1,11 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.FileHandler;
+using Sims2023.Model;
 using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace Sims2023.Repository
 {
@@ -12,9 +14,11 @@ namespace Sims2023.Repository
         private List<IObserver> _observers;
         private List<Tour> _tours;
         private TourFileHandler _fileHandler;
+        private TourReservationFileHandler _reservationFileHandler;
         public TourRepository()
         {
             _fileHandler = new TourFileHandler();
+            _reservationFileHandler = new TourReservationFileHandler();
             _tours = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
@@ -154,6 +158,95 @@ namespace Sims2023.Repository
         public void Save()
         {
             _fileHandler.Save(_tours);
+        }
+
+        public List<Tour> GetFinishedTours(User loggedInGuide)
+        {
+            return _tours.Where(t => (t.CurrentState == Tour.State.Finished || t.CurrentState == Tour.State.Interrupted)
+                         && t.Guide.Id == loggedInGuide.Id).ToList();
+        }
+
+        public void GetAttendedGuestsNumber(User loggedInGuide)
+        {
+            List<TourReservation> reservations = new();
+            reservations = _reservationFileHandler.Load();
+
+            foreach (var tour in GetFinishedTours(loggedInGuide))
+            {
+                tour.AttendedGuestsNumber = reservations.Where(res => res.Tour.Id == tour.Id && res.ConfirmedParticipation)
+                                                        .Sum(res => res.GuestNumber);
+            }
+        }
+
+        public Tour GetTheMostVisitedTour(User loggedInGuide, string year)
+        {
+            Tour ret = new();
+            var tours = _tours.Where(tour => tour.Guide.Id == loggedInGuide.Id &&
+                        (tour.CurrentState == Tour.State.Finished || tour.CurrentState == Tour.State.Interrupted));
+            if (year == "Svih vremena")
+            {
+                return tours.OrderByDescending(tour => tour.AttendedGuestsNumber).FirstOrDefault();
+            }
+            else
+            {
+                return tours.Where(tour => tour.Start.Year.ToString() == year)
+                             .OrderByDescending(tour => tour.AttendedGuestsNumber).FirstOrDefault();
+            }
+        }
+
+        public string GetAgeStatistics(Tour selectedTour, string ageGroup)
+        {
+            List<TourReservation> reservations = new();
+            reservations = _reservationFileHandler.Load();
+
+            if (string.Compare(ageGroup, "young") == 0)
+            {
+                int young = reservations
+                .Where(res => res.Tour.Id == selectedTour.Id && res.ConfirmedParticipation && res.User.Age <= 18)
+                .Sum(res => res.GuestNumber);
+                return young.ToString();
+            }
+            else if (ageGroup == "middleAged")
+            {
+                int middle = reservations
+                .Where(res => res.Tour.Id == selectedTour.Id && res.ConfirmedParticipation && res.User.Age > 18 && res.User.Age <= 50)
+                .Sum(res => res.GuestNumber);
+                return middle.ToString();
+            }
+            else if(ageGroup == "old")
+            {
+                int old = reservations
+                .Where(res => res.Tour.Id == selectedTour.Id && res.ConfirmedParticipation && res.User.Age > 50)
+                .Sum(res => res.GuestNumber);
+                return old.ToString();
+            }
+            else
+            {
+                return "ne znam";
+            }
+        }
+
+        public string GetVoucherStatistics(Tour selectedTour, bool used)
+        {
+            List<TourReservation> reservations = new();
+            reservations = _reservationFileHandler.Load();
+
+            int usedCounter = reservations.Where(res => res.Tour.Id == selectedTour.Id)
+                                          .Count(res => res.UsedVoucher && res.ConfirmedParticipation);
+            int notUsedCounter = reservations.Where(res => res.Tour.Id == selectedTour.Id)
+                                             .Count(res => !res.UsedVoucher && res.ConfirmedParticipation);
+
+            double usedPercentage = (double)usedCounter / (usedCounter + notUsedCounter);
+            double notUsedPercentage = (double)notUsedCounter / (usedCounter + notUsedCounter);
+
+            if (used)
+            {
+                return usedPercentage.ToString("0.00");
+            }
+            else
+            {
+                return notUsedPercentage.ToString("0.00");
+            }
         }
     }
 }
