@@ -34,7 +34,8 @@ namespace Sims2023.Model.DAO
 
         public List<AccommodationReservationRescheduling> FindGuestsForOwner(User owner, List<AccommodationReservationRescheduling> guests)
         {
-            return guests.Where(g => g.AccommodationReservation.Accommodation.Owner.Id == owner.Id && g.Status == RequestStatus.Pending).ToList();
+            DateTime today = DateTime.Today;
+            return guests.Where(g => g.AccommodationReservation.Accommodation.Owner.Id == owner.Id && g.Status == RequestStatus.Pending && g.AccommodationReservation.StartDate < today).ToList();
         }
 
         public bool IsDateSpanAvailable(AccommodationReservationRescheduling request)

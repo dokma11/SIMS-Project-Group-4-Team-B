@@ -8,7 +8,7 @@ namespace Sims2023.WPF.ViewModels
     public partial class TourStatisticsViewModel
     {
         private TourService _tourService;
-        private TourReservationController _tourReservationService;
+        private TourReservationService _tourReservationService;
         public Tour? Tour { get; set; }
         public Tour? SelectedTour { get; set; }
         public ObservableCollection<Tour> TheMostVisitedTour { get; set; }
