@@ -18,14 +18,14 @@ using Sims2023.Controller;
 using Sims2023.Domain.Models;
 using Sims2023.Model;
 using Sims2023.Observer;
-using Sims2023.View.Guest1;
+using Sims2023.WPF.Views.Guest1Views;
 
-namespace Sims2023.View
+namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
     /// <summary>
     /// Interaction logic for AllGuestOneReservationsView.xaml
     /// </summary>
-    public partial class AllGuestOneReservationsView : Window, IObserver
+    public partial class AllGuestOneReservationsViewModel : Window, IObserver
     {
         public AccommodationReservation SelectedAccommodationReservation { get; set; }
 
@@ -42,10 +42,11 @@ namespace Sims2023.View
         List<AccommodationReservation> FilteredData=new List<AccommodationReservation>();   
         public User User { get; set; }
 
-        public AllGuestOneReservationsView(User guest1)
+        public AllGuestOneReservationsView AllGuestOneReservationsView;
+
+        public AllGuestOneReservationsViewModel(AllGuestOneReservationsView allGuestOneReservationsView,User guest1)
         {
-            InitializeComponent();
-            DataContext = this;
+            AllGuestOneReservationsView = allGuestOneReservationsView;
 
             User = guest1;
 
@@ -61,10 +62,10 @@ namespace Sims2023.View
             AccommodationLocations = new ObservableCollection<AccommodationLocation>(_accommodationLocationController.GetAllAccommodationLocations());
 
             FilteredData = FindSuitableReservations(AccommodationReservations);
-            myDataGrid.ItemsSource = FilteredData;
+            AllGuestOneReservationsView.myDataGrid.ItemsSource = FilteredData;
         }
 
-        private List<AccommodationReservation> FindSuitableReservations(ObservableCollection<AccommodationReservation> accommodationReservations)
+        public List<AccommodationReservation> FindSuitableReservations(ObservableCollection<AccommodationReservation> accommodationReservations)
         {
             List<AccommodationReservation> FilteredReservations = new List<AccommodationReservation>();
             foreach (AccommodationReservation accommodationReservation in accommodationReservations)
@@ -77,7 +78,7 @@ namespace Sims2023.View
             return FilteredReservations;
         }
 
-        private bool CheckReservation(AccommodationReservation accommodationReservation)
+        public bool CheckReservation(AccommodationReservation accommodationReservation)
         {
             TimeSpan difference = DateTime.Today - accommodationReservation.EndDate;
             if (difference.TotalDays <= 5 && difference.TotalDays>=0 && accommodationReservation.Guest.Id==User.Id && accommodationReservation.Graded==false)
@@ -88,9 +89,9 @@ namespace Sims2023.View
             
         }
 
-        private void grading_Click(object sender, RoutedEventArgs e)
+        public void grading_Click(object sender, RoutedEventArgs e)
         {
-            SelectedAccommodationReservation = (AccommodationReservation)myDataGrid.SelectedItem;
+            SelectedAccommodationReservation = (AccommodationReservation)AllGuestOneReservationsView.myDataGrid.SelectedItem;
             
             if (SelectedAccommodationReservation == null)
             {
@@ -110,9 +111,9 @@ namespace Sims2023.View
             }
         }
 
-        private void renovation_Click(object sender, RoutedEventArgs e)
+        public void renovation_Click(object sender, RoutedEventArgs e)
         {
-            SelectedAccommodationReservation = (AccommodationReservation)myDataGrid.SelectedItem;
+            SelectedAccommodationReservation = (AccommodationReservation)AllGuestOneReservationsView.myDataGrid.SelectedItem;
             if (SelectedAccommodationReservation == null)
             {
                 MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da ocenite.");
@@ -126,7 +127,7 @@ namespace Sims2023.View
         {
             FilteredData.Clear();
             FilteredData = FindSuitableReservations(AccommodationReservations);
-            myDataGrid.ItemsSource = FilteredData;
+            AllGuestOneReservationsView.myDataGrid.ItemsSource = FilteredData;
         }
     }
 }

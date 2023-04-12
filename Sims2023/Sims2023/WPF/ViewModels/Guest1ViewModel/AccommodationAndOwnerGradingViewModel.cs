@@ -1,33 +1,27 @@
-﻿using Microsoft.Win32;
-using Sims2023.Application.Services;
+﻿using Sims2023.Application.Services;
 using Sims2023.Controller;
 using Sims2023.Domain.Models;
-using Sims2023.Model;
-using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
+using Sims2023.Model;
+using Sims2023.WPF.Views.Guest1Views;
+using Microsoft.Win32;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
-
-namespace Sims2023.View.Guest1
+namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
     /// <summary>
     /// Interaction logic for AccommodationAndOwnerGradingView.xaml
     /// </summary>
-    public partial class AccommodationAndOwnerGradingView : Window
+    public partial class AccommodationAndOwnerGradingViewModel
     {
+        private AccommodationAndOwnerGradingView _accommodationAndOwnerGradingView;
+
         private List<string> _addedPictures = new List<string>();
         public AccommodationReservation SelectedAccommodationReservation { get; set; }
 
@@ -39,10 +33,9 @@ namespace Sims2023.View.Guest1
         private AccommodationService _accommodationController;
 
         public User User { get; set; }
-        public AccommodationAndOwnerGradingView(AccommodationReservation SelectedAccommodationReservationn, User guest1, AccommodationReservationService accommodationReservationController)
+        public AccommodationAndOwnerGradingViewModel(AccommodationAndOwnerGradingView accommodationAndOwnerGradingView, AccommodationReservation SelectedAccommodationReservationn, User guest1, AccommodationReservationService accommodationReservationController)
         {
-            InitializeComponent();
-            DataContext = this;
+            _accommodationAndOwnerGradingView = accommodationAndOwnerGradingView;
 
             User = guest1;
 
@@ -58,13 +51,13 @@ namespace Sims2023.View.Guest1
 
         }
 
-        private void accept_Click(object sender, RoutedEventArgs e)
+        public void accept_Click(object sender, RoutedEventArgs e)
         {
             var result = System.Windows.MessageBox.Show("Da li ste sigurni da zelite da ostavite ovu recenziju?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
             if (result == System.Windows.MessageBoxResult.Yes)
             {
-                AddCreatedGrade(SelectedAccommodationReservation);
-                Close();
+                AddCreatedGrade();
+                _accommodationAndOwnerGradingView.Close();
             }
             else
             {
@@ -72,20 +65,20 @@ namespace Sims2023.View.Guest1
             }
         }
 
-        private void AddCreatedGrade(AccommodationReservation selectedAccommodationReservation)
+        public void AddCreatedGrade()
         {
-            AccommodationGrade accommodationGrade = CreateGrade(selectedAccommodationReservation);
+            AccommodationGrade accommodationGrade = CreateGrade(SelectedAccommodationReservation);
             if(accommodationGrade != null)
             {
                 _accommodationGradeController.Create(accommodationGrade);
-                UpdateAccommodationReservation(selectedAccommodationReservation);
+                UpdateAccommodationReservation(SelectedAccommodationReservation);
                 UpdateAccommodationImages(SelectedAccommodationReservation, _addedPictures);
                 MessageBox.Show("Uspesno ste ocenili ovaj smestaj.");
             }
 
         }
 
-        private void UpdateAccommodationImages(AccommodationReservation selectedAccommodationReservation, List<string> addedPictures)
+        public void UpdateAccommodationImages(AccommodationReservation selectedAccommodationReservation, List<string> addedPictures)
         {
             foreach(var image in addedPictures)
             {
@@ -94,34 +87,34 @@ namespace Sims2023.View.Guest1
             _accommodationController.Update(SelectedAccommodationReservation.Accommodation);
         }
 
-        private void UpdateAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
+        public void UpdateAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
         {
 
-            SelectedAccommodationReservation.Graded = true;
+            selectedAccommodationReservation.Graded = true;
             _accommodationReservationController.Update(SelectedAccommodationReservation);
         }
 
-        private AccommodationGrade CreateGrade(AccommodationReservation selectedAccommodationReservation)
+        public AccommodationGrade CreateGrade(AccommodationReservation selectedAccommodationReservation)
         {
             AccommodationGrade accommodationGrade = new AccommodationGrade();
             accommodationGrade.Guest = User;
             accommodationGrade.Accommodation = selectedAccommodationReservation.Accommodation;
-            accommodationGrade.ValueForMoney = (int)valueForMoneyIntegerUpDown.Value;
-            accommodationGrade.Cleanliness=(int)cleannessIntegerUpDown.Value;
-            accommodationGrade.Owner=(int)ownerIntegerUpDown.Value;
-            accommodationGrade.Comfort=(int)comfortIntegerUpDown.Value;
-            accommodationGrade.Location=(int)locationIntegerUpDown.Value;
-            accommodationGrade.Comment = textBox.Text;
+            accommodationGrade.ValueForMoney = (int)_accommodationAndOwnerGradingView.valueForMoneyIntegerUpDown.Value;
+            accommodationGrade.Cleanliness=(int)_accommodationAndOwnerGradingView.cleannessIntegerUpDown.Value;
+            accommodationGrade.Owner=(int)_accommodationAndOwnerGradingView.ownerIntegerUpDown.Value;
+            accommodationGrade.Comfort=(int)_accommodationAndOwnerGradingView.comfortIntegerUpDown.Value;
+            accommodationGrade.Location=(int)_accommodationAndOwnerGradingView.locationIntegerUpDown.Value;
+            accommodationGrade.Comment = _accommodationAndOwnerGradingView.textBox.Text;
             return accommodationGrade;
 
         }
 
-        private void giveUp_Click(object sender, RoutedEventArgs e)
+        public void giveUp_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            _accommodationAndOwnerGradingView.Close();
         }
 
-        private void addPicture_Click(object sender, RoutedEventArgs e)
+        public void addPicture_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;
@@ -131,38 +124,38 @@ namespace Sims2023.View.Guest1
             {
                 foreach (string filename in openFileDialog.FileNames)
                 {
-                    PicturesListView.Items.Add(new BitmapImage(new Uri(filename)));
+                    _accommodationAndOwnerGradingView.PicturesListView.Items.Add(new BitmapImage(new Uri(filename)));
                    _addedPictures.Add(new Uri(filename).AbsoluteUri);
                 }
-                myListBox.ItemsSource = _addedPictures;
+                _accommodationAndOwnerGradingView.myListBox.ItemsSource = _addedPictures;
             }
         }
 
-        private void RemoveButton_Click(object sender, RoutedEventArgs e)
+        public void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             string itemToRemove = (string)button.Tag;
             RemovePictureFromListBox(itemToRemove);
             RemovePictureFromListView(itemToRemove);
         }
-        private void RemovePictureFromListBox(string itemToRemove)
+        public void RemovePictureFromListBox(string itemToRemove)
         {
             _addedPictures.Remove(itemToRemove);
-            myListBox.ItemsSource = null;
-            myListBox.ItemsSource = _addedPictures;
+            _accommodationAndOwnerGradingView.myListBox.ItemsSource = null;
+            _accommodationAndOwnerGradingView.myListBox.ItemsSource = _addedPictures;
         }
-        private void RemovePictureFromListView(string itemToRemove)
+        public void RemovePictureFromListView(string itemToRemove)
         {
             BitmapImage selectedBitmapImage = FindDeletingPicture(itemToRemove);
             
             if (selectedBitmapImage != null)
             {
-                PicturesListView.Items.Remove(selectedBitmapImage);
+                _accommodationAndOwnerGradingView.PicturesListView.Items.Remove(selectedBitmapImage);
             }
         }
-        private BitmapImage FindDeletingPicture(string itemToRemove)
+        public BitmapImage FindDeletingPicture(string itemToRemove)
         {
-            foreach (BitmapImage bitmapImage in PicturesListView.Items)
+            foreach (BitmapImage bitmapImage in _accommodationAndOwnerGradingView.PicturesListView.Items)
             {
                 if (bitmapImage.UriSource.AbsoluteUri == itemToRemove)
                 {

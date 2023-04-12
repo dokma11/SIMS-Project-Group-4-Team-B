@@ -4,6 +4,7 @@ using Sims2023.Controller;
 using Sims2023.Domain.Models;
 using Sims2023.Model;
 using Sims2023.Observer;
+using Sims2023.WPF.Views.Guest1Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,10 +23,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 
-namespace Sims2023.View
+namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
-    public partial class AccommodationListView : Window
+    public partial class AccommodationListViewModel
     {
+        private AccommodationListView AccommodationListView;
+
         private AccommodationService _accommodationController;
         public ObservableCollection<Accommodation> Accommodations { get; set; }
 
@@ -38,15 +41,12 @@ namespace Sims2023.View
         public ObservableCollection<AccommodationLocation> AccommodationLocations { get; set; }
 
         public List<Accommodation> FilteredData = new List<Accommodation>();
-     
 
-
-
-        public AccommodationListView(User guest1)
+        public AccommodationListViewModel(AccommodationListView accommodationListView, User guest1)
         {
-            InitializeComponent();
-            DataContext = this;
+            AccommodationListView = accommodationListView; 
             _userController = new UserService();
+
             User = guest1;
             _accommodationLocationController = new AccomodationLocationController();
             AccommodationLocations = new ObservableCollection<AccommodationLocation>(_accommodationLocationController.GetAllAccommodationLocations());
@@ -60,24 +60,24 @@ namespace Sims2023.View
             List<Accommodation> FilteredData = new List<Accommodation>();
         }
 
-        private void SearchAccommodation_Click(object sender, RoutedEventArgs e)
+        public void SearchAccommodation_Click(object sender, RoutedEventArgs e)
         {
             FilteredData.Clear();
-            myDataGrid.ItemsSource = Accommodations;
+            AccommodationListView.myDataGrid.ItemsSource = Accommodations;
 
-            string nameSearchTerm = nameSearchBox.Text;
-            string citySearchTerm = citySearchBox.Text;
-            string countrySearchTerm = countrySearchBox.Text;
-            string typeSearchTerm = typeComboBox.Text;
-            int maxGuests = (int)numberOfGuests.Value;
-            int minDays = (int)numberOfDays.Value;
+            string nameSearchTerm = AccommodationListView.nameSearchBox.Text;
+            string citySearchTerm = AccommodationListView.citySearchBox.Text;
+            string countrySearchTerm = AccommodationListView.countrySearchBox.Text;
+            string typeSearchTerm = AccommodationListView.typeComboBox.Text;
+            int maxGuests = (int)AccommodationListView.numberOfGuests.Value;
+            int minDays = (int)AccommodationListView.numberOfDays.Value;
 
             CheckSetConditions(nameSearchTerm, citySearchTerm, countrySearchTerm, typeSearchTerm, maxGuests, minDays);
 
-            myDataGrid.ItemsSource = FilteredData;
+            AccommodationListView.myDataGrid.ItemsSource = FilteredData;
 
         }
-        private void CheckSetConditions(string nameSearchTerm, string citySearchTerm, string countrySearchTerm, string typeSearchTerm, int maxGuests, int minDays)
+        public void CheckSetConditions(string nameSearchTerm, string citySearchTerm, string countrySearchTerm, string typeSearchTerm, int maxGuests, int minDays)
         {
             foreach (Accommodation accommodation in Accommodations)
             {
@@ -117,14 +117,14 @@ namespace Sims2023.View
                         typeCondition = false;
                     }
                 }
-                if (numberOfGuests.Value > 0)
+                if (AccommodationListView.numberOfGuests.Value > 0)
                 {
                     if (accommodation.MaxGuests < maxGuests)
                     {
                         maxGuestsCondition = false;
                     }
                 }
-                if (numberOfDays.Value > 0)
+                if (AccommodationListView.numberOfDays.Value > 0)
                 {
                     if (accommodation.MinDays > minDays)
                     {
@@ -140,15 +140,15 @@ namespace Sims2023.View
 
             }
         }
-        private void GiveUpSearch_Click(object sender, RoutedEventArgs e)
+        public void GiveUpSearch_Click(object sender, RoutedEventArgs e)
         {
             FilteredData.Clear();
-            myDataGrid.ItemsSource = Accommodations;
+            AccommodationListView.myDataGrid.ItemsSource = Accommodations;
         }
 
-        private void ButtonReservation_Click(object sender, RoutedEventArgs e)
+        public void ButtonReservation_Click(object sender, RoutedEventArgs e)
         {
-            SelectedAccommodation = (Accommodation)myDataGrid.SelectedItem;
+            SelectedAccommodation = (Accommodation)AccommodationListView.myDataGrid.SelectedItem;
             
             if (SelectedAccommodation == null)
             {
@@ -159,9 +159,9 @@ namespace Sims2023.View
             accommodationReservationDateView.Show();
         }
 
-        private void Back_Click(object sender, RoutedEventArgs e)
+        public void Back_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            AccommodationListView.Close();
         }
     }
 }

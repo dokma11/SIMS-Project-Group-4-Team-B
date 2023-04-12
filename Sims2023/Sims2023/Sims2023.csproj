@@ -62,4 +62,10 @@
     </Resource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="WPF\ViewModels\Guest1ViewModel\AccommodationReservationCancellationViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

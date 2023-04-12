@@ -3,6 +3,8 @@ using Sims2023.Controller;
 using Sims2023.Domain.Models;
 using Sims2023.Model;
 using Sims2023.Observer;
+using Sims2023.View;
+using Sims2023.WPF.Views.Guest1Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,12 +20,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Sims2023.View
+namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
     /// <summary>
     /// Interaction logic for AccommodationReservationConfirmationWindow.xaml
     /// </summary>
-    public partial class AccommodationReservationDateView : Window
+    public partial class AccommodationReservationDateViewModel : Window
     {
         public List<AccommodationStay> stays = new List<AccommodationStay>();
 
@@ -44,10 +46,11 @@ namespace Sims2023.View
         bool todaysDay;
         int daysNumber;
 
-        public AccommodationReservationDateView(int reservationId, Accommodation selectedAccommodation, User guest1)
+        private AccommodationReservationDateView AccommodationReservationDateView;
+
+        public AccommodationReservationDateViewModel(AccommodationReservationDateView accommodationReservationDateView, int reservationId, Accommodation selectedAccommodation, User guest1)
         {
-            InitializeComponent();
-            DataContext = this;
+            AccommodationReservationDateView = accommodationReservationDateView;
 
             User = guest1;
             ReservationId = reservationId;
@@ -65,27 +68,26 @@ namespace Sims2023.View
             AvailableDates = new List<DateTime>();
             AdditionalAvailableDates = new List<DateTime>();
 
-            startDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
-            endDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
+            AccommodationReservationDateView.startDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
+            AccommodationReservationDateView.endDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
 
             todaysDay = false;
 
         }
 
-
-        private void MakeReservation_Click(object sender, RoutedEventArgs e)
+        public void MakeReservation_Click(object sender, RoutedEventArgs e)
         {
             _stays.Clear();
-            availableDatesGrid.ItemsSource = _stays;
+            AccommodationReservationDateView.availableDatesGrid.ItemsSource = _stays;
 
             if (!CheckDateRequirments())
             {
                 return;
             }
 
-            DateTime startDateSelected = startDatePicker.SelectedDate.Value;
-            DateTime endDateSelected = endDatePicker.SelectedDate.Value;
-            int stayLength = (int)numberOfDays.Value;
+            DateTime startDateSelected = AccommodationReservationDateView.startDatePicker.SelectedDate.Value;
+            DateTime endDateSelected = AccommodationReservationDateView.endDatePicker.SelectedDate.Value;
+            int stayLength = (int)AccommodationReservationDateView.numberOfDays.Value;
             daysNumber = stayLength;
 
             int possibleDatesNumber = CheckDates(startDateSelected, endDateSelected, stayLength, AvailableDates);
@@ -101,12 +103,12 @@ namespace Sims2023.View
             }
         }
 
-        private void OriginalAvailableDatesFound(List<DateTime> availableDates, int stayLength)
+        public void OriginalAvailableDatesFound(List<DateTime> availableDates, int stayLength)
         {
             CreateAvailableStayList(availableDates, stayLength);
         }
 
-        private void ExtendedAvailableDatesSearch(DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> availableDates)
+        public void ExtendedAvailableDatesSearch(DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> availableDates)
         {
             MessageBox.Show("Za datume koje ste izabrali nismo uspeli da pronademo nijedan slobodan termin.Ukoliko zelite mozete izabrati neki od slobodnih termina koji su najslicniji onima koji ste zeleli.");
             int datesFound = 0;
@@ -129,7 +131,7 @@ namespace Sims2023.View
             }
         }
 
-        private int CheckDates(DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> datesList)
+        public int CheckDates(DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> datesList)
         {
             DateTime endDate = startDateSelected.AddDays(stayLength);
             bool isAvailable;
@@ -155,7 +157,7 @@ namespace Sims2023.View
             }
             return datesList.Count;
         }
-        private void CreateAvailableStayList(List<DateTime> availableStayDates, int stayLength)
+        public void CreateAvailableStayList(List<DateTime> availableStayDates, int stayLength)
         {
             foreach (DateTime startDate in availableStayDates)
             {
@@ -169,16 +171,16 @@ namespace Sims2023.View
 
         }
 
-        private bool CheckDateRequirments()
+        public bool CheckDateRequirments()
         {
-            if (startDatePicker.SelectedDate == null || endDatePicker.SelectedDate == null)
+            if (AccommodationReservationDateView.startDatePicker.SelectedDate == null || AccommodationReservationDateView.endDatePicker.SelectedDate == null)
             {
                 MessageBox.Show("Molimo Vas da selektujete datume.");
                 return false;
             }
-            DateTime startDateSelected = startDatePicker.SelectedDate.Value;
-            DateTime endDateSelected = endDatePicker.SelectedDate.Value;
-            int daysNumber = (int)numberOfDays.Value;
+            DateTime startDateSelected = AccommodationReservationDateView.startDatePicker.SelectedDate.Value;
+            DateTime endDateSelected = AccommodationReservationDateView.endDatePicker.SelectedDate.Value;
+            int daysNumber = (int)AccommodationReservationDateView.numberOfDays.Value;
 
             int minDays = SelectedAccommodation.MinDays;
 
@@ -205,7 +207,7 @@ namespace Sims2023.View
             return true;
 
         }
-        private bool IsDateSpanAvailable(DateTime startDate, DateTime endDate)
+        public bool IsDateSpanAvailable(DateTime startDate, DateTime endDate)
         {
             foreach (AccommodationReservation reservation in _accommodationReservationService.GetAllReservations())
             {
@@ -226,9 +228,9 @@ namespace Sims2023.View
             return true;
         }
 
-        private void ButtonDateConfirmation_Click(object sender, RoutedEventArgs e)
+        public void ButtonDateConfirmation_Click(object sender, RoutedEventArgs e)
         {
-            SelectedAccommodationStay = (AccommodationStay)availableDatesGrid.SelectedItem;
+            SelectedAccommodationStay = (AccommodationStay)AccommodationReservationDateView.availableDatesGrid.SelectedItem;
             if (SelectedAccommodationStay == null)
             {
                 MessageBox.Show("Molimo Vas selektujte datume koje zelite da rezervisete.");
@@ -243,9 +245,9 @@ namespace Sims2023.View
             accommodationReservationConfirmationView.Show();
         }
 
-        private void ButtonDateCancelation_Click(object sender, RoutedEventArgs e)
+        public void ButtonDateCancelation_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            AccommodationReservationDateView.Close();
         }
     }
 }

@@ -13,37 +13,39 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Sims2023.View.Guest1;
 using Sims2023.Controller;
 using System.Collections.ObjectModel;
 using System.IO;
+using Sims2023.WPF.Views.Guest1Views;
 
-namespace Sims2023.View
+namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
     /// <summary>
     /// Interaction logic for Guest1MainWindow.xaml
     /// </summary>
-    public partial class Guest1MainView : Window
+    public partial class Guest1MainViewModel : Window
     {
         public User User { get; set; }
 
         private AccommodationReservationReschedulingController _accommodationReservationReschedulingController;
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
-        public Guest1MainView(User guest1)
+
+        Guest1MainView Guest1MainView;
+
+        public Guest1MainViewModel(Guest1MainView guest1MainView,User guest1)
         {
-            InitializeComponent();
-            DataContext = this;
+            Guest1MainView = guest1MainView;
 
             User = guest1;
             _accommodationReservationReschedulingController = new AccommodationReservationReschedulingController();
             AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingController.GetAllReservationReschedulings());
         }
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        public void Window_Loaded(object sender, RoutedEventArgs e)
         {
             checkForNotifications();
         }
 
-        private void checkForNotifications()
+        public void checkForNotifications()
         {
             foreach (AccommodationReservationRescheduling accommodationReservationRescheduling in AccommodationReservationReschedulings)
             {
@@ -65,30 +67,30 @@ namespace Sims2023.View
             return false;
         }
 
-        private void VewAccommodation_Click(object sender, RoutedEventArgs e)
+        public void VewAccommodation_Click(object sender, RoutedEventArgs e)
         {
             var AccommodationListView = new AccommodationListView(User);
             AccommodationListView.Show();
         }
 
-        private void ButtonLogOut_Click(object sender, RoutedEventArgs e)
+        public void ButtonLogOut_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Guest1MainView.Close();
         }
 
-        private void buttonGrading_Click(object sender, RoutedEventArgs e)
+        public void buttonGrading_Click(object sender, RoutedEventArgs e)
         {
             var AllGuestOneReservationsView = new AllGuestOneReservationsView(User);
             AllGuestOneReservationsView.Show();
         }
 
-        private void AccommodationCancellation_Click(object sender, RoutedEventArgs e)
+        public void AccommodationCancellation_Click(object sender, RoutedEventArgs e)
         {
             var AccommodationReservationCancellationView = new AccommodationReservationCancellationView(User);
             AccommodationReservationCancellationView.Show();
         }
 
-        private void buttonReservationMove_Click(object sender, RoutedEventArgs e)
+        public void buttonReservationMove_Click(object sender, RoutedEventArgs e)
         {
             var AccommodationReservationReschedulingView = new AccommodationReservationReschedulingView(User);
             AccommodationReservationReschedulingView.Show();

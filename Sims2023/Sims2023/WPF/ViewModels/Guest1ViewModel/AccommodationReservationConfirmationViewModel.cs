@@ -7,14 +7,15 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media.Animation;
+using Sims2023.WPF.Views.Guest1Views;
 
-namespace Sims2023.View
+namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
     /// <summary>
     /// Interaction logic for AccommodationReservationConfirmationWindow.xaml
     /// </summary>
 
-    public partial class AccommodationReservationConfirmationView : Window
+    public partial class AccommodationReservationConfirmationViewModel : Window
     {
         public User User { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
@@ -27,10 +28,11 @@ namespace Sims2023.View
         public int ReservationId { get; set; }
 
         int days;
-        public AccommodationReservationConfirmationView(int reservationId,Accommodation selectedAccommodation, AccommodationStay selectedAccommodationStay, int daysNumber, User guest1)
+
+        AccommodationReservationConfirmationView AccommodationReservationConfirmationView;
+        public AccommodationReservationConfirmationViewModel(AccommodationReservationConfirmationView accommodationReservationConfirmationView, int reservationId, Accommodation selectedAccommodation, AccommodationStay selectedAccommodationStay, int daysNumber, User guest1)
         {
-            InitializeComponent();
-            DataContext = this;
+            AccommodationReservationConfirmationView = accommodationReservationConfirmationView;
 
             User = guest1;
             SelectedAccommodation = selectedAccommodation;
@@ -43,22 +45,22 @@ namespace Sims2023.View
             _accommodationReservationReschedulingController = new AccommodationReservationReschedulingController();
             AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingController.GetAllReservationReschedulings());
 
-            FillTextBoxes(SelectedAccommodation,SelectedAccommodationStay);
-            
+            FillTextBoxes(SelectedAccommodation, SelectedAccommodationStay);
+
         }
 
-        private void FillTextBoxes(Accommodation selectedAccommodation, AccommodationStay selectedAccommodationStay)
+        public void FillTextBoxes(Accommodation selectedAccommodation, AccommodationStay selectedAccommodationStay)
         {
-            accommodatioNameTextBox.Text = selectedAccommodation.Name;
-            accommodatioCityTextBox.Text = selectedAccommodation.Location.City;
-            accommodatioCountryTextBox.Text = selectedAccommodation.Location.Country;
-            accommodatioTypeTextBox.Text = selectedAccommodation.Type.ToString();
-            accommodatioStartDateTextBox.Text = selectedAccommodationStay.StartDate.ToString("MM/dd/yyyy");
-            accommodatioEndDateTextBox.Text = selectedAccommodationStay.EndDate.ToString("MM/dd/yyyy");
-            PicturesListView.ItemsSource = selectedAccommodation.Imageurls;
+            AccommodationReservationConfirmationView.accommodatioNameTextBox.Text = selectedAccommodation.Name;
+            AccommodationReservationConfirmationView.accommodatioCityTextBox.Text = selectedAccommodation.Location.City;
+            AccommodationReservationConfirmationView.accommodatioCountryTextBox.Text = selectedAccommodation.Location.Country;
+            AccommodationReservationConfirmationView.accommodatioTypeTextBox.Text = selectedAccommodation.Type.ToString();
+            AccommodationReservationConfirmationView.accommodatioStartDateTextBox.Text = selectedAccommodationStay.StartDate.ToString("MM/dd/yyyy");
+            AccommodationReservationConfirmationView.accommodatioEndDateTextBox.Text = selectedAccommodationStay.EndDate.ToString("MM/dd/yyyy");
+            AccommodationReservationConfirmationView.PicturesListView.ItemsSource = selectedAccommodation.Imageurls;
         }
 
-        private void ReservationButton_Click(object sender, RoutedEventArgs e)
+        public void ReservationButton_Click(object sender, RoutedEventArgs e)
         {
             if (ReservationId == -1)
             {
@@ -68,11 +70,11 @@ namespace Sims2023.View
             {
                 MakeNewAccommodationReservationRescheduling(ReservationId);
             }
-            Close();
+            AccommodationReservationConfirmationView.Close();
 
         }
 
-        private void MakeNewAccommodationReservation()
+        public void MakeNewAccommodationReservation()
         {
             AccommodationReservation accommodationReservation = new AccommodationReservation(-1, User, SelectedAccommodation, SelectedAccommodationStay.StartDate, SelectedAccommodationStay.EndDate, days, false);
             _accommodationReservationService.Create(accommodationReservation);
@@ -80,7 +82,7 @@ namespace Sims2023.View
             MessageBox.Show("Uspesno ste rezervisali objekat!");
         }
 
-        private void MakeNewAccommodationReservationRescheduling(int ReservationId)
+        public void MakeNewAccommodationReservationRescheduling(int ReservationId)
         {
             AccommodationReservationRescheduling accommodationReservationRescheduling = new AccommodationReservationRescheduling();
             accommodationReservationRescheduling.AccommodationReservation = _accommodationReservationService.GetById(ReservationId);
@@ -94,9 +96,9 @@ namespace Sims2023.View
 
         }
 
-        private void ButtonDateCancelation_Click(object sender, RoutedEventArgs e)
+        public void ButtonDateCancelation_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            AccommodationReservationConfirmationView.Close();
         }
     }
 }

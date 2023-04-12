@@ -17,13 +17,14 @@ using Sims2023.Model;
 using Sims2023.Observer;
 using Sims2023.Domain.Models;
 using Sims2023.Application.Services;
+using Sims2023.WPF.Views.Guest1Views;
 
-namespace Sims2023.View.Guest1
+namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
     /// <summary>
     /// Interaction logic for AccommodationReservationCancellationView.xaml
     /// </summary>
-    public partial class AccommodationReservationCancellationView : Window, IObserver
+    public partial class AccommodationReservationCancellationViewModel : Window, IObserver
     {
         public AccommodationReservation SelectedAccommodationReservation { get; set; }
 
@@ -39,10 +40,11 @@ namespace Sims2023.View.Guest1
 
         List<AccommodationReservation> FilteredData = new List<AccommodationReservation>();
         public User User { get; set; }
-        public AccommodationReservationCancellationView(User guest1)
+
+        AccommodationReservationCancellationView AccommodationReservationCancellationView;
+        public AccommodationReservationCancellationViewModel(AccommodationReservationCancellationView accommodationReservationCancellationView,User guest1)
         {
-            InitializeComponent();
-            DataContext = this;
+            AccommodationReservationCancellationView = accommodationReservationCancellationView;
 
             User = guest1;
 
@@ -58,10 +60,10 @@ namespace Sims2023.View.Guest1
             AccommodationCancellations = new ObservableCollection<AccommodationCancellation>(_accommodationCancellationController.GetAllAccommodationCancellations());
 
             FilteredData = FindSuitableReservations(AccommodationReservations);
-            myDataGrid.ItemsSource = FilteredData;
+            AccommodationReservationCancellationView.myDataGrid.ItemsSource = FilteredData;
 
         }
-        private List<AccommodationReservation> FindSuitableReservations(ObservableCollection<AccommodationReservation> accommodationReservations)
+        public List<AccommodationReservation> FindSuitableReservations(ObservableCollection<AccommodationReservation> accommodationReservations)
         {
             List<AccommodationReservation> FilteredReservations = new List<AccommodationReservation>();
             foreach (AccommodationReservation accommodationReservation in accommodationReservations)
@@ -74,7 +76,7 @@ namespace Sims2023.View.Guest1
             return FilteredReservations;
         }
 
-        private bool FilterdDataSelection(AccommodationReservation accommodationReservation,User guest)
+        public bool FilterdDataSelection(AccommodationReservation accommodationReservation,User guest)
         {
             TimeSpan difference = accommodationReservation.StartDate - DateTime.Today;
             if (difference.TotalDays >= 0 && accommodationReservation.Guest.Id == guest.Id)
@@ -84,9 +86,9 @@ namespace Sims2023.View.Guest1
             return false;
         }
 
-        private void cancellation_Click(object sender, RoutedEventArgs e)
+        public void cancellation_Click(object sender, RoutedEventArgs e)
         {
-            SelectedAccommodationReservation = (AccommodationReservation)myDataGrid.SelectedItem;
+            SelectedAccommodationReservation = (AccommodationReservation)AccommodationReservationCancellationView.myDataGrid.SelectedItem;
             if(CheckSelectedAccommodationReservation(SelectedAccommodationReservation))
             {
                 MessageBoxResult result = System.Windows.MessageBox.Show("Da li ste sigurni da zelite da obrisete ovu rezervaciju?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
@@ -103,7 +105,7 @@ namespace Sims2023.View.Guest1
             return;
         }
 
-        private bool CheckSelectedAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
+        public bool CheckSelectedAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
         {
             if (selectedAccommodationReservation == null)
             {
@@ -118,7 +120,7 @@ namespace Sims2023.View.Guest1
             return true;
         }
 
-        private bool CancellationIsPossible(AccommodationReservation selectedAccommodationReservation)
+        public bool CancellationIsPossible(AccommodationReservation selectedAccommodationReservation)
         {
             TimeSpan difference = selectedAccommodationReservation.StartDate- DateTime.Today;
             if (difference.TotalDays <= selectedAccommodationReservation.Accommodation.CancelDays)
@@ -128,7 +130,7 @@ namespace Sims2023.View.Guest1
             return false;
         }
 
-        private void DeleteAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
+        public void DeleteAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
         {
             foreach (AccommodationReservation accommodationResrvation in AccommodationReservations)
             {
@@ -140,7 +142,7 @@ namespace Sims2023.View.Guest1
             }
         }
 
-        private void CreateAccommodationCancellation(AccommodationReservation selectedAccommodationReservation)
+        public void CreateAccommodationCancellation(AccommodationReservation selectedAccommodationReservation)
         {
             AccommodationCancellation accommodationCancellation = new();
             accommodationCancellation.StartDate = selectedAccommodationReservation.StartDate;
@@ -158,7 +160,7 @@ namespace Sims2023.View.Guest1
             }
         }
 
-        private void RemoveAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
+        public void RemoveAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
         {
             AccommodationReservations.Remove(selectedAccommodationReservation);
             _accommodationReservationService.Delete(selectedAccommodationReservation);
@@ -169,7 +171,7 @@ namespace Sims2023.View.Guest1
         {
             FilteredData.Clear();
             FilteredData = FindSuitableReservations(AccommodationReservations);
-            myDataGrid.ItemsSource = FilteredData;
+            AccommodationReservationCancellationView.myDataGrid.ItemsSource = FilteredData;
         }
     }
 }
