@@ -18,7 +18,7 @@ namespace Sims2023.WPF.Views.GuidesViews
 
         public TourStatisticsViewModel tourStatisticsViewModel;
 
-        public TourStatisticsView(User loggedInGuide, TourService tourService, TourReservationController tourReservationService)
+        public TourStatisticsView(User loggedInGuide, TourService tourService, TourReservationService tourReservationService)
         {
             InitializeComponent();
             DataContext = this;

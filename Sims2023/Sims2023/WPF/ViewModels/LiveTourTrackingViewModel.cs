@@ -2,6 +2,7 @@
 using Sims2023.Controller;
 using Sims2023.Domain.Models;
 using Sims2023.Model;
+using Sims2023.WPF.Views.GuidesViews;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,8 +16,8 @@ namespace Sims2023.WPF.ViewModels
         public KeyPoint SelectedKeyPoint { get; set; }
 
         private KeyPointService _keyPointController;
-        private UserService _userController;
-        private TourReservationService _tourReservationController;
+        private UserService _userService;
+        private TourReservationService _tourReservationService;
         public ObservableCollection<KeyPoint> KeyPointsToDisplay { get; set; }
         public ObservableCollection<KeyPoint> AllKeyPoints { get; set; }
 
@@ -35,8 +36,8 @@ namespace Sims2023.WPF.ViewModels
             Tour.CurrentState = Tour.State.Started;
 
             _keyPointController = keyPointService;
-            _tourReservationController = tourReservationController;
-            _userController = userController;
+            _tourReservationService = tourReservationController;
+            _userService = userController;
 
             MarkedGuests = new List<User>();
 
@@ -167,7 +168,7 @@ namespace Sims2023.WPF.ViewModels
         {
             if (SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited)
             {
-                MarkGuestsPresentViewModel markGuestsPresentView = new(SelectedKeyPoint, _tourReservationController, _userController, MarkedGuests);
+                MarkGuestsPresentView markGuestsPresentView = new(SelectedKeyPoint, _tourReservationService, _userService, MarkedGuests);
                 markGuestsPresentView.Closed += MarkGuestsPresentView_Closed;
                 markGuestsPresentView.Show();
                 _keyPointController.Save();
@@ -182,7 +183,7 @@ namespace Sims2023.WPF.ViewModels
         {
             Update();
             int counter = 0;
-            foreach (var tour in _tourReservationController.GetAll())
+            foreach (var tour in _tourReservationService.GetAll())
             {
                 if (tour.Tour.Id == Tour.Id) counter++;
             }

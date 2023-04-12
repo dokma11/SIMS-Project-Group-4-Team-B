@@ -3,13 +3,13 @@ using Sims2023.Observer;
 using System.Collections.Generic;
 using System.Linq;
 using Sims2023.Domain.Models;
+using Sims2023.Application.Services;
 
 namespace Sims2023.Repositories
 {
     public class TourReservationRepository
     {
         private List<IObserver> _observers;
-
         private TourReservationFileHandler _fileHandler;
         private List<TourReservation> _tourReservations;
 

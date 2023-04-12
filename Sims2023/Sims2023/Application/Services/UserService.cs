@@ -4,6 +4,7 @@ using Sims2023.Model.DAO;
 using Sims2023.Observer;
 using Sims2023.Repositories;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 namespace Sims2023.Application.Services
 {
@@ -44,6 +45,11 @@ namespace Sims2023.Application.Services
         public User GetById(int id)
         {
             return _user.GetById(id);
+        }
+
+        public List<User> GetGuestsThatReserved(KeyPoint keyPoint, List<User> markedGuests)
+        {
+            return _user.GetGuestsThatReserved(keyPoint, markedGuests);
         }
     }
 }

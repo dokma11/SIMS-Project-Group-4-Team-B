@@ -6,6 +6,7 @@ using Sims2023.Observer;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Windows;
 
 namespace Sims2023.Repositories
 {
@@ -15,6 +16,7 @@ namespace Sims2023.Repositories
         private List<User> _users;
         private UserFileHandler _fileHandler;
         private AccommodationGradeDAO guests;
+        private TourReservationRepository _tourReservationRepository;
 
         public UserRepository()
         {
@@ -22,6 +24,7 @@ namespace Sims2023.Repositories
             _fileHandler = new UserFileHandler();
             _users = _fileHandler.Load();
     //        guests = new GuestGradeDAO();
+            //_tourReservationRepository = new TourReservationRepository();
         }
 
         public int NextId()
@@ -130,6 +133,36 @@ namespace Sims2023.Repositories
             {
                 observer.Update();
             }
+        }
+
+        public List<User> GetGuestsThatReserved(KeyPoint keyPoint, List<User> markedGuests)
+        {
+            _tourReservationRepository = new TourReservationRepository();
+            List<User> result = new();
+            foreach (var tourReservation in _tourReservationRepository.GetAll())
+            {
+                if (tourReservation.Tour.Id == keyPoint.Tour.Id)
+                {
+                    MessageBox.Show("nesto");
+                    User Guest = GetById(tourReservation.User.Id);
+                    if (CheckIfGuestMarked(tourReservation, Guest, keyPoint, markedGuests))
+                    {
+                        result.Add(Guest);
+                        MessageBox.Show("nesto2");
+                    }
+                }
+            }
+            return result;
+        }
+
+        private bool CheckIfGuestMarked(TourReservation tourReservation, User guest, KeyPoint keyPoint, List<User> markedGuests)
+        {
+            if (!keyPoint.ShowedGuestsIds.Contains(tourReservation.Tour.Id))
+            {
+                MessageBox.Show("nesto3");
+                return !markedGuests.Any(markedGuest => markedGuest.Id == guest.Id);
+            }
+            return true;
         }
     }
 }

@@ -199,7 +199,7 @@ namespace Sims2023.Repository
             List<TourReservation> reservations = new();
             reservations = _reservationFileHandler.Load();
 
-            if (string.Compare(ageGroup, "young") == 0)
+            if (ageGroup == "young")
             {
                 int young = reservations
                 .Where(res => res.Tour.Id == selectedTour.Id && res.ConfirmedParticipation && res.User.Age <= 18)
