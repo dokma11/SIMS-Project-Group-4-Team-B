@@ -41,6 +41,20 @@ namespace Sims2023.Domain.Models
             AverageGrade = (GuideKnowledge+GuidesLanguageCapability+TourInterest)/3;
         }
 
+        public TourReview(User guest,User guide,Tour tour,int guideKnowledge,int tourInterest,int guidesLanguageCapability,string comment)
+        {
+            KeyPointJoined = null;
+            IsValid = true;
+            Guest = guest;
+            Guide= guide;
+            Tour= tour;
+            GuideKnowledge= guideKnowledge;
+            TourInterest= tourInterest;
+            GuidesLanguageCapability= guidesLanguageCapability;
+            Comment = comment;
+            AverageGrade = (GuideKnowledge + GuidesLanguageCapability + TourInterest) / 3;
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public string[] ToCSV()
@@ -64,6 +78,7 @@ namespace Sims2023.Domain.Models
 
         public void FromCSV(string[] values)
         {
+            
             Id = Convert.ToInt32(values[0]);
             User guest = new()
             {

@@ -25,7 +25,7 @@ namespace Sims2023.WPF.Views.Guest2Views
     {
         public Tour SelectedTour { get; set; }
         public User User { get; set; }
-        //public List<Tour> Tours { get; set; }
+        
         public ObservableCollection<Tour> Tours { get; set; }   
 
 
@@ -49,7 +49,7 @@ namespace Sims2023.WPF.Views.Guest2Views
             Tours=GetGuestAllReservations();
 
 
-            //Tours = new ObservableCollection<Tour>(_tourService.GetAll());
+            
 
         }
 
@@ -71,7 +71,16 @@ namespace Sims2023.WPF.Views.Guest2Views
 
         private void RateTour_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (SelectedTour.CurrentState == Tour.State.Finished)
+            {
+                Tour tour = SelectedTour;
+                RateTourView rateTourListView = new RateTourView(User,tour);
+                rateTourListView.Show();
+            }
+            else
+            {
+                MessageBox.Show("Ne mozete da ocenite nezavrsenu turu");
+            }
         }
 
         private void SeeActiveTour_Click(object sender, RoutedEventArgs e)
