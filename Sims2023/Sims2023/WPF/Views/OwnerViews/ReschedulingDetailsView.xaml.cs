@@ -1,4 +1,6 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
 using System;
 using System.Collections.Generic;
@@ -24,8 +26,9 @@ namespace Sims2023.WPF.Views.OwnerViews
     public partial class ReschedulingDetailsView : Window
         {
             public AccommodationReservationRescheduling guest { get; set; }
-
-        public ObservableCollection<AccommodationReservationRescheduling> peoplee;
+            public AccommodationReservation UpdatedReservationStatus { get; set; }
+        public AccommodationReservationService _reservationService;
+            public ObservableCollection<AccommodationReservationRescheduling> peoplee;
             public AccommodationReservationReschedulingController _reschedulingController;
         public ReschedulingDetailsView(AccommodationReservationRescheduling SelectedGuest, ObservableCollection<AccommodationReservationRescheduling> people)
         {
@@ -34,14 +37,16 @@ namespace Sims2023.WPF.Views.OwnerViews
             DataContext = guest;
             _reschedulingController = new AccommodationReservationReschedulingController();
             peoplee = people;
-        }
+            UpdatedReservationStatus = new AccommodationReservation();
+            _reservationService = new AccommodationReservationService();
+        }   
 
         public string isAccommodationFree
         {
             get
             {
                 var message = _reschedulingController.isAccommodationFree(guest) ? "SLOBODAN" : "NIJE SLOBODAN";
-                return $"SMJESTAJ JE {message} U TRAZENOM TERMINU";
+                return $"SMJESTAJ {message} U TRAZENOM TERMINU";
             }
         }
 
@@ -59,7 +64,14 @@ namespace Sims2023.WPF.Views.OwnerViews
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             guest.Status = RequestStatus.Approved;
+            UpdatedReservationStatus = _reservationService.GetById(guest.AccommodationReservation.Id);
+            UpdatedReservationStatus.StartDate = guest.NewStartDate;
+            UpdatedReservationStatus.EndDate = guest.NewEndDate;
+            TimeSpan delta = guest.NewEndDate - guest.NewStartDate;
+            UpdatedReservationStatus.NumberOfDays = (int)delta.TotalDays;
+            _reservationService.Update(UpdatedReservationStatus);
             _reschedulingController.Update(guest);
+
             peoplee.Remove(guest);
             Close();
         }
