@@ -40,14 +40,13 @@ namespace Sims2023.Domain.Models
 
         public TourReview(User guest,Tour tour,KeyPoint keyPointJoined,int guideKnowledge,int tourInterest,int guidesLanguageCapability,string comment)
         {
-            KeyPointJoined = keyPointJoined ;
-            
             Guest = guest;
-            
             Tour= tour;
-            GuideKnowledge= guideKnowledge;
+            KeyPointJoined = keyPointJoined;
+            GuideKnowledge = guideKnowledge;
             TourInterest= tourInterest;
             GuidesLanguageCapability= guidesLanguageCapability;
+            IsValid = true;
             Comment = comment;
             AverageGrade = (GuideKnowledge + GuidesLanguageCapability + TourInterest) / 3;
         }
