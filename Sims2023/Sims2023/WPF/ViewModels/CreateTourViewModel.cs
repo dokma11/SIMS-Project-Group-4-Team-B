@@ -1,15 +1,12 @@
-﻿using Sims2023.Application.Services;
+﻿using Nevron.Nov.UI;
+using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace Sims2023.WPF.ViewModels
 {
-    public partial class CreateTourViewModel : INotifyPropertyChanged
+    public partial class CreateTourViewModel
     {
         public Tour Tour { get; set; }
         public Location Location { get; set; }
@@ -22,22 +19,14 @@ namespace Sims2023.WPF.ViewModels
         private List<DateTime> _dateTimeList;
         private List<string> _keyPointsList;
         public User LoggedInGuide { get; set; }
-        //private bool dateTimeButtonClicked = false;
         public CreateTourViewModel(TourService tourService, LocationService locationService, KeyPointService keyPointService, User loggedInGuide)
         {
-            InitializeComponent();
-            DataContext = this;
-
             Tour = new Tour();
             Location = new Location();
             KeyPoint = new KeyPoint();
 
             _dateTimeList = new List<DateTime>();
             _keyPointsList = new List<string>();
-
-            //submitButton.IsEnabled = true;
-            //addMoreDatesButton.IsEnabled = false;
-            addKeyPointsButton.IsEnabled = false;
 
             _tourService = tourService;
             _locationService = locationService;
@@ -46,65 +35,8 @@ namespace Sims2023.WPF.ViewModels
             LoggedInGuide = loggedInGuide;
         }
 
-        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
+        public void SetToursLanguage(string language)
         {
-            if (Tour.IsValid /*&& dateTimeButtonClicked */&& keyPointsOutput.Items.Count > 1)
-            {
-                int newToursNumber = _dateTimeList.Count;
-                _locationService.Create(Location);
-                _tourService.Create(Tour, _dateTimeList, Location, LoggedInGuide);
-                int firstToursId = Tour.Id - newToursNumber + 1;
-                _tourService.AddToursLocation(Tour, Location, newToursNumber);
-                _keyPointService.Create(KeyPoint, _keyPointsList, firstToursId, newToursNumber);
-                _tourService.AddToursKeyPoints(_keyPointsList, firstToursId);
-                Close();
-            }
-            else
-            {
-                MessageBox.Show("Popunite sva polja molim Vas");
-            }
-        }
-
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-        /*
-        private void AddMoreDates(object sender, RoutedEventArgs e)
-        {
-            string inputString = dateTimeTextBox.Text;
-            dateTimeButtonClicked = true;
-
-            if (DateTime.TryParse(inputString, out DateTime dateTime))
-            {
-                if (!CheckIfDateExists(dateTime))
-                {
-                    _dateTimeList.Add(dateTime);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Uneli ste nepravilan format datuma.");
-            }
-        }
-
-        private bool CheckIfDateExists(DateTime dateTime)
-        {
-            foreach (var dateTimeInstance in _dateTimeList)
-            {
-                if (dateTimeInstance == dateTime)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        */
-        private void ComboBox_SelectionChanged(object sender, RoutedEventArgs e)
-        {
-            ComboBox cBox = (ComboBox)sender;
-            string language = ((ComboBoxItem)cBox.SelectedItem).Content.ToString();
-
             switch (language)
             {
                 case "Serbian":
@@ -134,76 +66,34 @@ namespace Sims2023.WPF.ViewModels
             }
         }
 
-        private void AddKeyPointsButton_Click(object sender, RoutedEventArgs e)
+        public void AddKeyPoints(string inputText)
         {
-            string inputText = keyPointTextBox.Text;
-            keyPointsOutput.Items.Add(inputText);
-
-            if (_keyPointsList.Count == 0)
+            if (!_keyPointsList.Contains(inputText))
             {
                 _keyPointsList.Add(inputText);
             }
-            else
+        }
+
+        public void AddDates(string inputText)
+        {
+            if (DateTime.TryParse(inputText, out DateTime dateTime))
             {
-                if (!CheckIfKeyPointExists(inputText))
+                if (!_dateTimeList.Contains(dateTime))
                 {
-                    _keyPointsList.Add(inputText);
+                    _dateTimeList.Add(dateTime);
                 }
             }
-            keyPointTextBox.Clear();
         }
 
-        private bool CheckIfKeyPointExists(string inputText)
+        public void ConfirmCreation()
         {
-            foreach (var keyPoint in _keyPointsList)
-            {
-                if (inputText == keyPoint)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private void KeyPointTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (keyPointTextBox.Text.Length == 0)
-            {
-                addKeyPointsButton.IsEnabled = false;
-            }
-            else
-            {
-                addKeyPointsButton.IsEnabled = true;
-            }
-        }
-        /*
-        private void DateTimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (dateTimeTextBox.Text.Length == 0)
-            {
-                addMoreDatesButton.IsEnabled = false;
-            }
-            else
-            {
-                addMoreDatesButton.IsEnabled = true;
-            }
-        }
-        //Prevent the user from entering any character other than a number
-        private void MaxGuestNumberTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = new Regex("[^0-9]+$").IsMatch(e.Text);
-        }
-
-        private void LengthTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = new Regex("[^0-9]+$").IsMatch(e.Text);
-        }
-        */
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            int newToursNumber = _dateTimeList.Count;
+            _locationService.Create(Location);
+            _tourService.Create(Tour, _dateTimeList, Location, LoggedInGuide);
+            int firstToursId = Tour.Id - newToursNumber + 1;
+            _tourService.AddToursLocation(Tour, Location, newToursNumber);
+            _keyPointService.Create(KeyPoint, _keyPointsList, firstToursId, newToursNumber);
+            _tourService.AddToursKeyPoints(_keyPointsList, firstToursId);
         }
     }
 }

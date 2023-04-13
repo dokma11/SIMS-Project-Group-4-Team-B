@@ -52,8 +52,8 @@ namespace Sims2023.WPF.Views.GuidesViews
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateTourViewModel createTourViewModel = new(_tourService, _locationService, _keyPointService, LoggedInGuide);
-            createTourViewModel.Show();
+            CreateTourView createTourView = new(_tourService, _locationService, _keyPointService, LoggedInGuide);
+            createTourView.Show();
         }
 
         private void StartTourButton_Click(object sender, RoutedEventArgs e)
