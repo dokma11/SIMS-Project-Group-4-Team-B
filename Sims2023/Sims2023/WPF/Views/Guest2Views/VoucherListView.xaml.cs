@@ -63,6 +63,7 @@ namespace Sims2023.WPF.Views.Guest2Views
                 }
             }
             MessageBox.Show("Iskoristili ste vaucer");
+            Close();
 
 
         }

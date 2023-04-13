@@ -7,6 +7,12 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="WPF\Views\Guest2Views\Guest2TourListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest2Views\RateTourView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest2Views\VoucherListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -44,6 +50,9 @@
     <Page Update="View\Guest1\AccommodationReservationCancellationView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\Guest2Views\Guest2TourListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\Guest2Views\Guest2View.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -51,6 +60,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\AccommodationListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest2Views\RateTourView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest2Views\VoucherListView.xaml">

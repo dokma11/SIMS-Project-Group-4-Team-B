@@ -1,0 +1,26 @@
+﻿<Window x:Class="Sims2023.WPF.Views.Guest2Views.Guest2TourListView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
+        mc:Ignorable="d"
+        Title="Guest2TourListView" Height="450" Width="800">
+    <Grid>
+        <DataGrid x:Name="dataGridGuestTours" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged }" SelectionMode="Single"
+                    IsReadOnly="True" AutoGenerateColumns="False" Width="655" Height="270" Margin="44,82,101,82">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv" Width="90" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Grad" Width="90" Binding="{Binding City}"/>
+                <DataGridTextColumn Header="Drzava" Width="80" Binding="{Binding Country}"/>
+                <DataGridTextColumn Header="Jezik" Width="60" Binding="{Binding GuideLanguage}" />
+                <DataGridTextColumn Header="Pocetak" Width="150" Binding="{Binding Start}"/>
+                <DataGridTextColumn Header="Trajanje" Width="50" Binding="{Binding Length}"/>
+                <DataGridTextColumn Header="Stanje" Width="60" Binding="{Binding CurrentState}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Rate" Width="146" Height="42" HorizontalAlignment="Left" Margin="372,361,0,0" VerticalAlignment="Top" Click="RateTour_Click"/>
+        <Button Content="See" Width="147" Height="42" HorizontalAlignment="Left" Margin="552,361,0,0" VerticalAlignment="Top" Click="SeeActiveTour_Click" RenderTransformOrigin="0.384,-0.06"/>
+    </Grid>
+</Window>
