@@ -25,8 +25,11 @@ namespace Sims2023.WPF.Views.Guest2Views
         public User User { get; set; }
         public Tour Tour { get; set; }
 
+        public KeyPoint KeyPoint { get; set; }
+
         public TourReviewService _tourReviewService;
-        public TourReview TourReview;
+        public KeyPointService _keyPointService;
+        public TourReview TourReview { get; set; }
         public RateTourView(User user,Tour tour)
         {
             InitializeComponent();
@@ -34,20 +37,30 @@ namespace Sims2023.WPF.Views.Guest2Views
 
             Tour = tour;
             User = user;
+             
+            //TourReview = new TourReview();
 
             _tourReviewService = new TourReviewService();
             _tourReviewService.Subscribe(this);
+
+            _keyPointService = new KeyPointService();
+            _keyPointService.Subscribe(this);
+
+            KeyPoint = _keyPointService.GetById(0);//default and then guide will check at which KeyPoint has joined 
         }
 
         private void Send_Click(object sender, RoutedEventArgs e)
         {
-             TourReview = new TourReview(User, Tour.Guide, Tour, (int)guidesKnowledgeBox.Value, (int)tourInterestBox.Value, (int)guidesLanguageCapabilityBox.Value,(string)CommentTextBox.Text);
+             TourReview = new TourReview(User, Tour,KeyPoint, (int)guidesKnowledgeBox.Value, (int)tourInterestBox.Value, (int)guidesLanguageCapabilityBox.Value,(string)CommentTextBox.Text);
             _tourReviewService.Create(TourReview);
+            MessageBox.Show("Hvala na recenziji");
+            Close();
+            
         }
 
         public void Update()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

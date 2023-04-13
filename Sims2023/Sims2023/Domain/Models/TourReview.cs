@@ -3,10 +3,7 @@ using Sims2023.Serialization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Sims2023.Domain.Models
 {
@@ -14,7 +11,7 @@ namespace Sims2023.Domain.Models
     {
         public int Id { get; set; }
         public User Guest { get; set; }
-        public User Guide { get; set; }
+        //public User Guide { get; set; }
         public Tour Tour { get; set; }
         public KeyPoint KeyPointJoined { get; set; }
         public int GuideKnowledge { get; set; }
@@ -26,11 +23,11 @@ namespace Sims2023.Domain.Models
         public string Comment { get; set; }
 
         public TourReview() { } 
-        public TourReview(int id, User guest, User guide, Tour tour, KeyPoint keyPointJoined, int guideKnowledge, int tourInterest, int guidesLanguageCapability,  bool isValid, string comment)
+        public TourReview(int id, User guest, Tour tour,KeyPoint keyPointJoined, int guideKnowledge, int tourInterest, int guidesLanguageCapability,  bool isValid, string comment)
         {
             Id = id;
             Guest = guest;
-            Guide = guide;
+           // Guide = guide;
             Tour = tour;
             KeyPointJoined = keyPointJoined;
             GuideKnowledge = guideKnowledge;
@@ -41,12 +38,12 @@ namespace Sims2023.Domain.Models
             AverageGrade = (GuideKnowledge+GuidesLanguageCapability+TourInterest)/3;
         }
 
-        public TourReview(User guest,User guide,Tour tour,int guideKnowledge,int tourInterest,int guidesLanguageCapability,string comment)
+        public TourReview(User guest,Tour tour,KeyPoint keyPointJoined,int guideKnowledge,int tourInterest,int guidesLanguageCapability,string comment)
         {
-            KeyPointJoined = null;
-            IsValid = true;
+            KeyPointJoined = keyPointJoined ;
+            
             Guest = guest;
-            Guide= guide;
+            
             Tour= tour;
             GuideKnowledge= guideKnowledge;
             TourInterest= tourInterest;
@@ -57,13 +54,16 @@ namespace Sims2023.Domain.Models
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public string[] ToCSV()
         {
             string[] csvValues =
             {
                 Id.ToString(),
                 Guest.Id.ToString(),
-                Guide.Id.ToString(),
                 Tour.Id.ToString(),
                 KeyPointJoined.Id.ToString(),
                 GuideKnowledge.ToString(),
@@ -86,29 +86,25 @@ namespace Sims2023.Domain.Models
             };
             UserService userController = new();
             Guest = userController.GetById(guest.Id);
-            User guide = new()
-            {
-                Id = Convert.ToInt32(values[2])
-            };
-            Guide = userController.GetById(guide.Id);
+           
             Tour tour = new()
             {
-                Id = Convert.ToInt32(values[3])
+                Id = Convert.ToInt32(values[2])
             };
             TourService tourController = new();
             Tour = tourController.GetById(tour.Id);
             KeyPoint keyPoint = new()
             {
-                Id = Convert.ToInt32(values[4])
+                Id = Convert.ToInt32(values[3])
             };
             KeyPointService keyPointController = new();
             KeyPointJoined = keyPointController.GetById(keyPoint.Id);
-            GuideKnowledge = Convert.ToInt32(values[5]);
-            TourInterest = Convert.ToInt32(values[6]);
-            GuidesLanguageCapability = Convert.ToInt32(values[7]);
-            AverageGrade = float.Parse(values[8]);
-            IsValid = bool.Parse(values[9]);
-            Comment = values[10];
+            GuideKnowledge = Convert.ToInt32(values[4]);
+            TourInterest = Convert.ToInt32(values[5]);
+            GuidesLanguageCapability = Convert.ToInt32(values[6]);
+            AverageGrade = float.Parse(values[7]);
+            IsValid = bool.Parse(values[8]);
+            Comment = values[9];
         }
     }
 }
