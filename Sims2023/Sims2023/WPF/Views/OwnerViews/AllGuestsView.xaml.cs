@@ -1,5 +1,6 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.WPF.ViewModels.OwnerViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,50 +24,30 @@ namespace Sims2023.View
     /// </summary>
     public partial class AllGuestsView : Window
     {
-        
-        private AccommodationReservationService _reservationController;
-        public ObservableCollection<AccommodationReservation> Reservatons { get; set; }
-       
+        public ObservableCollection<AccommodationReservation> Reservatons { get; set; }  //
+        public AccommodationReservation SelectedGuest { get; set; } //  
 
-        public AccommodationReservation SelectedGuest { get; set; }
-        public List<AccommodationReservation> Reservatons2 { get; set; }
-        public List<Accommodation> Accommodations { get; set; }
-        public List<AccommodationReservation> ReservationsList  { get; set; }
-
-        private AccommodationService _accommodationController;
-
-        private GuestGradeService _gradeController;
-
-        public User user { get; set; }
+        public AllGuestsViewModel allGuestsViewModel;
 
         public AllGuestsView(User use,AccommodationReservationService acml, List<AccommodationReservation> reserv)
         {
             InitializeComponent();
             DataContext= this;
-            user = use;
-            _accommodationController = new AccommodationService();
             
-            Accommodations = new List<Accommodation>(_accommodationController.GetAllAccommodations());
-            
-            _reservationController = acml;
-            Reservatons2 = reserv;
-          
-            _gradeController = new GuestGradeService();
-            Reservatons = new ObservableCollection<AccommodationReservation>(_reservationController.GetGradableGuests(user,reserv, _gradeController.GetAllGrades()));
+            allGuestsViewModel = new AllGuestsViewModel(use,acml,reserv);       
+            Reservatons = new ObservableCollection<AccommodationReservation>(allGuestsViewModel.GetGradableGuests());
         }
         private void Grade_Click(object sender, EventArgs e)
         {
-            
+         
             if (SelectedGuest != null)
             {
                 var gradeView = new Guest1GradeView(SelectedGuest, Reservatons);
                 gradeView.Closed += GradeView_Closed;
                 gradeView.Show();
             }
-
-        
         }
-        private void GradeView_Closed(object sender, EventArgs e)
+       private void GradeView_Closed(object sender, EventArgs e)
         {
             var gradeView = (Guest1GradeView)sender;
 

@@ -72,7 +72,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
                 if (lastShownDate < DateTime.Today)
                 {
-                    if (GradableGuests.Count != 0)
+                    if (_accommodationReservationService.GetGradableGuests(User, Reservations, _gradeService.GetAllGrades()).Count != 0)
                     {
                         //      MessageBox.Show(_accommodationReservationController.GetAllUngradedNames(GradableGuests));
 
