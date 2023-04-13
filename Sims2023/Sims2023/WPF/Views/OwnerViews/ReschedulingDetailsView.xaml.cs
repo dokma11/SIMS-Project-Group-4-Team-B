@@ -2,6 +2,7 @@
 using Sims2023.Controller;
 using Sims2023.Domain.Models;
 using Sims2023.Model;
+using Sims2023.WPF.ViewModels.OwnerViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,25 +28,28 @@ namespace Sims2023.WPF.Views.OwnerViews
         {
             public AccommodationReservationRescheduling guest { get; set; }
             public AccommodationReservation UpdatedReservationStatus { get; set; }
-        public AccommodationReservationService _reservationService;
+
             public ObservableCollection<AccommodationReservationRescheduling> peoplee;
+
             public AccommodationReservationReschedulingController _reschedulingController;
+
+            public ReschedulingDetailsViewModel ReschedulingDetailsViewModel;
         public ReschedulingDetailsView(AccommodationReservationRescheduling SelectedGuest, ObservableCollection<AccommodationReservationRescheduling> people)
         {
             InitializeComponent();
             guest = SelectedGuest;
-            DataContext = guest;
-            _reschedulingController = new AccommodationReservationReschedulingController();
+            DataContext = guest;         
             peoplee = people;
+            _reschedulingController = new AccommodationReservationReschedulingController();
             UpdatedReservationStatus = new AccommodationReservation();
-            _reservationService = new AccommodationReservationService();
+            ReschedulingDetailsViewModel = new ReschedulingDetailsViewModel();
         }   
 
         public string isAccommodationFree
         {
             get
             {
-                var message = _reschedulingController.isAccommodationFree(guest) ? "SLOBODAN" : "NIJE SLOBODAN";
+                var message = ReschedulingDetailsViewModel.isAccommodationFree(guest) ? "SLOBODAN" : "NIJE SLOBODAN";
                 return $"SMJESTAJ {message} U TRAZENOM TERMINU";
             }
         }
@@ -55,23 +59,20 @@ namespace Sims2023.WPF.Views.OwnerViews
             var decline = new DeclineRescheduleView(_reschedulingController, guest, this, peoplee);
             decline.Show();
         }
-
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
-
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             guest.Status = RequestStatus.Approved;
-            UpdatedReservationStatus = _reservationService.GetById(guest.AccommodationReservation.Id);
+            UpdatedReservationStatus = ReschedulingDetailsViewModel.GetById(guest.AccommodationReservation.Id);
             UpdatedReservationStatus.StartDate = guest.NewStartDate;
             UpdatedReservationStatus.EndDate = guest.NewEndDate;
             TimeSpan delta = guest.NewEndDate - guest.NewStartDate;
             UpdatedReservationStatus.NumberOfDays = (int)delta.TotalDays;
-            _reservationService.Update(UpdatedReservationStatus);
-            _reschedulingController.Update(guest);
-
+            ReschedulingDetailsViewModel.UpdateReservation(UpdatedReservationStatus);
+            ReschedulingDetailsViewModel.UpdateReschedule(guest);
             peoplee.Remove(guest);
             Close();
         }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Sims2023.Application.Services
 {
-    internal class GuestGradeService
+    public class GuestGradeService
     {
         private GuestGradeRepository _grade;
 
