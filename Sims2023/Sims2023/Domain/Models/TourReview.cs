@@ -3,7 +3,6 @@ using Sims2023.Serialization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace Sims2023.Domain.Models
 {
@@ -53,10 +52,7 @@ namespace Sims2023.Domain.Models
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        
         public string[] ToCSV()
         {
             string[] csvValues =
