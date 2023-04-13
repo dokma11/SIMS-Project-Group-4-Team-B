@@ -1,7 +1,6 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.Controller;
-using Sims2023.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;

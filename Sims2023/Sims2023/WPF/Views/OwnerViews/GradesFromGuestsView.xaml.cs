@@ -1,7 +1,6 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Controller;
 using Sims2023.Domain.Models;
-using Sims2023.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,7 +25,7 @@ namespace Sims2023.View
     {
         public ObservableCollection<AccommodationGrade> people { get; set; }  
         public User owner { get; set; } 
-        private AccommodationGradeController _accommodationGradeController;
+        private AccommodationGradeService _accommodationGradeController;
 
         private GuestGradeService _guestGradeController;
 
@@ -37,7 +36,7 @@ namespace Sims2023.View
             InitializeComponent();
             DataContext= this;
             owner = user;
-            _accommodationGradeController = new AccommodationGradeController();
+            _accommodationGradeController = new AccommodationGradeService();
 
             _guestGradeController = new GuestGradeService();
             people = new ObservableCollection<AccommodationGrade>(_accommodationGradeController.

@@ -12,8 +12,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Sims2023.Controller;
-using Sims2023.Model;
 using Sims2023.Observer;
 using Sims2023.Domain.Models;
 using Sims2023.Application.Services;
@@ -31,7 +29,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         private AccommodationReservationService _accommodationReservationService;
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
 
-        private AccommodationCancellationController _accommodationCancellationController;
+        private AccommodationCancellationService _accommodationCancellationController;
         public ObservableCollection<AccommodationCancellation> AccommodationCancellations { get; set; }
 
         private AccommodationService _accommodationService;
@@ -56,34 +54,12 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             _accommodationService = new AccommodationService();
             Accommodations = new ObservableCollection<Accommodation>(_accommodationService.GetAllAccommodations());
 
-            _accommodationCancellationController = new AccommodationCancellationController();
+            _accommodationCancellationController = new AccommodationCancellationService();
             AccommodationCancellations = new ObservableCollection<AccommodationCancellation>(_accommodationCancellationController.GetAllAccommodationCancellations());
 
-            FilteredData = FindSuitableReservations(AccommodationReservations);
+            FilteredData = _accommodationReservationService.FindSuitableReservations(User);
             AccommodationReservationCancellationView.myDataGrid.ItemsSource = FilteredData;
 
-        }
-        public List<AccommodationReservation> FindSuitableReservations(ObservableCollection<AccommodationReservation> accommodationReservations)
-        {
-            List<AccommodationReservation> FilteredReservations = new List<AccommodationReservation>();
-            foreach (AccommodationReservation accommodationReservation in accommodationReservations)
-            {
-                if(FilterdDataSelection(accommodationReservation,User))
-                {
-                    FilteredReservations.Add(accommodationReservation);
-                }
-            }
-            return FilteredReservations;
-        }
-
-        public bool FilterdDataSelection(AccommodationReservation accommodationReservation,User guest)
-        {
-            TimeSpan difference = accommodationReservation.StartDate - DateTime.Today;
-            if (difference.TotalDays >= 0 && accommodationReservation.Guest.Id == guest.Id)
-            {
-                return true;
-            }
-            return false;
         }
 
         public void cancellation_Click(object sender, RoutedEventArgs e)
@@ -170,7 +146,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public void Update()
         {
             FilteredData.Clear();
-            FilteredData = FindSuitableReservations(AccommodationReservations);
+            FilteredData = _accommodationReservationService.FindSuitableReservations(User);
             AccommodationReservationCancellationView.myDataGrid.ItemsSource = FilteredData;
         }
     }

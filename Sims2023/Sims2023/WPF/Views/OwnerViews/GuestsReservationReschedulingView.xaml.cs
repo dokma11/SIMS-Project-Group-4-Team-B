@@ -1,6 +1,5 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
-using Sims2023.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,12 +25,12 @@ namespace Sims2023.WPF.Views.OwnerViews
         public AccommodationReservationRescheduling SelectedGuest { get; set; }
         public ObservableCollection<AccommodationReservationRescheduling> people { get; set; }
 
-        public AccommodationReservationReschedulingController _reschedulingController;
+        public AccommodationReservationReschedulingService _reschedulingController;
         public GuestsReservationReschedulingView(User owner)
         {
             InitializeComponent();
             DataContext = this;
-            _reschedulingController = new AccommodationReservationReschedulingController();
+            _reschedulingController = new AccommodationReservationReschedulingService();
 
             people = new ObservableCollection<AccommodationReservationRescheduling>(_reschedulingController.GetGuestsReservationMove(owner, _reschedulingController.GetAllReservationReschedulings()));
         }

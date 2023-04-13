@@ -1,12 +1,11 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Controller;
-using Sims2023.Domain.Models;
 using Sims2023.Serialization;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace Sims2023.Model
+namespace Sims2023.Domain.Models
 {
     public class AccommodationReservationRescheduling : ISerializable, INotifyPropertyChanged
     {
@@ -14,7 +13,7 @@ namespace Sims2023.Model
         public ObservableCollection<User> Users { get; set; }
         public int Id { get; set; }
         public AccommodationReservation AccommodationReservation { get; set; }
-        public enum RequestStatus { Pending, Approved, Rejected}
+        public enum RequestStatus { Pending, Approved, Rejected }
         public RequestStatus Status { get; set; }
         public bool Notified { get; set; }
         public DateTime NewStartDate { get; set; }
@@ -29,7 +28,7 @@ namespace Sims2023.Model
         }
 
         public AccommodationReservationRescheduling() { }
-        public AccommodationReservationRescheduling(int id, AccommodationReservation accommodationReservation, RequestStatus status, bool notified, DateTime startDate, DateTime endDate, String comment)
+        public AccommodationReservationRescheduling(int id, AccommodationReservation accommodationReservation, RequestStatus status, bool notified, DateTime startDate, DateTime endDate, string comment)
         {
             Id = id;
             AccommodationReservation = accommodationReservation;

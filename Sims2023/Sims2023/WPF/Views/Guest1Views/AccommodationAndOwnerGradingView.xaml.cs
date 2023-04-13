@@ -44,11 +44,6 @@ namespace Sims2023.WPF.Views.Guest1Views
             AccommodationAndOwnerGradingViewModel.accept_Click(sender, e);
         }
 
-        private void AddCreatedGrade()
-        {
-            AccommodationAndOwnerGradingViewModel.AddCreatedGrade();
-        }
-
         public void giveUp_Click(object sender, RoutedEventArgs e)
         {
             AccommodationAndOwnerGradingViewModel.giveUp_Click(sender, e);

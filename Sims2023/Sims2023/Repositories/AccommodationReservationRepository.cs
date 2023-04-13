@@ -1,8 +1,10 @@
-﻿using Sims2023.Domain.Models;
+﻿using Sims2023.Application.Services;
+using Sims2023.Domain.Models;
 using Sims2023.Observer;
 using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -141,6 +143,99 @@ namespace Sims2023.Repositories
             {
                 observer.Update();
             }
+        }
+        public List<AccommodationReservation> FindSuitableReservations(User guest1)
+        {
+            List<AccommodationReservation> FilteredReservations = new List<AccommodationReservation>();
+            foreach (AccommodationReservation accommodationReservation in _accommodationReservations)
+            {
+                if (FilterdDataSelection(accommodationReservation, guest1))
+                {
+                    FilteredReservations.Add(accommodationReservation);
+                }
+            }
+            return FilteredReservations;
+        }
+        public bool FilterdDataSelection(AccommodationReservation accommodationReservation, User guest1)
+        {
+            TimeSpan difference = accommodationReservation.StartDate - DateTime.Today;
+            if (difference.TotalDays >= 0 && accommodationReservation.Guest.Id == guest1.Id)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public int CheckDates(Accommodation selectedAccommodation, DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> datesList)
+        {
+            DateTime endDate = startDateSelected.AddDays(stayLength);
+            bool isAvailable;
+
+            for (DateTime startDate = startDateSelected; startDate <= endDateSelected.AddDays(-stayLength); startDate = startDate.AddDays(1), endDate = endDate.AddDays(1))
+            {
+                isAvailable = IsDateSpanAvailable(selectedAccommodation,startDate, endDate);
+                if (isAvailable)
+                {
+                    if (datesList.Count == 0)
+                    {
+                        datesList.Add(startDate);
+                    }
+                    else
+                    {
+                        if (!datesList.Contains(startDate))
+                        {
+                            datesList.Add(startDate);
+                        }
+
+                    }
+                }
+            }
+            return datesList.Count;
+        }
+
+        public bool IsDateSpanAvailable(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate)
+        {
+            foreach (AccommodationReservation reservation in _accommodationReservations)
+            {
+                if (reservation.Accommodation.Id == selectedAccommodation.Id)
+                {
+                    for (DateTime i = reservation.StartDate; i <= reservation.EndDate; i = i.AddDays(1))
+                    {
+                        for (DateTime j = startDate; j <= endDate; j = j.AddDays(1))
+                        {
+                            if (i == j)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        public List<AccommodationReservation> FindSuitableReschedulingReservations(User guest1)
+        {
+            List<AccommodationReservation> FilteredReservations = new List<AccommodationReservation>();
+            foreach (AccommodationReservation accommodationReservation in _accommodationReservations)
+            {
+                if (CheckReschedulingReservation(accommodationReservation,guest1))
+                {
+                    FilteredReservations.Add(accommodationReservation);
+                }
+            }
+            return FilteredReservations;
+        }
+
+        public bool CheckReschedulingReservation(AccommodationReservation accommodationReservation, User guest1)
+        {
+            TimeSpan difference = DateTime.Today - accommodationReservation.EndDate;
+            if (difference.TotalDays <= 5 && difference.TotalDays >= 0 && accommodationReservation.Guest.Id == guest1.Id && accommodationReservation.Graded == false)
+            {
+                return true;
+            }
+            return false;
+
         }
     }
 }

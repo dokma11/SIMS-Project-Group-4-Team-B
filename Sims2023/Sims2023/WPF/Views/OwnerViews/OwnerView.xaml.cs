@@ -1,7 +1,6 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Controller;
 using Sims2023.Domain.Models;
-using Sims2023.Model;
 using Sims2023.WPF.Views.OwnerViews;
 using System;
 using System.Collections.Generic;
@@ -22,7 +21,7 @@ namespace Sims2023.View
         private AccommodationReservationService _accommodationReservationController;
         private GuestGradeService _gradeController;
 
-        private AccommodationCancellationController _accommodationCancellationController;
+        private AccommodationCancellationService _accommodationCancellationController;
         public ObservableCollection<AccommodationCancellation> AccommodationCancellations { get; set; }
 
         public List<AccommodationReservation> Reservatons { get; set; }
@@ -40,7 +39,7 @@ namespace Sims2023.View
             _accommodationController = new AccommodationService();
             _accommodationLocationController = new AccomodationLocationController();
 
-            _accommodationCancellationController = new AccommodationCancellationController();
+            _accommodationCancellationController = new AccommodationCancellationService();
             AccommodationCancellations = new ObservableCollection<AccommodationCancellation>(_accommodationCancellationController.GetAllAccommodationCancellations());
 
             _accommodationReservationController = new AccommodationReservationService();

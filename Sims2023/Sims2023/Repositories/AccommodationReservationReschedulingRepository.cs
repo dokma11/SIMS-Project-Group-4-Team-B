@@ -2,25 +2,26 @@
 using Sims2023.Domain.Models;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
-using Sims2023.Repositories;
 using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Sims2023.Model.AccommodationReservationRescheduling;
+using System.Windows;
+using static Sims2023.Domain.Models.AccommodationReservationRescheduling;
 
-namespace Sims2023.Model.DAO
+namespace Sims2023.Repositories
 {
-    public class AccommodationReservationReschedulingDAO
+    public class AccommodationReservationReschedulingRepository
     {
         private List<IObserver> _observers;
         private AccommodationReservationRepository reservations { get; set; }
         private AccommodationReservationReschedulingFileHandler _fileHandler;
         private List<AccommodationReservationRescheduling> _accommodationReservationReschedulings;
 
-        public AccommodationReservationReschedulingDAO()
+        public AccommodationReservationReschedulingRepository()
         {
             _fileHandler = new AccommodationReservationReschedulingFileHandler();
             _accommodationReservationReschedulings = _fileHandler.Load();
@@ -114,6 +115,51 @@ namespace Sims2023.Model.DAO
             {
                 observer.Update();
             }
+        }
+
+        public List<AccommodationReservationRescheduling> FindSuitableReservationReschedulings(User guest1)
+        {
+            List<AccommodationReservationRescheduling> FilteredReservationReschedulings = new List<AccommodationReservationRescheduling>();
+            foreach (AccommodationReservationRescheduling accommodationReservationRescheduling in _accommodationReservationReschedulings)
+            {
+                if (FilterdDataSelection(accommodationReservationRescheduling, guest1))
+                {
+                    FilteredReservationReschedulings.Add(accommodationReservationRescheduling);
+                }
+            }
+            return FilteredReservationReschedulings;
+        }
+
+        public bool FilterdDataSelection(AccommodationReservationRescheduling accommodationReservationRescheduling, User guest1)
+        {
+            TimeSpan difference = accommodationReservationRescheduling.AccommodationReservation.StartDate - DateTime.Today;
+            if (difference.TotalDays >= 0 && accommodationReservationRescheduling.AccommodationReservation.Guest.Id == guest1.Id)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void checkForNotifications(User guest1)
+        {
+            foreach (AccommodationReservationRescheduling accommodationReservationRescheduling in _accommodationReservationReschedulings)
+            {
+                if (Notify(accommodationReservationRescheduling, guest1))
+                {
+                    MessageBox.Show($" Vlasnik smestaja {accommodationReservationRescheduling.AccommodationReservation.Accommodation.Name} je promienio status vaseg zahteva za pomeranje rezervacije. Vas zahtev je {accommodationReservationRescheduling.Status}!");
+                    accommodationReservationRescheduling.Notified = true;
+                    Update(accommodationReservationRescheduling);
+                }
+            }
+        }
+
+        public bool Notify(AccommodationReservationRescheduling accommodationReservationRescheduling,User guest1)
+        {
+            if (accommodationReservationRescheduling.Notified == false && accommodationReservationRescheduling.AccommodationReservation.Guest.Id == guest1.Id && accommodationReservationRescheduling.Status.ToString() != "Pending")
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

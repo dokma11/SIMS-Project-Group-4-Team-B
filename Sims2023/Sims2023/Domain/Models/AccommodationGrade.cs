@@ -1,17 +1,16 @@
 ﻿using Sims2023.Application.Services;
-using Sims2023.Domain.Models;
 using Sims2023.Serialization;
 using System;
 using System.ComponentModel;
 
-namespace Sims2023.Model
+namespace Sims2023.Domain.Models
 {
-    public class AccommodationGrade : ISerializable, INotifyPropertyChanged 
+    public class AccommodationGrade : ISerializable, INotifyPropertyChanged
     {
 
         public int Id { get; set; }
         public Accommodation Accommodation { get; set; }
-        public User Guest{ get; set; }
+        public User Guest { get; set; }
 
         public int Cleanliness { get; set; }
         public int Comfort { get; set; }
@@ -22,7 +21,7 @@ namespace Sims2023.Model
 
 
         public AccommodationGrade() { }
-        public AccommodationGrade(int id, int cleanliness, int comfort, int location, int owner, int valueForMoney,string comment,Accommodation accommodation,User user)
+        public AccommodationGrade(int id, int cleanliness, int comfort, int location, int owner, int valueForMoney, string comment, Accommodation accommodation, User user)
         {
             Id = id;
             Cleanliness = cleanliness;
@@ -80,7 +79,7 @@ namespace Sims2023.Model
             Comment = values[8];
         }
 
-        
+
 
     }
 }

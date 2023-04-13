@@ -1,22 +1,21 @@
-﻿using Sims2023.Model.DAO;
-using Sims2023.Model;
-using Sims2023.Observer;
+﻿using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sims2023.Domain.Models;
+using Sims2023.Repositories;
 
-namespace Sims2023.Controller
+namespace Sims2023.Application.Services
 {
-    public class AccommodationGradeController
+    public class AccommodationGradeService
     {
-        private AccommodationGradeDAO _accommodationGrade;
+        private AccommodationGradeRepository _accommodationGrade;
 
-        public AccommodationGradeController()
+        public AccommodationGradeService()
         {
-            _accommodationGrade = new AccommodationGradeDAO();
+            _accommodationGrade = new AccommodationGradeRepository();
         }
 
         public List<AccommodationGrade> GetAllAccommodationGrades()
@@ -24,9 +23,9 @@ namespace Sims2023.Controller
             return _accommodationGrade.GetAll();
         }
 
-        public List<AccommodationGrade> FindAllGuestsWhoGraded(List<AccommodationGrade> grades, List<GuestGrade> gradedGuests,User user)
+        public List<AccommodationGrade> FindAllGuestsWhoGraded(List<AccommodationGrade> grades, List<GuestGrade> gradedGuests, User user)
         {
-            return _accommodationGrade.GetAllGuestsWhoGraded(grades, gradedGuests,user);
+            return _accommodationGrade.GetAllGuestsWhoGraded(grades, gradedGuests, user);
         }
 
         public void Create(AccommodationGrade accommodationGrade)

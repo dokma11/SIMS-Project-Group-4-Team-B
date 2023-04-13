@@ -16,7 +16,6 @@ using System.Windows.Shapes;
 using Sims2023.Application.Services;
 using Sims2023.Controller;
 using Sims2023.Domain.Models;
-using Sims2023.Model;
 using Sims2023.Observer;
 using Sims2023.WPF.Views.Guest1Views;
 
@@ -29,14 +28,11 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
     {
         public AccommodationReservation SelectedAccommodationReservation { get; set; }
 
-        private AccommodationReservationService _accommodationReservationController;
+        private AccommodationReservationService _accommodationReservationService;
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
 
         private AccommodationService _accommodationController;
         public ObservableCollection<Accommodation> Accommodations { get; set; }
-
-        private AccomodationLocationController _accommodationLocationController;
-        public ObservableCollection<AccommodationLocation> AccommodationLocations { get; set; }
         public ObservableCollection<AccommodationGrade> AccommodationGrades { get; set; }
 
         List<AccommodationReservation> FilteredData=new List<AccommodationReservation>();   
@@ -50,43 +46,16 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             User = guest1;
 
-            _accommodationReservationController = new AccommodationReservationService();
-            _accommodationReservationController.Subscribe(this);
+            _accommodationReservationService = new AccommodationReservationService();
+            _accommodationReservationService.Subscribe(this);
 
-            AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationController.GetAllReservations());
+            AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationService.GetAllReservations());
 
             _accommodationController = new AccommodationService();
             Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAllAccommodations());
 
-            _accommodationLocationController = new AccomodationLocationController();
-            AccommodationLocations = new ObservableCollection<AccommodationLocation>(_accommodationLocationController.GetAllAccommodationLocations());
-
-            FilteredData = FindSuitableReservations(AccommodationReservations);
+            FilteredData = _accommodationReservationService.FindSuitableReschedulingReservations(User);
             AllGuestOneReservationsView.myDataGrid.ItemsSource = FilteredData;
-        }
-
-        public List<AccommodationReservation> FindSuitableReservations(ObservableCollection<AccommodationReservation> accommodationReservations)
-        {
-            List<AccommodationReservation> FilteredReservations = new List<AccommodationReservation>();
-            foreach (AccommodationReservation accommodationReservation in accommodationReservations)
-            {
-               if( CheckReservation(accommodationReservation))
-                {
-                    FilteredReservations.Add(accommodationReservation);
-                }
-            }
-            return FilteredReservations;
-        }
-
-        public bool CheckReservation(AccommodationReservation accommodationReservation)
-        {
-            TimeSpan difference = DateTime.Today - accommodationReservation.EndDate;
-            if (difference.TotalDays <= 5 && difference.TotalDays>=0 && accommodationReservation.Guest.Id==User.Id && accommodationReservation.Graded==false)
-            {
-                return true;
-            }
-            return false;
-            
         }
 
         public void grading_Click(object sender, RoutedEventArgs e)
@@ -100,7 +69,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
             if (!SelectedAccommodationReservation.Graded)
             {
-                var AccommodationAndOwnerGradingView = new AccommodationAndOwnerGradingView(SelectedAccommodationReservation, User, _accommodationReservationController);
+                var AccommodationAndOwnerGradingView = new AccommodationAndOwnerGradingView(SelectedAccommodationReservation, User, _accommodationReservationService);
                 AccommodationAndOwnerGradingView.ShowDialog();
                 Update();
             }
@@ -119,14 +88,14 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da ocenite.");
                 return;
             }
-            var AccommodationAndOwnerGradingView = new AccommodationAndOwnerGradingView(SelectedAccommodationReservation,User, _accommodationReservationController);
+            var AccommodationAndOwnerGradingView = new AccommodationAndOwnerGradingView(SelectedAccommodationReservation,User, _accommodationReservationService);
             AccommodationAndOwnerGradingView.ShowDialog();
         }
 
         public void Update()
         {
             FilteredData.Clear();
-            FilteredData = FindSuitableReservations(AccommodationReservations);
+            FilteredData = _accommodationReservationService.FindSuitableReschedulingReservations(User);
             AllGuestOneReservationsView.myDataGrid.ItemsSource = FilteredData;
         }
     }

@@ -1,6 +1,5 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
-using Sims2023.Model;
 using Sims2023.Observer;
 using Sims2023.WPF.Views.Guest1Views;
 using System;
@@ -27,7 +26,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
     {
         public AccommodationReservationRescheduling SelectedAccommodationReservationRescheduling { get; set; }
 
-        private AccommodationReservationReschedulingController _accommodationReservationReschedulingController;
+        private AccommodationReservationReschedulingService _accommodationReservationReschedulingController;
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
 
         List<AccommodationReservationRescheduling> FilteredData = new List<AccommodationReservationRescheduling>();
@@ -41,35 +40,12 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             User = guest1;
 
-            _accommodationReservationReschedulingController = new AccommodationReservationReschedulingController();
+            _accommodationReservationReschedulingController = new AccommodationReservationReschedulingService();
             _accommodationReservationReschedulingController.Subscribe(this);
             AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingController.GetAllReservationReschedulings());
 
-            FilteredData = FindSuitableReservationReschedulings(AccommodationReservationReschedulings);
+            FilteredData = _accommodationReservationReschedulingController.FindSuitableReservationReschedulings(User);
             AccommodationReservationReschedulingView.myDataGrid.ItemsSource = FilteredData;
-        }
-
-        public List<AccommodationReservationRescheduling> FindSuitableReservationReschedulings(ObservableCollection<AccommodationReservationRescheduling> accommodationReservationReschedulings)
-        {
-            List<AccommodationReservationRescheduling> FilteredReservationReschedulings = new List<AccommodationReservationRescheduling>();
-            foreach (AccommodationReservationRescheduling accommodationReservationRescheduling in accommodationReservationReschedulings)
-            {
-                if (FilterdDataSelection(accommodationReservationRescheduling, User))
-                {
-                    FilteredReservationReschedulings.Add(accommodationReservationRescheduling);
-                }
-            }
-            return FilteredReservationReschedulings;
-        }
-
-        public bool FilterdDataSelection(AccommodationReservationRescheduling accommodationReservationRescheduling, User guest)
-        {
-            TimeSpan difference = accommodationReservationRescheduling.AccommodationReservation.StartDate - DateTime.Today;
-            if (difference.TotalDays >= 0 && accommodationReservationRescheduling.AccommodationReservation.Guest.Id == guest.Id)
-            {
-                return true;
-            }
-            return false;
         }
 
         public void newRequest_Click(object sender, RoutedEventArgs e)
@@ -100,7 +76,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public void Update()
         {
             FilteredData.Clear();
-            FilteredData = FindSuitableReservationReschedulings(AccommodationReservationReschedulings);
+            FilteredData = _accommodationReservationReschedulingController.FindSuitableReservationReschedulings(User);
             AccommodationReservationReschedulingView.myDataGrid.ItemsSource = FilteredData;
         }
     }

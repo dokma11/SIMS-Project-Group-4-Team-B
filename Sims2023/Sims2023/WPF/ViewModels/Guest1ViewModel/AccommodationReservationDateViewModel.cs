@@ -1,7 +1,6 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Controller;
 using Sims2023.Domain.Models;
-using Sims2023.Model;
 using Sims2023.Observer;
 using Sims2023.View;
 using Sims2023.WPF.Views.Guest1Views;
@@ -90,7 +89,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             int stayLength = (int)AccommodationReservationDateView.numberOfDays.Value;
             daysNumber = stayLength;
 
-            int possibleDatesNumber = CheckDates(startDateSelected, endDateSelected, stayLength, AvailableDates);
+            int possibleDatesNumber = _accommodationReservationService.CheckDates(SelectedAccommodation,startDateSelected, endDateSelected, stayLength, AvailableDates);
 
             if (AvailableDates.Count > 0)
             {
@@ -117,11 +116,11 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             {
                 if (todaysDay)
                 {
-                    datesFound = CheckDates(startDateSelected, endDateSelected = endDateSelected.AddDays(1), stayLength, AdditionalAvailableDates);
+                    datesFound = _accommodationReservationService.CheckDates(SelectedAccommodation, startDateSelected, endDateSelected = endDateSelected.AddDays(1), stayLength, AdditionalAvailableDates);
                 }
                 else
                 {
-                    datesFound = CheckDates(startDateSelected = startDateSelected.AddDays(-1), endDateSelected = endDateSelected.AddDays(1), stayLength, AdditionalAvailableDates);
+                    datesFound = _accommodationReservationService.CheckDates(SelectedAccommodation,startDateSelected = startDateSelected.AddDays(-1), endDateSelected = endDateSelected.AddDays(1), stayLength, AdditionalAvailableDates);
                 }
 
             }
@@ -131,32 +130,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
         }
 
-        public int CheckDates(DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> datesList)
-        {
-            DateTime endDate = startDateSelected.AddDays(stayLength);
-            bool isAvailable;
-
-            for (DateTime startDate = startDateSelected; startDate <= endDateSelected.AddDays(-stayLength); startDate = startDate.AddDays(1), endDate = endDate.AddDays(1))
-            {
-                isAvailable = IsDateSpanAvailable(startDate, endDate);
-                if (isAvailable)
-                {
-                    if (datesList.Count == 0)
-                    {
-                        datesList.Add(startDate);
-                    }
-                    else
-                    {
-                        if (!datesList.Contains(startDate))
-                        {
-                            datesList.Add(startDate);
-                        }
-
-                    }
-                }
-            }
-            return datesList.Count;
-        }
         public void CreateAvailableStayList(List<DateTime> availableStayDates, int stayLength)
         {
             foreach (DateTime startDate in availableStayDates)
@@ -206,26 +179,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
             return true;
 
-        }
-        public bool IsDateSpanAvailable(DateTime startDate, DateTime endDate)
-        {
-            foreach (AccommodationReservation reservation in _accommodationReservationService.GetAllReservations())
-            {
-                if (reservation.Accommodation.Id == SelectedAccommodation.Id)
-                {
-                    for (DateTime i = reservation.StartDate; i <= reservation.EndDate; i = i.AddDays(1))
-                    {
-                        for (DateTime j = startDate; j <= endDate; j = j.AddDays(1))
-                        {
-                            if (i == j)
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                }
-            }
-            return true;
         }
 
         public void ButtonDateConfirmation_Click(object sender, RoutedEventArgs e)

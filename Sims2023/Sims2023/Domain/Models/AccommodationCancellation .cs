@@ -1,5 +1,4 @@
 ﻿using Sims2023.Application.Services;
-using Sims2023.Domain.Models;
 using Sims2023.Serialization;
 using System;
 using System.Collections.Generic;
@@ -9,10 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Sims2023.Domain.Models;
-using Sims2023.Application.Services;
 
-namespace Sims2023.Model
+namespace Sims2023.Domain.Models
 {
     public class AccommodationCancellation : ISerializable, INotifyPropertyChanged
     {
@@ -24,7 +21,7 @@ namespace Sims2023.Model
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int NumberOfDays { get; set; }
-        public bool Notified{ get; set; }
+        public bool Notified { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

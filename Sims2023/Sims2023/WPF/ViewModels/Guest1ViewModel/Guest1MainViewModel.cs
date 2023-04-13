@@ -1,5 +1,4 @@
 ﻿using Sims2023.Domain.Models;
-using Sims2023.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +12,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Sims2023.Controller;
 using System.Collections.ObjectModel;
 using System.IO;
 using Sims2023.WPF.Views.Guest1Views;
+using Sims2023.Application.Services;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
@@ -27,7 +26,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
     {
         public User User { get; set; }
 
-        private AccommodationReservationReschedulingController _accommodationReservationReschedulingController;
+        private AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
 
         Guest1MainView Guest1MainView;
@@ -37,34 +36,13 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             Guest1MainView = guest1MainView;
 
             User = guest1;
-            _accommodationReservationReschedulingController = new AccommodationReservationReschedulingController();
-            AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingController.GetAllReservationReschedulings());
+            _accommodationReservationReschedulingService = new AccommodationReservationReschedulingService();
+            AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingService.GetAllReservationReschedulings());
         }
+
         public void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            checkForNotifications();
-        }
-
-        public void checkForNotifications()
-        {
-            foreach (AccommodationReservationRescheduling accommodationReservationRescheduling in AccommodationReservationReschedulings)
-            {
-                if (Notify(accommodationReservationRescheduling))
-                {
-                    MessageBox.Show($" Vlasnik smestaja {accommodationReservationRescheduling.AccommodationReservation.Accommodation.Name} je promienio status vaseg zahteva za pomeranje rezervacije. Vas zahtev je {accommodationReservationRescheduling.Status}!");
-                    accommodationReservationRescheduling.Notified = true;
-                    _accommodationReservationReschedulingController.Update(accommodationReservationRescheduling);
-                }
-            }
-        }
-
-        public bool Notify(AccommodationReservationRescheduling accommodationReservationRescheduling)
-        {
-            if (accommodationReservationRescheduling.Notified == false && accommodationReservationRescheduling.AccommodationReservation.Guest.Id == User.Id && accommodationReservationRescheduling.Status.ToString() != "Pending")
-            {
-                return true;
-            }
-            return false;
+            _accommodationReservationReschedulingService.checkForNotifications(User);
         }
 
         public void VewAccommodation_Click(object sender, RoutedEventArgs e)

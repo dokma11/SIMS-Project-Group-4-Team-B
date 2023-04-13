@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sims2023.Model.DAO
+namespace Sims2023.Repositories
 {
-    internal class AccommodationGradeDAO : ISubject
+    internal class AccommodationGradeRepository : ISubject
     {
 
         private List<IObserver> _observers;
@@ -18,7 +18,7 @@ namespace Sims2023.Model.DAO
         private AccommodationGradeFileHandler _fileHandler;
         private List<AccommodationGrade> _accommodationGrades;
 
-        public AccommodationGradeDAO()
+        public AccommodationGradeRepository()
         {
             _fileHandler = new AccommodationGradeFileHandler();
             _accommodationGrades = _fileHandler.Load();
@@ -40,20 +40,20 @@ namespace Sims2023.Model.DAO
 
         private void RemoveUngradedGuests(List<AccommodationGrade> people, List<GuestGrade> guestGrades)
         {
-                for (int i = people.Count - 1; i >= 0; i--)
+            for (int i = people.Count - 1; i >= 0; i--)
+            {
+                var person = people[i];
+                if (!guestGrades.Any(g => g.Guest.Id == person.Guest.Id))
                 {
-                    var person = people[i];
-                    if (!guestGrades.Any(g => g.Guest.Id == person.Guest.Id))
-                    {
-                        people.RemoveAt(i);
-                    }
+                    people.RemoveAt(i);
                 }
+            }
         }
 
         public double FindAverage(AccommodationGrade grade)
         {
             double prosjek;
-            prosjek = (grade.Cleanliness + grade.Comfort + grade.Location + grade.Owner + grade.ValueForMoney )/ 5;
+            prosjek = (grade.Cleanliness + grade.Comfort + grade.Location + grade.Owner + grade.ValueForMoney) / 5;
             return prosjek;
         }
         public int NextId()

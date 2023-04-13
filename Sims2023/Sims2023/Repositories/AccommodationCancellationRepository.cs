@@ -1,4 +1,5 @@
-﻿using Sims2023.FileHandler;
+﻿using Sims2023.Domain.Models;
+using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
@@ -7,16 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Sims2023.Model.DAO
+namespace Sims2023.Repositories
 {
-    public class AccommodationCancellationDAO
+    public class AccommodationCancellationRepository
     {
         private List<IObserver> _observers;
 
         private AccommodationCancellationFileHandler _fileHandler;
         private List<AccommodationCancellation> _accommodationCancellations;
 
-        public AccommodationCancellationDAO()
+        public AccommodationCancellationRepository()
         {
             _fileHandler = new AccommodationCancellationFileHandler();
             _accommodationCancellations = _fileHandler.Load();

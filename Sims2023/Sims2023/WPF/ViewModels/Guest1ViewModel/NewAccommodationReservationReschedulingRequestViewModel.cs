@@ -47,31 +47,8 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationService.GetAllReservations());
 
-            FilteredData = FindSuitableReservations(AccommodationReservations);
+            FilteredData = _accommodationReservationService.FindSuitableReservations(User);
             NewAccommodationReservationReschedulingRequestView.myDataGrid.ItemsSource = FilteredData;
-        }
-
-        public List<AccommodationReservation> FindSuitableReservations(ObservableCollection<AccommodationReservation> accommodationReservations)
-        {
-            List<AccommodationReservation> FilteredReservations = new List<AccommodationReservation>();
-            foreach (AccommodationReservation accommodationReservation in accommodationReservations)
-            {
-                if (FilterdDataSelection(accommodationReservation, User))
-                {
-                    FilteredReservations.Add(accommodationReservation);
-                }
-            }
-            return FilteredReservations;
-        }
-
-        public bool FilterdDataSelection(AccommodationReservation accommodationReservation, User guest)
-        {
-            TimeSpan difference = accommodationReservation.StartDate - DateTime.Today;
-            if (difference.TotalDays >= 0 && accommodationReservation.Guest.Id == guest.Id)
-            {
-                return true;
-            }
-            return false;
         }
 
         public void makeRequest_Click(object sender, RoutedEventArgs e)
@@ -91,10 +68,11 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             NewAccommodationReservationReschedulingRequestView.Close();
         }
+
         public void Update()
         {
             FilteredData.Clear();
-            FilteredData = FindSuitableReservations(AccommodationReservations);
+            FilteredData = _accommodationReservationService.FindSuitableReservations(User);
             NewAccommodationReservationReschedulingRequestView.myDataGrid.ItemsSource = FilteredData;
         }
     }

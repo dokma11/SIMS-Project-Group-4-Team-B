@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sims2023.Domain.Models;
 using Sims2023.Repositories;
+using System.Collections.ObjectModel;
 
 namespace Sims2023.Application.Services
 {
@@ -52,6 +53,20 @@ namespace Sims2023.Application.Services
         public void Subscribe(IObserver observer)
         {
             _accommodationReservation.Subscribe(observer);
+        }
+
+        public List<AccommodationReservation> FindSuitableReservations(User guest1)
+        {
+            return _accommodationReservation.FindSuitableReservations(guest1);
+        }
+
+        public int CheckDates(Accommodation selectedAccommodation, DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> datesList)
+        {
+            return _accommodationReservation.CheckDates(selectedAccommodation,startDateSelected, endDateSelected, stayLength, datesList);
+        }
+        public List<AccommodationReservation> FindSuitableReschedulingReservations(User guest1)
+        {
+            return _accommodationReservation.FindSuitableReschedulingReservations(guest1);
         }
     }
 }

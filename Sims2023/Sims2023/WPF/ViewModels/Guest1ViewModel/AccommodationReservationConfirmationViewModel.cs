@@ -1,7 +1,5 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
-using Sims2023.Controller;
-using Sims2023.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -23,7 +21,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         private AccommodationReservationService _accommodationReservationService;
 
-        private AccommodationReservationReschedulingController _accommodationReservationReschedulingController;
+        private AccommodationReservationReschedulingService _accommodationReservationReschedulingController;
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
         public int ReservationId { get; set; }
 
@@ -42,7 +40,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             _accommodationReservationService = new AccommodationReservationService();
 
-            _accommodationReservationReschedulingController = new AccommodationReservationReschedulingController();
+            _accommodationReservationReschedulingController = new AccommodationReservationReschedulingService();
             AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingController.GetAllReservationReschedulings());
 
             FillTextBoxes(SelectedAccommodation, SelectedAccommodationStay);
@@ -90,7 +88,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             accommodationReservationRescheduling.Notified = false;
             accommodationReservationRescheduling.NewStartDate = SelectedAccommodationStay.StartDate;
             accommodationReservationRescheduling.NewEndDate = SelectedAccommodationStay.EndDate;
-            accommodationReservationRescheduling.Comment = "Nema komentara";
+            accommodationReservationRescheduling.Comment = "Trenutno nema komentara";
             _accommodationReservationReschedulingController.Create(accommodationReservationRescheduling);
             MessageBox.Show("Uspesno ste podneli zahtev za pomeranje rezervacije!");
 

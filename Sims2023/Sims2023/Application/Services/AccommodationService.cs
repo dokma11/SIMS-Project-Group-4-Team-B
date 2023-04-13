@@ -46,6 +46,9 @@ namespace Sims2023.Application.Services
         {
             return _accomodation.GetById(id);
         }
-
+        public void CheckSearchTermConditions(List<Accommodation> FilteredData, string nameSearchTerm, string citySearchTerm, string countrySearchTerm, string typeSearchTerm, int maxGuests, int minDays)
+        {
+            _accomodation.CheckSearchTermConditions(FilteredData, nameSearchTerm, citySearchTerm, countrySearchTerm, typeSearchTerm, maxGuests, minDays);
+        }
     }
 }
