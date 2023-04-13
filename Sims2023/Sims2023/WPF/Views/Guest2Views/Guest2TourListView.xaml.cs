@@ -26,11 +26,15 @@ namespace Sims2023.WPF.Views.Guest2Views
         public Tour SelectedTour { get; set; }
         public User User { get; set; }
         
-        public ObservableCollection<Tour> Tours { get; set; }   
+        public ObservableCollection<Tour> Tours { get; set; }  
+        public ObservableCollection<Location> Locations { get; set; }   
 
 
         public TourService _tourService;
         public TourReservationService _tourReservationService;
+
+        public LocationService _locationService;
+
 
         public Guest2TourListView(User user)
         {
@@ -43,13 +47,33 @@ namespace Sims2023.WPF.Views.Guest2Views
             _tourService = new TourService();
             _tourService.Subscribe(this);
 
+            _locationService = new LocationService();
+            _locationService.Subscribe(this);
+
             User = user;
             SelectedTour=new Tour();
+            Locations=new ObservableCollection<Location>(_locationService.GetAll());
 
             Tours=GetGuestAllReservations();
 
-
+            AddLocationsToTour(Locations, Tours);
             
+
+        }
+        private void AddLocationsToTour(ObservableCollection<Location> locations, ObservableCollection<Tour> tours)
+        {
+
+            foreach (var tour in tours)
+            {
+                foreach (var location in locations)
+                {
+                    if (tour.LocationId == location.Id)
+                    {
+                        tour.City = location.City;
+                        tour.Country = location.Country;
+                    }
+                }
+            }
 
         }
 
@@ -59,7 +83,7 @@ namespace Sims2023.WPF.Views.Guest2Views
             ObservableCollection<Tour> Tours = new ObservableCollection<Tour>();
             foreach(TourReservation reservation in _tourReservationService.GetAll() )
             {
-                if (reservation.User.Id == User.Id)
+                if (reservation.User.Id == User.Id && (reservation.Tour.CurrentState!=Tour.State.Started || reservation.ConfirmedParticipation==true))
                 {
                     Tours.Add(reservation.Tour);
                 }
@@ -85,7 +109,15 @@ namespace Sims2023.WPF.Views.Guest2Views
 
         private void SeeActiveTour_Click(object sender, RoutedEventArgs e)
         {
-
+            if (SelectedTour.CurrentState == Tour.State.Started)
+            {
+                GuestLiveTrackingTourView guestLiveTrackingTourView = new GuestLiveTrackingTourView(SelectedTour);
+                guestLiveTrackingTourView.Show();
+            }
+            else
+            {
+                MessageBox.Show("Izaberite aktivnu turu");
+            }
         }
 
         public void Update()
