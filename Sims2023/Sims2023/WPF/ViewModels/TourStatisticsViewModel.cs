@@ -11,13 +11,13 @@ namespace Sims2023.WPF.ViewModels
     public partial class TourStatisticsViewModel
     {
         private TourService _tourService;
-        private TourReservationController _tourReservationService;
+        private TourReservationService _tourReservationService;
         public Tour? Tour { get; set; }
         public Tour? SelectedTour { get; set; }
         public ObservableCollection<Tour> TheMostVisitedTour { get; set; }
         public ObservableCollection<Tour> ToursToDisplay { get; set; }
         public User LoggedInGuide { get; set; }
-        public TourStatisticsViewModel(User loggedInGuide, TourService tourService, TourReservationController tourReservationService)
+        public TourStatisticsViewModel(User loggedInGuide, TourService tourService, TourReservationService tourReservationService)
         {
             InitializeComponent();
             DataContext = this;
@@ -48,7 +48,7 @@ namespace Sims2023.WPF.ViewModels
 
         private void GetAttendedGuestsNumber(Tour tour)
         {
-            tour.AttendedGuestsNumber = _tourReservationService.GetAllReservations()
+            tour.AttendedGuestsNumber = _tourReservationService.GetAll()
                 .Where(res => res.Tour.Id == tour.Id && res.ConfirmedParticipation)
                 .Sum(res => res.GuestNumber);
         }
@@ -114,15 +114,15 @@ namespace Sims2023.WPF.ViewModels
 
         private void FindAgeStatistics(Tour tour)
         {
-            int young = _tourReservationService.GetAllReservations()
+            int young = _tourReservationService.GetAll()
                 .Where(res => res.Tour.Id == tour.Id && res.ConfirmedParticipation && res.User.Age <= 18)
                 .Sum(res => res.GuestNumber);
 
-            int middle = _tourReservationService.GetAllReservations()
+            int middle = _tourReservationService.GetAll()
                 .Where(res => res.Tour.Id == tour.Id && res.ConfirmedParticipation && res.User.Age > 18 && res.User.Age <= 50)
                 .Sum(res => res.GuestNumber);
 
-            int old = _tourReservationService.GetAllReservations()
+            int old = _tourReservationService.GetAll()
                 .Where(res => res.Tour.Id == tour.Id && res.ConfirmedParticipation && res.User.Age > 50)
                 .Sum(res => res.GuestNumber);
 
@@ -133,7 +133,7 @@ namespace Sims2023.WPF.ViewModels
 
         private void FindVoucherStatistics(Tour tour)
         {
-            var reservations = _tourReservationService.GetAllReservations().Where(res => res.Tour.Id == tour.Id);
+            var reservations = _tourReservationService.GetAll().Where(res => res.Tour.Id == tour.Id);
 
             int usedCounter = reservations.Count(res => res.UsedVoucher && res.ConfirmedParticipation);
             int notUsedCounter = reservations.Count(res => !res.UsedVoucher && res.ConfirmedParticipation);

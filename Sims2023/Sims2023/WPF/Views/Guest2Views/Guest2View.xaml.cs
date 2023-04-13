@@ -23,7 +23,7 @@ namespace Sims2023.WPF.Views
 
         private LocationService _locationService;
 
-        private TourReservationController _tourReservationController;
+        private TourReservationService _tourReservationController;
 
         private VoucherService _voucherService;
 
@@ -37,6 +37,8 @@ namespace Sims2023.WPF.Views
 
         public List<Tour> FilteredData = new List<Tour>();
 
+        public TourReservation TourReservation { get; set; }
+
         public Guest2View(User user)
         {
             InitializeComponent();
@@ -48,7 +50,7 @@ namespace Sims2023.WPF.Views
             _locationService = new LocationService();
             _locationService.Subscribe(this);
 
-            _tourReservationController = new TourReservationController();
+            _tourReservationController = new TourReservationService();
             _tourReservationController.Subscribe(this);
 
             _voucherService = new VoucherService();
@@ -64,6 +66,7 @@ namespace Sims2023.WPF.Views
             EditedTour = new Tour();
             User = user;
             FilteredData = new List<Tour>();
+            TourReservation = new TourReservation();
 
             AddLocationsToTour(Locations, Tours);
 
@@ -80,7 +83,7 @@ namespace Sims2023.WPF.Views
 
         private bool DisplayMessageBox() 
         {
-            foreach(var tourReservation in _tourReservationController.GetAllReservations())
+            foreach(var tourReservation in _tourReservationController.GetAll())
             {
                 if (tourReservation.ShouldConfirmParticipation)
                 {
@@ -132,10 +135,13 @@ namespace Sims2023.WPF.Views
             string guideLanguageSearchTerm = guideLanguageSearchBox.Text.ToLower();
             int maxGuestNumberSearchTerm = (int)guestNumberBox.Value;
 
+            CheckSetConditions(citySearchTerm, countrySearchTerm, lengthSearchTerm, guideLanguageSearchTerm, maxGuestNumberSearchTerm);
+            dataGridTours.ItemsSource = FilteredData;
 
+        }
 
-
-
+        private void CheckSetConditions(string citySearchTerm, string countrySearchTerm, string lengthSearchTerm, string guideLanguageSearchTerm, int maxGuestNumberSearchTerm)
+        {
             foreach (Tour tour in Tours)
             {
 
@@ -147,55 +153,32 @@ namespace Sims2023.WPF.Views
 
                 if (!string.IsNullOrEmpty(citySearchTerm))
                 {
-                    if (!tour.City.ToLower().Contains(citySearchTerm.ToLower()))
-                    {
+                    if (!tour.City.ToLower().Contains(citySearchTerm.ToLower())) 
                         cityCondition = false;
-                    }
                 }
-
                 if (!string.IsNullOrEmpty(countrySearchTerm))
                 {
                     if (!tour.Country.ToLower().Contains(countrySearchTerm.ToLower()))
-                    {
-                        countryCondition = false;
-                    }
+                        countryCondition =false;
                 }
+                
                 if (!string.IsNullOrEmpty(lengthSearchTerm))
                 {
                     if (!tour.Length.ToString().ToLower().Contains(lengthSearchTerm.ToLower()))
-                    {
-                        lengthCondition = false;
-                    }
+                            lengthCondition = false;
                 }
+                
                 if (!string.IsNullOrEmpty(guideLanguageSearchTerm))
                 {
                     if (!tour.GuideLanguage.ToString().ToLower().Contains(guideLanguageSearchTerm.ToLower()))
-                    {
-                        guideLanguageCondition = false;
-                    }
+                          guideLanguageCondition = false;
                 }
-                //if (guestNumberBox.Value > 0)
-                {
-                    if (tour.MaxGuestNumber < maxGuestNumberSearchTerm)
-                    {
+                if (tour.MaxGuestNumber < maxGuestNumberSearchTerm)
                         maxGuestNumberCondition = false;
-                    }
-                }
-
-
+                    
                 if (cityCondition && countryCondition && lengthCondition && guideLanguageCondition && maxGuestNumberCondition)
-                {
-                    FilteredData.Add(tour);
-
-                }
-
+                        FilteredData.Add(tour);
             }
-
-            dataGridTours.ItemsSource = FilteredData;
-
-
-
-
         }
 
         private void ReserveTour_Click(object sender, RoutedEventArgs e)
@@ -203,23 +186,20 @@ namespace Sims2023.WPF.Views
 
             int reservedSpace = (int)guestNumberBox.Value;
 
-
             if (IsNull(SelectedTour))
                 return;
             
-
             if (SelectedTour.AvailableSpace >= reservedSpace)
             {
                 EditedTour = SelectedTour;
-                TourReservation tourReservation = new TourReservation();
 
-                tourReservation.Tour.Id = SelectedTour.Id;
-                tourReservation.User.Id = User.Id;
-                tourReservation.GuestNumber = reservedSpace;
+                TourReservation tourReservation = new TourReservation(SelectedTour,User,reservedSpace);
                 _tourReservationController.Create(tourReservation);
                 UpdateTours(reservedSpace);
                 dataGridTours.ItemsSource = Tours;
+
                 checkVouchers(tourReservation,EditedTour);
+
                 VoucherListView voucherListView = new VoucherListView(User);
                 voucherListView.Show();
             }
@@ -229,10 +209,8 @@ namespace Sims2023.WPF.Views
             }
             else
             {
-
                 DisplayAlternativeTours(reservedSpace);
             }
-
         }
 
         private bool IsNull(Tour selectedTour)
@@ -299,7 +277,7 @@ namespace Sims2023.WPF.Views
         {
             int CountReservation = 0;
          
-            foreach (var reservation in _tourReservationController.GetAllReservations())
+            foreach (var reservation in _tourReservationController.GetAll())
             {
                 if (tourReservation.User.Id == reservation.User.Id && tourReservation.ReservationTime.Year == reservation.ReservationTime.Year)
                 {
@@ -314,6 +292,7 @@ namespace Sims2023.WPF.Views
             }
         }
 
+        
         
 
         public void Update()
