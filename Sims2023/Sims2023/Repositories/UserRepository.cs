@@ -143,12 +143,10 @@ namespace Sims2023.Repositories
             {
                 if (tourReservation.Tour.Id == keyPoint.Tour.Id)
                 {
-                    MessageBox.Show("nesto");
                     User Guest = GetById(tourReservation.User.Id);
                     if (CheckIfGuestMarked(tourReservation, Guest, keyPoint, markedGuests))
                     {
                         result.Add(Guest);
-                        MessageBox.Show("nesto2");
                     }
                 }
             }
@@ -159,7 +157,6 @@ namespace Sims2023.Repositories
         {
             if (!keyPoint.ShowedGuestsIds.Contains(tourReservation.Tour.Id))
             {
-                MessageBox.Show("nesto3");
                 return !markedGuests.Any(markedGuest => markedGuest.Id == guest.Id);
             }
             return true;

@@ -47,5 +47,10 @@ namespace Sims2023.Application.Services
         {
             _tourReservations.Save();
         }
+
+        public List<TourReservation> GetReservationsByToursid(int id)
+        {
+            return _tourReservations.GetReservationsByToursId(id);
+        }
     }
 }

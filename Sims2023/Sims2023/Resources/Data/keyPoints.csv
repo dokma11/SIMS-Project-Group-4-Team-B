@@ -1,16 +1,16 @@
 1|most|NotVisited||1
-2|tvrdjava|NotVisited||1
+2|tvrdjava|NotVisited|1|1
 3|sat na tvrdjavi|NotVisited||1
 4|kej|NotVisited||1
 5|most|NotVisited||2
 6|tvrdjava|NotVisited||2
 7|sat na tvrdjavi|NotVisited||2
 8|kej|NotVisited||2
-9|most|BeingVisited||3
-10|tvrdjava|NotVisited||3
-11|sat na tvrdjavi|NotVisited||3
-12|kej|NotVisited||3
-13|velika trznica|NotVisited||4
+9|most|Visited||3
+10|tvrdjava|Visited|8|3
+11|sat na tvrdjavi|Visited||3
+12|kej|Visited||3
+13|velika trznica|BeingVisited||4
 14|sveto  brdo gelerta|NotVisited||4
 15|budimski dvor|NotVisited||4
 16|ribarski bastion|NotVisited||4

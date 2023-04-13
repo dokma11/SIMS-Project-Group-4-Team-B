@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Sims2023.Domain.Models;
 using Sims2023.Application.Services;
+using System.Security.RightsManagement;
 
 namespace Sims2023.Repositories
 {
@@ -83,6 +84,11 @@ namespace Sims2023.Repositories
             {
                 observer.Update();
             }
+        }
+
+        public List<TourReservation> GetReservationsByToursId(int id)
+        {
+            return _tourReservations.Where(reservation => reservation.Tour.Id == id).ToList();   
         }
     }
 }

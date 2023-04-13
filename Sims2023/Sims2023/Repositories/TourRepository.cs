@@ -248,5 +248,13 @@ namespace Sims2023.Repository
                 return notUsedPercentage.ToString("0.00");
             }
         }
+
+        public List<Tour> GetCreatedTours(User loggedInGuide)
+        {
+            List<Tour> ToursToDisplay = new();
+            ToursToDisplay.AddRange(_tours.Where(tour => tour.CurrentState == Tour.State.Created && 
+                                           tour.Guide.Id == loggedInGuide.Id));
+            return ToursToDisplay;
+        }
     }
 }

@@ -1,16 +1,11 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Serialization;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Sims2023.Domain.Models
 {
-    public class TourReview: ISerializable, INotifyPropertyChanged
+    public class TourReview : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public User Guest { get; set; }
@@ -25,8 +20,8 @@ namespace Sims2023.Domain.Models
         public bool IsValid { get; set; }
         public string Comment { get; set; }
 
-        public TourReview() { } 
-        public TourReview(int id, User guest, User guide, Tour tour, KeyPoint keyPointJoined, int guideKnowledge, int tourInterest, int guidesLanguageCapability,  bool isValid, string comment)
+        public TourReview() { }
+        public TourReview(int id, User guest, User guide, Tour tour, KeyPoint keyPointJoined, int guideKnowledge, int tourInterest, int guidesLanguageCapability, bool isValid, string comment)
         {
             Id = id;
             Guest = guest;
@@ -38,7 +33,7 @@ namespace Sims2023.Domain.Models
             GuidesLanguageCapability = guidesLanguageCapability;
             IsValid = isValid;
             Comment = comment;
-            AverageGrade = (GuideKnowledge+GuidesLanguageCapability+TourInterest)/3;
+            AverageGrade = (GuideKnowledge + GuidesLanguageCapability + TourInterest) / 3;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

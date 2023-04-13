@@ -2,6 +2,7 @@
 using Sims2023.Domain.Models;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
+using Sims2023.Repositories;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,6 +13,7 @@ namespace Sims2023.Repository
         private List<IObserver> _observers;
         private List<KeyPoint> _keyPoints;
         private KeyPointFileHandler _fileHandler;
+        private TourReviewRepository _tourReviews;
         public KeyPointRepository()
         {
             _fileHandler = new KeyPointFileHandler();
@@ -83,6 +85,21 @@ namespace Sims2023.Repository
         public void Save()
         {
             _fileHandler.Save(_keyPoints);
+        }
+
+        public void GetKeyPointWhereGuestJoined(Tour selectedTour)
+        {
+            _tourReviews = new();
+            foreach(var tourReview in _tourReviews.GetAll())
+            {
+                var keyPoint = _keyPoints.Where(k => k.Tour.Id == selectedTour.Id)
+                                         .FirstOrDefault(k => k.ShowedGuestsIds.Contains(tourReview.Guest.Id));
+                if(keyPoint != null)
+                {
+                    tourReview.KeyPointJoined = keyPoint;
+                    _tourReviews.Save();
+                }
+            }
         }
     }
 }

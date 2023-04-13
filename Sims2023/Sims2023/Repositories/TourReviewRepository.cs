@@ -74,5 +74,18 @@ namespace Sims2023.Repositories
         {
             _fileHandler.Save(_tourReviews);
         }
+
+        public List<TourReview> GetReviewsByToursId(int id)
+        {
+            List<TourReview> result = new();
+            foreach (var tourReview in _tourReviews)
+            {
+                if (id == tourReview.Tour.Id)
+                {
+                     result.Add(tourReview);
+                }
+            }
+            return result;
+        }
     }
 }

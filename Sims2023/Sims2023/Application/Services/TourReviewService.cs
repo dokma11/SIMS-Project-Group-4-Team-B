@@ -47,5 +47,10 @@ namespace Sims2023.Application.Services
         {
             return _tourReviews.GetById(id);
         }
+
+        public List<TourReview> GetReviewsByToursId(int id)
+        {
+            return _tourReviews.GetReviewsByToursId(id);
+        }
     }
 }

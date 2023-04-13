@@ -89,5 +89,10 @@ namespace Sims2023.Application.Services
         {
             return _tour.GetVoucherStatistics(selectedTour, used);
         }
+
+        public List<Tour> GetCreatedTours(User loggedInGuide)
+        {
+            return _tour.GetCreatedTours(loggedInGuide);
+        }
     }
 }
