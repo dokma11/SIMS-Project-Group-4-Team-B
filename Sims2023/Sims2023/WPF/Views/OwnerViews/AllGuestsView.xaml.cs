@@ -43,10 +43,8 @@ namespace Sims2023.View
             if (SelectedGuest != null)
             {
                 var gradeView = new Guest1GradeView(SelectedGuest, Reservatons);
-           
                 gradeView.Show();
             }
         }
-    
-   }
+    }
 }

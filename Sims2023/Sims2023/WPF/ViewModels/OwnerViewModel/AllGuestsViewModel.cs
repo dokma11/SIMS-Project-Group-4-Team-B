@@ -13,15 +13,8 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
     public class AllGuestsViewModel
     {
         private AccommodationReservationService _reservationService; //
-        public ObservableCollection<AccommodationReservation> Reservatons { get; set; }
-
-
-        public AccommodationReservation SelectedGuest { get; set; }
-        public List<AccommodationReservation> Reservatons2 { get; set; }
-        public List<Accommodation> Accommodations { get; set; }
+        public AccommodationReservation SelectedGuest { get; set; }          
         public List<AccommodationReservation> ReservationsList { get; set; }  //
-
-        private AccommodationService _accommodationService; //
 
         private GuestGradeService _gradeService; //
         public User user { get; set; }  //
@@ -32,16 +25,10 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             _reservationService = acml;
             ReservationsList = reserv;
             _gradeService = new GuestGradeService();
-            _accommodationService = new AccommodationService();
-
-
         }
-
-        public List<AccommodationReservation> GetGradableGuests()
+       public List<AccommodationReservation> GetGradableGuests()
         {
             return _reservationService.GetGradableGuests(user, ReservationsList, _gradeService.GetAllGrades());
         }
-
-     
     }
 }
