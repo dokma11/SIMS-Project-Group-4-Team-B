@@ -1,5 +1,6 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.WPF.ViewModels.OwnerViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,20 +25,19 @@ namespace Sims2023.View
     {
         private GuestGrade Grade { get; set; }
         private AccommodationReservation Guest { get; set; }
+        ObservableCollection<AccommodationReservation> resevationss { get; set; }
 
-        private GuestGradeService _gradeService;
-
-        public bool GradeEntered { get; set; }
+        public Guest1GradeViewModel Guest1GradeViewModel;
          
         public Guest1GradeView(AccommodationReservation selectedGuest, ObservableCollection<AccommodationReservation> resevations)
         {
             InitializeComponent();
             DataContext = this;
+            Guest1GradeViewModel = new Guest1GradeViewModel(selectedGuest, resevations);
             Grade = new GuestGrade();
-            Guest = selectedGuest;
-            _gradeService = new GuestGradeService();
-           
-            GradeEntered = false;
+            Guest = selectedGuest;          
+            resevationss = resevations;
+             
          
         }
 
@@ -56,9 +56,9 @@ namespace Sims2023.View
                 int RespectRules = int.Parse(Respectrules);
                 int Communication = int.Parse(Communicationn);
                 Grade = new GuestGrade(id, Guest.Accommodation, Guest.Guest, clean, RespectRules, Communication, comment);
-                _gradeService.Create(Grade);
+                Guest1GradeViewModel.CreateGrade(Grade);
+                resevationss.Remove(Guest);
                 MessageBox.Show("Uspijesno davanje ocjene");
-                GradeEntered = true;
                 Close();
             }
             else MessageBox.Show("Popunite sve podatke");
@@ -73,25 +73,12 @@ namespace Sims2023.View
             int Communication;
             bool isCommunicationValid = int.TryParse(Communicationn, out Communication);
 
-            if (!isCleanValid)
-            {
+            if (!isCleanValid)      return false;
 
-                return false;
-            }
-
-
-            else if (!isRulesValid)
-            {
-
-                return false;
-            }
-
-            else if (!isCommunicationValid)
-            {
-
-                return false;
-            }
-
+            else if (!isRulesValid) return false;
+            
+            else if (!isCommunicationValid) return false;
+            
             else if (string.IsNullOrEmpty(comment)) return false;
 
             else return true;

@@ -43,18 +43,10 @@ namespace Sims2023.View
             if (SelectedGuest != null)
             {
                 var gradeView = new Guest1GradeView(SelectedGuest, Reservatons);
-                gradeView.Closed += GradeView_Closed;
+           
                 gradeView.Show();
             }
         }
-       private void GradeView_Closed(object sender, EventArgs e)
-        {
-            var gradeView = (Guest1GradeView)sender;
-
-            if (gradeView.GradeEntered)
-            {
-                Reservatons.Remove(SelectedGuest);
-            }
-        }
+    
    }
 }
