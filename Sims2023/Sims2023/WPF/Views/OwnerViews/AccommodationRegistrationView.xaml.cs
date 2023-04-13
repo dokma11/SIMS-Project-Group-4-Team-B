@@ -2,6 +2,7 @@
 using Sims2023.Controller;
 using System.Windows;
 using Sims2023.Domain.Models;
+using Sims2023.WPF.ViewModels.OwnerViewModel;
 
 namespace Sims2023.View
 {
@@ -10,103 +11,76 @@ namespace Sims2023.View
     /// </summary>
     public partial class AccommodationRegistrationView : Window
     {
-        private AccommodationService _accommodationController;
-       
         private Accommodation Accommodation { get; set; }
-        public User User { get; set; }
-
-        private LocationService _locationService;
-
         string outputText;
+        User user { get; set; }
+        public AccommodationRegistrationViewModel AccommodationRegistrationViewModel;
+
         public AccommodationRegistrationView(AccommodationService accommodationCtrl1,User owner)
         {
             InitializeComponent();
             DataContext = this;
-
-            User = owner;
-
-            _accommodationController = accommodationCtrl1;
-
+            AccommodationRegistrationViewModel = new AccommodationRegistrationViewModel(accommodationCtrl1,owner);
             Accommodation = new Accommodation();
-
-            _locationService = new LocationService();
+            user = owner;
         }
 
         private void Registration_Click(object sender, RoutedEventArgs e)
         {
             int Id = 0;
-            int Id2 = 0;
             string Name = textBox.Text;
             string Town = textBox1.Text;
-            int idLocation = 0;
-
-
             string Country = textBox2.Text;
             string Type = comboBox.Text;
             string MaxGuests1 = textBox3.Text;
-
-            // making sure user enters integer
-            int MaxGuests;
-            bool isMaxGuestsValid = int.TryParse(MaxGuests1, out MaxGuests);
-            if (!isMaxGuestsValid)
-            {
-                MessageBox.Show("Morate unijeti cijeli broj za dane");
-                return;
-            }
-            MaxGuests = string.IsNullOrEmpty(MaxGuests1) ? -1 : int.Parse(MaxGuests1);
-           
             string mindays = textBox4.Text;
-            int MinDays;
-            bool isMaxGuestsValid1 = int.TryParse(mindays, out MinDays);
-
-            if (!isMaxGuestsValid1)
-            {
-                MessageBox.Show("Morate unijeti cijeli broj za dane");
-                return;
-            }
-            MinDays = string.IsNullOrEmpty(mindays) ? -1 : int.Parse(mindays);
-     
             string CancelDayss = textBox5.Text;
-            int CancelDays;
-            bool isMaxGuestsValid2 = int.TryParse(CancelDayss, out CancelDays);
 
-            if (!isMaxGuestsValid1)
+            if (IsValid(MaxGuests1,mindays,CancelDayss,Town,Country,Name,Type,outputText))
             {
-                MessageBox.Show("Morate unijeti cijeli broj za dane");
-                return;
-            }
+                int maxguests = int.Parse(MaxGuests1);
+                int mindayss = int.Parse(mindays);
+                int canceldays = int.Parse(mindays);
+                Location location = new Location(0, Town, Country);
+                AccommodationRegistrationViewModel.CreateLocation(location);
 
-            Location Location = new Location(0, Town, Country);
-            _locationService.Create(Location);
-
-            CancelDays = string.IsNullOrEmpty(CancelDayss) ? 1 : int.Parse(CancelDayss);
-            
-            Accommodation = new Accommodation(Id, Name, Location, Type, MaxGuests, MinDays, CancelDays, outputText, User);
-
-            if (Accommodation.IsVaild(Accommodation) == null)
-            {
-                _accommodationController.Create(Accommodation);
+                Accommodation = new Accommodation(Id, Name, location, Type, maxguests, mindayss, canceldays, outputText, user);
+                AccommodationRegistrationViewModel.CreateAccommodation(Accommodation);
                 MessageBox.Show("uspijsna registracija smjestaja");
                 Close();
             }
-            else
-            {
-                string s = Accommodation.IsVaild(Accommodation);
-                MessageBox.Show(s);
-            }
+            else MessageBox.Show("Niste dobro popunili sve podatke");
         }
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-
             string inputText = textBox6.Text;
             lstOutput.Items.Add(inputText);
             textBox6.Clear();
             outputText = outputText + "," + inputText;
         }
-
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+        public bool IsValid(string MaxGuests1, string mindays, string CancelDayss, string city, string country, string name, string type, string Imageurl)
+        {
+            int clean;
+            bool isCleanValid = int.TryParse(MaxGuests1, out clean);
+            int RespectRules;
+            bool isRulesValid = int.TryParse(mindays, out RespectRules);
+            int Communication;
+            bool isCommunicationValid = int.TryParse(CancelDayss, out Communication);
+
+            if (!isCleanValid) return false;
+            else if (!isRulesValid) return false;
+            else if (!isCommunicationValid) return false;
+            else if (string.IsNullOrEmpty(city)) return false;
+            else if (string.IsNullOrEmpty(country)) return false;
+            else if (string.IsNullOrEmpty(name)) return false;
+            else if (string.IsNullOrEmpty(type)) return false;
+            else if (string.IsNullOrEmpty(Imageurl)) return false;
+
+            else return true;
         }
     }
 }
