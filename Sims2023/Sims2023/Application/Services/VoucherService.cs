@@ -25,6 +25,11 @@ namespace Sims2023.Application.Services
             return _voucher.GetById(id);
         }
 
+        public List<Voucher> GetByUser(User user)
+        {
+            return _voucher.GetByUser(user);
+        }
+
         public void Create(Voucher voucher)
         {
             _voucher.Add(voucher);

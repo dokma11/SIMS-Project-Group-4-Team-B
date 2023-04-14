@@ -56,6 +56,11 @@ namespace Sims2023.Repositories
             return _vouchers;
         }
 
+        public List<Voucher> GetByUser(User user)
+        {
+            return _vouchers.Where(voucher => voucher.User.Id == user.Id && voucher.IsUsed == false)
+                    .ToList();
+        }
         public Voucher GetById(int id)
         {
             return _fileHandler.GetById(id);

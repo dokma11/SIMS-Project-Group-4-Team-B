@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Sims2023.WPF.Views.Guest2Views;
-using System.Text;
-using System.Threading.Tasks;
 using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using System.Windows;
@@ -12,8 +9,7 @@ using Sims2023.WPF.Views;
 using Sims2023.Observer;
 
 namespace Sims2023.WPF.ViewModels.Guest2ViewModels
-{
-    
+{   
     public class Guest2ViewModel:IObserver
     {
         private TourService _tourService;
@@ -23,10 +19,10 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         private TourReservationService _tourReservationService;
 
         private VoucherService _voucherService;
-
-        private UserService _userService;
         public ObservableCollection<Tour> Tours { get; set; }
         public ObservableCollection<Location> Locations { get; set; }
+
+        public ObservableCollection<Voucher> Vouchers { get; set; }
         public Tour SelectedTour { get; set; }
         public Tour EditedTour { get; set; }
 
@@ -45,17 +41,19 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             _locationService = new LocationService();
             _tourReservationService = new TourReservationService();
             _voucherService = new VoucherService();
-            _userService = new UserService();
             
-
             Tours = new ObservableCollection<Tour>(_tourService.GetAvailable());
             Locations = new ObservableCollection<Location>(_locationService.GetAll());
+            Vouchers = new ObservableCollection<Voucher>(_voucherService.GetByUser(user));
+            FilteredData = new List<Tour>();
+            
             SelectedTour = new Tour();
             EditedTour = new Tour();
-            User = user;
-            FilteredData = new List<Tour>();
             TourReservation = new TourReservation();
+
+            User = user;
             Guest2View = guest2View;
+
             _tourService.AddLocationsToTour(Locations, Tours);
         }
 
@@ -125,7 +123,6 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         public void ReserveTour_Click()
         {
-
             int reservedSpace = (int)Guest2View.guestNumberBox.Value;
 
             if (IsNull(SelectedTour))
@@ -138,15 +135,12 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
                 TourReservation tourReservation = new TourReservation(SelectedTour, User, reservedSpace);
                 _tourReservationService.Create(tourReservation);
                 _tourService.UpdateAvailableSpace(reservedSpace, EditedTour);
+                
                 Update();
-                Guest2View.dataGridTours.ItemsSource = Tours;
                 MessageBox.Show("Uspesna rezervacija");
 
                 _tourReservationService.CheckVouchers(tourReservation, EditedTour);
-                
-                VoucherListView voucherListView = new VoucherListView(User);
-                voucherListView.Show();
-                
+                ShowVoucherListView();
                 
             }
             else if (SelectedTour.AvailableSpace > 0)
@@ -155,10 +149,8 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             }
             else
             {
-                Guest2View.dataGridTours.ItemsSource=_tourService.GetAlternative(reservedSpace,SelectedTour);
-                MessageBox.Show("Nema slobodnih mesta, ali imamo na istoj lokaciji u ponudi:");
+                DisplayAlternativeTours(reservedSpace, SelectedTour);
             }
-            
         }
 
         public bool IsNull(Tour selectedTour)
@@ -181,10 +173,22 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
             MessageBox.Show($"U ponudi je ostalo još {SelectedTour.AvailableSpace} slobodnih mesta.");
         }
-        
+
+        public void DisplayAlternativeTours(int reservedSpace, Tour selectedTour)
+        {
+            Guest2View.dataGridTours.ItemsSource = _tourService.GetAlternative(reservedSpace, selectedTour);
+            MessageBox.Show("Nema slobodnih mesta, ali imamo na istoj lokaciji u ponudi:");
+        }
+
+        public void ShowVoucherListView()
+        {
+            var voucherListView = new VoucherListView(User);
+            voucherListView.Show();
+        }
+
         public void Update()
         {
-            Tours=new ObservableCollection<Tour>(_tourService.GetAvailable());
+            Guest2View.dataGridTours.ItemsSource = new ObservableCollection<Tour>(_tourService.GetAvailable());
         }
     }
 }

@@ -37,19 +37,10 @@ namespace Sims2023.WPF.Views.Guest2Views
 
             SelectedVoucher= new Voucher();
             User = user;
-            Vouchers = FindVouchersByUser(User);
+            Vouchers = _voucherService.GetByUser(user);
         }
 
-        public List<Voucher> FindVouchersByUser(User user)
-        {
-            List<Voucher> VouchersByUser = new List<Voucher>();
-            foreach(Voucher voucher in _voucherService.GetAll() )
-            {
-                if(voucher.User.Id==user.Id && voucher.IsUsed==false)
-                    VouchersByUser.Add(voucher);  
-            }
-            return VouchersByUser;
-        }
+        
         
         private void ActivateVoucher_Click(object sender, RoutedEventArgs e)
         {
@@ -75,7 +66,7 @@ namespace Sims2023.WPF.Views.Guest2Views
 
         public void Update()
         {
-            dataGridVouchers.ItemsSource = FindVouchersByUser(User);
+            dataGridVouchers.ItemsSource = _voucherService.GetByUser(User);
         }
     }
 }
