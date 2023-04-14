@@ -3,6 +3,13 @@ using Sims2023.Controller;
 using System.Windows;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.OwnerViewModel;
+using Microsoft.Win32;
+using Sims2023.View.Guest1;
+using System.Reflection;
+using System.Windows.Media.Imaging;
+using System;
+using System.Collections.Generic;
+using Path = System.IO.Path;
 
 namespace Sims2023.View
 {
@@ -12,9 +19,11 @@ namespace Sims2023.View
     public partial class AccommodationRegistrationView : Window
     {
         private Accommodation Accommodation { get; set; }
-        string outputText;
         User user { get; set; }
         public AccommodationRegistrationViewModel AccommodationRegistrationViewModel;
+        private List<string> _addedPictures = new List<string>();
+        List<BitmapImage> imageList = new List<BitmapImage>();
+        private List<BitmapImage> _permanentPictures = new List<BitmapImage>();
 
         public AccommodationRegistrationView(AccommodationService accommodationCtrl1,User owner)
         {
@@ -23,6 +32,8 @@ namespace Sims2023.View
             AccommodationRegistrationViewModel = new AccommodationRegistrationViewModel(accommodationCtrl1,owner);
             Accommodation = new Accommodation();
             user = owner;
+            _addedPictures = new List<string>();
+            imageList = new List<BitmapImage>();
         }
 
         private void Registration_Click(object sender, RoutedEventArgs e)
@@ -36,7 +47,7 @@ namespace Sims2023.View
             string mindays = textBox4.Text;
             string CancelDayss = textBox5.Text;
 
-            if (IsValid(MaxGuests1,mindays,CancelDayss,Town,Country,Name,Type,outputText))
+            if (IsValid(MaxGuests1,mindays,CancelDayss,Town,Country,Name,Type))
             {
                 int maxguests = int.Parse(MaxGuests1);
                 int mindayss = int.Parse(mindays);
@@ -44,25 +55,44 @@ namespace Sims2023.View
                 Location location = new Location(0, Town, Country);
                 AccommodationRegistrationViewModel.CreateLocation(location);
 
-                Accommodation = new Accommodation(Id, Name, location, Type, maxguests, mindayss, canceldays, outputText, user);
+                Accommodation = new Accommodation(Id, Name, location, Type, maxguests, mindayss, canceldays, _addedPictures, user);
                 AccommodationRegistrationViewModel.CreateAccommodation(Accommodation);
                 MessageBox.Show("uspijsna registracija smjestaja");
                 Close();
             }
             else MessageBox.Show("Niste dobro popunili sve podatke");
         }
+       
+        
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            string inputText = textBox6.Text;
-            lstOutput.Items.Add(inputText);
-            textBox6.Clear();
-            outputText = outputText + "," + inputText;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = true;
+            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                imageList.Clear(); // Clear the imageList collection before adding new images
+                foreach (string filename in openFileDialog.FileNames)
+                {
+                    string relativePath = $"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Images/OwnerImages/{Path.GetFileName(filename)}";
+                    Uri imageUri = new Uri(relativePath, UriKind.Absolute);
+                    BitmapImage bitmapImage = new BitmapImage(imageUri);
+                    imageList.Add(bitmapImage);
+                    _addedPictures.Add(relativePath);
+                    _permanentPictures.Add(bitmapImage);
+                }
+               PicturesListView.ItemsSource = null;
+               PicturesListView.ItemsSource = _permanentPictures;
+            }
         }
+
+
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
-        public bool IsValid(string MaxGuests1, string mindays, string CancelDayss, string city, string country, string name, string type, string Imageurl)
+        public bool IsValid(string MaxGuests1, string mindays, string CancelDayss, string city, string country, string name, string type)
         {
             int clean;
             bool isCleanValid = int.TryParse(MaxGuests1, out clean);
@@ -78,7 +108,6 @@ namespace Sims2023.View
             else if (string.IsNullOrEmpty(country)) return false;
             else if (string.IsNullOrEmpty(name)) return false;
             else if (string.IsNullOrEmpty(type)) return false;
-            else if (string.IsNullOrEmpty(Imageurl)) return false;
 
             else return true;
         }

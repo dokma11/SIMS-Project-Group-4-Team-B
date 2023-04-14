@@ -1,5 +1,6 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         private Accommodation Accommodation { get; set; }
         public User User { get; set; }
-
+        public AccommodationRegistrationView _accommodationRegistrationView; 
         private LocationService _locationService;
 
         public AccommodationRegistrationViewModel(AccommodationService accommodationCtrl1, User owner)
@@ -22,7 +23,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             _accommodationService = accommodationCtrl1;
             User = owner;
             _locationService = new LocationService();
-
+    
         }
 
         public void CreateLocation(Location location)
