@@ -67,4 +67,8 @@ public class AccommodationReservationReschedulingService
     {
         _accommodationReservationRescheduling.checkForNotifications(guest1);
     }
+    public bool CheckForActiveRequest(AccommodationReservation selectedAccommodationReservation)
+    {
+        return _accommodationReservationRescheduling.CheckForActiveRequest(selectedAccommodationReservation);
+    }
 }

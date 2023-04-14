@@ -54,30 +54,46 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             _accommodationController = new AccommodationService();
             Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAllAccommodations());
 
-            FilteredData = _accommodationReservationService.FindSuitableReschedulingReservations(User);
+            FilteredData = _accommodationReservationService.FindSuitablePastReservations(User);
             AllGuestOneReservationsView.myDataGrid.ItemsSource = FilteredData;
         }
 
         public void grading_Click(object sender, RoutedEventArgs e)
         {
             SelectedAccommodationReservation = (AccommodationReservation)AllGuestOneReservationsView.myDataGrid.SelectedItem;
+            if(GradingIsPossible(SelectedAccommodationReservation))
+            {
+                var AccommodationAndOwnerGradingView = new AccommodationAndOwnerGradingView(SelectedAccommodationReservation, User, _accommodationReservationService);
+                AccommodationAndOwnerGradingView.ShowDialog();
+                Update();
+            }
             
             if (SelectedAccommodationReservation == null)
             {
                 MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da ocenite.");
                 return;
             }
-            if (!SelectedAccommodationReservation.Graded)
+        }
+
+        private bool GradingIsPossible(AccommodationReservation selectedAccommodationReservation)
+        {
+            if (SelectedAccommodationReservation == null)
             {
-                var AccommodationAndOwnerGradingView = new AccommodationAndOwnerGradingView(SelectedAccommodationReservation, User, _accommodationReservationService);
-                AccommodationAndOwnerGradingView.ShowDialog();
-                Update();
+                MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da ocenite.");
+                return false;
             }
-            else
+            if (SelectedAccommodationReservation.Graded)
             {
                 MessageBox.Show("Vec ste ocenili ovaj smestaj.");
-                return;
+                return false;
             }
+            TimeSpan difference = DateTime.Today - selectedAccommodationReservation.EndDate;
+            if (difference.TotalDays >= 5)
+            {
+                MessageBox.Show($"Rok za ocenjivanje smestaja je pet dana od kraja rezervacije.Proslo je {difference}!");
+                return false;
+            }
+            return true;
         }
 
         public void renovation_Click(object sender, RoutedEventArgs e)
@@ -95,7 +111,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public void Update()
         {
             FilteredData.Clear();
-            FilteredData = _accommodationReservationService.FindSuitableReschedulingReservations(User);
+            FilteredData = _accommodationReservationService.FindSuitablePastReservations(User);
             AllGuestOneReservationsView.myDataGrid.ItemsSource = FilteredData;
         }
     }

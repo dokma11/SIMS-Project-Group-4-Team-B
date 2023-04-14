@@ -161,5 +161,17 @@ namespace Sims2023.Repositories
             }
             return false;
         }
+
+        public bool CheckForActiveRequest(AccommodationReservation selectedAccommodationReservation)
+        {
+            foreach (AccommodationReservationRescheduling accommodationReservationRescheduling in _accommodationReservationReschedulings)
+            {
+                if (accommodationReservationRescheduling.AccommodationReservation.Id == selectedAccommodationReservation.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

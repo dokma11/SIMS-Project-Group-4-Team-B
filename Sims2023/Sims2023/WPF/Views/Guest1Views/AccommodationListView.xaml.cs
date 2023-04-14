@@ -49,5 +49,10 @@ namespace Sims2023.WPF.Views.Guest1Views
         {
             AccommodationListViewModel.Back_Click(sender, e);
         }
+
+        private void DetailViewbutton_Click(object sender, RoutedEventArgs e)
+        {
+            AccommodationListViewModel.DetailViewbutton_Click(sender, e);
+        }
     }
 }

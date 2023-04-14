@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="WPF\Views\Guest1Views\AccommodationDetailedView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest2Views\VoucherListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -41,6 +44,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="WPF\Views\Guest1Views\AccommodationDetailedView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\Guest1Views\AccommodationReservationCancellationView.xaml">
       <SubType>Designer</SubType>
     </Page>

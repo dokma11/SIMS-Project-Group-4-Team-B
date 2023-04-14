@@ -29,12 +29,11 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         private AccommodationReservationService _accommodationReservationService;
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
 
-        private AccommodationCancellationService _accommodationCancellationController;
-        public ObservableCollection<AccommodationCancellation> AccommodationCancellations { get; set; }
+        private AccommodationCancellationService _accommodationCancellationService;
+
+        private AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
 
         private AccommodationService _accommodationService;
-        public ObservableCollection<Accommodation> Accommodations { get; set; }
-        public ObservableCollection<AccommodationGrade> AccommodationGrades { get; set; }
 
         List<AccommodationReservation> FilteredData = new List<AccommodationReservation>();
         public User User { get; set; }
@@ -52,12 +51,10 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationService.GetAllReservations());
 
             _accommodationService = new AccommodationService();
-            Accommodations = new ObservableCollection<Accommodation>(_accommodationService.GetAllAccommodations());
+            _accommodationCancellationService = new AccommodationCancellationService();
+            _accommodationReservationReschedulingService = new AccommodationReservationReschedulingService();
 
-            _accommodationCancellationController = new AccommodationCancellationService();
-            AccommodationCancellations = new ObservableCollection<AccommodationCancellation>(_accommodationCancellationController.GetAllAccommodationCancellations());
-
-            FilteredData = _accommodationReservationService.FindSuitableReservations(User);
+            FilteredData = _accommodationReservationService.FindSuitableUpcomingReservations(User);
             AccommodationReservationCancellationView.myDataGrid.ItemsSource = FilteredData;
 
         }
@@ -71,7 +68,9 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 if (result == System.Windows.MessageBoxResult.Yes)
                 {
                     CreateAccommodationCancellation(SelectedAccommodationReservation);
-                    DeleteAccommodationReservation(SelectedAccommodationReservation);
+                    AccommodationReservations.Remove(SelectedAccommodationReservation);
+                    _accommodationReservationService.DeleteAccommodationReservation(SelectedAccommodationReservation);
+                    Update();
                 }
                 else
                 {
@@ -79,6 +78,11 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 }
             }
             return;
+        }
+
+        private bool HasActiveReschedulingRequest(AccommodationReservation selectedAccommodationReservation)
+        {
+           return  _accommodationReservationReschedulingService.CheckForActiveRequest(selectedAccommodationReservation);
         }
 
         public bool CheckSelectedAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
@@ -93,30 +97,23 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 MessageBox.Show("Nije moguce otkazati rezervaciju. Pocetak boravka je previse blizu");
                 return false;
             }
+            if (HasActiveReschedulingRequest(SelectedAccommodationReservation))
+            {
+                MessageBox.Show("Nije moguce otkazati rezervaciju. Podneli ste zahtev za pomeranje rezervacije.");
+                return false;
+            }
             return true;
         }
 
         public bool CancellationIsPossible(AccommodationReservation selectedAccommodationReservation)
         {
-            TimeSpan difference = selectedAccommodationReservation.StartDate- DateTime.Today;
+            TimeSpan difference = selectedAccommodationReservation.StartDate - DateTime.Today;
             if (difference.TotalDays <= selectedAccommodationReservation.Accommodation.CancelDays)
             {
                 return true;
             }
             return false;
-        }
-
-        public void DeleteAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
-        {
-            foreach (AccommodationReservation accommodationResrvation in AccommodationReservations)
-            {
-                if(accommodationResrvation.Id==selectedAccommodationReservation.Id)
-                {
-                    RemoveAccommodationReservation(selectedAccommodationReservation);
-                    return;
-                }
-            }
-        }
+        }  
 
         public void CreateAccommodationCancellation(AccommodationReservation selectedAccommodationReservation)
         {
@@ -130,7 +127,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             if (accommodationCancellation != null)
             {
-                _accommodationCancellationController.Create(accommodationCancellation);
+                _accommodationCancellationService.Create(accommodationCancellation);
                 MessageBox.Show("Uspesno ste otkazali rezervaciju.");
 
             }
@@ -146,7 +143,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public void Update()
         {
             FilteredData.Clear();
-            FilteredData = _accommodationReservationService.FindSuitableReservations(User);
+            FilteredData = _accommodationReservationService.FindSuitableUpcomingReservations(User);
             AccommodationReservationCancellationView.myDataGrid.ItemsSource = FilteredData;
         }
     }

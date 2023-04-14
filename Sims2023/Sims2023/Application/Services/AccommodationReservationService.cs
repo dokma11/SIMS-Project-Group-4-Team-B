@@ -54,18 +54,24 @@ namespace Sims2023.Application.Services
             _accommodationReservation.Subscribe(observer);
         }
 
-        public List<AccommodationReservation> FindSuitableReservations(User guest1)
+        public List<AccommodationReservation> FindSuitableUpcomingReservations(User guest1)
         {
-            return _accommodationReservation.FindSuitableReservations(guest1);
+            return _accommodationReservation.FindSuitableUpcomingReservations(guest1);
+        }
+
+        public List<AccommodationReservation> FindSuitablePastReservations(User guest1)
+        {
+            return _accommodationReservation.FindSuitablePastReservations(guest1);
         }
 
         public int CheckDates(Accommodation selectedAccommodation, DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> datesList)
         {
             return _accommodationReservation.CheckDates(selectedAccommodation,startDateSelected, endDateSelected, stayLength, datesList);
         }
-        public List<AccommodationReservation> FindSuitableReschedulingReservations(User guest1)
+
+        public void DeleteAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
         {
-            return _accommodationReservation.FindSuitableReschedulingReservations(guest1);
+            _accommodationReservation.DeleteAccommodationReservation(selectedAccommodationReservation);
         }
     }
 }

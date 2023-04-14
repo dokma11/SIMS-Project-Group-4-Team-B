@@ -95,5 +95,18 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             AccommodationListView.Close();
         }
+
+        internal void DetailViewbutton_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedAccommodation = (Accommodation)AccommodationListView.myDataGrid.SelectedItem;
+
+            if (SelectedAccommodation == null)
+            {
+                MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da prikazete detaljnije.");
+                return;
+            }
+            AccommodationDetailedView accommodationDetailedView = new AccommodationDetailedView(User, SelectedAccommodation);
+            accommodationDetailedView.Show();
+        }
     }
 }

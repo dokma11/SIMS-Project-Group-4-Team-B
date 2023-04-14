@@ -144,7 +144,7 @@ namespace Sims2023.Repositories
                 observer.Update();
             }
         }
-        public List<AccommodationReservation> FindSuitableReservations(User guest1)
+        public List<AccommodationReservation> FindSuitableUpcomingReservations(User guest1)
         {
             List<AccommodationReservation> FilteredReservations = new List<AccommodationReservation>();
             foreach (AccommodationReservation accommodationReservation in _accommodationReservations)
@@ -214,7 +214,7 @@ namespace Sims2023.Repositories
             return true;
         }
 
-        public List<AccommodationReservation> FindSuitableReschedulingReservations(User guest1)
+        public List<AccommodationReservation> FindSuitablePastReservations(User guest1)
         {
             List<AccommodationReservation> FilteredReservations = new List<AccommodationReservation>();
             foreach (AccommodationReservation accommodationReservation in _accommodationReservations)
@@ -230,12 +230,23 @@ namespace Sims2023.Repositories
         public bool CheckReschedulingReservation(AccommodationReservation accommodationReservation, User guest1)
         {
             TimeSpan difference = DateTime.Today - accommodationReservation.EndDate;
-            if (difference.TotalDays <= 5 && difference.TotalDays >= 0 && accommodationReservation.Guest.Id == guest1.Id && accommodationReservation.Graded == false)
+            if (difference.TotalDays >= 0 && accommodationReservation.Guest.Id == guest1.Id)
             {
                 return true;
             }
             return false;
 
+        }
+        public void DeleteAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
+        {
+            foreach (AccommodationReservation accommodationResrvation in _accommodationReservations)
+            {
+                if (accommodationResrvation.Id == selectedAccommodationReservation.Id)
+                {
+                    Remove(selectedAccommodationReservation);
+                    return;
+                }
+            }
         }
     }
 }

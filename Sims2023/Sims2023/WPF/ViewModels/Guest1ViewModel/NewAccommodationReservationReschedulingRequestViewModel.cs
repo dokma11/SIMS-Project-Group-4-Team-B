@@ -47,7 +47,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationService.GetAllReservations());
 
-            FilteredData = _accommodationReservationService.FindSuitableReservations(User);
+            FilteredData = _accommodationReservationService.FindSuitableUpcomingReservations(User);
             NewAccommodationReservationReschedulingRequestView.myDataGrid.ItemsSource = FilteredData;
         }
 
@@ -72,7 +72,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public void Update()
         {
             FilteredData.Clear();
-            FilteredData = _accommodationReservationService.FindSuitableReservations(User);
+            FilteredData = _accommodationReservationService.FindSuitableUpcomingReservations(User);
             NewAccommodationReservationReschedulingRequestView.myDataGrid.ItemsSource = FilteredData;
         }
     }
