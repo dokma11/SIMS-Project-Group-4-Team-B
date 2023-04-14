@@ -25,14 +25,14 @@ namespace Sims2023.View
     /// </summary>
     public partial class GradesFromGuestsView : Window
     {
-        public ObservableCollection<AccommodationGrade> people { get; set; }  
-        public User owner { get; set; } 
+        public ObservableCollection<AccommodationGrade> people { get; set; }
+        public User owner { get; set; }
         private GradesFromGuestsViewModel GradesFromGuestsViewModel;
         public AccommodationGrade SelectedPerson { get; set; }
         public GradesFromGuestsView(User user)
         {
             InitializeComponent();
-            DataContext= this;
+            DataContext = this;
             owner = user;
             GradesFromGuestsViewModel = new GradesFromGuestsViewModel(owner);
             people = new ObservableCollection<AccommodationGrade>(GradesFromGuestsViewModel.FindAllGuestsWhoGraded());

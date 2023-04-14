@@ -9,6 +9,16 @@
 
   <ItemGroup>
     <None Remove="Images\Guest1Images\add.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja1.jpeg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja10.jpeg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja2.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja3.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja4.jpeg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja5.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja6.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja7.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja8.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja9.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,6 +70,42 @@
     <Resource Include="Images\Guest1Images\add.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja1.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja10.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja4.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja8.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja9.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="WPF\ViewModels\Guest1ViewModel\AccommodationReservationCancellationViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

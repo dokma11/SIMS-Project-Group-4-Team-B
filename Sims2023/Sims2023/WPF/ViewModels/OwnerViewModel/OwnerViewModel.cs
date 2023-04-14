@@ -23,7 +23,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
        
         public GuestGradeService _gradeService;
 
-        public AccommodationCancellationController _accommodationCancellationController;
+        public AccommodationCancellationService _accommodationCancellationService;
         public List<AccommodationReservation> Reservations { get; set; }
         public ObservableCollection<AccommodationCancellation> AccommodationCancellations { get; set; }
         public List<AccommodationReservation> GradableGuests { get; set; }
@@ -36,10 +36,10 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             User = user;
             _accommodationService = new AccommodationService();
             _accommodationReservationService = new AccommodationReservationService();
-            _accommodationCancellationController = new AccommodationCancellationController();
+            _accommodationCancellationService  = new AccommodationCancellationService();
             _gradeService = new GuestGradeService();
             Reservations = new List<AccommodationReservation>(_accommodationReservationService.GetAllReservations());
-            AccommodationCancellations = new ObservableCollection<AccommodationCancellation>(_accommodationCancellationController.GetAllAccommodationCancellations());
+            AccommodationCancellations = new ObservableCollection<AccommodationCancellation>(_accommodationCancellationService.GetAllAccommodationCancellations());
         }
 
         public List<AccommodationReservation> GetGradableGuests()
@@ -55,7 +55,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                 {
                     MessageBox.Show($" Korisnik {accommodationCancellation.Guest.Name} je otkazao rezervaciju od {accommodationCancellation.StartDate.ToString("yyyy-MM-dd")} do {accommodationCancellation.EndDate.ToString("yyyy-MM-dd")}. Vas smestaj {accommodationCancellation.Accommodation.Name} je ponovo oslobodjen!");
                     accommodationCancellation.Notified = true;
-                    _accommodationCancellationController.Update(accommodationCancellation);
+                    _accommodationCancellationService.Update(accommodationCancellation);
                 }
             }
         }

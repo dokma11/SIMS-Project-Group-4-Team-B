@@ -1,5 +1,4 @@
-﻿using Sims2023.Model.DAO;
-using Sims2023.Observer;
+﻿using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Sims2023.Domain.Models;
 using Sims2023.Repositories;
+using System.Collections.ObjectModel;
+using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Application.Services
 {
     public class AccommodationReservationService
     {
-        private AccommodationReservationRepository _accommodationReservation;
+        private IAccommodationReservationRepository _accommodationReservation;
 
         public AccommodationReservationService()
         {
@@ -52,6 +53,26 @@ namespace Sims2023.Application.Services
         public void Subscribe(IObserver observer)
         {
             _accommodationReservation.Subscribe(observer);
+        }
+
+        public List<AccommodationReservation> FindSuitableUpcomingReservations(User guest1)
+        {
+            return _accommodationReservation.FindSuitableUpcomingReservations(guest1);
+        }
+
+        public List<AccommodationReservation> FindSuitablePastReservations(User guest1)
+        {
+            return _accommodationReservation.FindSuitablePastReservations(guest1);
+        }
+
+        public int CheckDates(Accommodation selectedAccommodation, DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> datesList)
+        {
+            return _accommodationReservation.CheckDates(selectedAccommodation,startDateSelected, endDateSelected, stayLength, datesList);
+        }
+
+        public void DeleteAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
+        {
+            _accommodationReservation.DeleteAccommodationReservation(selectedAccommodationReservation);
         }
     }
 }

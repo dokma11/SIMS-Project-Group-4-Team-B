@@ -1,4 +1,6 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
 using Sims2023.WPF.ViewModels.OwnerViewModel;
 using System;
@@ -15,7 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static Sims2023.Model.AccommodationReservationRescheduling;
+using static Sims2023.Domain.Models.AccommodationReservationRescheduling;
 
 namespace Sims2023.WPF.Views.OwnerViews
 {
@@ -31,7 +33,7 @@ namespace Sims2023.WPF.Views.OwnerViews
         private DeclineRescheduleViewModel DeclineRescheduleViewModel;
 
         public ObservableCollection<AccommodationReservationRescheduling> peoplee;
-        public DeclineRescheduleView(AccommodationReservationReschedulingController _reschedulingController, AccommodationReservationRescheduling SelectedGuest, ReschedulingDetailsView reschedulingDetailsView, ObservableCollection<AccommodationReservationRescheduling> people)
+        public DeclineRescheduleView(AccommodationReservationReschedulingService _reschedulingController, AccommodationReservationRescheduling SelectedGuest, ReschedulingDetailsView reschedulingDetailsView, ObservableCollection<AccommodationReservationRescheduling> people)
         {
             InitializeComponent();
             DataContext = this;

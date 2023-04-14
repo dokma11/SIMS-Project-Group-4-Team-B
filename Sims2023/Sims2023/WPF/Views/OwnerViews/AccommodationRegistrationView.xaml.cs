@@ -3,6 +3,8 @@ using Sims2023.Controller;
 using System.Windows;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.OwnerViewModel;
+using System.Windows.Documents;
+using System.Collections.Generic;
 
 namespace Sims2023.View
 {
@@ -16,11 +18,11 @@ namespace Sims2023.View
         User user { get; set; }
         public AccommodationRegistrationViewModel AccommodationRegistrationViewModel;
 
-        public AccommodationRegistrationView(AccommodationService accommodationCtrl1,User owner)
+        public AccommodationRegistrationView(AccommodationService accommodationCtrl1, User owner)
         {
             InitializeComponent();
             DataContext = this;
-            AccommodationRegistrationViewModel = new AccommodationRegistrationViewModel(accommodationCtrl1,owner);
+            AccommodationRegistrationViewModel = new AccommodationRegistrationViewModel(accommodationCtrl1, owner);
             Accommodation = new Accommodation();
             user = owner;
         }
@@ -36,7 +38,7 @@ namespace Sims2023.View
             string mindays = textBox4.Text;
             string CancelDayss = textBox5.Text;
 
-            if (IsValid(MaxGuests1,mindays,CancelDayss,Town,Country,Name,Type,outputText))
+            if (IsValid(MaxGuests1, mindays, CancelDayss, Town, Country, Name, Type, outputText))
             {
                 int maxguests = int.Parse(MaxGuests1);
                 int mindayss = int.Parse(mindays);
@@ -44,7 +46,9 @@ namespace Sims2023.View
                 Location location = new Location(0, Town, Country);
                 AccommodationRegistrationViewModel.CreateLocation(location);
 
-                Accommodation = new Accommodation(Id, Name, location, Type, maxguests, mindayss, canceldays, outputText, user);
+                List<string> lista = new List<string>();
+                lista.Add(outputText);    
+                Accommodation = new Accommodation(Id, Name, location, Type, maxguests, mindayss, canceldays, lista, user);
                 AccommodationRegistrationViewModel.CreateAccommodation(Accommodation);
                 MessageBox.Show("uspijsna registracija smjestaja");
                 Close();

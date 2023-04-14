@@ -5,13 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Sims2023.Domain.RepositoryInterfaces;
 using System.Threading.Tasks;
 
 namespace Sims2023.Application.Services
 {
     public class AccommodationService
     {
-        private AccommodationRepository _accomodation;
+        private IAccommodationRepository _accomodation;
 
         public AccommodationService()
         {
@@ -46,6 +47,9 @@ namespace Sims2023.Application.Services
         {
             return _accomodation.GetById(id);
         }
-
+        public void CheckSearchTermConditions(List<Accommodation> FilteredData, string nameSearchTerm, string citySearchTerm, string countrySearchTerm, string typeSearchTerm, int maxGuests, int minDays)
+        {
+            _accomodation.CheckSearchTermConditions(FilteredData, nameSearchTerm, citySearchTerm, countrySearchTerm, typeSearchTerm, maxGuests, minDays);
+        }
     }
 }
