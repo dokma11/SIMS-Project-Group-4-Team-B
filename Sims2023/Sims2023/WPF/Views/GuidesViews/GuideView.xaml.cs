@@ -123,7 +123,7 @@ namespace Sims2023.WPF.Views.GuidesViews
 
         private void StatisticsButton_Click(object sender, RoutedEventArgs e)
         {
-            TourStatisticsView tourStatisticsView = new(LoggedInGuide, _tourService, _tourReservationService);
+            TourStatisticsView tourStatisticsView = new(LoggedInGuide, _tourService);
             tourStatisticsView.Show();
         }
 

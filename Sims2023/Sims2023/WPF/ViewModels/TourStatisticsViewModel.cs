@@ -1,5 +1,4 @@
 ﻿using Sims2023.Application.Services;
-using Sims2023.Controller;
 using Sims2023.Domain.Models;
 using System.Collections.ObjectModel;
 
@@ -8,8 +7,6 @@ namespace Sims2023.WPF.ViewModels
     public partial class TourStatisticsViewModel
     {
         private TourService _tourService;
-        private TourReservationService _tourReservationService;
-        public Tour? Tour { get; set; }
         public Tour? SelectedTour { get; set; }
         public ObservableCollection<Tour> TheMostVisitedTour { get; set; }
         public ObservableCollection<Tour> ToursToDisplay { get; set; }
@@ -24,6 +21,7 @@ namespace Sims2023.WPF.ViewModels
             {
                 _tourService.GetTheMostVisitedTour(LoggedInGuide, "Svih vremena")
             };
+            GetAttendedGuestsNumber();
         }
         public void GetAttendedGuestsNumber()
         {
@@ -32,17 +30,23 @@ namespace Sims2023.WPF.ViewModels
 
         public Tour GetTheMostVisitedTour(User loggedInGuide, string year)
         {
-            return (_tourService.GetTheMostVisitedTour(loggedInGuide, year));
+            return _tourService.GetTheMostVisitedTour(loggedInGuide, year);
         }
 
-        public string DisplayAgeStatistics(Tour selectedTour, string ageGroup)
+        public string DisplayAgeStatistics(string ageGroup)
         {
-            return _tourService.GetAgeStatistics(selectedTour, ageGroup);
+            return _tourService.GetAgeStatistics(SelectedTour, ageGroup);
         }
 
-        public string DisplayVoucherPercentage(Tour selectedTour, bool used)
+        public string DisplayVoucherPercentage(bool used)
         {
-            return _tourService.GetVoucherStatistics(selectedTour, used);
+            return _tourService.GetVoucherStatistics(SelectedTour, used);
+        }
+
+        public void UpdateTheMostVisitedTour(User loggedInGuide, string year)
+        {
+            TheMostVisitedTour.Clear();
+            TheMostVisitedTour.Add(_tourService.GetTheMostVisitedTour(loggedInGuide, year));
         }
     }
 }

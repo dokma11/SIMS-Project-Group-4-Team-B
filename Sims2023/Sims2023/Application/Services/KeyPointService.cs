@@ -42,7 +42,7 @@ namespace Sims2023.Application.Services
         {
             _keyPoint.Save();
         }
-        
+
         public void GetKeyPointWhereGuestJoined(Tour selectedTour)
         {
             _keyPoint.GetKeyPointWhereGuestJoined(selectedTour);
@@ -56,6 +56,11 @@ namespace Sims2023.Application.Services
         public void ChangeKeyPointsState(KeyPoint keyPoint, KeyPoint.State state)
         {
             _keyPoint.ChangeKeyPointsState(keyPoint, state);
+        }
+
+        public void AddGuestsId(KeyPoint selectedKeyPoint, int guestsId)
+        {
+            _keyPoint.AddGuestsId(selectedKeyPoint, guestsId);
         }
     }
 }

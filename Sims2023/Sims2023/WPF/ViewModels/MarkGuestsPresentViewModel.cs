@@ -1,12 +1,7 @@
 ﻿using Sims2023.Application.Services;
-using Sims2023.Controller;
 using Sims2023.Domain.Models;
-using Sims2023.Model;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Windows;
 
 namespace Sims2023.WPF.ViewModels
 {
@@ -17,14 +12,15 @@ namespace Sims2023.WPF.ViewModels
 
         private UserService _userService;
         private TourReservationService _tourReservationService;
+        private KeyPointService _keyPointService;
         public List<User> MarkedGuests { get; set; }
-        public MarkGuestsPresentViewModel(KeyPoint keyPoint, TourReservationService tourReservationService, UserService userService, List<User> markedGuests)
+        public MarkGuestsPresentViewModel(KeyPoint keyPoint, TourReservationService tourReservationService, UserService userService, KeyPointService keyPointService, List<User> markedGuests)
         {
-            KeyPoint = keyPoint;
-
             _tourReservationService = tourReservationService;
             _userService = userService;
+            _keyPointService = keyPointService;
 
+            KeyPoint = keyPoint;
             MarkedGuests = markedGuests;
 
             GuestsToDisplay = new ObservableCollection<User>(_userService.GetGuestsThatReserved(KeyPoint, MarkedGuests));
@@ -35,14 +31,17 @@ namespace Sims2023.WPF.ViewModels
             return _userService.GetGuestsThatReserved(keyPoint, markedGuests);
         }
 
-        public void AddMarkedGuests(User guest)
+        public void AddMarkedGuests(List<User> items)
         {
-            KeyPoint.ShowedGuestsIds.Add(guest.Id);
-            KeyPoint.ShowedGuestsIdsString += guest.Id.ToString() + " ";
-            MarkedGuests.Add(guest);
-            ShouldConfirmParticipation(guest);
+            foreach (User guest in items)
+            {
+                _keyPointService.AddGuestsId(KeyPoint, guest.Id);
+                MarkedGuests.Add(guest);
+                ShouldConfirmParticipation(guest);
+            }
         }
 
+        //should change probably maybe even delete so wont be working on it
         private void ShouldConfirmParticipation(User user)
         {
             foreach (var tourReservation in _tourReservationService.GetAll())

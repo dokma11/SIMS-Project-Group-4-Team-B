@@ -1,11 +1,7 @@
 ﻿using Sims2023.Domain.Models;
-using Sims2023.Repositories;
 using Sims2023.Observer;
-using System;
+using Sims2023.Repositories;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Application.Services
 {
@@ -48,9 +44,14 @@ namespace Sims2023.Application.Services
             return _tourReviews.GetById(id);
         }
 
-        public List<TourReview> GetReviewsByToursId(int id)
+        public List<TourReview> GetByToursId(int id)
         {
-            return _tourReviews.GetReviewsByToursId(id);
+            return _tourReviews.GetByToursId(id);
+        }
+
+        public void Report(TourReview tourReview)
+        {
+            _tourReviews.Report(tourReview);
         }
     }
 }

@@ -86,12 +86,11 @@ namespace Sims2023.WPF.ViewModels
 
         public void ConfirmCreation()
         {
-            int newToursNumber = _dateTimeList.Count;
             _locationService.Create(Location);
             _tourService.Create(Tour, _dateTimeList, Location, LoggedInGuide);
-            int firstToursId = Tour.Id - newToursNumber + 1;
-            _tourService.AddToursLocation(Tour, Location, newToursNumber);
-            _keyPointService.Create(KeyPoint, _keyPointsList, firstToursId, newToursNumber);
+            int firstToursId = Tour.Id - _dateTimeList.Count + 1;
+            _tourService.AddToursLocation(Tour, Location, _dateTimeList.Count);
+            _keyPointService.Create(KeyPoint, _keyPointsList, firstToursId, _dateTimeList.Count);
             _tourService.AddToursKeyPoints(_keyPointsList, firstToursId);
         }
     }

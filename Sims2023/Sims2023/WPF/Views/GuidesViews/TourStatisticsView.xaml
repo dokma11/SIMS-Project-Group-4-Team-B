@@ -27,8 +27,6 @@
                     <ComboBoxItem Content="Svih vremena"/>
                     <ComboBoxItem Content="2023"/>
                     <ComboBoxItem Content="2022"/>
-                    <ComboBoxItem Content="2021"/>
-                    <ComboBoxItem Content="2020"/>
                 </ComboBox>
             </DockPanel>
             <DataGrid Width="420" Height="50" ItemsSource="{Binding TheMostVisitedTour, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,190,0" IsReadOnly="True" AutoGenerateColumns="False">

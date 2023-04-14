@@ -64,25 +64,28 @@ namespace Sims2023.Domain.Models
             {
                 Id = Convert.ToInt32(values[1])
             };
-            UserService userController = new();
-            Guest = userController.GetById(guest.Id);
+            UserService userService = new();
+            Guest = userService.GetById(guest.Id);
             User guide = new()
             {
                 Id = Convert.ToInt32(values[2])
             };
-            Guide = userController.GetById(guide.Id);
+            Guide = userService.GetById(guide.Id);
             Tour tour = new()
             {
                 Id = Convert.ToInt32(values[3])
             };
-            TourService tourController = new();
-            Tour = tourController.GetById(tour.Id);
+            TourService tourService = new();
+            Tour = tourService.GetById(tour.Id);
             KeyPoint keyPoint = new()
             {
                 Id = Convert.ToInt32(values[4])
             };
-            KeyPointService keyPointController = new();
-            KeyPointJoined = keyPointController.GetById(keyPoint.Id);
+            if (keyPoint.Id != 0)
+            {
+                KeyPointService keyPointService = new();
+                KeyPointJoined = keyPointService.GetById(keyPoint.Id);
+            }
             GuideKnowledge = Convert.ToInt32(values[5]);
             TourInterest = Convert.ToInt32(values[6]);
             GuidesLanguageCapability = Convert.ToInt32(values[7]);

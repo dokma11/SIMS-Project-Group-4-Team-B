@@ -25,7 +25,7 @@ namespace Sims2023.Domain.Models
             Id = id;
             Name = name;
             CurrentState = currentState;
-            string[] showedGuestsIdsStringArray = showedGuestsIdsString.Split(" ");
+            string[] showedGuestsIdsStringArray = showedGuestsIdsString.Split(",");
             foreach (var instanceString in showedGuestsIdsStringArray)
             {
                 int instance = int.Parse(instanceString);
@@ -58,7 +58,7 @@ namespace Sims2023.Domain.Models
             if (!string.IsNullOrEmpty(ShowedGuestsIdsString))
             {
 
-                string[] showedGuestsIdsStringArray = ShowedGuestsIdsString.Split(" ");
+                string[] showedGuestsIdsStringArray = ShowedGuestsIdsString.Split(",");
                 foreach (var instanceString in showedGuestsIdsStringArray)
                 {
                     int instance = Convert.ToInt32(instanceString);

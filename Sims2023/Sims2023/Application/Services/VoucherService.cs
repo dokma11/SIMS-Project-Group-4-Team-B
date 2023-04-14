@@ -18,8 +18,6 @@ namespace Sims2023.Application.Services
             return _voucher.GetAll();
         }
 
-        
-
         public Voucher GetById(int id)
         {
             return _voucher.GetById(id);
@@ -40,6 +38,7 @@ namespace Sims2023.Application.Services
             _voucher.Remove(oldVoucher);
             _voucher.AddEdited(voucher);
         }
+
         public void Subscribe(IObserver observer)
         {
             _voucher.Subscribe(observer);

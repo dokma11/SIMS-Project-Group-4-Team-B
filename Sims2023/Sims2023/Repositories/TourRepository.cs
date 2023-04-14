@@ -1,11 +1,9 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.FileHandler;
-using Sims2023.Model;
 using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 
 namespace Sims2023.Repository
 {
@@ -189,8 +187,15 @@ namespace Sims2023.Repository
             }
             else
             {
-                return tours.Where(tour => tour.Start.Year.ToString() == year)
+                if (tours.Where(tour => tour.Start.Year.ToString() == year) != null)
+                {
+                    return tours.Where(tour => tour.Start.Year.ToString() == year)
                              .OrderByDescending(tour => tour.AttendedGuestsNumber).FirstOrDefault();
+                }
+                else
+                {
+                    return ret;
+                }
             }
         }
 
@@ -213,7 +218,7 @@ namespace Sims2023.Repository
                 .Sum(res => res.GuestNumber);
                 return middle.ToString();
             }
-            else if(ageGroup == "old")
+            else if (ageGroup == "old")
             {
                 int old = reservations
                 .Where(res => res.Tour.Id == selectedTour.Id && res.ConfirmedParticipation && res.User.Age > 50)
@@ -252,7 +257,7 @@ namespace Sims2023.Repository
         public List<Tour> GetCreatedTours(User loggedInGuide)
         {
             List<Tour> ToursToDisplay = new();
-            ToursToDisplay.AddRange(_tours.Where(tour => tour.CurrentState == Tour.State.Created && 
+            ToursToDisplay.AddRange(_tours.Where(tour => tour.CurrentState == Tour.State.Created &&
                                            tour.Guide.Id == loggedInGuide.Id));
             return ToursToDisplay;
         }

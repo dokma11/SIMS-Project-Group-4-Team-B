@@ -1,10 +1,8 @@
-﻿using Sims2023.FileHandler;
+﻿using Sims2023.Domain.Models;
+using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System.Collections.Generic;
 using System.Linq;
-using Sims2023.Domain.Models;
-using Sims2023.Application.Services;
-using System.Security.RightsManagement;
 
 namespace Sims2023.Repositories
 {
@@ -23,7 +21,7 @@ namespace Sims2023.Repositories
 
         public int NextId()
         {
-            if(_tourReservations.Count == 0)
+            if (_tourReservations.Count == 0)
             {
                 return 1;
             }
@@ -62,7 +60,7 @@ namespace Sims2023.Repositories
             return _tourReservations;
         }
 
-        public void Save() 
+        public void Save()
         {
             _fileHandler.Save(_tourReservations);
             NotifyObservers();
@@ -88,7 +86,7 @@ namespace Sims2023.Repositories
 
         public List<TourReservation> GetReservationsByToursId(int id)
         {
-            return _tourReservations.Where(reservation => reservation.Tour.Id == id).ToList();   
+            return _tourReservations.Where(reservation => reservation.Tour.Id == id).ToList();
         }
     }
 }

@@ -1,11 +1,8 @@
-﻿using Sims2023.FileHandler;
+﻿using Sims2023.Domain.Models;
+using Sims2023.FileHandler;
 using Sims2023.Observer;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sims2023.Domain.Models;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Repositories
 {
@@ -14,7 +11,7 @@ namespace Sims2023.Repositories
         private List<IObserver> _observers;
         private List<TourReview> _tourReviews;
         private TourReviewFileHandler _fileHandler;
-        public TourReviewRepository() 
+        public TourReviewRepository()
         {
             _fileHandler = new TourReviewFileHandler();
             _tourReviews = _fileHandler.Load();
@@ -75,17 +72,14 @@ namespace Sims2023.Repositories
             _fileHandler.Save(_tourReviews);
         }
 
-        public List<TourReview> GetReviewsByToursId(int id)
+        public List<TourReview> GetByToursId(int id)
         {
-            List<TourReview> result = new();
-            foreach (var tourReview in _tourReviews)
-            {
-                if (id == tourReview.Tour.Id)
-                {
-                     result.Add(tourReview);
-                }
-            }
-            return result;
+            return _tourReviews.Where(tr => tr.Tour.Id == id).ToList();
+        }
+
+        public void Report(TourReview tourReview)
+        {
+            tourReview.IsValid = false;
         }
     }
 }

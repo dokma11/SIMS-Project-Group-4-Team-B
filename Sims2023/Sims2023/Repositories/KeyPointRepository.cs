@@ -35,8 +35,8 @@ namespace Sims2023.Repository
                 {
                     _keyPoints = _fileHandler.Load();
                     keyPoint.Id = NextId();
-                    TourService tourController = new TourService();
-                    keyPoint.Tour = tourController.GetById(toursId);
+                    TourService tourService = new();
+                    keyPoint.Tour = tourService.GetById(toursId);
                     keyPoint.Name = keyPointName;
                     keyPoint.CurrentState = KeyPoint.State.NotVisited;
                     _keyPoints.Add(keyPoint);
@@ -90,11 +90,11 @@ namespace Sims2023.Repository
         public void GetKeyPointWhereGuestJoined(Tour selectedTour)
         {
             _tourReviews = new();
-            foreach(var tourReview in _tourReviews.GetAll())
+            foreach (var tourReview in _tourReviews.GetAll())
             {
                 var keyPoint = _keyPoints.Where(k => k.Tour.Id == selectedTour.Id)
                                          .FirstOrDefault(k => k.ShowedGuestsIds.Contains(tourReview.Guest.Id));
-                if(keyPoint != null)
+                if (keyPoint != null)
                 {
                     tourReview.KeyPointJoined = keyPoint;
                     _tourReviews.Save();
@@ -110,6 +110,21 @@ namespace Sims2023.Repository
         public void ChangeKeyPointsState(KeyPoint keyPoint, KeyPoint.State state)
         {
             keyPoint.CurrentState = state;
+        }
+
+        public void AddGuestsId(KeyPoint selectedKeyPoint, int guestsId)
+        {
+            var keyPoint = _keyPoints.FirstOrDefault(k => k.Id == selectedKeyPoint.Id);
+            keyPoint?.ShowedGuestsIds.Add(guestsId);
+            //initialize the start of the string if necessary
+            if (keyPoint?.ShowedGuestsIdsString.Length == 0)
+            {
+                keyPoint.ShowedGuestsIdsString = guestsId.ToString();
+            }
+            else
+            {
+                keyPoint.ShowedGuestsIdsString += "," + guestsId.ToString();
+            }
         }
     }
 }

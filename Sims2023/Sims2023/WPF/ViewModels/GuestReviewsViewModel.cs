@@ -1,56 +1,58 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
-using Sims2023.Observer;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Sims2023.WPF.ViewModels
 {
-    public partial class GuestReviewsViewModel : IObserver
+    public partial class GuestReviewsViewModel
     {
         public Tour SelectedTour { get; set; }
-        public List<Tour> AllTours { get; set; }
         public ObservableCollection<Tour> ToursToDisplay { get; set; }
-
         public TourReview SelectedReview { get; set; }
-        public List<TourReview> AllReviews { get; set; }
         public ObservableCollection<TourReview> ReviewsToDisplay { get; set; }
-        private TourReviewService _tourReviewService;
         private TourService _tourService;
-        public List<KeyPoint> AllKeyPoints;
-        public User LoggedInGuide;
+        private TourReviewService _tourReviewService;
         private KeyPointService _keyPointService;
+        public User LoggedInGuide;
         public GuestReviewsViewModel(TourService tourService, TourReviewService tourReviewController, KeyPointService keyPointService, User loggedInGuide)
         {
-            AllTours = tourService.GetAll();
             LoggedInGuide = loggedInGuide;
-            _tourService = tourService;
-            ToursToDisplay = new ObservableCollection<Tour>(_tourService.GetFinishedTours(LoggedInGuide));
 
             _tourReviewService = tourReviewController;
-            AllReviews = _tourReviewService.GetAllTourReviews();
+            _tourService = tourService;
+            _keyPointService = keyPointService;
+
+            ToursToDisplay = new ObservableCollection<Tour>(_tourService.GetFinishedTours(loggedInGuide));
             ReviewsToDisplay = new ObservableCollection<TourReview>();
 
-            _keyPointService = keyPointService;
-            AllKeyPoints = keyPointService.GetAll();
+            GetAttendedGuestsNumber();
         }
 
-        public List<TourReview> DisplayReviews(Tour selectedTour)
+        public void GetAttendedGuestsNumber()
         {
-            GetToursReviews(selectedTour);
-            return _tourReviewService.GetReviewsByToursId(selectedTour.Id);
+            _tourService.GetAttendedGuestsNumber(LoggedInGuide);
         }
 
-        public void GetToursReviews(Tour selectedTour)
+        public void DisplayReviews()
         {
-            _keyPointService.GetKeyPointWhereGuestJoined(selectedTour);
-        }
-
-        public void Update()
-        {
+            GetToursReviews();
             ReviewsToDisplay.Clear();
-            DisplayReviews(SelectedTour);
+            foreach (var tourReview in _tourReviewService.GetByToursId(SelectedTour.Id))
+            {
+                ReviewsToDisplay.Add(tourReview);
+            }
             _tourReviewService.Save();
+        }
+
+        public void GetToursReviews()
+        {
+            _keyPointService.GetKeyPointWhereGuestJoined(SelectedTour);
+        }
+
+        public void ReportReview()
+        {
+            _tourReviewService.Report(SelectedReview);
+            DisplayReviews();
         }
     }
 }

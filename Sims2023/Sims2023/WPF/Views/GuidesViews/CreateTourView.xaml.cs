@@ -8,35 +8,17 @@ namespace Sims2023.WPF.Views.GuidesViews
 {
     public partial class CreateTourView
     {
-        public Tour Tour { get; set; }
-        public Location Location { get; set; }
-        public KeyPoint KeyPoint { get; set; }
-        private TourService _tourService;
-        private LocationService _locationService;
-        private KeyPointService _keyPointService;
-        public User LoggedInGuide { get; set; }
         public CreateTourViewModel CreateTourViewModel;
         private bool addDateButtonClicked;
         public CreateTourView(TourService tourService, LocationService locationService, KeyPointService keyPointService, User loggedInGuide)
         {
             InitializeComponent();
 
-            Tour = new Tour();
-            Location = new Location();
-            KeyPoint = new KeyPoint();
-
             addDateButton.IsEnabled = false;
             addKeyPointsButton.IsEnabled = false;
             addDateButtonClicked = false;
 
-            _tourService = tourService;
-            _locationService = locationService;
-            _keyPointService = keyPointService;
-
-            LoggedInGuide = loggedInGuide;
-
-            CreateTourViewModel = new(_tourService, _locationService, _keyPointService, LoggedInGuide);
-
+            CreateTourViewModel = new(tourService, locationService, keyPointService, loggedInGuide);
             DataContext = CreateTourViewModel;
         }
 

@@ -49,7 +49,7 @@ namespace Sims2023.WPF.ViewModels
         public void Update()
         {
             ToursToDisplay.Clear();
-            foreach(var tour in _tourService.GetCreatedTours(LoggedInGuide))
+            foreach (var tour in _tourService.GetCreatedTours(LoggedInGuide))
             {
                 ToursToDisplay.Add(tour);
             }

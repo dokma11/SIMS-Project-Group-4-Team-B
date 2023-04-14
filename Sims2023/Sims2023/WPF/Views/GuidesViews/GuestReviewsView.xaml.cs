@@ -2,8 +2,6 @@
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -11,43 +9,25 @@ namespace Sims2023.WPF.Views.GuidesViews
 {
     public partial class GuestReviewsView : Window
     {
-        public Tour SelectedTour { get; set; }
-        public List<Tour> AllTours { get; set; }
-        public ObservableCollection<Tour> ToursToDisplay { get; set; }
-
-        public TourReview SelectedReview { get; set; }
-        public List<TourReview> AllReviews { get; set; }
-        public ObservableCollection<TourReview> ReviewsToDisplay { get; set; }
-        private TourReviewService _tourReviewController;
-        public List<KeyPoint> AllKeyPoints;
         public GuestReviewsViewModel GuestReviewsViewModel;
         public GuestReviewsView(TourService tourService, TourReviewService tourReviewService, KeyPointService keyPointService, User loggedInGuide)
         {
             InitializeComponent();
-            DataContext = this;
 
-            AllTours = tourService.GetAll();
             GuestReviewsViewModel = new(tourService, tourReviewService, keyPointService, loggedInGuide);
-            ToursToDisplay = new ObservableCollection<Tour>(GuestReviewsViewModel.ToursToDisplay);
-
-            _tourReviewController = tourReviewService;
-            AllReviews = _tourReviewController.GetAllTourReviews();
-            ReviewsToDisplay = new ObservableCollection<TourReview>();
-
-            AllKeyPoints = keyPointService.GetAll();
+            DataContext = GuestReviewsViewModel;
         }
 
         private void ReportReviewButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedReview != null && SelectedReview.IsValid)
+            if (GuestReviewsViewModel.SelectedReview != null && GuestReviewsViewModel.SelectedReview.IsValid)
             {
-                SelectedReview.IsValid = false;
-                Update();
+                GuestReviewsViewModel.ReportReview();
                 SuccessfulReportLabelEvent();
             }
             else
             {
-                MessageBox.Show("Molimo Vas odaberite recenziju koju želite da prijavite");
+                MessageBox.Show("Odaberite recenziju koju želite da prijavite");
             }
         }
 
@@ -71,39 +51,26 @@ namespace Sims2023.WPF.Views.GuidesViews
 
         private void DisplayReviewsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedTour != null)
+            if (GuestReviewsViewModel.SelectedTour != null)
             {
-                ReviewsToDisplay.Clear();
-                foreach (var tourReview in GuestReviewsViewModel.DisplayReviews(SelectedTour))
-                {
-                    ReviewsToDisplay.Add(tourReview);
-                }
+                GuestReviewsViewModel.DisplayReviews();
             }
             else
             {
-                MessageBox.Show("Molimo Vas odaberite turu za koju želite da vidite recenzije");
+                MessageBox.Show("Odaberite turu za koju želite da vidite recenzije");
             }
         }
 
         private void DisplayCommentButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedReview != null)
+            if (GuestReviewsViewModel.SelectedReview != null)
             {
-                MessageBox.Show(SelectedReview.Comment);
+                MessageBox.Show(GuestReviewsViewModel.SelectedReview.Comment);
             }
             else
             {
-                MessageBox.Show("Molimo Vas odaberite recenziju čiji komentar želite da vidite");
+                MessageBox.Show("Odaberite recenziju čiji komentar želite da vidite");
             }
-        }
-
-        public void Update()
-        {
-            ReviewsToDisplay.Clear();
-            foreach (var tourReview in GuestReviewsViewModel.DisplayReviews(SelectedTour))
-            {
-                ReviewsToDisplay.Add(tourReview);
-            };
         }
     }
 }

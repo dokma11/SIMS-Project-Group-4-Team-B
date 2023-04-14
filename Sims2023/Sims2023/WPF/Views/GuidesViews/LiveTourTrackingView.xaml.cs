@@ -47,7 +47,7 @@ namespace Sims2023.WPF.Views.GuidesViews
         {
             if (LiveTourTrackingViewModel.SelectedKeyPoint != null && LiveTourTrackingViewModel.SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited)
             {
-                MarkGuestsPresentView markGuestsPresentView = new(LiveTourTrackingViewModel.SelectedKeyPoint, _tourReservationService, _userService, MarkedGuests);
+                MarkGuestsPresentView markGuestsPresentView = new(LiveTourTrackingViewModel.SelectedKeyPoint, _tourReservationService, _userService, _keyPointService, MarkedGuests);
                 markGuestsPresentView.Closed += MarkGuestsPresentView_Closed;
                 markGuestsPresentView.Show();
             }
