@@ -1,4 +1,5 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System;
@@ -10,7 +11,7 @@ using System.Windows;
 
 namespace Sims2023.Repositories
 {
-    public class AccommodationCancellationRepository
+    public class AccommodationCancellationRepository: IAccommodationCancellationRepository
     {
         private List<IObserver> _observers;
 

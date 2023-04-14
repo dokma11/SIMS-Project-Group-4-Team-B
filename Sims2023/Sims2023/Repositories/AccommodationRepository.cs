@@ -3,10 +3,11 @@ using Sims2023.Observer;
 using Sims2023.Repository;
 using System.Collections.Generic;
 using System.Linq;
+using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Repositories
 {
-    class AccommodationRepository : ISubject
+    class AccommodationRepository : ISubject, IAccommodationRepository
     {
 
         private List<IObserver> _observers;
@@ -80,7 +81,6 @@ namespace Sims2023.Repositories
                 observer.Update();
             }
         }
-        //guest1 features
 
         public void CheckSearchTermConditions(List<Accommodation> FilteredData, string nameSearchTerm, string citySearchTerm, string countrySearchTerm, string typeSearchTerm, int maxGuests, int minDays)
         {

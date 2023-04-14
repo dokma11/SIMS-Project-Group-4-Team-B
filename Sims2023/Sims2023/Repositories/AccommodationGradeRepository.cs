@@ -7,10 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Repositories
 {
-    internal class AccommodationGradeRepository : ISubject
+    internal class AccommodationGradeRepository : ISubject, IAccommodationGradeRepository
     {
 
         private List<IObserver> _observers;
@@ -32,13 +33,13 @@ namespace Sims2023.Repositories
             return people;
 
         }
-        private void FindGradesForOwner(List<AccommodationGrade> people, User owner)
+        public void FindGradesForOwner(List<AccommodationGrade> people, User owner)
         {
             people.RemoveAll(r => r.Accommodation.Owner.Id != owner.Id);
         }
 
 
-        private void RemoveUngradedGuests(List<AccommodationGrade> people, List<GuestGrade> guestGrades)
+        public void RemoveUngradedGuests(List<AccommodationGrade> people, List<GuestGrade> guestGrades)
         {
             for (int i = people.Count - 1; i >= 0; i--)
             {

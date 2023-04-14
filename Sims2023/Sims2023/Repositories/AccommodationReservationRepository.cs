@@ -8,10 +8,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Repositories
 {
-    class AccommodationReservationRepository : ISubject
+    class AccommodationReservationRepository : ISubject, IAccommodationReservationRepository
     {
         private List<IObserver> _observers;
 
@@ -45,7 +46,7 @@ namespace Sims2023.Repositories
         }
 
         // guests who are already graded should not appear in a list
-        private void RemoveAlreadyGraded(List<AccommodationReservation> reservations, List<GuestGrade> grades)
+        public void RemoveAlreadyGraded(List<AccommodationReservation> reservations, List<GuestGrade> grades)
         {
             for (int i = reservations.Count - 1; i >= 0; i--)
             {
@@ -56,7 +57,7 @@ namespace Sims2023.Repositories
                 }
             }
         }
-        private bool isGuestAlreadyGraded(AccommodationReservation reservation, List<GuestGrade> grades)
+        public bool isGuestAlreadyGraded(AccommodationReservation reservation, List<GuestGrade> grades)
         {
             foreach (var grade in grades)
             {
@@ -64,9 +65,9 @@ namespace Sims2023.Repositories
             }
             return false;
         }
-    
+
         // searching for the guests who left not more than 5 days ago
-        private void FindGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons)
+        public void FindGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons)
         {
             for (int i = reservatons.Count - 1; i >= 0; i--)
             {
@@ -88,7 +89,7 @@ namespace Sims2023.Repositories
             }
         }
 
-        private void FindGuestsParticularOwner(List<AccommodationReservation> reservatons, User user)
+        public void FindGuestsParticularOwner(List<AccommodationReservation> reservatons, User user)
         {
             reservatons.RemoveAll(r => r.Accommodation.Owner.Id != user.Id);
         }

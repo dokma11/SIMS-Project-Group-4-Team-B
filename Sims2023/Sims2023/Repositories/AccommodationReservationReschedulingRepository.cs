@@ -11,10 +11,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using static Sims2023.Domain.Models.AccommodationReservationRescheduling;
+using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Repositories
 {
-    public class AccommodationReservationReschedulingRepository
+    public class AccommodationReservationReschedulingRepository: IAccommodationReservationReschedulingRepository
     {
         private List<IObserver> _observers;
         private AccommodationReservationRepository reservations { get; set; }

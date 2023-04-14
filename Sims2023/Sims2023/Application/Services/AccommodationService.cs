@@ -5,13 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Sims2023.Domain.RepositoryInterfaces;
 using System.Threading.Tasks;
 
 namespace Sims2023.Application.Services
 {
     public class AccommodationService
     {
-        private AccommodationRepository _accomodation;
+        private IAccommodationRepository _accomodation;
 
         public AccommodationService()
         {

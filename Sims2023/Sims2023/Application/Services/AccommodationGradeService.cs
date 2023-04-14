@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Sims2023.Domain.Models;
 using Sims2023.Repositories;
+using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Application.Services
 {
     public class AccommodationGradeService
     {
-        private AccommodationGradeRepository _accommodationGrade;
+        private IAccommodationGradeRepository _accommodationGrade;
 
         public AccommodationGradeService()
         {

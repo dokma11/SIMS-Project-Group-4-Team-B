@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 using Sims2023.Domain.Models;
 using Sims2023.Repositories;
 using System.Collections.ObjectModel;
+using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Application.Services
 {
     public class AccommodationReservationService
     {
-        private AccommodationReservationRepository _accommodationReservation;
+        private IAccommodationReservationRepository _accommodationReservation;
 
         public AccommodationReservationService()
         {
