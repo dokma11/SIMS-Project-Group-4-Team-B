@@ -11,6 +11,10 @@ using System.Windows.Controls;
 using Sims2023.WPF.Views.Guest1Views;
 using Microsoft.Win32;
 using System.Windows.Media.Imaging;
+using System.IO;
+using System.Reflection;
+using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
@@ -31,6 +35,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         private AccommodationService _accommodationService;
 
+        List<BitmapImage> imageList = new List<BitmapImage>();
         public User User { get; set; }
         public AccommodationAndOwnerGradingViewModel(AccommodationAndOwnerGradingView accommodationAndOwnerGradingView, AccommodationReservation SelectedAccommodationReservationn, User guest1, AccommodationReservationService accommodationReservationController)
         {
@@ -46,6 +51,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             _accommodationService = new AccommodationService();
 
             _addedPictures = new List<string>();
+            imageList = new List<BitmapImage>();
             SelectedAccommodationReservation = SelectedAccommodationReservationn;
 
         }
@@ -82,8 +88,10 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             foreach(var image in addedPictures)
             {
                 selectedAccommodationReservation.Accommodation.Imageurls.Add(image);
+                MessageBox.Show($"dodata slika {image}.");
             }
             _accommodationService.Update(SelectedAccommodationReservation.Accommodation);
+            MessageBox.Show("Smestaj updejtovan");
         }
 
         public void UpdateAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
@@ -123,10 +131,17 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             {
                 foreach (string filename in openFileDialog.FileNames)
                 {
-                    _accommodationAndOwnerGradingView.PicturesListView.Items.Add(new BitmapImage(new Uri(filename)));
-                   _addedPictures.Add(new Uri(filename).AbsoluteUri);
+                    string relativePath = $"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Images/Guest1Images/{Path.GetFileName(filename)}";
+                    Uri imageUri = new Uri(relativePath, UriKind.Absolute);
+                    BitmapImage bitmapImage = new BitmapImage(imageUri);
+                    imageList.Add(bitmapImage);
+                    _addedPictures.Add(relativePath);
                 }
+                _accommodationAndOwnerGradingView.myListBox.ItemsSource = null;
                 _accommodationAndOwnerGradingView.myListBox.ItemsSource = _addedPictures;
+
+                _accommodationAndOwnerGradingView.PicturesListView.ItemsSource = null;
+                _accommodationAndOwnerGradingView.PicturesListView.ItemsSource = imageList;
             }
         }
 
@@ -151,12 +166,17 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             
             if (selectedBitmapImage != null)
             {
-                _accommodationAndOwnerGradingView.PicturesListView.Items.Remove(selectedBitmapImage);
+                imageList.Remove(selectedBitmapImage);
+
             }
+
+            _accommodationAndOwnerGradingView.PicturesListView.ItemsSource = null;
+            _accommodationAndOwnerGradingView.PicturesListView.ItemsSource = imageList;
         }
 
         public BitmapImage FindDeletingPicture(string itemToRemove)
         {
+
             foreach (BitmapImage bitmapImage in _accommodationAndOwnerGradingView.PicturesListView.Items)
             {
                 if (bitmapImage.UriSource.AbsoluteUri == itemToRemove)
@@ -164,6 +184,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                     return bitmapImage;
                 }
             }
+            MessageBox.Show("nije pronadena slika");
             return null;
         }
 

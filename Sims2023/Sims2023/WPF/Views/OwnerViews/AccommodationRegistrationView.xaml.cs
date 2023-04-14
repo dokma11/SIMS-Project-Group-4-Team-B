@@ -2,6 +2,7 @@
 using Sims2023.Controller;
 using System.Windows;
 using Sims2023.Domain.Models;
+using System.Collections.Generic;
 
 namespace Sims2023.View
 {
@@ -80,8 +81,11 @@ namespace Sims2023.View
             _locationService.Create(Location);
 
             CancelDays = string.IsNullOrEmpty(CancelDayss) ? 1 : int.Parse(CancelDayss);
-            
-            Accommodation = new Accommodation(Id, Name, Location, Type, MaxGuests, MinDays, CancelDays, outputText, User);
+
+            List<string> imageurls = new List<string>();
+            imageurls.Add(outputText);
+
+            Accommodation = new Accommodation(Id, Name, Location, Type, MaxGuests, MinDays, CancelDays, imageurls, User);
 
             if (Accommodation.IsVaild(Accommodation) == null)
             {

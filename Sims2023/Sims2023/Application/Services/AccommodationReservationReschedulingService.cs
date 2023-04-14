@@ -1,5 +1,4 @@
-﻿using Sims2023.Model.DAO;
-using Sims2023.Observer;
+﻿using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
