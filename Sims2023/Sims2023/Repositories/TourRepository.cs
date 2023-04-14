@@ -40,6 +40,17 @@ namespace Sims2023.Repository
                 NotifyObservers();
             }
         }
+        public void Update(Tour tour)
+        {
+            int index = _tours.FindIndex(p => p.Id == tour.Id);
+            if (index != -1)
+            {
+                _tours[index] = tour;
+            }
+
+            _fileHandler.Save(_tours);
+            NotifyObservers();
+        }
         public void AddEdited(Tour tour)
         {
             _tours.Add(tour);
@@ -126,6 +137,28 @@ namespace Sims2023.Repository
         public List<Tour> GetAll()
         {
             return _tours;
+        }
+
+        public List<Tour> GetAvailable()
+        {
+            List<Tour> available = new List<Tour>();
+            foreach(var tourInstance in _tours)
+            {
+                if (tourInstance.CurrentState == Tour.State.Created)
+                {
+                    available.Add(tourInstance);
+                }
+            }
+            return available;
+        }
+
+        public List<Tour> GetAlternative(int reserveSpace, Tour tour)
+        {
+            var alternativeTours = _tours
+                .Where(tour => tour.LocationId == tour.LocationId && tour.AvailableSpace >= reserveSpace)
+                .ToList();
+
+            return alternativeTours;
         }
 
         public Tour GetById(int id)

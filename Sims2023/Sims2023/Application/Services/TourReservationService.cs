@@ -12,15 +12,25 @@ namespace Sims2023.Application.Services
     public class TourReservationService
     {
         private TourReservationRepository _tourReservations;
+        private VoucherRepository _vouchers;
+        private UserRepository _users;
+
 
         public TourReservationService()
         {
             _tourReservations = new TourReservationRepository();
+            _vouchers = new VoucherRepository();
+            _users = new UserRepository();
         }
 
         public List<TourReservation> GetAll()
         {
             return _tourReservations.GetAll();
+        }
+
+        public List<TourReservation> GetNotConfirmedParticipation()
+        {
+            return _tourReservations.GetNotConfirmedParticipation();
         }
 
         public void Create(TourReservation reservation)
@@ -36,6 +46,34 @@ namespace Sims2023.Application.Services
         public void Update(TourReservation reservation)
         {
             _tourReservations.Update(reservation);
+        }
+
+        public void ConfirmReservation(TourReservation tourReservation, bool confirmed)
+        {
+            tourReservation.ShouldConfirmParticipation = false;
+            tourReservation.ConfirmedParticipation = confirmed;
+            _tourReservations.Update(tourReservation);
+        }
+
+        public void CheckVouchers(TourReservation tourReservation, Tour tour)
+        {
+            int countReservation = 0;
+
+            foreach (var reservation in GetAll())
+            {
+                if (tourReservation.User.Id == reservation.User.Id && tourReservation.ReservationTime.Year == reservation.ReservationTime.Year)
+                {
+                    countReservation++;
+                }
+            }
+
+            if (countReservation > 0 && countReservation % 5 == 0)
+            {
+                var user = _users.GetById(tourReservation.User.Id);
+                var voucher = new Voucher(Voucher.VoucherType.FiveReservations, user, tour);
+                _vouchers.Add(voucher);
+
+            }
         }
 
         public void Subscribe(IObserver observer)

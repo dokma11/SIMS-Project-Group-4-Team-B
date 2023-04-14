@@ -3,6 +3,8 @@ using Sims2023.Observer;
 using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Sims2023.Application.Services
 {
@@ -26,15 +28,33 @@ namespace Sims2023.Application.Services
         {
             _tour.Add(tour, dateTimes, location, loggedInGuide);
         }
-        public void Edit(Tour tour, Tour oldTour)
+        public void Update(Tour tour)
         {
-            _tour.Remove(oldTour);
-            _tour.AddEdited(tour);
+            _tour.Update(tour);
+        }
+
+        public void UpdateAvailableSpace(int reservedSpace,Tour tour)
+        {
+            tour.AvailableSpace -= reservedSpace;
+            _tour.Update(tour);
         }
 
         public void AddToursLocation(Tour tour, Location location, int newToursNumber)
         {
             _tour.CheckAddToursLocation(tour, location, newToursNumber, _location.GetAll());
+        }
+
+        public void AddLocationsToTour(ObservableCollection<Location> locations, ObservableCollection<Tour> tours)
+        {
+            foreach (var tour in tours)
+            {
+                var location = locations.FirstOrDefault(l => l.Id == tour.LocationId);
+                if (location != null)
+                {
+                    tour.City = location.City;
+                    tour.Country = location.Country;
+                }
+            }
         }
 
         public void AddToursKeyPoints(List<string> keyPoints, int firstToursId)
@@ -61,6 +81,16 @@ namespace Sims2023.Application.Services
         public Tour GetById(int id)
         {
             return _tour.GetById(id);
+        }
+
+        public List<Tour> GetAvailable()
+        {
+            return _tour.GetAvailable();
+        }
+
+        public List<Tour> GetAlternative(int reserved,Tour tour)
+        {
+            return _tour.GetAlternative(reserved,tour);
         }
     }
 }

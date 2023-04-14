@@ -61,6 +61,13 @@ namespace Sims2023.Repositories
             return _tourReservations;
         }
 
+        public List<TourReservation> GetNotConfirmedParticipation()
+        {
+            return _tourReservations.Where(r=>r.ShouldConfirmParticipation==true).ToList();
+        }
+
+        
+
         public void Save() 
         {
             _fileHandler.Save(_tourReservations);
