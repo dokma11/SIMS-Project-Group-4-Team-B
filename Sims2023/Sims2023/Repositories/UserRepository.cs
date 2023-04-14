@@ -149,6 +149,5 @@ namespace Sims2023.Repositories
             return !keyPoint.ShowedGuestsIds.Contains(guest.Id) &&
                 !markedGuests.Any(markedGuest => markedGuest.Id == guest.Id);
         }
-
     }
 }

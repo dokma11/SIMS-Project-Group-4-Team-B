@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 
-namespace Sims2023.WPF.ViewModels
+namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
     public partial class LiveTourTrackingViewModel
     {

@@ -3,7 +3,7 @@ using Sims2023.Domain.Models;
 using System;
 using System.Collections.Generic;
 
-namespace Sims2023.WPF.ViewModels
+namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
     public partial class CreateTourViewModel
     {

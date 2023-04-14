@@ -1,11 +1,11 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
-using Sims2023.WPF.ViewModels;
+using Sims2023.WPF.ViewModels.GuideViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 
-namespace Sims2023.WPF.Views.GuidesViews
+namespace Sims2023.WPF.Views.GuideViews
 {
     public partial class MarkGuestsPresentView : Window
     {

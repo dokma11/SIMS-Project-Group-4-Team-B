@@ -4,7 +4,7 @@ using Sims2023.Observer;
 using System;
 using System.Collections.ObjectModel;
 
-namespace Sims2023.WPF.ViewModels
+namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
     public partial class GuideViewModel : IObserver
     {
@@ -12,7 +12,6 @@ namespace Sims2023.WPF.ViewModels
         private UserService _userService;
         private TourReservationService _tourReservationService;
         private VoucherService _voucherService;
-
         public Tour? Tour { get; set; }
         public Tour? SelectedTour { get; set; }
         public ObservableCollection<Tour> ToursToDisplay { get; set; }

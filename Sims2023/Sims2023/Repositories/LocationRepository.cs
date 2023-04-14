@@ -53,7 +53,7 @@ namespace Sims2023.Repository
             }
         }
 
-        public static bool LocationExists(Location location, List<Location> locations)
+        public bool LocationExists(Location location, List<Location> locations)
         {
             foreach (var locationInstance in locations)
             {

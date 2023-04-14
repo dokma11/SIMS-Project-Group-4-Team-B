@@ -2,7 +2,7 @@
 using Sims2023.Domain.Models;
 using System.Collections.ObjectModel;
 
-namespace Sims2023.WPF.ViewModels
+namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
     public partial class TourStatisticsViewModel
     {

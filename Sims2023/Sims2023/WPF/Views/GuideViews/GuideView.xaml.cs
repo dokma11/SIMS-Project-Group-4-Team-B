@@ -1,12 +1,13 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.Observer;
-using Sims2023.WPF.ViewModels;
+using Sims2023.WPF.ViewModels.GuideViewModels;
+using Sims2023.WPF.Views.GuideViews;
 using System;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace Sims2023.WPF.Views.GuidesViews
+namespace Sims2023.WPF.Views.GuideViews
 {
     public partial class GuideView : IObserver
     {
@@ -80,8 +81,6 @@ namespace Sims2023.WPF.Views.GuidesViews
         {
             startTourButton.IsEnabled = true;
             Update();
-            //_tourService.Save();
-            //_keyPointService.Save();
         }
 
         private void CancelTourButton_Click(object sender, RoutedEventArgs e)
