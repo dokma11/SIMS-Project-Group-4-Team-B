@@ -48,6 +48,15 @@ namespace Sims2023.Application.Services
             _keyPoint.GetKeyPointWhereGuestJoined(selectedTour);
         }
 
+        public List<KeyPoint> GetByToursId(int id)
+        {
+            return _keyPoint.GetByToursId(id);
+        }
+
+        public void ChangeKeyPointsState(KeyPoint keyPoint, KeyPoint.State state)
+        {
+            _keyPoint.ChangeKeyPointsState(keyPoint, state);
+        }
     }
 }
 

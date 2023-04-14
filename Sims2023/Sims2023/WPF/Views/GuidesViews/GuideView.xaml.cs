@@ -61,9 +61,9 @@ namespace Sims2023.WPF.Views.GuidesViews
             if (GuideViewModel.SelectedTour != null && GuideViewModel.SelectedTour.CurrentState == Tour.State.Created)
             {
                 startTourButton.IsEnabled = false;
-                LiveTourTrackingViewModel liveTourTrackingViewModel = new(GuideViewModel.SelectedTour, _keyPointService, _tourReservationService, _userService);
-                liveTourTrackingViewModel.Closed += LiveTourTrackingView_Closed;
-                liveTourTrackingViewModel.Show();
+                LiveTourTrackingView liveTourTrackingView = new(GuideViewModel.SelectedTour, _keyPointService, _tourReservationService, _userService, _tourService);
+                liveTourTrackingView.Closed += LiveTourTrackingView_Closed;
+                liveTourTrackingView.Show();
                 Update();
             }
             else if (GuideViewModel.SelectedTour != null && GuideViewModel.SelectedTour.CurrentState != Tour.State.Created)

@@ -256,5 +256,10 @@ namespace Sims2023.Repository
                                            tour.Guide.Id == loggedInGuide.Id));
             return ToursToDisplay;
         }
+
+        public void ChangeToursState(Tour selectedTour, Tour.State state)
+        {
+            selectedTour.CurrentState = state;
+        }
     }
 }

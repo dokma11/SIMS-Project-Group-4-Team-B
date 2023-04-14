@@ -101,5 +101,15 @@ namespace Sims2023.Repository
                 }
             }
         }
+
+        public List<KeyPoint> GetByToursId(int id)
+        {
+            return _keyPoints.Where(k => k.Tour.Id == id).ToList();
+        }
+
+        public void ChangeKeyPointsState(KeyPoint keyPoint, KeyPoint.State state)
+        {
+            keyPoint.CurrentState = state;
+        }
     }
 }

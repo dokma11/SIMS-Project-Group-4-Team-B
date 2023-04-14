@@ -10,7 +10,7 @@
 10|tvrdjava|Visited|8|3
 11|sat na tvrdjavi|Visited||3
 12|kej|Visited||3
-13|velika trznica|BeingVisited||4
+13|velika trznica|NotVisited||4
 14|sveto  brdo gelerta|NotVisited||4
 15|budimski dvor|NotVisited||4
 16|ribarski bastion|NotVisited||4
@@ -30,7 +30,7 @@
 30|druga|NotVisited||7
 31|treca|NotVisited||7
 32|cetvrta|NotVisited||7
-33|prva|NotVisited||8
+33|prva|BeingVisited||8
 34|druga|NotVisited||8
 35|treca|NotVisited||8
 36|cetvrta|NotVisited||8

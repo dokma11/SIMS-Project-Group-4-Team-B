@@ -1,11 +1,7 @@
 ﻿using Sims2023.Application.Services;
-using Sims2023.Controller;
 using Sims2023.Domain.Models;
-using Sims2023.Model;
-using Sims2023.WPF.Views.GuidesViews;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 
 namespace Sims2023.WPF.ViewModels
@@ -14,141 +10,89 @@ namespace Sims2023.WPF.ViewModels
     {
         public Tour Tour { get; set; }
         public KeyPoint SelectedKeyPoint { get; set; }
-
-        private KeyPointService _keyPointController;
-        private UserService _userService;
-        private TourReservationService _tourReservationService;
+        private KeyPointService _keyPointService;
+        private TourService _tourService;
         public ObservableCollection<KeyPoint> KeyPointsToDisplay { get; set; }
-        public ObservableCollection<KeyPoint> AllKeyPoints { get; set; }
-
         public int firstKeyPointId = -1;
         public int lastKeyPointId = -1;
         public int lastVisitedKeyPointId = -1;
+        public bool LastKeyPointVisited;
 
-        public List<User> MarkedGuests { get; set; }
-
-        public LiveTourTrackingViewModel(Tour tour, KeyPointService keyPointService, TourReservationService tourReservationController, UserService userController)
+        public LiveTourTrackingViewModel(Tour tour, KeyPointService keyPointService, TourService tourService)
         {
-            InitializeComponent();
-            DataContext = this;
+            _keyPointService = keyPointService;
+            _tourService = tourService;
 
             Tour = tour;
-            Tour.CurrentState = Tour.State.Started;
+            _tourService.ChangeToursState(Tour, Tour.State.Started);
 
-            _keyPointController = keyPointService;
-            _tourReservationService = tourReservationController;
-            _userService = userController;
+            KeyPointsToDisplay = new ObservableCollection<KeyPoint>(_keyPointService.GetByToursId(Tour.Id));
 
-            MarkedGuests = new List<User>();
-
-            KeyPointsToDisplay = new ObservableCollection<KeyPoint>();
-            AllKeyPoints = new ObservableCollection<KeyPoint>(_keyPointController.GetAll());
-            foreach (var keyPoint in AllKeyPoints)
-            {
-                if (keyPoint.Tour.Id == Tour.Id)
-                {
-                    KeyPointsToDisplay.Add(keyPoint);
-                }
-            }
-
-            firstKeyPointId = FindFirstKeyPoint();
+            firstKeyPointId = FindAndMarkFirstKeyPoint();
             lastVisitedKeyPointId = firstKeyPointId;
             lastKeyPointId = FindLastKeyPoint();
+            LastKeyPointVisited = false;
         }
 
-        private int FindFirstKeyPoint()
+        private int FindAndMarkFirstKeyPoint()
         {
-            int counter = 0;
-            foreach (var keyPoint in KeyPointsToDisplay)
+            KeyPoint firstKeyPoint = new()
             {
-                if (counter == 0)
-                {
-                    firstKeyPointId = keyPoint.Id;
-                    counter++;
-                }
-                else
-                {
-                    if (keyPoint.Id < firstKeyPointId)
-                    {
-                        firstKeyPointId = keyPoint.Id;
-                    }
-                }
-            }
-            MarkFirstKeyPoint();
-            return firstKeyPointId;
-        }
+                Id = int.MaxValue
+            };
 
-        private void MarkFirstKeyPoint()
-        {
             foreach (var keyPoint in KeyPointsToDisplay)
             {
-                if (keyPoint.Id == firstKeyPointId)
+                if (keyPoint.Id < firstKeyPoint.Id)
                 {
-                    keyPoint.CurrentState = KeyPoint.State.BeingVisited;
+                    firstKeyPoint = keyPoint;
                 }
             }
+
+            firstKeyPoint.CurrentState = KeyPoint.State.BeingVisited;
+
+            return firstKeyPoint.Id;
         }
 
         private void MarkLastVisitedKeyPoint()
         {
-            foreach (var keyPoint in KeyPointsToDisplay)
+            var keyPoint = KeyPointsToDisplay.FirstOrDefault(k => k.Id == lastVisitedKeyPointId);
+            if (keyPoint != null)
             {
-                if (keyPoint.Id == lastVisitedKeyPointId)
-                {
-                    keyPoint.CurrentState = KeyPoint.State.Visited;
-                }
+                _keyPointService.ChangeKeyPointsState(keyPoint, KeyPoint.State.Visited);
             }
         }
 
         private int FindLastKeyPoint()
         {
-            foreach (var keyPoint in KeyPointsToDisplay)
-            {
-                if (keyPoint.Id > lastKeyPointId)
-                {
-                    lastKeyPointId = keyPoint.Id;
-                }
-            }
+            lastKeyPointId = KeyPointsToDisplay.Max(keyPoint => keyPoint.Id);
             return lastKeyPointId;
         }
 
         private void MarkLastKeyPoint()
         {
-            foreach (var keyPoint in KeyPointsToDisplay)
-            {
-                if (keyPoint.Id == lastKeyPointId)
-                {
-                    keyPoint.CurrentState = KeyPoint.State.Visited;
-                }
-            }
+            KeyPointsToDisplay.Single(keyPoint => keyPoint.Id == lastKeyPointId).CurrentState = KeyPoint.State.Visited;
         }
 
-        private void MarkKeyPointButton_Click(object sender, RoutedEventArgs e)
+        public void MarkKeyPoint()
         {
             if (SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.NotVisited && SelectedKeyPoint.Id == lastVisitedKeyPointId + 1) //the latter disables key point skipping
             {
                 //mark previous key point as visited
-                foreach (var keyPoint in KeyPointsToDisplay)
-                {
-                    if (keyPoint.Id == lastVisitedKeyPointId)
-                    {
-                        keyPoint.CurrentState = KeyPoint.State.Visited;
-                    }
-                }
+                _keyPointService.ChangeKeyPointsState(KeyPointsToDisplay.First(k => k.Id == lastVisitedKeyPointId), KeyPoint.State.Visited);
 
-                SelectedKeyPoint.CurrentState = KeyPoint.State.BeingVisited;
+                _keyPointService.ChangeKeyPointsState(SelectedKeyPoint, KeyPoint.State.BeingVisited);
                 lastVisitedKeyPointId = SelectedKeyPoint.Id;
 
                 if (SelectedKeyPoint.Id == lastKeyPointId)
                 {
-                    Update();
-                    Tour.CurrentState = Tour.State.Finished;
+                    UpdateKeyPointList();
+                    _tourService.ChangeToursState(Tour, Tour.State.Finished);
                     MarkLastKeyPoint();
-                    ConfirmEnd();
-                    Close();
+                    LastKeyPointVisited = true;
                 }
 
-                Update();
+                UpdateKeyPointList();
             }
             else if (SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited)
             {
@@ -164,88 +108,29 @@ namespace Sims2023.WPF.ViewModels
             }
         }
 
-        private void MarkGuestsPresentButton_Click(object sender, RoutedEventArgs e)
+        public void MarkGuestsPresent()
         {
-            if (SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited)
-            {
-                MarkGuestsPresentView markGuestsPresentView = new(SelectedKeyPoint, _tourReservationService, _userService, MarkedGuests);
-                markGuestsPresentView.Closed += MarkGuestsPresentView_Closed;
-                markGuestsPresentView.Show();
-                _keyPointController.Save();
-            }
-            else
-            {
-                MessageBox.Show("Molimo odaberite kljucnu tacku za koju zelite da obelezite goste koji su se prikljucili");
-            }
+            _keyPointService.Save();
         }
 
-        private void MarkGuestsPresentView_Closed(object sender, EventArgs e)
+        public void CancelTour()
         {
-            Update();
-            int counter = 0;
-            foreach (var tour in _tourReservationService.GetAll())
-            {
-                if (tour.Tour.Id == Tour.Id) counter++;
-            }
-            if (counter == MarkedGuests.Count)
-            {
-                markGuestsPresentButton.IsEnabled = false;
-            }
-        }
-
-        private void CancelTourButton_Click(object sender, RoutedEventArgs e)
-        {
-            Tour.CurrentState = Tour.State.Interrupted;
-            MessageBoxResult result = ConfirmExit();
-            if (result == MessageBoxResult.Yes)
-            {
-                Tour.CurrentState = Tour.State.Interrupted;
-                MarkLastVisitedKeyPoint();
-                Close();
-            }
-        }
-
-        private static MessageBoxResult ConfirmExit()
-        {
-            string sMessageBoxText = $"Izlaskom cete prekinuti trenutnu turu\n";
-            string sCaption = "Da li ste sigurni da zelite da izadjete?";
-
-            MessageBoxButton messageBoxButton = MessageBoxButton.YesNo;
-            MessageBoxImage messageBoxImage = MessageBoxImage.Warning;
-
-            MessageBoxResult result = MessageBox.Show(sMessageBoxText, sCaption, messageBoxButton, messageBoxImage);
-            return result;
-        }
-
-        private static MessageBoxResult ConfirmEnd()
-        {
-            string sMessageBoxText = $"Vasa tura se uspesno zavrsila. Potvrdite zavrsetak pritiskom na OK\n";
-            string sCaption = "Potvrda zavrsetka";
-
-            MessageBoxButton messageBoxButton = MessageBoxButton.OK;
-            MessageBoxImage messageBoxImage = MessageBoxImage.Asterisk;
-
-            MessageBoxResult result = MessageBox.Show(sMessageBoxText, sCaption, messageBoxButton, messageBoxImage);
-            return result;
-        }
-
-        public void Update()
-        {
-            UpdateKeyPointList();
+            _tourService.ChangeToursState(Tour, Tour.State.Interrupted);
+            MarkLastVisitedKeyPoint();
+            _keyPointService.Save();
         }
 
         public void UpdateKeyPointList()
         {
             KeyPointsToDisplay.Clear();
-            AllKeyPoints.Clear();
-            foreach (var keyPoint in _keyPointController.GetAll())
+            foreach (var keyPoint in _keyPointService.GetAll())
             {
-                AllKeyPoints.Add(keyPoint);
                 if (keyPoint.Tour.Id == Tour.Id)
                 {
                     KeyPointsToDisplay.Add(keyPoint);
                 }
             }
+            _keyPointService.Save();
         }
     }
 }

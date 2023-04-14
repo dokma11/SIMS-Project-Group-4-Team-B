@@ -94,5 +94,10 @@ namespace Sims2023.Application.Services
         {
             return _tour.GetCreatedTours(loggedInGuide);
         }
+
+        public void ChangeToursState(Tour selectedTour, Tour.State state)
+        {
+            _tour.ChangeToursState(selectedTour, state);
+        }
     }
 }
