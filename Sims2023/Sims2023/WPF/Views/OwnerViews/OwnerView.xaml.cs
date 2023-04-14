@@ -103,7 +103,7 @@ namespace Sims2023.View
 
         private void AddAccommodation_Click(object sender, RoutedEventArgs e)
         {
-            var addAccommodation = new AccommodationRegistrationView(_accommodationController, _accommodationLocationController,User);
+            var addAccommodation = new AccommodationRegistrationView(_accommodationController,User);
             addAccommodation.Show();
         }
 

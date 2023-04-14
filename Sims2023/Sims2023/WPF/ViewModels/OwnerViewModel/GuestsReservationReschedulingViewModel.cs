@@ -1,4 +1,5 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
 using Sims2023.Domain.Models;
 using Sims2023.Model;
 using System;
@@ -11,10 +12,10 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 {
     public class GuestsReservationReschedulingViewModel
     {
-        public AccommodationReservationReschedulingController _reschedulingController;
+        public AccommodationReservationReschedulingService _reschedulingController;
         public GuestsReservationReschedulingViewModel()
         {
-            _reschedulingController = new AccommodationReservationReschedulingController();
+            _reschedulingController = new AccommodationReservationReschedulingService();
         }
         public List<AccommodationReservationRescheduling> GetGuestsReservationMove(User owner)
         {
