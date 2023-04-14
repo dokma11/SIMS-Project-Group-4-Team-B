@@ -91,17 +91,7 @@ namespace Sims2023.Domain.Models
 
         }
 
-        public string IsVaild(Accommodation a)
-        {
-            if (string.IsNullOrEmpty(a.Name) || string.IsNullOrEmpty(a.Type) || string.IsNullOrEmpty(ImageUrl))
-                return "morate popuniti sve podatke";
-
-            if (a.CancelDays == -1 || a.MaxGuests == -1 || a.MinDays == -1 || a.Location.Id == -1)
-            {
-                return "morate popuniti sve podatke";
-            }
-            return null;
-        }
+    
     }
 
 
