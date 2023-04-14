@@ -37,13 +37,23 @@ namespace Sims2023.Repositories
             NotifyObservers();
         }
 
-        public void AddEdited(Voucher voucher)
+        public void Update(Voucher voucher)//deleted addedited and added this
         {
-            _vouchers.Add(voucher);
-            _fileHandler.Save(_vouchers); ;
+            int index = _vouchers.FindIndex(p => p.Id == voucher.Id);
+            if (index != -1)
+            {
+                _vouchers[index] = voucher;
+            }
+
+            _fileHandler.Save(_vouchers);
             NotifyObservers();
         }
 
+        public void UpdateIsUsed(Voucher voucher)//when guest used voucher
+        {
+             voucher.IsUsed = true;
+             Update(voucher);
+        }
         public void Remove(Voucher voucher)
         {
             _vouchers.Remove(voucher);
@@ -56,7 +66,7 @@ namespace Sims2023.Repositories
             return _vouchers;
         }
 
-        public List<Voucher> GetByUser(User user)
+        public List<Voucher> GetByUser(User user)//new method to show only user's vouchers
         {
             return _vouchers.Where(voucher => voucher.User.Id == user.Id && voucher.IsUsed == false)
                     .ToList();

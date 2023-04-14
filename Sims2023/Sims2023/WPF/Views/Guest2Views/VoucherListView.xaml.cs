@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.Observer;
+using Sims2023.WPF.ViewModels.Guest2ViewModels;
 
 namespace Sims2023.WPF.Views.Guest2Views
 {
@@ -23,50 +24,37 @@ namespace Sims2023.WPF.Views.Guest2Views
     /// </summary>
     public partial class VoucherListView : Window, IObserver
     {
-        private VoucherService _voucherService;
-        public Voucher SelectedVoucher { get; set; }
+        
         public User User { get; set; }
-        public List<Voucher> Vouchers { get; set; }
+
+        public VoucherListViewModel VoucherListViewModel { get; set; }
+        
         public VoucherListView(User user)
         {
             InitializeComponent();
-            DataContext = this;
+            
 
-            _voucherService=new VoucherService();
-            _voucherService.Subscribe(this);
-
-            SelectedVoucher= new Voucher();
             User = user;
-            Vouchers = _voucherService.GetByUser(user);
+            VoucherListViewModel = new VoucherListViewModel(user, this);
+            DataContext = VoucherListViewModel;
+
         }
 
         
         
         private void ActivateVoucher_Click(object sender, RoutedEventArgs e)
         {
-            foreach (Voucher voucher in Vouchers)
-            {
-                if (SelectedVoucher == voucher)
-                {
-                    SelectedVoucher.IsUsed = true;
-                    _voucherService.Edit(SelectedVoucher, voucher);
-                    break;
-                }
-            }
-            MessageBox.Show("Iskoristili ste vaucer");
-            Close();
-
-
+            VoucherListViewModel.ActivateVoucher_Click();
         }
 
         private void SkipVoucher_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            VoucherListViewModel.SkipVoucher_Click();
         }
 
         public void Update()
         {
-            dataGridVouchers.ItemsSource = _voucherService.GetByUser(User);
+            VoucherListViewModel.Update();
         }
     }
 }

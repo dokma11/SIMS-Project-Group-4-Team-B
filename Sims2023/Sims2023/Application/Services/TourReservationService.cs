@@ -28,7 +28,7 @@ namespace Sims2023.Application.Services
             return _tourReservations.GetAll();
         }
 
-        public List<TourReservation> GetNotConfirmedParticipation()
+        public List<TourReservation> GetNotConfirmedParticipation()//new method for guest2
         {
             return _tourReservations.GetNotConfirmedParticipation();
         }
@@ -48,14 +48,29 @@ namespace Sims2023.Application.Services
             _tourReservations.Update(reservation);
         }
 
-        public void ConfirmReservation(TourReservation tourReservation, bool confirmed)
+        public void ConfirmReservation(TourReservation tourReservation, bool confirmed)//new method for guest2
         {
             tourReservation.ShouldConfirmParticipation = false;
             tourReservation.ConfirmedParticipation = confirmed;
             _tourReservations.Update(tourReservation);
         }
 
-        public void CheckVouchers(TourReservation tourReservation, Tour tour)
+        public List<Tour> GetGuestsAll(User user)//new method for guest2
+        {
+            List<Tour> Tours = new List<Tour>();
+            foreach (TourReservation reservation in _tourReservations.GetAll())
+            {
+                if (reservation.User.Id == user.Id && (reservation.Tour.CurrentState != Tour.State.Started || reservation.ConfirmedParticipation == true))
+                {
+                    Tours.Add(reservation.Tour);
+                }
+            }
+
+            return Tours;
+
+        }
+
+        public void CheckVouchers(TourReservation tourReservation, Tour tour)//new method for guest2
         {
             int countReservation = 0;
 

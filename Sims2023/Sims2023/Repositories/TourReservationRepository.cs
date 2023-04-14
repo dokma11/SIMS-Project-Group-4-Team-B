@@ -61,7 +61,7 @@ namespace Sims2023.Repositories
             return _tourReservations;
         }
 
-        public List<TourReservation> GetNotConfirmedParticipation()
+        public List<TourReservation> GetNotConfirmedParticipation()//new method for guest2
         {
             return _tourReservations.Where(r=>r.ShouldConfirmParticipation==true).ToList();
         }

@@ -28,15 +28,22 @@ namespace Sims2023.Application.Services
         {
             _tour.Add(tour, dateTimes, location, loggedInGuide);
         }
-        public void Update(Tour tour)
+        public void Update(Tour tour)//new method and deleted edit
         {
             _tour.Update(tour);
         }
-
-        public void UpdateAvailableSpace(int reservedSpace,Tour tour)
+        public bool CanRateTour(Tour tour)//new for guest2
         {
-            tour.AvailableSpace -= reservedSpace;
-            _tour.Update(tour);
+            return _tour.CanRateTour(tour);
+        }
+
+        public bool CanSeeTour(Tour tour)//new for guest2
+        {
+            return _tour.CanSeeTour(tour);
+        }
+        public void UpdateAvailableSpace(int reservedSpace,Tour tour)//new for guest2
+        {
+            _tour.UpdateAvailableSpace(reservedSpace, tour);
         }
 
         public void AddToursLocation(Tour tour, Location location, int newToursNumber)
@@ -44,7 +51,7 @@ namespace Sims2023.Application.Services
             _tour.CheckAddToursLocation(tour, location, newToursNumber, _location.GetAll());
         }
 
-        public void AddLocationsToTour(ObservableCollection<Location> locations, ObservableCollection<Tour> tours)
+        public void AddLocationsToTour(ObservableCollection<Location> locations, ObservableCollection<Tour> tours)//new,delete later
         {
             foreach (var tour in tours)
             {
@@ -83,12 +90,12 @@ namespace Sims2023.Application.Services
             return _tour.GetById(id);
         }
 
-        public List<Tour> GetAvailable()
+        public List<Tour> GetAvailable()//new for guest2
         {
             return _tour.GetAvailable();
         }
 
-        public List<Tour> GetAlternative(int reserved,Tour tour)
+        public List<Tour> GetAlternative(int reserved,Tour tour)//new for guest2
         {
             return _tour.GetAlternative(reserved,tour);
         }

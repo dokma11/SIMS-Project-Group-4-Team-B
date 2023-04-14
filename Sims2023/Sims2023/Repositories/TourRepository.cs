@@ -40,7 +40,7 @@ namespace Sims2023.Repository
                 NotifyObservers();
             }
         }
-        public void Update(Tour tour)
+        public void Update(Tour tour)//new method and deleted addedited
         {
             int index = _tours.FindIndex(p => p.Id == tour.Id);
             if (index != -1)
@@ -51,11 +51,16 @@ namespace Sims2023.Repository
             _fileHandler.Save(_tours);
             NotifyObservers();
         }
-        public void AddEdited(Tour tour)
+        
+
+        public bool CanRateTour(Tour tour)//new for guest2
         {
-            _tours.Add(tour);
-            _fileHandler.Save(_tours); ;
-            NotifyObservers();
+            return tour.CurrentState == Tour.State.Finished;
+        }
+
+        public bool CanSeeTour(Tour tour)//new for guest2
+        {
+            return tour.CurrentState == Tour.State.Started;
         }
 
         public void AddToursLocation(int toursId, Location location)
@@ -139,7 +144,7 @@ namespace Sims2023.Repository
             return _tours;
         }
 
-        public List<Tour> GetAvailable()
+        public List<Tour> GetAvailable()//new method for guest2
         {
             List<Tour> available = new List<Tour>();
             foreach(var tourInstance in _tours)
@@ -152,10 +157,10 @@ namespace Sims2023.Repository
             return available;
         }
 
-        public List<Tour> GetAlternative(int reserveSpace, Tour tour)
+        public List<Tour> GetAlternative(int reserveSpace, Tour tour)//new method for guest2
         {
             var alternativeTours = _tours
-                .Where(tour => tour.LocationId == tour.LocationId && tour.AvailableSpace >= reserveSpace)
+                .Where(tour => tour.LocationId == tour.LocationId && tour.AvailableSpace >= reserveSpace && tour.CurrentState==Tour.State.Created)
                 .ToList();
 
             return alternativeTours;
@@ -165,7 +170,11 @@ namespace Sims2023.Repository
         {
             return _fileHandler.GetById(id);
         }
-
+        public void UpdateAvailableSpace(int reservedSpace, Tour tour)//new method for guest2
+        {
+            tour.AvailableSpace -= reservedSpace;
+            Update(tour);
+        }
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
