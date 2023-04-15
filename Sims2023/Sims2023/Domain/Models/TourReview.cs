@@ -1,6 +1,7 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Serialization;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Sims2023.Domain.Models
@@ -107,7 +108,7 @@ namespace Sims2023.Domain.Models
             {
                 Id = Convert.ToInt32(values[3])
             };
-            if (keyPoint.Id != 0)
+            if (keyPoint.Id >= 0)
             {
                 KeyPointService keyPointService = new();
                 KeyPointJoined = keyPointService.GetById(keyPoint.Id);

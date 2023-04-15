@@ -49,19 +49,21 @@ namespace Sims2023.Application.Services
         {
             string picturesString = string.Join(",", pictures);
             _tourReviews.AddReviewsPictures(picturesString, tourReview);
-
-        public List<TourReview> GetByToursId(int id)
-        {
-            return _tourReviews.GetByToursId(id);
         }
 
-        public void Report(TourReview tourReview)
-        {
-            _tourReviews.Report(tourReview);
-        }
-        public void GetKeyPointWhereGuestJoined(Tour selectedTour)
-        {
-            _tourReviews.GetKeyPointWhereGuestJoined(selectedTour);
-        }
+       public List<TourReview> GetByToursId(int id)
+       {
+                return _tourReviews.GetByToursId(id);
+       }
+
+       public void Report(TourReview tourReview)
+       {
+                _tourReviews.Report(tourReview);
+       }
+       public void GetKeyPointWhereGuestJoined(Tour selectedTour)
+       {
+                _tourReviews.GetKeyPointWhereGuestJoined(selectedTour);
+       }
     }
 }
+

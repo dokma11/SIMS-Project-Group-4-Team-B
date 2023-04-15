@@ -15,6 +15,10 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<TourReservation> GetReservationsByToursId(int id);
         public string GetAgeStatistics(Tour selectedTour, string ageGroup);
         public string GetVoucherStatistics(Tour selectedTour, bool used);
+        public List<TourReservation> GetNotConfirmedParticipation();//new
+        public void ConfirmReservation(TourReservation tourReservation, bool confirmed);//new
+        public bool CountReservationsByUser(TourReservation tourReservation);//new
+        public List<Tour> GetByUser(User user);//new
         public void Subscribe(IObserver observer);
         public void Unsubscribe(IObserver observer);
         public void NotifyObservers();
