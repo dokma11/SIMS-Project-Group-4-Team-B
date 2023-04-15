@@ -9,14 +9,14 @@ namespace Sims2023.WPF.Views.GuideViews
     public partial class CreateTourView
     {
         public CreateTourViewModel CreateTourViewModel;
-        private bool addDateButtonClicked;
+        private bool addDatesButtonClicked;
         public CreateTourView(TourService tourService, LocationService locationService, KeyPointService keyPointService, User loggedInGuide)
         {
             InitializeComponent();
 
-            addDateButton.IsEnabled = false;
+            addDatesButton.IsEnabled = false;
             addKeyPointsButton.IsEnabled = false;
-            addDateButtonClicked = false;
+            addDatesButtonClicked = false;
 
             CreateTourViewModel = new(tourService, locationService, keyPointService, loggedInGuide);
             DataContext = CreateTourViewModel;
@@ -24,7 +24,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            if (addDateButtonClicked && keyPointsOutput.Items.Count > 1)
+            if (addDatesButtonClicked && keyPointsOutput.Items.Count > 1)
             {
                 CreateTourViewModel.ConfirmCreation();
                 Close();
@@ -51,7 +51,7 @@ namespace Sims2023.WPF.Views.GuideViews
         {
             string inputText = keyPointTextBox.Text;
             keyPointsOutput.Items.Add(inputText);
-            CreateTourViewModel.AddKeyPoints(inputText);
+            CreateTourViewModel.AddKeyPointsToList(inputText);
             keyPointTextBox.Clear();
         }
 
@@ -62,13 +62,13 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void DateTimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            addDateButton.IsEnabled = !string.IsNullOrEmpty(dateTimeTextBox.Text);
+            addDatesButton.IsEnabled = !string.IsNullOrEmpty(dateTimeTextBox.Text);
         }
 
-        private void AddDateButton_Click(object sender, RoutedEventArgs e)
+        private void AddDatesButton_Click(object sender, RoutedEventArgs e)
         {
-            addDateButtonClicked = true;
-            CreateTourViewModel.AddDates(dateTimeTextBox.Text);
+            addDatesButtonClicked = true;
+            CreateTourViewModel.AddDatesToList(dateTimeTextBox.Text);
         }
     }
 }

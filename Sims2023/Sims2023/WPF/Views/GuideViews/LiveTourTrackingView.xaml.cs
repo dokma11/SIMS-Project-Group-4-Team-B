@@ -45,7 +45,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void MarkGuestsPresentButton_Click(object sender, RoutedEventArgs e)
         {
-            if (LiveTourTrackingViewModel.SelectedKeyPoint != null && LiveTourTrackingViewModel.SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited)
+            if (LiveTourTrackingViewModel.IsKeyPointSelected() && LiveTourTrackingViewModel.IsKeyPointBeingVisited())
             {
                 MarkGuestsPresentView markGuestsPresentView = new(LiveTourTrackingViewModel.SelectedKeyPoint, _tourReservationService, _userService, _keyPointService, MarkedGuests);
                 markGuestsPresentView.Closed += MarkGuestsPresentView_Closed;
@@ -60,6 +60,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void MarkGuestsPresentView_Closed(object sender, EventArgs e)
         {
+            //menjati vrv
             LiveTourTrackingViewModel.UpdateKeyPointList();
             if (_tourReservationService.GetAll().Count(t => t.Tour.Id == Tour.Id) == MarkedGuests.Count)
             {

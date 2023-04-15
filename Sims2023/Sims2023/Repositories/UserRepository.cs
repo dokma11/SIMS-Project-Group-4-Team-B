@@ -1,4 +1,5 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Model;
 using Sims2023.Model.DAO;
@@ -8,7 +9,7 @@ using System.Linq;
 
 namespace Sims2023.Repositories
 {
-    public class UserRepository
+    public class UserRepository: IUserRepository
     {
         private List<IObserver> _observers;
         private List<User> _users;
@@ -22,7 +23,6 @@ namespace Sims2023.Repositories
             _fileHandler = new UserFileHandler();
             _users = _fileHandler.Load();
             //        guests = new GuestGradeDAO();
-            //_tourReservationRepository = new TourReservationRepository();
         }
 
         public int NextId()
@@ -133,7 +133,7 @@ namespace Sims2023.Repositories
             }
         }
 
-        public List<User> GetGuestsThatReserved(KeyPoint keyPoint, List<User> markedGuests)
+        public List<User> GetGuestsWithReservations(KeyPoint keyPoint, List<User> markedGuests)
         {
             _tourReservationRepository = new TourReservationRepository();
             return _tourReservationRepository

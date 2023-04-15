@@ -1,4 +1,5 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repository;
 using System;
@@ -8,8 +9,8 @@ namespace Sims2023.Application.Services
 {
     public class TourService
     {
-        private readonly TourRepository _tour;
-        private readonly LocationRepository _location;
+        private readonly ITourRepository _tour;
+        private readonly ILocationRepository _location;
 
         public TourService()
         {
@@ -34,6 +35,7 @@ namespace Sims2023.Application.Services
 
         public void AddToursLocation(Tour tour, Location location, int newToursNumber)
         {
+            //mozda treba da menjam
             _tour.CheckAddToursLocation(tour, location, newToursNumber, _location.GetAll());
         }
 
@@ -78,16 +80,6 @@ namespace Sims2023.Application.Services
             return _tour.GetTheMostVisitedTour(loggedInGuide, year);
         }
 
-        public string GetAgeStatistics(Tour selectedTour, string ageGroup)
-        {
-            return _tour.GetAgeStatistics(selectedTour, ageGroup);
-        }
-
-        public string GetVoucherStatistics(Tour selectedTour, bool used)
-        {
-            return _tour.GetVoucherStatistics(selectedTour, used);
-        }
-
         public List<Tour> GetCreatedTours(User loggedInGuide)
         {
             return _tour.GetCreatedTours(loggedInGuide);
@@ -96,6 +88,11 @@ namespace Sims2023.Application.Services
         public void ChangeToursState(Tour selectedTour, Tour.State state)
         {
             _tour.ChangeToursState(selectedTour, state);
+        }
+
+        public void SetToursLanguage(Tour selectedTour, Tour.Language language)
+        {
+            _tour.SetToursLanguage(selectedTour, language);
         }
     }
 }

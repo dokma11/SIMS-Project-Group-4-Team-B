@@ -12,7 +12,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         private UserService _userService;
         private TourReservationService _tourReservationService;
         private VoucherService _voucherService;
-        public Tour? Tour { get; set; }
         public Tour? SelectedTour { get; set; }
         public ObservableCollection<Tour> ToursToDisplay { get; set; }
         public User LoggedInGuide { get; set; }
@@ -30,19 +29,35 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public void CancelTour()
         {
-            SelectedTour.CurrentState = Tour.State.Cancelled;
+            _tourService.ChangeToursState(SelectedTour, Tour.State.Cancelled);
             CreateVouchersForCancelledTour(SelectedTour.Id);
             Update();
         }
 
         public void CreateVouchersForCancelledTour(int toursId)
         {
+            //mozda menjati
             string additionalComment = Microsoft.VisualBasic.Interaction.InputBox("Unesite razlog:", "Input String");
             foreach (var reservation in _tourReservationService.GetReservationsByToursid(toursId))
             {
                 Voucher voucher = new(0, Voucher.VoucherType.CancelingTour, _userService.GetById(reservation.User.Id), _tourService.GetById(toursId), DateTime.Now, DateTime.Today.AddYears(1), additionalComment, false);
                 _voucherService.Create(voucher);
             }
+        }
+
+        public bool IsTourSelected()
+        {
+            return SelectedTour != null;
+        }
+
+        public bool IsTourCreated()
+        {
+            return SelectedTour.CurrentState == State.Created;
+        }
+
+        public bool IsTourEligibleForCancellation()
+        {
+            return SelectedTour.Start >= DateTime.Now.AddHours(48);
         }
 
         public void Update()

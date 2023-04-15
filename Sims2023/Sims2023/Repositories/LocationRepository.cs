@@ -1,4 +1,5 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace Sims2023.Repository
 {
-    public class LocationRepository
+    public class LocationRepository: ILocationRepository
     {
         private readonly List<IObserver> _observers;
         private readonly List<Location> _locations;

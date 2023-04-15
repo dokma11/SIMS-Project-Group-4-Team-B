@@ -9,25 +9,12 @@ namespace Sims2023.WPF.Views.GuideViews
 {
     public partial class MarkGuestsPresentView : Window
     {
-        public KeyPoint KeyPoint { get; set; }
-        private UserService _userService;
-        private TourReservationService _tourReservationService;
-        private KeyPointService _keyPointService;
         public MarkGuestsPresentViewModel MarkGuestsPresentViewModel;
-        public List<User> MarkedGuests { get; set; }
-
         public MarkGuestsPresentView(KeyPoint selectedKeyPoint, TourReservationService tourReservationService, UserService userService, KeyPointService keyPointService, List<User> markedGuests)
         {
             InitializeComponent();
 
-            _tourReservationService = tourReservationService;
-            _userService = userService;
-            _keyPointService = keyPointService;
-
-            MarkedGuests = markedGuests;
-            KeyPoint = selectedKeyPoint;
-
-            MarkGuestsPresentViewModel = new(KeyPoint, _tourReservationService, _userService, _keyPointService, MarkedGuests);
+            MarkGuestsPresentViewModel = new(selectedKeyPoint, tourReservationService, userService, keyPointService, markedGuests);
             DataContext = MarkGuestsPresentViewModel;
         }
 

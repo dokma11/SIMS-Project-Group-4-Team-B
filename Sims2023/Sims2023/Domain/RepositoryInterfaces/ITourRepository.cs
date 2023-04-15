@@ -1,4 +1,5 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 
@@ -19,8 +20,11 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<Tour> GetFinishedTours(User loggedInGuide);
         public void GetAttendedGuestsNumber(User loggedInGuide);
         public Tour GetTheMostVisitedTour(User loggedInGuide, string year);
-        public string GetAgeStatistics(Tour selectedTour, string ageGroup);
-        public string GetVoucherStatistics(Tour selectedTour, bool used);
         public List<Tour> GetCreatedTours(User loggedInGuide);
+        public void ChangeToursState(Tour selectedTour, Tour.State state);
+        public void SetToursLanguage(Tour selectedTour, Tour.Language language);
+        public void Subscribe(IObserver observer);
+        public void Unsubscribe(IObserver observer);
+        public void NotifyObservers();
     }
 }

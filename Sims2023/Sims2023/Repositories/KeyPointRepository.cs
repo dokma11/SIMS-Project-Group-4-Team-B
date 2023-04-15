@@ -1,19 +1,18 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
-using Sims2023.Repositories;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Sims2023.Repository
 {
-    public class KeyPointRepository
+    public class KeyPointRepository: IKeyPointRepository
     {
         private List<IObserver> _observers;
         private List<KeyPoint> _keyPoints;
         private KeyPointFileHandler _fileHandler;
-        private TourReviewRepository _tourReviews;
         public KeyPointRepository()
         {
             _fileHandler = new KeyPointFileHandler();
@@ -23,8 +22,7 @@ namespace Sims2023.Repository
 
         public int NextId()
         {
-            if (_keyPoints.Count == 0) return 1;
-            return _keyPoints.Max(k => k.Id) + 1;
+            return _keyPoints.Count == 0 ? 1 : _keyPoints.Max(t => t.Id) + 1;
         }
 
         public void Add(KeyPoint keyPoint, List<string> keyPointNames, int toursId, int newToursNumber)
@@ -85,21 +83,6 @@ namespace Sims2023.Repository
         public void Save()
         {
             _fileHandler.Save(_keyPoints);
-        }
-
-        public void GetKeyPointWhereGuestJoined(Tour selectedTour)
-        {
-            _tourReviews = new();
-            foreach (var tourReview in _tourReviews.GetAll())
-            {
-                var keyPoint = _keyPoints.Where(k => k.Tour.Id == selectedTour.Id)
-                                         .FirstOrDefault(k => k.ShowedGuestsIds.Contains(tourReview.Guest.Id));
-                if (keyPoint != null)
-                {
-                    tourReview.KeyPointJoined = keyPoint;
-                    _tourReviews.Save();
-                }
-            }
         }
 
         public List<KeyPoint> GetByToursId(int id)

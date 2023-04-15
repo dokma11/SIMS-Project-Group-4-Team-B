@@ -34,38 +34,15 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             LoggedInGuide = loggedInGuide;
         }
 
-        public void SetToursLanguage(string language)
+        public void SetToursLanguage(string languageString)
         {
-            switch (language)
+            if(Enum.TryParse(languageString, out Language language))
             {
-                case "Serbian":
-                    Tour.GuideLanguage = Tour.Language.Serbian;
-                    break;
-                case "English":
-                    Tour.GuideLanguage = Tour.Language.English;
-                    break;
-                case "German":
-                    Tour.GuideLanguage = Tour.Language.German;
-                    break;
-                case "French":
-                    Tour.GuideLanguage = Tour.Language.French;
-                    break;
-                case "Spanish":
-                    Tour.GuideLanguage = Tour.Language.Spanish;
-                    break;
-                case "Italian":
-                    Tour.GuideLanguage = Tour.Language.Italian;
-                    break;
-                case "Chinese":
-                    Tour.GuideLanguage = Tour.Language.Chinese;
-                    break;
-                case "Japanese":
-                    Tour.GuideLanguage = Tour.Language.Japanese;
-                    break;
+                _tourService.SetToursLanguage(Tour, language);
             }
         }
 
-        public void AddKeyPoints(string inputText)
+        public void AddKeyPointsToList(string inputText)
         {
             if (!_keyPointsList.Contains(inputText))
             {
@@ -73,7 +50,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             }
         }
 
-        public void AddDates(string inputText)
+        public void AddDatesToList(string inputText)
         {
             if (DateTime.TryParse(inputText, out DateTime dateTime))
             {
@@ -91,6 +68,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             int firstToursId = Tour.Id - _dateTimeList.Count + 1;
             _tourService.AddToursLocation(Tour, Location, _dateTimeList.Count);
             _keyPointService.Create(KeyPoint, _keyPointsList, firstToursId, _dateTimeList.Count);
+            //mozda prebaci u keypoint servis
             _tourService.AddToursKeyPoints(_keyPointsList, firstToursId);
         }
     }

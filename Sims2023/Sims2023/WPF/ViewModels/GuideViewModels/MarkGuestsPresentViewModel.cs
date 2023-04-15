@@ -14,21 +14,16 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         private TourReservationService _tourReservationService;
         private KeyPointService _keyPointService;
         public List<User> MarkedGuests { get; set; }
-        public MarkGuestsPresentViewModel(KeyPoint keyPoint, TourReservationService tourReservationService, UserService userService, KeyPointService keyPointService, List<User> markedGuests)
+        public MarkGuestsPresentViewModel(KeyPoint selectedKeyPoint, TourReservationService tourReservationService, UserService userService, KeyPointService keyPointService, List<User> markedGuests)
         {
             _tourReservationService = tourReservationService;
             _userService = userService;
             _keyPointService = keyPointService;
 
-            KeyPoint = keyPoint;
+            KeyPoint = selectedKeyPoint;
             MarkedGuests = markedGuests;
 
-            GuestsToDisplay = new ObservableCollection<User>(_userService.GetGuestsThatReserved(KeyPoint, MarkedGuests));
-        }
-
-        public List<User> InitializeGuestsToDisplay(KeyPoint keyPoint, List<User> markedGuests)
-        {
-            return _userService.GetGuestsThatReserved(keyPoint, markedGuests);
+            GuestsToDisplay = new ObservableCollection<User>(_userService.GetGuestsWithReservations(KeyPoint, MarkedGuests));
         }
 
         public void AddMarkedGuests(List<User> items)

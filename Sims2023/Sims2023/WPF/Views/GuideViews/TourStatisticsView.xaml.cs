@@ -11,19 +11,19 @@ namespace Sims2023.WPF.Views.GuideViews
         public TourStatisticsViewModel tourStatisticsViewModel;
         public User LoggedInGuide { get; set; }
 
-        public TourStatisticsView(User loggedInGuide, TourService tourService)
+        public TourStatisticsView(User loggedInGuide, TourService tourService, TourReservationService tourReservationService)
         {
             InitializeComponent();
 
             LoggedInGuide = loggedInGuide;
 
-            tourStatisticsViewModel = new(tourService, LoggedInGuide);
+            tourStatisticsViewModel = new(tourService, tourReservationService, LoggedInGuide);
             DataContext = tourStatisticsViewModel;
         }
 
         private void DisplayStatisticsButton_Click(object sender, RoutedEventArgs e)
         {
-            if(tourStatisticsViewModel.SelectedTour != null)
+            if(tourStatisticsViewModel.IsTourSelected())
             {
                 youngNumberLabel.Content = tourStatisticsViewModel.DisplayAgeStatistics("young");
                 middleNumberLabel.Content = tourStatisticsViewModel.DisplayAgeStatistics("middleAged");

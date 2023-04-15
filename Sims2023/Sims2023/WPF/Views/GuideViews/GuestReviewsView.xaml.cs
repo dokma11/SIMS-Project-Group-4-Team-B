@@ -18,9 +18,21 @@ namespace Sims2023.WPF.Views.GuideViews
             DataContext = GuestReviewsViewModel;
         }
 
+        private void DisplayReviewsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (GuestReviewsViewModel.IsTourSelected())
+            {
+                GuestReviewsViewModel.DisplayReviews();
+            }
+            else
+            {
+                MessageBox.Show("Odaberite turu za koju želite da vidite recenzije");
+            }
+        }
+
         private void ReportReviewButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GuestReviewsViewModel.SelectedReview != null && GuestReviewsViewModel.SelectedReview.IsValid)
+            if (GuestReviewsViewModel.IsReviewSelected() && GuestReviewsViewModel.IsReviewValid())
             {
                 GuestReviewsViewModel.ReportReview();
                 SuccessfulReportLabelEvent();
@@ -49,21 +61,9 @@ namespace Sims2023.WPF.Views.GuideViews
             timer.Stop();
         }
 
-        private void DisplayReviewsButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (GuestReviewsViewModel.SelectedTour != null)
-            {
-                GuestReviewsViewModel.DisplayReviews();
-            }
-            else
-            {
-                MessageBox.Show("Odaberite turu za koju želite da vidite recenzije");
-            }
-        }
-
         private void DisplayCommentButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GuestReviewsViewModel.SelectedReview != null)
+            if (GuestReviewsViewModel.IsReviewSelected())
             {
                 MessageBox.Show(GuestReviewsViewModel.SelectedReview.Comment);
             }

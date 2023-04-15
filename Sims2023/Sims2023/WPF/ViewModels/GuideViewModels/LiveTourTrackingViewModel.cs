@@ -120,6 +120,16 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _keyPointService.Save();
         }
 
+        public bool IsKeyPointSelected()
+        {
+            return SelectedKeyPoint != null;
+        }
+
+        public bool IsKeyPointBeingVisited()
+        {
+            return SelectedKeyPoint.CurrentState != KeyPoint.State.BeingVisited;
+        }
+
         public void UpdateKeyPointList()
         {
             KeyPointsToDisplay.Clear();

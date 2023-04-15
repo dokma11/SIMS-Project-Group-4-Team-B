@@ -8,7 +8,7 @@ namespace Sims2023.Application.Services
 {
     public class KeyPointService
     {
-        private readonly KeyPointRepository _keyPoint;
+        private IKeyPointRepository _keyPoint;
         public KeyPointService()
         {
             _keyPoint = new KeyPointRepository();
@@ -42,11 +42,6 @@ namespace Sims2023.Application.Services
         public void Save()
         {
             _keyPoint.Save();
-        }
-
-        public void GetKeyPointWhereGuestJoined(Tour selectedTour)
-        {
-            _keyPoint.GetKeyPointWhereGuestJoined(selectedTour);
         }
 
         public List<KeyPoint> GetByToursId(int id)

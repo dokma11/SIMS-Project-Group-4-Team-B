@@ -1,4 +1,5 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Observer;
 using System.Collections.Generic;
 
 namespace Sims2023.Domain.RepositoryInterfaces
@@ -11,9 +12,12 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<KeyPoint> GetAll();
         public KeyPoint GetById(int id);
         public void Save();
-        public void GetKeyPointWhereGuestJoined(Tour selectedTour);
         public List<KeyPoint> GetByToursId(int id);
         public void ChangeKeyPointsState(KeyPoint keyPoint, KeyPoint.State state);
         public void AddGuestsId(KeyPoint selectedKeyPoint, int guestsId);
+        void Subscribe(IObserver observer);
+        public void Unsubscribe(IObserver observer);
+        public void NotifyObservers();
+
     }
 }

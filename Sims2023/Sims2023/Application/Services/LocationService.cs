@@ -1,4 +1,5 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repository;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ namespace Sims2023.Application.Services
 {
     public class LocationService
     {
-        private readonly LocationRepository _location;
+        private readonly ILocationRepository _location;
         public LocationService()
         {
             _location = new LocationRepository();

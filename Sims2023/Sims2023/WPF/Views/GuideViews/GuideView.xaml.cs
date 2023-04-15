@@ -2,7 +2,6 @@
 using Sims2023.Domain.Models;
 using Sims2023.Observer;
 using Sims2023.WPF.ViewModels.GuideViewModels;
-using Sims2023.WPF.Views.GuideViews;
 using System;
 using System.Windows;
 using System.Windows.Threading;
@@ -51,7 +50,7 @@ namespace Sims2023.WPF.Views.GuideViews
             DataContext = GuideViewModel;
         }
 
-        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        private void CreateTourButton_Click(object sender, RoutedEventArgs e)
         {
             CreateTourView createTourView = new(_tourService, _locationService, _keyPointService, LoggedInGuide);
             createTourView.Show();
@@ -59,17 +58,13 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void StartTourButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GuideViewModel.SelectedTour != null && GuideViewModel.SelectedTour.CurrentState == Tour.State.Created)
+            if (GuideViewModel.IsTourSelected() && GuideViewModel.IsTourCreated())
             {
                 startTourButton.IsEnabled = false;
                 LiveTourTrackingView liveTourTrackingView = new(GuideViewModel.SelectedTour, _keyPointService, _tourReservationService, _userService, _tourService);
                 liveTourTrackingView.Closed += LiveTourTrackingView_Closed;
                 liveTourTrackingView.Show();
                 Update();
-            }
-            else if (GuideViewModel.SelectedTour != null && GuideViewModel.SelectedTour.CurrentState != Tour.State.Created)
-            {
-                MessageBox.Show("Ne mozete zapoceti turu koja je ranije zapoceta");
             }
             else
             {
@@ -85,7 +80,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void CancelTourButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GuideViewModel.SelectedTour != null && GuideViewModel.SelectedTour.Start >= DateTime.Now.AddHours(48))
+            if (GuideViewModel.IsTourSelected() && GuideViewModel.IsTourEligibleForCancellation())
             {
                 GuideViewModel.CancelTour();
                 SuccessfulCancellationLabelEvent();
@@ -114,15 +109,15 @@ namespace Sims2023.WPF.Views.GuideViews
             timer.Stop();
         }
 
-        private void ReviewsButton_Click(object sender, RoutedEventArgs eventArgs)
+        private void DisplayReviewsButton_Click(object sender, RoutedEventArgs eventArgs)
         {
             GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _keyPointService, LoggedInGuide);
             guestReviewsView.Show();
         }
 
-        private void StatisticsButton_Click(object sender, RoutedEventArgs e)
+        private void DisplayStatisticsButton_Click(object sender, RoutedEventArgs e)
         {
-            TourStatisticsView tourStatisticsView = new(LoggedInGuide, _tourService);
+            TourStatisticsView tourStatisticsView = new(LoggedInGuide, _tourService, _tourReservationService);
             tourStatisticsView.Show();
         }
 

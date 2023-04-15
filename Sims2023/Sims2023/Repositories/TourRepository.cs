@@ -1,4 +1,5 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 
 namespace Sims2023.Repository
 {
-    public class TourRepository
+    public class TourRepository: ITourRepository
     {
         private List<IObserver> _observers;
         private List<Tour> _tours;
@@ -23,8 +24,7 @@ namespace Sims2023.Repository
 
         public int NextId()
         {
-            if (_tours.Count == 0) return 1;
-            return _tours.Max(t => t.Id) + 1;
+            return _tours.Count == 0 ? 1 : _tours.Max(t => t.Id) + 1;
         }
 
         public void Add(Tour tour, List<DateTime> dateTimes, Location location, User loggedInGuide)
@@ -42,6 +42,7 @@ namespace Sims2023.Repository
                 NotifyObservers();
             }
         }
+
         public void AddEdited(Tour tour)
         {
             _tours.Add(tour);
@@ -51,39 +52,12 @@ namespace Sims2023.Repository
 
         public void AddToursLocation(int toursId, Location location)
         {
-            foreach (var tour in _tours)
+            var tour = _tours.FirstOrDefault(t => t.Id == toursId);
+            if (tour != null)
             {
-                if (tour.Id == toursId)
-                {
-                    tour.LocationId = location.Id;
-                    _fileHandler.Save(_tours);
-                    NotifyObservers();
-                    break;
-                }
-            }
-        }
-
-        private void CheckIfLocationExists(int newToursNumber, List<Location> locations, Location location, int toursId)
-        {
-            int counter = 0;
-            for (int i = 0; i < newToursNumber; i++)
-            {
-                foreach (var locationInstance in locations)
-                {
-                    //if location exists just add the already existing one
-                    if (location.City == locationInstance.City && location.Country == locationInstance.Country)
-                    {
-                        counter++;
-                        AddToursLocation(toursId, locationInstance);
-                        break;
-                    }
-                }
-                //if it doesn't exist add the newly created one
-                if (counter == 0)
-                {
-                    AddToursLocation(toursId, location);
-                }
-                toursId++;
+                tour.LocationId = location.Id;
+                _fileHandler.Save(_tours);
+                NotifyObservers();
             }
         }
 
@@ -92,29 +66,32 @@ namespace Sims2023.Repository
             int toursId = tour.Id - newToursNumber + 1;
             if (locations.Count == 0)
             {
-                for (int i = 0; i < newToursNumber; i++)
-                {
-                    AddToursLocation(toursId, location);
-                    toursId++;
-                }
+                Enumerable.Range(0, newToursNumber).ToList().ForEach(_ => AddToursLocation(toursId++, location));
             }
             else
             {
-                CheckIfLocationExists(newToursNumber, locations, location, toursId);
+                for (int i = 0; i < newToursNumber; i++, toursId++)
+                {
+                    if (locations.Any(l => l.City == location.City && l.Country == location.Country))
+                    {
+                        AddToursLocation(toursId, locations.First(l => l.City == location.City && l.Country == location.Country));
+                    }
+                    else
+                    {
+                        AddToursLocation(toursId, location);
+                    }
+                }
             }
         }
 
         public void AddToursKeyPoints(string keyPointsString, int firstToursId)
         {
-            foreach (var tourInstance in _tours)
+            var tour = _tours.FirstOrDefault(t => t.Id == firstToursId);
+            if (tour != null)
             {
-                if (tourInstance.Id == firstToursId)
-                {
-                    tourInstance.KeyPointsString = keyPointsString;
-                    firstToursId++;
-                    _fileHandler.Save(_tours);
-                    NotifyObservers();
-                }
+                tour.KeyPointsString = keyPointsString;
+                _fileHandler.Save(_tours);
+                NotifyObservers();
             }
         }
 
@@ -164,6 +141,7 @@ namespace Sims2023.Repository
                          && t.Guide.Id == loggedInGuide.Id).ToList();
         }
 
+        //ovo mozda premestiti u rezervacije
         public void GetAttendedGuestsNumber(User loggedInGuide)
         {
             List<TourReservation> reservations = new();
@@ -199,72 +177,19 @@ namespace Sims2023.Repository
             }
         }
 
-        public string GetAgeStatistics(Tour selectedTour, string ageGroup)
-        {
-            List<TourReservation> reservations = new();
-            reservations = _reservationFileHandler.Load();
-
-            if (ageGroup == "young")
-            {
-                int young = reservations
-                .Where(res => res.Tour.Id == selectedTour.Id && res.ConfirmedParticipation && res.User.Age <= 18)
-                .Sum(res => res.GuestNumber);
-                return young.ToString();
-            }
-            else if (ageGroup == "middleAged")
-            {
-                int middle = reservations
-                .Where(res => res.Tour.Id == selectedTour.Id && res.ConfirmedParticipation && res.User.Age > 18 && res.User.Age <= 50)
-                .Sum(res => res.GuestNumber);
-                return middle.ToString();
-            }
-            else if (ageGroup == "old")
-            {
-                int old = reservations
-                .Where(res => res.Tour.Id == selectedTour.Id && res.ConfirmedParticipation && res.User.Age > 50)
-                .Sum(res => res.GuestNumber);
-                return old.ToString();
-            }
-            else
-            {
-                return "ne znam";
-            }
-        }
-
-        public string GetVoucherStatistics(Tour selectedTour, bool used)
-        {
-            List<TourReservation> reservations = new();
-            reservations = _reservationFileHandler.Load();
-
-            int usedCounter = reservations.Where(res => res.Tour.Id == selectedTour.Id)
-                                          .Count(res => res.UsedVoucher && res.ConfirmedParticipation);
-            int notUsedCounter = reservations.Where(res => res.Tour.Id == selectedTour.Id)
-                                             .Count(res => !res.UsedVoucher && res.ConfirmedParticipation);
-
-            double usedPercentage = (double)usedCounter / (usedCounter + notUsedCounter);
-            double notUsedPercentage = (double)notUsedCounter / (usedCounter + notUsedCounter);
-
-            if (used)
-            {
-                return usedPercentage.ToString("0.00");
-            }
-            else
-            {
-                return notUsedPercentage.ToString("0.00");
-            }
-        }
-
         public List<Tour> GetCreatedTours(User loggedInGuide)
         {
-            List<Tour> ToursToDisplay = new();
-            ToursToDisplay.AddRange(_tours.Where(tour => tour.CurrentState == Tour.State.Created &&
-                                           tour.Guide.Id == loggedInGuide.Id));
-            return ToursToDisplay;
+            return _tours.Where(tour => tour.CurrentState == Tour.State.Created && tour.Guide.Id == loggedInGuide.Id).ToList();
         }
 
         public void ChangeToursState(Tour selectedTour, Tour.State state)
         {
             selectedTour.CurrentState = state;
+        }
+
+        public void SetToursLanguage(Tour selectedTour, Tour.Language language)
+        {
+            selectedTour.GuideLanguage = language;
         }
     }
 }

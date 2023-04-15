@@ -1,4 +1,5 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Observer;
 using System.Collections.Generic;
 
 namespace Sims2023.Domain.RepositoryInterfaces
@@ -13,5 +14,8 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void Save();
         public List<TourReview> GetByToursId(int id);
         public void Report(TourReview tourReview);
+        public void Subscribe(IObserver observer);
+        public void Unsubscribe(IObserver observer);
+        void NotifyObservers();
     }
 }
