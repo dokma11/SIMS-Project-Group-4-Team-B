@@ -53,15 +53,7 @@ namespace Sims2023.Application.Services
 
         public void AddLocationsToTour(ObservableCollection<Location> locations, ObservableCollection<Tour> tours)//new,delete later
         {
-            foreach (var tour in tours)
-            {
-                var location = locations.FirstOrDefault(l => l.Id == tour.LocationId);
-                if (location != null)
-                {
-                    tour.City = location.City;
-                    tour.Country = location.Country;
-                }
-            }
+            _tour.AddLocationsToTour(locations, tours);
         }
 
         public void AddToursKeyPoints(List<string> keyPoints, int firstToursId)

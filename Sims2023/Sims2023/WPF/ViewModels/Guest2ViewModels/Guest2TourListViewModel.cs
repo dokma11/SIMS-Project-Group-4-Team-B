@@ -32,7 +32,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             _locationService = new LocationService();
 
             Locations = new ObservableCollection<Location>(_locationService.GetAll());
-            Tours = new ObservableCollection<Tour>(_tourReservationService.GetGuestsAll(user));
+            Tours = new ObservableCollection<Tour>(_tourReservationService.GetByUser(user));
 
             User = user;
             SelectedTour = new Tour();

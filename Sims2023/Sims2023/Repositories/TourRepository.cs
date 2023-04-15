@@ -3,6 +3,7 @@ using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Sims2023.Repository
@@ -115,6 +116,19 @@ namespace Sims2023.Repository
             else
             {
                 CheckIfLocationExists(newToursNumber, locations, location, toursId);
+            }
+        }
+
+        public void AddLocationsToTour(ObservableCollection<Location> locations, ObservableCollection<Tour> tours)//new,delete later
+        {
+            foreach (var tour in tours)
+            {
+                var location = locations.FirstOrDefault(l => l.Id == tour.LocationId);
+                if (location != null)
+                {
+                    tour.City = location.City;
+                    tour.Country = location.Country;
+                }
             }
         }
 

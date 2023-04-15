@@ -27,6 +27,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         public Tour EditedTour { get; set; }
 
         public User User { get; set; }
+        public Voucher Voucher { get; set; }
 
         public List<Tour> FilteredData = new List<Tour>();
 
@@ -50,6 +51,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             SelectedTour = new Tour();
             EditedTour = new Tour();
             TourReservation = new TourReservation();
+            Voucher = new Voucher();
 
             User = user;
             Guest2View = guest2View;
@@ -138,8 +140,8 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
                 
                 Update();
                 MessageBox.Show("Uspesna rezervacija");
-
-                _tourReservationService.CheckVouchers(tourReservation, EditedTour);
+                CheckVouchers(tourReservation);
+               
                 ShowVoucherListView();
                 
             }
@@ -186,6 +188,14 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             voucherListView.Show();
         }
 
+        public void CheckVouchers(TourReservation tourReservation)
+        {
+            if (_tourReservationService.CheckVouchers(tourReservation))
+            {
+                Voucher = new Voucher(Voucher.VoucherType.FiveReservations, User, SelectedTour);
+                _voucherService.Create(Voucher);
+            }
+        }
         public void Update()
         {
             Guest2View.dataGridTours.ItemsSource = new ObservableCollection<Tour>(_tourService.GetAvailable());
