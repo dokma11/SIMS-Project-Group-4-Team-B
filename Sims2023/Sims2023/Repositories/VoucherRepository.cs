@@ -1,5 +1,6 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
 using Sims2023.Repository;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Repositories
 {
-    public class VoucherRepository
+    public class VoucherRepository:IVoucherRepository
     {
         private List<IObserver> _observers;
         private List<Voucher> _vouchers;

@@ -1,4 +1,5 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repository;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ namespace Sims2023.Application.Services
 {
     public class KeyPointService
     {
-        private readonly KeyPointRepository _keyPoint;
+        private readonly IKeyPointRepository _keyPoint;
         public KeyPointService()
         {
             _keyPoint = new KeyPointRepository();
@@ -37,10 +38,10 @@ namespace Sims2023.Application.Services
             _keyPoint.Remove(keyPoint);
         }
 
-        public void Subscribe(IObserver observer)
+        /*public void Subscribe(IObserver observer)
         {
             _keyPoint.Subscribe(observer);
-        }
+        }*/
 
         public void Save()
         {
