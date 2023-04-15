@@ -48,5 +48,10 @@ namespace Sims2023.Application.Services
         {
             return _tourReviews.GetById(id);
         }
+        public void AddReviewsPictures(List<string> pictures, TourReview tourReview)
+        {
+            string picturesString = string.Join(",", pictures);
+            _tourReviews.AddReviewsPictures(picturesString, tourReview);
+        }
     }
 }

@@ -75,5 +75,15 @@ namespace Sims2023.Repositories
         {
             _fileHandler.Save(_tourReviews);
         }
+
+        public void AddReviewsPictures(string picturesString, TourReview tourReview)
+        {
+            
+                    tourReview.PicturesString = picturesString;
+                    
+                    _fileHandler.Save(_tourReviews);
+                    NotifyObservers();
+              
+        }
     }
 }

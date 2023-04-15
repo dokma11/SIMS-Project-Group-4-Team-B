@@ -37,10 +37,17 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         public void Send_Click()
         {
+            
             TourReview = new TourReview(User, Tour, KeyPoint, (int)RateTourView.guidesKnowledgeBox.Value, (int)RateTourView.tourInterestBox.Value, (int)RateTourView.guidesLanguageCapabilityBox.Value, (string)RateTourView.CommentTextBox.Text);
             _tourReviewService.Create(TourReview);
+            _tourReviewService.AddReviewsPictures(RateTourView._picturesList, TourReview);
             MessageBox.Show("Hvala na recenziji");
             RateTourView.Close();
+
+        }
+
+        public void AddPicture_Click()
+        {
 
         }
 

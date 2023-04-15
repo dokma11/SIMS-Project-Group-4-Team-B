@@ -8,16 +8,19 @@
         mc:Ignorable="d"
         Title="RateTourView" Height="463" Width="700">
     <Grid>
-        <Label Content="Guide's Knowledge:" FontSize="20" HorizontalAlignment="Left" Margin="36,106,0,0" VerticalAlignment="Top"/>
-        <Label Content="Interest of tour:" FontSize="20" HorizontalAlignment="Left" Margin="371,107,0,0" VerticalAlignment="Top"/>
-        <Label Content="Guide's language capabilility:" FontSize="20" HorizontalAlignment="Left" Margin="36,167,0,0" VerticalAlignment="Top"/>
-        <Label Content="Add pictures:" FontSize="20" HorizontalAlignment="Left" Margin="371,169,0,0" VerticalAlignment="Top"/>
-        <xctk:IntegerUpDown Name="guidesKnowledgeBox" AllowTextInput="False" HorizontalAlignment="Left" Margin="224,114,0,0" VerticalAlignment="Top" Minimum="1" Maximum="5" Value="1" Width="41"/>
-        <xctk:IntegerUpDown Name="tourInterestBox" AllowTextInput="False" HorizontalAlignment="Left" Margin="523,114,0,0" VerticalAlignment="Top" Minimum="1" Maximum="5" Value="1" Width="41"/>
-        <xctk:IntegerUpDown Name="guidesLanguageCapabilityBox" AllowTextInput="False" HorizontalAlignment="Left" Margin="307,177,0,0" VerticalAlignment="Top" Minimum="1" Maximum="5" Value="1" Width="41"/>
+        <Label Content="Guide's Knowledge:" FontSize="20" HorizontalAlignment="Left" Margin="36,79,0,0" VerticalAlignment="Top"/>
+        <Label Content="Interest of tour:" FontSize="20" HorizontalAlignment="Left" Margin="371,80,0,0" VerticalAlignment="Top"/>
+        <Label Content="Guide's language capabilility:" FontSize="20" HorizontalAlignment="Left" Margin="36,140,0,0" VerticalAlignment="Top"/>
+        <Label Content="Add pictures:" FontSize="20" HorizontalAlignment="Left" Margin="371,142,0,0" VerticalAlignment="Top"/>
+        <xctk:IntegerUpDown Name="guidesKnowledgeBox" AllowTextInput="False" HorizontalAlignment="Left" Margin="224,87,0,0" VerticalAlignment="Top" Minimum="1" Maximum="5" Value="1" Width="41"/>
+        <xctk:IntegerUpDown Name="tourInterestBox" AllowTextInput="False" HorizontalAlignment="Left" Margin="523,87,0,0" VerticalAlignment="Top" Minimum="1" Maximum="5" Value="1" Width="41"/>
+        <xctk:IntegerUpDown Name="guidesLanguageCapabilityBox" AllowTextInput="False" HorizontalAlignment="Left" Margin="307,150,0,0" VerticalAlignment="Top" Minimum="1" Maximum="5" Value="1" Width="41"/>
         <Label Content="Leave a comment:" FontSize="20" HorizontalAlignment="Left" Margin="36,224,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="CommentTextBox" HorizontalAlignment="Center" Margin="0,264,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" Width="628" Height="120"/>
         <Button Content="Submit" Width="147" Height="42" HorizontalAlignment="Left" Margin="517,395,0,0" VerticalAlignment="Top" Click="Send_Click"/>
+        <ListBox x:Name="picturesOutput" Margin="498,204,22,204"/>
+        <TextBox x:Name="pictureInputTextBox" HorizontalAlignment="Left" Margin="498,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Height="25"/>
+        <Button  Content="Add picture" HorizontalAlignment="Left" Height="19" Margin="498,179,0,0" VerticalAlignment="Top" Width="180" Click="AddPicture_Click"/>
 
 
     </Grid>

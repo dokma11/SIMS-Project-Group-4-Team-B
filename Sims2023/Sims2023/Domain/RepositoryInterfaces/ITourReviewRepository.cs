@@ -15,6 +15,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<TourReview> GetAll();
         public void Remove(TourReview tourReview);
         public void Save();
+        public void AddReviewsPictures(string picturesString, TourReview tourReview);
 
     }
 }

@@ -18,15 +18,18 @@ namespace Sims2023.Domain.Models
         public int GuidesLanguageCapability { get; set; }
         public float AverageGrade { get; set; }
         //Slike
+        public List<string> Pictures { get; set; }
+        public string PicturesString { get; set; }
         public bool IsValid { get; set; }
         public string Comment { get; set; }
 
-        public TourReview() { } 
-        public TourReview(int id, User guest, Tour tour,KeyPoint keyPointJoined, int guideKnowledge, int tourInterest, int guidesLanguageCapability,  bool isValid, string comment)
+        public TourReview() {
+            Pictures = new List<string>();
+        } 
+        public TourReview(int id, User guest, Tour tour,KeyPoint keyPointJoined, int guideKnowledge, int tourInterest, int guidesLanguageCapability,  bool isValid, string comment,string picturesString)
         {
             Id = id;
             Guest = guest;
-           // Guide = guide;
             Tour = tour;
             KeyPointJoined = keyPointJoined;
             GuideKnowledge = guideKnowledge;
@@ -35,9 +38,16 @@ namespace Sims2023.Domain.Models
             IsValid = isValid;
             Comment = comment;
             AverageGrade = (GuideKnowledge+GuidesLanguageCapability+TourInterest)/3;
+            PicturesString = picturesString;
+            Pictures = new List<string>();
+            string[] picturesStringArray = PicturesString.Split(",");
+            foreach (string picture in picturesStringArray)
+            {
+                Pictures.Add(picture);
+            }
         }
 
-        public TourReview(User guest,Tour tour,KeyPoint keyPointJoined,int guideKnowledge,int tourInterest,int guidesLanguageCapability,string comment)
+        public TourReview(User guest,Tour tour,KeyPoint keyPointJoined,int guideKnowledge,int tourInterest,int guidesLanguageCapability,string comment)//constructor for guest
         {
             Guest = guest;
             Tour= tour;
@@ -48,6 +58,13 @@ namespace Sims2023.Domain.Models
             IsValid = true;
             Comment = comment;
             AverageGrade = (GuideKnowledge + GuidesLanguageCapability + TourInterest) / 3;
+            /*PicturesString = picturesString;
+            Pictures = new List<string>();
+            string[] picturesStringArray = PicturesString.Split(",");
+            foreach (string picture in picturesStringArray)
+            {
+                Pictures.Add(picture);
+            }*/
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -66,7 +83,8 @@ namespace Sims2023.Domain.Models
                 GuidesLanguageCapability.ToString(),
                 AverageGrade.ToString(),
                 IsValid.ToString(),
-                Comment
+                Comment,
+                PicturesString
             };
             return csvValues;
         }
@@ -100,6 +118,12 @@ namespace Sims2023.Domain.Models
             AverageGrade = float.Parse(values[7]);
             IsValid = bool.Parse(values[8]);
             Comment = values[9];
+            PicturesString = values[10];
+            string[] picturesStringArray = PicturesString.Split(",");
+            foreach (string picture in picturesStringArray)
+            {
+                Pictures.Add(picture);
+            }
         }
     }
 }
