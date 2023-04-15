@@ -1,5 +1,8 @@
-﻿using Sims2023.Controller;
+﻿using Sims2023.Application.Services;
+using Sims2023.Controller;
+using Sims2023.Domain.Models;
 using Sims2023.Model;
+using Sims2023.WPF.ViewModels.OwnerViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,7 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static Sims2023.Model.AccommodationReservationRescheduling;
+using static Sims2023.Domain.Models.AccommodationReservationRescheduling;
 
 namespace Sims2023.WPF.Views.OwnerViews
 {
@@ -27,14 +30,14 @@ namespace Sims2023.WPF.Views.OwnerViews
 
         private ReschedulingDetailsView _reschedulingDetailsView;
 
-        private AccommodationReservationReschedulingController _rescheduleController;
+        private DeclineRescheduleViewModel DeclineRescheduleViewModel;
 
         public ObservableCollection<AccommodationReservationRescheduling> peoplee;
-        public DeclineRescheduleView(AccommodationReservationReschedulingController _reschedulingController, AccommodationReservationRescheduling SelectedGuest, ReschedulingDetailsView reschedulingDetailsView, ObservableCollection<AccommodationReservationRescheduling> people)
+        public DeclineRescheduleView(AccommodationReservationReschedulingService _reschedulingController, AccommodationReservationRescheduling SelectedGuest, ReschedulingDetailsView reschedulingDetailsView, ObservableCollection<AccommodationReservationRescheduling> people)
         {
             InitializeComponent();
             DataContext = this;
-            _rescheduleController = _reschedulingController;
+            DeclineRescheduleViewModel = new DeclineRescheduleViewModel();
             chosenPerson = SelectedGuest;
             _reschedulingDetailsView = reschedulingDetailsView;
             peoplee = people;
@@ -45,12 +48,11 @@ namespace Sims2023.WPF.Views.OwnerViews
             string text = MyTextBox.Text;
             chosenPerson.Comment = text;
             chosenPerson.Status = RequestStatus.Rejected;
-            _rescheduleController.Update(chosenPerson);
+            DeclineRescheduleViewModel.UpdateReschedule(chosenPerson);
 
             peoplee.Remove(chosenPerson);
-            // Close the current window
+            // Close the current window and previous window
             this.Close();
-            
             _reschedulingDetailsView.Close();
         }
 

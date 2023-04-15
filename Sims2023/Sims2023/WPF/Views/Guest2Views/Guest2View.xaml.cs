@@ -23,7 +23,7 @@ namespace Sims2023.WPF.Views
 
         private LocationService _locationService;
 
-        private TourReservationService _tourReservationController;
+        private TourReservationService _tourReservationService;
 
         private VoucherService _voucherService;
 
@@ -50,8 +50,8 @@ namespace Sims2023.WPF.Views
             _locationService = new LocationService();
             _locationService.Subscribe(this);
 
-            _tourReservationController = new TourReservationService();
-            _tourReservationController.Subscribe(this);
+            _tourReservationService = new TourReservationService();
+            _tourReservationService.Subscribe(this);
 
             _voucherService = new VoucherService();
             _voucherService.Subscribe(this);
@@ -59,7 +59,8 @@ namespace Sims2023.WPF.Views
             _userService = new UserService();
             _userService.Subscribe(this);
 
-            Tours = new ObservableCollection<Tour>(_tourService.GetAll());
+            //Tours = new ObservableCollection<Tour>(_tourService.GetAll());
+            Tours=GetAvailableTours();
             Locations = new ObservableCollection<Location>(_locationService.GetAll());
 
             SelectedTour = new Tour();
@@ -73,37 +74,57 @@ namespace Sims2023.WPF.Views
            
         }
 
+        private ObservableCollection<Tour> GetAvailableTours()
+        {
+            ObservableCollection<Tour> availableTours = new ObservableCollection<Tour>();
+            foreach(Tour tour in _tourService.GetAll())
+            {
+                if(tour.CurrentState== Tour.State.Created)
+                {
+                    availableTours.Add(tour);
+                }
+            }
+            return availableTours;
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (DisplayMessageBox())
-            {
-                ConfirmParticipation();
-            }
-        }
-
-        private bool DisplayMessageBox() 
-        {
-            foreach(var tourReservation in _tourReservationController.GetAll())
+            bool confirmed = false;
+            foreach (var tourReservation in _tourReservationService.GetAll())
             {
                 if (tourReservation.ShouldConfirmParticipation)
                 {
+                    confirmed = DisplayMessageBox(tourReservation);
                     tourReservation.ShouldConfirmParticipation = false;
-                    _tourReservationController.Save();
-                    return true;
+                    tourReservation.ConfirmedParticipation = confirmed;
+                    _tourReservationService.Save();
+                    break;
                 }
             }
-            return false;
+
         }
-        private static MessageBoxResult ConfirmParticipation()
+
+        private bool DisplayMessageBox(TourReservation tourReservation)
         {
-            string sMessageBoxText = $"Potvrdite Vase prisustvo na turi pritskom na taster OK\n";
-            string sCaption = "Potvrda prisustva";
+            string messageBoxText = "Do you want to confirm your participation?";
+            string caption = "Confirmation";
+            MessageBoxButton button = MessageBoxButton.YesNo;
+            MessageBoxImage icon = MessageBoxImage.Question;
 
-            MessageBoxButton messageBoxButton = MessageBoxButton.OK;
-            MessageBoxImage messageBoxImage = MessageBoxImage.Asterisk;
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
 
-            MessageBoxResult result = MessageBox.Show(sMessageBoxText, sCaption, messageBoxButton, messageBoxImage);
-            return result;
+            return (result == MessageBoxResult.Yes);
+        }
+
+        private bool ConfirmParticipation()
+        {
+            string messageBoxText = "Do you want to confirm your participation?";
+            string caption = "Confirmation";
+            MessageBoxButton button = MessageBoxButton.YesNo;
+            MessageBoxImage icon = MessageBoxImage.Question;
+
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+            return (result == MessageBoxResult.Yes);
         }
 
         private void AddLocationsToTour(ObservableCollection<Location> locations, ObservableCollection<Tour> tours)
@@ -181,6 +202,12 @@ namespace Sims2023.WPF.Views
             }
         }
 
+        private void MyReservations_Click(object sender,RoutedEventArgs e)
+        {
+            Guest2TourListView guest2TourListView = new Guest2TourListView(User);
+            guest2TourListView.Show();
+        }
+
         private void ReserveTour_Click(object sender, RoutedEventArgs e)
         {
 
@@ -194,7 +221,7 @@ namespace Sims2023.WPF.Views
                 EditedTour = SelectedTour;
 
                 TourReservation tourReservation = new TourReservation(SelectedTour,User,reservedSpace);
-                _tourReservationController.Create(tourReservation);
+                _tourReservationService.Create(tourReservation);
                 UpdateTours(reservedSpace);
                 dataGridTours.ItemsSource = Tours;
 
@@ -269,6 +296,7 @@ namespace Sims2023.WPF.Views
             Tours.Clear();
             foreach (var tour in _tourService.GetAll())
             {
+                if(tour.CurrentState==Tour.State.Created)
                 Tours.Add(tour);
             }
         }
@@ -277,7 +305,7 @@ namespace Sims2023.WPF.Views
         {
             int CountReservation = 0;
          
-            foreach (var reservation in _tourReservationController.GetAll())
+            foreach (var reservation in _tourReservationService.GetAll())
             {
                 if (tourReservation.User.Id == reservation.User.Id && tourReservation.ReservationTime.Year == reservation.ReservationTime.Year)
                 {

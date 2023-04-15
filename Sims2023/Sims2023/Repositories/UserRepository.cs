@@ -1,8 +1,6 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
-using Sims2023.Model;
-using Sims2023.Model.DAO;
 using Sims2023.Observer;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +12,8 @@ namespace Sims2023.Repositories
         private List<IObserver> _observers;
         private List<User> _users;
         private UserFileHandler _fileHandler;
-        private AccommodationGradeDAO guests;
         private TourReservationRepository _tourReservationRepository;
+        private AccommodationGradeRepository guests;
 
         public UserRepository()
         {
@@ -46,7 +44,7 @@ namespace Sims2023.Repositories
 
         public void FindSuperOwners()
         {
-            guests = new AccommodationGradeDAO();
+            guests = new AccommodationGradeRepository();
             foreach (User user in FindOwners())
             {
                 double counter = 0.0;

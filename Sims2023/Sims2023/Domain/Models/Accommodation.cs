@@ -36,7 +36,7 @@ namespace Sims2023.Domain.Models
         {
             Imageurls = new List<string>();
         }
-        public Accommodation(int Id, string Name, Location Location, string Type, int MaxGuests, int MinDays, int CancelDays, string ImageUrl, User Owner)
+        public Accommodation(int Id, string Name, Location Location, string Type, int MaxGuests, int MinDays, int CancelDays, List<string> ImageUrls, User Owner)
         {
             this.Id = Id;
             this.Name = Name;
@@ -46,7 +46,7 @@ namespace Sims2023.Domain.Models
             this.MinDays = MinDays;
             this.CancelDays = CancelDays;
             this.Owner = Owner;
-            this.ImageUrl = ImageUrl;
+            this.Imageurls = ImageUrls;
 
         }
 
@@ -62,7 +62,7 @@ namespace Sims2023.Domain.Models
                 MinDays.ToString(),
                 CancelDays.ToString(),
                 Owner.Id.ToString(),
-                ImageUrl,
+                string.Join("!", Imageurls)
              };
             return csvValues;
         }
@@ -87,21 +87,11 @@ namespace Sims2023.Domain.Models
             };
             UserService userController = new();
             Owner = userController.GetById(owner.Id);
-            ImageUrl = values[8];
+            Imageurls = values[8].Split('!').ToList();
 
         }
 
-        public string IsVaild(Accommodation a)
-        {
-            if (string.IsNullOrEmpty(a.Name) || string.IsNullOrEmpty(a.Type) || string.IsNullOrEmpty(ImageUrl))
-                return "morate popuniti sve podatke";
-
-            if (a.CancelDays == -1 || a.MaxGuests == -1 || a.MinDays == -1 || a.Location.Id == -1)
-            {
-                return "morate popuniti sve podatke";
-            }
-            return null;
-        }
+    
     }
 
 

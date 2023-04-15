@@ -9,7 +9,6 @@ namespace Sims2023.Domain.Models
     {
         public int Id { get; set; }
         public User Guest { get; set; }
-        public User Guide { get; set; }
         public Tour Tour { get; set; }
         public KeyPoint KeyPointJoined { get; set; }
         public int GuideKnowledge { get; set; }
@@ -19,13 +18,13 @@ namespace Sims2023.Domain.Models
         //Slike
         public bool IsValid { get; set; }
         public string Comment { get; set; }
-
-        public TourReview() { }
-        public TourReview(int id, User guest, User guide, Tour tour, KeyPoint keyPointJoined, int guideKnowledge, int tourInterest, int guidesLanguageCapability, bool isValid, string comment)
+        
+        public TourReview() { } 
+        public TourReview(int id, User guest, Tour tour,KeyPoint keyPointJoined, int guideKnowledge, int tourInterest, int guidesLanguageCapability,  bool isValid, string comment)
         {
             Id = id;
             Guest = guest;
-            Guide = guide;
+           // Guide = guide;
             Tour = tour;
             KeyPointJoined = keyPointJoined;
             GuideKnowledge = guideKnowledge;
@@ -36,15 +35,28 @@ namespace Sims2023.Domain.Models
             AverageGrade = (GuideKnowledge + GuidesLanguageCapability + TourInterest) / 3;
         }
 
+        public TourReview(User guest,Tour tour,KeyPoint keyPointJoined,int guideKnowledge,int tourInterest,int guidesLanguageCapability,string comment)
+        {
+            Guest = guest;
+            Tour= tour;
+            KeyPointJoined = keyPointJoined;
+            GuideKnowledge = guideKnowledge;
+            TourInterest= tourInterest;
+            GuidesLanguageCapability= guidesLanguageCapability;
+            IsValid = true;
+            Comment = comment;
+            AverageGrade = (GuideKnowledge + GuidesLanguageCapability + TourInterest) / 3;
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        
         public string[] ToCSV()
         {
             string[] csvValues =
             {
                 Id.ToString(),
                 Guest.Id.ToString(),
-                Guide.Id.ToString(),
                 Tour.Id.ToString(),
                 KeyPointJoined.Id.ToString(),
                 GuideKnowledge.ToString(),
@@ -59,39 +71,35 @@ namespace Sims2023.Domain.Models
 
         public void FromCSV(string[] values)
         {
+            
             Id = Convert.ToInt32(values[0]);
             User guest = new()
             {
                 Id = Convert.ToInt32(values[1])
             };
-            UserService userService = new();
-            Guest = userService.GetById(guest.Id);
-            User guide = new()
-            {
-                Id = Convert.ToInt32(values[2])
-            };
-            Guide = userService.GetById(guide.Id);
+            UserService userController = new();
+            Guest = userController.GetById(guest.Id);
             Tour tour = new()
             {
-                Id = Convert.ToInt32(values[3])
+                Id = Convert.ToInt32(values[2])
             };
             TourService tourService = new();
             Tour = tourService.GetById(tour.Id);
             KeyPoint keyPoint = new()
             {
-                Id = Convert.ToInt32(values[4])
+                Id = Convert.ToInt32(values[3])
             };
             if (keyPoint.Id != 0)
             {
                 KeyPointService keyPointService = new();
                 KeyPointJoined = keyPointService.GetById(keyPoint.Id);
             }
-            GuideKnowledge = Convert.ToInt32(values[5]);
-            TourInterest = Convert.ToInt32(values[6]);
-            GuidesLanguageCapability = Convert.ToInt32(values[7]);
-            AverageGrade = float.Parse(values[8]);
-            IsValid = bool.Parse(values[9]);
-            Comment = values[10];
+            GuideKnowledge = Convert.ToInt32(values[4]);
+            TourInterest = Convert.ToInt32(values[5]);
+            GuidesLanguageCapability = Convert.ToInt32(values[6]);
+            AverageGrade = float.Parse(values[7]);
+            IsValid = bool.Parse(values[8]);
+            Comment = values[9];
         }
     }
 }
