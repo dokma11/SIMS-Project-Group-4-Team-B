@@ -2,6 +2,7 @@
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repositories;
+using Sims2023.Repository;
 using System.Collections.Generic;
 
 namespace Sims2023.Application.Services
@@ -53,6 +54,10 @@ namespace Sims2023.Application.Services
         public void Report(TourReview tourReview)
         {
             _tourReviews.Report(tourReview);
+        }
+        public void GetKeyPointWhereGuestJoined(Tour selectedTour)
+        {
+            _tourReviews.GetKeyPointWhereGuestJoined(selectedTour);
         }
     }
 }

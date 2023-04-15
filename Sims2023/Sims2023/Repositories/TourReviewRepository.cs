@@ -86,6 +86,7 @@ namespace Sims2023.Repositories
 
         public void GetKeyPointWhereGuestJoined(Tour selectedTour)
         {
+            _keyPointRepository = new();
             foreach (var tourReview in _tourReviews)
             {
                 var keyPoint = _keyPointRepository.GetAll().Where(k => k.Tour.Id == selectedTour.Id)

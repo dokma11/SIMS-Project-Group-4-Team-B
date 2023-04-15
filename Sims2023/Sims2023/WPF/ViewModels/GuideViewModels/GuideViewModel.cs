@@ -52,7 +52,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public bool IsTourCreated()
         {
-            return SelectedTour.CurrentState == State.Created;
+            return SelectedTour.CurrentState == Tour.State.Created;
         }
 
         public bool IsTourEligibleForCancellation()

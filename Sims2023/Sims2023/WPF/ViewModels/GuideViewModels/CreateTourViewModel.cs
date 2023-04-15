@@ -36,7 +36,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public void SetToursLanguage(string languageString)
         {
-            if(Enum.TryParse(languageString, out Language language))
+            if(Enum.TryParse(languageString, out Tour.Language language))
             {
                 _tourService.SetToursLanguage(Tour, language);
             }
@@ -68,7 +68,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             int firstToursId = Tour.Id - _dateTimeList.Count + 1;
             _tourService.AddToursLocation(Tour, Location, _dateTimeList.Count);
             _keyPointService.Create(KeyPoint, _keyPointsList, firstToursId, _dateTimeList.Count);
-            //mozda prebaci u keypoint servis
             _tourService.AddToursKeyPoints(_keyPointsList, firstToursId);
         }
     }

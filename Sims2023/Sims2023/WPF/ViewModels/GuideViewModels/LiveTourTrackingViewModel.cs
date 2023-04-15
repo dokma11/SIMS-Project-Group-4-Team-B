@@ -1,8 +1,8 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 
 namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
@@ -12,20 +12,24 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public KeyPoint SelectedKeyPoint { get; set; }
         private KeyPointService _keyPointService;
         private TourService _tourService;
+        private TourReservationService _tourReservationService;
         public ObservableCollection<KeyPoint> KeyPointsToDisplay { get; set; }
         public int firstKeyPointId = -1;
         public int lastKeyPointId = -1;
         public int lastVisitedKeyPointId = -1;
         public bool LastKeyPointVisited;
+        List<User> MarkedGuests;
 
-        public LiveTourTrackingViewModel(Tour tour, KeyPointService keyPointService, TourService tourService)
+        public LiveTourTrackingViewModel(Tour tour, KeyPointService keyPointService, TourService tourService, TourReservationService tourReservationService, List<User> markedGuests)
         {
             _keyPointService = keyPointService;
             _tourService = tourService;
+            _tourReservationService = tourReservationService;
 
             Tour = tour;
             _tourService.ChangeToursState(Tour, Tour.State.Started);
 
+            MarkedGuests = markedGuests;
             KeyPointsToDisplay = new ObservableCollection<KeyPoint>(_keyPointService.GetByToursId(Tour.Id));
 
             firstKeyPointId = FindAndMarkFirstKeyPoint();
@@ -41,15 +45,9 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 Id = int.MaxValue
             };
 
-            foreach (var keyPoint in KeyPointsToDisplay)
-            {
-                if (keyPoint.Id < firstKeyPoint.Id)
-                {
-                    firstKeyPoint = keyPoint;
-                }
-            }
+            firstKeyPoint = KeyPointsToDisplay.MinBy(keyPoint => keyPoint.Id);
 
-            firstKeyPoint.CurrentState = KeyPoint.State.BeingVisited;
+            _keyPointService.ChangeKeyPointsState(firstKeyPoint, KeyPoint.State.BeingVisited);
 
             return firstKeyPoint.Id;
         }
@@ -76,36 +74,21 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public void MarkKeyPoint()
         {
-            if (SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.NotVisited && SelectedKeyPoint.Id == lastVisitedKeyPointId + 1) //the latter disables key point skipping
+            //mark previous key point as visited
+            _keyPointService.ChangeKeyPointsState(KeyPointsToDisplay.First(k => k.Id == lastVisitedKeyPointId), KeyPoint.State.Visited);
+
+            _keyPointService.ChangeKeyPointsState(SelectedKeyPoint, KeyPoint.State.BeingVisited);
+            lastVisitedKeyPointId = SelectedKeyPoint.Id;
+
+            if (SelectedKeyPoint.Id == lastKeyPointId)
             {
-                //mark previous key point as visited
-                _keyPointService.ChangeKeyPointsState(KeyPointsToDisplay.First(k => k.Id == lastVisitedKeyPointId), KeyPoint.State.Visited);
-
-                _keyPointService.ChangeKeyPointsState(SelectedKeyPoint, KeyPoint.State.BeingVisited);
-                lastVisitedKeyPointId = SelectedKeyPoint.Id;
-
-                if (SelectedKeyPoint.Id == lastKeyPointId)
-                {
-                    UpdateKeyPointList();
-                    _tourService.ChangeToursState(Tour, Tour.State.Finished);
-                    MarkLastKeyPoint();
-                    LastKeyPointVisited = true;
-                }
-
                 UpdateKeyPointList();
+                _tourService.ChangeToursState(Tour, Tour.State.Finished);
+                MarkLastKeyPoint();
+                LastKeyPointVisited = true;
             }
-            else if (SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited)
-            {
-                MessageBox.Show("Ne mozete oznaciti tacku na kojoj se trenutno nalazite");
-            }
-            else if (SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPoint.State.Visited)
-            {
-                MessageBox.Show("Ne mozete oznaciti tacku koju ste prosli");
-            }
-            else
-            {
-                MessageBox.Show("Izaberite kljucnu tacku koju zelite da oznacite");
-            }
+
+            UpdateKeyPointList();
         }
 
         public void MarkGuestsPresent()
@@ -127,7 +110,17 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public bool IsKeyPointBeingVisited()
         {
-            return SelectedKeyPoint.CurrentState != KeyPoint.State.BeingVisited;
+            return SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited;
+        }
+
+        public bool IsKeyPointVisited()
+        {
+            return SelectedKeyPoint.CurrentState == KeyPoint.State.Visited;
+        }
+
+        public bool IsKeyPointNextInLine()
+        {
+            return SelectedKeyPoint.Id == lastVisitedKeyPointId + 1;
         }
 
         public void UpdateKeyPointList()
@@ -141,6 +134,11 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 }
             }
             _keyPointService.Save();
+        }
+
+        public bool AreAllGuestsAreMarked()
+        {
+            return _tourReservationService.GetReservationsByToursid(Tour.Id).Count == MarkedGuests.Count;
         }
     }
 }

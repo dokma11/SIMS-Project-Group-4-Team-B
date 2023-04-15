@@ -10,11 +10,11 @@ namespace Sims2023.WPF.Views.GuideViews
     public partial class GuestReviewsView : Window
     {
         public GuestReviewsViewModel GuestReviewsViewModel;
-        public GuestReviewsView(TourService tourService, TourReviewService tourReviewService, KeyPointService keyPointService, User loggedInGuide)
+        public GuestReviewsView(TourService tourService, TourReviewService tourReviewService, User loggedInGuide)
         {
             InitializeComponent();
 
-            GuestReviewsViewModel = new(tourService, tourReviewService, keyPointService, loggedInGuide);
+            GuestReviewsViewModel = new(tourService, tourReviewService, loggedInGuide);
             DataContext = GuestReviewsViewModel;
         }
 

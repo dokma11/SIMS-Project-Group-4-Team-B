@@ -111,7 +111,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void DisplayReviewsButton_Click(object sender, RoutedEventArgs eventArgs)
         {
-            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _keyPointService, LoggedInGuide);
+            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, LoggedInGuide);
             guestReviewsView.Show();
         }
 

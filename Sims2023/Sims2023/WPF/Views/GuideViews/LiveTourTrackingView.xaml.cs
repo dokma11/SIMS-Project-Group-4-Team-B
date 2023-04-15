@@ -3,7 +3,6 @@ using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.GuideViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 
 namespace Sims2023.WPF.Views.GuideViews
@@ -29,13 +28,30 @@ namespace Sims2023.WPF.Views.GuideViews
             Tour = selectedTour;
             MarkedGuests = new List<User>();
 
-            LiveTourTrackingViewModel = new(Tour, _keyPointService, _tourService);
+            LiveTourTrackingViewModel = new(Tour, _keyPointService, _tourService, _tourReservationService, MarkedGuests);
             DataContext = LiveTourTrackingViewModel;
         }
 
         private void MarkKeyPointButton_Click(object sender, RoutedEventArgs e)
         {
-            LiveTourTrackingViewModel.MarkKeyPoint();
+            if (LiveTourTrackingViewModel.IsKeyPointSelected() && !LiveTourTrackingViewModel.IsKeyPointVisited() &&
+                LiveTourTrackingViewModel.IsKeyPointNextInLine())
+            {
+                LiveTourTrackingViewModel.MarkKeyPoint();
+            }
+            else if (LiveTourTrackingViewModel.IsKeyPointSelected() && LiveTourTrackingViewModel.IsKeyPointBeingVisited())
+            {
+                MessageBox.Show("Ne mozete oznaciti tacku na kojoj se trenutno nalazite");
+            }
+            else if (LiveTourTrackingViewModel.IsKeyPointSelected() && LiveTourTrackingViewModel.IsKeyPointVisited())
+            {
+                MessageBox.Show("Ne mozete oznaciti tacku koju ste prosli");
+            }
+            else
+            {
+                MessageBox.Show("Izaberite kljucnu tacku koju zelite da oznacite");
+            }
+
             if (LiveTourTrackingViewModel.LastKeyPointVisited)
             {
                 ConfirmEnd();
@@ -62,7 +78,7 @@ namespace Sims2023.WPF.Views.GuideViews
         {
             //menjati vrv
             LiveTourTrackingViewModel.UpdateKeyPointList();
-            if (_tourReservationService.GetAll().Count(t => t.Tour.Id == Tour.Id) == MarkedGuests.Count)
+            if (LiveTourTrackingViewModel.AreAllGuestsAreMarked())
             {
                 markGuestsPresentButton.IsEnabled = false;
             }
