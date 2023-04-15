@@ -1,4 +1,4 @@
-﻿using Sims2023.Model;
+﻿using Sims2023.Domain.Models;
 using Sims2023.Serialization;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.FileHandler
 {
-     class AccommodationGradeFileHandler
+    class AccommodationGradeFileHandler
     {
             private const string StoragePath = "../../../Resources/Data/accommodationGrades.csv";
 

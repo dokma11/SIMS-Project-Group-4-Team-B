@@ -22,12 +22,12 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         public ObservableCollection<AccommodationReservationRescheduling> peoplee;
 
-        public AccommodationReservationReschedulingController _reschedulingService;
+        public AccommodationReservationReschedulingService _reschedulingService;
 
         public ReschedulingDetailsViewModel()
         {
             _reservationService = new AccommodationReservationService();
-            _reschedulingService = new AccommodationReservationReschedulingController();
+            _reschedulingService = new AccommodationReservationReschedulingService();
 
         }
 

@@ -15,14 +15,14 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
     {
         public ObservableCollection<AccommodationGrade> people { get; set; }
         public User owner { get; set; }
-        private AccommodationGradeController _accommodationGradesService;
-        private GuestGradeService _guestGradeService;
+        private AccommodationGradeService _accommodationGradesService;
+        private GuestGradeService _guestGradeService; 
         public AccommodationGrade SelectedPerson { get; set; }
 
         public GradesFromGuestsViewModel(User user)
         {
             this.owner = user;
-            _accommodationGradesService = new AccommodationGradeController();
+            _accommodationGradesService = new AccommodationGradeService();
             _guestGradeService = new GuestGradeService();
         }
 

@@ -25,11 +25,11 @@ namespace Sims2023.View
         List<BitmapImage> imageList = new List<BitmapImage>();
         private List<BitmapImage> _permanentPictures = new List<BitmapImage>();
 
-        public AccommodationRegistrationView(AccommodationService accommodationCtrl1,User owner)
+        public AccommodationRegistrationView(AccommodationService accommodationCtrl1, User owner)
         {
             InitializeComponent();
             DataContext = this;
-            AccommodationRegistrationViewModel = new AccommodationRegistrationViewModel(accommodationCtrl1,owner);
+            AccommodationRegistrationViewModel = new AccommodationRegistrationViewModel(accommodationCtrl1, owner);
             Accommodation = new Accommodation();
             user = owner;
             _addedPictures = new List<string>();

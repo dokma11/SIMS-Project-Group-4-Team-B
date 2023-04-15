@@ -4,6 +4,7 @@ using Sims2023.Observer;
 using Sims2023.View;
 using Sims2023.WPF.ViewModels;
 using Sims2023.WPF.Views;
+using Sims2023.WPF.Views.Guest1Views;
 using System;
 using System.Windows;
 using System.Windows.Controls;
