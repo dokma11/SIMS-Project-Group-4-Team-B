@@ -1,4 +1,4 @@
-﻿<Window x:Class="Sims2023.WPF.ViewModels.GuideViewModel"
+﻿<Window x:Class="Sims2023.WPF.Views.GuideViews.GuideView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,10 +9,9 @@
     <StackPanel>
         <DockPanel>
             <ToolBar Height="30">
-                <Button x:Name="createButton" Click="CreateButton_Click">Kreiraj turu</Button>
-                <Button x:Name="startTourButtonToolbar" Click="StartTourButton_Click">Zapocni turu</Button>
-                <Button x:Name="reviewsButton" Click="ReviewsButton_Click">Vidi recenzije</Button>
-                <Button x:Name="statisticsButton" Click="StatisticsButton_Click">Vidi statistiku</Button>
+                <Button x:Name="createTourButton" Click="CreateTourButton_Click">Kreiraj turu</Button>
+                <Button x:Name="displayReviewsButton" Click="DisplayReviewsButton_Click">Vidi recenzije</Button>
+                <Button x:Name="displayStatisticsButton" Click="DisplayStatisticsButton_Click">Vidi statistiku</Button>
             </ToolBar>
         </DockPanel>
         <DataGrid x:Name="toursDataGrid" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="1100" Height="350" Margin="100" AutoGenerateColumns="False">

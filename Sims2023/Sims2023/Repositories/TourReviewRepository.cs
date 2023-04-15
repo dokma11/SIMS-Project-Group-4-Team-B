@@ -1,20 +1,20 @@
-﻿using Sims2023.FileHandler;
+﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
+using Sims2023.FileHandler;
 using Sims2023.Observer;
-using System;
+using Sims2023.Repository;
 using System.Collections.Generic;
 using System.Linq;
-using Sims2023.Domain.Models;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Repositories
 {
-    public class TourReviewRepository
+    public class TourReviewRepository: ITourReviewRepository
     {
         private List<IObserver> _observers;
         private List<TourReview> _tourReviews;
         private TourReviewFileHandler _fileHandler;
-        public TourReviewRepository() 
+        private KeyPointRepository _keyPointRepository;
+        public TourReviewRepository()
         {
             _fileHandler = new TourReviewFileHandler();
             _tourReviews = _fileHandler.Load();
@@ -23,8 +23,7 @@ namespace Sims2023.Repositories
 
         public int NextId()
         {
-            if (_tourReviews.Count == 0) return 1;
-            return _tourReviews.Max(t => t.Id) + 1;
+            return _tourReviews.Count == 0 ? 1 : _tourReviews.Max(t => t.Id) + 1;
         }
 
         public void Add(TourReview tourReview)
@@ -73,6 +72,31 @@ namespace Sims2023.Repositories
         public void Save()
         {
             _fileHandler.Save(_tourReviews);
+        }
+
+        public List<TourReview> GetByToursId(int id)
+        {
+            return _tourReviews.Where(tr => tr.Tour.Id == id).ToList();
+        }
+
+        public void Report(TourReview tourReview)
+        {
+            tourReview.IsValid = false;
+        }
+
+        public void GetKeyPointWhereGuestJoined(Tour selectedTour)
+        {
+            _keyPointRepository = new();
+            foreach (var tourReview in _tourReviews)
+            {
+                var keyPoint = _keyPointRepository.GetAll().Where(k => k.Tour.Id == selectedTour.Id)
+                                                  .FirstOrDefault(k => k.ShowedGuestsIds.Contains(tourReview.Guest.Id));
+                if (keyPoint != null)
+                {
+                    tourReview.KeyPointJoined = keyPoint;
+                    Save();
+                }
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repository;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ namespace Sims2023.Application.Services
 {
     public class KeyPointService
     {
-        private readonly KeyPointRepository _keyPoint;
+        private IKeyPointRepository _keyPoint;
         public KeyPointService()
         {
             _keyPoint = new KeyPointRepository();
@@ -41,6 +42,21 @@ namespace Sims2023.Application.Services
         public void Save()
         {
             _keyPoint.Save();
+        }
+
+        public List<KeyPoint> GetByToursId(int id)
+        {
+            return _keyPoint.GetByToursId(id);
+        }
+
+        public void ChangeKeyPointsState(KeyPoint keyPoint, KeyPoint.State state)
+        {
+            _keyPoint.ChangeKeyPointsState(keyPoint, state);
+        }
+
+        public void AddGuestsId(KeyPoint selectedKeyPoint, int guestsId)
+        {
+            _keyPoint.AddGuestsId(selectedKeyPoint, guestsId);
         }
     }
 }

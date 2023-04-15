@@ -1,4 +1,4 @@
-﻿<Window x:Class="Sims2023.WPF.ViewModels.GuestReviewsViewModel"
+﻿<Window x:Class="Sims2023.WPF.Views.GuideViews.GuestReviewsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,7 +15,7 @@
                     <DataGridTextColumn Header="Lokacija" Binding="{Binding LocationId}" Width="150"/>
                     <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage}" Width="80"/>
                     <DataGridTextColumn Header="Datum i vreme početka ture" Binding="{Binding Start}" Width="165"/>
-                    <DataGridTextColumn Header="Broj gostiju" Binding="{Binding MaxGuestNumber}" Width="70"/>
+                    <DataGridTextColumn Header="Broj gostiju" Binding="{Binding AttendedGuestsNumber}" Width="70"/>
                 </DataGrid.Columns>
             </DataGrid>
             <DataGrid x:Name="ReviewDataGrid" Width="590" Height="375" ItemsSource="{Binding ReviewsToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedReview, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False">

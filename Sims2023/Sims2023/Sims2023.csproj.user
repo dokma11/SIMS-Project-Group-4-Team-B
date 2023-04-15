@@ -65,7 +65,7 @@
     <Page Update="WPF\Views\OwnerViews\AllGuestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\Views\GuidesViews\CreateTourView.xaml">
+    <Page Update="WPF\Views\GuideViews\CreateTourView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\Guest1GradeView.xaml">
@@ -74,7 +74,7 @@
     <Page Update="WPF\Views\Guest1Views\Guest1MainView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\Views\GuidesViews\GuestReviewsView.xaml">
+    <Page Update="WPF\Views\GuideViews\GuestReviewsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\AccommodationRegistrationView.xaml">
@@ -89,7 +89,7 @@
     <Page Update="View\TourLocationsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\Views\GuidesViews\TourStatisticsView.xaml">
+    <Page Update="WPF\Views\GuideViews\TourStatisticsView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
