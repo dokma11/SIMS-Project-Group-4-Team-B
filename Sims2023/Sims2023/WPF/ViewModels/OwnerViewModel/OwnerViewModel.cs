@@ -47,6 +47,8 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             return _accommodationReservationService.GetGradableGuests(User, Reservations, _gradeService.GetAllGrades());
         }
 
+
+
         public void checkForNotifications()
         {
             foreach (AccommodationCancellation accommodationCancellation in AccommodationCancellations)
@@ -92,7 +94,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         public void Grade_Click()
         {
-            var guestss = new AllGuestsView(User, _accommodationReservationService, Reservations);
+            var guestss = new AllGuestsView(User, Reservations);
             guestss.Show();
         }
 

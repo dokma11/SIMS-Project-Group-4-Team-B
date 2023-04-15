@@ -18,12 +18,6 @@ namespace Sims2023.View
     public partial class OwnerView : Window
     {
 
-        private AccommodationService _accommodationController;
-        private AccomodationLocationController _accommodationLocationController;
-        private AccommodationReservationService _accommodationReservationController;
-        private GuestGradeService _gradeController;
-
-        private AccommodationCancellationService _accommodationCancellationController;
         public ObservableCollection<AccommodationCancellation> AccommodationCancellations { get; set; }
 
         public List<AccommodationReservation> Reservatons { get; set; }
@@ -47,7 +41,6 @@ namespace Sims2023.View
         {
             ownerViewModel.Window_Loaded();
         }
-
 
         private void Grade_Click(object sender, RoutedEventArgs e)
         {

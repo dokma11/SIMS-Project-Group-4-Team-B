@@ -37,12 +37,11 @@ namespace Sims2023.WPF.Views.OwnerViews
         public ReschedulingDetailsView(AccommodationReservationRescheduling SelectedGuest, ObservableCollection<AccommodationReservationRescheduling> people)
         {
             InitializeComponent();
+            ReschedulingDetailsViewModel = new ReschedulingDetailsViewModel(SelectedGuest, people, this);
             guest = SelectedGuest;
             DataContext = guest;
             peoplee = people;
-            _reschedulingController = new AccommodationReservationReschedulingService();
-            UpdatedReservationStatus = new AccommodationReservation();
-            ReschedulingDetailsViewModel = new ReschedulingDetailsViewModel();
+
         }
 
         public string isAccommodationFree
@@ -56,7 +55,7 @@ namespace Sims2023.WPF.Views.OwnerViews
 
         private void Decline_Click(object sender, RoutedEventArgs e)
         {
-            var decline = new DeclineRescheduleView(_reschedulingController, guest, this, peoplee);
+            var decline = new DeclineRescheduleView(guest, this, peoplee);
             decline.Show();
         }
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -65,16 +64,7 @@ namespace Sims2023.WPF.Views.OwnerViews
         }
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            guest.Status = RequestStatus.Approved;
-            UpdatedReservationStatus = ReschedulingDetailsViewModel.GetById(guest.AccommodationReservation.Id);
-            UpdatedReservationStatus.StartDate = guest.NewStartDate;
-            UpdatedReservationStatus.EndDate = guest.NewEndDate;
-            TimeSpan delta = guest.NewEndDate - guest.NewStartDate;
-            UpdatedReservationStatus.NumberOfDays = (int)delta.TotalDays;
-            ReschedulingDetailsViewModel.UpdateReservation(UpdatedReservationStatus);
-            ReschedulingDetailsViewModel.UpdateReschedule(guest);
-            peoplee.Remove(guest);
-            Close();
+            ReschedulingDetailsViewModel.button2_Click(sender, e);
         }
     }
 }
