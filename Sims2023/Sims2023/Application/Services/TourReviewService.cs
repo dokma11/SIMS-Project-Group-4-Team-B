@@ -1,4 +1,4 @@
-﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repositories;
@@ -45,6 +45,10 @@ namespace Sims2023.Application.Services
         {
             return _tourReviews.GetById(id);
         }
+        public void AddReviewsPictures(List<string> pictures, TourReview tourReview)
+        {
+            string picturesString = string.Join(",", pictures);
+            _tourReviews.AddReviewsPictures(picturesString, tourReview);
 
         public List<TourReview> GetByToursId(int id)
         {

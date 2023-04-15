@@ -13,11 +13,18 @@ namespace Sims2023.Application.Services
         public TourReservationService()
         {
             _tourReservations = new TourReservationRepository();
+            _vouchers = new VoucherRepository();
+            _users = new UserRepository();
         }
 
         public List<TourReservation> GetAll()
         {
             return _tourReservations.GetAll();
+        }
+
+        public List<TourReservation> GetNotConfirmedParticipation()//new method for guest2
+        {
+            return _tourReservations.GetNotConfirmedParticipation();
         }
 
         public void Create(TourReservation reservation)
@@ -33,6 +40,24 @@ namespace Sims2023.Application.Services
         public void Update(TourReservation reservation)
         {
             _tourReservations.Update(reservation);
+        }
+
+        public void ConfirmReservation(TourReservation tourReservation, bool confirmed)//new method for guest2
+        {
+            _tourReservations.ConfirmReservation(tourReservation, confirmed);
+        }
+
+        public List<Tour> GetByUser(User user)//new method for guest2
+        {
+            return _tourReservations.GetByUser(user);
+
+        }
+
+        public bool CheckVouchers(TourReservation tourReservation)//new method for guest2
+        {
+           return _tourReservations.CountReservationsByUser(tourReservation);
+
+            
         }
 
         public void Subscribe(IObserver observer)

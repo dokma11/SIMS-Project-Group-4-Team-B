@@ -24,6 +24,10 @@ namespace Sims2023.Application.Services
             return _keyPoint.GetById(id);
         }
 
+        public KeyPoint GetCurrentKeyPoint(Tour tour)//added for guest2
+        {
+            return _keyPoint.GetCurrentKeyPoint(tour);
+        }
         public void Create(KeyPoint keyPoint, List<string> keyPointNames, int toursId, int newToursNumber)
         {
             _keyPoint.Add(keyPoint, keyPointNames, toursId, newToursNumber);

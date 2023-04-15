@@ -61,7 +61,35 @@ namespace Sims2023.Repositories
             return _tourReservations;
         }
 
-        public void Save()
+        public List<TourReservation> GetNotConfirmedParticipation()//new method for guest2
+        {
+            return _tourReservations.Where(r=>r.ShouldConfirmParticipation==true).ToList();
+        }
+
+        public void ConfirmReservation(TourReservation tourReservation, bool confirmed)//new method for guest2
+        {
+            tourReservation.ShouldConfirmParticipation = false;
+            tourReservation.ConfirmedParticipation = confirmed;
+            Update(tourReservation);
+        }
+
+        public bool CountReservationsByUser(TourReservation tourReservation)//new method for guest2
+        {
+            int countReservation = _tourReservations
+                .Count(r => r.User.Id == tourReservation.User.Id && r.ReservationTime.Year == tourReservation.ReservationTime.Year);
+
+            return countReservation > 0 && countReservation % 5 == 0;
+        }
+
+        public List<Tour> GetByUser(User user)//new method for guest2
+        {
+            return _tourReservations
+                .Where(r => r.User.Id == user.Id && (r.Tour.CurrentState != Tour.State.Started || r.ConfirmedParticipation))
+                .Select(r => r.Tour)
+                .ToList();
+        }
+
+        public void Save() 
         {
             _fileHandler.Save(_tourReservations);
             NotifyObservers();

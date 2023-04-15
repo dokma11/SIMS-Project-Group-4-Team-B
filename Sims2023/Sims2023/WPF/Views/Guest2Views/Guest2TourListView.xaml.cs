@@ -15,115 +15,39 @@ using System.Windows.Shapes;
 using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.Observer;
+using Sims2023.WPF.ViewModels.Guest2ViewModels;
 
 namespace Sims2023.WPF.Views.Guest2Views
-{
-    /// <summary>
-    /// Interaction logic for Guest2TourListView.xaml
-    /// </summary>
-    public partial class Guest2TourListView : Window,IObserver
+{   
+    public partial class Guest2TourListView : Window
     {
-        public Tour SelectedTour { get; set; }
+        public Guest2TourListViewModel Guest2TourListViewModel { get; set; }
         public User User { get; set; }
-        
-        public ObservableCollection<Tour> Tours { get; set; }  
-        public ObservableCollection<Location> Locations { get; set; }   
-
-
-        public TourService _tourService;
-        public TourReservationService _tourReservationService;
-
-        public LocationService _locationService;
-
-
         public Guest2TourListView(User user)
         {
             InitializeComponent();
             DataContext = this;
 
-            _tourReservationService = new TourReservationService();
-            _tourReservationService.Subscribe(this);
-
-            _tourService = new TourService();
-            _tourService.Subscribe(this);
-
-            _locationService = new LocationService();
-            _locationService.Subscribe(this);
-
             User = user;
-            SelectedTour=new Tour();
-            Locations=new ObservableCollection<Location>(_locationService.GetAll());
+            Guest2TourListViewModel = new Guest2TourListViewModel(user, this);
 
-            Tours=GetGuestAllReservations();
+            DataContext = Guest2TourListViewModel;
+            dataGridGuestTours.ItemsSource = Guest2TourListViewModel.Tours;
+            dataGridGuestTours.SelectedItem = Guest2TourListViewModel.SelectedTour;
 
-            AddLocationsToTour(Locations, Tours);
-            
 
         }
-        private void AddLocationsToTour(ObservableCollection<Location> locations, ObservableCollection<Tour> tours)
-        {
-
-            foreach (var tour in tours)
-            {
-                foreach (var location in locations)
-                {
-                    if (tour.LocationId == location.Id)
-                    {
-                        tour.City = location.City;
-                        tour.Country = location.Country;
-                    }
-                }
-            }
-
-        }
-
-
-        private ObservableCollection<Tour> GetGuestAllReservations()
-        {
-            ObservableCollection<Tour> Tours = new ObservableCollection<Tour>();
-            foreach(TourReservation reservation in _tourReservationService.GetAll() )
-            {
-                if (reservation.User.Id == User.Id && (reservation.Tour.CurrentState!=Tour.State.Started || reservation.ConfirmedParticipation==true))
-                {
-                    Tours.Add(reservation.Tour);
-                }
-            }
-
-            return Tours;
-
-        }
-
+        
         private void RateTour_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedTour.CurrentState == Tour.State.Finished)
-            {
-                Tour tour = SelectedTour;
-                RateTourView rateTourListView = new RateTourView(User,tour);
-                rateTourListView.Show();
-            }
-            else
-            {
-                MessageBox.Show("Ne mozete da ocenite nezavrsenu turu");
-            }
+            Guest2TourListViewModel.RateTour_Click();
         }
 
         private void SeeActiveTour_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedTour.CurrentState == Tour.State.Started)
-            {
-                GuestLiveTrackingTourView guestLiveTrackingTourView = new GuestLiveTrackingTourView(SelectedTour);
-                guestLiveTrackingTourView.Show();
-            }
-            else
-            {
-                MessageBox.Show("Izaberite aktivnu turu");
-            }
+            Guest2TourListViewModel.SeeActiveTour_Click();
         }
 
-        public void Update()
-        {
-            throw new NotImplementedException();
-        }
     }
 
     

@@ -4,6 +4,8 @@ using Sims2023.Observer;
 using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Sims2023.Application.Services
 {
@@ -27,16 +29,33 @@ namespace Sims2023.Application.Services
         {
             _tour.Add(tour, dateTimes, location, loggedInGuide);
         }
-        public void Edit(Tour tour, Tour oldTour)
+        public void Update(Tour tour)//new method and deleted edit
         {
-            _tour.Remove(oldTour);
-            _tour.AddEdited(tour);
+            _tour.Update(tour);
+        }
+        public bool CanRateTour(Tour tour)//new for guest2
+        {
+            return _tour.CanRateTour(tour);
+        }
+
+        public bool CanSeeTour(Tour tour)//new for guest2
+        {
+            return _tour.CanSeeTour(tour);
+        }
+        public void UpdateAvailableSpace(int reservedSpace,Tour tour)//new for guest2
+        {
+            _tour.UpdateAvailableSpace(reservedSpace, tour);
         }
 
         public void AddToursLocation(Tour tour, Location location, int newToursNumber)
         {
             //mozda treba da menjam
             _tour.CheckAddToursLocation(tour, location, newToursNumber, _location.GetAll());
+        }
+
+        public void AddLocationsToTour(ObservableCollection<Location> locations, ObservableCollection<Tour> tours)//new,delete later
+        {
+            _tour.AddLocationsToTour(locations, tours);
         }
 
         public void AddToursKeyPoints(List<string> keyPoints, int firstToursId)
@@ -65,6 +84,14 @@ namespace Sims2023.Application.Services
             return _tour.GetById(id);
         }
 
+        public List<Tour> GetAvailable()//new for guest2
+        {
+            return _tour.GetAvailable();
+        }
+
+        public List<Tour> GetAlternative(int reserved,Tour tour)//new for guest2
+        {
+            return _tour.GetAlternative(reserved,tour);
         public List<Tour> GetFinishedTours(User loggedInGuide)
         {
             return _tour.GetFinishedTours(loggedInGuide);

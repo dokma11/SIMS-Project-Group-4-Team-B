@@ -24,6 +24,11 @@ namespace Sims2023.Application.Services
             return _voucher.GetById(id);
         }
 
+        public List<Voucher> GetByUser(User user)//new method for guest2
+        {
+            return _voucher.GetByUser(user);
+        }
+
         public void Create(Voucher voucher)
         {
             _voucher.Add(voucher);
@@ -34,10 +39,14 @@ namespace Sims2023.Application.Services
             _voucher.Remove(voucher);
         }
 
-        public void Edit(Voucher voucher, Voucher oldVoucher)
+        public void Update(Voucher voucher)//deleted edit method and add this
         {
-            _voucher.Remove(oldVoucher);
-            _voucher.AddEdited(voucher);
+            _voucher.Update(voucher);
+        }
+
+        public void UpdateIsUsed(Voucher voucher)//new method
+        {
+            _voucher.UpdateIsUsed(voucher);
         }
 
         public void Subscribe(IObserver observer)

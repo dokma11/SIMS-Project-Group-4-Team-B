@@ -4,6 +4,7 @@ using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Sims2023.Repository
@@ -42,12 +43,27 @@ namespace Sims2023.Repository
                 NotifyObservers();
             }
         }
-
-        public void AddEdited(Tour tour)
+        public void Update(Tour tour)//new method and deleted addedited
         {
-            _tours.Add(tour);
-            _fileHandler.Save(_tours); ;
+            int index = _tours.FindIndex(p => p.Id == tour.Id);
+            if (index != -1)
+            {
+                _tours[index] = tour;
+            }
+
+            _fileHandler.Save(_tours);
             NotifyObservers();
+        }
+        
+
+        public bool CanRateTour(Tour tour)//new for guest2
+        {
+            return tour.CurrentState == Tour.State.Finished;
+        }
+
+        public bool CanSeeTour(Tour tour)//new for guest2
+        {
+            return tour.CurrentState == Tour.State.Started;
         }
 
         public void AddToursLocation(int toursId, Location location)
@@ -84,6 +100,19 @@ namespace Sims2023.Repository
             }
         }
 
+        public void AddLocationsToTour(ObservableCollection<Location> locations, ObservableCollection<Tour> tours)//new,delete later
+        {
+            foreach (var tour in tours)
+            {
+                var location = locations.FirstOrDefault(l => l.Id == tour.LocationId);
+                if (location != null)
+                {
+                    tour.City = location.City;
+                    tour.Country = location.Country;
+                }
+            }
+        }
+
         public void AddToursKeyPoints(string keyPointsString, int firstToursId)
         {
             var tour = _tours.FirstOrDefault(t => t.Id == firstToursId);
@@ -107,11 +136,37 @@ namespace Sims2023.Repository
             return _tours;
         }
 
+        public List<Tour> GetAvailable()//new method for guest2
+        {
+            List<Tour> available = new List<Tour>();
+            foreach(var tourInstance in _tours)
+            {
+                if (tourInstance.CurrentState == Tour.State.Created)
+                {
+                    available.Add(tourInstance);
+                }
+            }
+            return available;
+        }
+
+        public List<Tour> GetAlternative(int reserveSpace, Tour tour)//new method for guest2
+        {
+            var alternativeTours = _tours
+                .Where(tour => tour.LocationId == tour.LocationId && tour.AvailableSpace >= reserveSpace && tour.CurrentState==Tour.State.Created)
+                .ToList();
+
+            return alternativeTours;
+        }
+
         public Tour GetById(int id)
         {
             return _fileHandler.GetById(id);
         }
-
+        public void UpdateAvailableSpace(int reservedSpace, Tour tour)//new method for guest2
+        {
+            tour.AvailableSpace -= reservedSpace;
+            Update(tour);
+        }
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

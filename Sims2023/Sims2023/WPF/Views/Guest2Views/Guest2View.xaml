@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:Sims2023.WPF.Views"
         mc:Ignorable="d"
         Title="Guest2View" Height="450" Width="970" Loaded="Window_Loaded">
+    
     <Grid>
 
         <DataGrid x:Name="dataGridTours" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
