@@ -80,6 +80,20 @@ namespace Sims2023.Repository
             }
         }
 
+        public KeyPoint GetCurrentKeyPoint(Tour tour)//new method to guest2 display current key point
+        {
+            foreach (var keyPoint in _keyPoints)
+            {
+                if (keyPoint.CurrentState == KeyPoint.State.BeingVisited && keyPoint.Tour.Id==tour.Id)
+                {
+                    return keyPoint;
+                }
+            }
+
+            return null;
+        }
+
+
         public void Save()
         {
             _fileHandler.Save(_keyPoints);
