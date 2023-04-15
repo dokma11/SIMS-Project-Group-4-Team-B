@@ -1,5 +1,6 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 
 namespace Sims2023.Repository
 {
-    public class KeyPointRepository
+    public class KeyPointRepository: IKeyPointRepository
     {
         private List<IObserver> _observers;
         private List<KeyPoint> _keyPoints;
@@ -21,8 +22,7 @@ namespace Sims2023.Repository
 
         public int NextId()
         {
-            if (_keyPoints.Count == 0) return 1;
-            return _keyPoints.Max(k => k.Id) + 1;
+            return _keyPoints.Count == 0 ? 1 : _keyPoints.Max(t => t.Id) + 1;
         }
 
         public void Add(KeyPoint keyPoint, List<string> keyPointNames, int toursId, int newToursNumber)
@@ -33,8 +33,8 @@ namespace Sims2023.Repository
                 {
                     _keyPoints = _fileHandler.Load();
                     keyPoint.Id = NextId();
-                    TourService tourController = new TourService();
-                    keyPoint.Tour = tourController.GetById(toursId);
+                    TourService tourService = new();
+                    keyPoint.Tour = tourService.GetById(toursId);
                     keyPoint.Name = keyPointName;
                     keyPoint.CurrentState = KeyPoint.State.NotVisited;
                     _keyPoints.Add(keyPoint);
@@ -97,6 +97,31 @@ namespace Sims2023.Repository
         public void Save()
         {
             _fileHandler.Save(_keyPoints);
+        }
+
+        public List<KeyPoint> GetByToursId(int id)
+        {
+            return _keyPoints.Where(k => k.Tour.Id == id).ToList();
+        }
+
+        public void ChangeKeyPointsState(KeyPoint keyPoint, KeyPoint.State state)
+        {
+            keyPoint.CurrentState = state;
+        }
+
+        public void AddGuestsId(KeyPoint selectedKeyPoint, int guestsId)
+        {
+            var keyPoint = _keyPoints.FirstOrDefault(k => k.Id == selectedKeyPoint.Id);
+            keyPoint?.ShowedGuestsIds.Add(guestsId);
+            //initialize the start of the string if necessary
+            if (keyPoint?.ShowedGuestsIdsString.Length == 0)
+            {
+                keyPoint.ShowedGuestsIdsString = guestsId.ToString();
+            }
+            else
+            {
+                keyPoint.ShowedGuestsIdsString += "," + guestsId.ToString();
+            }
         }
     }
 }

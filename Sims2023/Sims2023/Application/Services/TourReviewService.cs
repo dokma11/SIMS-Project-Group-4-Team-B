@@ -1,17 +1,15 @@
-﻿using Sims2023.Domain.Models;
-using Sims2023.Repositories;
+using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
-using System;
+using Sims2023.Repositories;
+using Sims2023.Repository;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Application.Services
 {
     public class TourReviewService
     {
-        private TourReviewRepository _tourReviews;
+        private ITourReviewRepository _tourReviews;
 
         public TourReviewService()
         {
@@ -51,6 +49,19 @@ namespace Sims2023.Application.Services
         {
             string picturesString = string.Join(",", pictures);
             _tourReviews.AddReviewsPictures(picturesString, tourReview);
+
+        public List<TourReview> GetByToursId(int id)
+        {
+            return _tourReviews.GetByToursId(id);
+        }
+
+        public void Report(TourReview tourReview)
+        {
+            _tourReviews.Report(tourReview);
+        }
+        public void GetKeyPointWhereGuestJoined(Tour selectedTour)
+        {
+            _tourReviews.GetKeyPointWhereGuestJoined(selectedTour);
         }
     }
 }

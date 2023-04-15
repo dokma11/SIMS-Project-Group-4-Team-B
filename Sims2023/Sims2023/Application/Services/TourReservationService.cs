@@ -1,20 +1,14 @@
-using Sims2023.Repositories;
 using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
-using System;
+using Sims2023.Repositories;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sims2023.Application.Services
 {
     public class TourReservationService
     {
-        private TourReservationRepository _tourReservations;
-        private VoucherRepository _vouchers;
-        private UserRepository _users;
-
+        private ITourReservationRepository _tourReservations;
 
         public TourReservationService()
         {
@@ -74,6 +68,21 @@ namespace Sims2023.Application.Services
         public void Save()
         {
             _tourReservations.Save();
+        }
+
+        public List<TourReservation> GetReservationsByToursid(int id)
+        {
+            return _tourReservations.GetReservationsByToursId(id);
+        }
+
+        public string GetAgeStatistics(Tour selectedTour, string ageGroup)
+        {
+            return _tourReservations.GetAgeStatistics(selectedTour, ageGroup);
+        }
+
+        public string GetVoucherStatistics(Tour selectedTour, bool used)
+        {
+            return _tourReservations.GetVoucherStatistics(selectedTour, used);
         }
     }
 }

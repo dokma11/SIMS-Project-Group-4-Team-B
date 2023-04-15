@@ -1,15 +1,15 @@
-﻿using Sims2023.FileHandler;
+﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
+using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System.Collections.Generic;
 using System.Linq;
-using Sims2023.Domain.Models;
 
 namespace Sims2023.Repositories
 {
-    public class TourReservationRepository
+    public class TourReservationRepository: ITourReservationRepository
     {
         private List<IObserver> _observers;
-
         private TourReservationFileHandler _fileHandler;
         private List<TourReservation> _tourReservations;
 
@@ -22,7 +22,7 @@ namespace Sims2023.Repositories
 
         public int NextId()
         {
-            if(_tourReservations.Count == 0)
+            if (_tourReservations.Count == 0)
             {
                 return 1;
             }
@@ -110,6 +110,61 @@ namespace Sims2023.Repositories
             foreach (var observer in _observers)
             {
                 observer.Update();
+            }
+        }
+
+        public List<TourReservation> GetReservationsByToursId(int id)
+        {
+            return _tourReservations.Where(reservation => reservation.Tour.Id == id).ToList();
+        }
+
+        public string GetAgeStatistics(Tour selectedTour, string ageGroup)
+        {
+            if (ageGroup == "young")
+            {
+                int young = _tourReservations
+                .Where(res => res.Tour.Id == selectedTour.Id && res.ConfirmedParticipation && res.User.Age <= 18)
+                .Sum(res => res.GuestNumber);
+                return young.ToString();
+            }
+            else if (ageGroup == "middleAged")
+            {
+                int middle = _tourReservations
+                .Where(res => res.Tour.Id == selectedTour.Id && res.ConfirmedParticipation && res.User.Age > 18 && res.User.Age <= 50)
+                .Sum(res => res.GuestNumber);
+                return middle.ToString();
+            }
+            else if (ageGroup == "old")
+            {
+                int old = _tourReservations
+                .Where(res => res.Tour.Id == selectedTour.Id && res.ConfirmedParticipation && res.User.Age > 50)
+                .Sum(res => res.GuestNumber);
+                return old.ToString();
+            }
+            else
+            {
+                //definitvno mora da se menja
+                return "ne znam";
+            }
+        }
+
+        public string GetVoucherStatistics(Tour selectedTour, bool used)
+        {
+            int usedCounter = _tourReservations.Where(res => res.Tour.Id == selectedTour.Id)
+                                          .Count(res => res.UsedVoucher && res.ConfirmedParticipation);
+            int notUsedCounter = _tourReservations.Where(res => res.Tour.Id == selectedTour.Id)
+                                             .Count(res => !res.UsedVoucher && res.ConfirmedParticipation);
+
+            double usedPercentage = (double)usedCounter / (usedCounter + notUsedCounter);
+            double notUsedPercentage = (double)notUsedCounter / (usedCounter + notUsedCounter);
+
+            if (used)
+            {
+                return usedPercentage.ToString("0.00");
+            }
+            else
+            {
+                return notUsedPercentage.ToString("0.00");
             }
         }
     }

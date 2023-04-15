@@ -1,6 +1,5 @@
 ﻿using Sims2023.Domain.Models;
-using Sims2023.Model;
-using Sims2023.Model.DAO;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repositories;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Sims2023.Application.Services
 {
     public class UserService
     {
-        private UserRepository _user;
+        private IUserRepository _user;
 
         public UserService()
         {
@@ -44,6 +43,11 @@ namespace Sims2023.Application.Services
         public User GetById(int id)
         {
             return _user.GetById(id);
+        }
+
+        public List<User> GetGuestsWithReservations(KeyPoint keyPoint, List<User> markedGuests)
+        {
+            return _user.GetGuestsWithReservations(keyPoint, markedGuests);
         }
     }
 }

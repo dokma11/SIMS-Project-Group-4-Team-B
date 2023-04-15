@@ -1,4 +1,5 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repositories;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ namespace Sims2023.Application.Services
 {
     public class VoucherService
     {
-        private readonly VoucherRepository _voucher;
+        private readonly IVoucherRepository _voucher;
         public VoucherService()
         {
             _voucher = new VoucherRepository();
@@ -17,8 +18,6 @@ namespace Sims2023.Application.Services
         {
             return _voucher.GetAll();
         }
-
-        
 
         public Voucher GetById(int id)
         {
@@ -49,6 +48,7 @@ namespace Sims2023.Application.Services
         {
             _voucher.UpdateIsUsed(voucher);
         }
+
         public void Subscribe(IObserver observer)
         {
             _voucher.Subscribe(observer);

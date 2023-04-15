@@ -17,7 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static Sims2023.Model.AccommodationReservationRescheduling;
+using static Sims2023.Domain.Models.AccommodationReservationRescheduling;
 
 namespace Sims2023.WPF.Views.OwnerViews
 {
@@ -25,25 +25,25 @@ namespace Sims2023.WPF.Views.OwnerViews
     /// Interaction logic for ReschedulingDetailsView.xaml
     /// </summary>
     public partial class ReschedulingDetailsView : Window
-        {
-            public AccommodationReservationRescheduling guest { get; set; }
-            public AccommodationReservation UpdatedReservationStatus { get; set; }
+    {
+        public AccommodationReservationRescheduling guest { get; set; }
+        public AccommodationReservation UpdatedReservationStatus { get; set; }
 
-            public ObservableCollection<AccommodationReservationRescheduling> peoplee;
+        public ObservableCollection<AccommodationReservationRescheduling> peoplee;
 
-            public AccommodationReservationReschedulingController _reschedulingController;
+        public AccommodationReservationReschedulingService _reschedulingController;
 
-            public ReschedulingDetailsViewModel ReschedulingDetailsViewModel;
+        public ReschedulingDetailsViewModel ReschedulingDetailsViewModel;
         public ReschedulingDetailsView(AccommodationReservationRescheduling SelectedGuest, ObservableCollection<AccommodationReservationRescheduling> people)
         {
             InitializeComponent();
             guest = SelectedGuest;
-            DataContext = guest;         
+            DataContext = guest;
             peoplee = people;
-            _reschedulingController = new AccommodationReservationReschedulingController();
+            _reschedulingController = new AccommodationReservationReschedulingService();
             UpdatedReservationStatus = new AccommodationReservation();
             ReschedulingDetailsViewModel = new ReschedulingDetailsViewModel();
-        }   
+        }
 
         public string isAccommodationFree
         {

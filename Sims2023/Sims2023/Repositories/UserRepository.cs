@@ -1,27 +1,26 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
-using Sims2023.Model;
-using Sims2023.Model.DAO;
 using Sims2023.Observer;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using System.Linq;
 
 namespace Sims2023.Repositories
 {
-    public class UserRepository
+    public class UserRepository: IUserRepository
     {
         private List<IObserver> _observers;
         private List<User> _users;
         private UserFileHandler _fileHandler;
-        private AccommodationGradeDAO guests;
+        private TourReservationRepository _tourReservationRepository;
+        private AccommodationGradeRepository guests;
 
         public UserRepository()
         {
             _observers = new List<IObserver>();
             _fileHandler = new UserFileHandler();
             _users = _fileHandler.Load();
-    //        guests = new GuestGradeDAO();
+            //        guests = new GuestGradeDAO();
         }
 
         public int NextId()
@@ -33,9 +32,9 @@ namespace Sims2023.Repositories
         public List<User> FindOwners()
         {
             List<User> users = new List<User>();
-            foreach(User user in _users)
+            foreach (User user in _users)
             {
-                if(user.UserType == User.Type.Owner)
+                if (user.UserType == User.Type.Owner)
                 {
                     users.Add(user);
                 }
@@ -45,7 +44,7 @@ namespace Sims2023.Repositories
 
         public void FindSuperOwners()
         {
-            guests = new AccommodationGradeDAO();
+            guests = new AccommodationGradeRepository();
             foreach (User user in FindOwners())
             {
                 double counter = 0.0;
@@ -53,16 +52,16 @@ namespace Sims2023.Repositories
                 double Average;
                 foreach (AccommodationGrade grade in guests.GetAll())
                 {
-                   
-                    if(grade.Accommodation.Owner.Id == user.Id)
+
+                    if (grade.Accommodation.Owner.Id == user.Id)
                     {
                         ++counter;
                         zbir += guests.FindAverage(grade);
 
-                     }
+                    }
                 }
                 Average = zbir / counter;
-               
+
                 if (Average > 4.5 && counter > 50)
                 {
                     user.superOwner = true;
@@ -130,6 +129,23 @@ namespace Sims2023.Repositories
             {
                 observer.Update();
             }
+        }
+
+        public List<User> GetGuestsWithReservations(KeyPoint keyPoint, List<User> markedGuests)
+        {
+            _tourReservationRepository = new TourReservationRepository();
+            return _tourReservationRepository
+                .GetAll()
+                .Where(reservation => reservation.Tour.Id == keyPoint.Tour.Id)
+                .Select(reservation => GetById(reservation.User.Id))
+                .Where(guest => CheckIfGuestMarked(guest, keyPoint, markedGuests))
+                .ToList();
+        }
+
+        private bool CheckIfGuestMarked(User guest, KeyPoint keyPoint, List<User> markedGuests)
+        {
+            return !keyPoint.ShowedGuestsIds.Contains(guest.Id) &&
+                !markedGuests.Any(markedGuest => markedGuest.Id == guest.Id);
         }
     }
 }
