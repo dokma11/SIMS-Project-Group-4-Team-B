@@ -24,7 +24,7 @@ namespace Sims2023.WPF.Views.Guest2Views
         public Tour Tour { get; set; }
         RateTourViewModel RateTourViewModel { get; set; }
 
-        public List<string> _picturesList;
+        
         public RateTourView(User user,Tour tour)
         {
             InitializeComponent();
@@ -33,7 +33,7 @@ namespace Sims2023.WPF.Views.Guest2Views
             User = user;
             RateTourViewModel= new RateTourViewModel(user,tour,this);
 
-            _picturesList = new List<string>();
+            
 
             DataContext = RateTourViewModel;
         }
@@ -45,10 +45,7 @@ namespace Sims2023.WPF.Views.Guest2Views
 
         private void AddPicture_Click(object sender,RoutedEventArgs e)
         {
-            string inputText = pictureInputTextBox.Text;
-            picturesOutput.Items.Add(inputText);
-            _picturesList.Add(inputText);
-            pictureInputTextBox.Clear();
+            RateTourViewModel.AddPicture_Click();
         }
 
         public void Update()

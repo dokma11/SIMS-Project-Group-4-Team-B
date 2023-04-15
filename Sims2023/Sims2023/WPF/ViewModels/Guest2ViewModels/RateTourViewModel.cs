@@ -21,6 +21,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         public User User { get; set; }
         public Tour Tour { get; set; }
         public RateTourView RateTourView { get; set; }
+        public List<string> _picturesList;
 
         public RateTourViewModel(User user,Tour tour,RateTourView rateTourView)
         {
@@ -32,6 +33,8 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             RateTourView = rateTourView;
             TourReview = new TourReview();
 
+            _picturesList = new List<string>(); 
+
             KeyPoint = _keyPointService.GetById(0);//default and then guide will check at which KeyPoint has joined 
         }
 
@@ -40,7 +43,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             
             TourReview = new TourReview(User, Tour, KeyPoint, (int)RateTourView.guidesKnowledgeBox.Value, (int)RateTourView.tourInterestBox.Value, (int)RateTourView.guidesLanguageCapabilityBox.Value, (string)RateTourView.CommentTextBox.Text);
             _tourReviewService.Create(TourReview);
-            _tourReviewService.AddReviewsPictures(RateTourView._picturesList, TourReview);
+            _tourReviewService.AddReviewsPictures(_picturesList, TourReview);
             MessageBox.Show("Hvala na recenziji");
             RateTourView.Close();
 
@@ -48,7 +51,10 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         public void AddPicture_Click()
         {
-
+            string inputText = RateTourView.pictureInputTextBox.Text;
+            RateTourView.picturesOutput.Items.Add(inputText);
+            _picturesList.Add(inputText);
+            RateTourView.pictureInputTextBox.Clear();
         }
 
         public void Update()
