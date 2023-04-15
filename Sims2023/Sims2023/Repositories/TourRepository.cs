@@ -1,4 +1,5 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System;
@@ -8,7 +9,7 @@ using System.Linq;
 
 namespace Sims2023.Repository
 {
-    public class TourRepository
+    public class TourRepository:ITourRepository,ISubject
     {
         private List<IObserver> _observers;
         private List<Tour> _tours;
@@ -78,7 +79,7 @@ namespace Sims2023.Repository
             }
         }
 
-        private void CheckIfLocationExists(int newToursNumber, List<Location> locations, Location location, int toursId)
+        public void CheckIfLocationExists(int newToursNumber, List<Location> locations, Location location, int toursId)
         {
             int counter = 0;
             for (int i = 0; i < newToursNumber; i++)
