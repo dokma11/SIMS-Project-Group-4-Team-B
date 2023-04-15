@@ -1,5 +1,4 @@
 ﻿using Sims2023.Domain.Models;
-using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repository;
 using System;
@@ -11,7 +10,7 @@ namespace Sims2023.Application.Services
 {
     public class TourService
     {
-        private readonly ITourRepository _tour;
+        private readonly TourRepository _tour;
         private readonly LocationRepository _location;
 
         public TourService()
@@ -68,10 +67,10 @@ namespace Sims2023.Application.Services
             _tour.Remove(tour);
         }
 
-        /*public void Subscribe(IObserver observer)
+        public void Subscribe(IObserver observer)
         {
             _tour.Subscribe(observer);
-        }*/
+        }
 
         public void Save()
         {

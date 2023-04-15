@@ -6,11 +6,10 @@ using System.Linq;
 using Sims2023.Domain.Models;
 using System.Text;
 using System.Threading.Tasks;
-using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Repositories
 {
-    public class TourReviewRepository:ITourReviewRepository
+    public class TourReviewRepository
     {
         private List<IObserver> _observers;
         private List<TourReview> _tourReviews;

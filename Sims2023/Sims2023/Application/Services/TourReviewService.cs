@@ -6,13 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Application.Services
 {
     public class TourReviewService
     {
-        private ITourReviewRepository _tourReviews;
+        private TourReviewRepository _tourReviews;
 
         public TourReviewService()
         {
@@ -34,10 +33,10 @@ namespace Sims2023.Application.Services
             _tourReviews.Remove(tourReview);
         }
 
-        /*public void Subscribe(IObserver observer)
+        public void Subscribe(IObserver observer)
         {
             _tourReviews.Subscribe(observer);
-        }*/
+        }
 
         public void Save()
         {

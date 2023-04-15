@@ -1,6 +1,5 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
-using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ using System.Linq;
 
 namespace Sims2023.Repository
 {
-    public class KeyPointRepository:IKeyPointRepository
+    public class KeyPointRepository
     {
         private List<IObserver> _observers;
         private List<KeyPoint> _keyPoints;

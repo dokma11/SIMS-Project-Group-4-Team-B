@@ -1,5 +1,4 @@
 ﻿using Sims2023.Domain.Models;
-using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System;
@@ -9,7 +8,7 @@ using System.Linq;
 
 namespace Sims2023.Repository
 {
-    public class TourRepository:ITourRepository,ISubject
+    public class TourRepository
     {
         private List<IObserver> _observers;
         private List<Tour> _tours;
