@@ -2,6 +2,7 @@
 using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Sims2023.Domain.RepositoryInterfaces
 {
@@ -9,7 +10,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
     {
         public int NextId();
         public void Add(Tour tour, List<DateTime> dateTimes, Location location, User loggedInGuide);
-        public void AddEdited(Tour tour);
+        
         public void AddToursLocation(int toursId, Location location);
         public void CheckAddToursLocation(Tour tour, Location location, int newToursNumber, List<Location> locations);
         public void AddToursKeyPoints(string keyPointsString, int firstToursId);
@@ -23,6 +24,14 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<Tour> GetCreatedTours(User loggedInGuide);
         public void ChangeToursState(Tour selectedTour, Tour.State state);
         public void SetToursLanguage(Tour selectedTour, Tour.Language language);
+
+        public bool CanRateTour(Tour tour);
+        public bool CanSeeTour(Tour tour);
+        public List<Tour> GetAvailable();
+        public List<Tour> GetAlternative(int reserveSpace, Tour tour);
+        public void UpdateAvailableSpace(int reservedSpace, Tour tour);
+        public void Update(Tour tour);
+        public void AddLocationsToTour(ObservableCollection<Location> locations, ObservableCollection<Tour> tours);
         public void Subscribe(IObserver observer);
         public void Unsubscribe(IObserver observer);
         public void NotifyObservers();

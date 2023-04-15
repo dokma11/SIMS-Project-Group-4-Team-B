@@ -76,11 +76,12 @@ namespace Sims2023.Repositories
 
         public void AddReviewsPictures(string picturesString, TourReview tourReview)
         {
-            
-                    tourReview.PicturesString = picturesString;
-                    
-                    _fileHandler.Save(_tourReviews);
-                    NotifyObservers();
+
+            tourReview.PicturesString = picturesString;
+
+            _fileHandler.Save(_tourReviews);
+            NotifyObservers();
+        }
               
         public List<TourReview> GetByToursId(int id)
         {

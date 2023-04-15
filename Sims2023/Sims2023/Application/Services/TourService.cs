@@ -89,9 +89,10 @@ namespace Sims2023.Application.Services
             return _tour.GetAvailable();
         }
 
-        public List<Tour> GetAlternative(int reserved,Tour tour)//new for guest2
+        public List<Tour> GetAlternative(int reserved, Tour tour)//new for guest2
         {
-            return _tour.GetAlternative(reserved,tour);
+            return _tour.GetAlternative(reserved, tour);
+        }
         public List<Tour> GetFinishedTours(User loggedInGuide)
         {
             return _tour.GetFinishedTours(loggedInGuide);

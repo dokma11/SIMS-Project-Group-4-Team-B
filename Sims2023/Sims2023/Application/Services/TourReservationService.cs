@@ -13,8 +13,7 @@ namespace Sims2023.Application.Services
         public TourReservationService()
         {
             _tourReservations = new TourReservationRepository();
-            _vouchers = new VoucherRepository();
-            _users = new UserRepository();
+            
         }
 
         public List<TourReservation> GetAll()
