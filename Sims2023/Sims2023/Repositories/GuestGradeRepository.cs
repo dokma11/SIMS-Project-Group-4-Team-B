@@ -1,4 +1,5 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repository;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace Sims2023.Repositories
 {
-    class GuestGradeRepository : ISubject
+    class GuestGradeRepository : ISubject, IGuestGradeRepository
     {
         private List<IObserver> _observers;
 

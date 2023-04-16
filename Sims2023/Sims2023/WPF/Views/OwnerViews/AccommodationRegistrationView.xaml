@@ -27,10 +27,21 @@
         <TextBox x:Name="textBox3" HorizontalAlignment="Left" Margin="300,320,0,0" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Center" VerticalAlignment="Top" Width="144" Height="26"/>
         <TextBox x:Name="textBox4" HorizontalAlignment="Left" Margin="300,365,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="144" Height="26"/>
         <TextBox x:Name="textBox5" HorizontalAlignment="Left" Margin="300,421,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="144" Height="26"/>
-        <TextBox x:Name="textBox6" HorizontalAlignment="Left" Margin="625,119,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="151" Height="27"/>
-        <Label x:Name="label8" Content="link slike smještaja" HorizontalAlignment="Left" Margin="506,119,0,0" VerticalAlignment="Top" Width="114" Height="27"/>
-        <Button x:Name="button" Content="Dodaj" HorizontalAlignment="Left" Margin="625,166,0,0" VerticalAlignment="Top" Width="151" Click="SaveButton_Click" Height="26"/>
-        <ListBox x:Name="lstOutput" Margin="506,213,24,71" />
+        <Label x:Name="label8" Content="Izaberite sliku smjestaja&#xD;&#xA;" HorizontalAlignment="Left" Margin="506,128,0,0" VerticalAlignment="Top" Width="137" Height="27"/>
+        <Button x:Name="button" Content="Dodaj" HorizontalAlignment="Left" Margin="506,166,0,0" VerticalAlignment="Top" Width="151" Click="SaveButton_Click" Height="55"/>
+        <ListView x:Name="PicturesListView"  HorizontalAlignment="Left" Margin="480,226,0,0" VerticalAlignment="Top" Width="290" Height="310" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Image Source="{Binding}" Width="80" Height="80" Margin="5,5,5,5"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
         <Button x:Name="button1" Content="Registruj" HorizontalAlignment="Left" Margin="42,492,0,0" VerticalAlignment="Top" Width="140" Height="44" Click="Registration_Click"/>
         <Button x:Name="button2" Content="Odustani" HorizontalAlignment="Left" Margin="270,492,0,0" VerticalAlignment="Top" Height="44" Width="130" Click="Close_Click" />
 

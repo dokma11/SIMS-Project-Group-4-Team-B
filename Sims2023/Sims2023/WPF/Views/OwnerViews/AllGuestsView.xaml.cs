@@ -24,25 +24,22 @@ namespace Sims2023.View
     /// </summary>
     public partial class AllGuestsView : Window
     {
-        public ObservableCollection<AccommodationReservation> Reservatons { get; set; }  //
-        public AccommodationReservation SelectedGuest { get; set; } //  
 
         public AllGuestsViewModel allGuestsViewModel;
 
-        public AllGuestsView(User use,AccommodationReservationService acml, List<AccommodationReservation> reserv)
+
+        public AllGuestsView(User use, List<AccommodationReservation> reserv)
         {
             InitializeComponent();
-            DataContext= this;
-            
-            allGuestsViewModel = new AllGuestsViewModel(use,acml,reserv);       
-            Reservatons = new ObservableCollection<AccommodationReservation>(allGuestsViewModel.GetGradableGuests());
+            allGuestsViewModel = new AllGuestsViewModel(this,use, reserv);
+            DataContext = allGuestsViewModel;       
         }
         private void Grade_Click(object sender, EventArgs e)
         {
          
-            if (SelectedGuest != null)
+            if (allGuestsViewModel.SelectedGuest != null)
             {
-                var gradeView = new Guest1GradeView(SelectedGuest, Reservatons);
+                var gradeView = new Guest1GradeView(allGuestsViewModel.SelectedGuest, allGuestsViewModel.Reservatons);
                 gradeView.Show();
             }
         }

@@ -38,8 +38,11 @@ namespace Sims2023.WPF.Views.OwnerViews
 
         public void Details_Click(object sender, RoutedEventArgs e)
         {
-            var showDetails = new ReschedulingDetailsView(SelectedGuest, people);
-            showDetails.Show();
+            if (SelectedGuest != null)
+            {
+                var showDetails = new ReschedulingDetailsView(SelectedGuest, people);
+                showDetails.Show();
+            }
         }
 
 

@@ -33,32 +33,22 @@ namespace Sims2023.WPF.Views.OwnerViews
         private DeclineRescheduleViewModel DeclineRescheduleViewModel;
 
         public ObservableCollection<AccommodationReservationRescheduling> peoplee;
-        public DeclineRescheduleView(AccommodationReservationReschedulingService _reschedulingController, AccommodationReservationRescheduling SelectedGuest, ReschedulingDetailsView reschedulingDetailsView, ObservableCollection<AccommodationReservationRescheduling> people)
+        public DeclineRescheduleView(AccommodationReservationRescheduling SelectedGuest, ReschedulingDetailsView reschedulingDetailsView, ObservableCollection<AccommodationReservationRescheduling> people)
         {
             InitializeComponent();
-            DataContext = this;
-            DeclineRescheduleViewModel = new DeclineRescheduleViewModel();
-            chosenPerson = SelectedGuest;
-            _reschedulingDetailsView = reschedulingDetailsView;
-            peoplee = people;
+            DeclineRescheduleViewModel = new DeclineRescheduleViewModel(this, SelectedGuest, reschedulingDetailsView, people);
+            DataContext = DeclineRescheduleViewModel;
+            
         }
 
         private void Decline_Click(object sender, RoutedEventArgs e)
         {
-            string text = MyTextBox.Text;
-            chosenPerson.Comment = text;
-            chosenPerson.Status = RequestStatus.Rejected;
-            DeclineRescheduleViewModel.UpdateReschedule(chosenPerson);
-
-            peoplee.Remove(chosenPerson);
-            // Close the current window and previous window
-            this.Close();
-            _reschedulingDetailsView.Close();
+            DeclineRescheduleViewModel.Decline_Click(sender, e);
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

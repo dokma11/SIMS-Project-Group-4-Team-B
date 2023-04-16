@@ -9,6 +9,14 @@
 
   <ItemGroup>
     <None Remove="Images\Guest1Images\add.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja3.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja6.jpg" />
+    <None Remove="Images\OwnerImages\slikaSmestaja3.jpg" />
+    <None Remove="Images\OwnerImages\slikaSmestaja4.jpg" />
+    <None Remove="Images\OwnerImages\slikaSmestaja5.jpg" />
+    <None Remove="Images\OwnerImages\slikaSmestaja6.jpg" />
+    <None Remove="Images\OwnerImages\slikaSmestaja7.jpg" />
+    <None Remove="Images\OwnerImages\slikaSmestaja8.jpg" />
     <None Remove="Images\Guest1Images\slikaSmestaja1.jpeg" />
     <None Remove="Images\Guest1Images\slikaSmestaja10.jpeg" />
     <None Remove="Images\Guest1Images\slikaSmestaja2.jpg" />
@@ -106,6 +114,14 @@
     <Compile Update="WPF\ViewModels\Guest1ViewModel\AccommodationReservationCancellationViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Resource Include="Images\OwnerImages\slikaSmestaja1.jpg" />
+    <Resource Include="Images\OwnerImages\slikaSmestaja2.jpg" />
+    <Resource Include="Images\OwnerImages\slikaSmestaja3.jpg" />
+    <Resource Include="Images\OwnerImages\slikaSmestaja4.jpg" />
+    <Resource Include="Images\OwnerImages\slikaSmestaja5.jpg" />
+    <Resource Include="Images\OwnerImages\slikaSmestaja6.jpg" />
+    <Resource Include="Images\OwnerImages\slikaSmestaja7.jpg" />
+    <Resource Include="Images\OwnerImages\slikaSmestaja8.jpg" />
   </ItemGroup>
 
 </Project>
