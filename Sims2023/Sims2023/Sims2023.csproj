@@ -19,6 +19,11 @@
     <None Remove="Images\Guest1Images\slikaSmestaja7.jpg" />
     <None Remove="Images\Guest1Images\slikaSmestaja8.jpg" />
     <None Remove="Images\Guest1Images\slikaSmestaja9.jpg" />
+    <None Remove="Images\Guest2Images\budva1.jpg" />
+    <None Remove="Images\Guest2Images\budva2.jpg" />
+    <None Remove="Images\Guest2Images\Nis1.jpg" />
+    <None Remove="Images\Guest2Images\Nis2.png" />
+    <None Remove="Images\Guest2Images\Nis3.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -100,6 +105,21 @@
     <Resource Include="Images\Guest1Images\slikaSmestaja9.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Content Include="Images\Guest2Images\budva1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Guest2Images\budva2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Guest2Images\Nis1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Guest2Images\Nis2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Guest2Images\Nis3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

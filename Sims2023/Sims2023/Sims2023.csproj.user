@@ -39,9 +39,6 @@
     <Compile Update="WPF\Views\Guest2Views\Guest2View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\TourLocationsView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="WPF\Views\Guest1Views\AccommodationDetailedView.xaml">
@@ -84,9 +81,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\OwnerView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\TourLocationsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\GuideViews\TourStatisticsView.xaml">
