@@ -13,7 +13,7 @@ namespace Sims2023.Domain.Models
         public enum Language { Serbian, English, German, French, Spanish, Italian, Chinese, Japanese }
         public int Id { get; set; }
         public string Name { get; set; }
-        public int LocationId { get; set; }
+        public Location Location { get; set; }
         public string Description { get; set; }
         public Language GuideLanguage { get; set; }
         public int MaxGuestNumber { get; set; }
@@ -37,11 +37,11 @@ namespace Sims2023.Domain.Models
             Pictures = new List<string>();
         }
 
-        public Tour(int id, string name, int locationId, string description, Language guideLanguage, int maxGuestNumber, string keyPointsString, DateTime start, int length, string picturesString, User guide)
+        public Tour(int id, string name, Location location, string description, Language guideLanguage, int maxGuestNumber, string keyPointsString, DateTime start, int length, string picturesString, User guide)
         {
             Id = id;
             Name = name;
-            LocationId = locationId;
+            Location = location;
             Description = description;
             GuideLanguage = guideLanguage;
             MaxGuestNumber = maxGuestNumber;
@@ -60,7 +60,7 @@ namespace Sims2023.Domain.Models
             CurrentState = State.Created;
             PicturesString = picturesString;
             Pictures = new List<string>();
-            string[] picturesStringArray = PicturesString.Split(",");
+            string[] picturesStringArray = PicturesString.Split("!");
             foreach (string picture in picturesStringArray)
             {
                 Pictures.Add(picture);
@@ -80,7 +80,7 @@ namespace Sims2023.Domain.Models
             {
                 Id.ToString(),
                 Name,
-                LocationId.ToString(),
+                Location.Id.ToString(),
                 Description,
                 GuideLanguage.ToString(),
                 MaxGuestNumber.ToString(),
@@ -100,7 +100,8 @@ namespace Sims2023.Domain.Models
         {
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
-            LocationId = Convert.ToInt32(values[2]);
+            LocationService locationService = new();
+            Location = locationService.GetById(Convert.ToInt32(values[2]));
             Description = values[3];
             GuideLanguage = (Language)Enum.Parse(typeof(Language), values[4]);
             MaxGuestNumber = Convert.ToInt32(values[5]);
@@ -116,7 +117,7 @@ namespace Sims2023.Domain.Models
             Start = DateTime.Parse(values[8]);
             Length = Convert.ToInt32(values[9]);
             PicturesString = values[10];
-            string[] picturesStringArray = PicturesString.Split(",");
+            string[] picturesStringArray = PicturesString.Split("!");
             foreach (string picture in picturesStringArray)
             {
                 Pictures.Add(picture);

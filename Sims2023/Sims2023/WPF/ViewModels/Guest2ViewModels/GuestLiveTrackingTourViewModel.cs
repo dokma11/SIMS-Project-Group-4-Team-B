@@ -16,14 +16,13 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         public GuestLiveTrackingTourView GuestLiveTrackingTourView { get; set; }
         public KeyPoint CurrentKeyPoint { get; set; }
 
-        public ObservableCollection<Location> Locations { get; set; }
-        public ObservableCollection<Tour> Tours { get; set; }
+        
         public ObservableCollection<KeyPoint> KeyPoints { get; set; }
 
 
-        private LocationService _locationService;
+       
         private KeyPointService _keyPointService;
-        private TourService _tourService;
+        
 
         public GuestLiveTrackingTourViewModel(Tour tour,GuestLiveTrackingTourView guestLiveTrackingTourView)
         {
@@ -31,15 +30,11 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             Tour = tour;    
             GuestLiveTrackingTourView = guestLiveTrackingTourView;
 
-            _locationService = new LocationService();
-            _keyPointService = new KeyPointService();
-            _tourService = new TourService();
-
-            Locations = new ObservableCollection<Location>(_locationService.GetAll());
-            Tours = new ObservableCollection<Tour>(_tourService.GetAll());
            
+            _keyPointService = new KeyPointService();
+            
 
-            _tourService.AddLocationsToTour(Locations, Tours);//need method just for one tour
+            
             guestLiveTrackingTourView.keyPointTextBlock.Text=(_keyPointService.GetCurrentKeyPoint(tour)).Name;
             
         }

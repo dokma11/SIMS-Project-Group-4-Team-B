@@ -39,7 +39,7 @@ namespace Sims2023.Domain.Models
             AverageGrade = (GuideKnowledge+GuidesLanguageCapability+TourInterest)/3;
             PicturesString = picturesString;
             Pictures = new List<string>();
-            string[] picturesStringArray = PicturesString.Split(",");
+            string[] picturesStringArray = PicturesString.Split("!");
             foreach (string picture in picturesStringArray)
             {
                 Pictures.Add(picture);
@@ -120,7 +120,7 @@ namespace Sims2023.Domain.Models
             IsValid = bool.Parse(values[8]);
             Comment = values[9];
             PicturesString = values[10];
-            string[] picturesStringArray = PicturesString.Split(",");
+            string[] picturesStringArray = PicturesString.Split("!");
             foreach (string picture in picturesStringArray)
             {
                 Pictures.Add(picture);
