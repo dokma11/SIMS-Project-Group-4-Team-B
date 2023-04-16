@@ -16,9 +16,8 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
     {
         public Tour SelectedTour { get; set; }
         public User User { get; set; }
-        
-        public ObservableCollection<Tour> Tours { get; set; }  
-        public ObservableCollection<Location> Locations { get; set; }   
+
+        public ObservableCollection<Tour> Tours;   
 
 
         public TourService _tourService;
@@ -31,13 +30,12 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             _tourService = new TourService();
             _locationService = new LocationService();
 
-            Locations = new ObservableCollection<Location>(_locationService.GetAll());
-            Tours = new ObservableCollection<Tour>(_tourReservationService.GetByUser(user));
+            Tours =new ObservableCollection<Tour>( _tourReservationService.GetByUser(user));
 
             User = user;
-            SelectedTour = new Tour();
+            SelectedTour = null;
             
-            _tourService.AddLocationsToTour(Locations, Tours);
+            
         }
 
         
@@ -50,7 +48,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             }
             else
             {
-                MessageBox.Show("Ne mozete da ocenite nezavrsenu turu");
+                MessageBox.Show("Izaberite zavrsenu turu");
             }
         }
 

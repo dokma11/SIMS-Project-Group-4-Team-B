@@ -53,10 +53,7 @@ namespace Sims2023.Application.Services
             _tour.CheckAddToursLocation(tour, location, newToursNumber, _location.GetAll());
         }
 
-        public void AddLocationsToTour(ObservableCollection<Location> locations, ObservableCollection<Tour> tours)//new,delete later
-        {
-            _tour.AddLocationsToTour(locations, tours);
-        }
+        
 
         public void AddToursKeyPoints(List<string> keyPoints, int firstToursId)
         {
@@ -69,6 +66,10 @@ namespace Sims2023.Application.Services
             _tour.Remove(tour);
         }
 
+        public Uri GetPictureUri(Tour tour, int i)
+        {
+           return _tour.GetPictureUri(tour, i);
+        }
         public void Subscribe(IObserver observer)
         {
             _tour.Subscribe(observer);

@@ -16,8 +16,8 @@
         <Label Content="Language:" FontSize="20" HorizontalAlignment="Left" Margin="26,308,0,0" VerticalAlignment="Top"/>
         <TextBlock x:Name="languageTextBlock" Text="{Binding GuideLanguage}"  FontSize="20" HorizontalAlignment="Left" Margin="143,313,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390" Height="30"/>
         <TextBlock x:Name="keyPointTextBlock" FontSize="20" HorizontalAlignment="Left" Margin="143,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390" Height="30"/>
-        <TextBlock x:Name="countryTextBlock" Text="{Binding Country}" FontSize="20" HorizontalAlignment="Left" Margin="137,210,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="390" Height="30"/>
-        <TextBlock x:Name="cityTextBlock" Text="{Binding City}" FontSize="20" HorizontalAlignment="Left" Margin="143,155,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="390" Height="30"/>
+        <TextBlock x:Name="countryTextBlock" Text="{Binding Location.Country}" FontSize="20" HorizontalAlignment="Left" Margin="137,210,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="390" Height="30"/>
+        <TextBlock x:Name="cityTextBlock" Text="{Binding Location.City}" FontSize="20" HorizontalAlignment="Left" Margin="143,155,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="390" Height="30"/>
         <TextBlock x:Name="nameTextBlock" Text="{Binding Name}" FontSize="20" HorizontalAlignment="Left" Margin="143,97,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="390" Height="30"/>
         <Button Content="Cancel" Width="147" Height="42" HorizontalAlignment="Left" Margin="380,385,0,0" VerticalAlignment="Top" Click="Cancel_Click"/>
 

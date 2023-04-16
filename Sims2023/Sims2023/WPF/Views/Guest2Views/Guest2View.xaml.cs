@@ -62,5 +62,10 @@ namespace Sims2023.WPF.Views
         {
             Guest2ViewModel.Update();
         }
+
+        private void SeeDetails_Click(object sender, RoutedEventArgs e)
+        {
+            Guest2ViewModel.SeeDetails_Click();
+        }
     }
 }
