@@ -93,10 +93,5 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             MessageBox.Show("Uspesno ste podneli zahtev za pomeranje rezervacije!");
 
         }
-
-        public void ButtonDateCancelation_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationReservationConfirmationView.Close();
-        }
     }
 }

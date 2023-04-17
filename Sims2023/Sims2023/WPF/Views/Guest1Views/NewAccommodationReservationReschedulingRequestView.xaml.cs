@@ -27,21 +27,33 @@ namespace Sims2023.WPF.Views.Guest1Views
     public partial class NewAccommodationReservationReschedulingRequestView : Window, IObserver
     {
         NewAccommodationReservationReschedulingRequestViewModel NewAccommodationReservationReschedulingRequestViewModel;
+        public AccommodationReservation SelectedAccommodationReservation { get; set; }
+        public User User { get; set; }
+
         public NewAccommodationReservationReschedulingRequestView(User guest1)
         {
             InitializeComponent();
             NewAccommodationReservationReschedulingRequestViewModel = new NewAccommodationReservationReschedulingRequestViewModel(this, guest1);
             DataContext = NewAccommodationReservationReschedulingRequestViewModel;
+            User = guest1;
         }
 
         private void makeRequest_Click(object sender, RoutedEventArgs e)
         {
-            NewAccommodationReservationReschedulingRequestViewModel.makeRequest_Click(sender, e);
+            SelectedAccommodationReservation = (AccommodationReservation)myDataGrid.SelectedItem;
+            if (SelectedAccommodationReservation == null)
+            {
+                MessageBox.Show("Molimo Vas selektujte rezervaciju koji zelite obrisete.");
+                return;
+            }
+            var accommodationReservationDateView = new AccommodationReservationDateView(SelectedAccommodationReservation.Id, SelectedAccommodationReservation.Accommodation, User);
+            accommodationReservationDateView.Show();
+            Close();
         }
 
         private void back_Click(object sender, RoutedEventArgs e)
         {
-            NewAccommodationReservationReschedulingRequestViewModel.back_Click(sender, e);
+            Close();
         }
         public void Update()
         {

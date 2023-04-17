@@ -33,8 +33,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         private AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
 
-        private AccommodationService _accommodationService;
-
         List<AccommodationReservation> FilteredData = new List<AccommodationReservation>();
         public User User { get; set; }
 
@@ -50,7 +48,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationService.GetAllReservations());
 
-            _accommodationService = new AccommodationService();
             _accommodationCancellationService = new AccommodationCancellationService();
             _accommodationReservationReschedulingService = new AccommodationReservationReschedulingService();
 
