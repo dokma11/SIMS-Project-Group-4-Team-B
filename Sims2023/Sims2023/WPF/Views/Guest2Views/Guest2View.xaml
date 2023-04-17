@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Sims2023.WPF.Views"
         mc:Ignorable="d"
         Title="Guest2View" Height="450" Width="970" Loaded="Window_Loaded">
-    
+
     <Grid>
 
         <DataGrid x:Name="dataGridTours" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
@@ -15,8 +15,8 @@
                     IsReadOnly="True" AutoGenerateColumns="False" Width="665" Height="270" Margin="36,82,269,82">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Width="90" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Grad" Width="90" Binding="{Binding City}"/>
-                <DataGridTextColumn Header="Drzava" Width="80" Binding="{Binding Country}"/>
+                <DataGridTextColumn Header="Grad" Width="90" Binding="{Binding Location.City}"/>
+                <DataGridTextColumn Header="Drzava" Width="80" Binding="{Binding Location.Country}"/>
                 <DataGridTextColumn Header="Jezik" Width="60" Binding="{Binding GuideLanguage}" />
                 <DataGridTextColumn Header="Pocetak" Width="150" Binding="{Binding Start}"/>
                 <DataGridTextColumn Header="Trajanje" Width="50" Binding="{Binding Length}"/>
@@ -48,6 +48,7 @@
         <Label Content="Broj ljudi" HorizontalAlignment="Left" Margin="730,288,0,0" VerticalAlignment="Top"/>
         <xctk:IntegerUpDown Name="guestNumberBox" AllowTextInput="False" HorizontalAlignment="Left" Margin="730,314,0,0" VerticalAlignment="Top" Minimum="1" Value="1" Width="120"/>
         <Button x:Name="MyReservations" Content="My reservations" HorizontalAlignment="Left" Margin="517,357,0,35" Click="MyReservations_Click"/>
+        <Button x:Name="SeeDetails" Content="See details" HorizontalAlignment="Left" Margin="368,359,0,33" Click="SeeDetails_Click"/>
 
     </Grid>
 </Window>

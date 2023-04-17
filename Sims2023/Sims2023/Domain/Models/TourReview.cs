@@ -17,15 +17,15 @@ namespace Sims2023.Domain.Models
         public int GuidesLanguageCapability { get; set; }
         public float AverageGrade { get; set; }
         public List<string> Pictures { get; set; }
-        public string PicturesString { get; set; }
+        public string ConcatenatedPictures { get; set; }
         public bool IsValid { get; set; }
         public string Comment { get; set; }
 
         public TourReview()
         {
             Pictures = new List<string>();
-        }
-        public TourReview(int id, User guest, Tour tour, KeyPoint keyPointJoined, int guideKnowledge, int tourInterest, int guidesLanguageCapability, bool isValid, string comment, string picturesString)
+        } 
+        public TourReview(int id, User guest, Tour tour,KeyPoint keyPointJoined, int guideKnowledge, int tourInterest, int guidesLanguageCapability,  bool isValid, string comment,string concatenatedPictures)
         {
             Id = id;
             Guest = guest;
@@ -36,11 +36,11 @@ namespace Sims2023.Domain.Models
             GuidesLanguageCapability = guidesLanguageCapability;
             IsValid = isValid;
             Comment = comment;
-            AverageGrade = (GuideKnowledge + GuidesLanguageCapability + TourInterest) / 3;
-            PicturesString = picturesString;
+            AverageGrade = (GuideKnowledge+GuidesLanguageCapability+TourInterest)/3;
+            ConcatenatedPictures = concatenatedPictures;
             Pictures = new List<string>();
-            string[] picturesStringArray = PicturesString.Split(",");
-            foreach (string picture in picturesStringArray)
+            string[] pictures = ConcatenatedPictures.Split("!");
+            foreach (string picture in pictures)
             {
                 Pictures.Add(picture);
             }
@@ -57,13 +57,6 @@ namespace Sims2023.Domain.Models
             IsValid = true;
             Comment = comment;
             AverageGrade = (GuideKnowledge + GuidesLanguageCapability + TourInterest) / 3;
-            /*PicturesString = picturesString;
-            Pictures = new List<string>();
-            string[] picturesStringArray = PicturesString.Split(",");
-            foreach (string picture in picturesStringArray)
-            {
-                Pictures.Add(picture);
-            }*/
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -83,7 +76,7 @@ namespace Sims2023.Domain.Models
                 AverageGrade.ToString(),
                 IsValid.ToString(),
                 Comment,
-                PicturesString
+                ConcatenatedPictures
             };
             return csvValues;
         }
@@ -104,9 +97,9 @@ namespace Sims2023.Domain.Models
             AverageGrade = float.Parse(values[7]);
             IsValid = bool.Parse(values[8]);
             Comment = values[9];
-            PicturesString = values[10];
-            string[] picturesStringArray = PicturesString.Split(",");
-            foreach (string picture in picturesStringArray)
+            ConcatenatedPictures = values[10];
+            string[] pictures = ConcatenatedPictures.Split("!");
+            foreach (string picture in pictures)
             {
                 Pictures.Add(picture);
             }

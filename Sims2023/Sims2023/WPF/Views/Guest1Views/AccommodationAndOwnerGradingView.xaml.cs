@@ -21,12 +21,21 @@ namespace Sims2023.WPF.Views.Guest1Views
 
         private void accept_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationAndOwnerGradingViewModel.accept_Click(sender, e);
+            var result = System.Windows.MessageBox.Show("Da li ste sigurni da zelite da ostavite ovu recenziju?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (result == System.Windows.MessageBoxResult.Yes)
+            {
+                AccommodationAndOwnerGradingViewModel.AddCreatedGrade();
+                Close();
+            }
+            else
+            {
+                return;
+            }
         }
 
         public void giveUp_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationAndOwnerGradingViewModel.giveUp_Click(sender, e);
+            Close();
         }
 
         public void addPicture_Click(object sender, RoutedEventArgs e)

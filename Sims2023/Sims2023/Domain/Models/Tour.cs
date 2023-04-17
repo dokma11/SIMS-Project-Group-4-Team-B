@@ -13,7 +13,7 @@ namespace Sims2023.Domain.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int LocationId { get; set; }         //should probably remove
+        public Location Location { get; set; }
         public string Description { get; set; }
         public ToursLanguage GuideLanguage { get; set; }
         public int MaxGuestNumber { get; set; }
@@ -28,7 +28,7 @@ namespace Sims2023.Domain.Models
         public int AvailableSpace { get; set; }
         public List<string> Pictures { get; set; }  //should probably remove
         //Same principle as for KeyPoints, I'm going to concatenate all of the pictures urls into one string so I can save it easier
-        public string PicturesString { get; set; }
+        public string ConcatenatedPictures { get; set; }
         public int AttendedGuestsNumber { get; set; }
         public User Guide { get; set; }
         public Tour()
@@ -37,11 +37,11 @@ namespace Sims2023.Domain.Models
             Pictures = new List<string>();
         }
 
-        public Tour(int id, string name, int locationId, string description, ToursLanguage guideLanguage, int maxGuestNumber, string keyPointsString, DateTime start, int length, string picturesString, User guide)
+        public Tour(int id, string name, Location location, string description, Language guideLanguage, int maxGuestNumber, string keyPointsString, DateTime start, int length, string concatenatedPictures, User guide)
         {
             Id = id;
             Name = name;
-            LocationId = locationId;
+            Location = location;
             Description = description;
             GuideLanguage = guideLanguage;
             MaxGuestNumber = maxGuestNumber;
@@ -57,11 +57,11 @@ namespace Sims2023.Domain.Models
             //
             Start = start;
             Length = length;
-            CurrentState = ToursState.Created;
-            PicturesString = picturesString;
+            CurrentState = State.Created;
+            ConcatenatedPictures = concatenatedPictures;
             Pictures = new List<string>();
-            string[] picturesStringArray = PicturesString.Split(",");
-            foreach (string picture in picturesStringArray)
+            string[] picturesArray = ConcatenatedPictures.Split("!");
+            foreach (string picture in picturesArray)
             {
                 Pictures.Add(picture);
             }
@@ -80,7 +80,7 @@ namespace Sims2023.Domain.Models
             {
                 Id.ToString(),
                 Name,
-                LocationId.ToString(),
+                Location.Id.ToString(),
                 Description,
                 GuideLanguage.ToString(),
                 MaxGuestNumber.ToString(),
@@ -88,7 +88,7 @@ namespace Sims2023.Domain.Models
                 KeyPointsString,
                 Start.ToString(),
                 Length.ToString(),
-                PicturesString,
+                ConcatenatedPictures,
                 CurrentState.ToString(),
                 Guide.Id.ToString(),
                 AttendedGuestsNumber.ToString(),
@@ -100,7 +100,8 @@ namespace Sims2023.Domain.Models
         {
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
-            LocationId = Convert.ToInt32(values[2]);
+            LocationService locationService = new();
+            Location = locationService.GetById(Convert.ToInt32(values[2]));
             Description = values[3];
             GuideLanguage = (ToursLanguage)Enum.Parse(typeof(ToursLanguage), values[4]);
             MaxGuestNumber = Convert.ToInt32(values[5]);
@@ -115,9 +116,9 @@ namespace Sims2023.Domain.Models
             //
             Start = DateTime.Parse(values[8]);
             Length = Convert.ToInt32(values[9]);
-            PicturesString = values[10];
-            string[] picturesStringArray = PicturesString.Split(",");
-            foreach (string picture in picturesStringArray)
+            ConcatenatedPictures = values[10];
+            string[] picturesArray = ConcatenatedPictures.Split("!");
+            foreach (string picture in picturesArray)
             {
                 Pictures.Add(picture);
             }

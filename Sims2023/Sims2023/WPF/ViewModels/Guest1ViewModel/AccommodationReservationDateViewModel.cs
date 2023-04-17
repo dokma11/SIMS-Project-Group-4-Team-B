@@ -17,14 +17,14 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public List<AccommodationStay> stays = new List<AccommodationStay>();
 
         private ObservableCollection<AccommodationStay> _stays = new ObservableCollection<AccommodationStay>();
-        public AccommodationStay SelectedAccommodationStay { get; set; }
 
         private AccommodationService _accommodationService;
         public ObservableCollection<Accommodation> Accommodations { get; set; }
-        public Accommodation SelectedAccommodation { get; set; }
 
         private AccommodationReservationService _accommodationReservationService;
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
+        public Accommodation SelectedAccommodation { get; set; }
+        public AccommodationStay SelectedAccommodationStay { get; set; }
         public User User { get; set; }
         public int ReservationId { get; set; }
 
@@ -41,11 +41,9 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             User = guest1;
             ReservationId = reservationId;
-            stays = new List<AccommodationStay>();
-
             SelectedAccommodation = selectedAccommodation;
 
-
+            stays = new List<AccommodationStay>();
             _accommodationService = new AccommodationService();
             Accommodations = new ObservableCollection<Accommodation>(_accommodationService.GetAllAccommodations());
 
@@ -141,7 +139,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
             DateTime startDateSelected = AccommodationReservationDateView.startDatePicker.SelectedDate.Value;
             DateTime endDateSelected = AccommodationReservationDateView.endDatePicker.SelectedDate.Value;
-            int daysNumber = (int)AccommodationReservationDateView.numberOfDays.Value;
+            daysNumber = (int)AccommodationReservationDateView.numberOfDays.Value;
 
             int minDays = SelectedAccommodation.MinDays;
 
@@ -169,26 +167,19 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         }
 
-        public void ButtonDateConfirmation_Click(object sender, RoutedEventArgs e)
+        public bool ButtonDateConfirmation_Check(AccommodationStay selectedAccommodationStay)
         {
-            SelectedAccommodationStay = (AccommodationStay)AccommodationReservationDateView.availableDatesGrid.SelectedItem;
-            if (SelectedAccommodationStay == null)
+            if (selectedAccommodationStay == null)
             {
                 MessageBox.Show("Molimo Vas selektujte datume koje zelite da rezervisete.");
-                return;
+                return false;
             }
             if (SelectedAccommodation == null)
             {
                 MessageBox.Show("Doslo je do greske.");
-                return;
+                return false;
             }
-            AccommodationReservationConfirmationView accommodationReservationConfirmationView = new AccommodationReservationConfirmationView(ReservationId, SelectedAccommodation, SelectedAccommodationStay, daysNumber, User);
-            accommodationReservationConfirmationView.Show();
-        }
-
-        public void ButtonDateCancelation_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationReservationDateView.Close();
+            return true;
         }
     }
 }

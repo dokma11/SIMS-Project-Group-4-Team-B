@@ -14,49 +14,29 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
     {
         private TourService _tourService;
 
-        private LocationService _locationService;
-
         private TourReservationService _tourReservationService;
 
         private VoucherService _voucherService;
+       
         public ObservableCollection<Tour> Tours { get; set; }
-        public ObservableCollection<Location> Locations { get; set; }
-
-        public ObservableCollection<Voucher> Vouchers { get; set; }
         public Tour SelectedTour { get; set; }
-        public Tour EditedTour { get; set; }
-
         public User User { get; set; }
-        public Voucher Voucher { get; set; }
-
-        public List<Tour> FilteredData = new List<Tour>();
-
-        public TourReservation TourReservation { get; set; }
+        public List<Tour> FilteredData { get; set; }
 
         private Guest2View Guest2View;
-
-
         public Guest2ViewModel(User user,Guest2View guest2View)
         {
             _tourService = new TourService();
-            _locationService = new LocationService();
             _tourReservationService = new TourReservationService();
             _voucherService = new VoucherService();
             
             Tours = new ObservableCollection<Tour>(_tourService.GetAvailable());
-            Locations = new ObservableCollection<Location>(_locationService.GetAll());
-            Vouchers = new ObservableCollection<Voucher>(_voucherService.GetByUser(user));
             FilteredData = new List<Tour>();
             
-            SelectedTour = new Tour();
-            EditedTour = new Tour();
-            TourReservation = new TourReservation();
-            Voucher = new Voucher();
-
+            SelectedTour = null;
             User = user;
             Guest2View = guest2View;
 
-            _tourService.AddLocationsToTour(Locations, Tours);
         }
 
         
@@ -97,7 +77,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         }
 
 
-        public void SearchTours_Click()
+       public void SearchTours_Click()
         {
             string citySearchTerm = Guest2View.citySearchBox.Text.ToLower();
             string countrySearchTerm = Guest2View.countrySearchBox.Text.ToLower();
@@ -105,16 +85,8 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             string guideLanguageSearchTerm = Guest2View.guideLanguageSearchBox.Text.ToLower();
             int maxGuestNumberSearchTerm = (int)Guest2View.guestNumberBox.Value;
 
-            FilteredData = Tours.Where(tour =>
-                (string.IsNullOrEmpty(citySearchTerm) || tour.City.ToLower().Contains(citySearchTerm)) &&
-                (string.IsNullOrEmpty(countrySearchTerm) || tour.Country.ToLower().Contains(countrySearchTerm)) &&
-                (string.IsNullOrEmpty(lengthSearchTerm) || tour.Length.ToString().ToLower().Contains(lengthSearchTerm)) &&
-                (string.IsNullOrEmpty(guideLanguageSearchTerm) || tour.GuideLanguage.ToString().ToLower().Contains(guideLanguageSearchTerm)) &&
-                tour.MaxGuestNumber >= maxGuestNumberSearchTerm
-            ).ToList();
-
+            FilteredData = _tourService.GetFiltered(citySearchTerm, countrySearchTerm, lengthSearchTerm, guideLanguageSearchTerm, maxGuestNumberSearchTerm);
             Guest2View.dataGridTours.ItemsSource = FilteredData;
-            
         }
 
         public void MyReservations_Click()
@@ -132,11 +104,9 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
             if (SelectedTour.AvailableSpace >= reservedSpace)
             {
-                EditedTour = SelectedTour;
-
                 TourReservation tourReservation = new TourReservation(SelectedTour, User, reservedSpace);
                 _tourReservationService.Create(tourReservation);
-                _tourService.UpdateAvailableSpace(reservedSpace, EditedTour);
+                _tourService.UpdateAvailableSpace(reservedSpace, SelectedTour);
                 
                 Update();
                 MessageBox.Show("Uspesna rezervacija");
@@ -165,6 +135,8 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
             return false;
         }
+
+       
         
 
         public void DisplaySelectedTour()
@@ -192,8 +164,19 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         {
             if (_tourReservationService.CheckVouchers(tourReservation))
             {
-                Voucher = new Voucher(Voucher.VoucherType.FiveReservations, User, SelectedTour);
+                Voucher Voucher = new Voucher(Voucher.VoucherType.FiveReservations, User, SelectedTour);
                 _voucherService.Create(Voucher);
+            }
+        }
+
+        public void SeeDetails_Click()
+        {
+            if (IsNull(SelectedTour))
+                return;
+            else
+            {
+                TourDetailedView TourDetailedView = new TourDetailedView(SelectedTour);
+                TourDetailedView.Show();
             }
         }
         public void Update()

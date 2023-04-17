@@ -13,7 +13,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
     /// </summary>
     public partial class NewAccommodationReservationReschedulingRequestViewModel : Window, IObserver
     {
-        public AccommodationReservation SelectedAccommodationReservation { get; set; }
 
         private AccommodationReservationService _accommodationReservationService;
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
@@ -36,24 +35,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             FilteredData = _accommodationReservationService.FindSuitableUpcomingReservations(User);
             NewAccommodationReservationReschedulingRequestView.myDataGrid.ItemsSource = FilteredData;
-        }
-
-        public void makeRequest_Click(object sender, RoutedEventArgs e)
-        {
-            SelectedAccommodationReservation = (AccommodationReservation)NewAccommodationReservationReschedulingRequestView.myDataGrid.SelectedItem;
-            if (SelectedAccommodationReservation == null)
-            {
-                MessageBox.Show("Molimo Vas selektujte rezervaciju koji zelite obrisete.");
-                return;
-            }
-            var accommodationReservationDateView = new AccommodationReservationDateView(SelectedAccommodationReservation.Id, SelectedAccommodationReservation.Accommodation, User);
-            accommodationReservationDateView.Show();
-            NewAccommodationReservationReschedulingRequestView.Close();
-        }
-
-        public void back_Click(object sender, RoutedEventArgs e)
-        {
-            NewAccommodationReservationReschedulingRequestView.Close();
         }
 
         public void Update()

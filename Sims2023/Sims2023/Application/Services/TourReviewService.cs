@@ -46,7 +46,7 @@ namespace Sims2023.Application.Services
         }
         public void AddReviewsPictures(List<string> pictures, TourReview tourReview)
         {
-            string picturesString = string.Join(",", pictures);
+            string picturesString = string.Join("!", pictures);
             _tourReviews.AddReviewsPictures(picturesString, tourReview);
         }
 

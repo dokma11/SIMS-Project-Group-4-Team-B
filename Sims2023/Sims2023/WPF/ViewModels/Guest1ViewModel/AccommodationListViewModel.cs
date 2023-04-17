@@ -32,8 +32,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             Accommodations = new ObservableCollection<Accommodation>(_accommodationService.GetAllAccommodations());
 
             FilteredData = new List<Accommodation>();
-
-            //   _accommodationService.Update();
         }
 
         public void SearchAccommodation_Click(object sender, RoutedEventArgs e)
@@ -58,37 +56,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             FilteredData.Clear();
             AccommodationListView.myDataGrid.ItemsSource = Accommodations;
-        }
-
-        public void ButtonReservation_Click(object sender, RoutedEventArgs e)
-        {
-            SelectedAccommodation = (Accommodation)AccommodationListView.myDataGrid.SelectedItem;
-
-            if (SelectedAccommodation == null)
-            {
-                MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da rezervisete.");
-                return;
-            }
-            AccommodationReservationDateView accommodationReservationDateView = new AccommodationReservationDateView(-1, SelectedAccommodation, User);
-            accommodationReservationDateView.Show();
-        }
-
-        public void Back_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationListView.Close();
-        }
-
-        internal void DetailViewbutton_Click(object sender, RoutedEventArgs e)
-        {
-            SelectedAccommodation = (Accommodation)AccommodationListView.myDataGrid.SelectedItem;
-
-            if (SelectedAccommodation == null)
-            {
-                MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da prikazete detaljnije.");
-                return;
-            }
-            AccommodationDetailedView accommodationDetailedView = new AccommodationDetailedView(User, SelectedAccommodation);
-            accommodationDetailedView.Show();
         }
     }
 }

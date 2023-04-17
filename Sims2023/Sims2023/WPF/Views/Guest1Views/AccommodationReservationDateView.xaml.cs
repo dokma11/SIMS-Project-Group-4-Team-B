@@ -10,11 +10,19 @@ namespace Sims2023.WPF.Views.Guest1Views
     public partial class AccommodationReservationDateView : Window
     {
         public AccommodationReservationDateViewModel AccommodationReservationDateViewModel;
+        public Accommodation SelectedAccommodation { get; set; }
+        public User User { get; set; }
+        public int ReservationId { get; set; }
+        public AccommodationStay SelectedAccommodationStay { get; set; }
         public AccommodationReservationDateView(int reservationId, Accommodation selectedAccommodation, User guest1)
         {
             InitializeComponent();
             AccommodationReservationDateViewModel = new AccommodationReservationDateViewModel(this, reservationId, selectedAccommodation, guest1);
             DataContext = AccommodationReservationDateViewModel;
+
+            User = guest1;
+            ReservationId = reservationId;
+            SelectedAccommodation = selectedAccommodation;
         }
 
         private void MakeReservation_Click(object sender, RoutedEventArgs e)
@@ -24,12 +32,18 @@ namespace Sims2023.WPF.Views.Guest1Views
 
         private void ButtonDateConfirmation_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationReservationDateViewModel.ButtonDateConfirmation_Click(sender, e);
+            int daysNumber = (int)numberOfDays.Value;
+            SelectedAccommodationStay = (AccommodationStay)availableDatesGrid.SelectedItem;
+            if (AccommodationReservationDateViewModel.ButtonDateConfirmation_Check(SelectedAccommodationStay))
+            {
+                AccommodationReservationConfirmationView accommodationReservationConfirmationView = new AccommodationReservationConfirmationView(ReservationId, SelectedAccommodation, SelectedAccommodationStay, daysNumber, User);
+                accommodationReservationConfirmationView.Show();
+            }
         }
 
         private void ButtonDateCancelation_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationReservationDateViewModel.ButtonDateCancelation_Click(sender, e);
+            Close();
         }
     }
 }

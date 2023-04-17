@@ -29,9 +29,12 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<Tour> GetAlternative(int reserveSpace, Tour tour);
         public void UpdateAvailableSpace(int reservedSpace, Tour tour);
         public void Update(Tour tour);
-        public void AddLocationsToTour(ObservableCollection<Location> locations, ObservableCollection<Tour> tours);
+        
+        public Uri GetPictureUri(Tour tour, int i);
+        public List<Tour> GetFiltered(string citySearchTerm, string countrySearchTerm, string lengthSearchTerm, string guideLanguageSearchTerm, int maxGuestNumberSearchTerm);
         public void Subscribe(IObserver observer);
         public void Unsubscribe(IObserver observer);
         public void NotifyObservers();
+        
     }
 }

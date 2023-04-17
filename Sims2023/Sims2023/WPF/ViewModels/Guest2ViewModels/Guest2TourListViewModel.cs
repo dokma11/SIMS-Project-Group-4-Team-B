@@ -16,33 +16,29 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
     {
         public Tour SelectedTour { get; set; }
         public User User { get; set; }
-        
-        public ObservableCollection<Tour> Tours { get; set; }  
-        public ObservableCollection<Location> Locations { get; set; }   
+
+        public ObservableCollection<Tour> Tours;   
 
 
         public TourService _tourService;
         public TourReservationService _tourReservationService;
 
-        public LocationService _locationService;
+        
         public Guest2TourListViewModel(User user,Guest2TourListView guest2TourListView)
         {
             _tourReservationService = new TourReservationService();
             _tourService = new TourService();
-            _locationService = new LocationService();
-
-            Locations = new ObservableCollection<Location>(_locationService.GetAll());
-            Tours = new ObservableCollection<Tour>(_tourReservationService.GetByUser(user));
+            
+            Tours =new ObservableCollection<Tour>( _tourReservationService.GetByUser(user));
 
             User = user;
-            SelectedTour = new Tour();
+            SelectedTour = null;
             
-            _tourService.AddLocationsToTour(Locations, Tours);
         }
-
-        
         public void RateTour_Click()
         {
+            if (IsNull(SelectedTour))
+                return;
             if (_tourService.CanRateTour(SelectedTour))
             {
                 RateTourView rateTourView = new RateTourView(User, SelectedTour);
@@ -50,12 +46,14 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             }
             else
             {
-                MessageBox.Show("Ne mozete da ocenite nezavrsenu turu");
+                MessageBox.Show("Izaberite zavrsenu turu");
             }
         }
 
         public void SeeActiveTour_Click()
         {
+            if(IsNull(SelectedTour))
+                return ;
             if (_tourService.CanSeeTour(SelectedTour))
             {
                 GuestLiveTrackingTourView guestLiveTrackingTourView = new GuestLiveTrackingTourView(SelectedTour);
@@ -65,6 +63,16 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             {
                 MessageBox.Show("Izaberite aktivnu turu");
             }
+        }
+
+        public bool IsNull(Tour tour)
+        {
+            if(tour == null)
+            {
+                MessageBox.Show("Izaberite turu");
+                return true;
+            }
+            return false;
         }
 
         

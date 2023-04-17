@@ -1,11 +1,8 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
-using System;
+using Sims2023.WPF.Views.Guest1Views;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Data;
-using System.Windows.Media.Animation;
-using Sims2023.WPF.Views.Guest1Views;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
@@ -92,11 +89,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             _accommodationReservationReschedulingController.Create(accommodationReservationRescheduling);
             MessageBox.Show("Uspesno ste podneli zahtev za pomeranje rezervacije!");
 
-        }
-
-        public void ButtonDateCancelation_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationReservationConfirmationView.Close();
         }
     }
 }

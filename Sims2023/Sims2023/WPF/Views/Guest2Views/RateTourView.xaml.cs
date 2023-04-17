@@ -18,22 +18,15 @@ using Sims2023.WPF.ViewModels.Guest2ViewModels;
 namespace Sims2023.WPF.Views.Guest2Views
 {
    
-    public partial class RateTourView : Window,IObserver
+    public partial class RateTourView : Window
     {
-        public User User { get; set; }
-        public Tour Tour { get; set; }
+       
         RateTourViewModel RateTourViewModel { get; set; }
 
-        
         public RateTourView(User user,Tour tour)
         {
             InitializeComponent();
-           
-            Tour = tour;
-            User = user;
             RateTourViewModel= new RateTourViewModel(user,tour,this);
-
-            
 
             DataContext = RateTourViewModel;
         }
@@ -48,9 +41,6 @@ namespace Sims2023.WPF.Views.Guest2Views
             RateTourViewModel.AddPicture_Click();
         }
 
-        public void Update()
-        {
-            RateTourViewModel.Update();
-        }
+        
     }
 }

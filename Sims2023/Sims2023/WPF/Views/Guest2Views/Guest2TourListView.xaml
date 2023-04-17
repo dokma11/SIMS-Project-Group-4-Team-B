@@ -12,8 +12,8 @@
                     IsReadOnly="True" AutoGenerateColumns="False" Width="655" Height="270" Margin="44,82,101,82">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Width="90" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Grad" Width="90" Binding="{Binding City}"/>
-                <DataGridTextColumn Header="Drzava" Width="80" Binding="{Binding Country}"/>
+                <DataGridTextColumn Header="Grad" Width="90" Binding="{Binding Location.City}"/>
+                <DataGridTextColumn Header="Drzava" Width="80" Binding="{Binding Location.Country}"/>
                 <DataGridTextColumn Header="Jezik" Width="60" Binding="{Binding GuideLanguage}" />
                 <DataGridTextColumn Header="Pocetak" Width="150" Binding="{Binding Start}"/>
                 <DataGridTextColumn Header="Trajanje" Width="50" Binding="{Binding Length}"/>

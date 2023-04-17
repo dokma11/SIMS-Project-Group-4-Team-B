@@ -71,7 +71,7 @@ namespace Sims2023.Repository
             var tour = _tours.FirstOrDefault(t => t.Id == toursId);
             if (tour != null)
             {
-                tour.LocationId = location.Id;
+                tour.Location.Id = location.Id;
                 _fileHandler.Save(_tours);
                 NotifyObservers();
             }
@@ -104,11 +104,11 @@ namespace Sims2023.Repository
         {
             foreach (var tour in tours)
             {
-                var location = locations.FirstOrDefault(l => l.Id == tour.LocationId);
+                var location = locations.FirstOrDefault(l => l.Id == tour.Location.Id);
                 if (location != null)
                 {
-                    tour.City = location.City;
-                    tour.Country = location.Country;
+                    tour.Location.City = location.City;
+                    tour.Location.Country = location.Country;
                 }
             }
         }
@@ -155,7 +155,7 @@ namespace Sims2023.Repository
         public List<Tour> GetAlternative(int reserveSpace, Tour tour)//new method for guest2
         {
             var alternativeTours = _tours
-                .Where(tour => tour.LocationId == tour.LocationId && tour.AvailableSpace >= reserveSpace && tour.CurrentState == ToursState.Created)
+                .Where(tour => tour.Location.Id == tour.Location.Id && tour.AvailableSpace >= reserveSpace && tour.CurrentState==Tour.State.Created)
                 .ToList();
 
             return alternativeTours;
@@ -251,5 +251,27 @@ namespace Sims2023.Repository
         {
             selectedTour.GuideLanguage = language;
         }
+
+        public Uri GetPictureUri(Tour tour,int i)
+        {
+            
+            Uri imageUri = new Uri(tour.Pictures[i], UriKind.RelativeOrAbsolute);
+            return imageUri;
+        }
+
+        public List<Tour> GetFiltered(string citySearchTerm,string countrySearchTerm,string lengthSearchTerm,string guideLanguageSearchTerm,int maxGuestNumberSearchTerm)
+        {
+            List<Tour>FilteredData = GetAvailable().Where(tour =>
+                (string.IsNullOrEmpty(citySearchTerm) || tour.Location.City.ToLower().Contains(citySearchTerm)) &&
+                (string.IsNullOrEmpty(countrySearchTerm) || tour.Location.Country.ToLower().Contains(countrySearchTerm)) &&
+                (string.IsNullOrEmpty(lengthSearchTerm) || tour.Length.ToString().ToLower().Contains(lengthSearchTerm)) &&
+                (string.IsNullOrEmpty(guideLanguageSearchTerm) || tour.GuideLanguage.ToString().ToLower().Contains(guideLanguageSearchTerm)) &&
+                tour.MaxGuestNumber >= maxGuestNumberSearchTerm
+            ).ToList();
+
+            return FilteredData;
+        }
+
+
     }
 }

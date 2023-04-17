@@ -1,13 +1,5 @@
-﻿using Sims2023.Application.Services;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
 using Sims2023.WPF.Views.Guest1Views;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
@@ -17,7 +9,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public User User { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
 
-        int days;
         public AccommodationDetailedViewModel(AccommodationDetailedView accommodationDetailedView, User guest1, Accommodation selectedAccommodation)
         {
             AccommodationDetailedView = accommodationDetailedView;
@@ -34,17 +25,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             AccommodationDetailedView.accommodatioCountryTextBox.Text = selectedAccommodation.Location.Country;
             AccommodationDetailedView.accommodatioTypeTextBox.Text = selectedAccommodation.Type.ToString();
             AccommodationDetailedView.PicturesListView.ItemsSource = selectedAccommodation.Imageurls;
-        }
-
-        public void ButtonDateCancelation_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationReservationDateView accommodationReservationDateView = new AccommodationReservationDateView(-1,SelectedAccommodation,User);
-            accommodationReservationDateView.Show();
-        }
-
-        public void ReservationButton_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationDetailedView.Close();
         }
     }
 }
