@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Sims2023.Repository
 {
-    public class TourRepository: ITourRepository
+    public class TourRepository : ITourRepository
     {
         private List<IObserver> _observers;
         private List<Tour> _tours;
@@ -43,6 +43,7 @@ namespace Sims2023.Repository
                 NotifyObservers();
             }
         }
+
         public void Update(Tour tour)//new method and deleted addedited
         {
             int index = _tours.FindIndex(p => p.Id == tour.Id);
@@ -54,16 +55,15 @@ namespace Sims2023.Repository
             _fileHandler.Save(_tours);
             NotifyObservers();
         }
-        
 
         public bool CanRateTour(Tour tour)//new for guest2
         {
-            return tour.CurrentState == Tour.State.Finished;
+            return tour.CurrentState == ToursState.Finished;
         }
 
         public bool CanSeeTour(Tour tour)//new for guest2
         {
-            return tour.CurrentState == Tour.State.Started;
+            return tour.CurrentState == ToursState.Started;
         }
 
         public void AddToursLocation(int toursId, Location location)
@@ -115,12 +115,15 @@ namespace Sims2023.Repository
 
         public void AddToursKeyPoints(string keyPointsString, int firstToursId)
         {
-            var tour = _tours.FirstOrDefault(t => t.Id == firstToursId);
-            if (tour != null)
+            foreach (var tourInstance in _tours)
             {
-                tour.KeyPointsString = keyPointsString;
-                _fileHandler.Save(_tours);
-                NotifyObservers();
+                if (tourInstance.Id == firstToursId)
+                {
+                    tourInstance.KeyPointsString = keyPointsString;
+                    firstToursId++;
+                    _fileHandler.Save(_tours);
+                    NotifyObservers();
+                }
             }
         }
 
@@ -139,9 +142,9 @@ namespace Sims2023.Repository
         public List<Tour> GetAvailable()//new method for guest2
         {
             List<Tour> available = new List<Tour>();
-            foreach(var tourInstance in _tours)
+            foreach (var tourInstance in _tours)
             {
-                if (tourInstance.CurrentState == Tour.State.Created)
+                if (tourInstance.CurrentState == ToursState.Created)
                 {
                     available.Add(tourInstance);
                 }
@@ -152,7 +155,7 @@ namespace Sims2023.Repository
         public List<Tour> GetAlternative(int reserveSpace, Tour tour)//new method for guest2
         {
             var alternativeTours = _tours
-                .Where(tour => tour.LocationId == tour.LocationId && tour.AvailableSpace >= reserveSpace && tour.CurrentState==Tour.State.Created)
+                .Where(tour => tour.LocationId == tour.LocationId && tour.AvailableSpace >= reserveSpace && tour.CurrentState == ToursState.Created)
                 .ToList();
 
             return alternativeTours;
@@ -162,11 +165,13 @@ namespace Sims2023.Repository
         {
             return _fileHandler.GetById(id);
         }
+
         public void UpdateAvailableSpace(int reservedSpace, Tour tour)//new method for guest2
         {
             tour.AvailableSpace -= reservedSpace;
             Update(tour);
         }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
@@ -192,7 +197,7 @@ namespace Sims2023.Repository
 
         public List<Tour> GetFinishedTours(User loggedInGuide)
         {
-            return _tours.Where(t => (t.CurrentState == Tour.State.Finished || t.CurrentState == Tour.State.Interrupted)
+            return _tours.Where(t => (t.CurrentState == ToursState.Finished || t.CurrentState == ToursState.Interrupted)
                          && t.Guide.Id == loggedInGuide.Id).ToList();
         }
 
@@ -213,7 +218,7 @@ namespace Sims2023.Repository
         {
             Tour ret = new();
             var tours = _tours.Where(tour => tour.Guide.Id == loggedInGuide.Id &&
-                        (tour.CurrentState == Tour.State.Finished || tour.CurrentState == Tour.State.Interrupted));
+                        (tour.CurrentState == ToursState.Finished || tour.CurrentState == ToursState.Interrupted));
             if (year == "Svih vremena")
             {
                 return tours.OrderByDescending(tour => tour.AttendedGuestsNumber).FirstOrDefault();
@@ -234,15 +239,15 @@ namespace Sims2023.Repository
 
         public List<Tour> GetCreatedTours(User loggedInGuide)
         {
-            return _tours.Where(tour => tour.CurrentState == Tour.State.Created && tour.Guide.Id == loggedInGuide.Id).ToList();
+            return _tours.Where(tour => tour.CurrentState == ToursState.Created && tour.Guide.Id == loggedInGuide.Id).ToList();
         }
 
-        public void ChangeToursState(Tour selectedTour, Tour.State state)
+        public void ChangeToursState(Tour selectedTour, ToursState state)
         {
             selectedTour.CurrentState = state;
         }
 
-        public void SetToursLanguage(Tour selectedTour, Tour.Language language)
+        public void SetToursLanguage(Tour selectedTour, ToursLanguage language)
         {
             selectedTour.GuideLanguage = language;
         }

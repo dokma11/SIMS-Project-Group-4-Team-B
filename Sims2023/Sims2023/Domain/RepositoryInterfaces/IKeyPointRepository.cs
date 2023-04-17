@@ -13,12 +13,12 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public KeyPoint GetById(int id);
         public void Save();
         public List<KeyPoint> GetByToursId(int id);
-        public void ChangeKeyPointsState(KeyPoint keyPoint, KeyPoint.State state);
+        public void ChangeState(KeyPoint keyPoint, KeyPointsState state);
         public void AddGuestsId(KeyPoint selectedKeyPoint, int guestsId);
         public KeyPoint GetCurrentKeyPoint(Tour tour);//new method for guest2
         void Subscribe(IObserver observer);
         public void Unsubscribe(IObserver observer);
         public void NotifyObservers();
-
+        public KeyPoint GetWhereGuestJoined(Tour selectedTour, User loggedInGuest);
     }
 }

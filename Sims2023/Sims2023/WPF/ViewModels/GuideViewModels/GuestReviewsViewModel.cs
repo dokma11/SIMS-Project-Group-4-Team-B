@@ -33,18 +33,12 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public void DisplayReviews()
         {
-            GetKeyPointWhereGuestJoined();
             ReviewsToDisplay.Clear();
             foreach (var tourReview in _tourReviewService.GetByToursId(SelectedTour.Id))
             {
                 ReviewsToDisplay.Add(tourReview);
             }
             _tourReviewService.Save();
-        }
-
-        public void GetKeyPointWhereGuestJoined()
-        {
-            _tourReviewService.GetKeyPointWhereGuestJoined(SelectedTour);
         }
 
         public void ReportReview()

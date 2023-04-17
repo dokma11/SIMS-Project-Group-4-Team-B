@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using Sims2023.Application.Services;
+﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.Observer;
 using Sims2023.WPF.Views.Guest2Views;
+using System.Collections.Generic;
+using System.Windows;
 
 namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 {
-    public class RateTourViewModel:IObserver
+    public class RateTourViewModel : IObserver
     {
         public KeyPoint KeyPoint { get; set; }
 
@@ -23,7 +19,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         public RateTourView RateTourView { get; set; }
         public List<string> _picturesList;
 
-        public RateTourViewModel(User user,Tour tour,RateTourView rateTourView)
+        public RateTourViewModel(User user, Tour tour, RateTourView rateTourView)
         {
             _tourReviewService = new TourReviewService();
             _keyPointService = new KeyPointService();
@@ -33,14 +29,15 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             RateTourView = rateTourView;
             TourReview = new TourReview();
 
-            _picturesList = new List<string>(); 
+            _picturesList = new List<string>();
 
-            KeyPoint = _keyPointService.GetById(0);//default and then guide will check at which KeyPoint has joined 
+            //KeyPoint = _keyPointService.GetById(0);//default and then guide will check at which KeyPoint has joined 
+            KeyPoint = _keyPointService.GetWhereGuestJoined(Tour, User);
         }
 
         public void Send_Click()
         {
-            
+
             TourReview = new TourReview(User, Tour, KeyPoint, (int)RateTourView.guidesKnowledgeBox.Value, (int)RateTourView.tourInterestBox.Value, (int)RateTourView.guidesLanguageCapabilityBox.Value, (string)RateTourView.CommentTextBox.Text);
             _tourReviewService.Create(TourReview);
             _tourReviewService.AddReviewsPictures(_picturesList, TourReview);
@@ -59,7 +56,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         public void Update()
         {
-            
+
         }
     }
 }

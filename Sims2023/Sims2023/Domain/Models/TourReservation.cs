@@ -11,7 +11,6 @@ namespace Sims2023.Domain.Models
         public Tour Tour { get; set; }
         public User User { get; set; }
         public int GuestNumber { get; set; }
-
         public DateTime ReservationTime { get; set; }
         //needed for counting vaouchers in the year of reservation
         public bool ConfirmedParticipation { get; set; }
@@ -19,24 +18,19 @@ namespace Sims2023.Domain.Models
         //will delete later on 
         public bool ShouldConfirmParticipation { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string name)
+        public TourReservation()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            ReservationTime = DateTime.Now;
         }
 
-
-        public TourReservation() {
-            ReservationTime= DateTime.Now;
-        }
-
-        public TourReservation(Tour tour,User user,int guestNumber)
+        public TourReservation(Tour tour, User user, int guestNumber)
         {
             Tour = tour;
             User = user;
             GuestNumber = guestNumber;
-            ReservationTime= DateTime.Now;
+            ReservationTime = DateTime.Now;
         }
+
         public TourReservation(int id, Tour tour, User user, int guestNumber, bool confirmedParticipation, bool usedVoucher)
         {
             Id = id;
@@ -49,6 +43,11 @@ namespace Sims2023.Domain.Models
             UsedVoucher = usedVoucher;
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
 
         public string[] ToCSV()
         {
@@ -81,6 +80,5 @@ namespace Sims2023.Domain.Models
             //will delete later on
             ShouldConfirmParticipation = bool.Parse(values[7]);
         }
-
     }
 }

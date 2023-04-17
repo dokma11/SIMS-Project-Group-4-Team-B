@@ -7,26 +7,26 @@ using System.Runtime.CompilerServices;
 
 namespace Sims2023.Domain.Models
 {
+    public enum ToursState { Created, Started, Finished, Cancelled, Interrupted }
+    public enum ToursLanguage { Serbian, English, German, French, Spanish, Italian, Chinese, Japanese }
     public class Tour : ISerializable, INotifyPropertyChanged
     {
-        public enum State { Created, Started, Finished, Cancelled, Interrupted }
-        public enum Language { Serbian, English, German, French, Spanish, Italian, Chinese, Japanese }
         public int Id { get; set; }
         public string Name { get; set; }
-        public int LocationId { get; set; }
+        public int LocationId { get; set; }         //should probably remove
         public string Description { get; set; }
-        public Language GuideLanguage { get; set; }
+        public ToursLanguage GuideLanguage { get; set; }
         public int MaxGuestNumber { get; set; }
         public List<KeyPoint> KeyPoints { get; set; }
         //Going to concatenate all of the KeyPoints into one string just so I can save it easier in csv 
         public string KeyPointsString { get; set; }
         public DateTime Start { get; set; }
         public int Length { get; set; }
-        public State CurrentState { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
+        public ToursState CurrentState { get; set; }
+        public string City { get; set; }            //should probably remove
+        public string Country { get; set; }         //should probably remove
         public int AvailableSpace { get; set; }
-        public List<string> Pictures { get; set; }
+        public List<string> Pictures { get; set; }  //should probably remove
         //Same principle as for KeyPoints, I'm going to concatenate all of the pictures urls into one string so I can save it easier
         public string PicturesString { get; set; }
         public int AttendedGuestsNumber { get; set; }
@@ -37,7 +37,7 @@ namespace Sims2023.Domain.Models
             Pictures = new List<string>();
         }
 
-        public Tour(int id, string name, int locationId, string description, Language guideLanguage, int maxGuestNumber, string keyPointsString, DateTime start, int length, string picturesString, User guide)
+        public Tour(int id, string name, int locationId, string description, ToursLanguage guideLanguage, int maxGuestNumber, string keyPointsString, DateTime start, int length, string picturesString, User guide)
         {
             Id = id;
             Name = name;
@@ -57,7 +57,7 @@ namespace Sims2023.Domain.Models
             //
             Start = start;
             Length = length;
-            CurrentState = State.Created;
+            CurrentState = ToursState.Created;
             PicturesString = picturesString;
             Pictures = new List<string>();
             string[] picturesStringArray = PicturesString.Split(",");
@@ -102,7 +102,7 @@ namespace Sims2023.Domain.Models
             Name = values[1];
             LocationId = Convert.ToInt32(values[2]);
             Description = values[3];
-            GuideLanguage = (Language)Enum.Parse(typeof(Language), values[4]);
+            GuideLanguage = (ToursLanguage)Enum.Parse(typeof(ToursLanguage), values[4]);
             MaxGuestNumber = Convert.ToInt32(values[5]);
             AvailableSpace = Convert.ToInt32(values[6]);
             //
@@ -121,7 +121,7 @@ namespace Sims2023.Domain.Models
             {
                 Pictures.Add(picture);
             }
-            CurrentState = (State)Enum.Parse(typeof(State), values[11]);
+            CurrentState = (ToursState)Enum.Parse(typeof(ToursState), values[11]);
             UserService userService = new();
             Guide = userService.GetById(Convert.ToInt32(values[12]));
             AttendedGuestsNumber = Convert.ToInt32(values[13]);

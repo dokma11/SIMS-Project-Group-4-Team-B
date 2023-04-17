@@ -83,7 +83,10 @@ namespace Sims2023.WPF.Views.GuideViews
             if (GuideViewModel.IsTourSelected() && GuideViewModel.IsTourEligibleForCancellation())
             {
                 GuideViewModel.CancelTour();
-                SuccessfulCancellationLabelEvent();
+                if (GuideViewModel.TourCancelled)
+                {
+                    SuccessfulCancellationLabelEvent();
+                }
             }
             else
             {
