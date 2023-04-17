@@ -2,6 +2,7 @@
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.OwnerViewModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Sims2023.View
 {

@@ -155,7 +155,7 @@ namespace Sims2023.Repository
         public List<Tour> GetAlternative(int reserveSpace, Tour tour)//new method for guest2
         {
             var alternativeTours = _tours
-                .Where(tour => tour.Location.Id == tour.Location.Id && tour.AvailableSpace >= reserveSpace && tour.CurrentState==Tour.State.Created)
+                .Where(tour => tour.Location.Id == tour.Location.Id && tour.AvailableSpace >= reserveSpace && tour.CurrentState==ToursState.Created)
                 .ToList();
 
             return alternativeTours;

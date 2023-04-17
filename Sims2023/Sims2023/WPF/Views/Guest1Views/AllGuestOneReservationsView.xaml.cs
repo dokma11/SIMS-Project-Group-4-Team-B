@@ -22,12 +22,6 @@ namespace Sims2023.WPF.Views.Guest1Views
             InitializeComponent();
             AllGuestOneReservationsViewModel = new AllGuestOneReservationsViewModel(this, guest1);
             DataContext = AllGuestOneReservationsViewModel;
-
-        private void grading_Click(object sender, RoutedEventArgs e)
-        {
-            AllGuestOneReservationsViewModel.grading_Click(sender, e);
-            _accommodationReservationService = new AccommodationReservationService();
-            User = guest1;
         }
 
         private void grading_Click(object sender, RoutedEventArgs e)
@@ -43,7 +37,7 @@ namespace Sims2023.WPF.Views.Guest1Views
 
         private void renovation_Click(object sender, RoutedEventArgs e)
         {
-            AllGuestOneReservationsViewModel.renovation_Click(sender, e);
+            //AllGuestOneReservationsViewModel.renovation_Click(sender, e);
             MessageBox.Show("Ova opcija jos uvek nije dostupna.");
             return;
         }

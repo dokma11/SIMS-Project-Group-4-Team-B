@@ -13,6 +13,8 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         public KeyPointService _keyPointService;
         public User User { get; set; }
         public Tour Tour { get; set; }
+        public TourReview TourReview { get; set; }
+        public KeyPoint KeyPoint { get; set; }
         public RateTourView RateTourView { get; set; }
         public List<string> _picturesList;
 

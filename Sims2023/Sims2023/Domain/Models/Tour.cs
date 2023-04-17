@@ -37,7 +37,7 @@ namespace Sims2023.Domain.Models
             Pictures = new List<string>();
         }
 
-        public Tour(int id, string name, Location location, string description, Language guideLanguage, int maxGuestNumber, string keyPointsString, DateTime start, int length, string concatenatedPictures, User guide)
+        public Tour(int id, string name, Location location, string description, ToursLanguage guideLanguage, int maxGuestNumber, string keyPointsString, DateTime start, int length, string concatenatedPictures, User guide)
         {
             Id = id;
             Name = name;
@@ -57,7 +57,7 @@ namespace Sims2023.Domain.Models
             //
             Start = start;
             Length = length;
-            CurrentState = State.Created;
+            CurrentState = ToursState.Created;
             ConcatenatedPictures = concatenatedPictures;
             Pictures = new List<string>();
             string[] picturesArray = ConcatenatedPictures.Split("!");
