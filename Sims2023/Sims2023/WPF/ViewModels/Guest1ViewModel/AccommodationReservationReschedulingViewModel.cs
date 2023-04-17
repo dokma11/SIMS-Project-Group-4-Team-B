@@ -23,14 +23,13 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
     /// Interaction logic for AccommodationReservationReschedulingView.xaml
     /// </summary>
     public partial class AccommodationReservationReschedulingViewModel : Window, IObserver
-    {
-        public AccommodationReservationRescheduling SelectedAccommodationReservationRescheduling { get; set; }
-
+    {     
         private AccommodationReservationReschedulingService _accommodationReservationReschedulingController;
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
 
         List<AccommodationReservationRescheduling> FilteredData = new List<AccommodationReservationRescheduling>();
         public User User { get; set; }
+        public AccommodationReservationRescheduling SelectedAccommodationReservationRescheduling { get; set; }
 
         AccommodationReservationReschedulingView AccommodationReservationReschedulingView;
 
@@ -46,13 +45,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             FilteredData = _accommodationReservationReschedulingController.FindSuitableReservationReschedulings(User);
             AccommodationReservationReschedulingView.myDataGrid.ItemsSource = FilteredData;
-        }
-
-        public void newRequest_Click(object sender, RoutedEventArgs e)
-        {
-            var newAccommodationReservationReschedulingRequest = new NewAccommodationReservationReschedulingRequestView(User);
-            newAccommodationReservationReschedulingRequest.Show();
-            Update();
         }
 
         public void report_Click(object sender, RoutedEventArgs e)

@@ -31,7 +31,7 @@ namespace Sims2023.WPF.Views.Guest1Views
 
         private void ButtonDateCancelation_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationReservationConfirmationViewModel.ButtonDateCancelation_Click(sender, e);
+            Close();
         }
     }
 }

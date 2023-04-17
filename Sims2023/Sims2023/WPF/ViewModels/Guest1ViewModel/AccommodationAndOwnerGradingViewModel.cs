@@ -27,10 +27,10 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         private List<string> _addedPictures = new List<string>();
 
-        private AccommodationGradeService _accommodationGradeController;
+        private AccommodationGradeService _accommodationGradeService;
         public ObservableCollection<AccommodationGrade> AccommodationGrades { get; set; }
 
-        private AccommodationReservationService _accommodationReservationController;
+        private AccommodationReservationService _accommodationReservationService;
         public AccommodationReservation SelectedAccommodationReservation { get; set; }
 
         private AccommodationService _accommodationService;
@@ -43,10 +43,10 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             User = guest1;
 
-            _accommodationReservationController = accommodationReservationController;
+            _accommodationReservationService = accommodationReservationController;
 
-            _accommodationGradeController = new AccommodationGradeService();
-            AccommodationGrades = new ObservableCollection<AccommodationGrade>(_accommodationGradeController.GetAllAccommodationGrades());
+            _accommodationGradeService = new AccommodationGradeService();
+            AccommodationGrades = new ObservableCollection<AccommodationGrade>(_accommodationGradeService.GetAllAccommodationGrades());
 
             _accommodationService = new AccommodationService();
 
@@ -56,26 +56,12 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         }
 
-        public void accept_Click(object sender, RoutedEventArgs e)
-        {
-            var result = System.Windows.MessageBox.Show("Da li ste sigurni da zelite da ostavite ovu recenziju?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
-            if (result == System.Windows.MessageBoxResult.Yes)
-            {
-                AddCreatedGrade();
-                _accommodationAndOwnerGradingView.Close();
-            }
-            else
-            {
-                return;
-            }
-        }
-
         public void AddCreatedGrade()
         {
             AccommodationGrade accommodationGrade = CreateGrade(SelectedAccommodationReservation);
             if(accommodationGrade != null)
             {
-                _accommodationGradeController.Create(accommodationGrade);
+                _accommodationGradeService.Create(accommodationGrade);
                 UpdateAccommodationReservation(SelectedAccommodationReservation);
                 UpdateAccommodationImages(SelectedAccommodationReservation, _addedPictures);
                 MessageBox.Show("Uspesno ste ocenili ovaj smestaj.");
@@ -88,16 +74,14 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             foreach(var image in addedPictures)
             {
                 selectedAccommodationReservation.Accommodation.Imageurls.Add(image);
-                MessageBox.Show($"dodata slika {image}.");
             }
             _accommodationService.Update(SelectedAccommodationReservation.Accommodation);
-            MessageBox.Show("Smestaj updejtovan");
         }
 
         public void UpdateAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
         {
             selectedAccommodationReservation.Graded = true;
-            _accommodationReservationController.Update(SelectedAccommodationReservation);
+            _accommodationReservationService.Update(SelectedAccommodationReservation);
         }
 
         
@@ -114,11 +98,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             accommodationGrade.Comment = _accommodationAndOwnerGradingView.textBox.Text;
             return accommodationGrade;
 
-        }
-        
-        public void giveUp_Click(object sender, RoutedEventArgs e)
-        {
-            _accommodationAndOwnerGradingView.Close();
         }
         
         public void addPicture_Click(object sender, RoutedEventArgs e)

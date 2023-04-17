@@ -29,12 +29,8 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         private AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
 
-        Guest1MainView Guest1MainView;
-
         public Guest1MainViewModel(Guest1MainView guest1MainView,User guest1)
         {
-            Guest1MainView = guest1MainView;
-
             User = guest1;
             _accommodationReservationReschedulingService = new AccommodationReservationReschedulingService();
             AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingService.GetAllReservationReschedulings());
@@ -43,35 +39,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public void Window_Loaded(object sender, RoutedEventArgs e)
         {
             _accommodationReservationReschedulingService.checkForNotifications(User);
-        }
-
-        public void VewAccommodation_Click(object sender, RoutedEventArgs e)
-        {
-            var AccommodationListView = new AccommodationListView(User);
-            AccommodationListView.Show();
-        }
-
-        public void ButtonLogOut_Click(object sender, RoutedEventArgs e)
-        {
-            Guest1MainView.Close();
-        }
-
-        public void buttonGrading_Click(object sender, RoutedEventArgs e)
-        {
-            var AllGuestOneReservationsView = new AllGuestOneReservationsView(User);
-            AllGuestOneReservationsView.Show();
-        }
-
-        public void AccommodationCancellation_Click(object sender, RoutedEventArgs e)
-        {
-            var AccommodationReservationCancellationView = new AccommodationReservationCancellationView(User);
-            AccommodationReservationCancellationView.Show();
-        }
-
-        public void buttonReservationMove_Click(object sender, RoutedEventArgs e)
-        {
-            var AccommodationReservationReschedulingView = new AccommodationReservationReschedulingView(User);
-            AccommodationReservationReschedulingView.Show();
         }
     }
 }
