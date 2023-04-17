@@ -1,13 +1,5 @@
-﻿using Sims2023.Application.Services;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
 using Sims2023.WPF.Views.Guest1Views;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
