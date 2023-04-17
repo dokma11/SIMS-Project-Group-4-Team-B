@@ -22,7 +22,7 @@ namespace Sims2023.WPF.Views.Guest2Views
     /// <summary>
     /// Interaction logic for VoucherListView.xaml
     /// </summary>
-    public partial class VoucherListView : Window, IObserver
+    public partial class VoucherListView : Window
     {
         
         public User User { get; set; }
@@ -52,9 +52,6 @@ namespace Sims2023.WPF.Views.Guest2Views
             VoucherListViewModel.SkipVoucher_Click();
         }
 
-        public void Update()
-        {
-            VoucherListViewModel.Update();
-        }
+        
     }
 }

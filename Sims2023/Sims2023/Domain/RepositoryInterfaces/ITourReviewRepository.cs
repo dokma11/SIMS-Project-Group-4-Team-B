@@ -15,7 +15,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<TourReview> GetByToursId(int id);
         public void GetKeyPointWhereGuestJoined(Tour selectedTour);
         public void Report(TourReview tourReview);
-        public void AddReviewsPictures(string picturesString, TourReview tourReview);
+        public void AddReviewsPictures(string concatenatedPictures, TourReview tourReview);
         public void Subscribe(IObserver observer);
         public void Unsubscribe(IObserver observer);
         void NotifyObservers();

@@ -23,24 +23,22 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         public TourService _tourService;
         public TourReservationService _tourReservationService;
 
-        public LocationService _locationService;
+        
         public Guest2TourListViewModel(User user,Guest2TourListView guest2TourListView)
         {
             _tourReservationService = new TourReservationService();
             _tourService = new TourService();
-            _locationService = new LocationService();
-
+            
             Tours =new ObservableCollection<Tour>( _tourReservationService.GetByUser(user));
 
             User = user;
             SelectedTour = null;
             
-            
         }
-
-        
         public void RateTour_Click()
         {
+            if (IsNull(SelectedTour))
+                return;
             if (_tourService.CanRateTour(SelectedTour))
             {
                 RateTourView rateTourView = new RateTourView(User, SelectedTour);
@@ -54,6 +52,8 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         public void SeeActiveTour_Click()
         {
+            if(IsNull(SelectedTour))
+                return ;
             if (_tourService.CanSeeTour(SelectedTour))
             {
                 GuestLiveTrackingTourView guestLiveTrackingTourView = new GuestLiveTrackingTourView(SelectedTour);
@@ -63,6 +63,16 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             {
                 MessageBox.Show("Izaberite aktivnu turu");
             }
+        }
+
+        public bool IsNull(Tour tour)
+        {
+            if(tour == null)
+            {
+                MessageBox.Show("Izaberite turu");
+                return true;
+            }
+            return false;
         }
 
         

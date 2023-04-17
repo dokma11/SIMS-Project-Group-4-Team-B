@@ -205,7 +205,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
                 return;
             else
             {
-                TourDetailedView TourDetailedView = new TourDetailedView(User, SelectedTour);
+                TourDetailedView TourDetailedView = new TourDetailedView(SelectedTour);
                 TourDetailedView.Show();
             }
         }

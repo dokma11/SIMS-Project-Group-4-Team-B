@@ -19,8 +19,6 @@
         <TextBlock x:Name="hoursTextBlock" Width="169" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="814,203,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
         <Label Content="Start time:" FontSize="20" HorizontalAlignment="Left" Margin="456,269,0,0" VerticalAlignment="Top"/>
         <TextBlock x:Name="startTimeTextBlock" Width="287" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="561,274,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
-        <Label Content="Number of people:" FontSize="20" HorizontalAlignment="Left" Margin="456,339,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="peopleNumberTextBlock" Width="55" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="638,344,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
         <Label Content="Description:" FontSize="20" HorizontalAlignment="Left" Margin="456,418,0,0" VerticalAlignment="Top"/>
         <TextBlock x:Name="descriptionTextBlock" Width="518" Height="89" FontSize="20" HorizontalAlignment="Left" Margin="465,460,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
         <Button Content="Cancel" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="227,454,0,0" VerticalAlignment="Top" Click="Cancel_Click"/>

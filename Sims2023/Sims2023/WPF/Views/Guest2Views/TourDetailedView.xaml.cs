@@ -22,10 +22,10 @@ namespace Sims2023.WPF.Views.Guest2Views
     public partial class TourDetailedView : Window
     {
         public TourDetailedViewModel TourDetailedViewModel { get; set; }
-        public TourDetailedView(User user,Tour tour)
+        public TourDetailedView(Tour tour)
         {
             InitializeComponent();
-            TourDetailedViewModel = new TourDetailedViewModel(this, user, tour);
+            TourDetailedViewModel = new TourDetailedViewModel(this, tour);
             DataContext = TourDetailedViewModel;
         }
 
