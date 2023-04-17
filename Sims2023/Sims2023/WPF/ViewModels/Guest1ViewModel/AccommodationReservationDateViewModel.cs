@@ -1,23 +1,11 @@
 ﻿using Sims2023.Application.Services;
-using Sims2023.Controller;
 using Sims2023.Domain.Models;
-using Sims2023.Observer;
-using Sims2023.View;
 using Sims2023.WPF.Views.Guest1Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
@@ -89,7 +77,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             int stayLength = (int)AccommodationReservationDateView.numberOfDays.Value;
             daysNumber = stayLength;
 
-            int possibleDatesNumber = _accommodationReservationService.CheckDates(SelectedAccommodation,startDateSelected, endDateSelected, stayLength, AvailableDates);
+            int possibleDatesNumber = _accommodationReservationService.CheckDates(SelectedAccommodation, startDateSelected, endDateSelected, stayLength, AvailableDates);
 
             if (AvailableDates.Count > 0)
             {
@@ -120,7 +108,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 }
                 else
                 {
-                    datesFound = _accommodationReservationService.CheckDates(SelectedAccommodation,startDateSelected = startDateSelected.AddDays(-1), endDateSelected = endDateSelected.AddDays(1), stayLength, AdditionalAvailableDates);
+                    datesFound = _accommodationReservationService.CheckDates(SelectedAccommodation, startDateSelected = startDateSelected.AddDays(-1), endDateSelected = endDateSelected.AddDays(1), stayLength, AdditionalAvailableDates);
                 }
 
             }

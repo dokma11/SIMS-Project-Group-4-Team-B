@@ -22,7 +22,7 @@ namespace Sims2023.WPF.Views.GuideViews
         {
             if (GuestReviewsViewModel.IsTourSelected())
             {
-                GuestReviewsViewModel.DisplayReviews();
+                GuestReviewsViewModel.UpdateReviewsList();
             }
             else
             {

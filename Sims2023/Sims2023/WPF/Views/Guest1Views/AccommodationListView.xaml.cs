@@ -1,22 +1,6 @@
-﻿using Microsoft.VisualBasic;
-using Sims2023.Application.Services;
-using Sims2023.Controller;
-using Sims2023.Domain.Models;
-using Sims2023.Model;
-using Sims2023.Observer;
-using Sims2023.View;
+﻿using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest1ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Xml.Linq;
-using Sims2023.WPF.ViewModels.Guest1ViewModel;
 
 namespace Sims2023.WPF.Views.Guest1Views
 {
@@ -26,7 +10,7 @@ namespace Sims2023.WPF.Views.Guest1Views
         public AccommodationListView(User guest1)
         {
             InitializeComponent();
-            AccommodationListViewModel = new AccommodationListViewModel(this,guest1);
+            AccommodationListViewModel = new AccommodationListViewModel(this, guest1);
             DataContext = AccommodationListViewModel;
         }
 

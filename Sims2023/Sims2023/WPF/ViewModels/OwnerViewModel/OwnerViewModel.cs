@@ -1,26 +1,21 @@
 ﻿using Sims2023.Application.Services;
-using Sims2023.Controller;
 using Sims2023.Domain.Models;
-using Sims2023.Model;
 using Sims2023.View;
 using Sims2023.WPF.Views.OwnerViews;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Sims2023.WPF.ViewModels.OwnerViewModel
 {
-   public class OwnerViewModel
+    public class OwnerViewModel
     {
         public AccommodationService _accommodationService;
-        
+
         public AccommodationReservationService _accommodationReservationService;
-       
+
         public GuestGradeService _gradeService;
 
         public AccommodationCancellationService _accommodationCancellationService;
@@ -36,7 +31,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             User = user;
             _accommodationService = new AccommodationService();
             _accommodationReservationService = new AccommodationReservationService();
-            _accommodationCancellationService  = new AccommodationCancellationService();
+            _accommodationCancellationService = new AccommodationCancellationService();
             _gradeService = new GuestGradeService();
             Reservations = new List<AccommodationReservation>(_accommodationReservationService.GetAllReservations());
             AccommodationCancellations = new ObservableCollection<AccommodationCancellation>(_accommodationCancellationService.GetAllAccommodationCancellations());

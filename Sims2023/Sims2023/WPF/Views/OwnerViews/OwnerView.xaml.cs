@@ -1,13 +1,7 @@
-﻿using Sims2023.Application.Services;
-using Sims2023.Controller;
-using Sims2023.Domain.Models;
-using Sims2023.Model;
+﻿using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.OwnerViewModel;
-using Sims2023.WPF.Views.OwnerViews;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Windows;
 
 namespace Sims2023.View

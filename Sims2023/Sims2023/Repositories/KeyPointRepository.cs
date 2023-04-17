@@ -6,7 +6,7 @@ using Sims2023.Observer;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sims2023.Repository
+namespace Sims2023.Repositories
 {
     public class KeyPointRepository : IKeyPointRepository
     {
