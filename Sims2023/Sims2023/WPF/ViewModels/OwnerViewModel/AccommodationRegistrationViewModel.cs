@@ -1,9 +1,11 @@
 ﻿using Microsoft.Win32;
 using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.FileHandler;
 using Sims2023.View;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -18,6 +20,8 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
     public class AccommodationRegistrationViewModel
     {
         private AccommodationService _accommodationService;
+        private List<CountriesAndCities> _countries;
+        private CountriesAndCitiesService _allCountriesService;
 
         private Accommodation Accommodation { get; set; }
         public User User { get; set; }
@@ -38,6 +42,23 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             Accommodation = new Accommodation();
             _addedPictures = new List<string>();
             imageList = new List<BitmapImage>();
+            _allCountriesService = new CountriesAndCitiesService();
+            _countries = _allCountriesService.GetAllLocations();
+
+            View.countryComboBox.ItemsSource = _countries;
+            View.countryComboBox.DisplayMemberPath = "CountryName";
+            View.countryComboBox.SelectedValuePath = "CountryName";
+        }
+
+        public void countryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Retrieve the list of cities for the selected country
+            var selectedCountry = (CountriesAndCities)View.countryComboBox.SelectedItem;
+            var cities = new List<string> { selectedCountry.City1, selectedCountry.City2, selectedCountry.City3, selectedCountry.City4, selectedCountry.City5 };
+
+            // Bind the city ComboBox to the list of cities
+            View.cityComboBox.ItemsSource = cities;
+ 
         }
 
         public bool IsValid(string MaxGuests1, string mindays, string CancelDayss, string city, string country, string name, string type)
@@ -87,8 +108,8 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         {
             int Id = 0;
             string Name = View.textBox.Text;
-            string Town = View.textBox1.Text;
-            string Country = View.textBox2.Text;
+            string Country = View.countryComboBox.Text;
+            string Town = View.cityComboBox.Text;
             string Type = View.comboBox.Text;
             string MaxGuests1 = View.textBox3.Text;
             string mindays = View.textBox4.Text;

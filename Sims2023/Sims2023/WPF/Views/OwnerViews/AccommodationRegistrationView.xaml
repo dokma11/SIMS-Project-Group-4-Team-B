@@ -9,15 +9,13 @@
     <Grid Margin="0,0,0,-6">
         <Label x:Name="label" Content="Registracija novog smještaja" FontSize="25" HorizontalAlignment="Center" Margin="0,29,0,0" VerticalAlignment="Top" Width="320" Height="48"/>
         <Label x:Name="label1" Content="Naziv" HorizontalAlignment="Left" Margin="120,119,0,0" VerticalAlignment="Top" Width="124" Height="27" HorizontalContentAlignment="Center"/>
-        <Label x:Name="label2" Content="Grad" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="120,166,0,0" VerticalAlignment="Top" Width="124"/>
-        <Label x:Name="label3" Content="Država" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="120,213,0,0" VerticalAlignment="Top" Width="124"/>
+        <Label x:Name="label2" Content="Drzava" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="120,166,0,0" VerticalAlignment="Top" Width="124"/>
+        <Label x:Name="label3" Content="Grad" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="120,213,0,0" VerticalAlignment="Top" Width="124"/>
         <Label x:Name="label4" Content="Tip" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="120,270,0,0" VerticalAlignment="Top" Width="124"/>
         <Label x:Name="label5" Content="Max. broj gostiju" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="120,320,0,0" VerticalAlignment="Top" Width="124"/>
         <Label x:Name="label6" Content="Min. broj dana za rezervaciju" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="100,365,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.345,0.059" Width="164"/>
         <Label x:Name="label7" Content="Dani pred otkaz rezervacije" HorizontalAlignment="Left" Margin="100,421,0,0" VerticalAlignment="Top" Width="164"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="300,119,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="144" Height="27"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Margin="300,166,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="144" Height="26"/>
-        <TextBox x:Name="textBox2" HorizontalAlignment="Left" Margin="300,213,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="144" Height="26"/>
         <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="300,270,0,0" VerticalAlignment="Top" Width="144" Height="26">
             <ComboBoxItem Content="apartman"/>
             <ComboBoxItem Content="kuća"/>
@@ -44,6 +42,8 @@
 
         <Button x:Name="button1" Content="Registruj" HorizontalAlignment="Left" Margin="42,492,0,0" VerticalAlignment="Top" Width="140" Height="44" Click="Registration_Click"/>
         <Button x:Name="button2" Content="Odustani" HorizontalAlignment="Left" Margin="270,492,0,0" VerticalAlignment="Top" Height="44" Width="130" Click="Close_Click" />
+        <ComboBox x:Name="countryComboBox" HorizontalAlignment="Left" Margin="300,166,0,0" VerticalAlignment="Top" Width="144" Height="28" SelectionChanged="countryComboBox_SelectionChanged"/>
+        <ComboBox x:Name="cityComboBox" HorizontalAlignment="Left" Margin="300,213,0,0" VerticalAlignment="Top" Width="144" Height="26" />
 
 
 
