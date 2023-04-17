@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System;
 using System.Collections.Generic;
 using Path = System.IO.Path;
+using System.Windows.Controls;
 
 namespace Sims2023.View
 {
@@ -35,6 +36,11 @@ namespace Sims2023.View
         private void Registration_Click(object sender, RoutedEventArgs e)
         {
             AccommodationRegistrationViewModel.Registration_Click(sender, e);
+        }
+
+        private void countryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AccommodationRegistrationViewModel.countryComboBox_SelectionChanged(sender, e);
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
