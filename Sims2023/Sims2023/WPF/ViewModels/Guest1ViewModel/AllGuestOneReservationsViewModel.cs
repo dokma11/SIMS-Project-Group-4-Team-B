@@ -38,7 +38,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             FilteredData = _accommodationReservationService.FindSuitablePastReservations(User);
             AllGuestOneReservationsView.myDataGrid.ItemsSource = FilteredData;
         }
-
         public bool GradingIsPossible(AccommodationReservation selectedAccommodationReservation)
         {
             if (SelectedAccommodationReservation == null)

@@ -1,17 +1,9 @@
 ﻿using Sims2023.Application.Services;
-using Sims2023.Controller;
 using Sims2023.Domain.Models;
-using Sims2023.Model;
 using Sims2023.WPF.Views.OwnerViews;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Sims2023.Domain.Models.AccommodationReservationRescheduling;
-using System.Windows.Controls;
-using System.Windows;
 using System.Collections.ObjectModel;
+using System.Windows;
+using static Sims2023.Domain.Models.AccommodationReservationRescheduling;
 
 namespace Sims2023.WPF.ViewModels.OwnerViewModel
 {
@@ -49,8 +41,8 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         public void UpdateReschedule(AccommodationReservationRescheduling chosen)
         {
-             _rescheduleController.Update(chosen);
+            _rescheduleController.Update(chosen);
         }
-           
+
     }
 }

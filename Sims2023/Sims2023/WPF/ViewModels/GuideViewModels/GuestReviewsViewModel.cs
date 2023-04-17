@@ -31,9 +31,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _tourService.GetAttendedGuestsNumber(LoggedInGuide);
         }
 
-        public void DisplayReviews()
+        public void UpdateReviewsList()
         {
-            GetKeyPointWhereGuestJoined();
             ReviewsToDisplay.Clear();
             foreach (var tourReview in _tourReviewService.GetByToursId(SelectedTour.Id))
             {
@@ -42,15 +41,10 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _tourReviewService.Save();
         }
 
-        public void GetKeyPointWhereGuestJoined()
-        {
-            _tourReviewService.GetKeyPointWhereGuestJoined(SelectedTour);
-        }
-
         public void ReportReview()
         {
             _tourReviewService.Report(SelectedReview);
-            DisplayReviews();
+            UpdateReviewsList();
         }
 
         public bool IsReviewSelected()

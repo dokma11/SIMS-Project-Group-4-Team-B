@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Sims2023.Repositories
 {
-    public class TourReservationRepository: ITourReservationRepository
+    public class TourReservationRepository : ITourReservationRepository
     {
         private List<IObserver> _observers;
         private TourReservationFileHandler _fileHandler;
@@ -63,7 +63,7 @@ namespace Sims2023.Repositories
 
         public List<TourReservation> GetNotConfirmedParticipation()//new method for guest2
         {
-            return _tourReservations.Where(r=>r.ShouldConfirmParticipation==true).ToList();
+            return _tourReservations.Where(r => r.ShouldConfirmParticipation == true).ToList();
         }
 
         public void ConfirmReservation(TourReservation tourReservation, bool confirmed)//new method for guest2
@@ -84,12 +84,12 @@ namespace Sims2023.Repositories
         public List<Tour> GetByUser(User user)//new method for guest2
         {
             return _tourReservations
-                .Where(r => r.User.Id == user.Id && (r.Tour.CurrentState != Tour.State.Started || r.ConfirmedParticipation))
+                .Where(r => r.User.Id == user.Id && (r.Tour.CurrentState != ToursState.Started || r.ConfirmedParticipation))
                 .Select(r => r.Tour)
                 .ToList();
         }
 
-        public void Save() 
+        public void Save()
         {
             _fileHandler.Save(_tourReservations);
             NotifyObservers();
@@ -143,8 +143,7 @@ namespace Sims2023.Repositories
             }
             else
             {
-                //definitvno mora da se menja
-                return "ne znam";
+                return "Nije dobra godina unesena";
             }
         }
 
@@ -160,11 +159,11 @@ namespace Sims2023.Repositories
 
             if (used)
             {
-                return usedPercentage.ToString("0.00");
+                return usedPercentage.ToString("P1");
             }
             else
             {
-                return notUsedPercentage.ToString("0.00");
+                return notUsedPercentage.ToString("P1");
             }
         }
     }

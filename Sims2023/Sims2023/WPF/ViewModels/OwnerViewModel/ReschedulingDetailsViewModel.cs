@@ -1,14 +1,8 @@
 ﻿using Sims2023.Application.Services;
-using Sims2023.Controller;
 using Sims2023.Domain.Models;
-using Sims2023.Model;
 using Sims2023.WPF.Views.OwnerViews;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using static Sims2023.Domain.Models.AccommodationReservationRescheduling;
 
@@ -26,7 +20,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         public AccommodationReservationReschedulingService _reschedulingService;
 
-         public AccommodationReservationReschedulingService _reschedulingController;
+        public AccommodationReservationReschedulingService _reschedulingController;
 
         public ReschedulingDetailsViewModel(AccommodationReservationRescheduling SelectedGuest, ObservableCollection<AccommodationReservationRescheduling> people, ReschedulingDetailsView view)
         {
@@ -35,7 +29,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             View = view;
             guest = SelectedGuest;
             peoplee = people;
-           _reschedulingController = new AccommodationReservationReschedulingService();
+            _reschedulingController = new AccommodationReservationReschedulingService();
             UpdatedReservationStatus = new AccommodationReservation();
         }
 
@@ -71,8 +65,8 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         public AccommodationReservation GetById(int id)
         {
-           return _reservationService.GetById(id);
+            return _reservationService.GetById(id);
         }
-      
+
     }
 }

@@ -1,11 +1,11 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
+using Sims2023.Repositories;
 using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Sims2023.Application.Services
 {
@@ -42,7 +42,7 @@ namespace Sims2023.Application.Services
         {
             return _tour.CanSeeTour(tour);
         }
-        public void UpdateAvailableSpace(int reservedSpace,Tour tour)//new for guest2
+        public void UpdateAvailableSpace(int reservedSpace, Tour tour)//new for guest2
         {
             _tour.UpdateAvailableSpace(reservedSpace, tour);
         }
@@ -114,12 +114,12 @@ namespace Sims2023.Application.Services
             return _tour.GetCreatedTours(loggedInGuide);
         }
 
-        public void ChangeToursState(Tour selectedTour, Tour.State state)
+        public void ChangeToursState(Tour selectedTour, ToursState state)
         {
             _tour.ChangeToursState(selectedTour, state);
         }
 
-        public void SetToursLanguage(Tour selectedTour, Tour.Language language)
+        public void SetToursLanguage(Tour selectedTour, ToursLanguage language)
         {
             _tour.SetToursLanguage(selectedTour, language);
         }
