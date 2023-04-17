@@ -1,21 +1,11 @@
-﻿using System;
+﻿using Sims2023.Application.Services;
+using Sims2023.Domain.Models;
+using Sims2023.Observer;
+using Sims2023.WPF.Views.Guest1Views;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Sims2023.Observer;
-using Sims2023.Domain.Models;
-using Sims2023.Application.Services;
-using Sims2023.WPF.Views.Guest1Views;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
@@ -37,7 +27,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public User User { get; set; }
 
         AccommodationReservationCancellationView AccommodationReservationCancellationView;
-        public AccommodationReservationCancellationViewModel(AccommodationReservationCancellationView accommodationReservationCancellationView,User guest1)
+        public AccommodationReservationCancellationViewModel(AccommodationReservationCancellationView accommodationReservationCancellationView, User guest1)
         {
             AccommodationReservationCancellationView = accommodationReservationCancellationView;
 
@@ -59,7 +49,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public void cancellation_Click(object sender, RoutedEventArgs e)
         {
             SelectedAccommodationReservation = (AccommodationReservation)AccommodationReservationCancellationView.myDataGrid.SelectedItem;
-            if(CheckSelectedAccommodationReservation(SelectedAccommodationReservation))
+            if (CheckSelectedAccommodationReservation(SelectedAccommodationReservation))
             {
                 MessageBoxResult result = System.Windows.MessageBox.Show("Da li ste sigurni da zelite da obrisete ovu rezervaciju?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
                 if (result == System.Windows.MessageBoxResult.Yes)
@@ -79,7 +69,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         private bool HasActiveReschedulingRequest(AccommodationReservation selectedAccommodationReservation)
         {
-           return  _accommodationReservationReschedulingService.CheckForActiveRequest(selectedAccommodationReservation);
+            return _accommodationReservationReschedulingService.CheckForActiveRequest(selectedAccommodationReservation);
         }
 
         public bool CheckSelectedAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
@@ -110,14 +100,14 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 return true;
             }
             return false;
-        }  
+        }
 
         public void CreateAccommodationCancellation(AccommodationReservation selectedAccommodationReservation)
         {
             AccommodationCancellation accommodationCancellation = new();
             accommodationCancellation.StartDate = selectedAccommodationReservation.StartDate;
-            accommodationCancellation.EndDate = selectedAccommodationReservation.EndDate;   
-            accommodationCancellation.NumberOfDays=selectedAccommodationReservation.NumberOfDays;
+            accommodationCancellation.EndDate = selectedAccommodationReservation.EndDate;
+            accommodationCancellation.NumberOfDays = selectedAccommodationReservation.NumberOfDays;
             accommodationCancellation.Accommodation = selectedAccommodationReservation.Accommodation;
             accommodationCancellation.Guest = selectedAccommodationReservation.Guest;
             accommodationCancellation.Notified = false;

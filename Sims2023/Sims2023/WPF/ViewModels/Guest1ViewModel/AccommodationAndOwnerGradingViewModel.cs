@@ -1,19 +1,14 @@
-﻿using Sims2023.Application.Services;
-using Sims2023.Controller;
+﻿using Microsoft.Win32;
+using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.WPF.Views.Guest1Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using Sims2023.WPF.Views.Guest1Views;
-using Microsoft.Win32;
 using System.Windows.Media.Imaging;
-using System.IO;
-using System.Reflection;
-using System.Windows.Shapes;
 using Path = System.IO.Path;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
@@ -59,7 +54,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public void AddCreatedGrade()
         {
             AccommodationGrade accommodationGrade = CreateGrade(SelectedAccommodationReservation);
-            if(accommodationGrade != null)
+            if (accommodationGrade != null)
             {
                 _accommodationGradeService.Create(accommodationGrade);
                 UpdateAccommodationReservation(SelectedAccommodationReservation);
@@ -71,7 +66,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         public void UpdateAccommodationImages(AccommodationReservation selectedAccommodationReservation, List<string> addedPictures)
         {
-            foreach(var image in addedPictures)
+            foreach (var image in addedPictures)
             {
                 selectedAccommodationReservation.Accommodation.Imageurls.Add(image);
             }
@@ -84,22 +79,22 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             _accommodationReservationService.Update(SelectedAccommodationReservation);
         }
 
-        
+
         public AccommodationGrade CreateGrade(AccommodationReservation selectedAccommodationReservation)
         {
             AccommodationGrade accommodationGrade = new AccommodationGrade();
             accommodationGrade.Guest = User;
             accommodationGrade.Accommodation = selectedAccommodationReservation.Accommodation;
             accommodationGrade.ValueForMoney = (int)_accommodationAndOwnerGradingView.valueForMoneyIntegerUpDown.Value;
-            accommodationGrade.Cleanliness=(int)_accommodationAndOwnerGradingView.cleannessIntegerUpDown.Value;
-            accommodationGrade.Owner=(int)_accommodationAndOwnerGradingView.ownerIntegerUpDown.Value;
-            accommodationGrade.Comfort=(int)_accommodationAndOwnerGradingView.comfortIntegerUpDown.Value;
-            accommodationGrade.Location=(int)_accommodationAndOwnerGradingView.locationIntegerUpDown.Value;
+            accommodationGrade.Cleanliness = (int)_accommodationAndOwnerGradingView.cleannessIntegerUpDown.Value;
+            accommodationGrade.Owner = (int)_accommodationAndOwnerGradingView.ownerIntegerUpDown.Value;
+            accommodationGrade.Comfort = (int)_accommodationAndOwnerGradingView.comfortIntegerUpDown.Value;
+            accommodationGrade.Location = (int)_accommodationAndOwnerGradingView.locationIntegerUpDown.Value;
             accommodationGrade.Comment = _accommodationAndOwnerGradingView.textBox.Text;
             return accommodationGrade;
 
         }
-        
+
         public void addPicture_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -142,7 +137,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public void RemovePictureFromListView(string itemToRemove)
         {
             BitmapImage selectedBitmapImage = FindDeletingPicture(itemToRemove);
-            
+
             if (selectedBitmapImage != null)
             {
                 imageList.Remove(selectedBitmapImage);
