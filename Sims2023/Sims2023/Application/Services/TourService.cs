@@ -123,5 +123,10 @@ namespace Sims2023.Application.Services
         {
             _tour.SetToursLanguage(selectedTour, language);
         }
+
+        public List<Tour> GetFiltered(string citySearchTerm, string countrySearchTerm, string lengthSearchTerm, string guideLanguageSearchTerm, int maxGuestNumberSearchTerm)
+        {
+            return _tour.GetFiltered(citySearchTerm, countrySearchTerm, lengthSearchTerm, guideLanguageSearchTerm, maxGuestNumberSearchTerm);
+        }
     }
 }

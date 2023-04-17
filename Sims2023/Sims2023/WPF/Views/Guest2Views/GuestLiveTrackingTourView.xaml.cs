@@ -23,21 +23,15 @@ namespace Sims2023.WPF.Views.Guest2Views
     /// </summary>
     public partial class GuestLiveTrackingTourView : Window
     {
-        public Tour Tour { get; set; }
-
         public GuestLiveTrackingTourViewModel GuestLiveTrackingTourViewModel { get; set; }
-        
-        
         public GuestLiveTrackingTourView(Tour tour)
         {
             InitializeComponent();
-            Tour = tour;
-            GuestLiveTrackingTourViewModel = new GuestLiveTrackingTourViewModel(Tour,this);
-            DataContext = GuestLiveTrackingTourViewModel.Tour;
+            GuestLiveTrackingTourViewModel = new GuestLiveTrackingTourViewModel(tour,this);
+            DataContext = tour;
 
         }
 
-        
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             GuestLiveTrackingTourViewModel.Cancel_Click();

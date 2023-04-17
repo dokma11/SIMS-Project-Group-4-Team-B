@@ -15,29 +15,18 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 {
     public class TourDetailedViewModel
     {
-        TourDetailedView TourDetailedView;
-        public User User { get; set; }
+        public TourDetailedView TourDetailedView;
         public Tour Tour { get; set; }
-
-        public ObservableCollection<Tour> Tours { get; set; }
-        public ObservableCollection<Location> Locations { get; set; }
-
+        
         private TourService _tourService;
-        private LocationService _locationService;
+        
         public int currentIndex;
-
-        
-
-        
-        public TourDetailedViewModel(TourDetailedView tourDetailedView,User user,Tour tour)
+        public TourDetailedViewModel(TourDetailedView tourDetailedView,Tour tour)
         {
             TourDetailedView = tourDetailedView;
-            User = user;
             Tour = tour;
             _tourService = new TourService();
-            _locationService = new LocationService();
-            Tours = new ObservableCollection<Tour>(_tourService.GetAvailable());
-            Locations = new ObservableCollection<Location>(_locationService.GetAll());
+            
             
             currentIndex = 0;
            

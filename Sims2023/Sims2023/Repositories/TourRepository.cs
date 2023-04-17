@@ -254,6 +254,19 @@ namespace Sims2023.Repository
             return imageUri;
         }
 
-        
+        public List<Tour> GetFiltered(string citySearchTerm,string countrySearchTerm,string lengthSearchTerm,string guideLanguageSearchTerm,int maxGuestNumberSearchTerm)
+        {
+            List<Tour>FilteredData = GetAvailable().Where(tour =>
+                (string.IsNullOrEmpty(citySearchTerm) || tour.Location.City.ToLower().Contains(citySearchTerm)) &&
+                (string.IsNullOrEmpty(countrySearchTerm) || tour.Location.Country.ToLower().Contains(countrySearchTerm)) &&
+                (string.IsNullOrEmpty(lengthSearchTerm) || tour.Length.ToString().ToLower().Contains(lengthSearchTerm)) &&
+                (string.IsNullOrEmpty(guideLanguageSearchTerm) || tour.GuideLanguage.ToString().ToLower().Contains(guideLanguageSearchTerm)) &&
+                tour.MaxGuestNumber >= maxGuestNumberSearchTerm
+            ).ToList();
+
+            return FilteredData;
+        }
+
+
     }
 }

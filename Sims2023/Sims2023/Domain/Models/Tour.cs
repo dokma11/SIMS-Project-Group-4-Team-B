@@ -28,7 +28,7 @@ namespace Sims2023.Domain.Models
         public int AvailableSpace { get; set; }
         public List<string> Pictures { get; set; }
         //Same principle as for KeyPoints, I'm going to concatenate all of the pictures urls into one string so I can save it easier
-        public string PicturesString { get; set; }
+        public string ConcatenatedPictures { get; set; }
         public int AttendedGuestsNumber { get; set; }
         public User Guide { get; set; }
         public Tour()
@@ -37,7 +37,7 @@ namespace Sims2023.Domain.Models
             Pictures = new List<string>();
         }
 
-        public Tour(int id, string name, Location location, string description, Language guideLanguage, int maxGuestNumber, string keyPointsString, DateTime start, int length, string picturesString, User guide)
+        public Tour(int id, string name, Location location, string description, Language guideLanguage, int maxGuestNumber, string keyPointsString, DateTime start, int length, string concatenatedPictures, User guide)
         {
             Id = id;
             Name = name;
@@ -58,10 +58,10 @@ namespace Sims2023.Domain.Models
             Start = start;
             Length = length;
             CurrentState = State.Created;
-            PicturesString = picturesString;
+            ConcatenatedPictures = concatenatedPictures;
             Pictures = new List<string>();
-            string[] picturesStringArray = PicturesString.Split("!");
-            foreach (string picture in picturesStringArray)
+            string[] picturesArray = ConcatenatedPictures.Split("!");
+            foreach (string picture in picturesArray)
             {
                 Pictures.Add(picture);
             }
@@ -88,7 +88,7 @@ namespace Sims2023.Domain.Models
                 KeyPointsString,
                 Start.ToString(),
                 Length.ToString(),
-                PicturesString,
+                ConcatenatedPictures,
                 CurrentState.ToString(),
                 Guide.Id.ToString(),
                 AttendedGuestsNumber.ToString(),
@@ -116,9 +116,9 @@ namespace Sims2023.Domain.Models
             //
             Start = DateTime.Parse(values[8]);
             Length = Convert.ToInt32(values[9]);
-            PicturesString = values[10];
-            string[] picturesStringArray = PicturesString.Split("!");
-            foreach (string picture in picturesStringArray)
+            ConcatenatedPictures = values[10];
+            string[] picturesArray = ConcatenatedPictures.Split("!");
+            foreach (string picture in picturesArray)
             {
                 Pictures.Add(picture);
             }
