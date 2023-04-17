@@ -12,28 +12,15 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 {
     public class GuestLiveTrackingTourViewModel
     {
-        public Tour Tour;
+        
         public GuestLiveTrackingTourView GuestLiveTrackingTourView { get; set; }
-        public KeyPoint CurrentKeyPoint { get; set; }
-
         
-        public ObservableCollection<KeyPoint> KeyPoints { get; set; }
-
-
-       
         private KeyPointService _keyPointService;
-        
-
         public GuestLiveTrackingTourViewModel(Tour tour,GuestLiveTrackingTourView guestLiveTrackingTourView)
         {
-
-            Tour = tour;    
             GuestLiveTrackingTourView = guestLiveTrackingTourView;
 
-           
             _keyPointService = new KeyPointService();
-            
-
             
             guestLiveTrackingTourView.keyPointTextBlock.Text=(_keyPointService.GetCurrentKeyPoint(tour)).Name;
             
