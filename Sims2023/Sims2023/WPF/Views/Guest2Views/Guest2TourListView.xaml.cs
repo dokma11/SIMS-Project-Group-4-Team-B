@@ -22,13 +22,12 @@ namespace Sims2023.WPF.Views.Guest2Views
     public partial class Guest2TourListView : Window
     {
         public Guest2TourListViewModel Guest2TourListViewModel { get; set; }
-        public User User { get; set; }
+        
         public Guest2TourListView(User user)
         {
             InitializeComponent();
             DataContext = this;
 
-            User = user;
             Guest2TourListViewModel = new Guest2TourListViewModel(user, this);
 
             DataContext = Guest2TourListViewModel;

@@ -24,17 +24,11 @@ namespace Sims2023.WPF.Views.Guest2Views
     /// </summary>
     public partial class VoucherListView : Window
     {
-        
-        public User User { get; set; }
-
         public VoucherListViewModel VoucherListViewModel { get; set; }
         
         public VoucherListView(User user)
         {
             InitializeComponent();
-            
-
-            User = user;
             VoucherListViewModel = new VoucherListViewModel(user, this);
             DataContext = VoucherListViewModel;
 

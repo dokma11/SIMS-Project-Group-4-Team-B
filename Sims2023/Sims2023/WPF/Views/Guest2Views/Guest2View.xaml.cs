@@ -21,14 +21,14 @@ namespace Sims2023.WPF.Views
     public partial class Guest2View : Window,IObserver
     {
         public Guest2ViewModel Guest2ViewModel { get; set; }
-        public User User { get; set; }
+       
 
         public Guest2View(User user)
         {
             InitializeComponent();
             DataContext = this;
 
-            User = user;
+            
             Guest2ViewModel = new Guest2ViewModel(user,this);
 
             DataContext = Guest2ViewModel;
