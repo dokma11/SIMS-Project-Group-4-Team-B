@@ -53,7 +53,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             TimeSpan difference = DateTime.Today - selectedAccommodationReservation.EndDate;
             if (difference.TotalDays >= 5)
             {
-                MessageBox.Show($"Rok za ocenjivanje smestaja je pet dana od kraja rezervacije.Proslo je {difference}!");
+                MessageBox.Show($"Rok za ocenjivanje smestaja je pet dana od kraja rezervacije. Proslo je {difference.TotalDays}!");
                 return false;
             }
             return true;

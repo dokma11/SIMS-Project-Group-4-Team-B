@@ -63,8 +63,8 @@
             <Button x:Name="DetailViewbutton" Content="Prikazi smestaj" FontSize="20" Margin="5,0,30,0" Grid.Row="6"  Grid.Column="1" Click="DetailViewbutton_Click"/>
         </Grid>
         <DataGrid x:Name="myDataGrid"
-                    ItemsSource="{Binding Source={StaticResource AccommodationsList}, UpdateSourceTrigger=PropertyChanged}"
-          SelectedItem="{Binding Path=SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Source={StaticResource AccommodationsList}, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="25,96,25,34"
                   Grid.Row="0" Grid.Column="0">
             <DataGrid.RowStyle>

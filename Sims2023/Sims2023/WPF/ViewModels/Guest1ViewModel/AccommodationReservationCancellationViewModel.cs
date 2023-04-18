@@ -120,13 +120,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
         }
 
-        public void RemoveAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
-        {
-            AccommodationReservations.Remove(selectedAccommodationReservation);
-            _accommodationReservationService.Delete(selectedAccommodationReservation);
-            Update();
-        }
-
         public void Update()
         {
             FilteredData.Clear();

@@ -18,14 +18,16 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         private AccommodationReservationService _accommodationReservationService;
 
-        private AccommodationReservationReschedulingService _accommodationReservationReschedulingController;
+        private AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
         public int ReservationId { get; set; }
 
         int days;
 
+        int guests;
+
         AccommodationReservationConfirmationView AccommodationReservationConfirmationView;
-        public AccommodationReservationConfirmationViewModel(AccommodationReservationConfirmationView accommodationReservationConfirmationView, int reservationId, Accommodation selectedAccommodation, AccommodationStay selectedAccommodationStay, int daysNumber, User guest1)
+        public AccommodationReservationConfirmationViewModel(AccommodationReservationConfirmationView accommodationReservationConfirmationView, int reservationId, Accommodation selectedAccommodation, AccommodationStay selectedAccommodationStay, int daysNumber, int guestsNumber, User guest1, ObservableCollection<AccommodationReservationRescheduling> accommodationReservationReschedulings, AccommodationReservationReschedulingService accommodationReservationReschedulingService)
         {
             AccommodationReservationConfirmationView = accommodationReservationConfirmationView;
 
@@ -33,12 +35,13 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             SelectedAccommodation = selectedAccommodation;
             SelectedAccommodationStay = selectedAccommodationStay;
             days = daysNumber;
+            guests = guestsNumber;
             ReservationId = reservationId;
 
             _accommodationReservationService = new AccommodationReservationService();
 
-            _accommodationReservationReschedulingController = new AccommodationReservationReschedulingService();
-            AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingController.GetAllReservationReschedulings());
+            _accommodationReservationReschedulingService = accommodationReservationReschedulingService;
+            AccommodationReservationReschedulings = accommodationReservationReschedulings;
 
             FillTextBoxes(SelectedAccommodation, SelectedAccommodationStay);
 
@@ -55,7 +58,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             AccommodationReservationConfirmationView.PicturesListView.ItemsSource = selectedAccommodation.Imageurls;
         }
 
-        public void ReservationButton_Click(object sender, RoutedEventArgs e)
+        public void ReservationButton_Click()
         {
             if (ReservationId == -1)
             {
@@ -65,13 +68,12 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             {
                 MakeNewAccommodationReservationRescheduling(ReservationId);
             }
-            AccommodationReservationConfirmationView.Close();
 
         }
 
         public void MakeNewAccommodationReservation()
         {
-            AccommodationReservation accommodationReservation = new AccommodationReservation(-1, User, SelectedAccommodation, SelectedAccommodationStay.StartDate, SelectedAccommodationStay.EndDate, days, false);
+            AccommodationReservation accommodationReservation = new AccommodationReservation(-1, User, SelectedAccommodation, SelectedAccommodationStay.StartDate, SelectedAccommodationStay.EndDate, days, guests, false);
             _accommodationReservationService.Create(accommodationReservation);
 
             MessageBox.Show("Uspesno ste rezervisali objekat!");
@@ -86,7 +88,8 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             accommodationReservationRescheduling.NewStartDate = SelectedAccommodationStay.StartDate;
             accommodationReservationRescheduling.NewEndDate = SelectedAccommodationStay.EndDate;
             accommodationReservationRescheduling.Comment = "Trenutno nema komentara";
-            _accommodationReservationReschedulingController.Create(accommodationReservationRescheduling);
+            _accommodationReservationReschedulingService.Create(accommodationReservationRescheduling);
+            AccommodationReservationReschedulings.Add(accommodationReservationRescheduling);
             MessageBox.Show("Uspesno ste podneli zahtev za pomeranje rezervacije!");
 
         }

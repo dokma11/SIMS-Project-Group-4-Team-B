@@ -33,7 +33,10 @@ namespace Sims2023.Repositories
         {
             return _fileHandler.GetById(id);
         }
-
+        public void Save()
+        {
+            _fileHandler.Save(_accommodationReservationReschedulings);
+        }
         public List<AccommodationReservationRescheduling> FindGuestsForOwner(User owner, List<AccommodationReservationRescheduling> guests)
         {
             DateTime today = DateTime.Today;
@@ -118,14 +121,14 @@ namespace Sims2023.Repositories
             }
         }
 
-        public List<AccommodationReservationRescheduling> FindSuitableReservationReschedulings(User guest1)
+        public ObservableCollection<AccommodationReservationRescheduling> FindSuitableReservationReschedulings(User guest1, ObservableCollection<AccommodationReservationRescheduling> accommodationReservationReschedulings)
         {
-            List<AccommodationReservationRescheduling> FilteredReservationReschedulings = new List<AccommodationReservationRescheduling>();
-            foreach (AccommodationReservationRescheduling accommodationReservationRescheduling in _accommodationReservationReschedulings)
+            ObservableCollection<AccommodationReservationRescheduling> FilteredReservationReschedulings = accommodationReservationReschedulings;
+            foreach (AccommodationReservationRescheduling accommodationReservationRescheduling in FilteredReservationReschedulings)
             {
-                if (FilterdDataSelection(accommodationReservationRescheduling, guest1))
+                if (!FilterdDataSelection(accommodationReservationRescheduling, guest1))
                 {
-                    FilteredReservationReschedulings.Add(accommodationReservationRescheduling);
+                    FilteredReservationReschedulings.Remove(accommodationReservationRescheduling);
                 }
             }
             return FilteredReservationReschedulings;
@@ -135,28 +138,6 @@ namespace Sims2023.Repositories
         {
             TimeSpan difference = accommodationReservationRescheduling.AccommodationReservation.StartDate - DateTime.Today;
             if (difference.TotalDays >= 0 && accommodationReservationRescheduling.AccommodationReservation.Guest.Id == guest1.Id)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public void checkForNotifications(User guest1)
-        {
-            foreach (AccommodationReservationRescheduling accommodationReservationRescheduling in _accommodationReservationReschedulings)
-            {
-                if (Notify(accommodationReservationRescheduling, guest1))
-                {
-                    MessageBox.Show($" Vlasnik smestaja {accommodationReservationRescheduling.AccommodationReservation.Accommodation.Name} je promienio status vaseg zahteva za pomeranje rezervacije. Vas zahtev je {accommodationReservationRescheduling.Status}!");
-                    accommodationReservationRescheduling.Notified = true;
-                    Update(accommodationReservationRescheduling);
-                }
-            }
-        }
-
-        public bool Notify(AccommodationReservationRescheduling accommodationReservationRescheduling,User guest1)
-        {
-            if (accommodationReservationRescheduling.Notified == false && accommodationReservationRescheduling.AccommodationReservation.Guest.Id == guest1.Id && accommodationReservationRescheduling.Status.ToString() != "Pending")
             {
                 return true;
             }
