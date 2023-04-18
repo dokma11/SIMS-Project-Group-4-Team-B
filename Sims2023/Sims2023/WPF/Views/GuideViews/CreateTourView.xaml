@@ -29,16 +29,8 @@
         <Label Grid.Column="0" Grid.Row="0" Content="Naziv ture:" FontSize="16"/>
         <TextBox Grid.Column="0" Width="230" Margin="0,27,45,27" Grid.RowSpan="3" Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
         <Label Grid.Column="0" Grid.Row="2" Content="Lokacija održavanja:" FontSize="16"/>
-        <ComboBox Width="110" Grid.Column="0" Grid.Row="3" Margin="124,6,49,22" Grid.RowSpan="2">
-            <ComboBoxItem>Srbija</ComboBoxItem>
-            <ComboBoxItem>Engleska</ComboBoxItem>
-            <ComboBoxItem>Francuska</ComboBoxItem>
-        </ComboBox>
-        <ComboBox Width="110" Grid.Column="0" Grid.Row="3" Margin="4,5,169,23" Grid.RowSpan="2">
-            <ComboBoxItem>Novi Sad</ComboBoxItem>
-            <ComboBoxItem>London</ComboBoxItem>
-            <ComboBoxItem>Pariz</ComboBoxItem>
-        </ComboBox>
+        <ComboBox x:Name="countryComboBox" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="28" SelectionChanged="CountryComboBox_SelectionChanged" Margin="124,0,49,0"/>
+        <ComboBox x:Name="cityComboBox" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="110" Height="28" Margin="4,0,0,0" />
         <Label Grid.Column="0" Grid.Row="4" Content="Jezik na kom se tura održava:" FontSize="16"/>
         <ComboBox Grid.Column="0" Grid.Row="5" Width="230" Margin="4,0,49,0" Text="{Binding Path=Tour.GuideLanguage, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
             <ComboBoxItem>English</ComboBoxItem>
@@ -55,7 +47,7 @@
         <Label Grid.Column="0" Grid.Row="8" Content="Trajanje ture(u satima):" FontSize="16"/>
         <xctk:IntegerUpDown Name="duration" Grid.Row="9" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,0,49,0" Text="{Binding Path=Tour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
         <Label Grid.Column="0" Grid.Row="10" Content="Jedna ili više slika:" FontSize="16"/>
-        <TextBox Grid.Column="0" Grid.Row="11" Width="230" Margin="4,0,49,0" Text="{Binding Path=Tour.PicturesString, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+        <TextBox Grid.Column="0" Grid.Row="11" Width="230" Margin="4,0,49,0" Text="{Binding Path=Tour.ConcatenatedPictures, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
         <!--Kolona u sredini-->
         <Label Grid.Column="1" Grid.Row="0" Content="Ključne tačke" FontSize="16"/>
         <TextBox x:Name="keyPointTextBox" Width="230" Margin="5,27,49,27" Grid.RowSpan="3" Grid.Column="1" TextChanged="KeyPointTextBox_TextChanged"/>

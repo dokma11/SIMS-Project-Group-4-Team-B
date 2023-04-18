@@ -9,13 +9,13 @@ using System.Linq;
 
 namespace Sims2023.Repository
 {
-    public class TourRepository : ITourRepository
+    public class TourWriteToCSVRepository : ITourWriteToCSVRepository
     {
         private List<IObserver> _observers;
         private List<Tour> _tours;
         private TourFileHandler _fileHandler;
         private TourReservationFileHandler _reservationFileHandler;
-        public TourRepository()
+        public TourWriteToCSVRepository()
         {
             _fileHandler = new TourFileHandler();
             _reservationFileHandler = new TourReservationFileHandler();
@@ -36,7 +36,7 @@ namespace Sims2023.Repository
                 tour.Id = NextId();
                 tour.Guide = loggedInGuide;
                 tour.Start = date;
-                AddToursLocation(tour.Id, location);
+                AddLocation(tour.Id, location);
                 tour.AvailableSpace = tour.MaxGuestNumber;
                 _tours.Add(tour);
                 _fileHandler.Save(_tours);
@@ -66,7 +66,7 @@ namespace Sims2023.Repository
             return tour.CurrentState == ToursState.Started;
         }
 
-        public void AddToursLocation(int toursId, Location location)
+        public void AddLocation(int toursId, Location location)
         {
             var tour = _tours.FirstOrDefault(t => t.Id == toursId);
             if (tour != null)
@@ -77,12 +77,12 @@ namespace Sims2023.Repository
             }
         }
 
-        public void CheckAddToursLocation(Tour tour, Location location, int newToursNumber, List<Location> locations)
+        public void CheckAddLocation(Tour tour, Location location, int newToursNumber, List<Location> locations)
         {
             int toursId = tour.Id - newToursNumber + 1;
             if (locations.Count == 0)
             {
-                Enumerable.Range(0, newToursNumber).ToList().ForEach(_ => AddToursLocation(toursId++, location));
+                Enumerable.Range(0, newToursNumber).ToList().ForEach(_ => AddLocation(toursId++, location));
             }
             else
             {
@@ -90,11 +90,11 @@ namespace Sims2023.Repository
                 {
                     if (locations.Any(l => l.City == location.City && l.Country == location.Country))
                     {
-                        AddToursLocation(toursId, locations.First(l => l.City == location.City && l.Country == location.Country));
+                        AddLocation(toursId, locations.First(l => l.City == location.City && l.Country == location.Country));
                     }
                     else
                     {
-                        AddToursLocation(toursId, location);
+                        AddLocation(toursId, location);
                     }
                 }
             }
@@ -113,7 +113,7 @@ namespace Sims2023.Repository
             }
         }
 
-        public void AddToursKeyPoints(string keyPointsString, int firstToursId)
+        public void AddKeyPoints(string keyPointsString, int firstToursId)
         {
             foreach (var tourInstance in _tours)
             {
@@ -125,45 +125,6 @@ namespace Sims2023.Repository
                     NotifyObservers();
                 }
             }
-        }
-
-        public void Remove(Tour tour)
-        {
-            _tours.Remove(tour);
-            _fileHandler.Save(_tours);
-            NotifyObservers();
-        }
-
-        public List<Tour> GetAll()
-        {
-            return _tours;
-        }
-
-        public List<Tour> GetAvailable()//new method for guest2
-        {
-            List<Tour> available = new List<Tour>();
-            foreach (var tourInstance in _tours)
-            {
-                if (tourInstance.CurrentState == ToursState.Created)
-                {
-                    available.Add(tourInstance);
-                }
-            }
-            return available;
-        }
-
-        public List<Tour> GetAlternative(int reserveSpace, Tour tour)//new method for guest2
-        {
-            var alternativeTours = _tours
-                .Where(tour => tour.Location.Id == tour.Location.Id && tour.AvailableSpace >= reserveSpace && tour.CurrentState==ToursState.Created)
-                .ToList();
-
-            return alternativeTours;
-        }
-
-        public Tour GetById(int id)
-        {
-            return _fileHandler.GetById(id);
         }
 
         public void UpdateAvailableSpace(int reservedSpace, Tour tour)//new method for guest2
@@ -195,83 +156,28 @@ namespace Sims2023.Repository
             _fileHandler.Save(_tours);
         }
 
-        public List<Tour> GetFinishedTours(User loggedInGuide)
-        {
-            return _tours.Where(t => (t.CurrentState == ToursState.Finished || t.CurrentState == ToursState.Interrupted)
-                         && t.Guide.Id == loggedInGuide.Id).ToList();
-        }
-
         //ovo mozda premestiti u rezervacije
-        public void GetAttendedGuestsNumber(User loggedInGuide)
+        public void CalculateAttendedGuestsNumber(User loggedInGuide)
         {
             List<TourReservation> reservations = new();
             reservations = _reservationFileHandler.Load();
 
-            foreach (var tour in GetFinishedTours(loggedInGuide))
+            foreach (var tour in _tours.Where(t => (t.CurrentState == ToursState.Finished || t.CurrentState == ToursState.Interrupted)
+                         && t.Guide.Id == loggedInGuide.Id).ToList())
             {
                 tour.AttendedGuestsNumber = reservations.Where(res => res.Tour.Id == tour.Id && res.ConfirmedParticipation)
                                                         .Sum(res => res.GuestNumber);
             }
         }
 
-        public Tour GetTheMostVisitedTour(User loggedInGuide, string year)
-        {
-            Tour ret = new();
-            var tours = _tours.Where(tour => tour.Guide.Id == loggedInGuide.Id &&
-                        (tour.CurrentState == ToursState.Finished || tour.CurrentState == ToursState.Interrupted));
-            if (year == "Svih vremena")
-            {
-                return tours.OrderByDescending(tour => tour.AttendedGuestsNumber).FirstOrDefault();
-            }
-            else
-            {
-                if (tours.Where(tour => tour.Start.Year.ToString() == year) != null)
-                {
-                    return tours.Where(tour => tour.Start.Year.ToString() == year)
-                             .OrderByDescending(tour => tour.AttendedGuestsNumber).FirstOrDefault();
-                }
-                else
-                {
-                    return ret;
-                }
-            }
-        }
-
-        public List<Tour> GetCreatedTours(User loggedInGuide)
-        {
-            return _tours.Where(tour => tour.CurrentState == ToursState.Created && tour.Guide.Id == loggedInGuide.Id).ToList();
-        }
-
-        public void ChangeToursState(Tour selectedTour, ToursState state)
+        public void UpdateState(Tour selectedTour, ToursState state)
         {
             selectedTour.CurrentState = state;
         }
 
-        public void SetToursLanguage(Tour selectedTour, ToursLanguage language)
+        public void SetLanguage(Tour selectedTour, ToursLanguage language)
         {
             selectedTour.GuideLanguage = language;
         }
-
-        public Uri GetPictureUri(Tour tour,int i)
-        {
-            
-            Uri imageUri = new Uri(tour.Pictures[i], UriKind.RelativeOrAbsolute);
-            return imageUri;
-        }
-
-        public List<Tour> GetFiltered(string citySearchTerm,string countrySearchTerm,string lengthSearchTerm,string guideLanguageSearchTerm,int maxGuestNumberSearchTerm)
-        {
-            List<Tour>FilteredData = GetAvailable().Where(tour =>
-                (string.IsNullOrEmpty(citySearchTerm) || tour.Location.City.ToLower().Contains(citySearchTerm)) &&
-                (string.IsNullOrEmpty(countrySearchTerm) || tour.Location.Country.ToLower().Contains(countrySearchTerm)) &&
-                (string.IsNullOrEmpty(lengthSearchTerm) || tour.Length.ToString().ToLower().Contains(lengthSearchTerm)) &&
-                (string.IsNullOrEmpty(guideLanguageSearchTerm) || tour.GuideLanguage.ToString().ToLower().Contains(guideLanguageSearchTerm)) &&
-                tour.MaxGuestNumber >= maxGuestNumberSearchTerm
-            ).ToList();
-
-            return FilteredData;
-        }
-
-
     }
 }
