@@ -34,7 +34,7 @@ namespace Sims2023.Repositories
             return _fileHandler.GetById(id);
         }
 
-        public List<AccommodationReservationRescheduling> FindGuestsForOwner(User owner, List<AccommodationReservationRescheduling> guests)
+        public List<AccommodationReservationRescheduling> GetGuestsForOwner(User owner, List<AccommodationReservationRescheduling> guests)
         {
             DateTime today = DateTime.Today;
             return guests.Where(g => g.AccommodationReservation.Accommodation.Owner.Id == owner.Id && g.Status == RequestStatus.Pending && g.AccommodationReservation.StartDate > today).ToList();
