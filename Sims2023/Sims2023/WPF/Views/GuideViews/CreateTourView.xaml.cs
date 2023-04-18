@@ -1,6 +1,7 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.GuideViewModels;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -20,13 +21,27 @@ namespace Sims2023.WPF.Views.GuideViews
 
             CreateTourViewModel = new(tourService, locationService, keyPointService, loggedInGuide);
             DataContext = CreateTourViewModel;
+
+            countryComboBox.ItemsSource = CreateTourViewModel.GetCitiesAndCountries();
+            countryComboBox.DisplayMemberPath = "CountryName";
+            countryComboBox.SelectedValuePath = "CountryName";
+        }
+
+        public void CountryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Retrieve the list of cities for the selected country
+            var selectedCountry = (CountriesAndCities)countryComboBox.SelectedItem;
+            var cities = new List<string> { selectedCountry.City1, selectedCountry.City2, selectedCountry.City3, selectedCountry.City4, selectedCountry.City5 };
+
+            // Bind the city ComboBox to the list of cities
+            cityComboBox.ItemsSource = cities;
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             if (addDatesButtonClicked && keyPointsOutput.Items.Count > 1)
             {
-                CreateTourViewModel.ConfirmCreation();
+                CreateTourViewModel.ConfirmCreation(countryComboBox.Text, cityComboBox.Text);
                 Close();
             }
             else

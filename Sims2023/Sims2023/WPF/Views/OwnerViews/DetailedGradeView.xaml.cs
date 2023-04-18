@@ -22,12 +22,10 @@ namespace Sims2023.View
     {
         public String name { get; set; }
         public String surrname { get; set; }
-
         public String accommodationName { get; set; }
         public String clean { get; set; }
         public String correct { get; set; }
         public String value { get; set; }
-
         public String location { get; set; }
         public String comment { get; set; }
         

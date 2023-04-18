@@ -20,8 +20,8 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
     public class AccommodationRegistrationViewModel
     {
         private AccommodationService _accommodationService;
-        private List<CountriesAndCities> _countries;         // KOPIRAJ
-        private CountriesAndCitiesService _allCountriesService;  // KOPIRAJ
+        private List<CountriesAndCities> _countries;        
+        private CountriesAndCitiesService _allCountriesService; 
 
         private Accommodation Accommodation { get; set; }
         public User User { get; set; }
@@ -42,7 +42,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             Accommodation = new Accommodation();
             _addedPictures = new List<string>();
             imageList = new List<BitmapImage>();
-            _allCountriesService = new CountriesAndCitiesService();  // KOPIRATI OVO SVE DO DOLE
+            _allCountriesService = new CountriesAndCitiesService(); 
             _countries = _allCountriesService.GetAllLocations();
 
             View.countryComboBox.ItemsSource = _countries;
@@ -51,7 +51,6 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         }
 
 
-        // I OVU FUNKCIJU TAKODJE I TO JE TO
         public void countryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Retrieve the list of cities for the selected country
@@ -143,7 +142,5 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         {
             _accommodationService.Create(accommodation);
         }
-
-
-    }
+   }
 }

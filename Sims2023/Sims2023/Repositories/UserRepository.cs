@@ -57,8 +57,7 @@ namespace Sims2023.Repositories
                     {
                         ++counter;
                         zbir += guests.FindAverage(grade);
-
-                    }
+                     }
                 }
                 Average = zbir / counter;
 

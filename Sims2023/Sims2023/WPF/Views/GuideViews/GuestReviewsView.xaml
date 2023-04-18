@@ -12,7 +12,7 @@
             <DataGrid x:Name="TourDataGrid" Width="625" Height="375" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Naziv" Binding="{Binding Name}" Width="150"/>
-                    <DataGridTextColumn Header="Lokacija" Binding="{Binding LocationId}" Width="150"/>
+                    <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.Id}" Width="150"/>
                     <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage}" Width="80"/>
                     <DataGridTextColumn Header="Datum i vreme početka ture" Binding="{Binding Start}" Width="165"/>
                     <DataGridTextColumn Header="Broj gostiju" Binding="{Binding AttendedGuestsNumber}" Width="70"/>

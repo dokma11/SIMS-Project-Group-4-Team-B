@@ -18,7 +18,7 @@ namespace Sims2023.Application.Injection
             { typeof(IGuestGradeRepository), new GuestGradeRepository() },
             { typeof(IKeyPointRepository), new KeyPointRepository() },
             { typeof(ILocationRepository), new LocationRepository() },
-            { typeof(ITourRepository), new TourRepository() },
+            { typeof(ITourWriteToCSVRepository), new TourWriteToCSVRepository() },
             { typeof(ITourReservationRepository), new TourReservationRepository() },
             { typeof(ITourReviewRepository), new TourReviewRepository() },
             { typeof(IVoucherRepository), new VoucherRepository() },

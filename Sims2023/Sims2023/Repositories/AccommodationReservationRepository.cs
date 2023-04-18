@@ -67,7 +67,7 @@ namespace Sims2023.Repositories
         }
 
         // searching for the guests who left not more than 5 days ago
-        public void FindGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons)
+        public void GetGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons)
         {
             for (int i = reservatons.Count - 1; i >= 0; i--)
             {
@@ -89,18 +89,18 @@ namespace Sims2023.Repositories
             }
         }
 
-        public void FindGuestsParticularOwner(List<AccommodationReservation> reservatons, User user)
+        public void GetGuestsParticularOwner(List<AccommodationReservation> reservatons, User user)
         {
             reservatons.RemoveAll(r => r.Accommodation.Owner.Id != user.Id);
         }
 
 
         // finds all guests who owner can grade
-        public List<AccommodationReservation> findGradableGuests(User user, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
+        public List<AccommodationReservation> GetGradableGuests(User user, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
-            FindGuestsParticularOwner(reservatons, user);
+            GetGuestsParticularOwner(reservatons, user);
             RemoveAlreadyGraded(reservatons, grades);
-            FindGuestsWhoRecentlyLeft(reservatons);
+            GetGuestsWhoRecentlyLeft(reservatons);
             return reservatons;
 
         }

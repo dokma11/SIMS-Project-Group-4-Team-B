@@ -35,9 +35,9 @@ public class AccommodationReservationReschedulingService
     }
 
 
-    public List<AccommodationReservationRescheduling> GetGuestsReservationMove(User owner, List<AccommodationReservationRescheduling> guests)
+    public List<AccommodationReservationRescheduling> GetGuestsForOwner(User owner, List<AccommodationReservationRescheduling> guests)
     {
-        return _accommodationReservationRescheduling.FindGuestsForOwner(owner, guests);
+        return _accommodationReservationRescheduling.GetGuestsForOwner(owner, guests);
     }
 
     public bool isAccommodationFree(AccommodationReservationRescheduling request)
