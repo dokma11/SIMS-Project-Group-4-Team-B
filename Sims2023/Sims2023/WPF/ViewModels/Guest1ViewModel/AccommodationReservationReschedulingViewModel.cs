@@ -2,20 +2,9 @@
 using Sims2023.Domain.Models;
 using Sims2023.Observer;
 using Sims2023.WPF.Views.Guest1Views;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
@@ -23,7 +12,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
     /// Interaction logic for AccommodationReservationReschedulingView.xaml
     /// </summary>
     public partial class AccommodationReservationReschedulingViewModel : Window, IObserver
-    {     
+    {
         private AccommodationReservationReschedulingService _accommodationReservationReschedulingController;
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
 
@@ -33,7 +22,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         AccommodationReservationReschedulingView AccommodationReservationReschedulingView;
 
-        public AccommodationReservationReschedulingViewModel(AccommodationReservationReschedulingView accommodationReservationReschedulingView,User guest1)
+        public AccommodationReservationReschedulingViewModel(AccommodationReservationReschedulingView accommodationReservationReschedulingView, User guest1)
         {
             AccommodationReservationReschedulingView = accommodationReservationReschedulingView;
 

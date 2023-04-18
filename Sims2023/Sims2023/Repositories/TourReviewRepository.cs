@@ -2,18 +2,16 @@
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
-using Sims2023.Repository;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Sims2023.Repositories
 {
-    public class TourReviewRepository: ITourReviewRepository
+    public class TourReviewRepository : ITourReviewRepository
     {
         private List<IObserver> _observers;
         private List<TourReview> _tourReviews;
         private TourReviewFileHandler _fileHandler;
-        private KeyPointRepository _keyPointRepository;
         public TourReviewRepository()
         {
             _fileHandler = new TourReviewFileHandler();
@@ -82,7 +80,7 @@ namespace Sims2023.Repositories
             _fileHandler.Save(_tourReviews);
             NotifyObservers();
         }
-              
+
         public List<TourReview> GetByToursId(int id)
         {
             return _tourReviews.Where(tr => tr.Tour.Id == id).ToList();
@@ -91,21 +89,6 @@ namespace Sims2023.Repositories
         public void Report(TourReview tourReview)
         {
             tourReview.IsValid = false;
-        }
-
-        public void GetKeyPointWhereGuestJoined(Tour selectedTour)
-        {
-            _keyPointRepository = new();
-            foreach (var tourReview in _tourReviews)
-            {
-                var keyPoint = _keyPointRepository.GetAll().Where(k => k.Tour.Id == selectedTour.Id)
-                                                  .FirstOrDefault(k => k.ShowedGuestsIds.Contains(tourReview.Guest.Id));
-                if (keyPoint != null)
-                {
-                    tourReview.KeyPointJoined = keyPoint;
-                    Save();
-                }
-            }
         }
     }
 }

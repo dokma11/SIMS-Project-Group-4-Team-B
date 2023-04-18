@@ -11,6 +11,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public Tour? SelectedTour { get; set; }
         public ObservableCollection<Tour> TheMostVisitedTour { get; set; }
         public ObservableCollection<Tour> ToursToDisplay { get; set; }
+        public ObservableCollection<string> ComboBoxItems { get; set; }
         public User LoggedInGuide { get; set; }
 
         public TourStatisticsViewModel(TourService tourService, TourReservationService tourReservationService, User loggedInGuide)
@@ -26,6 +27,9 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 _tourService.GetTheMostVisitedTour(LoggedInGuide, "Svih vremena")
             };
 
+            ComboBoxItems = new ObservableCollection<string>();
+            GetYearsForComboBox();
+
             GetAttendedGuestsNumber();
         }
         public void GetAttendedGuestsNumber()
@@ -36,6 +40,18 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public Tour GetTheMostVisitedTour(User loggedInGuide, string year)
         {
             return _tourService.GetTheMostVisitedTour(loggedInGuide, year);
+        }
+
+        public void GetYearsForComboBox()
+        {
+            foreach (var tour in _tourService.GetFinishedTours(LoggedInGuide))
+            {
+                if (!ComboBoxItems.Contains(tour.Start.Year.ToString()))
+                {
+                    ComboBoxItems.Add(tour.Start.Year.ToString());
+                }
+            }
+            ComboBoxItems.Add("Svih vremena");
         }
 
         public string DisplayAgeStatistics(string ageGroup)

@@ -1,21 +1,8 @@
-﻿using Sims2023.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Collections.ObjectModel;
-using System.IO;
+﻿using Sims2023.Application.Services;
+using Sims2023.Domain.Models;
 using Sims2023.WPF.Views.Guest1Views;
-using Sims2023.Application.Services;
+using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
@@ -29,7 +16,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         private AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
 
-        public Guest1MainViewModel(Guest1MainView guest1MainView,User guest1)
+        public Guest1MainViewModel(Guest1MainView guest1MainView, User guest1)
         {
             User = guest1;
             _accommodationReservationReschedulingService = new AccommodationReservationReschedulingService();

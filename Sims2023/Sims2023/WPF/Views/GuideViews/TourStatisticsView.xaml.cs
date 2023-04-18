@@ -23,7 +23,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void DisplayStatisticsButton_Click(object sender, RoutedEventArgs e)
         {
-            if(tourStatisticsViewModel.IsTourSelected())
+            if (tourStatisticsViewModel.IsTourSelected())
             {
                 youngNumberLabel.Content = tourStatisticsViewModel.DisplayAgeStatistics("young");
                 middleNumberLabel.Content = tourStatisticsViewModel.DisplayAgeStatistics("middleAged");
@@ -40,7 +40,7 @@ namespace Sims2023.WPF.Views.GuideViews
         private void YearComboBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
             ComboBox cBox = (ComboBox)sender;
-            string year = ((ComboBoxItem)cBox.SelectedItem).Content.ToString();
+            string year = (cBox.SelectedItem.ToString());
             tourStatisticsViewModel.UpdateTheMostVisitedTour(LoggedInGuide, year);
         }
     }

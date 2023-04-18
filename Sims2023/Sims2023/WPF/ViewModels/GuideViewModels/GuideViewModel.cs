@@ -15,6 +15,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public Tour? SelectedTour { get; set; }
         public ObservableCollection<Tour> ToursToDisplay { get; set; }
         public User LoggedInGuide { get; set; }
+        public bool TourCancelled;
         public GuideViewModel(User user, TourService tourService, VoucherService voucherService, UserService userService, TourReservationService tourReservationService)
         {
             LoggedInGuide = user;
@@ -25,19 +26,23 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _tourReservationService = tourReservationService;
 
             ToursToDisplay = new ObservableCollection<Tour>(_tourService.GetCreatedTours(LoggedInGuide));
+            TourCancelled = false;
         }
 
         public void CancelTour()
         {
-            _tourService.ChangeToursState(SelectedTour, Tour.State.Cancelled);
-            CreateVouchersForCancelledTour(SelectedTour.Id);
-            Update();
+            string additionalComment = Microsoft.VisualBasic.Interaction.InputBox("Unesite razlog:", "Input String");
+            if (!string.IsNullOrEmpty(additionalComment))
+            {
+                _tourService.ChangeToursState(SelectedTour, ToursState.Cancelled);
+                CreateVouchersForCancelledTour(SelectedTour.Id, additionalComment);
+                TourCancelled = true;
+                Update();
+            }
         }
 
-        public void CreateVouchersForCancelledTour(int toursId)
+        public void CreateVouchersForCancelledTour(int toursId, string additionalComment)
         {
-            //mozda menjati
-            string additionalComment = Microsoft.VisualBasic.Interaction.InputBox("Unesite razlog:", "Input String");
             foreach (var reservation in _tourReservationService.GetReservationsByToursid(toursId))
             {
                 Voucher voucher = new(0, Voucher.VoucherType.CancelingTour, _userService.GetById(reservation.User.Id), _tourService.GetById(toursId), DateTime.Now, DateTime.Today.AddYears(1), additionalComment, false);
@@ -52,7 +57,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public bool IsTourCreated()
         {
-            return SelectedTour.CurrentState == Tour.State.Created;
+            return SelectedTour.CurrentState == ToursState.Created;
         }
 
         public bool IsTourEligibleForCancellation()

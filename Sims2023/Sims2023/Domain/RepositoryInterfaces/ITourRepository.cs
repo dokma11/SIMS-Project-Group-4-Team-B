@@ -10,7 +10,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
     {
         public int NextId();
         public void Add(Tour tour, List<DateTime> dateTimes, Location location, User loggedInGuide);
-        
         public void AddToursLocation(int toursId, Location location);
         public void CheckAddToursLocation(Tour tour, Location location, int newToursNumber, List<Location> locations);
         public void AddToursKeyPoints(string keyPointsString, int firstToursId);
@@ -22,9 +21,8 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void GetAttendedGuestsNumber(User loggedInGuide);
         public Tour GetTheMostVisitedTour(User loggedInGuide, string year);
         public List<Tour> GetCreatedTours(User loggedInGuide);
-        public void ChangeToursState(Tour selectedTour, Tour.State state);
-        public void SetToursLanguage(Tour selectedTour, Tour.Language language);
-
+        public void ChangeToursState(Tour selectedTour, ToursState state);
+        public void SetToursLanguage(Tour selectedTour, ToursLanguage language);
         public bool CanRateTour(Tour tour);
         public bool CanSeeTour(Tour tour);
         public List<Tour> GetAvailable();

@@ -1,14 +1,7 @@
 ﻿using Sims2023.Application.Services;
-using Sims2023.Controller;
-using System.Windows;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.OwnerViewModel;
-using Microsoft.Win32;
-using System.Reflection;
-using System.Windows.Media.Imaging;
-using System;
-using System.Collections.Generic;
-using Path = System.IO.Path;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Sims2023.View
@@ -25,7 +18,7 @@ namespace Sims2023.View
             InitializeComponent();
             AccommodationRegistrationViewModel = new AccommodationRegistrationViewModel(this, accommodationCtrl1, owner);
             DataContext = AccommodationRegistrationViewModel;
-           
+
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -47,6 +40,6 @@ namespace Sims2023.View
         {
             Close();
         }
- 
+
     }
 }

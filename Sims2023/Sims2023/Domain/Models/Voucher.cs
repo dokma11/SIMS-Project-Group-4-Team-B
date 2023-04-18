@@ -12,9 +12,7 @@ namespace Sims2023.Domain.Models
         public Tour Tour { get; set; }
         public DateTime Created { get; set; }
         public DateTime Expired { get; set; }
-
         public enum VoucherType { FiveReservations, CancelingTour }
-
         public VoucherType Name { get; set; }
         public string AdditionalComment { get; set; }
         public bool IsUsed { get; set; }

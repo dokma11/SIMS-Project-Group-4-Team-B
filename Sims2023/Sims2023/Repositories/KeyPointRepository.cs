@@ -6,9 +6,9 @@ using Sims2023.Observer;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sims2023.Repository
+namespace Sims2023.Repositories
 {
-    public class KeyPointRepository: IKeyPointRepository
+    public class KeyPointRepository : IKeyPointRepository
     {
         private List<IObserver> _observers;
         private List<KeyPoint> _keyPoints;
@@ -36,7 +36,7 @@ namespace Sims2023.Repository
                     TourService tourService = new();
                     keyPoint.Tour = tourService.GetById(toursId);
                     keyPoint.Name = keyPointName;
-                    keyPoint.CurrentState = KeyPoint.State.NotVisited;
+                    keyPoint.CurrentState = KeyPointsState.NotVisited;
                     _keyPoints.Add(keyPoint);
                     _fileHandler.Save(_keyPoints);
                     NotifyObservers();
@@ -84,7 +84,7 @@ namespace Sims2023.Repository
         {
             foreach (var keyPoint in _keyPoints)
             {
-                if (keyPoint.CurrentState == KeyPoint.State.BeingVisited && keyPoint.Tour.Id==tour.Id)
+                if (keyPoint.CurrentState == KeyPointsState.BeingVisited && keyPoint.Tour.Id == tour.Id)
                 {
                     return keyPoint;
                 }
@@ -104,7 +104,7 @@ namespace Sims2023.Repository
             return _keyPoints.Where(k => k.Tour.Id == id).ToList();
         }
 
-        public void ChangeKeyPointsState(KeyPoint keyPoint, KeyPoint.State state)
+        public void ChangeState(KeyPoint keyPoint, KeyPointsState state)
         {
             keyPoint.CurrentState = state;
         }
@@ -122,6 +122,12 @@ namespace Sims2023.Repository
             {
                 keyPoint.ShowedGuestsIdsString += "," + guestsId.ToString();
             }
+        }
+
+        public KeyPoint GetWhereGuestJoined(Tour selectedTour, User loggedInGuest)
+        {
+            return _keyPoints.FirstOrDefault(keyPoint => keyPoint.Tour.Id == selectedTour.Id &&
+                              keyPoint.ShowedGuestsIds.Contains(loggedInGuest.Id));
         }
     }
 }

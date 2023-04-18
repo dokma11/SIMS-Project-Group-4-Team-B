@@ -36,7 +36,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public void SetToursLanguage(string languageString)
         {
-            if(Enum.TryParse(languageString, out Tour.Language language))
+            if(Enum.TryParse(languageString, out ToursLanguage language))
             {
                 _tourService.SetToursLanguage(Tour, language);
             }

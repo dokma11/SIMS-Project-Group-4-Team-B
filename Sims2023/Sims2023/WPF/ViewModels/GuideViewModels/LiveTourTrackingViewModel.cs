@@ -27,7 +27,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _tourReservationService = tourReservationService;
 
             Tour = tour;
-            _tourService.ChangeToursState(Tour, Tour.State.Started);
+            _tourService.ChangeToursState(Tour, ToursState.Started);
 
             MarkedGuests = markedGuests;
             KeyPointsToDisplay = new ObservableCollection<KeyPoint>(_keyPointService.GetByToursId(Tour.Id));
@@ -47,7 +47,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
             firstKeyPoint = KeyPointsToDisplay.MinBy(keyPoint => keyPoint.Id);
 
-            _keyPointService.ChangeKeyPointsState(firstKeyPoint, KeyPoint.State.BeingVisited);
+            _keyPointService.ChangeKeyPointsState(firstKeyPoint, KeyPointsState.BeingVisited);
 
             return firstKeyPoint.Id;
         }
@@ -57,7 +57,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             var keyPoint = KeyPointsToDisplay.FirstOrDefault(k => k.Id == lastVisitedKeyPointId);
             if (keyPoint != null)
             {
-                _keyPointService.ChangeKeyPointsState(keyPoint, KeyPoint.State.Visited);
+                _keyPointService.ChangeKeyPointsState(keyPoint, KeyPointsState.Visited);
             }
         }
 
@@ -69,21 +69,21 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         private void MarkLastKeyPoint()
         {
-            KeyPointsToDisplay.Single(keyPoint => keyPoint.Id == lastKeyPointId).CurrentState = KeyPoint.State.Visited;
+            KeyPointsToDisplay.Single(keyPoint => keyPoint.Id == lastKeyPointId).CurrentState = KeyPointsState.Visited;
         }
 
         public void MarkKeyPoint()
         {
             //mark previous key point as visited
-            _keyPointService.ChangeKeyPointsState(KeyPointsToDisplay.First(k => k.Id == lastVisitedKeyPointId), KeyPoint.State.Visited);
+            _keyPointService.ChangeKeyPointsState(KeyPointsToDisplay.First(k => k.Id == lastVisitedKeyPointId), KeyPointsState.Visited);
 
-            _keyPointService.ChangeKeyPointsState(SelectedKeyPoint, KeyPoint.State.BeingVisited);
+            _keyPointService.ChangeKeyPointsState(SelectedKeyPoint, KeyPointsState.BeingVisited);
             lastVisitedKeyPointId = SelectedKeyPoint.Id;
 
             if (SelectedKeyPoint.Id == lastKeyPointId)
             {
                 UpdateKeyPointList();
-                _tourService.ChangeToursState(Tour, Tour.State.Finished);
+                _tourService.ChangeToursState(Tour, ToursState.Finished);
                 MarkLastKeyPoint();
                 LastKeyPointVisited = true;
             }
@@ -98,7 +98,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public void CancelTour()
         {
-            _tourService.ChangeToursState(Tour, Tour.State.Interrupted);
+            _tourService.ChangeToursState(Tour, ToursState.Interrupted);
             MarkLastVisitedKeyPoint();
             _keyPointService.Save();
         }
@@ -110,12 +110,12 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public bool IsKeyPointBeingVisited()
         {
-            return SelectedKeyPoint.CurrentState == KeyPoint.State.BeingVisited;
+            return SelectedKeyPoint.CurrentState == KeyPointsState.BeingVisited;
         }
 
         public bool IsKeyPointVisited()
         {
-            return SelectedKeyPoint.CurrentState == KeyPoint.State.Visited;
+            return SelectedKeyPoint.CurrentState == KeyPointsState.Visited;
         }
 
         public bool IsKeyPointNextInLine()

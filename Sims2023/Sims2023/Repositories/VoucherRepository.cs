@@ -21,8 +21,7 @@ namespace Sims2023.Repositories
 
         public int NextId()
         {
-            if (_vouchers.Count == 0) return 1;
-            return _vouchers.Max(v => v.Id) + 1;
+            return _vouchers.Count == 0 ? 1 : _vouchers.Max(t => t.Id) + 1;
         }
 
         public void Add(Voucher voucher)
@@ -67,6 +66,7 @@ namespace Sims2023.Repositories
             return _vouchers.Where(voucher => voucher.User.Id == user.Id && voucher.IsUsed == false)
                     .ToList();
         }
+
         public Voucher GetById(int id)
         {
             return _fileHandler.GetById(id);

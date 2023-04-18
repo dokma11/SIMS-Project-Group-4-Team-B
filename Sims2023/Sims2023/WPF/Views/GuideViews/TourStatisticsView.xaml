@@ -23,11 +23,7 @@
         <StackPanel Width="640">
             <DockPanel>
                 <Label Content="Najposećenija tura" FontSize="32" Margin="10,0,-175,0"/>
-                <ComboBox x:Name="yearComboBox" Width="120" Height="30" IsReadOnly="True" Margin="0,10,0,0" SelectionChanged="YearComboBox_SelectionChanged">
-                    <ComboBoxItem Content="Svih vremena"/>
-                    <ComboBoxItem Content="2023"/>
-                    <ComboBoxItem Content="2022"/>
-                </ComboBox>
+                <ComboBox x:Name="yearComboBox" ItemsSource="{Binding ComboBoxItems}"  Width="120" Height="30" IsReadOnly="True" Margin="0,10,0,0" SelectionChanged="YearComboBox_SelectionChanged"/>
             </DockPanel>
             <DataGrid Width="420" Height="50" ItemsSource="{Binding TheMostVisitedTour, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,190,0" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>

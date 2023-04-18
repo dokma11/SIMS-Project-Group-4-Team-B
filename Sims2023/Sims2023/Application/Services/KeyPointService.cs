@@ -1,7 +1,7 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
-using Sims2023.Repository;
+using Sims2023.Repositories;
 using System.Collections.Generic;
 
 namespace Sims2023.Application.Services
@@ -28,6 +28,7 @@ namespace Sims2023.Application.Services
         {
             return _keyPoint.GetCurrentKeyPoint(tour);
         }
+
         public void Create(KeyPoint keyPoint, List<string> keyPointNames, int toursId, int newToursNumber)
         {
             _keyPoint.Add(keyPoint, keyPointNames, toursId, newToursNumber);
@@ -53,14 +54,19 @@ namespace Sims2023.Application.Services
             return _keyPoint.GetByToursId(id);
         }
 
-        public void ChangeKeyPointsState(KeyPoint keyPoint, KeyPoint.State state)
+        public void ChangeKeyPointsState(KeyPoint keyPoint, KeyPointsState state)
         {
-            _keyPoint.ChangeKeyPointsState(keyPoint, state);
+            _keyPoint.ChangeState(keyPoint, state);
         }
 
         public void AddGuestsId(KeyPoint selectedKeyPoint, int guestsId)
         {
             _keyPoint.AddGuestsId(selectedKeyPoint, guestsId);
+        }
+
+        public KeyPoint GetWhereGuestJoined(Tour selectedTour, User loggedInGuest)
+        {
+            return _keyPoint.GetWhereGuestJoined(selectedTour, loggedInGuest);
         }
     }
 }

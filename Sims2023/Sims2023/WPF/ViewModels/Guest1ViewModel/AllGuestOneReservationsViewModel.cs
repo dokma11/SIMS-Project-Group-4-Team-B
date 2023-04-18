@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows;
-using Sims2023.Application.Services;
+﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.Observer;
 using Sims2023.WPF.Views.Guest1Views;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
@@ -19,12 +19,12 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         private AccommodationReservationService _accommodationReservationService;
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
 
-        List<AccommodationReservation> FilteredData=new List<AccommodationReservation>();   
+        List<AccommodationReservation> FilteredData = new List<AccommodationReservation>();
         public User User { get; set; }
 
         public AllGuestOneReservationsView AllGuestOneReservationsView;
 
-        public AllGuestOneReservationsViewModel(AllGuestOneReservationsView allGuestOneReservationsView,User guest1)
+        public AllGuestOneReservationsViewModel(AllGuestOneReservationsView allGuestOneReservationsView, User guest1)
         {
             AllGuestOneReservationsView = allGuestOneReservationsView;
 
@@ -38,7 +38,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             FilteredData = _accommodationReservationService.FindSuitablePastReservations(User);
             AllGuestOneReservationsView.myDataGrid.ItemsSource = FilteredData;
         }
-
         public bool GradingIsPossible(AccommodationReservation selectedAccommodationReservation)
         {
             if (SelectedAccommodationReservation == null)
