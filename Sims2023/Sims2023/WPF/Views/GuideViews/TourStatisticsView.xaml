@@ -12,7 +12,7 @@
             <DataGrid Width="625" Height="380" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Naziv" Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="Lokacija" Binding="{Binding LocationId}"/>
+                    <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.Id}"/>
                     <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage}"/>
                     <DataGridTextColumn Header="Datum i vreme početka ture" Binding="{Binding Start}"/>
                     <DataGridTextColumn Header="Broj gostiju" Binding="{Binding AttendedGuestsNumber}"/>
@@ -28,7 +28,7 @@
             <DataGrid Width="420" Height="50" ItemsSource="{Binding TheMostVisitedTour, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,190,0" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Naziv" Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="Lokacija" Binding="{Binding LocationId}"/>
+                    <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.Id}"/>
                     <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage}"/>
                     <DataGridTextColumn Header="Broj gostiju" Binding="{Binding AttendedGuestsNumber}"/>
                 </DataGrid.Columns>
