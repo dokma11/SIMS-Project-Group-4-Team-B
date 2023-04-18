@@ -16,7 +16,7 @@ namespace Sims2023.Domain.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int NumberOfDays { get; set; }
-
+        public int NumberOfGuests { get; set; }
         public bool Graded { get; set; }
 
 
@@ -27,14 +27,15 @@ namespace Sims2023.Domain.Models
         }
 
         public AccommodationReservation() { }
-        public AccommodationReservation(int id, User guest, Accommodation accommodation, DateTime startDate, DateTime endDate, int numberOfGuests, bool graded)
+        public AccommodationReservation(int id, User guest, Accommodation accommodation, DateTime startDate, DateTime endDate, int numberOfDays, int numberOfGuests, bool graded)
         {
             Id = id;
             Guest = guest;
             Accommodation = accommodation;
             StartDate = startDate;
             EndDate = endDate;
-            NumberOfDays = numberOfGuests;
+            NumberOfDays = numberOfDays;
+            NumberOfGuests = numberOfGuests;
             Graded = graded;
         }
 
@@ -48,6 +49,7 @@ namespace Sims2023.Domain.Models
                 StartDate.ToString(),
                 EndDate.ToString(),
                 NumberOfDays.ToString(),
+                NumberOfGuests.ToString(),
                 Graded.ToString()
             };
             return csvValues;
@@ -71,7 +73,8 @@ namespace Sims2023.Domain.Models
             StartDate = DateTime.Parse(values[3]);
             EndDate = DateTime.Parse(values[4]);
             NumberOfDays = Convert.ToInt32(values[5]);
-            Graded = Convert.ToBoolean(values[6]);
+            NumberOfGuests = Convert.ToInt32(values[6]);
+            Graded = Convert.ToBoolean(values[7]);
         }
     }
 }

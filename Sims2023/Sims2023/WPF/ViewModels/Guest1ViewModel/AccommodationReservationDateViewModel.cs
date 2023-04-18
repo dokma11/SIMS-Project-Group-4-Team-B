@@ -32,6 +32,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public List<DateTime> AdditionalAvailableDates = new List<DateTime>();
         bool todaysDay;
         int daysNumber;
+        int guestsNumber;
 
         private AccommodationReservationDateView AccommodationReservationDateView;
 
@@ -73,7 +74,9 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             DateTime startDateSelected = AccommodationReservationDateView.startDatePicker.SelectedDate.Value;
             DateTime endDateSelected = AccommodationReservationDateView.endDatePicker.SelectedDate.Value;
             int stayLength = (int)AccommodationReservationDateView.numberOfDays.Value;
+            int numberOfGuests = (int)AccommodationReservationDateView.numberOfGuests.Value;
             daysNumber = stayLength;
+            guestsNumber = numberOfGuests;
 
             int possibleDatesNumber = _accommodationReservationService.CheckDates(SelectedAccommodation, startDateSelected, endDateSelected, stayLength, AvailableDates);
 
@@ -139,7 +142,8 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
             DateTime startDateSelected = AccommodationReservationDateView.startDatePicker.SelectedDate.Value;
             DateTime endDateSelected = AccommodationReservationDateView.endDatePicker.SelectedDate.Value;
-            daysNumber = (int)AccommodationReservationDateView.numberOfDays.Value;
+            int stayLength = (int)AccommodationReservationDateView.numberOfDays.Value;
+            int numberOfGuests = (int)AccommodationReservationDateView.numberOfGuests.Value;
 
             int minDays = SelectedAccommodation.MinDays;
 
@@ -147,13 +151,17 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             {
                 todaysDay = true;
             }
-
+            if(numberOfGuests>SelectedAccommodation.MaxGuests)
+            {
+                MessageBox.Show($"Ovaj smestaj nije u mogucnosti da primi toliko ljudi. Kapacitet je {SelectedAccommodation.MaxGuests}");
+                return false;
+            }
             if (DateTime.Compare(startDateSelected, endDateSelected) > 0)
             {
                 MessageBox.Show("Molimo Vas selektujete pravilno datume.");
                 return false;
             }
-            if (daysNumber < SelectedAccommodation.MinDays)
+            if (stayLength < SelectedAccommodation.MinDays)
             {
                 MessageBox.Show($"Za ovaj smestaj minimalni broj dana koji mozete rezervisati je  {minDays} .");
                 return false;

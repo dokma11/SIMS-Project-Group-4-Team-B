@@ -15,9 +15,10 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         private AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
-
+        Guest1MainView Guest1MainView;
         public Guest1MainViewModel(Guest1MainView guest1MainView, User guest1)
         {
+            Guest1MainView = guest1MainView;
             User = guest1;
             _accommodationReservationReschedulingService = new AccommodationReservationReschedulingService();
             AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingService.GetAllReservationReschedulings());
@@ -25,7 +26,28 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         public void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _accommodationReservationReschedulingService.checkForNotifications(User);
+            checkForNotifications(User);
+        }
+        public void checkForNotifications(User guest1)
+        {
+            foreach (AccommodationReservationRescheduling accommodationReservationRescheduling in AccommodationReservationReschedulings)
+            {
+                if (Notify(accommodationReservationRescheduling, guest1))
+                {
+                    MessageBox.Show($" Vlasnik smestaja {accommodationReservationRescheduling.AccommodationReservation.Accommodation.Name} je promienio status vaseg zahteva za pomeranje rezervacije. Vas zahtev je {accommodationReservationRescheduling.Status}!");
+                    accommodationReservationRescheduling.Notified = true;
+                    _accommodationReservationReschedulingService.Update(accommodationReservationRescheduling);
+                }
+            }
+        }
+
+        public bool Notify(AccommodationReservationRescheduling accommodationReservationRescheduling, User guest1)
+        {
+            if (accommodationReservationRescheduling.Notified == false && accommodationReservationRescheduling.AccommodationReservation.Guest.Id == guest1.Id && accommodationReservationRescheduling.Status.ToString() != "Pending")
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <Label x:Name="label" Content="Pomeranje rezervacije" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="1"/>
         <DataGrid x:Name="myDataGrid"
-                  ItemsSource="{Binding Path=AccommodationReservations, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Path=NewAccommodationReservationReschedulingRequestViewModel.AccommodationReservations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedAccommodationReservation, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="50,10,50,30"
                   Grid.Row="2">
@@ -31,8 +31,8 @@
                         </MultiBinding>
                     </DataGridTextColumn.Binding>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Datum pocetka" Binding="{Binding StartDate}" Width="190"></DataGridTextColumn>
-                <DataGridTextColumn Header="Datum kraja" Binding="{Binding EndDate}" Width="190"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum pocetka" Binding="{Binding StartDate, StringFormat={}{0:d}}" Width="190"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum kraja" Binding="{Binding EndDate, StringFormat={}{0:d}}" Width="190"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="makeRequest" Content="Podnesi zahtev" Margin="350,10,350,20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="3" FontSize="20" Click="makeRequest_Click" />

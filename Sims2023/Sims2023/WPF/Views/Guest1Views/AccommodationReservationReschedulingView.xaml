@@ -19,7 +19,7 @@
         <Label x:Name="label" Content="Zahtevi za pomeranje rezervacija" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="1"/>
         <Label x:Name="label1" Content="Prethodno podneti zahtevi:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Margin="50,0,0,0" Grid.Row="2"/>
         <DataGrid x:Name="myDataGrid"
-                  ItemsSource="{Binding Path=AccommodationReservationReschedulings, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Path=FilteredData, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedAccommodationReservationRescheduling, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="50,10,50,30"
                   Grid.Row="3">
@@ -33,8 +33,8 @@
                         </MultiBinding>
                     </DataGridTextColumn.Binding>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Novi datum pocetka" Binding="{Binding NewStartDate}" Width="150"></DataGridTextColumn>
-                <DataGridTextColumn Header="Novi datum kraja" Binding="{Binding NewEndDate}" Width="150"></DataGridTextColumn>
+                <DataGridTextColumn Header="Novi datum pocetka" Binding="{Binding NewStartDate, StringFormat={}{0:d}}" Width="150"></DataGridTextColumn>
+                <DataGridTextColumn Header="Novi datum kraja" Binding="{Binding NewEndDate, StringFormat={}{0:d}}" Width="150"></DataGridTextColumn>
                 <DataGridTextColumn Header="Status zahteva" Binding="{Binding Status}" Width="150"></DataGridTextColumn>
                 <DataGridTextColumn Header="Komentar" Binding="{Binding Comment}" Width="150"></DataGridTextColumn>
             </DataGrid.Columns>

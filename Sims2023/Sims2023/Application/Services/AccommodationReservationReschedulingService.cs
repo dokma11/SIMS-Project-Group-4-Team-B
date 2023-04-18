@@ -24,6 +24,10 @@ public class AccommodationReservationReschedulingService
     {
         return _accommodationReservationRescheduling.GetById(id);
     }
+    public void Save()
+    {
+        _accommodationReservationRescheduling.Save();
+    }
 
     public List<AccommodationReservationRescheduling> GetAllReservationReschedulings()
     {
@@ -60,14 +64,11 @@ public class AccommodationReservationReschedulingService
     {
         _accommodationReservationRescheduling.Subscribe(observer);
     }
-    public List<AccommodationReservationRescheduling> FindSuitableReservationReschedulings(User guest1)
+    public ObservableCollection<AccommodationReservationRescheduling> FindSuitableReservationReschedulings(User guest1, ObservableCollection<AccommodationReservationRescheduling> accommodationReservationReschedulings)
     {
-        return _accommodationReservationRescheduling.FindSuitableReservationReschedulings( guest1);
+        return _accommodationReservationRescheduling.FindSuitableReservationReschedulings( guest1,accommodationReservationReschedulings);
     }
-    public void checkForNotifications(User guest1)
-    {
-        _accommodationReservationRescheduling.checkForNotifications(guest1);
-    }
+
     public bool CheckForActiveRequest(AccommodationReservation selectedAccommodationReservation)
     {
         return _accommodationReservationRescheduling.CheckForActiveRequest(selectedAccommodationReservation);

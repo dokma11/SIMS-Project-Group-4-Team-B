@@ -23,7 +23,8 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Margin="0,0,57,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
+                    <RowDefinition/>
+                    <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -33,14 +34,15 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
-                <Label x:Name="startDate" Content="Unesite pocetni datum:" FontSize="20" Grid.Row="1" Margin="100,0,0,0"/>
-                <Label x:Name="endDate" Content="Unesite zavrsni datum:" FontSize="20" Grid.Row="3" Margin="100,0,0,0"/>
-                <Label x:Name="numberOfDaysEnter" Content="Unesite broj dana:" FontSize="20" Grid.Row="5" Margin="100,0,0,0"/>
-                <DatePicker x:Name="startDatePicker" Margin="100,0,0,10" Grid.Row="2"/>
-                <DatePicker x:Name="endDatePicker" Margin="100,0,0,10" Grid.Row="4"/>
-                <xctk:IntegerUpDown Name="numberOfDays" Grid.Row="6" Margin="100,0,0,20" Minimum="0" Value="0" AllowTextInput="False"/>
-                <Button x:Name="makeReservation" Content="Rezervisi" FontSize="20" Margin="150,0,50,0" Grid.Row="7" Click="MakeReservation_Click"/>
-
+                <Label x:Name="startDate" Content="Unesite pocetni datum:" FontSize="20" Grid.Row="0" Margin="100,0,0,0"/>
+                <Label x:Name="endDate" Content="Unesite zavrsni datum:" FontSize="20" Grid.Row="2" Margin="100,0,0,0"/>
+                <Label x:Name="numberOfDaysEnter" Content="Unesite broj dana:" FontSize="20" Grid.Row="4" Margin="100,0,0,0"/>
+                <Label x:Name="numberOfGuestsEnter" Content="Unesite broj gostiju:" FontSize="20" Grid.Row="6" Margin="100,0,0,0"/>
+                <DatePicker x:Name="startDatePicker" Margin="100,0,0,10" Grid.Row="1"/>
+                <DatePicker x:Name="endDatePicker" Margin="100,0,0,10" Grid.Row="3"/>
+                <xctk:IntegerUpDown Name="numberOfDays" Grid.Row="5" Margin="100,0,0,10" Minimum="0" Value="0" AllowTextInput="False"/>
+                <xctk:IntegerUpDown Name="numberOfGuests" Grid.Row="7" Margin="100,0,0,10" Minimum="0" Value="0" AllowTextInput="False"/>
+                <Button x:Name="makeReservation" Content="Rezervisi" FontSize="20" Margin="150,10,50,0" Grid.Row="8" Click="MakeReservation_Click"/>
             </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -52,7 +54,7 @@
                 </Grid.RowDefinitions>
                 <Label x:Name="label1" Content="Izaberite datume za koje zelite da rezervisete smestaj" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="18" Grid.Row="1"/>
                 <DataGrid x:Name="availableDatesGrid"
-                  ItemsSource="{Binding Path=stays, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Path=AccommodationReservationDateViewModel.stays, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedAccommodationStay, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="70,0,70,20"
                   Grid.Row="2" HorizontalAlignment="Center">
@@ -61,10 +63,9 @@
                         <DataGridTextColumn Header="Krajnji datum" Binding="{Binding EndDate, StringFormat={}{0:d}}" Width="200"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button x:Name="buttonDateConfirmation" Content="Potvrdite datum" Margin="150,0,150,0" FontSize="15" Grid.Row="3" Click="ButtonDateConfirmation_Click" Height="50" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                <Button x:Name="buttonDateConfirmation" Content="Potvrdite datum" Margin="150,10,150,0" FontSize="15" Grid.Row="3" Click="ButtonDateConfirmation_Click" Height="40" VerticalAlignment="Top" RenderTransformOrigin="0.517,0.15"/>
             </Grid>
         </Grid>
-
         <Button x:Name="buttonDateCancelation" Content="Odustani"  Margin="750,0,50,20" FontSize="15" Grid.Row="3" Click="ButtonDateCancelation_Click"/>
         <ToolBar x:Name="toolBar" Grid.Row="0"/>
         <StatusBar Grid.Row="4" Margin="0,0,0,0"/>

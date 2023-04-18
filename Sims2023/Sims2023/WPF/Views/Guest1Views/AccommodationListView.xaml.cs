@@ -1,5 +1,7 @@
-﻿using Sims2023.Domain.Models;
+﻿using Sims2023.Application.Services;
+using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest1ViewModel;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace Sims2023.WPF.Views.Guest1Views
@@ -9,12 +11,19 @@ namespace Sims2023.WPF.Views.Guest1Views
         public AccommodationListViewModel AccommodationListViewModel;
         public Accommodation SelectedAccommodation { get; set; }
         public User User { get; set; }
+        public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
+
+        private AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
+
+
         public AccommodationListView(User guest1)
         {
             InitializeComponent();
             AccommodationListViewModel = new AccommodationListViewModel(this, guest1);
             DataContext = AccommodationListViewModel;
 
+            _accommodationReservationReschedulingService = new AccommodationReservationReschedulingService();
+            AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingService.GetAllReservationReschedulings());
             User = guest1;
         }
 
@@ -37,7 +46,7 @@ namespace Sims2023.WPF.Views.Guest1Views
                 MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da rezervisete.");
                 return;
             }
-            AccommodationReservationDateView accommodationReservationDateView = new AccommodationReservationDateView(-1, SelectedAccommodation, User);
+            AccommodationReservationDateView accommodationReservationDateView = new AccommodationReservationDateView(-1, SelectedAccommodation, User,AccommodationReservationReschedulings, _accommodationReservationReschedulingService);
             accommodationReservationDateView.Show();
         }
 
