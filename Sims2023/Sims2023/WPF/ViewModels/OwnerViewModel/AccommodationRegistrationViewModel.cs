@@ -142,7 +142,5 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         {
             _accommodationService.Create(accommodation);
         }
-
-
-    }
+   }
 }

@@ -17,7 +17,6 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         public List<AccommodationReservation> ReservationsList { get; set; }  //
 
         private GuestGradeService _gradeService; //
-
         public ObservableCollection<AccommodationReservation> Reservatons { get; set; }  //
 
         public AllGuestsView allGuestsView;

@@ -20,13 +20,10 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             _guestGradeService = new GuestGradeService();
         }
 
-
         public List<AccommodationGrade> FindAllGuestsWhoGraded()
         {
             return _accommodationGradesService.
                 FindAllGuestsWhoGraded(_accommodationGradesService.GetAllAccommodationGrades(), _guestGradeService.GetAllGrades(), owner);
         }
-
-
     }
 }

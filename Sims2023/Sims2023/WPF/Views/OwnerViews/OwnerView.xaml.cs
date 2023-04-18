@@ -11,9 +11,7 @@ namespace Sims2023.View
     /// </summary>
     public partial class OwnerView : Window
     {
-
         public ObservableCollection<AccommodationCancellation> AccommodationCancellations { get; set; }
-
         public List<AccommodationReservation> Reservatons { get; set; }
         public List<AccommodationReservation> GradableGuests { get; set; }
 

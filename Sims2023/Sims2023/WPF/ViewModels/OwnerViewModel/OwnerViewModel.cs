@@ -42,8 +42,6 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             return _accommodationReservationService.GetGradableGuests(User, Reservations, _gradeService.GetAllGrades());
         }
 
-
-
         public void checkForNotifications()
         {
             foreach (AccommodationCancellation accommodationCancellation in AccommodationCancellations)
@@ -71,13 +69,11 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                 {
                     if (_accommodationReservationService.GetGradableGuests(User, Reservations, _gradeService.GetAllGrades()).Count != 0)
                     {
-                        //      MessageBox.Show(_accommodationReservationController.GetAllUngradedNames(GradableGuests));
+                              MessageBox.Show(ungradedGuestsNameAndSurrname(Reservations));
 
                         // Update the last shown date to today's date
                         File.WriteAllText(fileName, DateTime.Today.ToString());
                     }
-
-
                 }
             }
             catch (FileNotFoundException)
@@ -85,6 +81,17 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
                 File.WriteAllText(fileName, DateTime.Today.ToString());
             }
+        }
+
+        public string ungradedGuestsNameAndSurrname(List<AccommodationReservation> ungradedGuests)
+        {
+            string string1 = "Imate neocijenjene goste: \n";
+
+            foreach (var guest in ungradedGuests)
+            {
+                string1 += guest.Guest.Name + guest.Guest.Surname + "\n";
+            }
+            return string1;
         }
 
         public void Grade_Click()

@@ -28,7 +28,6 @@ namespace Sims2023.WPF.Views.OwnerViews
             peoplee = people;
 
         }
-
         public string isAccommodationFree
         {
             get
