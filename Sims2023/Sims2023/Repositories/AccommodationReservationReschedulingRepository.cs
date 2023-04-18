@@ -29,6 +29,12 @@ namespace Sims2023.Repositories
             _observers = new List<IObserver>();
         }
 
+        public List<AccommodationReservationRescheduling> GetGuestsForOwner(User owner, List<AccommodationReservationRescheduling> guests)
+        {
+            DateTime today = DateTime.Today;
+            return guests.Where(g => g.AccommodationReservation.Accommodation.Owner.Id == owner.Id && g.Status == RequestStatus.Pending && g.AccommodationReservation.StartDate > today).ToList();
+        }
+
         public AccommodationReservationRescheduling GetById(int id)
         {
             return _fileHandler.GetById(id);
@@ -143,6 +149,7 @@ namespace Sims2023.Repositories
             }
             return false;
         }
+
 
         public bool CheckForActiveRequest(AccommodationReservation selectedAccommodationReservation)
         {
