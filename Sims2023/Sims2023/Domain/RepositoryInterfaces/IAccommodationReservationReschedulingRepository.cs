@@ -17,7 +17,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
     public interface IAccommodationReservationReschedulingRepository
     {
         public AccommodationReservationRescheduling GetById(int id);
-        public List<AccommodationReservationRescheduling> FindGuestsForOwner(User owner, List<AccommodationReservationRescheduling> guests);
+        public List<AccommodationReservationRescheduling> GetGuestsForOwner(User owner, List<AccommodationReservationRescheduling> guests);
         public bool IsDateSpanAvailable(AccommodationReservationRescheduling request);
         public int NextId();
         public void Add(AccommodationReservationRescheduling reservationRescheduling);

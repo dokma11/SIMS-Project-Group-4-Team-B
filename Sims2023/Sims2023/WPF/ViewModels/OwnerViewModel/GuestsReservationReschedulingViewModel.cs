@@ -6,14 +6,14 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 {
     public class GuestsReservationReschedulingViewModel
     {
-        public AccommodationReservationReschedulingService _reschedulingController;
+        public AccommodationReservationReschedulingService _reschedulingService;
         public GuestsReservationReschedulingViewModel()
         {
-            _reschedulingController = new AccommodationReservationReschedulingService();
+            _reschedulingService = new AccommodationReservationReschedulingService();
         }
         public List<AccommodationReservationRescheduling> GetGuestsReservationMove(User owner)
         {
-            return _reschedulingController.GetGuestsReservationMove(owner, _reschedulingController.GetAllReservationReschedulings());
+            return _reschedulingService.GetGuestsForOwner(owner, _reschedulingService.GetAllReservationReschedulings());
         }
 
     }

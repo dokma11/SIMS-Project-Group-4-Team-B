@@ -18,9 +18,10 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void Add(AccommodationReservation reservation);
         public void RemoveAlreadyGraded(List<AccommodationReservation> reservations, List<GuestGrade> grades);
         public bool isGuestAlreadyGraded(AccommodationReservation reservation, List<GuestGrade> grades);
-        public void FindGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons);
-        public void FindGuestsParticularOwner(List<AccommodationReservation> reservatons, User user);
-        public List<AccommodationReservation> findGradableGuests(User user, List<AccommodationReservation> reservatons, List<GuestGrade> grades);
+        public void GetGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons);
+        public void GetGuestsParticularOwner(List<AccommodationReservation> reservatons, User user);
+
+        public List<AccommodationReservation> GetGradableGuests(User user, List<AccommodationReservation> reservatons, List<GuestGrade> grades);
         public void Remove(AccommodationReservation reservation);
         public void Update(AccommodationReservation reservation);
         public List<AccommodationReservation> GetAll();
