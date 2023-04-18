@@ -27,6 +27,8 @@ namespace Sims2023.View
         public String clean { get; set; }
         public String correct { get; set; }
         public String value { get; set; }
+
+        public String location { get; set; }
         public String comment { get; set; }
         
         public DetailedGradeView(AccommodationGrade SelectedPerson)
@@ -40,6 +42,7 @@ namespace Sims2023.View
             clean = SelectedPerson.Cleanliness.ToString();
             correct = SelectedPerson.Comfort.ToString();
             value= SelectedPerson.ValueForMoney.ToString();
+            location = SelectedPerson.Location.ToString();
             comment = SelectedPerson.Comment.ToString();
         }
         private void Back_Click(object sender, RoutedEventArgs e)

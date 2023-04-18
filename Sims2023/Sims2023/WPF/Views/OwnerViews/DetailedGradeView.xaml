@@ -11,16 +11,18 @@
         <Label x:Name="label" Content="Ime" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="92,27,0,0" VerticalAlignment="Top" Height="40" Width="112"/>
         <Label x:Name="label1" Content="Prezime" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="92,85,0,0" VerticalAlignment="Top" Width="111"/>
         <Label x:Name="label2" Content="Čistoća" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="93,0,0,0" VerticalAlignment="Center" Width="111"/>
-        <Label x:Name="label3" Content="Komfort" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="86,272,0,0" VerticalAlignment="Top" Width="125"/>
-        <Label x:Name="label4" Content="Odnos cijena-kvalitet" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="48,338,0,0" VerticalAlignment="Top" Width="200"/>
+        <Label x:Name="label3" Content="Komfort" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="85,309,0,0" VerticalAlignment="Top" Width="125"/>
+        <Label x:Name="label4" Content="Odnos cijena-kvalitet" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="48,366,0,0" VerticalAlignment="Top" Width="200"/>
         <TextBox x:Name="textBlock" IsReadOnly="True" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="313,85,0,0" TextWrapping="Wrap" Text="{Binding surrname}" VerticalAlignment="Top" Height="37" Width="120"/>
         <TextBox x:Name="textBox1" IsReadOnly="True" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="313,0,0,0" TextWrapping="Wrap" Text="{Binding clean}" VerticalAlignment="Center" Width="120" Height="37"/>
-        <TextBox x:Name="textBox2" IsReadOnly="True" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="313,272,0,0" TextWrapping="Wrap" Text="{Binding correct}" VerticalAlignment="Top" Width="120" Height="37"/>
-        <TextBox x:Name="textBox3" IsReadOnly="True" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="313,338,0,0" TextWrapping="Wrap" Text="{Binding value}" VerticalAlignment="Top" Width="120" Height="37"/>
+        <TextBox x:Name="textBox2" IsReadOnly="True" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="313,309,0,0" TextWrapping="Wrap" Text="{Binding correct}" VerticalAlignment="Top" Width="120" Height="37"/>
+        <TextBox x:Name="textBox3" IsReadOnly="True" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="313,366,0,0" TextWrapping="Wrap" Text="{Binding value}" VerticalAlignment="Top" Width="120" Height="37"/>
         <Button x:Name="button" Click="Back_Click" Content="Nazad" FontSize="20" HorizontalAlignment="Left" Margin="566,309,0,0" VerticalAlignment="Top" Height="46" Width="132"/>
         <TextBox x:Name="textBox4" HorizontalAlignment="Left" Margin="499,54,0,0" TextWrapping="Wrap" IsReadOnly="True" Text="{Binding comment}" VerticalAlignment="Top" Width="262" Height="209"/>
         <Label x:Name="label5" Content="Boravak u" FontSize="20" HorizontalAlignment="Left" Margin="100,140,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.107,0.477"/>
         <TextBox x:Name="textBox5" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="20" Margin="313,140,0,0" TextWrapping="Wrap" Text="{Binding accommodationName}" VerticalAlignment="Top" Width="120" Height="37"/>
+        <Label x:Name="label6" Content="Lokacija" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="100,254,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.016,0.117" Width="97"/>
+        <TextBox x:Name="textBlock1" HorizontalAlignment="Left" Margin="313,254,0,0" HorizontalContentAlignment="Center" FontSize="20" TextWrapping="Wrap" Text="{Binding location}" VerticalAlignment="Top" Width="120" Height="34"/>
 
 
     </Grid>
