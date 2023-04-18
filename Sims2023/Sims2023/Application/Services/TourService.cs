@@ -28,15 +28,7 @@ namespace Sims2023.Application.Services
         {
             _tour.Update(tour);
         }
-        public bool CanRateTour(Tour tour)//new for guest2
-        {
-            return _tour.CanRateTour(tour);
-        }
-
-        public bool CanSeeTour(Tour tour)//new for guest2
-        {
-            return _tour.CanSeeTour(tour);
-        }
+        
         public void UpdateAvailableSpace(int reservedSpace, Tour tour)//new for guest2
         {
             _tour.UpdateAvailableSpace(reservedSpace, tour);
@@ -73,14 +65,14 @@ namespace Sims2023.Application.Services
             return _tourReadFromCSVRepository.GetById(id);
         }
 
-        public List<Tour> GetAvailable()//new for guest2
+        public List<Tour> GetCreated()//new for guest2
         {
-            return _tourReadFromCSVRepository.GetAvailable();
+            return _tourReadFromCSVRepository.GetCreated();
         }
 
-        public List<Tour> GetAlternative(int reserved, Tour tour)//new for guest2
+        public List<Tour> GetAlternatives(int reserved, Tour tour)//new for guest2
         {
-            return _tourReadFromCSVRepository.GetAlternative(reserved, tour);
+            return _tourReadFromCSVRepository.GetAlternatives(reserved, tour);
         }
         public List<Tour> GetFinishedTours(User loggedInGuide)
         {

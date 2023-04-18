@@ -20,7 +20,7 @@ namespace Sims2023.Repositories
             _observers = new List<IObserver>();
         }
 
-        public List<Tour> GetAvailable()//new method for guest2
+        public List<Tour> GetCreated()//new method for guest2
         {
             List<Tour> available = new List<Tour>();
             foreach (var tourInstance in _tours)
@@ -33,7 +33,7 @@ namespace Sims2023.Repositories
             return available;
         }
 
-        public List<Tour> GetAlternative(int reserveSpace, Tour tour)//new method for guest2
+        public List<Tour> GetAlternatives(int reserveSpace, Tour tour)//new method for guest2
         {
             var alternativeTours = _tours
                 .Where(tour => tour.Location.Id == tour.Location.Id && tour.AvailableSpace >= reserveSpace && tour.CurrentState == ToursState.Created)
@@ -78,7 +78,7 @@ namespace Sims2023.Repositories
 
         public List<Tour> GetFiltered(string citySearchTerm, string countrySearchTerm, string lengthSearchTerm, string guideLanguageSearchTerm, int maxGuestNumberSearchTerm)
         {
-            List<Tour> FilteredData = GetAvailable().Where(tour =>
+            List<Tour> FilteredData = GetCreated().Where(tour =>
                 (string.IsNullOrEmpty(citySearchTerm) || tour.Location.City.ToLower().Contains(citySearchTerm)) &&
                 (string.IsNullOrEmpty(countrySearchTerm) || tour.Location.Country.ToLower().Contains(countrySearchTerm)) &&
                 (string.IsNullOrEmpty(lengthSearchTerm) || tour.Length.ToString().ToLower().Contains(lengthSearchTerm)) &&

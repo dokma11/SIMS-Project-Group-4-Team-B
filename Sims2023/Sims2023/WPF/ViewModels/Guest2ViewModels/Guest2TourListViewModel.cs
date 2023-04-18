@@ -39,7 +39,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         {
             if (IsNull(SelectedTour))
                 return;
-            if (_tourService.CanRateTour(SelectedTour))
+            if (IsFinished(SelectedTour))
             {
                 RateTourView rateTourView = new RateTourView(User, SelectedTour);
                 rateTourView.Show();
@@ -54,7 +54,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         {
             if(IsNull(SelectedTour))
                 return ;
-            if (_tourService.CanSeeTour(SelectedTour))
+            if (IsStarted(SelectedTour))
             {
                 GuestLiveTrackingTourView guestLiveTrackingTourView = new GuestLiveTrackingTourView(SelectedTour);
                 guestLiveTrackingTourView.Show();
@@ -75,6 +75,17 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             return false;
         }
 
-        
+        public bool IsFinished(Tour tour)//new for guest2
+        {
+            return tour.CurrentState == ToursState.Finished;
+        }
+
+        public bool IsStarted(Tour tour)//new for guest2
+        {
+            return tour.CurrentState == ToursState.Started;
+        }
+
+
+
     }
 }

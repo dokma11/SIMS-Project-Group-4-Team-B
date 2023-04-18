@@ -16,8 +16,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void CalculateAttendedGuestsNumber(User loggedInGuide);       
         public void UpdateState(Tour selectedTour, ToursState state);      
         public void SetLanguage(Tour selectedTour, ToursLanguage language);  
-        public bool CanRateTour(Tour tour); //Ovo ide u vm
-        public bool CanSeeTour(Tour tour);  //Ovo ide u vm
         public void UpdateAvailableSpace(int reservedSpace, Tour tour);
         public void Update(Tour tour);
         public void Subscribe(IObserver observer);
