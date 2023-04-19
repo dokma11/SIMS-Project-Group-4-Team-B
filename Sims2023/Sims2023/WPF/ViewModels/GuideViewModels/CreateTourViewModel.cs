@@ -70,7 +70,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             }
         }
 
-        public void ConfirmCreation(string city, string country)
+        public void ConfirmCreation(string country, string city)
         {
             Location.City = city;
             Location.Country = country;
