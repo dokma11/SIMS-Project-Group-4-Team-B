@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Sims2023.Domain.RepositoryInterfaces
 {
-    public interface IUserRepository
+    public interface IUserCSVRepository
     {
         public int NextId();
         public List<User> FindOwners();

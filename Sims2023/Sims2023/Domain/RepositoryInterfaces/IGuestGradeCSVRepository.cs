@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Domain.RepositoryInterfaces
 {
-    public interface IGuestGradeRepository
+    public interface IGuestGradeCSVRepository
     {
         public void Add(GuestGrade grade);
         public void Update(GuestGrade grade);

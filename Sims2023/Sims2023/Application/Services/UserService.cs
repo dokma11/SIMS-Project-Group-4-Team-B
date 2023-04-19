@@ -8,11 +8,11 @@ namespace Sims2023.Application.Services
 {
     public class UserService
     {
-        private IUserRepository _user;
+        private IUserCSVRepository _user;
 
         public UserService()
         {
-            _user = new UserRepository();
+            _user = new UserCSVRepository();
             //_user = Injection.Injector.CreateInstance<IUserRepository>();
         }
 

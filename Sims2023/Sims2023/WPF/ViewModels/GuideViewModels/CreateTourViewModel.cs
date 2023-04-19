@@ -79,8 +79,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _tourService.Create(Tour, _dateTimeList, Location, LoggedInGuide);
             int firstToursId = Tour.Id - _dateTimeList.Count + 1;
             _tourService.AddToursLocation(Tour, Location, _dateTimeList.Count);
-            //_tourService.SaveWrite();
-            //_tourService.SaveRead();
             _keyPointService.Create(KeyPoint, _keyPointsList, firstToursId, _dateTimeList.Count);
             _tourService.AddToursKeyPoints(_keyPointsList, firstToursId);
         }

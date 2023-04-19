@@ -1,7 +1,8 @@
-1|dsa|3|zxc|Serbian|21|21|a,s,d|1/1/2044 12:00:00 AM|21|zxc|Finished|6|5
-2|dsa|20|zxc|Serbian|21|21|a,s,d|1/1/2001 12:00:00 AM|21|zxc|Finished|6|16
-3|dsa|20|zxc|Serbian|21|21|a,s,d|1/21/2001 12:00:00 AM|21|zxc|Finished|6|0
-4|dsa|2|zxc|Serbian|21|21|a,s,d|1/21/2033 12:00:00 AM|21|zxc|Cancelled|6|0
-5|zxc|2|xcz|Spanish|32|32|1,2,3|1/1/0001 12:00:00 AM|2|zxc|Finished|6|0
-6|zxc|4|xcz|Spanish|32|32|1,2,3|1/1/3001 12:00:00 AM|2|zxc|Finished|6|29
-7|zxc|10|zxc|Serbian|21|21|a,d|1/1/7001 12:00:00 AM|1|zxc|Cancelled|6|0
+1|Obilazak Nisa|3|Obilazimo ovaj prelepi grad|Serbian|21|6|Most,Spomenik,Biblioteka|1/1/2044 12:00:00 AM|21|slike|Finished|6|15
+2|Obilazak Friporta|20|Idemo na Bahame, to je dovoljno|Serbian|21|5|Plaza,Klub,Restoran|1/1/2001 12:00:00 AM|21|slike|Finished|6|16
+3|Obilazak Salcburga|18|Obilazimo jedan od najlepsih gradova u Austriji|Serbian|21|21|Stadion,Red bul,Park|1/21/2001 12:00:00 AM|21|slike|Created|6|0
+4|Obilazak Brazilije|9|Kratki obilazak i igranje fudbala|English|40|40|Park,Teren,Trg|4/22/2033 12:00:00 AM|3|slike|Created|6|0
+5|Obilazak Novoga Sada|11|Grad ljubavi i tolerancije|Spanish|32|32|Liman,Grbavica,Centar,Klisa|4/25/2023 12:00:00 AM|2|slike|Created|6|0
+6|Obilazak Barselone|4|Real je bolji od Barse u fudbalu|Spanish|32|3|Katedrala,Kamp Nou,Stanica za Madrid|1/1/2022 12:00:00 AM|2|slike|Finished|6|29
+7|Obilazak Sarajeva|10|Obilazimo ovaj lep grad|Serbian|21|21|prva,druga,treca,cetvrta|4/18/2023 12:00:00 AM|1|slike|Created|6|0
+8|Obilazak Laosa|16|Obilazimo ovu drzavu jer verovatno nikad niste culi za nju|Chinese|50|34|Centar,Park,Trg,Spomenik,Fontana|4/17/2023 12:00:00 AM|4|slike|Finished|6|16

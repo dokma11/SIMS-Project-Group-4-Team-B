@@ -8,12 +8,12 @@ using System.Linq;
 
 namespace Sims2023.Repositories
 {
-    public class KeyPointRepository : IKeyPointRepository
+    public class KeyPointCSVRepository : IKeyPointCSVRepository
     {
         private List<IObserver> _observers;
         private List<KeyPoint> _keyPoints;
         private KeyPointFileHandler _fileHandler;
-        public KeyPointRepository()
+        public KeyPointCSVRepository()
         {
             _fileHandler = new KeyPointFileHandler();
             _keyPoints = _fileHandler.Load();

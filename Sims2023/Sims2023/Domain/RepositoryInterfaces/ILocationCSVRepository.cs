@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Sims2023.Domain.RepositoryInterfaces
 {
-    public interface ILocationRepository
+    public interface ILocationCSVRepository
     {
         public Location GetById(int id);
         public int GetIdByLocation(string city, string country);

@@ -11,14 +11,14 @@ using System.Windows;
 
 namespace Sims2023.Repositories
 {
-    public class AccommodationCancellationRepository: IAccommodationCancellationRepository
+    public class AccommodationCancellationCSVRepository: IAccommodationCancellationCSVRepository
     {
         private List<IObserver> _observers;
 
         private AccommodationCancellationFileHandler _fileHandler;
         private List<AccommodationCancellation> _accommodationCancellations;
 
-        public AccommodationCancellationRepository()
+        public AccommodationCancellationCSVRepository()
         {
             _fileHandler = new AccommodationCancellationFileHandler();
             _accommodationCancellations = _fileHandler.Load();

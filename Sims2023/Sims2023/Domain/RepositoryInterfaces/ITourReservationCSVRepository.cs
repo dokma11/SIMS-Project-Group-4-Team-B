@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Sims2023.Domain.RepositoryInterfaces
 {
-    public interface ITourReservationRepository
+    public interface ITourReservationCSVRepository
     {
         public int NextId();
         public void Add(TourReservation reservation);

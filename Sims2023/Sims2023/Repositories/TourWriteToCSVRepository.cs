@@ -15,7 +15,7 @@ namespace Sims2023.Repository
         private List<IObserver> _observers;
         private List<Tour> _tours;
         private TourFileHandler _fileHandler;
-        private TourReservationRepository _reservations;
+        private TourReservationCSVRepository _reservations;
         public TourWriteToCSVRepository()
         {
             _fileHandler = new TourFileHandler();
@@ -149,7 +149,7 @@ namespace Sims2023.Repository
 
         public void CalculateAttendedGuestsNumber(User loggedInGuide)
         {
-            _reservations = new TourReservationRepository();
+            _reservations = new TourReservationCSVRepository();
             List<TourReservation> reservations = _reservations.GetAll();
 
             _tours = _fileHandler.Load();

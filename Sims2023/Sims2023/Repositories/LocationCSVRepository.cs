@@ -7,13 +7,13 @@ using System.Linq;
 
 namespace Sims2023.Repositories
 {
-    public class LocationRepository : ILocationRepository
+    public class LocationCSVRepository : ILocationCSVRepository
     {
         private readonly List<IObserver> _observers;
         private readonly List<Location> _locations;
         private readonly LocationFileHandler _fileHandler;
 
-        public LocationRepository()
+        public LocationCSVRepository()
         {
             _fileHandler = new LocationFileHandler();
             _locations = _fileHandler.Load();
@@ -43,7 +43,7 @@ namespace Sims2023.Repositories
         {
             if (!_locations.Contains(location))
             {
-                _locations.Add(location);
+                Add(location);
             }
         }
 

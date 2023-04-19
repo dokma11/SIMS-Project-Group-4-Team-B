@@ -12,14 +12,14 @@ using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Repositories
 {
-    class AccommodationReservationRepository : ISubject, IAccommodationReservationRepository
+    class AccommodationReservationCSVRepository : ISubject, IAccommodationReservationCSVRepository
     {
         private List<IObserver> _observers;
 
         private AccommodationReservationFileHandler _fileHandler;
         private List<AccommodationReservation> _accommodationReservations;
 
-        public AccommodationReservationRepository()
+        public AccommodationReservationCSVRepository()
         {
             _fileHandler = new AccommodationReservationFileHandler();
             _accommodationReservations = _fileHandler.Load();

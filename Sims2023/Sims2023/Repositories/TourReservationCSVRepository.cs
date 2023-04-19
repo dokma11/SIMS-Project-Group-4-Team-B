@@ -7,13 +7,13 @@ using System.Linq;
 
 namespace Sims2023.Repositories
 {
-    public class TourReservationRepository : ITourReservationRepository
+    public class TourReservationCSVRepository : ITourReservationCSVRepository
     {
         private List<IObserver> _observers;
         private TourReservationFileHandler _fileHandler;
         private List<TourReservation> _tourReservations;
 
-        public TourReservationRepository()
+        public TourReservationCSVRepository()
         {
             _fileHandler = new TourReservationFileHandler();
             _tourReservations = _fileHandler.Load();

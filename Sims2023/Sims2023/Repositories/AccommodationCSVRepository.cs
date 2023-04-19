@@ -7,7 +7,7 @@ using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Repositories
 {
-    class AccommodationRepository : ISubject, IAccommodationRepository
+    class AccommodationCSVRepository : ISubject, IAccommodationCSVRepository
     {
 
         private List<IObserver> _observers;
@@ -15,7 +15,7 @@ namespace Sims2023.Repositories
         private List<Accommodation> _accommodations;
 
 
-        public AccommodationRepository()
+        public AccommodationCSVRepository()
         {
             _fileHandler = new AccommodationFileHandler();
             _accommodations = _fileHandler.Load();

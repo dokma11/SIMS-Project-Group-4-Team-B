@@ -11,13 +11,13 @@ namespace Sims2023.Application.Services
     public class TourService
     {
         private ITourWriteToCSVRepository _tour;
-        private ILocationRepository _location;
+        private ILocationCSVRepository _location;
         private ITourReadFromCSVRepository _tourReadFromCSVRepository;
         public TourService()
         {
             _tour = new TourWriteToCSVRepository();
             //_tour = Injection.Injector.CreateInstance<ITourWriteToCSVRepository>();
-            _location = new LocationRepository();
+            _location = new LocationCSVRepository();
             //_location = Injection.Injector.CreateInstance<ILocationRepository>();
             _tourReadFromCSVRepository = new TourReadFromCSVRepository();
             //_tourReadFromCSVRepository = Injection.Injector.CreateInstance<ITourReadFromCSVRepository>();

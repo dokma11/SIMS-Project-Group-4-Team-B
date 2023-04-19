@@ -7,15 +7,15 @@ using System.Linq;
 
 namespace Sims2023.Repositories
 {
-    public class UserRepository: IUserRepository
+    public class UserCSVRepository: IUserCSVRepository
     {
         private List<IObserver> _observers;
         private List<User> _users;
         private UserFileHandler _fileHandler;
-        private TourReservationRepository _tourReservationRepository;
-        private AccommodationGradeRepository guests;
+        private TourReservationCSVRepository _tourReservationRepository;
+        private AccommodationGradeCSVRepository guests;
 
-        public UserRepository()
+        public UserCSVRepository()
         {
             _observers = new List<IObserver>();
             _fileHandler = new UserFileHandler();
@@ -44,7 +44,7 @@ namespace Sims2023.Repositories
 
         public void FindSuperOwners()
         {
-            guests = new AccommodationGradeRepository();
+            guests = new AccommodationGradeCSVRepository();
             foreach (User user in FindOwners())
             {
                 double counter = 0.0;
@@ -132,7 +132,7 @@ namespace Sims2023.Repositories
 
         public List<User> GetGuestsWithReservations(KeyPoint keyPoint, List<User> markedGuests)
         {
-            _tourReservationRepository = new TourReservationRepository();
+            _tourReservationRepository = new TourReservationCSVRepository();
             return _tourReservationRepository
                 .GetAll()
                 .Where(reservation => reservation.Tour.Id == keyPoint.Tour.Id)
