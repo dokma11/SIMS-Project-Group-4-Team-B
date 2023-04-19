@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Sims2023.Domain.RepositoryInterfaces
 {
-    public interface IVoucherRepository
+    public interface IVoucherCSVRepository
     {
         public int NextId();
         public void Add(Voucher voucher);

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Domain.RepositoryInterfaces
 {
-    public interface IAccommodationReservationRepository
+    public interface IAccommodationReservationCSVRepository
     {
         public AccommodationReservation GetById(int id);
         public int NextId();

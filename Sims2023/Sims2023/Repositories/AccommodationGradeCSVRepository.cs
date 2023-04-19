@@ -11,7 +11,7 @@ using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Repositories
 {
-    internal class AccommodationGradeRepository : ISubject, IAccommodationGradeRepository
+    internal class AccommodationGradeCSVRepository : ISubject, IAccommodationGradeCSVRepository
     {
 
         private List<IObserver> _observers;
@@ -19,7 +19,7 @@ namespace Sims2023.Repositories
         private AccommodationGradeFileHandler _fileHandler;
         private List<AccommodationGrade> _accommodationGrades;
 
-        public AccommodationGradeRepository()
+        public AccommodationGradeCSVRepository()
         {
             _fileHandler = new AccommodationGradeFileHandler();
             _accommodationGrades = _fileHandler.Load();

@@ -8,11 +8,11 @@ namespace Sims2023.Application.Services
 {
     public class GuestGradeService
     {
-        private IGuestGradeRepository _grade;
+        private IGuestGradeCSVRepository _grade;
 
         public GuestGradeService()
         {
-            _grade = new GuestGradeRepository();
+            _grade = new GuestGradeCSVRepository();
             //_grade = Injection.Injector.CreateInstance<IGuestGradeRepository>();
         }
 

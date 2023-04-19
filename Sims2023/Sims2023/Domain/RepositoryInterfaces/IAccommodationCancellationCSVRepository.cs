@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace Sims2023.Domain.RepositoryInterfaces
 {
-    public interface IAccommodationCancellationRepository
+    public interface IAccommodationCancellationCSVRepository
     {
         public AccommodationCancellation GetById(int id);
         public int NextId();

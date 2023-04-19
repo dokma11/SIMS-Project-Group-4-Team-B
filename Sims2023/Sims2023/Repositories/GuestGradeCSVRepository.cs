@@ -7,14 +7,14 @@ using System.Linq;
 
 namespace Sims2023.Repositories
 {
-    class GuestGradeRepository : ISubject, IGuestGradeRepository
+    class GuestGradeCSVRepository : ISubject, IGuestGradeCSVRepository
     {
         private List<IObserver> _observers;
 
         private GuestGradeFileHandler _fileHandler;
         private List<GuestGrade> _grades;
 
-       public GuestGradeRepository()
+       public GuestGradeCSVRepository()
         {
             _fileHandler = new GuestGradeFileHandler();
             _grades = _fileHandler.Load();

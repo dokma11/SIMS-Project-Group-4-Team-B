@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Sims2023.Domain.RepositoryInterfaces
 {
-     public interface IAccommodationRepository
+     public interface IAccommodationCSVRepository
     {
         public Accommodation GetById(int id);
         public int NextId();

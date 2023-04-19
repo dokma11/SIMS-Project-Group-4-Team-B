@@ -11,11 +11,11 @@ namespace Sims2023.Application.Services
 {
     public class CountriesAndCitiesService
     {
-        private ICountriesAndCitiesRepository _countriesAndCities;
+        private ICountriesAndCitiesCSVRepository _countriesAndCities;
 
         public CountriesAndCitiesService()
         {
-            _countriesAndCities = new CountriesAndCitiesRepository();
+            _countriesAndCities = new CountriesAndCitiesCSVRepository();
             //_countriesAndCities = Injection.Injector.CreateInstance<ICountriesAndCitiesRepository>();
         }
 

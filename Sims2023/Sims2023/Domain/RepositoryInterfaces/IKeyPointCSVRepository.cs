@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Sims2023.Domain.RepositoryInterfaces
 {
-    public interface IKeyPointRepository
+    public interface IKeyPointCSVRepository
     {
         public int NextId();
         public void Add(KeyPoint keyPoint, List<string> keyPointNames, int toursId, int newToursNumber);

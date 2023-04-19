@@ -60,7 +60,6 @@ namespace Sims2023.Domain.Models
                 ReservationTime.ToString(),
                 ConfirmedParticipation.ToString(),
                 UsedVoucher.ToString(),
-                //will delete later on
                 ShouldConfirmParticipation.ToString(),
             };
             return csvValues;
@@ -77,7 +76,6 @@ namespace Sims2023.Domain.Models
             ReservationTime = DateTime.Parse(values[4]);
             ConfirmedParticipation = bool.Parse(values[5]);
             UsedVoucher = bool.Parse(values[6]);
-            //will delete later on
             ShouldConfirmParticipation = bool.Parse(values[7]);
         }
     }

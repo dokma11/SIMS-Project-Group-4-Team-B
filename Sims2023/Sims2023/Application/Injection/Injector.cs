@@ -10,21 +10,21 @@ namespace Sims2023.Application.Injection
     {
         private static Dictionary<Type, object> _implementations = new Dictionary<Type, object>
         {
-            { typeof(IAccommodationCancellationRepository), new AccommodationCancellationRepository() },
-            { typeof(IAccommodationGradeRepository), new AccommodationGradeRepository() },
-            { typeof(IAccommodationRepository), new AccommodationRepository() },
-            { typeof(IAccommodationReservationRepository), new AccommodationReservationRepository() },
-            { typeof(IAccommodationReservationReschedulingRepository), new AccommodationReservationReschedulingRepository() },
-            { typeof(IGuestGradeRepository), new GuestGradeRepository() },
-            { typeof(IKeyPointRepository), new KeyPointRepository() },
-            { typeof(ILocationRepository), new LocationRepository() },
+            { typeof(IAccommodationCancellationCSVRepository), new AccommodationCancellationCSVRepository() },
+            { typeof(IAccommodationGradeCSVRepository), new AccommodationGradeCSVRepository() },
+            { typeof(IAccommodationCSVRepository), new AccommodationCSVRepository() },
+            { typeof(IAccommodationReservationCSVRepository), new AccommodationReservationCSVRepository() },
+            { typeof(IAccommodationReservationReschedulingCSVRepository), new AccommodationReservationReschedulingCSVRepository() },
+            { typeof(IGuestGradeCSVRepository), new GuestGradeCSVRepository() },
+            { typeof(IKeyPointCSVRepository), new KeyPointCSVRepository() },
+            { typeof(ILocationCSVRepository), new LocationCSVRepository() },
             { typeof(ITourWriteToCSVRepository), new TourWriteToCSVRepository() },
             { typeof(ITourReadFromCSVRepository), new TourReadFromCSVRepository() },
-            { typeof(ITourReservationRepository), new TourReservationRepository() },
-            { typeof(ITourReviewRepository), new TourReviewRepository() },
-            { typeof(IVoucherRepository), new VoucherRepository() },
-            { typeof(IUserRepository), new UserRepository() },
-            { typeof(ICountriesAndCitiesRepository), new CountriesAndCitiesRepository() }
+            { typeof(ITourReservationCSVRepository), new TourReservationCSVRepository() },
+            { typeof(ITourReviewCSVRepository), new TourReviewCSVRepository() },
+            { typeof(IVoucherCSVRepository), new VoucherCSVRepository() },
+            { typeof(IUserCSVRepository), new UserCSVRepository() },
+            { typeof(ICountriesAndCitiesCSVRepository), new CountriesAndCitiesCSVRepository() }
         };
 
         public static T CreateInstance<T>()

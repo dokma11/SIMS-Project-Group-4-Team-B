@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Domain.RepositoryInterfaces
 {
-    public interface ICountriesAndCitiesRepository
+    public interface ICountriesAndCitiesCSVRepository
     {
         public List<CountriesAndCities> GetAll();
 

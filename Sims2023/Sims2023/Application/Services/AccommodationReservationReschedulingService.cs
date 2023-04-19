@@ -13,11 +13,11 @@ namespace Sims2023.Application.Services;
 
 public class AccommodationReservationReschedulingService
 {
-    private IAccommodationReservationReschedulingRepository _accommodationReservationRescheduling;
+    private IAccommodationReservationReschedulingCSVRepository _accommodationReservationRescheduling;
 
     public AccommodationReservationReschedulingService()
     {
-        _accommodationReservationRescheduling = new AccommodationReservationReschedulingRepository();
+        _accommodationReservationRescheduling = new AccommodationReservationReschedulingCSVRepository();
         //_accommodationReservationRescheduling = Injection.Injector.CreateInstance<IAccommodationReservationReschedulingRepository>();
     }
 

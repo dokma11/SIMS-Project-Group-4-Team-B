@@ -15,14 +15,14 @@ using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Repositories
 {
-    public class AccommodationReservationReschedulingRepository: IAccommodationReservationReschedulingRepository
+    public class AccommodationReservationReschedulingCSVRepository: IAccommodationReservationReschedulingCSVRepository
     {
         private List<IObserver> _observers;
-        private AccommodationReservationRepository reservations { get; set; }
+        private AccommodationReservationCSVRepository reservations { get; set; }
         private AccommodationReservationReschedulingFileHandler _fileHandler;
         private List<AccommodationReservationRescheduling> _accommodationReservationReschedulings;
 
-        public AccommodationReservationReschedulingRepository()
+        public AccommodationReservationReschedulingCSVRepository()
         {
             _fileHandler = new AccommodationReservationReschedulingFileHandler();
             _accommodationReservationReschedulings = _fileHandler.Load();
@@ -51,7 +51,7 @@ namespace Sims2023.Repositories
 
         public bool IsDateSpanAvailable(AccommodationReservationRescheduling request)
         {
-            reservations = new AccommodationReservationRepository();
+            reservations = new AccommodationReservationCSVRepository();
             foreach (AccommodationReservation reservation in reservations.GetAll())
             {
                 if (reservation.Accommodation.Id == request.AccommodationReservation.Accommodation.Id)

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Domain.RepositoryInterfaces
 {
-    public interface IAccommodationGradeRepository
+    public interface IAccommodationGradeCSVRepository
     {
         public List<AccommodationGrade> GetAllGuestsWhoGraded(List<AccommodationGrade> people, List<GuestGrade> ListOfGuests, User owner);
         public void FindGradesForOwner(List<AccommodationGrade> people, User owner);

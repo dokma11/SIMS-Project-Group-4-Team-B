@@ -8,11 +8,11 @@ namespace Sims2023.Application.Services
 {
     public class TourReviewService
     {
-        private ITourReviewRepository _tourReviews;
+        private ITourReviewCSVRepository _tourReviews;
 
         public TourReviewService()
         {
-            _tourReviews = new TourReviewRepository();
+            _tourReviews = new TourReviewCSVRepository();
             //_tourReviews = Injection.Injector.CreateInstance<ITourReviewRepository>();
         }
 

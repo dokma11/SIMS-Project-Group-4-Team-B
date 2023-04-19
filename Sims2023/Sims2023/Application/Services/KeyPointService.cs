@@ -8,10 +8,10 @@ namespace Sims2023.Application.Services
 {
     public class KeyPointService
     {
-        private IKeyPointRepository _keyPoint;
+        private IKeyPointCSVRepository _keyPoint;
         public KeyPointService()
         {
-            _keyPoint = new KeyPointRepository();
+            _keyPoint = new KeyPointCSVRepository();
             //_keyPoint = Injection.Injector.CreateInstance<IKeyPointRepository>();
         }
 

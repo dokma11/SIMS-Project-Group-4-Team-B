@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Repositories
 {
-    public class CountriesAndCitiesRepository: ICountriesAndCitiesRepository
+    public class CountriesAndCitiesCSVRepository: ICountriesAndCitiesCSVRepository
     {
         
 
@@ -20,7 +20,7 @@ namespace Sims2023.Repositories
         private List<CountriesAndCities> _locations;
 
 
-        public CountriesAndCitiesRepository()
+        public CountriesAndCitiesCSVRepository()
         {
             _fileHandler = new CountriesAndCitiesFileHandler();
             _locations = _fileHandler.Load();

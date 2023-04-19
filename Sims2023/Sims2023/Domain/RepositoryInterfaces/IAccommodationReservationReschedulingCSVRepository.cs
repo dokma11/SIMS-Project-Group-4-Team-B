@@ -14,7 +14,7 @@ using static Sims2023.Domain.Models.AccommodationReservationRescheduling;
 
 namespace Sims2023.Domain.RepositoryInterfaces
 {
-    public interface IAccommodationReservationReschedulingRepository
+    public interface IAccommodationReservationReschedulingCSVRepository
     {
         public AccommodationReservationRescheduling GetById(int id);
         public List<AccommodationReservationRescheduling> GetGuestsForOwner(User owner, List<AccommodationReservationRescheduling> guests);

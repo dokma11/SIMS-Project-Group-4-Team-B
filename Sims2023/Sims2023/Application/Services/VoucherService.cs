@@ -8,10 +8,10 @@ namespace Sims2023.Application.Services
 {
     public class VoucherService
     {
-        private readonly IVoucherRepository _voucher;
+        private readonly IVoucherCSVRepository _voucher;
         public VoucherService()
         {
-            _voucher = new VoucherRepository();
+            _voucher = new VoucherCSVRepository();
             //_voucher = Injection.Injector.CreateInstance<IVoucherRepository>();
         }
 

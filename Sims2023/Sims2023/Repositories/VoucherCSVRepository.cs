@@ -7,12 +7,12 @@ using System.Linq;
 
 namespace Sims2023.Repositories
 {
-    public class VoucherRepository: IVoucherRepository
+    public class VoucherCSVRepository: IVoucherCSVRepository
     {
         private List<IObserver> _observers;
         private List<Voucher> _vouchers;
         private VoucherFileHandler _fileHandler;
-        public VoucherRepository()
+        public VoucherCSVRepository()
         {
             _fileHandler = new VoucherFileHandler();
             _vouchers = _fileHandler.Load();
