@@ -10,8 +10,8 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<Tour> GetFinished(User loggedInGuide);
         public Tour GetTheMostVisited(User loggedInGuide, string year);
         public List<Tour> GetGuidesCreated(User loggedInGuide);   
-        public List<Tour> GetAvailable();
-        public List<Tour> GetAlternative(int reserveSpace, Tour tour);
+        public List<Tour> GetCreated();
+        public List<Tour> GetAlternatives(int reserveSpace, Tour tour);
         public Uri GetPictureUri(Tour tour, int i);
         public List<Tour> GetFiltered(string citySearchTerm, string countrySearchTerm, string lengthSearchTerm, string guideLanguageSearchTerm, int maxGuestNumberSearchTerm);
         public void Save();

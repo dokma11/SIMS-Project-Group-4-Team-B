@@ -30,7 +30,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             _tourReservationService = new TourReservationService();
             _voucherService = new VoucherService();
             
-            Tours = new ObservableCollection<Tour>(_tourService.GetAvailable());
+            Tours = new ObservableCollection<Tour>(_tourService.GetCreated());
             FilteredData = new List<Tour>();
             
             SelectedTour = null;
@@ -150,7 +150,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         public void DisplayAlternativeTours(int reservedSpace, Tour selectedTour)
         {
-            Guest2View.dataGridTours.ItemsSource = _tourService.GetAlternative(reservedSpace, selectedTour);
+            Guest2View.dataGridTours.ItemsSource = _tourService.GetAlternatives(reservedSpace, selectedTour);
             MessageBox.Show("Nema slobodnih mesta, ali imamo na istoj lokaciji u ponudi:");
         }
 
@@ -181,7 +181,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         }
         public void Update()
         {
-            Guest2View.dataGridTours.ItemsSource = new ObservableCollection<Tour>(_tourService.GetAvailable());
+            Guest2View.dataGridTours.ItemsSource = new ObservableCollection<Tour>(_tourService.GetCreated());
         }
     }
 }

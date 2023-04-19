@@ -56,16 +56,7 @@ namespace Sims2023.Repository
             NotifyObservers();
         }
 
-        public bool CanRateTour(Tour tour)//new for guest2
-        {
-            return tour.CurrentState == ToursState.Finished;
-        }
-
-        public bool CanSeeTour(Tour tour)//new for guest2
-        {
-            return tour.CurrentState == ToursState.Started;
-        }
-
+        
         public void AddLocation(int toursId, Location location)
         {
             var tour = _tours.FirstOrDefault(t => t.Id == toursId);
