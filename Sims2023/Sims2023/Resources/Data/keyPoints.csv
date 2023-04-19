@@ -1,5 +1,5 @@
 1|a|Visited|2|1
-2|s|NotVisited||1
+2|s|BeingVisited||1
 3|d|NotVisited||1
 4|a|NotVisited||2
 5|s|NotVisited||2
