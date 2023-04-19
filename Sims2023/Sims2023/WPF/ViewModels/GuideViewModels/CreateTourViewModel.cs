@@ -47,7 +47,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         {
             if (Enum.TryParse(languageString, out ToursLanguage language))
             {
-                _tourService.SetToursLanguage(Tour, language);
+                _tourService.SetLanguage(Tour, language);
             }
         }
 
@@ -74,13 +74,13 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         {
             Location.City = city;
             Location.Country = country;
-            MessageBox.Show(Location.City);
-            MessageBox.Show(Location.Country);
             Tour.Location = Location;
             _locationService.Create(Location);
             _tourService.Create(Tour, _dateTimeList, Location, LoggedInGuide);
             int firstToursId = Tour.Id - _dateTimeList.Count + 1;
             _tourService.AddToursLocation(Tour, Location, _dateTimeList.Count);
+            //_tourService.SaveWrite();
+            //_tourService.SaveRead();
             _keyPointService.Create(KeyPoint, _keyPointsList, firstToursId, _dateTimeList.Count);
             _tourService.AddToursKeyPoints(_keyPointsList, firstToursId);
         }

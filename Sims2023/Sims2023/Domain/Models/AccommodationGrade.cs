@@ -11,7 +11,6 @@ namespace Sims2023.Domain.Models
         public int Id { get; set; }
         public Accommodation Accommodation { get; set; }
         public User Guest { get; set; }
-
         public int Cleanliness { get; set; }
         public int Comfort { get; set; }
         public int Location { get; set; }

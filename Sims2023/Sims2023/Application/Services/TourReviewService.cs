@@ -13,6 +13,7 @@ namespace Sims2023.Application.Services
         public TourReviewService()
         {
             _tourReviews = new TourReviewRepository();
+            //_tourReviews = Injection.Injector.CreateInstance<ITourReviewRepository>();
         }
 
         public List<TourReview> GetAllTourReviews()

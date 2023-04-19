@@ -24,8 +24,6 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         private GuestGrade Grade { get; set; }
         ObservableCollection<AccommodationReservation> resevationss { get; set; }
 
-
-
         public bool GradeEntered { get; set; }
 
         public Guest1GradeViewModel(Guest1GradeView view, AccommodationReservation selectedGuest, ObservableCollection<AccommodationReservation> resevations)
@@ -77,8 +75,6 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             else if (string.IsNullOrEmpty(comment)) return false;
 
             else return true;
-
-
         }
 
         public void CreateGrade(GuestGrade Grade)

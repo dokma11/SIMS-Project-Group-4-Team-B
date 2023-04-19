@@ -44,6 +44,7 @@ namespace Sims2023.Repositories
 
         public List<Tour> GetFinished(User loggedInGuide)
         {
+            _tours = _fileHandler.Load();
             return _tours.Where(t => (t.CurrentState == ToursState.Finished || t.CurrentState == ToursState.Interrupted)
                          && t.Guide.Id == loggedInGuide.Id).ToList();
         }
@@ -73,6 +74,7 @@ namespace Sims2023.Repositories
 
         public List<Tour> GetGuidesCreated(User loggedInGuide)
         {
+            //_tours = _fileHandler.Load();
             return _tours.Where(tour => tour.CurrentState == ToursState.Created && tour.Guide.Id == loggedInGuide.Id).ToList();
         }
 

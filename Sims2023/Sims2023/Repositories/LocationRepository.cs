@@ -12,12 +12,14 @@ namespace Sims2023.Repositories
         private readonly List<IObserver> _observers;
         private readonly List<Location> _locations;
         private readonly LocationFileHandler _fileHandler;
+
         public LocationRepository()
         {
             _fileHandler = new LocationFileHandler();
             _locations = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
+
         public Location GetById(int id)
         {
             return _fileHandler.GetById(id);
@@ -31,38 +33,27 @@ namespace Sims2023.Repositories
             }
             return 0;
         }
+
         public int NextId()
         {
-            if (_locations.Count == 0) return 1;
-            return _locations.Max(l => l.Id) + 1;
+            return _locations.Count == 0 ? 1 : _locations.Max(t => t.Id) + 1;
         }
 
         public void CheckAdd(Location location)
         {
-            List<Location> locations = _locations;
-
-            if (locations.Count == 0)
+            if (!_locations.Contains(location))
             {
-                Add(location);
-            }
-            else
-            {
-                if (!LocationExists(location, locations))
-                {
-                    Add(location);
-                }
+                _locations.Add(location);
             }
         }
 
         public bool LocationExists(Location location, List<Location> locations)
         {
-            foreach (var locationInstance in locations)
+            var matchingLocation = locations.FirstOrDefault(l => l.City == location.City && l.Country == location.Country);
+            if (matchingLocation != null)
             {
-                if (location.City == locationInstance.City && location.Country == locationInstance.Country)
-                {
-                    location.Id = locationInstance.Id;
-                    return true;
-                }
+                location.Id = matchingLocation.Id;
+                return true;
             }
             return false;
         }

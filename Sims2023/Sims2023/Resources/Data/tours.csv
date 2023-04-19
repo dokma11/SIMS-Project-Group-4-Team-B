@@ -1,3 +1,7 @@
-1|dsa|20|zxc|Serbian|21|0|a,s,d|1/1/0001 12:00:00 AM|21|zxc|Created|6|0
-2|dsa|20|zxc|Serbian|21|21|a,s,d|1/1/2001 12:00:00 AM|21|zxc|Created|6|0
-3|dsa|20|zxc|Serbian|21|1|a,s,d|1/21/2001 12:00:00 AM|21|zxc|Created|6|0
+1|dsa|3|zxc|Serbian|21|21|a,s,d|1/1/2044 12:00:00 AM|21|zxc|Finished|6|5
+2|dsa|20|zxc|Serbian|21|21|a,s,d|1/1/2001 12:00:00 AM|21|zxc|Finished|6|16
+3|dsa|20|zxc|Serbian|21|21|a,s,d|1/21/2001 12:00:00 AM|21|zxc|Finished|6|0
+4|dsa|2|zxc|Serbian|21|21|a,s,d|1/21/2033 12:00:00 AM|21|zxc|Cancelled|6|0
+5|zxc|2|xcz|Spanish|32|32|1,2,3|1/1/0001 12:00:00 AM|2|zxc|Finished|6|0
+6|zxc|4|xcz|Spanish|32|32|1,2,3|1/1/3001 12:00:00 AM|2|zxc|Finished|6|29
+7|zxc|10|zxc|Serbian|21|21|a,d|1/1/7001 12:00:00 AM|1|zxc|Cancelled|6|0

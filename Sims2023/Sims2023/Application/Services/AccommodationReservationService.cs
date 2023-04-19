@@ -18,11 +18,12 @@ namespace Sims2023.Application.Services
         public AccommodationReservationService()
         {
             _accommodationReservation = new AccommodationReservationRepository();
+            //_accommodationReservation = Injection.Injector.CreateInstance<IAccommodationReservationRepository>();
         }
 
         public List<AccommodationReservation> GetGradableGuests(User user, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
-            return _accommodationReservation.findGradableGuests(user, reservatons, grades);
+            return _accommodationReservation.GetGradableGuests(user, reservatons, grades);
         }
 
 

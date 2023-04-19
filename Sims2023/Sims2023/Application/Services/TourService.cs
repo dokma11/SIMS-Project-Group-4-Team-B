@@ -16,14 +16,18 @@ namespace Sims2023.Application.Services
         public TourService()
         {
             _tour = new TourWriteToCSVRepository();
+            //_tour = Injection.Injector.CreateInstance<ITourWriteToCSVRepository>();
             _location = new LocationRepository();
+            //_location = Injection.Injector.CreateInstance<ILocationRepository>();
             _tourReadFromCSVRepository = new TourReadFromCSVRepository();
+            //_tourReadFromCSVRepository = Injection.Injector.CreateInstance<ITourReadFromCSVRepository>();
         }
 
         public void Create(Tour tour, List<DateTime> dateTimes, Location location, User loggedInGuide)
         {
             _tour.Add(tour, dateTimes, location, loggedInGuide);
         }
+
         public void Update(Tour tour)//new method and deleted edit za sad nam ne treba vrv
         {
             _tour.Update(tour);
@@ -50,14 +54,20 @@ namespace Sims2023.Application.Services
         {
             return _tourReadFromCSVRepository.GetPictureUri(tour, i);
         }
+
         public void Subscribe(IObserver observer)
         {
             _tour.Subscribe(observer);
         }
 
-        public void Save()
+        public void SaveWrite()
         {
             _tour.Save();
+        }
+        
+        public void SaveRead()
+        {
+            _tourReadFromCSVRepository.Save();
         }
 
         public Tour GetById(int id)
@@ -74,6 +84,7 @@ namespace Sims2023.Application.Services
         {
             return _tourReadFromCSVRepository.GetAlternatives(reserved, tour);
         }
+        
         public List<Tour> GetFinishedTours(User loggedInGuide)
         {
             return _tourReadFromCSVRepository.GetFinished(loggedInGuide);
@@ -89,17 +100,18 @@ namespace Sims2023.Application.Services
             return _tourReadFromCSVRepository.GetTheMostVisited(loggedInGuide, year);
         }
 
-        public List<Tour> GetCreatedTours(User loggedInGuide)
+        public List<Tour> GetGuidesCreated(User loggedInGuide)
         {
             return _tourReadFromCSVRepository.GetGuidesCreated(loggedInGuide);
         }
 
-        public void ChangeToursState(Tour selectedTour, ToursState state)
+        public void UpdateState(Tour selectedTour, ToursState state)
         {
             _tour.UpdateState(selectedTour, state);
+            _tourReadFromCSVRepository.Save();
         }
 
-        public void SetToursLanguage(Tour selectedTour, ToursLanguage language)
+        public void SetLanguage(Tour selectedTour, ToursLanguage language)
         {
             _tour.SetLanguage(selectedTour, language);
         }

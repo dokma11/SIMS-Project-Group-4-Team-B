@@ -15,7 +15,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public Tour? SelectedTour { get; set; }
         public ObservableCollection<Tour> ToursToDisplay { get; set; }
         public User LoggedInGuide { get; set; }
-        public bool TourCancelled;
         public GuideViewModel(User user, TourService tourService, VoucherService voucherService, UserService userService, TourReservationService tourReservationService)
         {
             LoggedInGuide = user;
@@ -25,20 +24,14 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _userService = userService;
             _tourReservationService = tourReservationService;
 
-            ToursToDisplay = new ObservableCollection<Tour>(_tourService.GetCreatedTours(LoggedInGuide));
-            TourCancelled = false;
+            ToursToDisplay = new ObservableCollection<Tour>(_tourService.GetGuidesCreated(LoggedInGuide));
         }
 
-        public void CancelTour()
+        public void CancelTour(string additionalComment)
         {
-            string additionalComment = Microsoft.VisualBasic.Interaction.InputBox("Unesite razlog:", "Input String");
-            if (!string.IsNullOrEmpty(additionalComment))
-            {
-                _tourService.ChangeToursState(SelectedTour, ToursState.Cancelled);
-                CreateVouchersForCancelledTour(SelectedTour.Id, additionalComment);
-                TourCancelled = true;
-                Update();
-            }
+            _tourService.UpdateState(SelectedTour, ToursState.Cancelled);
+            CreateVouchersForCancelledTour(SelectedTour.Id, additionalComment);
+            Update();
         }
 
         public void CreateVouchersForCancelledTour(int toursId, string additionalComment)
@@ -68,11 +61,12 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public void Update()
         {
             ToursToDisplay.Clear();
-            foreach (var tour in _tourService.GetCreatedTours(LoggedInGuide))
+            foreach (var tour in _tourService.GetGuidesCreated(LoggedInGuide))
             {
                 ToursToDisplay.Add(tour);
             }
-            _tourService.Save();
+            //_tourService.SaveWrite();
+            //_tourService.SaveRead();
         }
     }
 }

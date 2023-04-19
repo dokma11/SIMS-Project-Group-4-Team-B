@@ -32,8 +32,6 @@ namespace Sims2023.View
             DataContext = Guest1GradeViewModel;
           
         }
-
-   
         private void Grade_click(object sender, EventArgs e)
         {
             Guest1GradeViewModel.Grade_click(sender, e);

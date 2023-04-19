@@ -2,6 +2,7 @@
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
+using Sims2023.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,11 +15,10 @@ namespace Sims2023.Repository
         private List<IObserver> _observers;
         private List<Tour> _tours;
         private TourFileHandler _fileHandler;
-        private TourReservationFileHandler _reservationFileHandler;
+        private TourReservationRepository _reservations;
         public TourWriteToCSVRepository()
         {
             _fileHandler = new TourFileHandler();
-            _reservationFileHandler = new TourReservationFileHandler();
             _tours = _fileHandler.Load();
             _observers = new List<IObserver>();
         }
@@ -110,7 +110,7 @@ namespace Sims2023.Repository
             {
                 if (tourInstance.Id == firstToursId)
                 {
-                    tourInstance.KeyPointsString = keyPointsString;
+                    tourInstance.KeyPoints = keyPointsString;
                     firstToursId++;
                     _fileHandler.Save(_tours);
                     NotifyObservers();
@@ -147,11 +147,12 @@ namespace Sims2023.Repository
             _fileHandler.Save(_tours);
         }
 
-        //ovo mozda premestiti u rezervacije
         public void CalculateAttendedGuestsNumber(User loggedInGuide)
         {
-            List<TourReservation> reservations = new();
-            reservations = _reservationFileHandler.Load();
+            _reservations = new TourReservationRepository();
+            List<TourReservation> reservations = _reservations.GetAll();
+
+            _tours = _fileHandler.Load();
 
             foreach (var tour in _tours.Where(t => (t.CurrentState == ToursState.Finished || t.CurrentState == ToursState.Interrupted)
                          && t.Guide.Id == loggedInGuide.Id).ToList())
@@ -159,11 +160,14 @@ namespace Sims2023.Repository
                 tour.AttendedGuestsNumber = reservations.Where(res => res.Tour.Id == tour.Id && res.ConfirmedParticipation)
                                                         .Sum(res => res.GuestNumber);
             }
+
+            Save();
         }
 
         public void UpdateState(Tour selectedTour, ToursState state)
         {
             selectedTour.CurrentState = state;
+            Save(); 
         }
 
         public void SetLanguage(Tour selectedTour, ToursLanguage language)

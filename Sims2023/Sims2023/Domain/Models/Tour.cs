@@ -17,23 +17,18 @@ namespace Sims2023.Domain.Models
         public string Description { get; set; }
         public ToursLanguage GuideLanguage { get; set; }
         public int MaxGuestNumber { get; set; }
-        public List<KeyPoint> KeyPoints { get; set; }
-        //Going to concatenate all of the KeyPoints into one string just so I can save it easier in csv 
-        public string KeyPointsString { get; set; }
+        public string KeyPoints { get; set; }
         public DateTime Start { get; set; }
         public int Length { get; set; }
         public ToursState CurrentState { get; set; }
-        public string City { get; set; }            //should probably remove
-        public string Country { get; set; }         //should probably remove
         public int AvailableSpace { get; set; }
-        public List<string> Pictures { get; set; }  //should probably remove
-        //Same principle as for KeyPoints, I'm going to concatenate all of the pictures urls into one string so I can save it easier
+        public List<string> Pictures { get; set; }
+        //concatenating all of the pictures urls into one string so I can save it easier
         public string ConcatenatedPictures { get; set; }
         public int AttendedGuestsNumber { get; set; }
         public User Guide { get; set; }
         public Tour()
         {
-            KeyPoints = new List<KeyPoint>();
             Pictures = new List<string>();
         }
 
@@ -46,15 +41,7 @@ namespace Sims2023.Domain.Models
             GuideLanguage = guideLanguage;
             MaxGuestNumber = maxGuestNumber;
             AvailableSpace = maxGuestNumber;
-            KeyPointsString = keyPointsString;
-            KeyPoints = new List<KeyPoint>();
-            //
-            string[] keyPointsStringArray = KeyPointsString.Split(",");
-            foreach (string keyPoint in keyPointsStringArray)
-            {
-                //KeyPoints.Add(keyPoint);
-            }
-            //
+            KeyPoints = keyPointsString;
             Start = start;
             Length = length;
             CurrentState = ToursState.Created;
@@ -85,7 +72,7 @@ namespace Sims2023.Domain.Models
                 GuideLanguage.ToString(),
                 MaxGuestNumber.ToString(),
                 AvailableSpace.ToString(),
-                KeyPointsString,
+                KeyPoints,
                 Start.ToString(),
                 Length.ToString(),
                 ConcatenatedPictures,
@@ -106,14 +93,7 @@ namespace Sims2023.Domain.Models
             GuideLanguage = (ToursLanguage)Enum.Parse(typeof(ToursLanguage), values[4]);
             MaxGuestNumber = Convert.ToInt32(values[5]);
             AvailableSpace = Convert.ToInt32(values[6]);
-            //
-            KeyPointsString = values[7];
-            string[] keyPointsStringArray = KeyPointsString.Split(",");
-            foreach (string keyPoint in keyPointsStringArray)
-            {
-                //KeyPoints.Add(keyPoint);
-            }
-            //
+            KeyPoints = values[7];
             Start = DateTime.Parse(values[8]);
             Length = Convert.ToInt32(values[9]);
             ConcatenatedPictures = values[10];

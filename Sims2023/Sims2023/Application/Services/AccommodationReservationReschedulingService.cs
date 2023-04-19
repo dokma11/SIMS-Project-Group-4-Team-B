@@ -18,11 +18,16 @@ public class AccommodationReservationReschedulingService
     public AccommodationReservationReschedulingService()
     {
         _accommodationReservationRescheduling = new AccommodationReservationReschedulingRepository();
+        //_accommodationReservationRescheduling = Injection.Injector.CreateInstance<IAccommodationReservationReschedulingRepository>();
     }
 
     public AccommodationReservationRescheduling GetById(int id)
     {
         return _accommodationReservationRescheduling.GetById(id);
+    }
+    public void Save()
+    {
+        _accommodationReservationRescheduling.Save();
     }
 
     public List<AccommodationReservationRescheduling> GetAllReservationReschedulings()
@@ -31,9 +36,9 @@ public class AccommodationReservationReschedulingService
     }
 
 
-    public List<AccommodationReservationRescheduling> GetGuestsReservationMove(User owner, List<AccommodationReservationRescheduling> guests)
+    public List<AccommodationReservationRescheduling> GetGuestsForOwner(User owner, List<AccommodationReservationRescheduling> guests)
     {
-        return _accommodationReservationRescheduling.FindGuestsForOwner(owner, guests);
+        return _accommodationReservationRescheduling.GetGuestsForOwner(owner, guests);
     }
 
     public bool isAccommodationFree(AccommodationReservationRescheduling request)
@@ -60,14 +65,11 @@ public class AccommodationReservationReschedulingService
     {
         _accommodationReservationRescheduling.Subscribe(observer);
     }
-    public List<AccommodationReservationRescheduling> FindSuitableReservationReschedulings(User guest1)
+    public ObservableCollection<AccommodationReservationRescheduling> FindSuitableReservationReschedulings(User guest1, ObservableCollection<AccommodationReservationRescheduling> accommodationReservationReschedulings)
     {
-        return _accommodationReservationRescheduling.FindSuitableReservationReschedulings( guest1);
+        return _accommodationReservationRescheduling.FindSuitableReservationReschedulings( guest1,accommodationReservationReschedulings);
     }
-    public void checkForNotifications(User guest1)
-    {
-        _accommodationReservationRescheduling.checkForNotifications(guest1);
-    }
+
     public bool CheckForActiveRequest(AccommodationReservation selectedAccommodationReservation)
     {
         return _accommodationReservationRescheduling.CheckForActiveRequest(selectedAccommodationReservation);

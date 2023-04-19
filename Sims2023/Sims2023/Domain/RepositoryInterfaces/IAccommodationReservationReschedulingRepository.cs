@@ -17,9 +17,10 @@ namespace Sims2023.Domain.RepositoryInterfaces
     public interface IAccommodationReservationReschedulingRepository
     {
         public AccommodationReservationRescheduling GetById(int id);
-        public List<AccommodationReservationRescheduling> FindGuestsForOwner(User owner, List<AccommodationReservationRescheduling> guests);
+        public List<AccommodationReservationRescheduling> GetGuestsForOwner(User owner, List<AccommodationReservationRescheduling> guests);
         public bool IsDateSpanAvailable(AccommodationReservationRescheduling request);
         public int NextId();
+        public void Save();
         public void Add(AccommodationReservationRescheduling reservationRescheduling);
         public void Update(AccommodationReservationRescheduling reservationRescheduling);
         public void Remove(AccommodationReservationRescheduling reservationRescheduling);
@@ -27,10 +28,8 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void Subscribe(IObserver observer);
         public void Unsubscribe(IObserver observer);
         public void NotifyObservers();
-        public List<AccommodationReservationRescheduling> FindSuitableReservationReschedulings(User guest1);
+        public ObservableCollection<AccommodationReservationRescheduling> FindSuitableReservationReschedulings(User guest1, ObservableCollection<AccommodationReservationRescheduling> accommodationReservationReschedulings);
         public bool FilterdDataSelection(AccommodationReservationRescheduling accommodationReservationRescheduling, User guest1);
-        public void checkForNotifications(User guest1);
-        public bool Notify(AccommodationReservationRescheduling accommodationReservationRescheduling, User guest1);
         public bool CheckForActiveRequest(AccommodationReservation selectedAccommodationReservation);
     }
 }

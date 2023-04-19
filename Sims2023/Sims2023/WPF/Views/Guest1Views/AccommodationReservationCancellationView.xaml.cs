@@ -8,7 +8,7 @@ namespace Sims2023.WPF.Views.Guest1Views
     /// <summary>
     /// Interaction logic for AccommodationReservationCancellationView.xaml
     /// </summary>
-    public partial class AccommodationReservationCancellationView : Window, IObserver
+    public partial class AccommodationReservationCancellationView : Window
     {
         AccommodationReservationCancellationViewModel AccommodationReservationCancellationViewModel;
         public AccommodationReservationCancellationView(User guest1)
@@ -21,11 +21,6 @@ namespace Sims2023.WPF.Views.Guest1Views
         private void cancellation_Click(object sender, RoutedEventArgs e)
         {
             AccommodationReservationCancellationViewModel.cancellation_Click(sender, e);
-        }
-
-        public void Update()
-        {
-            AccommodationReservationCancellationViewModel.Update();
         }
     }
 }

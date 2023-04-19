@@ -22,11 +22,7 @@ namespace Sims2023.Repositories
 
         public int NextId()
         {
-            if (_tourReservations.Count == 0)
-            {
-                return 1;
-            }
-            return _tourReservations.Max(s => s.Id) + 1;
+            return _tourReservations.Count == 0 ? 1 : _tourReservations.Max(t => t.Id) + 1;
         }
 
         public void Add(TourReservation reservation)
