@@ -65,8 +65,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             {
                 ToursToDisplay.Add(tour);
             }
-            //_tourService.SaveWrite();
-            //_tourService.SaveRead();
         }
     }
 }

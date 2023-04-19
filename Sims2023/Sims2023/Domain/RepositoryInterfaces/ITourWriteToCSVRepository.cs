@@ -9,9 +9,9 @@ namespace Sims2023.Domain.RepositoryInterfaces
     {
         public int NextId();
         public void Add(Tour tour, List<DateTime> dateTimes, Location location, User loggedInGuide);
-        public void AddLocation(int toursId, Location location);                   //mozda prebaciti
-        public void CheckAddLocation(Tour tour, Location location, int newToursNumber, List<Location> locations);  //mozda prebaciti
-        public void AddKeyPoints(string keyPointsString, int firstToursId);        //mozda prebaciti
+        public void AddLocation(int toursId, Location location);                   
+        public void DecideLocationToAdd(Tour tour, Location location, int newToursNumber, List<Location> locations);  
+        public void AddKeyPoints(string keyPointsString, int firstToursId);        
         public void Save();
         public void CalculateAttendedGuestsNumber(User loggedInGuide);       
         public void UpdateState(Tour selectedTour, ToursState state);      
@@ -19,7 +19,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void UpdateAvailableSpace(int reservedSpace, Tour tour);
         public void Update(Tour tour);
         public void Subscribe(IObserver observer);
-        public void Unsubscribe(IObserver observer);
         public void NotifyObservers();
     }
 }

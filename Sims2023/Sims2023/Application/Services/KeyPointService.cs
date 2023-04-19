@@ -35,11 +35,6 @@ namespace Sims2023.Application.Services
             _keyPoint.Add(keyPoint, keyPointNames, toursId, newToursNumber);
         }
 
-        public void Delete(KeyPoint keyPoint)
-        {
-            _keyPoint.Remove(keyPoint);
-        }
-
         public void Subscribe(IObserver observer)
         {
             _keyPoint.Subscribe(observer);

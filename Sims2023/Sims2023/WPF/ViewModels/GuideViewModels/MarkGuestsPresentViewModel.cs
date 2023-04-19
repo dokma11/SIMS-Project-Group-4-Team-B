@@ -36,7 +36,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             }
         }
 
-        //should change probably maybe even delete so wont be working on it
         private void ShouldConfirmParticipation(User user)
         {
             foreach (var tourReservation in _tourReservationService.GetAll())

@@ -27,11 +27,6 @@ namespace Sims2023.Application.Services
         {
             _tour.Add(tour, dateTimes, location, loggedInGuide);
         }
-
-        public void Update(Tour tour)//new method and deleted edit za sad nam ne treba vrv
-        {
-            _tour.Update(tour);
-        }
         
         public void UpdateAvailableSpace(int reservedSpace, Tour tour)//new for guest2
         {
@@ -40,8 +35,7 @@ namespace Sims2023.Application.Services
 
         public void AddToursLocation(Tour tour, Location location, int newToursNumber)
         {
-            //mozda treba da menjam
-            _tour.CheckAddLocation(tour, location, newToursNumber, _location.GetAll());
+            _tour.DecideLocationToAdd(tour, location, newToursNumber, _location.GetAll());
         }
 
         public void AddToursKeyPoints(List<string> keyPoints, int firstToursId)
@@ -58,16 +52,6 @@ namespace Sims2023.Application.Services
         public void Subscribe(IObserver observer)
         {
             _tour.Subscribe(observer);
-        }
-
-        public void SaveWrite()
-        {
-            _tour.Save();
-        }
-        
-        public void SaveRead()
-        {
-            _tourReadFromCSVRepository.Save();
         }
 
         public Tour GetById(int id)
@@ -103,6 +87,11 @@ namespace Sims2023.Application.Services
         public List<Tour> GetGuidesCreated(User loggedInGuide)
         {
             return _tourReadFromCSVRepository.GetGuidesCreated(loggedInGuide);
+        }
+
+        public void Update(Tour tour)//new method and deleted edit za sad nam ne treba vrv
+        {
+            _tour.Update(tour);
         }
 
         public void UpdateState(Tour selectedTour, ToursState state)

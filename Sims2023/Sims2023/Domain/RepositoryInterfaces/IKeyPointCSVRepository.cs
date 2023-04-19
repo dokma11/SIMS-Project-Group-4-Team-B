@@ -8,7 +8,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
     {
         public int NextId();
         public void Add(KeyPoint keyPoint, List<string> keyPointNames, int toursId, int newToursNumber);
-        public void Remove(KeyPoint keyPoint);
         public List<KeyPoint> GetAll();
         public KeyPoint GetById(int id);
         public void Save();

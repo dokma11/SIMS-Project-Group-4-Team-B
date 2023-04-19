@@ -45,13 +45,6 @@ namespace Sims2023.Repositories
             }
         }
 
-        public void Remove(KeyPoint keyPoint)
-        {
-            _keyPoints.Remove(keyPoint);
-            _fileHandler.Save(_keyPoints);
-            NotifyObservers();
-        }
-
         public List<KeyPoint> GetAll()
         {
             return _keyPoints;

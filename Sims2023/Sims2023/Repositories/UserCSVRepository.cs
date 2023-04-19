@@ -86,22 +86,6 @@ namespace Sims2023.Repositories
             NotifyObservers();
         }
 
-
-        public void Add(User user)
-        {
-            user.Id = NextId();
-            _users.Add(user);
-            _fileHandler.Save(_users);
-            NotifyObservers();
-        }
-
-        public void Remove(User user)
-        {
-            _users.Remove(user);
-            _fileHandler.Save(_users);
-            NotifyObservers();
-        }
-
         public List<User> GetAll()
         {
             return _users;
@@ -115,11 +99,6 @@ namespace Sims2023.Repositories
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            _observers.Remove(observer);
         }
 
         public void NotifyObservers()

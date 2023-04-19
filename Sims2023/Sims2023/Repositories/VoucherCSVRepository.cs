@@ -50,13 +50,6 @@ namespace Sims2023.Repositories
              Update(voucher);
         }
 
-        public void Remove(Voucher voucher)
-        {
-            _vouchers.Remove(voucher);
-            _fileHandler.Save(_vouchers);
-            NotifyObservers();
-        }
-
         public List<Voucher> GetAll()
         {
             return _vouchers;
@@ -76,11 +69,6 @@ namespace Sims2023.Repositories
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            _observers.Remove(observer);
         }
 
         public void NotifyObservers()

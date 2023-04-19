@@ -68,7 +68,7 @@ namespace Sims2023.Repository
             }
         }
 
-        public void CheckAddLocation(Tour tour, Location location, int newToursNumber, List<Location> locations)
+        public void DecideLocationToAdd(Tour tour, Location location, int newToursNumber, List<Location> locations)
         {
             int toursId = tour.Id - newToursNumber + 1;
             if (locations.Count == 0)
@@ -127,11 +127,6 @@ namespace Sims2023.Repository
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            _observers.Remove(observer);
         }
 
         public void NotifyObservers()

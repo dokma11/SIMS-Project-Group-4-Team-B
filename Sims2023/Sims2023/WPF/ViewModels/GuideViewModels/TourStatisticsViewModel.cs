@@ -1,7 +1,6 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 
 namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
@@ -36,8 +35,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public void GetAttendedGuestsNumber()
         {
             _tourService.GetAttendedGuestsNumber(LoggedInGuide);
-            //_tourService.SaveWrite();
-            //_tourService.SaveRead();
         }
 
         public Tour GetTheMostVisitedTour(User loggedInGuide, string year)

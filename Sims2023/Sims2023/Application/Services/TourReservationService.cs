@@ -32,11 +32,6 @@ namespace Sims2023.Application.Services
             _tourReservations.Add(reservation);
         }
 
-        public void Delete(TourReservation reservation)
-        {
-            _tourReservations.Remove(reservation);
-        }
-
         public void Update(TourReservation reservation)
         {
             _tourReservations.Update(reservation);

@@ -16,19 +16,9 @@ namespace Sims2023.Application.Services
             //_tourReviews = Injection.Injector.CreateInstance<ITourReviewRepository>();
         }
 
-        public List<TourReview> GetAllTourReviews()
-        {
-            return _tourReviews.GetAll();
-        }
-
         public void Create(TourReview tourReview)
         {
             _tourReviews.Add(tourReview);
-        }
-
-        public void Delete(TourReview tourReview)
-        {
-            _tourReviews.Remove(tourReview);
         }
 
         public void Subscribe(IObserver observer)
@@ -41,10 +31,6 @@ namespace Sims2023.Application.Services
             _tourReviews.Save();
         }
 
-        public TourReview GetById(int id)
-        {
-            return _tourReviews.GetById(id);
-        }
         public void AddReviewsPictures(List<string> pictures, TourReview tourReview)
         {
             string picturesString = string.Join("!", pictures);

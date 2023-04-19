@@ -15,11 +15,6 @@ namespace Sims2023.Application.Services
             //_location = Injection.Injector.CreateInstance<ILocationRepository>();
         }
 
-        public List<Location> GetAll()
-        {
-            return _location.GetAll();
-        }
-
         public Location GetById(int id)
         {
             return _location.GetById(id);
@@ -27,12 +22,7 @@ namespace Sims2023.Application.Services
 
         public void Create(Location location)
         {
-            _location.CheckAdd(location);
-        }
-
-        public void Delete(Location location)
-        {
-            _location.Remove(location);
+            _location.CheckIdItShouldBeAdded(location);
         }
 
         public void Subscribe(IObserver observer)

@@ -26,16 +26,6 @@ namespace Sims2023.Application.Services
             return _user.GetAll();
         }
 
-        public void Create(User user)
-        {
-            _user.Add(user);
-        }
-
-        public void Delete(User user)
-        {
-            _user.Remove(user);
-        }
-
         public void Subscribe(IObserver observer)
         {
             _user.Subscribe(observer);

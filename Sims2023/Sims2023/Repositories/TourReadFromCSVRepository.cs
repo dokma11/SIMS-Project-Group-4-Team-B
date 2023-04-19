@@ -74,7 +74,6 @@ namespace Sims2023.Repositories
 
         public List<Tour> GetGuidesCreated(User loggedInGuide)
         {
-            //_tours = _fileHandler.Load();
             return _tours.Where(tour => tour.CurrentState == ToursState.Created && tour.Guide.Id == loggedInGuide.Id).ToList();
         }
 

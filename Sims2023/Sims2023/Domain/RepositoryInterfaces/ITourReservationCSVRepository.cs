@@ -8,7 +8,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
     {
         public int NextId();
         public void Add(TourReservation reservation);
-        public void Remove(TourReservation reservation);
         public void Update(TourReservation reservation);
         public List<TourReservation> GetAll();
         public void Save();
@@ -20,7 +19,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public bool CountReservationsByUser(TourReservation tourReservation);//new
         public List<Tour> GetByUser(User user);//new
         public void Subscribe(IObserver observer);
-        public void Unsubscribe(IObserver observer);
         public void NotifyObservers();
     }
 }

@@ -32,31 +32,9 @@ namespace Sims2023.Repositories
             NotifyObservers();
         }
 
-        public void Remove(TourReview tourReview)
-        {
-            _tourReviews.Remove(tourReview);
-            _fileHandler.Save(_tourReviews);
-            NotifyObservers();
-        }
-
-        public List<TourReview> GetAll()
-        {
-            return _tourReviews;
-        }
-
-        public TourReview GetById(int id)
-        {
-            return _fileHandler.GetById(id);
-        }
-
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            _observers.Remove(observer);
         }
 
         public void NotifyObservers()

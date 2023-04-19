@@ -76,7 +76,6 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void MarkGuestsPresentView_Closed(object sender, EventArgs e)
         {
-            //menjati vrv
             LiveTourTrackingViewModel.UpdateKeyPointList();
             if (LiveTourTrackingViewModel.AreAllGuestsAreMarked())
             {

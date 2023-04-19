@@ -35,11 +35,6 @@ namespace Sims2023.Application.Services
             _voucher.Add(voucher);
         }
 
-        public void Delete(Voucher voucher)
-        {
-            _voucher.Remove(voucher);
-        }
-
         public void Update(Voucher voucher)//deleted edit method and add this
         {
             _voucher.Update(voucher);
