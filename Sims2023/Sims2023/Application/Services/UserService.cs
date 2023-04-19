@@ -13,6 +13,7 @@ namespace Sims2023.Application.Services
         public UserService()
         {
             _user = new UserRepository();
+            //_user = Injection.Injector.CreateInstance<IUserRepository>();
         }
 
         public void MarkSuperOwner()

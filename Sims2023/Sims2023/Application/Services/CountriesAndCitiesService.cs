@@ -16,6 +16,7 @@ namespace Sims2023.Application.Services
         public CountriesAndCitiesService()
         {
             _countriesAndCities = new CountriesAndCitiesRepository();
+            //_countriesAndCities = Injection.Injector.CreateInstance<ICountriesAndCitiesRepository>();
         }
 
         public List<CountriesAndCities> GetAllLocations()

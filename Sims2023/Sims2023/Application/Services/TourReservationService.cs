@@ -13,6 +13,7 @@ namespace Sims2023.Application.Services
         public TourReservationService()
         {
             _tourReservations = new TourReservationRepository();
+            //_tourReservations = Injection.Injector.CreateInstance<ITourReservationRepository>();
             
         }
 

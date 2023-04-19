@@ -18,6 +18,7 @@ public class AccommodationReservationReschedulingService
     public AccommodationReservationReschedulingService()
     {
         _accommodationReservationRescheduling = new AccommodationReservationReschedulingRepository();
+        //_accommodationReservationRescheduling = Injection.Injector.CreateInstance<IAccommodationReservationReschedulingRepository>();
     }
 
     public AccommodationReservationRescheduling GetById(int id)

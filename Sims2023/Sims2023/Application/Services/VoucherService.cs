@@ -12,6 +12,7 @@ namespace Sims2023.Application.Services
         public VoucherService()
         {
             _voucher = new VoucherRepository();
+            //_voucher = Injection.Injector.CreateInstance<IVoucherRepository>();
         }
 
         public List<Voucher> GetAll()

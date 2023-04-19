@@ -12,6 +12,7 @@ namespace Sims2023.Application.Services
         public KeyPointService()
         {
             _keyPoint = new KeyPointRepository();
+            //_keyPoint = Injection.Injector.CreateInstance<IKeyPointRepository>();
         }
 
         public List<KeyPoint> GetAll()

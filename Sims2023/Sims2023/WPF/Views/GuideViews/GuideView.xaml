@@ -18,7 +18,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.Id}"/>
-                <DataGridTextColumn Header="Ključne tačke" Binding="{Binding KeyPointsString}"/>
+                <DataGridTextColumn Header="Ključne tačke" Binding="{Binding KeyPoints}"/>
                 <DataGridTextColumn Header="Maksimalan broj gostiju" Binding="{Binding MaxGuestNumber}"/>
                 <DataGridTextColumn Header="Datum i vreme polaska" Binding="{Binding Start}"/>
                 <DataGridTextColumn Header="Trajanje(h)" Binding="{Binding Length}"/>

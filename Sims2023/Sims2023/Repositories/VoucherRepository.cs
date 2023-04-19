@@ -49,6 +49,7 @@ namespace Sims2023.Repositories
              voucher.IsUsed = true;
              Update(voucher);
         }
+
         public void Remove(Voucher voucher)
         {
             _vouchers.Remove(voucher);

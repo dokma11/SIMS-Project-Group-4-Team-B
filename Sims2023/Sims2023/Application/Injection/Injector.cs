@@ -19,10 +19,12 @@ namespace Sims2023.Application.Injection
             { typeof(IKeyPointRepository), new KeyPointRepository() },
             { typeof(ILocationRepository), new LocationRepository() },
             { typeof(ITourWriteToCSVRepository), new TourWriteToCSVRepository() },
+            { typeof(ITourReadFromCSVRepository), new TourReadFromCSVRepository() },
             { typeof(ITourReservationRepository), new TourReservationRepository() },
             { typeof(ITourReviewRepository), new TourReviewRepository() },
             { typeof(IVoucherRepository), new VoucherRepository() },
-            { typeof(IUserRepository), new UserRepository() }
+            { typeof(IUserRepository), new UserRepository() },
+            { typeof(ICountriesAndCitiesRepository), new CountriesAndCitiesRepository() }
         };
 
         public static T CreateInstance<T>()

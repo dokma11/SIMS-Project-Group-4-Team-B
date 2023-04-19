@@ -17,6 +17,7 @@ namespace Sims2023.Application.Services
         public AccommodationGradeService()
         {
             _accommodationGrade = new AccommodationGradeRepository();
+            //_accommodationGrade = Injection.Injector.CreateInstance<IAccommodationGradeRepository>();
         }
 
         public List<AccommodationGrade> GetAllAccommodationGrades()
