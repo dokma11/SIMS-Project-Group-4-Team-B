@@ -1,6 +1,7 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
@@ -8,6 +9,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
     {
         private TourService _tourService;
         private TourReservationService _tourReservationService;
+
         public Tour? SelectedTour { get; set; }
         public ObservableCollection<Tour> TheMostVisitedTour { get; set; }
         public ObservableCollection<Tour> ToursToDisplay { get; set; }
@@ -21,6 +23,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
             LoggedInGuide = loggedInGuide;
 
+            GetAttendedGuestsNumber();
             ToursToDisplay = new ObservableCollection<Tour>(_tourService.GetFinishedTours(LoggedInGuide));
             TheMostVisitedTour = new ObservableCollection<Tour>
             {
@@ -29,12 +32,12 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
             ComboBoxItems = new ObservableCollection<string>();
             GetYearsForComboBox();
-
-            GetAttendedGuestsNumber();
         }
         public void GetAttendedGuestsNumber()
         {
             _tourService.GetAttendedGuestsNumber(LoggedInGuide);
+            //_tourService.SaveWrite();
+            //_tourService.SaveRead();
         }
 
         public Tour GetTheMostVisitedTour(User loggedInGuide, string year)

@@ -12,6 +12,7 @@ namespace Sims2023.Application.Services
         public LocationService()
         {
             _location = new LocationRepository();
+            //_location = Injection.Injector.CreateInstance<ILocationRepository>();
         }
 
         public List<Location> GetAll()

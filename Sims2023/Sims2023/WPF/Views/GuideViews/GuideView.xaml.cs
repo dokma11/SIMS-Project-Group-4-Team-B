@@ -82,9 +82,10 @@ namespace Sims2023.WPF.Views.GuideViews
         {
             if (GuideViewModel.IsTourSelected() && GuideViewModel.IsTourEligibleForCancellation())
             {
-                GuideViewModel.CancelTour();
-                if (GuideViewModel.TourCancelled)
+                string additionalComment = Microsoft.VisualBasic.Interaction.InputBox("Unesite razlog:", "Input String");
+                if (!string.IsNullOrEmpty(additionalComment))
                 {
+                    GuideViewModel.CancelTour(additionalComment);
                     SuccessfulCancellationLabelEvent();
                 }
             }

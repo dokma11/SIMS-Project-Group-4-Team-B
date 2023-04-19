@@ -27,7 +27,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _tourReservationService = tourReservationService;
 
             Tour = tour;
-            _tourService.ChangeToursState(Tour, ToursState.Started);
+            _tourService.UpdateState(Tour, ToursState.Started);
 
             MarkedGuests = markedGuests;
             KeyPointsToDisplay = new ObservableCollection<KeyPoint>(_keyPointService.GetByToursId(Tour.Id));
@@ -83,7 +83,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             if (SelectedKeyPoint.Id == lastKeyPointId)
             {
                 UpdateKeyPointList();
-                _tourService.ChangeToursState(Tour, ToursState.Finished);
+                _tourService.UpdateState(Tour, ToursState.Finished);
                 MarkLastKeyPoint();
                 LastKeyPointVisited = true;
             }
@@ -98,7 +98,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public void CancelTour()
         {
-            _tourService.ChangeToursState(Tour, ToursState.Interrupted);
+            _tourService.UpdateState(Tour, ToursState.Interrupted);
             MarkLastVisitedKeyPoint();
             _keyPointService.Save();
         }
