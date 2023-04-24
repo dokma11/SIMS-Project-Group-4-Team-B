@@ -13,6 +13,7 @@ namespace Sims2023.Repositories
         private List<IObserver> _observers;
         private List<KeyPoint> _keyPoints;
         private KeyPointFileHandler _fileHandler;
+
         public KeyPointCSVRepository()
         {
             _fileHandler = new KeyPointFileHandler();
