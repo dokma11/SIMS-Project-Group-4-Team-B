@@ -27,6 +27,7 @@ namespace Sims2023.Domain.Models
         public string ConcatenatedPictures { get; set; }
         public int AttendedGuestsNumber { get; set; }
         public User Guide { get; set; }
+
         public Tour()
         {
             Pictures = new List<string>();
