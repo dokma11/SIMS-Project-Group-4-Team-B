@@ -17,6 +17,7 @@ namespace Sims2023.WPF.Views.GuideViews
         private TourReservationService _tourReservationService;
         private TourReviewService _tourReviewService;
         private VoucherService _voucherService;
+        private RequestService _requestService;
         public User LoggedInGuide { get; set; }
         public GuideViewModel GuideViewModel;
         public GuideView(User user)
@@ -45,6 +46,9 @@ namespace Sims2023.WPF.Views.GuideViews
 
             _voucherService = new VoucherService();
             _voucherService.Subscribe(this);
+
+            _requestService = new RequestService();
+            _requestService.Subscribe(this);
 
             GuideViewModel = new(LoggedInGuide, _tourService, _voucherService, _userService, _tourReservationService);
             DataContext = GuideViewModel;
@@ -123,6 +127,12 @@ namespace Sims2023.WPF.Views.GuideViews
         {
             TourStatisticsView tourStatisticsView = new(LoggedInGuide, _tourService, _tourReservationService);
             tourStatisticsView.Show();
+        }
+
+        private void DisplayRequestsButton_Click(object sender, RoutedEventArgs e)
+        {
+            HandleTourRequestsView handleTourRequestsView = new(_requestService);
+            handleTourRequestsView.Show();
         }
 
         public void Update()

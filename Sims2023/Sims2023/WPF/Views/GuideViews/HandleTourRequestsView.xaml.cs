@@ -18,9 +18,24 @@ namespace Sims2023.WPF.Views.GuideViews
             DataContext = HandleTourRequestsViewModel;
         }
 
-        public void FilterButton_Click(object sender, RoutedEventArgs e)
+        private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
+            string locationSearchTerm = locationTextBox.Text;
+            string guestNumberSearchTerm = guestNumberTextBox.Text;
+            string languageSearchTerm = languageTextBox.Text;
+            string dateStartSearchTerm = dateStartTextBox.Text;
+            string dateEndSearchTerm = dateEndTextBox.Text;
 
+            requestDataGrid.ItemsSource = HandleTourRequestsViewModel.FilterRequests(locationSearchTerm, guestNumberSearchTerm, languageSearchTerm, dateStartSearchTerm, dateEndSearchTerm);
+        }
+        private void AcceptButton_Click(object sender, RoutedEventArgs e)
+        {
+            HandleTourRequestsViewModel.AcceptRequest();
+        }
+
+        private void DeclineButton_Click(object sender, RoutedEventArgs e)
+        {
+            HandleTourRequestsViewModel.DeclineRequest();
         }
     }
 }

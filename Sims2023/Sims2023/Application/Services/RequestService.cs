@@ -45,5 +45,15 @@ namespace Sims2023.Application.Services
         {
             _request.Subscribe(observer);
         }
+
+        public List<Request> GetFiltered(string locationSearchTerm, string guestNumberSearchTerm, string languageSearchTerm, string dateStartSearchTerm, string dateEndSearchTerm)
+        {
+            return _request.GetFiltered(locationSearchTerm, guestNumberSearchTerm, languageSearchTerm, dateStartSearchTerm, dateEndSearchTerm);
+        }
+
+        public void UpdateState(Request selectedRequest, RequestsState requestsState)
+        {
+            _request.UpdateState(selectedRequest, requestsState);
+        }
     }
 }
