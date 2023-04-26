@@ -32,6 +32,8 @@
     <None Remove="Images\Guest2Images\Nis1.jpg" />
     <None Remove="Images\Guest2Images\Nis2.png" />
     <None Remove="Images\Guest2Images\Nis3.jpg" />
+    <None Remove="Resources\OwnerResources\homeOwner.png" />
+    <None Remove="Resources\OwnerResources\plus.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -142,6 +144,12 @@
     <Resource Include="Images\OwnerImages\slikaSmestaja6.jpg" />
     <Resource Include="Images\OwnerImages\slikaSmestaja7.jpg" />
     <Resource Include="Images\OwnerImages\slikaSmestaja8.jpg" />
+    <Resource Include="Resources\OwnerResources\homeOwner.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\OwnerResources\plus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

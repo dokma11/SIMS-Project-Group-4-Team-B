@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace Sims2023.WPF.ViewModels.OwnerViewModel
 {
@@ -100,11 +101,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             guestss.Show();
         }
 
-        public void AddAccommodation_Click()
-        {
-            var addAccommodation = new AccommodationRegistrationView(_accommodationService, User);
-            addAccommodation.Show();
-        }
+    
 
         public void Grades_Given_From_Guests()
         {

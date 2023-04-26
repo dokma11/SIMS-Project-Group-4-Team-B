@@ -33,9 +33,9 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         List<BitmapImage> imageList = new List<BitmapImage>();
         private List<BitmapImage> _permanentPictures = new List<BitmapImage>();
 
-        public AccommodationRegistrationViewModel(AccommodationRegistrationView view,AccommodationService accommodationCtrl1, User owner)
+        public AccommodationRegistrationViewModel(AccommodationRegistrationView view, User owner)
         {
-            _accommodationService = accommodationCtrl1;
+            _accommodationService = new AccommodationService();
             User = owner;
             _locationService = new LocationService();
             View = view;
@@ -127,7 +127,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                 Accommodation = new Accommodation(Id, Name, location, Type, maxguests, mindayss, canceldays, _addedPictures, User);
                 CreateAccommodation(Accommodation);
                 MessageBox.Show("uspijsna registracija smjestaja");
-                View.Close();
+                
             }
             else MessageBox.Show("Niste dobro popunili sve podatke");
         }
