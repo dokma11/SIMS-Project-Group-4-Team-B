@@ -51,20 +51,25 @@ namespace Sims2023.View
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            FrameManager.Instance.MainFrame = MainFrame;
             ownerViewModel.Window_Loaded();
+            StartView start = new StartView(User);
+            FrameManager.Instance.MainFrame.Navigate(start);
         }
 
         private void Grade_Click(object sender, RoutedEventArgs e)
         {
-            ownerViewModel.Grade_Click();
+            MenuButton.IsChecked = false;
+            ActionBarTextBlock.Text = RegistrationButton.Content.ToString();
+            FrameManager.Instance.MainFrame.Navigate(ownerViewModel.Grade_Click());
         }
 
         private void AddAccommodation_Click(object sender, RoutedEventArgs e)
         {
             MenuButton.IsChecked = false;
-            ActionBarTextBlock.Text = RegistrationButton.Content.ToString();
+            ActionBarTextBlock.Text = GradeGuestsButton.Content.ToString();
             AccommodationRegistrationView registrationView = new AccommodationRegistrationView(User);
-            MainFrame.Navigate(registrationView);
+            FrameManager.Instance.MainFrame.Navigate(registrationView);
         }
 
         private void Grades_Given_From_Guests(object sender, RoutedEventArgs e)
@@ -82,7 +87,7 @@ namespace Sims2023.View
             MenuButton.IsChecked = false;
             ActionBarTextBlock.Text = StartButton.Content.ToString();
             StartView start = new StartView(User);
-            MainFrame.Navigate(start);
+            FrameManager.Instance.MainFrame.Navigate(start);
         }
     }
 }

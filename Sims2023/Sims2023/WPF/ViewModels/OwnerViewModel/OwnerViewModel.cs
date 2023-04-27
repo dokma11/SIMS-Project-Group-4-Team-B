@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Navigation;
 
 namespace Sims2023.WPF.ViewModels.OwnerViewModel
@@ -95,11 +96,12 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             return string1;
         }
 
-        public void Grade_Click()
+        public AllGuestsView Grade_Click()
         {
+            
             var guestss = new AllGuestsView(User, Reservations);
-            guestss.Show();
-        }
+            return guestss;
+       }
 
     
 

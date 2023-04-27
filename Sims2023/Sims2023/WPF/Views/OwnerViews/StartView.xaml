@@ -10,6 +10,6 @@
 
     <Grid Background="White">
         <Label x:Name="label" Content="{Binding welcomeString}" DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:StartView}}}" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Center" Margin="0,57,0,0" VerticalAlignment="Top" Height="122" Width="344"/>
-
+        <Image Source="pack://application:,,,/Sims2023;component/Resources/OwnerResources/lol.png" HorizontalAlignment="Center" Margin="0,263,0,0" VerticalAlignment="Top" Height="178" Width="200" />
     </Grid>
 </Page>

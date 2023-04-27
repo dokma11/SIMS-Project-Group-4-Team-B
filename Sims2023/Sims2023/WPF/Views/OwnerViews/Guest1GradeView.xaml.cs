@@ -21,7 +21,7 @@ namespace Sims2023.View
     /// <summary>
     /// Interaction logic for Guest1GradeView.xaml
     /// </summary>
-    public partial class Guest1GradeView : Window
+    public partial class Guest1GradeView : Page
     {
         public Guest1GradeViewModel Guest1GradeViewModel;
          
@@ -37,5 +37,9 @@ namespace Sims2023.View
             Guest1GradeViewModel.Grade_click(sender, e);
         }
 
+        private void Close_Click(object sender, EventArgs e)
+        {
+            Guest1GradeViewModel.Close_Click(sender, e);
+        }
     }
 }
