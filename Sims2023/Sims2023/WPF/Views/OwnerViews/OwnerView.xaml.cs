@@ -74,6 +74,8 @@ namespace Sims2023.View
 
         private void Grades_Given_From_Guests(object sender, RoutedEventArgs e)
         {
+            MenuButton.IsChecked = false;
+            ActionBarTextBlock.Text = ReviewButton.Content.ToString();
             ownerViewModel.Grades_Given_From_Guests();
         }
 

@@ -1,28 +1,37 @@
-﻿<Window x:Class="Sims2023.View.GradesFromGuestsView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Sims2023.View"
-        mc:Ignorable="d"
-        Title="GradesFromGuestsView" Height="450" Width="800">
-    <Grid Margin="150,112,374,67">
-
-        <ListView ItemsSource="{Binding people}" SelectedItem="{Binding SelectedPerson}" Margin="-10,0,10,0">
+﻿<Page x:Class="Sims2023.View.GradesFromGuestsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:Sims2023.View"
+      mc:Ignorable="d"
+      Title="GradesFromGuestsView" Height="700" Width="430">
+    <Grid Background="#B3E5FC">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Lista gostiju koji su vas ocijenili" Margin="0,39,0,0" HorizontalAlignment="Center"  FontSize="25" Height="40" VerticalAlignment="Top" Foreground="#323232"/>
+        <ListView ItemsSource="{Binding people}" SelectedItem="{Binding SelectedPerson}" Grid.Row="1" HorizontalAlignment="Center" Margin="0,10,0,166" Width="342" Background="#FFFFFF" BorderBrush="#E5E5E5" BorderThickness="1">
             <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Ime" Width="100" DisplayMemberBinding="{Binding Guest.Name}" />
-                    <GridViewColumn Header="Prezime"  Width="120" DisplayMemberBinding="{Binding Guest.Surname}" />
+                <GridView AllowsColumnReorder="False">
+                    <GridViewColumn Header="Ime" Width="160" DisplayMemberBinding="{Binding Guest.Name}" />
+                    <GridViewColumn  Header="Prezime" Width="160" DisplayMemberBinding="{Binding Guest.Surname}" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label x:Name="label" Content="Gosti koji su vas ocijenili" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Left" Margin="-64,-58,0,0" VerticalAlignment="Top" Width="358"/>
-        <StackPanel Margin="346,-40,-346,-30">
-            <Button x:Name="button" Content="Detalji" Margin="0,50,50,0" Height="47" Click="Details_Click" />
-            <Button x:Name="button1" Content="Nazad" Height="52" Margin="0,50,50,0" Click="Back_Click" />
-        </StackPanel>
+        <Button x:Name="button" Content="Detalji" Click="Details_Click" Margin="44,483,44,53" Grid.Row="1" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" BorderThickness="1" FontSize="20">
+            <Button.Style>
+            <Style TargetType="Button">
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="DarkBlue" />
+                            <Setter Property="BorderBrush" Value="DarkBlue" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            </Button.Style>
 
-
-
+            </Button>
     </Grid>
-</Window>
+</Page>

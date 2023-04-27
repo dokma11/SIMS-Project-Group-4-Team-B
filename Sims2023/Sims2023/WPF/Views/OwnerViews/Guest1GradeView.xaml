@@ -37,8 +37,8 @@
         </ComboBox>
         <TextBox x:Name="textBox" HorizontalAlignment="Center" Margin="0,253,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372" Height="261"/>
         <Label x:Name="label5" Content="Ocjenjivanje gosta" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="373" Height="61"/>
-        <Button x:Name="button" Click="Grade_click" Content="Daj ocjenu" HorizontalAlignment="Left" Margin="28,566,0,0" VerticalAlignment="Top" Height="55" Width="166"/>
-        <Button x:Name="button1" Content="Nazad" HorizontalAlignment="Left" Margin="236,566,0,0" VerticalAlignment="Top" Height="55" Width="166" Click="Close_Click"/>
+        <Button x:Name="button" Click="Grade_click" Content="Daj ocjenu" HorizontalAlignment="Left" Margin="28,566,0,0" VerticalAlignment="Top" Height="55" Width="166" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3"/>
+        <Button x:Name="button1" Content="Nazad" HorizontalAlignment="Left" Margin="236,566,0,0" VerticalAlignment="Top" Height="55" Width="166" Click="Close_Click" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3"/>
 
 
 

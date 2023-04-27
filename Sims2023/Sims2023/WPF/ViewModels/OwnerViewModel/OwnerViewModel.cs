@@ -108,7 +108,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         public void Grades_Given_From_Guests()
         {
             var GuestsGrades = new GradesFromGuestsView(User);
-            GuestsGrades.Show();
+            FrameManager.Instance.MainFrame.Navigate(GuestsGrades);
         }
 
         public void Reservations_Click()

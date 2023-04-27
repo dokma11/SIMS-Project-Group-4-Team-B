@@ -48,7 +48,7 @@
         <DataGrid x:Name="myDataGrid" 
           ItemsSource="{Binding Path=Reservatons, UpdateSourceTrigger=PropertyChanged}"
           SelectedItem="{Binding Path=SelectedGuest, UpdateSourceTrigger=PropertyChanged}"
-          AutoGenerateColumns="False" IsReadOnly="True" Margin="60,126,45,200"
+          AutoGenerateColumns="False" IsReadOnly="True" Margin="52,126,52,200"
           Grid.Row="0" Grid.Column="0" 
           AlternatingRowBackground="#BDE2FF" 
           Background="#E1F5FE" 
@@ -59,14 +59,14 @@
           VerticalContentAlignment="Center" 
           HorizontalContentAlignment="Stretch">
             <DataGrid.Columns>
-                
+
                 <DataGridTextColumn Header="Ime" Binding="{Binding Guest.Name}" Width="70"></DataGridTextColumn>
                 <DataGridTextColumn Header="Prezime" Binding="{Binding Guest.Surname}" Width="80"></DataGridTextColumn>
                 <DataGridTextColumn Header="Boravak" Binding="{Binding Accommodation.Name}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name="button" Content="Ocijeni" Click="Grade_Click" HorizontalAlignment="Left" Margin="60,536,0,0" VerticalAlignment="Top" Width="325" Height="60"/>
+        <Button x:Name="button" Content="Ocijeni" Click="Grade_Click" HorizontalAlignment="Center" Margin="0,534,0,0" Width="325" Height="60"/>
         <Label x:Name="label" Content="Gosti koji su odsjeli kod vas u skorije vrijeme" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Left" Margin="60,27,0,0" VerticalAlignment="Top" Width="321" Height="45"/>
         <Label x:Name="label1" Content="u skorije vrijeme" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Center" Margin="0,61,0,0" VerticalAlignment="Top" Width="206"/>
     </Grid>

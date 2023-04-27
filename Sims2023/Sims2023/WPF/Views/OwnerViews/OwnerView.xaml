@@ -50,7 +50,7 @@
                 <Button x:Name="StartButton" Content="Početna stranica" Height="35" Click="StartButton_Click"/>
                 <Button x:Name="RegistrationButton" Content="Registracija smještaja" Height="35"  Click="AddAccommodation_Click"/> <!-- Click="Option1Button_Click" /> -->
                 <Button  x:Name="GradeGuestsButton" Content="Ocijeni goste" Click="Grade_Click" Height="35" />
-                <Button Content="Pregled dobijenih ocijena" Click="Grades_Given_From_Guests" Height="35" />
+                <Button x:Name="ReviewButton" Content="Pregled dobijenih ocijena" Click="Grades_Given_From_Guests" Height="35" />
                 <Button Content="Zahtjevi za rezervacije" Click="Reservations_Click" Height="35" />
             </StackPanel>
         </Grid>
