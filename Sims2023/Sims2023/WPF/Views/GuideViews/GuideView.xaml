@@ -13,6 +13,7 @@
                 <Button x:Name="displayReviewsButton" Click="DisplayReviewsButton_Click">Vidi recenzije</Button>
                 <Button x:Name="displayStatisticsButton" Click="DisplayStatisticsButton_Click">Vidi statistiku</Button>
                 <Button x:Name="displayRequestsButton" Click="DisplayRequestsButton_Click">Vidi zahteve</Button>
+                <Button x:Name="displayRequestStatistcsButton" Click="DisplayRequestsStatisticsButton_Click">Vidi statistiku zahteva</Button>
             </ToolBar>
         </DockPanel>
         <DataGrid x:Name="toursDataGrid" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="1100" Height="350" Margin="100" AutoGenerateColumns="False">
