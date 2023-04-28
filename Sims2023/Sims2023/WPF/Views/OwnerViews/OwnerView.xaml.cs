@@ -81,6 +81,8 @@ namespace Sims2023.View
 
         private void Reservations_Click(object sender, RoutedEventArgs e)
         {
+            MenuButton.IsChecked = false;
+            ActionBarTextBlock.Text = ReservationsButton.Content.ToString();
             ownerViewModel.Reservations_Click();
         }
 

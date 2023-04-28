@@ -44,7 +44,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             UpdateReservation(UpdatedReservationStatus);
             UpdateReschedule(guest);
             peoplee.Remove(guest);
-            View.Close();
+         //   View.Close();
         }
 
 

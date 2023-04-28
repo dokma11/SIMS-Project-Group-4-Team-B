@@ -114,7 +114,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         public void Reservations_Click()
         {
             var Reschedulings = new GuestsReservationReschedulingView(User);
-            Reschedulings.Show();
+            FrameManager.Instance.MainFrame.Navigate(Reschedulings);
         }
 
     }

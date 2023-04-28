@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Sims2023.View"
         mc:Ignorable="d"
         Title="DetailedGradeView" Height="700" Width="430">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
         <Grid Height="750" Background="#B3E5FC">
             <Label x:Name="label2" Content="Čistoća" HorizontalContentAlignment="Left" FontSize="20" HorizontalAlignment="Left" Margin="25,324,0,0" VerticalAlignment="Top" Width="118"/>
             <Label x:Name="label3" Content="Komfort" HorizontalContentAlignment="left" FontSize="20" HorizontalAlignment="Left" Margin="25,255,0,0" VerticalAlignment="Top" Width="141"/>

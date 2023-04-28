@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Sims2023.View"
         mc:Ignorable="d"
         Height="700" Width="430">
-    <ScrollViewer>
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
         <Grid Background="#B3E5FC" Height="750">
             <Label x:Name="label" Content="Registracija novog smještaja" FontSize="25" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="320" Height="48"/>
             <Label x:Name="label1" Content="Naziv" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="124" Height="26" HorizontalContentAlignment="Center"/>
@@ -46,7 +46,7 @@
             <ComboBox x:Name="countryComboBox" HorizontalAlignment="Left" Margin="182,137,0,0" VerticalAlignment="Top" Width="144" Height="28" SelectionChanged="countryComboBox_SelectionChanged"/>
             <ComboBox x:Name="cityComboBox" HorizontalAlignment="Left" Margin="182,194,0,0" VerticalAlignment="Top" Width="144" Height="26" />
             <Label x:Name="label9" Content="Slike" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,460,0,0" VerticalAlignment="Top" Width="124"/>
-            <Button x:Name="button1" Content="Registruj" HorizontalAlignment="Left" Margin="10,679,0,0" VerticalAlignment="Top" Height="46" Width="115" Click="Registration_Click"/>
+            <Button x:Name="button1" Content="Registruj" HorizontalAlignment="Left" Margin="135,694,0,0" VerticalAlignment="Top" Height="46" Width="143" Click="Registration_Click"  Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3"/>
 
 
         </Grid>
