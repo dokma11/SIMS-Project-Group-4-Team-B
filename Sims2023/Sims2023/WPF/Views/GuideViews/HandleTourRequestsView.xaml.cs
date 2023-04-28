@@ -1,4 +1,5 @@
 ﻿using Sims2023.Application.Services;
+using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.GuideViewModels;
 using System.Windows;
 
@@ -10,12 +11,19 @@ namespace Sims2023.WPF.Views.GuideViews
     public partial class HandleTourRequestsView : Window
     {
         public HandleTourRequestsViewModel HandleTourRequestsViewModel;
-        public HandleTourRequestsView(RequestService requestService)
+        public User LoggedInGuide { get; set; }
+        private TourService _tourService;
+        private KeyPointService _keyPointService;
+        public HandleTourRequestsView(RequestService requestService, User loggedInGuide, TourService tourService, KeyPointService keyPointService)
         {
             InitializeComponent();
 
             HandleTourRequestsViewModel = new(requestService);
             DataContext = HandleTourRequestsViewModel;
+
+            LoggedInGuide = loggedInGuide;
+            _tourService = tourService;
+            _keyPointService = keyPointService;
         }
 
         private void FilterButton_Click(object sender, RoutedEventArgs e)
@@ -30,6 +38,8 @@ namespace Sims2023.WPF.Views.GuideViews
         }
         private void AcceptButton_Click(object sender, RoutedEventArgs e)
         {
+            CreateTourFromRequestView createTourFromRequestView = new(HandleTourRequestsViewModel.SelectedRequest, LoggedInGuide, _tourService, _keyPointService);
+            createTourFromRequestView.Show();
             HandleTourRequestsViewModel.AcceptRequest();
         }
 

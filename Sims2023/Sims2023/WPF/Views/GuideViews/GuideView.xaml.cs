@@ -131,10 +131,16 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void DisplayRequestsButton_Click(object sender, RoutedEventArgs e)
         {
-            HandleTourRequestsView handleTourRequestsView = new(_requestService);
+            HandleTourRequestsView handleTourRequestsView = new(_requestService, LoggedInGuide, _tourService, _keyPointService);
+            handleTourRequestsView.Closed += HandleTourRequestsView_Closed;
             handleTourRequestsView.Show();
         }
 
+        private void HandleTourRequestsView_Closed(object sender, EventArgs e)
+        {
+            Update();
+        }
+        
         private void DisplayRequestsStatisticsButton_Click(object sender, RoutedEventArgs e)
         {
             RequestStatisticsView requestStatisticsView = new(_requestService);
