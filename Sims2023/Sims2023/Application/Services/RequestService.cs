@@ -55,5 +55,40 @@ namespace Sims2023.Application.Services
         {
             _request.UpdateState(selectedRequest, requestsState);
         }
+
+        public int GetMonthlyLanguageStatistics(string language, int ordinal, string year)
+        {
+            return _request.GetMonthlyLanguageStatistics(language, ordinal, year);
+        }
+        
+        public int GetYearlyLanguageStatistics(string language, string year)
+        {
+            return _request.GetYearlyLanguageStatistics(language, year);
+        }
+        
+        public int GetMonthlyLocationStatistics(string location, int ordinal, string year)
+        {
+            return _request.GetMonthlyLocationStatistics(location, ordinal, year);
+        }
+        
+        public int GetYearlyLocationStatistics(string location, string year)
+        {
+            return _request.GetYearlyLocationStatistics(location, year);
+        }
+
+        public List<RequestsLanguage> GetLanguages()
+        {
+            return _request.GetLanguages();
+        }
+        
+        public List<string> GetLocations()
+        {
+            return _request.GetLocations();
+        }
+
+        public List<string> GetYears()
+        {
+            return _request.GetYears();
+        }
     }
 }
