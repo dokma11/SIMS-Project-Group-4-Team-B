@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Sims2023.Repositories
 {
-    public class RequestCSVRepository: IRequestCSVRepository
+    public class RequestCSVRepository : IRequestCSVRepository
     {
         private List<IObserver> _observers;
         private List<Request> _requests;
@@ -80,6 +80,41 @@ namespace Sims2023.Repositories
         {
             selectedRequest.State = requestsState;
             Save();
+        }
+
+        public int GetYearlyLanguageStatistics(string language, string year)
+        {
+            return _requests.Count(r => r.Start.Year.ToString() == year && r.Language.ToString() == language);
+        }
+
+        public int GetMonthlyLanguageStatistics(string language, int ordinal, string year)
+        {
+            return _requests.Count(r => r.Language.ToString() == language && r.Start.Year.ToString() == year && r.Start.Month == ordinal);
+        }
+
+        public int GetYearlyLocationStatistics(string location, string year)
+        {
+            return _requests.Count(r => r.Start.Year.ToString() == year && (r.Location.City + ", " + r.Location.Country) == location);
+        }
+
+        public int GetMonthlyLocationStatistics(string location, int ordinal, string year)
+        {
+            return _requests.Count(r => r.Start.Month == ordinal && r.Start.Year.ToString() == year && (r.Location.City + ", " + r.Location.Country) == location);
+        }
+
+        public List<RequestsLanguage> GetLanguages()
+        {
+            return _requests.Select(r => r.Language).Distinct().ToList();
+        }
+
+        public List<string> GetLocations()
+        {
+            return _requests.Select(r => $"{r.Location.City}, {r.Location.Country}").Distinct().ToList();
+        }
+
+        public List<string> GetYears()
+        {
+            return _requests.Select(r => r.Start.Year.ToString()).Distinct().Prepend("Svih vremena").ToList();
         }
     }
 }

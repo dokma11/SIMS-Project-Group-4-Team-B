@@ -16,5 +16,12 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void Save();
         public List<Request> GetFiltered(string locationSearchTerm, string guestNumberSearchTerm, string languageSearchTerm, string dateStartSearchTerm, string dateEndSearchTerm);
         void UpdateState(Request selectedRequest, RequestsState requestsState);
+        int GetMonthlyLanguageStatistics(string language, int ordinal, string year);
+        int GetYearlyLanguageStatistics(string language, string year);
+        int GetMonthlyLocationStatistics(string location, int ordinal, string year);
+        int GetYearlyLocationStatistics(string location, string year);
+        List<RequestsLanguage> GetLanguages();
+        List<string> GetLocations();
+        List<string> GetYears();
     }
 }
