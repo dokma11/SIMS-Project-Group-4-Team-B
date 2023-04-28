@@ -2,7 +2,6 @@
 using Sims2023.Domain.Models;
 using System;
 using System.Collections.Generic;
-using System.Windows;
 
 namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
@@ -35,7 +34,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
             LoggedInGuide = loggedInGuide;
 
-            _countriesAndCitiesService = new CountriesAndCitiesService();  
+            _countriesAndCitiesService = new CountriesAndCitiesService();
         }
 
         public List<CountriesAndCities> GetCitiesAndCountries()
