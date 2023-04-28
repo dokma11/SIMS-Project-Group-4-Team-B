@@ -22,7 +22,7 @@ namespace Sims2023.View
     /// <summary>
     /// Interaction logic for AllGuestsView.xaml
     /// </summary>
-    public partial class AllGuestsView : Window
+    public partial class AllGuestsView : Page
     {
 
         public AllGuestsViewModel allGuestsViewModel;
@@ -40,7 +40,7 @@ namespace Sims2023.View
             if (allGuestsViewModel.SelectedGuest != null)
             {
                 var gradeView = new Guest1GradeView(allGuestsViewModel.SelectedGuest, allGuestsViewModel.Reservatons);
-                gradeView.Show();
+                FrameManager.Instance.MainFrame.Navigate(gradeView);
             }
         }
     }

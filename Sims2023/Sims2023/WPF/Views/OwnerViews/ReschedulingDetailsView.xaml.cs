@@ -3,13 +3,15 @@ using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.OwnerViewModel;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace Sims2023.WPF.Views.OwnerViews
 {
     /// <summary>
     /// Interaction logic for ReschedulingDetailsView.xaml
     /// </summary>
-    public partial class ReschedulingDetailsView : Window
+    public partial class ReschedulingDetailsView : Page
     {
         public AccommodationReservationRescheduling guest { get; set; }
         public AccommodationReservation UpdatedReservationStatus { get; set; }
@@ -19,6 +21,8 @@ namespace Sims2023.WPF.Views.OwnerViews
         public AccommodationReservationReschedulingService _reschedulingController;
 
         public ReschedulingDetailsViewModel ReschedulingDetailsViewModel;
+
+        public string welcomeString { get; set; }
         public ReschedulingDetailsView(AccommodationReservationRescheduling SelectedGuest, ObservableCollection<AccommodationReservationRescheduling> people)
         {
             InitializeComponent();
@@ -27,28 +31,41 @@ namespace Sims2023.WPF.Views.OwnerViews
             DataContext = guest;
             peoplee = people;
 
+            welcomeString = welcome_string();
+            string welcome_string()
+            {
+                var message = "Detalji zahtjeva o pomijeranju\nrezervacije za gosta " + SelectedGuest.AccommodationReservation.Guest.Name + " " + SelectedGuest.AccommodationReservation.Guest.Surname;
+                return message;
+
+            }
+
         }
+
+
         public string isAccommodationFree
         {
             get
             {
-                var message = ReschedulingDetailsViewModel.isAccommodationFree(guest) ? "SLOBODAN" : "NIJE SLOBODAN";
-                return $"SMJESTAJ {message} U TRAZENOM TERMINU";
+                var message = ReschedulingDetailsViewModel.isAccommodationFree(guest) ? "NIJE" : "JESTE";
+                return $"Smještaj {message} zauzet u novotraženom terminu";
             }
         }
 
         private void Decline_Click(object sender, RoutedEventArgs e)
         {
             var decline = new DeclineRescheduleView(guest, this, peoplee);
-            decline.Show();
+            FrameManager.Instance.MainFrame.Navigate(decline);
         }
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            NavigationService navigationService = NavigationService.GetNavigationService(this);
+            navigationService?.GoBack();
         }
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             ReschedulingDetailsViewModel.button2_Click(sender, e);
+            NavigationService navigationService = NavigationService.GetNavigationService(this);
+            navigationService?.GoBack();
         }
     }
 }

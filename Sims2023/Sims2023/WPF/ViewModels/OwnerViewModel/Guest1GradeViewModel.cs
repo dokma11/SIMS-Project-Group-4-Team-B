@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace Sims2023.WPF.ViewModels.OwnerViewModel
 {
@@ -52,7 +53,8 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                 CreateGrade(Grade);
                 resevationss.Remove(Guest);
                 MessageBox.Show("Uspijesno davanje ocjene");
-                View.Close();
+                View.NavigationService.GoBack();
+
             }
             else MessageBox.Show("Popunite sve podatke");
         }
@@ -80,6 +82,11 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         public void CreateGrade(GuestGrade Grade)
         {
             _gradeService.Create(Grade);
+        }
+
+        public void Close_Click(object sender, EventArgs e)
+        {
+            View.NavigationService.GoBack();
         }
     }
 }

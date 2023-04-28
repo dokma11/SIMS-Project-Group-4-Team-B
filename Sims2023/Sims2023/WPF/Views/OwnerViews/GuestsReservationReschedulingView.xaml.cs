@@ -2,13 +2,14 @@
 using Sims2023.WPF.ViewModels.OwnerViewModel;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Sims2023.WPF.Views.OwnerViews
 {
     /// <summary>
     /// Interaction logic for GuestsReservationReschedulingView.xaml
     /// </summary>
-    public partial class GuestsReservationReschedulingView : Window
+    public partial class GuestsReservationReschedulingView : Page
     {
         public AccommodationReservationRescheduling SelectedGuest { get; set; }
         public ObservableCollection<AccommodationReservationRescheduling> people { get; set; }
@@ -27,7 +28,7 @@ namespace Sims2023.WPF.Views.OwnerViews
             if (SelectedGuest != null)
             {
                 var showDetails = new ReschedulingDetailsView(SelectedGuest, people);
-                showDetails.Show();
+                FrameManager.Instance.MainFrame.Navigate(showDetails);
             }
         }
 

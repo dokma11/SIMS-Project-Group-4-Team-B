@@ -34,9 +34,9 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             UpdateReschedule(chosenPerson);
 
             peoplee.Remove(chosenPerson);
-            // Close the current window and previous window
-            View.Close();
-            _reschedulingDetailsView.Close();
+            // Close the current window and previous Page
+          
+       //     _reschedulingDetailsView.Close();
         }
 
         public void UpdateReschedule(AccommodationReservationRescheduling chosen)

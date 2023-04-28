@@ -2,13 +2,14 @@
 using Sims2023.WPF.ViewModels.OwnerViewModel;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Sims2023.View
 {
     /// <summary>
     /// Interaction logic for GradesFromGuestsView.xaml
     /// </summary>
-    public partial class GradesFromGuestsView : Window
+    public partial class GradesFromGuestsView : Page
     {
         public ObservableCollection<AccommodationGrade> people { get; set; }
         public User owner { get; set; }
@@ -27,12 +28,9 @@ namespace Sims2023.View
             if (SelectedPerson != null)
             {
                 var GuestsGrades = new DetailedGradeView(SelectedPerson);
-                GuestsGrades.Show();
+                FrameManager.Instance.MainFrame.Navigate(GuestsGrades); 
             }
         }
-        private void Back_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+    
     }
 }

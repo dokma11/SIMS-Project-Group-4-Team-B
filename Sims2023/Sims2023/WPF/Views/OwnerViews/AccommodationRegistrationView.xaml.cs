@@ -9,14 +9,14 @@ namespace Sims2023.View
     /// <summary>
     /// Interaction logic for addAccommodationView.xaml
     /// </summary>
-    public partial class AccommodationRegistrationView : Window
+    public partial class AccommodationRegistrationView : Page
     {
 
         public AccommodationRegistrationViewModel AccommodationRegistrationViewModel;
-        public AccommodationRegistrationView(AccommodationService accommodationCtrl1, User owner)
+        public AccommodationRegistrationView( User owner)
         {
             InitializeComponent();
-            AccommodationRegistrationViewModel = new AccommodationRegistrationViewModel(this, accommodationCtrl1, owner);
+            AccommodationRegistrationViewModel = new AccommodationRegistrationViewModel(this, owner);
             DataContext = AccommodationRegistrationViewModel;
 
         }
@@ -38,7 +38,7 @@ namespace Sims2023.View
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+          
         }
 
     }

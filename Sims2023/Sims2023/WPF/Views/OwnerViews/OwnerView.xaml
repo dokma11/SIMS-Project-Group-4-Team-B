@@ -3,19 +3,58 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-       
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-         Loaded="Window_Loaded"
-       
-        Title="OwnerView" Height="450" Width="800">
+        Loaded="Window_Loaded"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Height="750"
+        Width="430">
+    <Window.Resources>
+        <Style TargetType="ToggleButton">
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Button x:Name="button" Content="Registruj smjestaj" HorizontalAlignment="Left" Margin="34,217,0,0" VerticalAlignment="Top" Width="157" Height="55" Click="AddAccommodation_Click"/>
-        <Label x:Name="label" Content="NALOG VLASNIKA" FontSize="50" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Height="67" Width="420"/>
-        <Button x:Name="button1" Click="Grade_Click" Content="Ocijeni goste" HorizontalAlignment="Left" Margin="34,319,0,0" VerticalAlignment="Top" Height="55" Width="152"/>
-        <Button x:Name="button2" Content="Gosti koji su vas ocijenili" HorizontalAlignment="Left" Margin="263,217,0,0" VerticalAlignment="Top" Width="157" Height="55" Click="Grades_Given_From_Guests"/>
-        <Button x:Name="button3" Content="Zahtjevi za rezervacije" Click="Reservations_Click" HorizontalAlignment="Left" Margin="263,319,0,0" VerticalAlignment="Top" Height="55" Width="157"/>
+        <!-- Define a grid with two rows -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <!-- Define an action bar -->
+        <Grid Grid.Row="0" Background="#2196F3" Height="50" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ToggleButton x:Name="MenuButton" Checked="MenuButton_Checked" Unchecked="MenuButton_Unchecked" Grid.ColumnSpan="2" Margin="10,10,375,10" Padding="0">
+                <ToggleButton.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Image Source="pack://application:,,,/Sims2023;component/Resources/OwnerResources/menu.png" Stretch="Fill" Width="45" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ToggleButton.ContentTemplate>
+            </ToggleButton>
+            <TextBlock x:Name="ActionBarTextBlock" Text="Početna stranica" FontSize="20" Foreground="White" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
 
-
+        <!-- Define the content area -->
+        <Grid Grid.Row="1">
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Height="Auto" Width="Auto"/>
+        </Grid>
+        <!-- Define the menu area -->
+        <Grid x:Name="MenuPanel" Background="#B3E5FC" Width="0" HorizontalAlignment="Left" VerticalAlignment="Stretch" Grid.RowSpan="2" Margin="0,50,0,0">
+            <StackPanel>
+                <Button x:Name="StartButton" Content="Početna stranica" Height="35" Click="StartButton_Click"/>
+                <Button x:Name="RegistrationButton" Content="Registracija smještaja" Height="35"  Click="AddAccommodation_Click"/> <!-- Click="Option1Button_Click" /> -->
+                <Button  x:Name="GradeGuestsButton" Content="Ocijeni goste" Click="Grade_Click" Height="35" />
+                <Button x:Name="ReviewButton" Content="Pregled dobijenih ocijena" Click="Grades_Given_From_Guests" Height="35" />
+                <Button  x:Name="ReservationsButton" Content="Zahtjevi za rezervacije" Click="Reservations_Click" Height="35" />
+            </StackPanel>
+        </Grid>
+   
     </Grid>
+  
 </Window>

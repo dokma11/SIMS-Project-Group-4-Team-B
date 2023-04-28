@@ -1,55 +1,54 @@
-﻿<Window x:Class="Sims2023.View.AccommodationRegistrationView"
+﻿<Page x:Class="Sims2023.View.AccommodationRegistrationView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.View"
         mc:Ignorable="d"
-        Height="600" Width="800">
-    <Grid Margin="0,0,0,-6">
-        <Label x:Name="label" Content="Registracija novog smještaja" FontSize="25" HorizontalAlignment="Center" Margin="0,29,0,0" VerticalAlignment="Top" Width="320" Height="48"/>
-        <Label x:Name="label1" Content="Naziv" HorizontalAlignment="Left" Margin="120,119,0,0" VerticalAlignment="Top" Width="124" Height="27" HorizontalContentAlignment="Center"/>
-        <Label x:Name="label2" Content="Drzava" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="120,166,0,0" VerticalAlignment="Top" Width="124"/>
-        <Label x:Name="label3" Content="Grad" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="120,213,0,0" VerticalAlignment="Top" Width="124"/>
-        <Label x:Name="label4" Content="Tip" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="120,270,0,0" VerticalAlignment="Top" Width="124"/>
-        <Label x:Name="label5" Content="Max. broj gostiju" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="120,320,0,0" VerticalAlignment="Top" Width="124"/>
-        <Label x:Name="label6" Content="Min. broj dana za rezervaciju" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="100,365,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.345,0.059" Width="164"/>
-        <Label x:Name="label7" Content="Dani pred otkaz rezervacije" HorizontalAlignment="Left" Margin="100,421,0,0" VerticalAlignment="Top" Width="164"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="300,119,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="144" Height="27"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="300,270,0,0" VerticalAlignment="Top" Width="144" Height="26">
-            <ComboBoxItem Content="apartman"/>
-            <ComboBoxItem Content="kuća"/>
-            <ComboBoxItem Content="koliba"/>
+        Height="700" Width="430">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <Grid Background="#B3E5FC" Height="750">
+            <Label x:Name="label" Content="Registracija novog smještaja" FontSize="25" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="320" Height="48"/>
+            <Label x:Name="label1" Content="Naziv" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="124" Height="26" HorizontalContentAlignment="Center"/>
+            <Label x:Name="label2" Content="Drzava" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" Width="124"/>
+            <Label x:Name="label3" Content="Grad" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,195,0,0" VerticalAlignment="Top" Width="124"/>
+            <Label x:Name="label4" Content="Tip" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,252,0,0" VerticalAlignment="Top" Width="124"/>
+            <Label x:Name="label5" Content="Max. broj gostiju" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top" Width="124"/>
+            <Label x:Name="label6" Content="Min. broj dana za rezervaciju" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.345,0.059" Width="164"/>
+            <Label x:Name="label7" Content="Dani pred otkaz rezervacije" HorizontalAlignment="Left" Margin="10,403,0,0" VerticalAlignment="Top" Width="164"/>
+            <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="182,84,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="144" Height="26"/>
+            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="182,252,0,0" VerticalAlignment="Top" Width="144" Height="26">
+                <ComboBoxItem Content="apartman"/>
+                <ComboBoxItem Content="kuća"/>
+                <ComboBoxItem Content="koliba"/>
 
-        </ComboBox>
-        <TextBox x:Name="textBox3" HorizontalAlignment="Left" Margin="300,320,0,0" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Center" VerticalAlignment="Top" Width="144" Height="26"/>
-        <TextBox x:Name="textBox4" HorizontalAlignment="Left" Margin="300,365,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="144" Height="26"/>
-        <TextBox x:Name="textBox5" HorizontalAlignment="Left" Margin="300,421,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="144" Height="26"/>
-        <Label x:Name="label8" Content="Izaberite sliku smjestaja&#xD;&#xA;" HorizontalAlignment="Left" Margin="506,128,0,0" VerticalAlignment="Top" Width="137" Height="27"/>
-        <Button x:Name="button" Content="Dodaj" HorizontalAlignment="Left" Margin="506,166,0,0" VerticalAlignment="Top" Width="151" Click="SaveButton_Click" Height="55"/>
-        <ListView x:Name="PicturesListView"  HorizontalAlignment="Left" Margin="480,226,0,0" VerticalAlignment="Top" Width="290" Height="310" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Image Source="{Binding}" Width="80" Height="80" Margin="5,5,5,5"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </ComboBox>
+            <TextBox x:Name="textBox3" HorizontalAlignment="Left" Margin="182,302,0,0" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Center" VerticalAlignment="Top" Width="144" Height="26"/>
+            <TextBox x:Name="textBox4" HorizontalAlignment="Left" Margin="182,355,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="144" Height="26"/>
+            <TextBox x:Name="textBox5" HorizontalAlignment="Left" Margin="182,403,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="144" Height="26"/>
+            <Button x:Name="button"  HorizontalAlignment="Left" Margin="150,455,0,0" VerticalAlignment="Top" Width="41" Click="SaveButton_Click" Height="35">
+                <Image Source="pack://application:,,,/Sims2023;component/Resources/OwnerResources/plus.png" />
+            </Button>
+            <ListView x:Name="PicturesListView"  HorizontalAlignment="Left" Margin="10,503,0,0" VerticalAlignment="Top" Width="316" Height="159" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding}" Width="80" Height="80" Margin="5,5,5,5"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
-        <Button x:Name="button1" Content="Registruj" HorizontalAlignment="Left" Margin="42,492,0,0" VerticalAlignment="Top" Width="140" Height="44" Click="Registration_Click"/>
-        <Button x:Name="button2" Content="Odustani" HorizontalAlignment="Left" Margin="270,492,0,0" VerticalAlignment="Top" Height="44" Width="130" Click="Close_Click" />
-        <ComboBox x:Name="countryComboBox" HorizontalAlignment="Left" Margin="300,166,0,0" VerticalAlignment="Top" Width="144" Height="28" SelectionChanged="countryComboBox_SelectionChanged"/>
-        <ComboBox x:Name="cityComboBox" HorizontalAlignment="Left" Margin="300,213,0,0" VerticalAlignment="Top" Width="144" Height="26" />
-
-
-
-
+            <ComboBox x:Name="countryComboBox" HorizontalAlignment="Left" Margin="182,137,0,0" VerticalAlignment="Top" Width="144" Height="28" SelectionChanged="countryComboBox_SelectionChanged"/>
+            <ComboBox x:Name="cityComboBox" HorizontalAlignment="Left" Margin="182,194,0,0" VerticalAlignment="Top" Width="144" Height="26" />
+            <Label x:Name="label9" Content="Slike" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,460,0,0" VerticalAlignment="Top" Width="124"/>
+            <Button x:Name="button1" Content="Registruj" HorizontalAlignment="Left" Margin="135,694,0,0" VerticalAlignment="Top" Height="46" Width="143" Click="Registration_Click"  Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3"/>
 
 
-
-    </Grid>
-</Window>
+        </Grid>
+    </ScrollViewer>
+</Page>
