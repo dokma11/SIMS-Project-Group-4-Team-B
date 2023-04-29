@@ -23,5 +23,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
         List<RequestsLanguage> GetLanguages();
         List<string> GetLocations();
         List<string> GetYears();
+        public RequestsLanguage GetTheMostRequestedLanguage();
+        public Location GetTheMostRequestedLocation();
     }
 }

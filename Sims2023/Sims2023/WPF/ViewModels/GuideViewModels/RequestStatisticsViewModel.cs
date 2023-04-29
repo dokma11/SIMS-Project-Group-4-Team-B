@@ -11,25 +11,50 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
     public partial class RequestStatisticsViewModel
     {
         public ObservableCollection<string> Labels { get; set; }
+        public ObservableCollection<string> LabelsForTheMostRequested { get; set; }
         public string[] LabelsMonth { get; set; }
         public Func<int, string> Values { get; set; }
         private RequestService _requestService;
         public SeriesCollection LanguageSeriesCollection { get; set; }
+        public SeriesCollection TheMostRequestedLanguageSeriesCollection { get; set; }
         public SeriesCollection LocationSeriesCollection { get; set; }
+        public SeriesCollection TheMostRequestedLocationSeriesCollection { get; set; }
+        public RequestsLanguage TheMostRequestedLanguage { get; set; }
+        public Location TheMostRequestedLocation { get; set; }
+        public string TheMostRequestedLocationString { get; set; }
 
         public RequestStatisticsViewModel(RequestService requestService)
         {
             _requestService = requestService;
 
+            TheMostRequestedLanguage = new();
+            TheMostRequestedLanguage = GetTheMostRequestedLanguage();
+
+            TheMostRequestedLocation = new();
+            TheMostRequestedLocation = GetTheMostRequestedLocation();
+            TheMostRequestedLocationString = TheMostRequestedLocation.City + ", " + TheMostRequestedLocation.Country;
+
             LanguageSeriesCollection = new SeriesCollection();
+            TheMostRequestedLanguageSeriesCollection = new SeriesCollection();
             LocationSeriesCollection = new SeriesCollection();
+            TheMostRequestedLocationSeriesCollection = new SeriesCollection();
 
             LabelsMonth = new[] { "Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar" };
+
             Labels = new ObservableCollection<string>();
             foreach (var l in LabelsMonth)
             {
                 Labels.Add(l);
             }
+
+            LabelsForTheMostRequested = new ObservableCollection<string>();
+            foreach (var l in LabelsMonth)
+            {
+                Labels.Add(l);
+            }
+
+            DisplayTheMostRequestedLanguage();
+            DisplayTheMostRequestedLocation();
         }
 
         public List<RequestsLanguage> GetLanguages()
@@ -139,5 +164,36 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             Values = value => value.ToString("N");
         }
 
+        public RequestsLanguage GetTheMostRequestedLanguage()
+        {
+            return _requestService.GetTheMostRequestedLanguage();
+        }
+
+        public void DisplayTheMostRequestedLanguage()
+        {
+            var monthlyStats = new ChartValues<int>();
+            for (int month = 1; month <= 12; month++)
+            {
+                monthlyStats.Add(_requestService.GetMonthlyLanguageStatistics(TheMostRequestedLanguage.ToString(), month, "2023"));
+            }
+            TheMostRequestedLanguageSeriesCollection.Add(new ColumnSeries { Values = monthlyStats, Title = "Broj zahteva u " + "2023" + ":" });
+            Values = value => value.ToString("N");
+        }
+
+        public Location GetTheMostRequestedLocation()
+        {
+            return _requestService.GetTheMostRequestedLocation();
+        }
+
+        public void DisplayTheMostRequestedLocation()
+        {
+            var monthlyStats = new ChartValues<int>();
+            for (int month = 1; month <= 12; month++)
+            {
+                monthlyStats.Add(_requestService.GetMonthlyLocationStatistics(TheMostRequestedLocationString, month, "2023"));
+            }
+            TheMostRequestedLocationSeriesCollection.Add(new ColumnSeries { Values = monthlyStats, Title = "Broj zahteva u " + "2023" + ":" });
+            Values = value => value.ToString("N");
+        }
     }
 }

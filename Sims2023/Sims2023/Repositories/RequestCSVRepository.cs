@@ -5,6 +5,7 @@ using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace Sims2023.Repositories
 {
@@ -115,6 +116,58 @@ namespace Sims2023.Repositories
         public List<string> GetYears()
         {
             return _requests.Select(r => r.Start.Year.ToString()).Distinct().Prepend("Svih vremena").ToList();
+        }
+
+        public RequestsLanguage GetTheMostRequestedLanguage()
+        {
+            var languageInstanceCounts = new Dictionary<RequestsLanguage, int>();
+            foreach (RequestsLanguage language in Enum.GetValues(typeof(RequestsLanguage)))
+            {
+                languageInstanceCounts[language] = 1;
+            }
+
+            var lastYearStartDate = new DateTime(DateTime.Today.Year - 1, DateTime.Today.Month, DateTime.Today.Day);
+            var lastYearEndDate = DateTime.Today;
+            var requestsInLastYear = _requests.Where(r => r.Start >= lastYearStartDate && r.Start <= lastYearEndDate);
+
+            foreach (var r in requestsInLastYear)
+            {
+                if (languageInstanceCounts.ContainsKey(r.Language))
+                {
+                    languageInstanceCounts[r.Language]++;
+                }
+            }
+
+            var maxCount = languageInstanceCounts.Values.Max();
+            return languageInstanceCounts.FirstOrDefault(r => r.Value == maxCount).Key;
+        }
+
+        public Location GetTheMostRequestedLocation()
+        {
+            LocationCSVRepository locationCSV = new();
+
+            var locationInstanceCounts = new Dictionary<int, int>();
+            foreach (int locationId in _requests.Select(r => r.Location.Id).Distinct().ToList())
+            {
+                locationInstanceCounts[locationId] = 1;
+            }
+
+            var lastYearStartDate = new DateTime(DateTime.Today.Year - 1, DateTime.Today.Month, DateTime.Today.Day);
+            var lastYearEndDate = DateTime.Today;
+            var requestsInLastYear = _requests.Where(r => r.Start >= lastYearStartDate && r.Start <= lastYearEndDate);
+
+            foreach (var r in requestsInLastYear)
+            {
+                if (locationInstanceCounts.ContainsKey(r.Location.Id))
+                {
+                    locationInstanceCounts[r.Location.Id]++;
+                }
+            }
+
+            var maxCount = locationInstanceCounts.Values.Max();
+            var ret = locationInstanceCounts.FirstOrDefault(r => r.Value == maxCount).Key;
+            Location loc = locationCSV.GetById(ret);
+            return loc;
         }
     }
 }
