@@ -64,6 +64,11 @@ namespace Sims2023.Repositories
             return _accommodations;
         }
 
+        public List<Accommodation> GetOwnerAccommodations(List<Accommodation> accommodations, User user)
+        {
+            List<Accommodation> ownerAccommodations = accommodations.Where(a => a.Owner.Id == user.Id).ToList();
+            return ownerAccommodations;
+        }
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

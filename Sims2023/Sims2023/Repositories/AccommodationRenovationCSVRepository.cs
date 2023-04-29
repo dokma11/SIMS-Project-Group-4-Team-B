@@ -1,4 +1,5 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
 using Sims2023.Repository;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Repositories
 {
-    internal class AccommodationRenovationCSVRepository : ISubject
+    internal class AccommodationRenovationCSVRepository : IAccommodationRenovationCSVRepository,ISubject
     {
         private List<IObserver> _observers;
 
