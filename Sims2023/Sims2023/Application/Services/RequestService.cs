@@ -90,5 +90,15 @@ namespace Sims2023.Application.Services
         {
             return _request.GetYears();
         }
+
+        public RequestsLanguage GetTheMostRequestedLanguage()
+        {
+            return _request.GetTheMostRequestedLanguage();
+        }
+
+        public Location GetTheMostRequestedLocation()
+        {
+            return _request.GetTheMostRequestedLocation();
+        }
     }
 }

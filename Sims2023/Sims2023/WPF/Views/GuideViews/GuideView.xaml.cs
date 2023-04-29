@@ -143,7 +143,7 @@ namespace Sims2023.WPF.Views.GuideViews
         
         private void DisplayRequestsStatisticsButton_Click(object sender, RoutedEventArgs e)
         {
-            RequestStatisticsView requestStatisticsView = new(_requestService);
+            RequestStatisticsView requestStatisticsView = new(_requestService, _tourService, _locationService, _keyPointService, LoggedInGuide);
             requestStatisticsView.Show();
         }
 

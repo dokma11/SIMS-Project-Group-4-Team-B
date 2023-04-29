@@ -28,6 +28,20 @@
                         </lvc:CartesianChart>
                     </StackPanel>
                     <StackPanel>
+                        <!-- Ovo sredjuj -->
+                        <Label Content="Najtraženiji jezik" FontSize="32" Height="55"/>
+                        <Label Content="u proteklih godinu dana" FontSize="32" Height="67"/>
+                        <TextBox Text="{Binding TheMostRequestedLanguage}" IsReadOnly="True"/>
+                        <lvc:CartesianChart Series="{Binding TheMostRequestedLanguageSeriesCollection}" Height="347" LegendLocation="Bottom">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Mesec" Labels="{Binding LabelsForTheMostRequested}"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Broj zahteva" Labels="{Binding Values}"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                        <Label Content="Da li želite da kreirate novu turu na najtraženijem jeziku?" />
+                        <Button x:Name="languageConfirmButton" Click="LanguageConfirmButton_Click" Content="Da" Width="150" Height="50"/>
                     </StackPanel>
                 </DockPanel>
             </TabItem>
@@ -50,6 +64,19 @@
                         </lvc:CartesianChart>
                     </StackPanel>
                     <StackPanel>
+                        <Label Content="Najtraženija lokacija" FontSize="32" Height="55"/>
+                        <Label Content="u proteklih godinu dana" FontSize="32" Height="67"/>
+                        <TextBox Text="{Binding TheMostRequestedLocationString}" IsReadOnly="True"/>
+                        <lvc:CartesianChart Series="{Binding TheMostRequestedLocationSeriesCollection}" Height="347" LegendLocation="Bottom">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Mesec" Labels="{Binding LabelsForTheMostRequested}"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Broj zahteva" Labels="{Binding Values}"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                        <Label Content="Da li želite da kreirate novu turu na najtraženijem jeziku?" />
+                        <Button x:Name="locationConfirmButton" Click="LocationConfirmButton_Click" Content="Da" Width="150" Height="50"/>
                     </StackPanel>
                 </DockPanel>
             </TabItem>
