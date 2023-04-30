@@ -58,8 +58,6 @@ namespace Sims2023.View
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             NavigationService navigationService = NavigationService.GetNavigationService(this);
-
-            // Navigate back to the previous page
             navigationService?.GoBack();
         }
     }

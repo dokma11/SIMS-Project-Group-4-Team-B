@@ -31,7 +31,13 @@
     <Compile Update="WPF\Views\GuideViews\RequestStatisticsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\OwnerViews\AllAccommodationsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\OwnerViews\AllGuestsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\AvailableDatesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\OwnerViews\DetailedGradeView.xaml.cs">
@@ -52,6 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Update="WPF\Views\Guest2Views\Guest2View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\SchedulingRenovationAppointmentsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\OwnerViews\StartView.xaml.cs">
@@ -95,10 +104,16 @@
     <Page Update="WPF\Views\GuideViews\RequestStatisticsView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\OwnerViews\AllAccommodationsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\OwnerViews\AllGuestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\GuideViews\CreateTourView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\AvailableDatesView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\Guest1GradeView.xaml">
@@ -117,6 +132,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\GuideViews\TourStatisticsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\SchedulingRenovationAppointmentsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\StartView.xaml">

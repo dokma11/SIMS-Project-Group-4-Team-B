@@ -86,6 +86,13 @@ namespace Sims2023.View
             ownerViewModel.Reservations_Click();
         }
 
+        private void Renovations_Click(object sender, RoutedEventArgs e)
+        {
+            MenuButton.IsChecked = false;
+            ActionBarTextBlock.Text = RenovationsButton.Content.ToString();
+            ownerViewModel.Renovations_Click();
+        }
+
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
             MenuButton.IsChecked = false;

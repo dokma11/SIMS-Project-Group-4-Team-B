@@ -103,8 +103,6 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             return guestss;
        }
 
-    
-
         public void Grades_Given_From_Guests()
         {
             var GuestsGrades = new GradesFromGuestsView(User);
@@ -115,6 +113,12 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         {
             var Reschedulings = new GuestsReservationReschedulingView(User);
             FrameManager.Instance.MainFrame.Navigate(Reschedulings);
+        }
+
+        public void Renovations_Click()
+        {
+            var renovations = new AllAccommodationsView(User);
+            FrameManager.Instance.MainFrame.Navigate(renovations);
         }
 
     }
