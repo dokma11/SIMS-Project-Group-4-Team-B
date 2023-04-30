@@ -25,7 +25,7 @@ namespace Sims2023.Domain.Models
 
 
         public AccommodationRenovation() { }
-        public AccommodationRenovation(int id, User guest, Accommodation accommodation, DateTime startDate, DateTime endDate)
+        public AccommodationRenovation(int id, Accommodation accommodation, DateTime startDate, DateTime endDate)
         {
             Id = id;
             Accommodation = accommodation;

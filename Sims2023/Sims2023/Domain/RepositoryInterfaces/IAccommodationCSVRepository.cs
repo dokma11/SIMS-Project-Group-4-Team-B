@@ -12,6 +12,8 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public int NextId();
         public void Add(Accommodation accommodation);
         public void Remove(Accommodation accommodation);
+
+        public void MarkRenovated(List<AccommodationRenovation> renovations);
         public void Update(Accommodation accommodation);
         public List<Accommodation> GetAll();
         public void Subscribe(IObserver observer);

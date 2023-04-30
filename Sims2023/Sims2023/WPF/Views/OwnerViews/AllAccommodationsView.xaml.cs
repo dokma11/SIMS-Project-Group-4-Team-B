@@ -29,5 +29,10 @@ namespace Sims2023.WPF.Views.OwnerViews
             AllAccommodationsViewModel = new AllAccommodationsViewModel(owner);
             DataContext = AllAccommodationsViewModel;
         }
+
+        private void Shedule_Click(object sender, RoutedEventArgs e)
+        {
+            AllAccommodationsViewModel.Shedule_Click();
+        }
     }
 }

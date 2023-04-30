@@ -42,7 +42,12 @@ namespace Sims2023.Application.Services
 
         public List<Accommodation> GetOwnerAccommodations(List<Accommodation> accommodations, User user)
         {
-            return _accomodation.GetOwnerAccommodations(accommodations,user);
+            return _accomodation.GetOwnerAccommodations(accommodations, user);
+        }
+
+        public void MarkRenovated(List<AccommodationRenovation> renovations)
+        {
+            _accomodation.MarkRenovated(renovations);
         }
 
         public void Subscribe(IObserver observer)

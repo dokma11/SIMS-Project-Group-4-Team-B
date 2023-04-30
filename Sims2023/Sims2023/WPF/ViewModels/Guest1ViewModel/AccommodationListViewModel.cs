@@ -20,15 +20,18 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         public List<Accommodation> FilteredData = new List<Accommodation>();
 
+        public AccommodationRenovationService _renovationService;
+
         public AccommodationListViewModel(AccommodationListView accommodationListView, User guest1)
         {
             AccommodationListView = accommodationListView;
             _userService = new UserService();
-
+            _renovationService = new AccommodationRenovationService();
             User = guest1;
 
             _userService.MarkSuperOwner();
             _accommodationService = new AccommodationService();
+            _accommodationService.MarkRenovated(_renovationService.GetAll());
             Accommodations = new ObservableCollection<Accommodation>(_accommodationService.GetAllAccommodations());
 
             FilteredData = new List<Accommodation>();

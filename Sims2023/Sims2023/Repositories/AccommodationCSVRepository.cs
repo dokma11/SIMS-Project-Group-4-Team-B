@@ -4,6 +4,7 @@ using Sims2023.Repository;
 using System.Collections.Generic;
 using System.Linq;
 using Sims2023.Domain.RepositoryInterfaces;
+using System;
 
 namespace Sims2023.Repositories
 {
@@ -64,6 +65,7 @@ namespace Sims2023.Repositories
             return _accommodations;
         }
 
+
         public List<Accommodation> GetOwnerAccommodations(List<Accommodation> accommodations, User user)
         {
             List<Accommodation> ownerAccommodations = accommodations.Where(a => a.Owner.Id == user.Id).ToList();
@@ -98,6 +100,36 @@ namespace Sims2023.Repositories
                 }
 
             }
+        }
+
+        public void MarkRenovated(List<AccommodationRenovation> renovations)
+        {
+            List<Accommodation> accommodationsToUpdate = new List<Accommodation>();
+
+            foreach (Accommodation accommodation in _accommodations)
+            {
+                if (AccommodationNeedsRenovation(accommodation, renovations))
+                {
+                    accommodation.Renovated = true;
+                    accommodationsToUpdate.Add(accommodation);
+                }
+            }
+
+            foreach (Accommodation accommodation in accommodationsToUpdate)
+            {
+                Update(accommodation);
+            }
+        }
+        private bool AccommodationNeedsRenovation(Accommodation accommodation, List<AccommodationRenovation> renovations)
+        {
+            foreach (AccommodationRenovation renovation in renovations)
+            {
+                if (accommodation.Id == renovation.Accommodation.Id && renovation.EndDate < DateTime.Today)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool CheckSearchTerm(Accommodation accommodation, string nameSearchTerm, string citySearchTerm, string countrySearchTerm, string typeSearchTerm, int maxGuestsSearchTerm, int minDaysSearchTerm)

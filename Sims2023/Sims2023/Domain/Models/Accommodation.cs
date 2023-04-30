@@ -20,6 +20,8 @@ namespace Sims2023.Domain.Models
         public List<string> Imageurls { get; set; }
         public string ImageUrl { get; set; }
 
+        public bool Renovated { get; set; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
@@ -43,6 +45,7 @@ namespace Sims2023.Domain.Models
             this.CancelDays = CancelDays;
             this.Owner = Owner;
             this.Imageurls = ImageUrls;
+            this.Renovated = false;
 
         }
 
@@ -58,7 +61,8 @@ namespace Sims2023.Domain.Models
                 MinDays.ToString(),
                 CancelDays.ToString(),
                 Owner.Id.ToString(),
-                string.Join("!", Imageurls)
+                string.Join("!", Imageurls),
+                Renovated.ToString()
              };
             return csvValues;
         }
@@ -84,6 +88,7 @@ namespace Sims2023.Domain.Models
             UserService userController = new();
             Owner = userController.GetById(owner.Id);
             Imageurls = values[8].Split('!').ToList();
+            Renovated = Convert.ToBoolean(values[9]);
 
         }
 
