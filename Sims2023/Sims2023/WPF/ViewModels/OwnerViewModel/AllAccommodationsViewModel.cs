@@ -36,5 +36,11 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                    FrameManager.Instance.MainFrame.Navigate(shedule);
             }
         }
+
+        public void Review_Click()
+        {
+            AllRenovationsView allRenovations = new AllRenovationsView(owner);
+            FrameManager.Instance.MainFrame.Navigate(allRenovations);
+        }
     }
 }

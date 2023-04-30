@@ -34,5 +34,10 @@ namespace Sims2023.WPF.Views.OwnerViews
         {
             AllAccommodationsViewModel.Shedule_Click();
         }
+
+        private void Review_Click(object sender, RoutedEventArgs e)
+        {
+            AllAccommodationsViewModel.Review_Click();
+        }
     }
 }
