@@ -1,6 +1,8 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.Observer;
+using Sims2023.WPF.ViewModels.OwnerViewModel;
+using Sims2023.WPF.Views.GuideViews;
 using System;
 using System.Collections.ObjectModel;
 
@@ -66,5 +68,13 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 ToursToDisplay.Add(tour);
             }
         }
+
+        
+        public void Create(TourService tourService, LocationService locationService, KeyPointService keyPointService, User loggedInGuide)
+        {
+            CreateTourView createTourView = new(tourService, locationService, keyPointService, loggedInGuide);
+            FrameManagerGuide.Instance.MainFrame.Navigate(createTourView);
+        }
+        
     }
 }

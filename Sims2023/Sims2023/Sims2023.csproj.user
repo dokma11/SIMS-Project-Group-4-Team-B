@@ -25,10 +25,13 @@
     <Compile Update="WPF\Views\GuideViews\CreateTourFromRequestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\GuideViews\GuideAccountView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\GuideViews\HandleTourRequestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="WPF\Views\GuideViews\RequestStatisticsView.xaml.cs">
+    <Compile Update="WPF\Views\GuideViews\RequestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\OwnerViews\AllAccommodationsView.xaml.cs">
@@ -98,10 +101,13 @@
     <Page Update="WPF\Views\GuideViews\CreateTourFromRequestView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\GuideViews\GuideAccountView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\GuideViews\HandleTourRequestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\Views\GuideViews\RequestStatisticsView.xaml">
+    <Page Update="WPF\Views\GuideViews\RequestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\AllAccommodationsView.xaml">

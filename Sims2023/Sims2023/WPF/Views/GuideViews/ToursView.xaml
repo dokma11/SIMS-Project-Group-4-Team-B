@@ -1,0 +1,101 @@
+﻿<Page x:Class="Sims2023.WPF.Views.GuideViews.ToursView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Sims2023.WPF.Views.GuideViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="ToursView">
+
+    <StackPanel Background="Gray">
+        <DockPanel>
+            <ToolBar>
+                <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica"/>
+                <Button x:Name="toursButton" Click="ToursButton_Click" Content="Ture"/>
+                <Button x:Name="requestsButton" Click="RequestsButton_Click" Content="Zahtevi" />
+                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije"/>
+                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" />
+            </ToolBar>
+        </DockPanel>
+        <TabControl Height="650" Width="1200" Margin="0,10,0,0">
+            <TabItem Header="Predstojeće ture">
+                <StackPanel>
+                    <Label Content="Predstojeće ture" FontSize="32" HorizontalAlignment="Center" Margin="0,20,0,10"/>
+                    <DataGrid x:Name="toursDataGrid" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="1100" Height="430" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Naziv" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.Id}"/>
+                            <DataGridTextColumn Header="Ključne tačke" Binding="{Binding KeyPoints}"/>
+                            <DataGridTextColumn Header="Maksimalan broj gostiju" Binding="{Binding MaxGuestNumber}"/>
+                            <DataGridTextColumn Header="Datum i vreme polaska" Binding="{Binding Start}"/>
+                            <DataGridTextColumn Header="Trajanje(h)" Binding="{Binding Length}"/>
+                            <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <DockPanel>
+                        <Label x:Name="successfulCancellationLabel" Content="Uspešno ste otkazali turu!" FontSize="24" Margin="450,20,40,0" Visibility="Hidden"/>
+                        <Button x:Name="startTourButton" Click="StartTourButton_Click" Content="Započni turu" Width="150" Height="50" Margin="20,20,0,0"/>
+                        <Button x:Name="cancelTourButton" Click="CancelTourButton_Click" Content="Otkaži turu" Width="150" Height="50" Margin="5,20,0,0"/>
+                    </DockPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Kreiranje ture">
+                
+            </TabItem>
+            <TabItem Header="Statistika tura">
+                <DockPanel Background="#B3E5FC">
+                    <StackPanel Width="640">
+                        <Label Content="Završene ture" FontSize="32"/>
+                        <DataGrid Width="625" Height="380" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Naziv" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.Id, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Datum i vreme početka ture" Binding="{Binding Start, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Broj gostiju" Binding="{Binding AttendedGuestsNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button x:Name="displayStatisticsButton" Click="DisplayStatisticsButton_Click" Height="50" Width="150" Content="Prikaži statistiku" Margin="475,10,0,0"/>
+                    </StackPanel>
+                    <StackPanel Width="640">
+                        <DockPanel>
+                            <Label Content="Najposećenija tura" FontSize="32" Margin="10,0,-175,0"/>
+                            <ComboBox x:Name="yearComboBox" ItemsSource="{Binding ComboBoxItems}"  Width="120" Height="30" IsReadOnly="True" Margin="0,10,0,0" SelectionChanged="YearComboBox_SelectionChanged"/>
+                        </DockPanel>
+                        <DataGrid Width="420" Height="50" ItemsSource="{Binding TheMostVisitedTour, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,190,0" IsReadOnly="True" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Naziv" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.Id, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Broj gostiju" Binding="{Binding AttendedGuestsNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Label Content="Statistika najposećenije ture" FontSize="24" Margin="10,0,-175,0"/>
+                        <DockPanel Margin="0,300,0,0">
+                            <Label Content="Broj gostiju ispod 18:"/>
+                            <Label x:Name="youngNumberLabel"/>
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="Broj gostiju izmedju 18 i 50:"/>
+                            <Label x:Name="middleNumberLabel"/>
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="Broj gostiju iznad 50:"/>
+                            <Label x:Name="oldNumberLabel"/>
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="Procenat gostiju sa vaucerom:"/>
+                            <Label x:Name="usedVoucherLabel"/>
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="Procenat gostiju bez vaucera:"/>
+                            <Label x:Name="notUsedVoucherLabel"/>
+                        </DockPanel>
+                    </StackPanel>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </StackPanel>
+</Page>

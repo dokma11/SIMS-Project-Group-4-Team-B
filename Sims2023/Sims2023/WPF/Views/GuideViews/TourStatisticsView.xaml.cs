@@ -6,7 +6,7 @@ using System.Windows.Controls;
 
 namespace Sims2023.WPF.Views.GuideViews
 {
-    public partial class TourStatisticsView : Window
+    public partial class TourStatisticsView : Page
     {
         public TourStatisticsViewModel tourStatisticsViewModel;
         public User LoggedInGuide { get; set; }

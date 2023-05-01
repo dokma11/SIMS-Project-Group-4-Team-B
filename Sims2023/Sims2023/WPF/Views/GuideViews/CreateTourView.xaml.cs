@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace Sims2023.WPF.Views.GuideViews
 {
-    public partial class CreateTourView
+    public partial class CreateTourView : Page
     {
         public CreateTourViewModel CreateTourViewModel;
         private bool addDatesButtonClicked;
@@ -42,7 +42,7 @@ namespace Sims2023.WPF.Views.GuideViews
             if (addDatesButtonClicked && keyPointsOutput.Items.Count > 1)
             {
                 CreateTourViewModel.ConfirmCreation(countryComboBox.Text, cityComboBox.Text);
-                Close();
+                //Close();
             }
             else
             {
@@ -52,7 +52,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            //Close();
         }
 
         private void ComboBox_SelectionChanged(object sender, RoutedEventArgs e)

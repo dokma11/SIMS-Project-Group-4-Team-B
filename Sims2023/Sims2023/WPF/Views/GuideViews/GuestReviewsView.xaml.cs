@@ -3,16 +3,31 @@ using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.GuideViewModels;
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace Sims2023.WPF.Views.GuideViews
 {
-    public partial class GuestReviewsView : Window
+    public partial class GuestReviewsView : Page
     {
         public GuestReviewsViewModel GuestReviewsViewModel;
-        public GuestReviewsView(TourService tourService, TourReviewService tourReviewService, User loggedInGuide)
+        private RequestService _requestService;
+        private TourService _tourService;
+        private LocationService _locationService;
+        private TourReviewService _tourReviewService;
+        private KeyPointService _keyPointService;
+        public User LoggedInGuide { get; set; }
+        public GuestReviewsView(TourService tourService, TourReviewService tourReviewService, LocationService locationService, RequestService requestService, KeyPointService keyPointService, User loggedInGuide)
         {
             InitializeComponent();
+
+            _requestService = requestService;
+            _tourService = tourService;
+            _tourReviewService = tourReviewService;
+            _locationService = locationService;
+            _keyPointService = keyPointService;
+
+            LoggedInGuide = loggedInGuide;
 
             GuestReviewsViewModel = new(tourService, tourReviewService, loggedInGuide);
             DataContext = GuestReviewsViewModel;
@@ -71,6 +86,28 @@ namespace Sims2023.WPF.Views.GuideViews
             {
                 MessageBox.Show("Odaberite recenziju čiji komentar želite da vidite");
             }
+        }
+
+        private void HomePageButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ToursButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RequestsButton_Click(object sender, RoutedEventArgs e)
+        {
+            RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide);
+            FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
+        }
+
+        private void AccountButton_Click(object sender, RoutedEventArgs e)
+        {
+            GuideAccountView guideAccountView = new(LoggedInGuide);
+            FrameManagerGuide.Instance.MainFrame.Navigate(guideAccountView);
         }
     }
 }

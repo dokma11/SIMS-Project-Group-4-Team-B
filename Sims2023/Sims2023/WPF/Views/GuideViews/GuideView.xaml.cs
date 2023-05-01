@@ -56,8 +56,9 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateTourView createTourView = new(_tourService, _locationService, _keyPointService, LoggedInGuide);
-            createTourView.Show();
+            GuideViewModel.Create(_tourService, _locationService, _keyPointService, LoggedInGuide);
+            //CreateTourView createTourView = new(_tourService, _locationService, _keyPointService, LoggedInGuide);
+            //FrameManagerGuide.Instance.MainFrame.Navigate(createTourView);
         }
 
         private void StartTourButton_Click(object sender, RoutedEventArgs e)
@@ -117,39 +118,47 @@ namespace Sims2023.WPF.Views.GuideViews
             timer.Stop();
         }
 
-        private void DisplayReviewsButton_Click(object sender, RoutedEventArgs eventArgs)
-        {
-            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, LoggedInGuide);
-            guestReviewsView.Show();
-        }
-
-        private void DisplayStatisticsButton_Click(object sender, RoutedEventArgs e)
-        {
-            TourStatisticsView tourStatisticsView = new(LoggedInGuide, _tourService, _tourReservationService);
-            tourStatisticsView.Show();
-        }
-
-        private void DisplayRequestsButton_Click(object sender, RoutedEventArgs e)
-        {
-            HandleTourRequestsView handleTourRequestsView = new(_requestService, LoggedInGuide, _tourService, _keyPointService);
-            handleTourRequestsView.Closed += HandleTourRequestsView_Closed;
-            handleTourRequestsView.Show();
-        }
-
         private void HandleTourRequestsView_Closed(object sender, EventArgs e)
         {
             Update();
-        }
-        
-        private void DisplayRequestsStatisticsButton_Click(object sender, RoutedEventArgs e)
-        {
-            RequestStatisticsView requestStatisticsView = new(_requestService, _tourService, _locationService, _keyPointService, LoggedInGuide);
-            requestStatisticsView.Show();
         }
 
         public void Update()
         {
             GuideViewModel.Update();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            FrameManagerGuide.Instance.MainFrame = MainFrameGuide;
+        }
+
+        private void HomePageButton_Click(object sender, RoutedEventArgs e) 
+        {
+            
+        }
+
+        private void ToursButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RequestsButton_Click(object sender, RoutedEventArgs e)
+        {
+            RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide);
+            FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
+        }
+
+        private void ReviewsButton_Click(object sender, RoutedEventArgs e)
+        {
+            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide);
+            FrameManagerGuide.Instance.MainFrame.Navigate(guestReviewsView);
+        }
+
+        private void AccountButton_Click(object sender, RoutedEventArgs e)
+        {
+            GuideAccountView guideAccountView = new(LoggedInGuide);
+            FrameManagerGuide.Instance.MainFrame.Navigate(guideAccountView);
         }
     }
 }
