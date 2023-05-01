@@ -3,6 +3,7 @@ using Sims2023.Domain.Models;
 using Sims2023.WPF.Views.Guest1Views;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
@@ -49,5 +50,27 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
             return false;
         }
+        public void HideMainMenu()
+        {
+            Guest1MainView.MainMenu.Visibility = Visibility.Collapsed;
+            Guest1MainView.Overlay.Visibility = Visibility.Collapsed;
+        }
+        public void ToggleMainMenu()
+        {
+            if (Guest1MainView.MainMenu.Visibility == Visibility.Visible)
+            {
+                HideMainMenu();
+            }
+            else
+            {
+                ShowMainMenu();
+            }
+        }
+        public void ShowMainMenu()
+        {
+            Guest1MainView.MainMenu.Visibility = Visibility.Visible;
+            Guest1MainView.Overlay.Visibility = Visibility.Visible;
+        }
+
     }
 }

@@ -129,13 +129,10 @@ namespace Sims2023.Repositories
 
         public ObservableCollection<AccommodationReservationRescheduling> FindSuitableReservationReschedulings(User guest1, ObservableCollection<AccommodationReservationRescheduling> accommodationReservationReschedulings)
         {
-            ObservableCollection<AccommodationReservationRescheduling> FilteredReservationReschedulings = accommodationReservationReschedulings;
-            foreach (AccommodationReservationRescheduling accommodationReservationRescheduling in FilteredReservationReschedulings)
+            ObservableCollection<AccommodationReservationRescheduling> FilteredReservationReschedulings = new();
+            foreach (AccommodationReservationRescheduling accommodationReservationRescheduling in _accommodationReservationReschedulings)
             {
-                if (!FilterdDataSelection(accommodationReservationRescheduling, guest1))
-                {
-                    FilteredReservationReschedulings.Remove(accommodationReservationRescheduling);
-                }
+                FilteredReservationReschedulings.Add(accommodationReservationRescheduling);
             }
             return FilteredReservationReschedulings;
         }

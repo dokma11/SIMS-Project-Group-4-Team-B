@@ -3,20 +3,77 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         Title="Guest1MainView" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
+    <Window.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommands.OpenMenu" CanExecute="OpenMenu_CanExecute" Executed="OpenMenu_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.OpenHelp" CanExecute="OpenHelp_CanExecute" Executed="OpenHelp_Executed"></CommandBinding>
+    </Window.CommandBindings>
     <Grid>
-        <Label x:Name="label" Content="Moguce funkcionalnosti: " FontSize="25" HorizontalAlignment="Left" Margin="40,10,0,0" VerticalAlignment="Top" Width="320" Height="48"/>
-        <Button Content="Prikaz i pretraga smestaja"  FontSize="20" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top"
-                    Click="VewAccommodation_Click" Width="301" Margin="59,89,0,0" Height="116"/>
-        <Button x:Name="buttonLogOut" Content="Log out" HorizontalAlignment="Left" FontSize="20" Height="44" Margin="800,500,0,0" VerticalAlignment="Top" Width="131" Click="ButtonLogOut_Click"/>
-        <Button x:Name="buttonGrading" Content="Ocenjivanje smestaja i vlasnika"  FontSize="20" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top"
-             Width="302" Margin="580,89,0,0" Height="116" Click="buttonGrading_Click"/>
-        <Button Content="Otkazivanje rezervacija smestaja"  FontSize="20" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Center"
-             Width="301" Margin="59,0,0,0" Height="116" Click="AccommodationCancellation_Click"/>
-        <Button x:Name="buttonReservationMove" Content="Pomeranje rezervacije"  FontSize="20" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Center"
-            Width="302" Margin="580,0,0,0" Height="116" Click="buttonReservationMove_Click"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="35" />
+                <RowDefinition/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <ToolBar x:Name="toolBar" Background="#DDF2FF" Grid.Row="0">
+                <Button Command="cmd:RoutedCommands.OpenMenu">
+                    <Image  Source="pack://application:,,,/Sims2023;component/Images/Guest1Images/Horizont_ICO.png" Width="16" Height="16"/>
+                </Button>
+                <Button Content="MENI" Width="90" Height="30" Foreground="#E0942C" Background="#4CE0942C" Command="cmd:RoutedCommands.OpenMenu"/>
+                <Separator Margin="580,0,0,0" Foreground="#E0942C"/>
+                <Label x:Name="userName_label" Content="Korisnicko ime" Foreground="#E0942C"/>
+                <Separator Foreground="#E0942C"/>
+                <Label x:Name="userStatus_label" Content="Status gosta" Height="30" Foreground="#E0942C"/>
+                <Separator Foreground="#E0942C"/>
+                <Button Content="Odjavi se" Click="ButtonLogOut_Click" Foreground="#E0942C" Background="#4CE0942C" Width="90" Height="30"/>
+            </ToolBar>
+            <StatusBar Background="#DDF2FF" Grid.Row="4" Margin="0,0,0,0"/>
+            <Button  Grid.Row="1" Width="20" HorizontalAlignment="Right" Margin="0,15,30,0" Background="#4CE0942C" Command="cmd:RoutedCommands.OpenHelp">
+                <Image  Source="pack://application:,,,/Sims2023;component/Images/Guest1Images/help.png"/>
+            </Button>
+            <Grid  Grid.Row="2" Margin="100,50,100,10">
+                <Image  Source="pack://application:,,,/Sims2023;component/Images/Guest1Images/Horizont_SRB.png"/>
+            </Grid>
+            <Grid  Grid.Row="3" Margin="200,0,200,50">
+                <Label  Content="dobrodošli!" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="28" Foreground="#E0942C" FontFamily="Copperplate Gothic Light" />
+            </Grid>
+            <Grid Grid.Row="1" Grid.RowSpan="3">
+                <Rectangle x:Name="Overlay" Panel.ZIndex="1" MouseLeftButtonDown="Overlay_MouseLeftButtonDown" Visibility="Collapsed" Grid.ColumnSpan="2">
+                    <Rectangle.Fill>
+                        <SolidColorBrush Color="#E0942C" Opacity="0.5" />
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Grid x:Name="MainMenu" Panel.ZIndex="2" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="200"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Početna stranica" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="0" Grid.Column="0" Click="Gust1MainWindow_Click" />
+                    <Button Content="Rezervacija smestaja" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="1" Grid.Column="0" Click="VewAccommodation_Click"/>
+                    <Button Content="Ocenjivanje smestaja" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="4" Grid.Column="0" Click="buttonGrading_Click"/>
+                    <Button Content="Otkazivanje rezervacija" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="3" Grid.Column="0" Click="AccommodationCancellation_Click"/>
+                    <Button Content="Pomeranje rezervacije" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="2" Grid.Column="0" Click="buttonReservationMove_Click"/>
+                    <Button Content="Moje ocene" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="5" Grid.Column="0" Click="buttonMyGrades_Click"/>
+                    <Button Content=" &quot;Bilo kuda bilo gde&quot;" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="6" Grid.Column="0" Click="buttonWheneverWherever_Click"/>
+                    <Button Content="Forum" Grid.Row="7" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Column="0" Click="buttonForum_Click"/>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
