@@ -11,38 +11,35 @@
     <Window.CommandBindings>
         <CommandBinding Command="cmd:RoutedCommands.OpenMenu" CanExecute="OpenMenu_CanExecute" Executed="OpenMenu_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.OpenHelp" CanExecute="OpenHelp_CanExecute" Executed="OpenHelp_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.LogOut" CanExecute="LogOut_CanExecute" Executed="LogOut_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.GuestOneMainView" CanExecute="GuestOneMainView_CanExecute" Executed="GuestOneMainView_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.AccommodationListView" CanExecute="AccommodationListView_CanExecute" Executed="AccommodationListView_Executed"></CommandBinding>
     </Window.CommandBindings>
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
-                <RowDefinition Height="35" />
+                <RowDefinition Height="20" />
                 <RowDefinition/>
-                <RowDefinition Height="100"/>
                 <RowDefinition Height="20" />
             </Grid.RowDefinitions>
             <ToolBar x:Name="toolBar" Background="#DDF2FF" Grid.Row="0">
-                <Button Command="cmd:RoutedCommands.OpenMenu">
+                <Button Command="cmd:RoutedCommands.GuestOneMainView">
                     <Image  Source="pack://application:,,,/Sims2023;component/Images/Guest1Images/Horizont_ICO.png" Width="16" Height="16"/>
                 </Button>
-                <Button Content="MENI" Width="90" Height="30" Foreground="#E0942C" Background="#4CE0942C" Command="cmd:RoutedCommands.OpenMenu"/>
+                <Button Command="cmd:RoutedCommands.OpenMenu" Content="MENI" Width="90" Height="30" Foreground="#E0942C" Background="#4CE0942C"/>
                 <Separator Margin="580,0,0,0" Foreground="#E0942C"/>
                 <Label x:Name="userName_label" Content="Korisnicko ime" Foreground="#E0942C"/>
                 <Separator Foreground="#E0942C"/>
                 <Label x:Name="userStatus_label" Content="Status gosta" Height="30" Foreground="#E0942C"/>
                 <Separator Foreground="#E0942C"/>
-                <Button Content="Odjavi se" Click="ButtonLogOut_Click" Foreground="#E0942C" Background="#4CE0942C" Width="90" Height="30"/>
+                <Button Command="cmd:RoutedCommands.LogOut" Content="Odjavi se" Foreground="#E0942C" Background="#4CE0942C" Width="90" Height="30"/>
             </ToolBar>
-            <StatusBar Background="#DDF2FF" Grid.Row="4" Margin="0,0,0,0"/>
-            <Button  Grid.Row="1" Width="20" HorizontalAlignment="Right" Margin="0,15,30,0" Background="#4CE0942C" Command="cmd:RoutedCommands.OpenHelp">
-                <Image  Source="pack://application:,,,/Sims2023;component/Images/Guest1Images/help.png"/>
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" UseLayoutRounding="True" Grid.Row="2"/>
+            <StatusBar Background="#DDF2FF" Grid.Row="3" Margin="0,0,0,0"/>
+            <Button  Grid.Row="1" Width="16" HorizontalAlignment="Right" Margin="0,4,30,0" Background="#4CE0942C" Command="cmd:RoutedCommands.OpenHelp">
+                <Image Source="pack://application:,,,/Sims2023;component/Images/Guest1Images/help.png"/>
             </Button>
-            <Grid  Grid.Row="2" Margin="100,50,100,10">
-                <Image  Source="pack://application:,,,/Sims2023;component/Images/Guest1Images/Horizont_SRB.png"/>
-            </Grid>
-            <Grid  Grid.Row="3" Margin="200,0,200,50">
-                <Label  Content="dobrodošli!" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="28" Foreground="#E0942C" FontFamily="Copperplate Gothic Light" />
-            </Grid>
             <Grid Grid.Row="1" Grid.RowSpan="3">
                 <Rectangle x:Name="Overlay" Panel.ZIndex="1" MouseLeftButtonDown="Overlay_MouseLeftButtonDown" Visibility="Collapsed" Grid.ColumnSpan="2">
                     <Rectangle.Fill>
@@ -64,8 +61,8 @@
                         <ColumnDefinition  Width="200"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button Content="Početna stranica" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="0" Grid.Column="0" Click="Gust1MainWindow_Click" />
-                    <Button Content="Rezervacija smestaja" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="1" Grid.Column="0" Click="VewAccommodation_Click"/>
+                    <Button Content="Početna stranica" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="0" Grid.Column="0" Command="cmd:RoutedCommands.GuestOneMainView" />
+                    <Button Content="Rezervacija smestaja" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="1" Grid.Column="0" Command="cmd:RoutedCommands.AccommodationListView"/>
                     <Button Content="Ocenjivanje smestaja" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="4" Grid.Column="0" Click="buttonGrading_Click"/>
                     <Button Content="Otkazivanje rezervacija" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="3" Grid.Column="0" Click="AccommodationCancellation_Click"/>
                     <Button Content="Pomeranje rezervacije" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="2" Grid.Column="0" Click="buttonReservationMove_Click"/>

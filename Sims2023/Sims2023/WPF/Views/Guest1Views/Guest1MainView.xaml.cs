@@ -3,6 +3,7 @@ using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using Sims2023.WPF.Commands;
 using System.Windows;
 using System.Windows.Input;
+using Sims2023.WPF.Views.GuideViews;
 
 namespace Sims2023.WPF.Views.Guest1Views
 {
@@ -17,6 +18,7 @@ namespace Sims2023.WPF.Views.Guest1Views
         public Guest1MainView(User guest1)
         {
             InitializeComponent();
+            MainFrame.Navigate(new GuestOneStartView());
             Guest1MainViewModel = new Guest1MainViewModel(this, guest1);
             DataContext = Guest1MainViewModel;
 
@@ -27,16 +29,7 @@ namespace Sims2023.WPF.Views.Guest1Views
             Guest1MainViewModel.Window_Loaded(sender, e);
         }
 
-        private void VewAccommodation_Click(object sender, RoutedEventArgs e)
-        {
-            var AccommodationListView = new AccommodationListView(User);
-            AccommodationListView.Show();
-        }
 
-        private void ButtonLogOut_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
 
         private void buttonGrading_Click(object sender, RoutedEventArgs e)
         {
@@ -71,14 +64,17 @@ namespace Sims2023.WPF.Views.Guest1Views
         {
             Guest1MainViewModel.ToggleMainMenu();
         }
-        private void openMenu_Click(object sender, RoutedEventArgs e)
-        {
-            Guest1MainViewModel.ToggleMainMenu();
-        }
+
+
+
+
+
+
         private void Overlay_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Guest1MainViewModel.HideMainMenu();
         }
+
         public void OpenMenu_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
@@ -86,7 +82,7 @@ namespace Sims2023.WPF.Views.Guest1Views
 
         public void OpenMenu_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            openMenu_Click(sender,e);
+            Guest1MainViewModel.ToggleMainMenu();
         }
         public void OpenHelp_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -98,5 +94,38 @@ namespace Sims2023.WPF.Views.Guest1Views
             var AllGuestOneReservationsView = new GuestOneHelpView(User);
             AllGuestOneReservationsView.Show();
         }
+        public void LogOut_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        public void LogOut_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MainWindow LogIn = new();
+            LogIn.Show();
+            Close();
+        }
+
+        public void GuestOneMainView_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        public void GuestOneMainView_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MainFrame.Navigate(new GuestOneStartView());
+        }
+
+        public void AccommodationListView_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        public void AccommodationListView_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Guest1MainViewModel.HideMainMenu();
+             MainFrame.Navigate(new AccommodationListView(User));
+        }
+
     }
 }

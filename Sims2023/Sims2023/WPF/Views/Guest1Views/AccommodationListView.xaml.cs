@@ -3,10 +3,12 @@ using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace Sims2023.WPF.Views.Guest1Views
 {
-    public partial class AccommodationListView : Window
+    public partial class AccommodationListView : Page
     {
         public AccommodationListViewModel AccommodationListViewModel;
         public Accommodation SelectedAccommodation { get; set; }
@@ -52,7 +54,12 @@ namespace Sims2023.WPF.Views.Guest1Views
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            NavigationService navigationService = NavigationService.GetNavigationService(this);
+
+            if (navigationService.CanGoBack)
+            {
+                navigationService.GoBack();
+            }
         }
 
         private void DetailViewbutton_Click(object sender, RoutedEventArgs e)

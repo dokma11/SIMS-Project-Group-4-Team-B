@@ -21,6 +21,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             Guest1MainView = guest1MainView;
             User = guest1;
+            Guest1MainView.userName_label.Content = User.Name;
             _accommodationReservationReschedulingService = new AccommodationReservationReschedulingService();
             AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingService.GetAllReservationReschedulings());
         }
