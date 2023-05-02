@@ -29,11 +29,10 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         public void Delete_Click()
         {
-            if (SelectedRenovation != null && SelectedRenovation.Status == "nije započeto")
+            if (SelectedRenovation != null && SelectedRenovation.Status == "nije zapoceto")
             {
-                renovations.Remove(SelectedRenovation);
-                _accommodationRenovationService.GetAll();
                 _accommodationRenovationService.Delete(SelectedRenovation);
+                renovations.Remove(SelectedRenovation);
                 
             }
         }

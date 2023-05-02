@@ -36,6 +36,10 @@ namespace Sims2023.Application.Services
            _accommodationRenovation.Remove(renovation);
         }
 
-       
+        public void Subscribe(IObserver observer)
+        {
+            _accommodationRenovation.Subscribe(observer);
+        }
+
     }
 }

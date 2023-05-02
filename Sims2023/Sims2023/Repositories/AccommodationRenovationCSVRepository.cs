@@ -13,7 +13,7 @@ using System.Windows;
 
 namespace Sims2023.Repositories
 {
-    internal class AccommodationRenovationCSVRepository : IAccommodationRenovationCSVRepository
+    internal class AccommodationRenovationCSVRepository : IAccommodationRenovationCSVRepository, ISubject
     {
         private List<IObserver> _observers;
 
@@ -22,6 +22,7 @@ namespace Sims2023.Repositories
 
         public AccommodationRenovationCSVRepository()
         {
+            _observers = new List<IObserver>();
             _fileHandler = new AccommodationRenovationFileHandler();
             _renovations = _fileHandler.Load();
             UpdateStatus(_renovations);
@@ -41,12 +42,11 @@ namespace Sims2023.Repositories
        
         }
 
-
-
         public void Remove(AccommodationRenovation renovation)
         {
             _renovations.Remove(renovation);
             _fileHandler.Save(_renovations);
+            NotifyObservers();
         }
 
         public void Update(AccommodationRenovation renovation)
@@ -74,7 +74,7 @@ namespace Sims2023.Repositories
             {
                 if (renovation.EndDate < DateTime.Today)
                 {
-                    renovation.Status = "završeno";
+                    renovation.Status = "zavrseno";
                     updateRenovations.Add(renovation);
                 }
             }
@@ -85,6 +85,22 @@ namespace Sims2023.Repositories
             }
         }
 
-      
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
     }
 }

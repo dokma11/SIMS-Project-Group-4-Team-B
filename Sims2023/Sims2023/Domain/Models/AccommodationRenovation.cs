@@ -33,7 +33,7 @@ namespace Sims2023.Domain.Models
             Accommodation = accommodation;
             StartDate = startDate;
             EndDate = endDate;
-            Status = "nije započeto";
+            Status = "nije zapoceto";
         }
 
         public string[] ToCSV()
