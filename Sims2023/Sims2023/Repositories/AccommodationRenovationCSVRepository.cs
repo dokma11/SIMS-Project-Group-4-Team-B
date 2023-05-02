@@ -5,25 +5,28 @@ using Sims2023.Observer;
 using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sims2023.Repositories
 {
-    internal class AccommodationRenovationCSVRepository : IAccommodationRenovationCSVRepository,ISubject
+    internal class AccommodationRenovationCSVRepository : IAccommodationRenovationCSVRepository, ISubject
     {
         private List<IObserver> _observers;
 
         private AccommodationRenovationFileHandler _fileHandler;
         private List<AccommodationRenovation> _renovations;
 
-
         public AccommodationRenovationCSVRepository()
         {
+            _observers = new List<IObserver>();
             _fileHandler = new AccommodationRenovationFileHandler();
             _renovations = _fileHandler.Load();
-            _observers = new List<IObserver>();
+            UpdateStatus(_renovations);
+          
         }
         public int NextId()
         {
@@ -36,10 +39,8 @@ namespace Sims2023.Repositories
             grade.Id = NextId();
             _renovations.Add(grade);
             _fileHandler.Save(_renovations);
-            NotifyObservers();
+       
         }
-
-
 
         public void Remove(AccommodationRenovation renovation)
         {
@@ -57,12 +58,31 @@ namespace Sims2023.Repositories
             }
 
             _fileHandler.Save(_renovations);
-            NotifyObservers();
+         
         }
 
         public List<AccommodationRenovation> GetAll()
         {
+            UpdateStatus(_renovations);
             return _renovations;
+        }
+
+        public void UpdateStatus(List<AccommodationRenovation> _renovations)
+        {
+            List<AccommodationRenovation> updateRenovations = new List<AccommodationRenovation>();
+            foreach (AccommodationRenovation renovation in _renovations)
+            {
+                if (renovation.EndDate < DateTime.Today)
+                {
+                    renovation.Status = "zavrseno";
+                    updateRenovations.Add(renovation);
+                }
+            }
+
+            foreach (AccommodationRenovation renovation in updateRenovations)
+            {
+                Update(renovation);
+            }
         }
 
         public void Subscribe(IObserver observer)

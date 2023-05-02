@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sims2023.Application.Services
 {
@@ -25,19 +26,20 @@ namespace Sims2023.Application.Services
             return _accommodationRenovation.GetAll();
         }
 
-        public void Create(AccommodationRenovation reservation)
+        public void Create(AccommodationRenovation renovation)
         {
-            _accommodationRenovation.Add(reservation);
+            _accommodationRenovation.Add(renovation);
         }
 
-        public void Delete(AccommodationRenovation reservation)
+        public void Delete(AccommodationRenovation renovation)
         {
-            _accommodationRenovation.Remove(reservation);
+           _accommodationRenovation.Remove(renovation);
         }
 
         public void Subscribe(IObserver observer)
         {
             _accommodationRenovation.Subscribe(observer);
         }
+
     }
 }
