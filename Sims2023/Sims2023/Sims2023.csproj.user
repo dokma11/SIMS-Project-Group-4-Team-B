@@ -34,6 +34,9 @@
     <Compile Update="WPF\Views\GuideViews\RequestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\GuideViews\ToursView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\OwnerViews\AllAccommodationsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -108,6 +111,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\GuideViews\RequestsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\GuideViews\ToursView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\AllAccommodationsView.xaml">

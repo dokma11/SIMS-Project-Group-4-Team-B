@@ -16,8 +16,12 @@ namespace Sims2023.WPF.Views.GuideViews
         private LocationService _locationService;
         private TourReviewService _tourReviewService;
         private KeyPointService _keyPointService;
+        private TourReservationService _tourReservationService;
+        private VoucherService _voucherService;
+        private UserService _userService;
+        private CountriesAndCitiesService _countriesAndCitiesService;
         public User LoggedInGuide { get; set; }
-        public GuestReviewsView(TourService tourService, TourReviewService tourReviewService, LocationService locationService, RequestService requestService, KeyPointService keyPointService, User loggedInGuide)
+        public GuestReviewsView(TourService tourService, TourReviewService tourReviewService, LocationService locationService, RequestService requestService, KeyPointService keyPointService, User loggedInGuide, TourReservationService tourReservationService, VoucherService voucherService, UserService userService, CountriesAndCitiesService countriesAndCitiesService)
         {
             InitializeComponent();
 
@@ -26,6 +30,10 @@ namespace Sims2023.WPF.Views.GuideViews
             _tourReviewService = tourReviewService;
             _locationService = locationService;
             _keyPointService = keyPointService;
+            _tourReservationService = tourReservationService;
+            _voucherService = voucherService;
+            _userService = userService;
+            _countriesAndCitiesService = countriesAndCitiesService;
 
             LoggedInGuide = loggedInGuide;
 
@@ -88,25 +96,29 @@ namespace Sims2023.WPF.Views.GuideViews
             }
         }
 
+        //TOOLBAR
+
         private void HomePageButton_Click(object sender, RoutedEventArgs e)
         {
-
+            GuideHomePageView guideHomePageView = new(LoggedInGuide);
+            FrameManagerGuide.Instance.MainFrame.Navigate(guideHomePageView);
         }
 
         private void ToursButton_Click(object sender, RoutedEventArgs e)
         {
-
+            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
         }
 
         private void RequestsButton_Click(object sender, RoutedEventArgs e)
         {
-            RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide);
+            RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService);
             FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            GuideAccountView guideAccountView = new(LoggedInGuide);
+            GuideAccountView guideAccountView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService);
             FrameManagerGuide.Instance.MainFrame.Navigate(guideAccountView);
         }
     }

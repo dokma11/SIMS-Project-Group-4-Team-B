@@ -13,7 +13,7 @@
                 <Button x:Name="toursButton" Click="ToursButton_Click" Content="Ture"/>
                 <Button x:Name="requestsButton" Click="RequestsButton_Click" Content="Zahtevi" />
                 <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije"/>
-                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" />
+                <Button x:Name="accountButton" Content="Nalog" IsEnabled="False"/>
             </ToolBar>
         </DockPanel>
         <DockPanel>

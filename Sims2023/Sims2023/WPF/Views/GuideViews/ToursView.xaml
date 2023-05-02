@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sims2023.WPF.Views.GuideViews"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="ToursView">
@@ -12,18 +14,19 @@
         <DockPanel>
             <ToolBar>
                 <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica"/>
-                <Button x:Name="toursButton" Click="ToursButton_Click" Content="Ture"/>
+                <Button x:Name="toursButton" Content="Ture" IsEnabled="False"/>
                 <Button x:Name="requestsButton" Click="RequestsButton_Click" Content="Zahtevi" />
                 <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije"/>
                 <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" />
             </ToolBar>
         </DockPanel>
-        <TabControl Height="650" Width="1200" Margin="0,10,0,0">
+        <TabControl x:Name="tabControl" Height="650" Width="1200" Margin="0,10,0,0" SelectionChanged="TabControl_SelectionChanged">
+            <!-- FIRST TAB-->
             <TabItem Header="Predstojeće ture">
                 <StackPanel>
                     <Label Content="Predstojeće ture" FontSize="32" HorizontalAlignment="Center" Margin="0,20,0,10"/>
-                    <DataGrid x:Name="toursDataGrid" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="1100" Height="430" AutoGenerateColumns="False">
+                    <DataGrid x:Name="toursDataGrid" ItemsSource="{Binding CreatedToursToDisplay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedCreatedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="1100" Height="430" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Naziv" Binding="{Binding Name}"/>
                             <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.Id}"/>
@@ -41,14 +44,76 @@
                     </DockPanel>
                 </StackPanel>
             </TabItem>
+            <!-- SECOND TAB -->
             <TabItem Header="Kreiranje ture">
-                
+                <StackPanel>
+                    <Label Content="Kreiranje Ture" FontSize="32" HorizontalAlignment="Center" Margin="0,20"/>
+                    <Grid Height="450" Width="1100" Background="#B3E5FC" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <!--Leva kolona-->
+                        <Label Grid.Column="0" Grid.Row="0" Content="Naziv ture:" FontSize="16"/>
+                        <TextBox x:Name="toursNameTextBox" Grid.Column="0" Width="230" Height="30" Margin="4,35,133,10" Grid.RowSpan="2" Text="{Binding Path=NewTour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                        <Label Grid.Column="0" Grid.Row="2" Content="Lokacija održavanja:" FontSize="16"/>
+                        <ComboBox x:Name="countryComboBox" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" Height="28" SelectionChanged="CountryComboBox_SelectionChanged" Margin="4,2,0,0"/>
+                        <ComboBox x:Name="cityComboBox" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Width="110" Height="28" Margin="124,2,133,0" />
+                        <Label Grid.Column="0" Grid.Row="4" Content="Jezik na kom se tura održava:" FontSize="16"/>
+                        <ComboBox x:Name="languageComboBox" Grid.Column="0" Grid.Row="5" Width="230" Height="30" Margin="4,2,133,5" Text="{Binding Path=NewTour.GuideLanguage, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                            <ComboBoxItem>English</ComboBoxItem>
+                            <ComboBoxItem>Serbian</ComboBoxItem>
+                            <ComboBoxItem>German</ComboBoxItem>
+                            <ComboBoxItem>French</ComboBoxItem>
+                            <ComboBoxItem>Spanish</ComboBoxItem>
+                            <ComboBoxItem>Italian</ComboBoxItem>
+                            <ComboBoxItem>Chinese</ComboBoxItem>
+                            <ComboBoxItem>Japanese</ComboBoxItem>
+                        </ComboBox>
+                        <Label Grid.Column="0" Grid.Row="6" Content="Maksimalan broj gostiju:" FontSize="16"/>
+                        <xctk:IntegerUpDown Name="maximumNumberOfGuests" Grid.Row="6" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,27,49,27" Grid.RowSpan="3" Text="{Binding Path=NewTour.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                        <Label Grid.Column="0" Grid.Row="8" Content="Trajanje ture(u satima):" FontSize="16"/>
+                        <xctk:IntegerUpDown Name="duration" Grid.Row="9" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,0,49,0" Text="{Binding Path=NewTour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                        <Label Grid.Column="0" Grid.Row="10" Content="Jedna ili više slika:" FontSize="16"/>
+                        <TextBox Grid.Column="0" Grid.Row="10" Width="230" Height="30" Margin="4,37,133,8" Text="{Binding Path=NewTour.ConcatenatedPictures, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.RowSpan="2"/>
+                        <!--Kolona u sredini-->
+                        <Label Grid.Column="1" Grid.Row="0" Content="Ključne tačke" FontSize="16"/>
+                        <TextBox x:Name="keyPointTextBox" Width="230" Height="30" Margin="0,35,136,10" Grid.RowSpan="2" Grid.Column="1" TextChanged="KeyPointTextBox_TextChanged"/>
+                        <Button x:Name="addKeyPointsButton" Click="AddKeyPointsButton_Click"  Grid.Column="1" Width="130" Height="30" Margin="240,36,363,9" Grid.RowSpan="2" Grid.ColumnSpan="2" Content="Dodaj ključnu tačku"/>
+                        <ListBox x:Name="keyPointsOutput" Grid.Column="1" Width="370" Height="92" Grid.ColumnSpan="2" Margin="0,0,363,20" Grid.RowSpan="3" Grid.Row="2" ItemsSource="{Binding Path=NewTour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                        <Label Grid.Column="1" Grid.Row="6" Content="Datum i vreme početka ture" FontSize="16"/>
+                        <TextBox Width="230" Height="30" Grid.Row="7" Grid.Column="1" Text="{Binding Path=NewTour.Start, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Name="dateTimeTextBox" TextChanged="DateTimeTextBox_TextChanged" Margin="10,8,126,0"/>
+                        <Button Width="70" Name="addDatesButton" Click="AddDatesButton_Click" Grid.Row="7" Grid.ColumnSpan="2" Margin="300,4,363,26" Grid.RowSpan="2" Grid.Column="1" >+</Button>
+                        <!--Desna kolona-->
+                        <Label Grid.Column="2" Grid.Row="2" Content="Opis događaja na turi" Margin="122,0,-122,0" FontSize="16"/>
+                        <TextBox x:Name="descriptionTextBox" Grid.Column="2" Grid.Row="2" Margin="122,29,-69,11" Height="NaN" Grid.RowSpan="9" Text="{Binding Path=NewTour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                        <Button x:Name="confirmButton" Click="ConfirmButton_Click" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Potvrdi" Margin="122,23,61,-5" Grid.RowSpan="2"/>
+                        <Button x:Name="cancelButton" Click="CancelButton_Click" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Odustani" Margin="252,23,-69,-5" Grid.RowSpan="2"/>
+                    </Grid>
+                </StackPanel>
             </TabItem>
+            <!-- THIRD TAB -->
             <TabItem Header="Statistika tura">
                 <DockPanel Background="#B3E5FC">
                     <StackPanel Width="640">
-                        <Label Content="Završene ture" FontSize="32"/>
-                        <DataGrid Width="625" Height="380" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False">
+                        <Label Content="Završene ture" FontSize="32" Margin="20,10,0,0"/>
+                        <DataGrid Width="625" Height="380" ItemsSource="{Binding FinishedToursToDisplay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding SelectedFinishedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" Margin="25,10,0,0">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Naziv" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.Id, UpdateSourceTrigger=PropertyChanged}"/>
@@ -57,14 +122,14 @@
                                 <DataGridTextColumn Header="Broj gostiju" Binding="{Binding AttendedGuestsNumber, UpdateSourceTrigger=PropertyChanged}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <Button x:Name="displayStatisticsButton" Click="DisplayStatisticsButton_Click" Height="50" Width="150" Content="Prikaži statistiku" Margin="475,10,0,0"/>
+                        <Button x:Name="displayStatisticsButton" Click="DisplayStatisticsButton_Click" Height="50" Width="150" Content="Prikaži statistiku" Margin="495,10,0,0"/>
                     </StackPanel>
                     <StackPanel Width="640">
                         <DockPanel>
-                            <Label Content="Najposećenija tura" FontSize="32" Margin="10,0,-175,0"/>
+                            <Label Content="Najposećenija tura" FontSize="32" Margin="40,0,-175,0"/>
                             <ComboBox x:Name="yearComboBox" ItemsSource="{Binding ComboBoxItems}"  Width="120" Height="30" IsReadOnly="True" Margin="0,10,0,0" SelectionChanged="YearComboBox_SelectionChanged"/>
                         </DockPanel>
-                        <DataGrid Width="420" Height="50" ItemsSource="{Binding TheMostVisitedTour, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,190,0" IsReadOnly="True" AutoGenerateColumns="False">
+                        <DataGrid Width="420" Height="50" ItemsSource="{Binding TheMostVisitedTour, UpdateSourceTrigger=PropertyChanged}" Margin="45,0,190,0" IsReadOnly="True" AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Naziv" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.Id, UpdateSourceTrigger=PropertyChanged}"/>
@@ -72,26 +137,23 @@
                                 <DataGridTextColumn Header="Broj gostiju" Binding="{Binding AttendedGuestsNumber, UpdateSourceTrigger=PropertyChanged}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <Label Content="Statistika najposećenije ture" FontSize="24" Margin="10,0,-175,0"/>
-                        <DockPanel Margin="0,300,0,0">
-                            <Label Content="Broj gostiju ispod 18:"/>
-                            <Label x:Name="youngNumberLabel"/>
+                        <Label Content="Statistika najposećenije ture" FontSize="24" Margin="40,0,-175,0"/>
+                        <DockPanel>
+                            <Label Content="Broj gostiju po starosnoj grupi" FontSize="16" Margin="40,0,0,0"/>
+                            <Label Content="Procenat gostiju sa/bez vaučera" FontSize="16" Margin="40,0,0,0"/>
                         </DockPanel>
                         <DockPanel>
-                            <Label Content="Broj gostiju izmedju 18 i 50:"/>
-                            <Label x:Name="middleNumberLabel"/>
-                        </DockPanel>
-                        <DockPanel>
-                            <Label Content="Broj gostiju iznad 50:"/>
-                            <Label x:Name="oldNumberLabel"/>
-                        </DockPanel>
-                        <DockPanel>
-                            <Label Content="Procenat gostiju sa vaucerom:"/>
-                            <Label x:Name="usedVoucherLabel"/>
-                        </DockPanel>
-                        <DockPanel>
-                            <Label Content="Procenat gostiju bez vaucera:"/>
-                            <Label x:Name="notUsedVoucherLabel"/>
+                            <lvc:CartesianChart Series="{Binding NekiSeries}" Height="316" LegendLocation="Bottom" Width="266" Margin="0,20,0,0">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Dole" Labels="{Binding Labels}"/>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="Gore" Labels="{Binding Values}"/>
+                                </lvc:CartesianChart.AxisY>
+                            </lvc:CartesianChart>
+                            <lvc:PieChart Width="279">
+
+                            </lvc:PieChart>
                         </DockPanel>
                     </StackPanel>
                 </DockPanel>

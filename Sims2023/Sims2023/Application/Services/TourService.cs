@@ -69,7 +69,7 @@ namespace Sims2023.Application.Services
             return _tourReadFromCSVRepository.GetAlternatives(reserved, tour);
         }
         
-        public List<Tour> GetFinishedTours(User loggedInGuide)
+        public List<Tour> GetFinished(User loggedInGuide)
         {
             return _tourReadFromCSVRepository.GetFinished(loggedInGuide);
         }
@@ -108,6 +108,16 @@ namespace Sims2023.Application.Services
         public List<Tour> GetFiltered(string citySearchTerm, string countrySearchTerm, string lengthSearchTerm, string guideLanguageSearchTerm, int maxGuestNumberSearchTerm)
         {
             return _tourReadFromCSVRepository.GetFiltered(citySearchTerm, countrySearchTerm, lengthSearchTerm, guideLanguageSearchTerm, maxGuestNumberSearchTerm);
+        }
+
+        public void Save()
+        {
+            _tour.Save();
+        }
+
+        public int GetTodaysNumber(User loggedInGuide)
+        {
+            return _tourReadFromCSVRepository.GetTodaysNumber(loggedInGuide);
         }
     }
 }

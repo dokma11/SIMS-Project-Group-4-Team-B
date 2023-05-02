@@ -3,20 +3,30 @@ using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.GuideViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace Sims2023.WPF.Views.GuideViews
 {
-    public partial class LiveTourTrackingView
+    public partial class LiveTourTrackingView : Page
     {
         public Tour Tour { get; set; }
         private KeyPointService _keyPointService;
         private UserService _userService;
         private TourReservationService _tourReservationService;
         private TourService _tourService;
+        private TourReviewService _tourReviewService;
+        private RequestService _requestService;
+        private LocationService _locationService;
+        private VoucherService _voucherService;
+        private CountriesAndCitiesService _countriesAndCitiesService;
+
         public List<User> MarkedGuests { get; set; }
         public LiveTourTrackingViewModel LiveTourTrackingViewModel;
-        public LiveTourTrackingView(Tour selectedTour, KeyPointService keyPointService, TourReservationService tourReservationController, UserService userService, TourService tourService)
+        public User LoggedInGuide { get; set; }
+        public LiveTourTrackingView(Tour selectedTour, KeyPointService keyPointService, TourReservationService tourReservationController, UserService userService, TourService tourService, TourReviewService tourReviewService, RequestService requestService, User loggedInGuide, LocationService locationService, VoucherService voucherService, CountriesAndCitiesService countriesAndCitiesService)
         {
             InitializeComponent();
 
@@ -24,11 +34,17 @@ namespace Sims2023.WPF.Views.GuideViews
             _tourReservationService = tourReservationController;
             _userService = userService;
             _tourService = tourService;
+            _tourReviewService = tourReviewService;
+            _requestService = requestService;
+            _locationService = locationService;
+            _voucherService = voucherService;
+            _countriesAndCitiesService = countriesAndCitiesService;
 
             Tour = selectedTour;
             MarkedGuests = new List<User>();
+            LoggedInGuide = loggedInGuide;
 
-            LiveTourTrackingViewModel = new(Tour, _keyPointService, _tourService, _tourReservationService, MarkedGuests);
+            LiveTourTrackingViewModel = new(Tour, _keyPointService, _tourService, _tourReservationService, MarkedGuests, _userService);
             DataContext = LiveTourTrackingViewModel;
         }
 
@@ -39,82 +55,111 @@ namespace Sims2023.WPF.Views.GuideViews
             {
                 LiveTourTrackingViewModel.MarkKeyPoint();
             }
-            else if (LiveTourTrackingViewModel.IsKeyPointSelected() && LiveTourTrackingViewModel.IsKeyPointBeingVisited())
-            {
-                MessageBox.Show("Ne mozete oznaciti tacku na kojoj se trenutno nalazite");
-            }
-            else if (LiveTourTrackingViewModel.IsKeyPointSelected() && LiveTourTrackingViewModel.IsKeyPointVisited())
-            {
-                MessageBox.Show("Ne mozete oznaciti tacku koju ste prosli");
-            }
-            else
-            {
-                MessageBox.Show("Izaberite kljucnu tacku koju zelite da oznacite");
-            }
+
+            SuccessfulKeyPointMarkingLabelEvent();
+
+            //Moram dodati one gluposti kao ne mozes ovo ne mozes ono itd
 
             if (LiveTourTrackingViewModel.LastKeyPointVisited)
             {
-                ConfirmEnd();
-                Close();
+                //Close();
             }
+        }
+
+        private void SuccessfulKeyPointMarkingLabelEvent()
+        {
+            eventLabel.Content = "Uspešno ste označili trenutnu ključnu tačku!";
+            eventLabel.Visibility = Visibility.Visible;
+            DispatcherTimer timer = new()
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
         }
 
         private void MarkGuestsPresentButton_Click(object sender, RoutedEventArgs e)
         {
-            if (LiveTourTrackingViewModel.IsKeyPointSelected() && LiveTourTrackingViewModel.IsKeyPointBeingVisited())
+            if (guestDataGrid.SelectedItems.Count > 0)
             {
-                MarkGuestsPresentView markGuestsPresentView = new(LiveTourTrackingViewModel.SelectedKeyPoint, _tourReservationService, _userService, _keyPointService, MarkedGuests);
-                markGuestsPresentView.Closed += MarkGuestsPresentView_Closed;
-                markGuestsPresentView.Show();
+                List<User> users = guestDataGrid.SelectedItems.Cast<User>().ToList();
+                LiveTourTrackingViewModel.AddMarkedGuests(users);
             }
-            else
-            {
-                MessageBox.Show("Molimo odaberite kljucnu tacku za koju zelite da obelezite goste koji su se prikljucili");
-            }
-            LiveTourTrackingViewModel.MarkGuestsPresent();
-        }
 
-        private void MarkGuestsPresentView_Closed(object sender, EventArgs e)
-        {
             LiveTourTrackingViewModel.UpdateKeyPointList();
+
             if (LiveTourTrackingViewModel.AreAllGuestsAreMarked())
             {
                 markGuestsPresentButton.IsEnabled = false;
             }
+
+            SuccessfulGuestMarkingLabelEvent();
+        }
+
+        private void SuccessfulGuestMarkingLabelEvent()
+        {
+            eventLabel.Content = "Uspešno ste dodali sve izabrane goste na turu!";
+            eventLabel.Visibility = Visibility.Visible;
+            DispatcherTimer timer = new()
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
         }
 
         private void CancelTourButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = ConfirmExit();
-            if (result == MessageBoxResult.Yes)
+            LiveTourTrackingViewModel.CancelTour();
+            SuccessfulCancellationLabelEvent();
+        }
+
+        private void SuccessfulCancellationLabelEvent()
+        {
+            eventLabel.Content = "Uspešno ste otkazali turu!";
+            eventLabel.Visibility = Visibility.Visible;
+            DispatcherTimer timer = new()
             {
-                LiveTourTrackingViewModel.CancelTour();
-                Close();
-            }
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
         }
 
-        private static MessageBoxResult ConfirmExit()
+        private void GoBackButton_Click(object sender, RoutedEventArgs e)
         {
-            string sMessageBoxText = $"Izlaskom cete prekinuti trenutnu turu\n";
-            string sCaption = "Da li ste sigurni da zelite da izadjete?";
-
-            MessageBoxButton messageBoxButton = MessageBoxButton.YesNo;
-            MessageBoxImage messageBoxImage = MessageBoxImage.Warning;
-
-            MessageBoxResult result = MessageBox.Show(sMessageBoxText, sCaption, messageBoxButton, messageBoxImage);
-            return result;
+            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
         }
 
-        private static MessageBoxResult ConfirmEnd()
+        private void HomePageButton_Click(object sender, RoutedEventArgs e)
         {
-            string sMessageBoxText = $"Vasa tura se uspesno zavrsila. Potvrdite zavrsetak pritiskom na OK\n";
-            string sCaption = "Potvrda zavrsetka";
 
-            MessageBoxButton messageBoxButton = MessageBoxButton.OK;
-            MessageBoxImage messageBoxImage = MessageBoxImage.Asterisk;
+        }
 
-            MessageBoxResult result = MessageBox.Show(sMessageBoxText, sCaption, messageBoxButton, messageBoxImage);
-            return result;
+        private void RequestsButton_Click(object sender, RoutedEventArgs e)
+        {
+            RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
+        }
+
+        private void ReviewsButton_Click(object sender, RoutedEventArgs e)
+        {
+            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(guestReviewsView);
+        }
+
+        private void AccountButton_Click(object sender, RoutedEventArgs e)
+        {
+            GuideAccountView guideAccountView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(guideAccountView);
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            eventLabel.Visibility = Visibility.Hidden;
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
         }
     }
 }

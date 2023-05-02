@@ -13,24 +13,28 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         private KeyPointService _keyPointService;
         private TourService _tourService;
         private TourReservationService _tourReservationService;
+        private UserService _userService;
         public ObservableCollection<KeyPoint> KeyPointsToDisplay { get; set; }
         public int firstKeyPointId = -1;
         public int lastKeyPointId = -1;
         public int lastVisitedKeyPointId = -1;
         public bool LastKeyPointVisited;
-        List<User> MarkedGuests;
+        public List<User> MarkedGuests;
+        public ObservableCollection<User> GuestsToDisplay { get; set; }
 
-        public LiveTourTrackingViewModel(Tour tour, KeyPointService keyPointService, TourService tourService, TourReservationService tourReservationService, List<User> markedGuests)
+        public LiveTourTrackingViewModel(Tour tour, KeyPointService keyPointService, TourService tourService, TourReservationService tourReservationService, List<User> markedGuests, UserService userService)
         {
             _keyPointService = keyPointService;
             _tourService = tourService;
             _tourReservationService = tourReservationService;
+            _userService = userService;
 
             Tour = tour;
             _tourService.UpdateState(Tour, ToursState.Started);
 
             MarkedGuests = markedGuests;
             KeyPointsToDisplay = new ObservableCollection<KeyPoint>(_keyPointService.GetByToursId(Tour.Id));
+            GuestsToDisplay = new ObservableCollection<User>(_userService.GetGuestsWithReservations(SelectedKeyPoint, MarkedGuests));
 
             firstKeyPointId = FindAndMarkFirstKeyPoint();
             lastVisitedKeyPointId = firstKeyPointId;
@@ -91,9 +95,27 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             UpdateKeyPointList();
         }
 
-        public void MarkGuestsPresent()
+        public void AddMarkedGuests(List<User> items)
         {
+            foreach (User guest in items)
+            {
+                _keyPointService.AddGuestsId(SelectedKeyPoint, guest.Id);
+                MarkedGuests.Add(guest);
+                ShouldConfirmParticipation(guest);
+            }
             _keyPointService.Save();
+        }
+
+        private void ShouldConfirmParticipation(User user)
+        {
+            foreach (var tourReservation in _tourReservationService.GetAll())
+            {
+                if (tourReservation.User.Id == user.Id && tourReservation.Tour.Id == SelectedKeyPoint.Tour.Id)
+                {
+                    tourReservation.ShouldConfirmParticipation = true;
+                    _tourReservationService.Save();
+                }
+            }
         }
 
         public void CancelTour()
