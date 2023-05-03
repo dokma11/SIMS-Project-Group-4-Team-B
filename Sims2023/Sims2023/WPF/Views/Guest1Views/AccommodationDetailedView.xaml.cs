@@ -4,6 +4,7 @@ using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Navigation;
 
 namespace Sims2023.WPF.Views.Guest1Views
@@ -35,12 +36,17 @@ namespace Sims2023.WPF.Views.Guest1Views
             User = guest1;
         }
 
-        private void ReservationButton_Click(object sender, RoutedEventArgs e)
+        public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        public void MakeReservation(object sender, ExecutedRoutedEventArgs e)
         {
             MainFrame.Navigate(new AccommodationReservationDateView(-1, SelectedAccommodation, User, AccommodationReservationReschedulings, _accommodationReservationReschedulingService, MainFrame));
         }
 
-        private void ButtonDateCancelation_Click(object sender, RoutedEventArgs e)
+        public void GoBack(object sender, ExecutedRoutedEventArgs e)
         {
             NavigationService navigationService = NavigationService.GetNavigationService(this);
 

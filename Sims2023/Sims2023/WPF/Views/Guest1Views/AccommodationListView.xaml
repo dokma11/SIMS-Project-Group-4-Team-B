@@ -7,13 +7,12 @@
         xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views" xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
-        Title="AccommodationListView" Height="515" Width="1000"
-        Loaded="Page_Loaded">
+        Title="AccommodationListView" Height="515" Width="1000">
     <Page.CommandBindings>
-        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="Command1View_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="Command2View_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommands.Command3View" CanExecute="CanExecute" Executed="Command3View_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommands.Command4View" CanExecute="CanExecute" Executed="Command4View_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="MakeReservation"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="ShowDetailedView"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command3View" CanExecute="CanExecute" Executed="Search"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command4View" CanExecute="CanExecute" Executed="ClearSearch"></CommandBinding>
     </Page.CommandBindings>
     <Page.Resources>
         <CollectionViewSource x:Key="AccommodationsList" Source="{Binding Accommodations}">

@@ -72,7 +72,7 @@ namespace Sims2023.WPF.Views.Guest1Views
         public void AccommodationReservationReschedulingView_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Guest1MainViewModel.HideMainMenu();
-            MainFrame.Navigate(new AccommodationReservationReschedulingView(User));
+            MainFrame.Navigate(new AccommodationReservationReschedulingView(User,MainFrame));
         }
 
         public void AccommodationReservationCancellation_Executed(object sender, ExecutedRoutedEventArgs e)

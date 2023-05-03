@@ -4,62 +4,55 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views"
+        xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         mc:Ignorable="d"
-        Title="AccommodationDetailedView"  Height="600" Width="1000">
+        Title="AccommodationDetailedView" Height="515" Width="1000">
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="MakeReservation"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="GoBack"></CommandBinding>
+    </Page.CommandBindings>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="550"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
             <RowDefinition/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" Margin="0,0,0,0">
+        <Grid Grid.Row="1" Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Label x:Name="accommodatioNameLabel" Content="Naziv smestaja:" FontSize="25" Margin="40,0,0,10" Grid.Row="2" Grid.Column="0"/>
-            <Label x:Name="accommodatioCityLabel" Content="Grad:" FontSize="25" Margin="40,0,0,10" Grid.Row="3" Grid.Column="0"/>
-            <Label x:Name="accommodatioCountryLabel" Content="Drzava:" FontSize="25" Margin="40,0,0,10" Grid.Row="4" Grid.Column="0"/>
-            <Label x:Name="accommodatioTypeLabel" Content="Tip smestaja:" FontSize="25" Margin="40,0,0,10" Grid.Row="5" Grid.Column="0"/>
-
-            <TextBox x:Name="accommodatioNameTextBox" IsReadOnly="True"  FontSize="25" Margin="0,0,0,10" Grid.Row="2" Grid.Column="1"/>
-            <TextBox x:Name="accommodatioCityTextBox" IsReadOnly="True" FontSize="25" Margin="0,0,0,10" Grid.Row="3" Grid.Column="1"/>
-            <TextBox x:Name="accommodatioCountryTextBox" IsReadOnly="True" FontSize="25" Margin="0,0,0,10" Grid.Row="4" Grid.Column="1"/>
-            <TextBox x:Name="accommodatioTypeTextBox" IsReadOnly="True" FontSize="25" Margin="0,0,0,10" Grid.Row="5" Grid.Column="1"/>
-        </Grid>
-        <Grid Grid.Row="0" Grid.Column="1" Margin="0,0,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="297*"/>
-                <RowDefinition Height="46*"/>
-                <RowDefinition Height="241*"/>
-            </Grid.RowDefinitions>
-            <ListView x:Name="PicturesListView"  Margin="50,50,50,50" ScrollViewer.VerticalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Label x:Name="accommodatioNameLabel" Content="Naziv smestaja:" FontSize="20" Margin="40,0,0,0" Grid.Row="1" />
+                <Label x:Name="accommodatioCityLabel" Content="Grad:" FontSize="20" Margin="40,0,0,0" Grid.Row="2" />
+                <Label x:Name="accommodatioCountryLabel" Content="Drzava:" FontSize="20" Margin="40,0,0,0" Grid.Row="3"/>
+                <Label x:Name="accommodatioTypeLabel" Content="Tip smestaja:" FontSize="20" Margin="40,0,0,0" Grid.Row="4"/>
+            </Grid>
+            <ListView x:Name="PicturesListView" Grid.Column="0" Margin="50,50,50,50" ScrollViewer.HorizontalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"/>
+                        <WrapPanel Orientation="Vertical"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Image Source="{Binding}" Width="341" Height="190"/>
+                        <Image  Source="{Binding}" Width="386" Height="190"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button x:Name="reservationButton" Content="Rezervisi" FontSize="25" Margin="90,14,90,153" Grid.Row="2" Click="ReservationButton_Click"/>
-            <Button x:Name="buttonDateCancelation" Content="Odustani" HorizontalAlignment="Left" Height="40" Margin="258,121,0,0" FontSize="15" Grid.Row="2" VerticalAlignment="Top" Width="162" Click="ButtonDateCancelation_Click"/>
         </Grid>
+        <Label x:Name="reservationConfirmation" Content="Potvrda rezervacije:" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Grid.Row="0"/>
+        <Button x:Name="reservationButton" Content="Rezervisi" FontSize="25" Margin="415,0,415,0" Grid.Row="2" Command="cmd:RoutedCommands.Command1View"/>
+        <Button x:Name="buttonDateCancelation" Content="Odustani" Height="30" Margin="800,0,0,0" FontSize="15" Grid.Row="3" Width="150" Command="cmd:RoutedCommands.Command2View"/>
     </Grid>
 </Page>

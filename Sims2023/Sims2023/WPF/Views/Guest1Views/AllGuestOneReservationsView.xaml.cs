@@ -3,6 +3,7 @@ using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Sims2023.WPF.Views.Guest1Views
 {
@@ -26,18 +27,25 @@ namespace Sims2023.WPF.Views.Guest1Views
             _accommodationReservationService = new AccommodationReservationService();
         }
 
-        private void grading_Click(object sender, RoutedEventArgs e)
+        public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        public void GradeAccommodation(object sender, ExecutedRoutedEventArgs e)
         {
             SelectedAccommodationReservation = (AccommodationReservation)myDataGrid.SelectedItem;
             if (AllGuestOneReservationsViewModel.GradingIsPossible(SelectedAccommodationReservation))
             {
+                AllGuestOneReservationsViewModel.BackgroundShading();
                 var AccommodationAndOwnerGradingView = new AccommodationAndOwnerGradingView(SelectedAccommodationReservation, User, _accommodationReservationService);
                 AccommodationAndOwnerGradingView.ShowDialog();
+                AllGuestOneReservationsViewModel.BackgroundUnshading();
                 AllGuestOneReservationsViewModel.Update();
             }
         }
 
-        private void renovation_Click(object sender, RoutedEventArgs e)
+        public void NotImplemented(object sender, ExecutedRoutedEventArgs e)
         {
             MessageBox.Show("Ova opcija jos uvek nije dostupna.");
             return;

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views"
+        xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         mc:Ignorable="d"
         Title="GuestOneHelpView" Height="400" Width="700" WindowStartupLocation="CenterScreen">
     <Grid>

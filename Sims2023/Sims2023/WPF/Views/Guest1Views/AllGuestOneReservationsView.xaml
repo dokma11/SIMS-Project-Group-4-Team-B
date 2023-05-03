@@ -4,8 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views"
+      xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         mc:Ignorable="d"
         Title="AllGuestOneReservationsView" Height="515" Width="1000">
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="GradeAccommodation"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="NotImplemented"></CommandBinding>
+    </Page.CommandBindings>
     <Grid Margin="0,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
@@ -13,6 +18,11 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
+        <Rectangle x:Name="Overlay1" Panel.ZIndex="1" Visibility="Collapsed" Grid.RowSpan="4">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#E0942C" Opacity="0.65" />
+            </Rectangle.Fill>
+        </Rectangle>
         <Label x:Name="label" Content="Moje rezervacije" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="0"/>
         <DataGrid x:Name="myDataGrid"
                   ItemsSource="{Binding Path=AccommodationReservations, UpdateSourceTrigger=PropertyChanged}"
@@ -39,8 +49,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="grading" Content="Ocenite smestaj i vlasnika" Grid.Column="0" Margin="110,15,60,20" FontSize="20" Click="grading_Click"/>
-            <Button x:Name="renovation" Content="Preporuka za renoviranje" Grid.Column="1" Margin="60,15,110,20" FontSize="20" Click="renovation_Click"/>
+            <Button x:Name="grading" Content="Ocenite smeštaj i vlasnika" Grid.Column="0" Margin="110,15,60,20" FontSize="20" Command="cmd:RoutedCommands.Command1View"/>
+            <Button x:Name="renovation" Content="Preporuka za renoviranje" Grid.Column="1" Margin="60,15,110,20" FontSize="20" Command="cmd:RoutedCommands.Command2View"/>
         </Grid>
     </Grid>
 </Page>

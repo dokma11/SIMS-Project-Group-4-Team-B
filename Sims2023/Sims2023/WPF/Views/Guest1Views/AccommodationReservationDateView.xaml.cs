@@ -44,25 +44,24 @@ namespace Sims2023.WPF.Views.Guest1Views
             e.CanExecute = true;
         }
 
-        public void Command1View_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void MakeReservation(object sender, ExecutedRoutedEventArgs e)
         {
             int daysNumber = (int)numberOfDays.Value;
             int guestsNumber = (int)numberOfGuests.Value;
             SelectedAccommodationStay = (AccommodationStay)availableDatesGrid.SelectedItem;
             if (AccommodationReservationDateViewModel.ButtonDateConfirmation_Check(SelectedAccommodationStay))
             {
-                AccommodationReservationConfirmationView accommodationReservationConfirmationView = new AccommodationReservationConfirmationView(ReservationId, SelectedAccommodation, SelectedAccommodationStay, daysNumber, guestsNumber, User, AccommodationReservationReschedulings, _accommodationReservationReschedulingService);
-                accommodationReservationConfirmationView.Show();
+                MainFrame.Navigate(new AccommodationReservationConfirmationView(ReservationId, SelectedAccommodation, SelectedAccommodationStay, daysNumber, guestsNumber, User, AccommodationReservationReschedulings, _accommodationReservationReschedulingService, MainFrame));
             }
-            MainFrame.Navigate(new AccommodationReservationDateView(-1, SelectedAccommodation, User, AccommodationReservationReschedulings, _accommodationReservationReschedulingService, MainFrame));
+            
         }
 
-        public void Command2View_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void ConfirmReservation(object sender, ExecutedRoutedEventArgs e)
         {
             AccommodationReservationDateViewModel.MakeReservation_Click();
         }
 
-        public void Command3View_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void GoBack(object sender, ExecutedRoutedEventArgs e)
         {
             NavigationService navigationService = NavigationService.GetNavigationService(this);
 

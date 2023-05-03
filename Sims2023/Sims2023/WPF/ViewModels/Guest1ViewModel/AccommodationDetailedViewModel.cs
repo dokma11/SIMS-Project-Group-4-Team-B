@@ -20,10 +20,10 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         public void FillTextBoxes(Accommodation selectedAccommodation)
         {
-            AccommodationDetailedView.accommodatioNameTextBox.Text = selectedAccommodation.Name;
-            AccommodationDetailedView.accommodatioCityTextBox.Text = selectedAccommodation.Location.City;
-            AccommodationDetailedView.accommodatioCountryTextBox.Text = selectedAccommodation.Location.Country;
-            AccommodationDetailedView.accommodatioTypeTextBox.Text = selectedAccommodation.Type.ToString();
+            AccommodationDetailedView.accommodatioNameLabel.Content = "Naziv smeštaja: " + selectedAccommodation.Name;
+            AccommodationDetailedView.accommodatioCityLabel.Content = "Grad: " + selectedAccommodation.Location.City;
+            AccommodationDetailedView.accommodatioCountryLabel.Content = "Država: " + selectedAccommodation.Location.Country;
+            AccommodationDetailedView.accommodatioTypeLabel.Content = "Tip smeštaja: " + selectedAccommodation.Type.ToString();
             AccommodationDetailedView.PicturesListView.ItemsSource = selectedAccommodation.Imageurls;
         }
     }

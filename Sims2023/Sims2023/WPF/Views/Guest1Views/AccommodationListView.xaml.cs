@@ -33,17 +33,12 @@ namespace Sims2023.WPF.Views.Guest1Views
             MainFrame = mainFrame;
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            FocusManager.SetFocusedElement(this, this);
-        }
-
         public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }
 
-        public void Command1View_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void MakeReservation(object sender, ExecutedRoutedEventArgs e)
         {
             SelectedAccommodation = (Accommodation)myDataGrid.SelectedItem;
 
@@ -55,7 +50,7 @@ namespace Sims2023.WPF.Views.Guest1Views
             MainFrame.Navigate(new AccommodationReservationDateView(-1, SelectedAccommodation, User, AccommodationReservationReschedulings, _accommodationReservationReschedulingService,MainFrame));
         }
 
-        public void Command2View_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void ShowDetailedView(object sender, ExecutedRoutedEventArgs e)
         {
             SelectedAccommodation = (Accommodation)myDataGrid.SelectedItem;
 
@@ -67,12 +62,12 @@ namespace Sims2023.WPF.Views.Guest1Views
             MainFrame.Navigate(new AccommodationDetailedView(User, SelectedAccommodation,MainFrame));
         }
 
-        public void Command3View_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void Search(object sender, ExecutedRoutedEventArgs e)
         {
             AccommodationListViewModel.SearchAccommodation_Click(sender, e);
         }
 
-        public void Command4View_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void ClearSearch(object sender, ExecutedRoutedEventArgs e)
         {
             AccommodationListViewModel.GiveUpSearch_Click(sender, e);
         }

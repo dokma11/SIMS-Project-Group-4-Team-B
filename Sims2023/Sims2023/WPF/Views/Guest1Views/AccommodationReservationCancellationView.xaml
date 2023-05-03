@@ -4,17 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views"
+        xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         mc:Ignorable="d"
         Title="AccommodationReservationCancellationView" Height="515" Width="1000">
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="CancelReservation"></CommandBinding>
+    </Page.CommandBindings>
     <Grid Margin="0,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Label x:Name="label" Content="Otkazivanje rezervacija" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="0"/>
-        <DataGrid x:Name="myDataGrid"
+        <DataGrid x:Name="myDataGrid" Background="#DDF2FF"
                   ItemsSource="{Binding Path=AccommodationReservations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedAccommodationReservation, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="50,10,50,30"
@@ -34,6 +38,6 @@
                 <DataGridTextColumn Header="Datum kraja" Binding="{Binding EndDate, StringFormat={}{0:d}}" Width="190"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="cancellation" Content="Otkazite rezervaciju" Margin="350,10,350,20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2" FontSize="20" Click="cancellation_Click"/>
+        <Button x:Name="cancellation" Content="Otkaži" Margin="400,0,400,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2" FontSize="20" Command="cmd:RoutedCommands.Command1View"/>
     </Grid>
 </Page>
