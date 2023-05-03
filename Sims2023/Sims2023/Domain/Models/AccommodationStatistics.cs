@@ -25,7 +25,7 @@ namespace Sims2023.Domain.Models
         }
         public AccommodationStatistics() { }
 
-        public AccommodationStatistics(Accommodation accommodation, DateTime date, bool cancel, bool reschedule, bool recommended ) 
+        public AccommodationStatistics(Accommodation accommodation, DateTime date, bool cancel, bool reschedule, bool recommended) 
         {
             Accommodation = accommodation;
             DateOfEntry = date;

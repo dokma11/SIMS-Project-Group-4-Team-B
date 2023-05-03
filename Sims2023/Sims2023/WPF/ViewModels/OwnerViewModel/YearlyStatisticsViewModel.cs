@@ -1,6 +1,7 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.FileHandler;
+using Sims2023.WPF.Views.OwnerViews;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -68,6 +69,16 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                 }
             }
             return counter;
+        }
+
+        public void Details_Click()
+        {
+            if (SelectedYear!=null)
+            {
+                MonthlyStatiticsView monthly = new MonthlyStatiticsView(Accommodation, SelectedYear.Year);
+                FrameManager.Instance.MainFrame.Navigate(monthly);
+            }
+            
         }
     }
 }

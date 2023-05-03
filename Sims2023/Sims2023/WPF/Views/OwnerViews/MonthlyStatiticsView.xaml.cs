@@ -18,19 +18,19 @@ using System.Windows.Shapes;
 namespace Sims2023.WPF.Views.OwnerViews
 {
     /// <summary>
-    /// Interaction logic for YearlyStatisticsView.xaml
+    /// Interaction logic for MonthlyStatitics.xaml
     /// </summary>
-    public partial class YearlyStatisticsView : Page
+    public partial class MonthlyStatiticsView : Page
     {
-        public YearlyStatisticsViewModel yearlyStatisticsViewModel;
-
         public string welcomeString { get; set; }
-        public YearlyStatisticsView(Accommodation Selected)
+
+        public MonthlyStatiticsViewModel MonthlyStatiticsViewModel;
+        public MonthlyStatiticsView(Accommodation accommodation, int year)
         {
-            yearlyStatisticsViewModel = new YearlyStatisticsViewModel(Selected);
+            MonthlyStatiticsViewModel = new MonthlyStatiticsViewModel(accommodation, year);
             InitializeComponent();
-            DataContext = yearlyStatisticsViewModel;
-            welcomeString = "Statistika smještaja " + Selected.Name;
+            DataContext = MonthlyStatiticsViewModel;
+            welcomeString = "          Statistika\n smještaja " + accommodation.Name + "\n    za godinu " + year;
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -39,9 +39,6 @@ namespace Sims2023.WPF.Views.OwnerViews
             navigationService?.GoBack();
         }
 
-        private void Details_Click(object sender, RoutedEventArgs e)
-        {
-            yearlyStatisticsViewModel.Details_Click();
-        }
+
     }
 }

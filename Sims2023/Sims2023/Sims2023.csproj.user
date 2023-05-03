@@ -58,6 +58,9 @@
     <Compile Update="WPF\Views\OwnerViews\AccommodationRegistrationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\OwnerViews\MonthlyStatiticsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\OwnerViews\OwnerView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -141,6 +144,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\AccommodationRegistrationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\MonthlyStatiticsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\OwnerView.xaml">
