@@ -44,5 +44,13 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             FrameManager.Instance.MainFrame.Navigate(allRenovations);
         }
 
+        public void Statistics_Click()
+        {
+            if (SelectedAccommodation != null)
+            {
+                YearlyStatisticsView statistics = new YearlyStatisticsView(SelectedAccommodation);
+                FrameManager.Instance.MainFrame.Navigate(statistics);
+            }
+        }
     }
 }
