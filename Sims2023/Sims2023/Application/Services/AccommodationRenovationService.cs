@@ -18,7 +18,7 @@ namespace Sims2023.Application.Services
         public AccommodationRenovationService()
         {
             _accommodationRenovation = new AccommodationRenovationCSVRepository();
-            //_accommodationGrade = Injection.Injector.CreateInstance<IAccommodationGradeRepository>();
+            //_accommodationGrade = Injection.Injector.CreateInstance<IAccommodationRenovationCSVRepository>();
         }
 
         public List<AccommodationRenovation> GetAll()
