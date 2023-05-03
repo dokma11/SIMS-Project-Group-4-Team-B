@@ -5,13 +5,14 @@ using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Sims2023.WPF.Views.Guest1Views
 {
     /// <summary>
     /// Interaction logic for AccommodationReservationReschedulingView.xaml
     /// </summary>
-    public partial class AccommodationReservationReschedulingView : Window
+    public partial class AccommodationReservationReschedulingView : Page
     {
         private AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
 

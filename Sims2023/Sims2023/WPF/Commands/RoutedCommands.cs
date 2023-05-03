@@ -23,7 +23,7 @@ namespace Sims2023.WPF.Commands
             typeof(RoutedCommands),
             new InputGestureCollection()
             {
-                new KeyGesture(Key.H, ModifierKeys.Alt)
+                new KeyGesture(Key.H, ModifierKeys.Control)
             }
             );
         public static readonly RoutedUICommand LogOut = new RoutedUICommand(
@@ -104,7 +104,52 @@ namespace Sims2023.WPF.Commands
             typeof(RoutedCommands),
             new InputGestureCollection()
             {
-                new KeyGesture(Key.H, ModifierKeys.Control)
+                new KeyGesture(Key.F, ModifierKeys.Control)
+            }
+            );
+        public static readonly RoutedUICommand Command1View = new RoutedUICommand(
+            "Forum View",
+            "Forum View",
+            typeof(RoutedCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.Enter, ModifierKeys.Alt)
+            }
+            );
+        public static readonly RoutedUICommand Command2View = new RoutedUICommand(
+            "Forum View",
+            "Forum View",
+            typeof(RoutedCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.A, ModifierKeys.Alt)
+            }
+            );
+        public static readonly RoutedUICommand Command3View = new RoutedUICommand(
+            "Forum View",
+            "Forum View",
+            typeof(RoutedCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.B, ModifierKeys.Alt)
+            }
+            );
+        public static readonly RoutedUICommand Command4View = new RoutedUICommand(
+            "Forum View",
+            "Forum View",
+            typeof(RoutedCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.C, ModifierKeys.Alt)
+            }
+            );
+        public static readonly RoutedUICommand Command5View = new RoutedUICommand(
+            "Forum View",
+            "Forum View",
+            typeof(RoutedCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.D, ModifierKeys.Alt)
             }
             );
     }

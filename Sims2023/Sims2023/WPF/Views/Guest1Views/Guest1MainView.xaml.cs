@@ -29,53 +29,12 @@ namespace Sims2023.WPF.Views.Guest1Views
             Guest1MainViewModel.Window_Loaded(sender, e);
         }
 
-
-
-        private void buttonGrading_Click(object sender, RoutedEventArgs e)
-        {
-            var AllGuestOneReservationsView = new AllGuestOneReservationsView(User);
-            AllGuestOneReservationsView.Show();
-        }
-
-        private void AccommodationCancellation_Click(object sender, RoutedEventArgs e)
-        {
-            var AccommodationReservationCancellationView = new AccommodationReservationCancellationView(User);
-            AccommodationReservationCancellationView.Show();
-        }
-
-        private void buttonReservationMove_Click(object sender, RoutedEventArgs e)
-        {
-            var AccommodationReservationReschedulingView = new AccommodationReservationReschedulingView(User);
-            AccommodationReservationReschedulingView.Show();
-        }
-        private void buttonForum_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-        private void buttonWheneverWherever_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-        private void buttonMyGrades_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-        private void Gust1MainWindow_Click(object sender, RoutedEventArgs e)
-        {
-            Guest1MainViewModel.ToggleMainMenu();
-        }
-
-
-
-
-
-
         private void Overlay_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Guest1MainViewModel.HideMainMenu();
         }
 
-        public void OpenMenu_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }
@@ -84,19 +43,11 @@ namespace Sims2023.WPF.Views.Guest1Views
         {
             Guest1MainViewModel.ToggleMainMenu();
         }
-        public void OpenHelp_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
 
         public void OpenHelp_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var AllGuestOneReservationsView = new GuestOneHelpView(User);
             AllGuestOneReservationsView.Show();
-        }
-        public void LogOut_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
         }
 
         public void LogOut_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -106,26 +57,39 @@ namespace Sims2023.WPF.Views.Guest1Views
             Close();
         }
 
-        public void GuestOneMainView_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
         public void GuestOneMainView_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            Guest1MainViewModel.HideMainMenu();
             MainFrame.Navigate(new GuestOneStartView());
-        }
-
-        public void AccommodationListView_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
         }
 
         public void AccommodationListView_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Guest1MainViewModel.HideMainMenu();
-             MainFrame.Navigate(new AccommodationListView(User));
+            MainFrame.Navigate(new AccommodationListView(User,MainFrame));
         }
 
+        public void AccommodationReservationReschedulingView_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Guest1MainViewModel.HideMainMenu();
+            MainFrame.Navigate(new AccommodationReservationReschedulingView(User));
+        }
+
+        public void AccommodationReservationCancellation_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Guest1MainViewModel.HideMainMenu();
+            MainFrame.Navigate(new AccommodationReservationCancellationView(User));
+        }
+
+        public void AllGuestOneReservationsView_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Guest1MainViewModel.HideMainMenu();
+            MainFrame.Navigate(new AllGuestOneReservationsView(User));
+        }
+
+        public void NotImplemented_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("Ova funkcionalnost jos uvek nije implementirana");
+        }
     }
 }

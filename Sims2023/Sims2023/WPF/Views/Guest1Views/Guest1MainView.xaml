@@ -9,11 +9,17 @@
         Loaded="Window_Loaded"
         Title="Guest1MainView" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
     <Window.CommandBindings>
-        <CommandBinding Command="cmd:RoutedCommands.OpenMenu" CanExecute="OpenMenu_CanExecute" Executed="OpenMenu_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommands.OpenHelp" CanExecute="OpenHelp_CanExecute" Executed="OpenHelp_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommands.LogOut" CanExecute="LogOut_CanExecute" Executed="LogOut_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommands.GuestOneMainView" CanExecute="GuestOneMainView_CanExecute" Executed="GuestOneMainView_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommands.AccommodationListView" CanExecute="AccommodationListView_CanExecute" Executed="AccommodationListView_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.OpenMenu" CanExecute="CanExecute" Executed="OpenMenu_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.OpenHelp" CanExecute="CanExecute" Executed="OpenHelp_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.LogOut" CanExecute="CanExecute" Executed="LogOut_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.GuestOneMainView" CanExecute="CanExecute" Executed="GuestOneMainView_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.AccommodationListView" CanExecute="CanExecute" Executed="AccommodationListView_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.AccommodationReservationReschedulingView" CanExecute="CanExecute" Executed="AccommodationReservationReschedulingView_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.AccommodationReservationCancellation" CanExecute="CanExecute" Executed="AccommodationReservationCancellation_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.AllGuestOneReservationsView" CanExecute="CanExecute" Executed="AllGuestOneReservationsView_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.GuestOneAllGradesView" CanExecute="CanExecute" Executed="NotImplemented_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.WheneverWhereverView" CanExecute="CanExecute" Executed="NotImplemented_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.ForumView" CanExecute="CanExecute" Executed="NotImplemented_Executed"></CommandBinding>
     </Window.CommandBindings>
     <Grid>
         <Grid>
@@ -35,15 +41,15 @@
                 <Separator Foreground="#E0942C"/>
                 <Button Command="cmd:RoutedCommands.LogOut" Content="Odjavi se" Foreground="#E0942C" Background="#4CE0942C" Width="90" Height="30"/>
             </ToolBar>
-            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" UseLayoutRounding="True" Grid.Row="2"/>
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" IsTabStop="False" UseLayoutRounding="True" Grid.Row="2"/>
             <StatusBar Background="#DDF2FF" Grid.Row="3" Margin="0,0,0,0"/>
             <Button  Grid.Row="1" Width="16" HorizontalAlignment="Right" Margin="0,4,30,0" Background="#4CE0942C" Command="cmd:RoutedCommands.OpenHelp">
                 <Image Source="pack://application:,,,/Sims2023;component/Images/Guest1Images/help.png"/>
             </Button>
-            <Grid Grid.Row="1" Grid.RowSpan="3">
+            <Grid Grid.Row="1" Grid.RowSpan="2">
                 <Rectangle x:Name="Overlay" Panel.ZIndex="1" MouseLeftButtonDown="Overlay_MouseLeftButtonDown" Visibility="Collapsed" Grid.ColumnSpan="2">
                     <Rectangle.Fill>
-                        <SolidColorBrush Color="#E0942C" Opacity="0.5" />
+                        <SolidColorBrush Color="#E0942C" Opacity="0.65" />
                     </Rectangle.Fill>
                 </Rectangle>
                 <Grid x:Name="MainMenu" Panel.ZIndex="2" Visibility="Collapsed">
@@ -63,12 +69,12 @@
                     </Grid.ColumnDefinitions>
                     <Button Content="Početna stranica" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="0" Grid.Column="0" Command="cmd:RoutedCommands.GuestOneMainView" />
                     <Button Content="Rezervacija smestaja" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="1" Grid.Column="0" Command="cmd:RoutedCommands.AccommodationListView"/>
-                    <Button Content="Ocenjivanje smestaja" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="4" Grid.Column="0" Click="buttonGrading_Click"/>
-                    <Button Content="Otkazivanje rezervacija" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="3" Grid.Column="0" Click="AccommodationCancellation_Click"/>
-                    <Button Content="Pomeranje rezervacije" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="2" Grid.Column="0" Click="buttonReservationMove_Click"/>
-                    <Button Content="Moje ocene" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="5" Grid.Column="0" Click="buttonMyGrades_Click"/>
-                    <Button Content=" &quot;Bilo kuda bilo gde&quot;" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="6" Grid.Column="0" Click="buttonWheneverWherever_Click"/>
-                    <Button Content="Forum" Grid.Row="7" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Column="0" Click="buttonForum_Click"/>
+                    <Button Content="Pomeranje rezervacije" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="2" Grid.Column="0" Command="cmd:RoutedCommands.AccommodationReservationReschedulingView"/>
+                    <Button Content="Otkazivanje rezervacija" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="3" Grid.Column="0" Command="cmd:RoutedCommands.AccommodationReservationCancellation"/>
+                    <Button Content="Ocenjivanje smestaja" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="4" Grid.Column="0" Command="cmd:RoutedCommands.AllGuestOneReservationsView"/>
+                    <Button Content="Moje ocene" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="5" Grid.Column="0" Command="cmd:RoutedCommands.GuestOneAllGradesView"/>
+                    <Button Content=" &quot;Bilo kuda bilo gde&quot;" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Row="6" Grid.Column="0" Command="cmd:RoutedCommands.WheneverWhereverView"/>
+                    <Button Content="Forum" Grid.Row="7" FontSize="18" Foreground="#DDF2FF" Background="#FFE2A44E" Grid.Column="0" Command="cmd:RoutedCommands.ForumView"/>
                 </Grid>
             </Grid>
         </Grid>

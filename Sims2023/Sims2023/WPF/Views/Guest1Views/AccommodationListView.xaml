@@ -4,9 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views" xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
-        Title="AccommodationListView" Height="515" Width="1000">
+        Title="AccommodationListView" Height="515" Width="1000"
+        Loaded="Page_Loaded">
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="Command1View_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="Command2View_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command3View" CanExecute="CanExecute" Executed="Command3View_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command4View" CanExecute="CanExecute" Executed="Command4View_Executed"></CommandBinding>
+    </Page.CommandBindings>
     <Page.Resources>
         <CollectionViewSource x:Key="AccommodationsList" Source="{Binding Accommodations}">
             <CollectionViewSource.SortDescriptions>
@@ -14,7 +22,7 @@
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
     </Page.Resources>
-    <Grid>
+    <Grid KeyboardNavigation.TabNavigation="Cycle">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
             <ColumnDefinition/>
@@ -53,9 +61,8 @@
             <Label x:Name="typeSearch" Content="Tip smeštaja: "  FontSize="15" Margin="0,0,0,15" Grid.Row="4"/>
             <Label x:Name="numberOfGuestsSearch" Content="Broj gostiju: "  FontSize="15" Margin="0,45,0,25" Grid.Row="4" Grid.RowSpan="2"/>
             <Label x:Name="numberOfDaysSearch" Content="Broj dana: "  FontSize="15" Margin="0,45,0,25" Grid.Row="5" Grid.RowSpan="2"/>
-            <Button Content="Otkaži pretragu" Grid.Row="9" Grid.Column="0" FontSize="13" HorizontalAlignment="Center" Click="GiveUpSearch_Click" Margin="0,0,0,0" Width="130" Height="30" VerticalAlignment="Center"/>
-            <Button Content="Pretraži smeštaj" Grid.Row="8" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SearchAccommodation_Click" Width="150" Height="30" Margin="0,0,0,10"/>
-            
+            <Button Content="Otkaži pretragu" Grid.Row="9" Grid.Column="0" FontSize="13" HorizontalAlignment="Center" Command="cmd:RoutedCommands.Command4View" Margin="0,0,0,0" Width="130" Height="30" VerticalAlignment="Center"/>
+            <Button Content="Pretraži smeštaj" Grid.Row="8" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Command="cmd:RoutedCommands.Command3View" Width="150" Height="30" Margin="0,0,0,10"/>
         </Grid>
         <Grid Grid.Row="0" Grid.Column="1">
             <Grid.RowDefinitions>
@@ -65,8 +72,8 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <Button x:Name="DetailViewbutton" Content="Prikaži smeštaj" FontSize="20" Margin="485,0,50,0" Grid.Row="2" Click="DetailViewbutton_Click" />
-            <Button x:Name="button" Content="    Rezerviši    " FontSize="26" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Click="ButtonReservation_Click"/>
+            <Button x:Name="DetailViewbutton" Content="Prikaži smeštaj" FontSize="20" Margin="485,0,50,0" Grid.Row="2" Command="cmd:RoutedCommands.Command2View" />
+            <Button x:Name="button" Content="    Rezerviši    " FontSize="26" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Command="cmd:RoutedCommands.Command1View"/>
             <DataGrid x:Name="myDataGrid" Background="#DDF2FF"
           ItemsSource="{Binding Source={StaticResource AccommodationsList}, UpdateSourceTrigger=PropertyChanged}"
           SelectedItem="{Binding Path=SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Margin="50,0,50,20"

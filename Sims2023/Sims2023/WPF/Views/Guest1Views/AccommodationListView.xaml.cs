@@ -4,6 +4,7 @@ using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Navigation;
 
 namespace Sims2023.WPF.Views.Guest1Views
@@ -11,6 +12,8 @@ namespace Sims2023.WPF.Views.Guest1Views
     public partial class AccommodationListView : Page
     {
         public AccommodationListViewModel AccommodationListViewModel;
+
+        public Frame MainFrame;
         public Accommodation SelectedAccommodation { get; set; }
         public User User { get; set; }
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
@@ -18,7 +21,7 @@ namespace Sims2023.WPF.Views.Guest1Views
         private AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
 
 
-        public AccommodationListView(User guest1)
+        public AccommodationListView(User guest1,Frame mainFrame)
         {
             InitializeComponent();
             AccommodationListViewModel = new AccommodationListViewModel(this, guest1);
@@ -27,19 +30,20 @@ namespace Sims2023.WPF.Views.Guest1Views
             _accommodationReservationReschedulingService = new AccommodationReservationReschedulingService();
             AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingService.GetAllReservationReschedulings());
             User = guest1;
+            MainFrame = mainFrame;
         }
 
-        private void SearchAccommodation_Click(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            AccommodationListViewModel.SearchAccommodation_Click(sender, e);
+            FocusManager.SetFocusedElement(this, this);
         }
 
-        private void GiveUpSearch_Click(object sender, RoutedEventArgs e)
+        public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            AccommodationListViewModel.GiveUpSearch_Click(sender, e);
+            e.CanExecute = true;
         }
 
-        private void ButtonReservation_Click(object sender, RoutedEventArgs e)
+        public void Command1View_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             SelectedAccommodation = (Accommodation)myDataGrid.SelectedItem;
 
@@ -48,21 +52,10 @@ namespace Sims2023.WPF.Views.Guest1Views
                 MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da rezervisete.");
                 return;
             }
-            AccommodationReservationDateView accommodationReservationDateView = new AccommodationReservationDateView(-1, SelectedAccommodation, User,AccommodationReservationReschedulings, _accommodationReservationReschedulingService);
-            accommodationReservationDateView.Show();
+            MainFrame.Navigate(new AccommodationReservationDateView(-1, SelectedAccommodation, User, AccommodationReservationReschedulings, _accommodationReservationReschedulingService,MainFrame));
         }
 
-        private void Back_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService navigationService = NavigationService.GetNavigationService(this);
-
-            if (navigationService.CanGoBack)
-            {
-                navigationService.GoBack();
-            }
-        }
-
-        private void DetailViewbutton_Click(object sender, RoutedEventArgs e)
+        public void Command2View_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             SelectedAccommodation = (Accommodation)myDataGrid.SelectedItem;
 
@@ -71,8 +64,17 @@ namespace Sims2023.WPF.Views.Guest1Views
                 MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da prikazete detaljnije.");
                 return;
             }
-            AccommodationDetailedView accommodationDetailedView = new AccommodationDetailedView(User, SelectedAccommodation);
-            accommodationDetailedView.Show();
+            MainFrame.Navigate(new AccommodationDetailedView(User, SelectedAccommodation,MainFrame));
+        }
+
+        public void Command3View_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            AccommodationListViewModel.SearchAccommodation_Click(sender, e);
+        }
+
+        public void Command4View_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            AccommodationListViewModel.GiveUpSearch_Click(sender, e);
         }
     }
 }

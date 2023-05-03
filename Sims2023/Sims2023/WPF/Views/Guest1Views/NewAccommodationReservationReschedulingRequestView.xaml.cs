@@ -34,8 +34,8 @@ namespace Sims2023.WPF.Views.Guest1Views
             SelectedAccommodationReservation = (AccommodationReservation)myDataGrid.SelectedItem;
             if (NewAccommodationReservationReschedulingRequestViewModel.CheckIfPossible(SelectedAccommodationReservation))
             {
-                var accommodationReservationDateView = new AccommodationReservationDateView(SelectedAccommodationReservation.Id, SelectedAccommodationReservation.Accommodation, User, AccommodationReservationReschedulings,_accommodationReservationReschedulingService);
-                accommodationReservationDateView.Show();
+               // var accommodationReservationDateView = new AccommodationReservationDateView(SelectedAccommodationReservation.Id, SelectedAccommodationReservation.Accommodation, User, AccommodationReservationReschedulings,_accommodationReservationReschedulingService);
+                //accommodationReservationDateView.Show();
                 NewAccommodationReservationReschedulingRequestViewModel.Update();
                 Close();
             }            

@@ -61,7 +61,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         }
 
-        public void MakeReservation_Click(object sender, RoutedEventArgs e)
+        public void MakeReservation_Click()
         {
             _stays.Clear();
             AccommodationReservationDateView.availableDatesGrid.ItemsSource = _stays;

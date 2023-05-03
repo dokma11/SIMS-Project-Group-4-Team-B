@@ -2,13 +2,14 @@
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Sims2023.WPF.Views.Guest1Views
 {
     /// <summary>
     /// Interaction logic for AllGuestOneReservationsView.xaml
     /// </summary>
-    public partial class AllGuestOneReservationsView : Window
+    public partial class AllGuestOneReservationsView : Page
     {
         AllGuestOneReservationsViewModel AllGuestOneReservationsViewModel;
 
