@@ -59,29 +59,24 @@ namespace Sims2023.WPF.Views.GuideViews
             DisplayLabels();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            FrameManagerGuide.Instance.MainFrame = MainFrameGuide;
-        }
-
         private void DisplayLabels()
         {
             if(_tourService.GetTodaysNumber(LoggedInGuide) > 0)
             {
-                scheduledToursLabel.Content = "Danas imate " + _tourService.GetTodaysNumber(LoggedInGuide) + " zakazane ture!";
+                scheduledToursLabel.Content = "- Danas imate " + _tourService.GetTodaysNumber(LoggedInGuide) + " zakazane ture!";
             }
             else
             {
-                scheduledToursLabel.Content = "Nemate zakazanih tura za danas!";
+                scheduledToursLabel.Content = "- Nemate zakazanih tura za danas!";
             }
 
             if(_requestService.GetOnHold().Count > 0) 
             {
-                tourRequestsLabel.Content = "Imate " + _requestService.GetOnHold().Count + " nova zahteva koja niste pregledali!";
+                tourRequestsLabel.Content = "- Imate " + _requestService.GetOnHold().Count + " nova zahteva koja niste pregledali!";
             }
             else
             {
-                tourRequestsLabel.Content = "Pregledali ste sve zahteve!";
+                tourRequestsLabel.Content = "- Pregledali ste sve zahteve!";
             }
         }
 

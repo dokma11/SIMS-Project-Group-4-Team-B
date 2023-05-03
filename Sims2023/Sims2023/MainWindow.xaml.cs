@@ -81,7 +81,7 @@ namespace Sims2023
             }
             else if (user.UserType == User.Type.Guide)
             {
-                GuideHomePageView guideView = new(user);
+                GuideView guideView = new(user);
                 guideView.Show();
             }
         }

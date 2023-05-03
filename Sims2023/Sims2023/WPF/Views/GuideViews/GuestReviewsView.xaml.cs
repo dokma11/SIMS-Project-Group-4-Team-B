@@ -47,10 +47,6 @@ namespace Sims2023.WPF.Views.GuideViews
             {
                 GuestReviewsViewModel.UpdateReviewsList();
             }
-            else
-            {
-                MessageBox.Show("Odaberite turu za koju želite da vidite recenzije");
-            }
         }
 
         private void ReportReviewButton_Click(object sender, RoutedEventArgs e)
@@ -59,10 +55,6 @@ namespace Sims2023.WPF.Views.GuideViews
             {
                 GuestReviewsViewModel.ReportReview();
                 SuccessfulReportLabelEvent();
-            }
-            else
-            {
-                MessageBox.Show("Odaberite recenziju koju želite da prijavite");
             }
         }
 
@@ -88,11 +80,23 @@ namespace Sims2023.WPF.Views.GuideViews
         {
             if (GuestReviewsViewModel.IsReviewSelected())
             {
-                MessageBox.Show(GuestReviewsViewModel.SelectedReview.Comment);
-            }
-            else
-            {
-                MessageBox.Show("Odaberite recenziju čiji komentar želite da vidite");
+                var selectedReview = ReviewDataGrid.SelectedItem as TourReview;
+
+                if (selectedReview != null)
+                {
+                    // Select the row to show the details
+                    ReviewDataGrid.SelectedItem = selectedReview;
+                    ReviewDataGrid.UpdateLayout();
+
+                    // Find the row container for the selected item
+                    var row = (DataGridRow)ReviewDataGrid.ItemContainerGenerator.ContainerFromItem(selectedReview);
+
+                    // Set the IsSelected property to true to expand the row
+                    if (row != null)
+                    {
+                        row.IsSelected = true;
+                    }
+                }
             }
         }
 

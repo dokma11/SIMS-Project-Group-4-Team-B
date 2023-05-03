@@ -7,9 +7,9 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
     public partial class CreateTourFromFrequentLanguageViewModel
     {
-        public Tour Tour { get; set; }
-        public Location Location { get; set; }
-        public KeyPoint KeyPoint { get; set; }
+        public Tour NewTour { get; set; }
+        public Location NewLocation { get; set; }
+        public KeyPoint NewKeyPoint { get; set; }
         private TourService _tourService;
         private LocationService _locationService;
         private KeyPointService _keyPointService;
@@ -23,9 +23,9 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         {
             SelectedLanguage = selectedLanguage;
 
-            Tour = new();
-            Location = new();
-            KeyPoint = new();
+            NewTour = new();
+            NewLocation = new();
+            NewKeyPoint = new();
 
             _tourService = tourService;
             _locationService = locationService;
@@ -64,15 +64,15 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public void ConfirmCreation(string country, string city)
         {
-            Location.City = city;
-            Location.Country = country;
-            Tour.Location = Location;
-            Tour.GuideLanguage = (ToursLanguage)SelectedLanguage;
-            _locationService.Create(Location);
-            _tourService.Create(Tour, _dateTimeList, Location, LoggedInGuide);
-            int firstToursId = Tour.Id - _dateTimeList.Count + 1;
-            _tourService.AddToursLocation(Tour, Location, _dateTimeList.Count);
-            _keyPointService.Create(KeyPoint, _keyPointsList, firstToursId, _dateTimeList.Count);
+            NewLocation.City = city;
+            NewLocation.Country = country;
+            NewTour.Location = NewLocation;
+            NewTour.GuideLanguage = (ToursLanguage)SelectedLanguage;
+            _locationService.Create(NewLocation);
+            _tourService.Create(NewTour, _dateTimeList, NewLocation, LoggedInGuide);
+            int firstToursId = NewTour.Id - _dateTimeList.Count + 1;
+            _tourService.AddToursLocation(NewTour, NewLocation, _dateTimeList.Count);
+            _keyPointService.Create(NewKeyPoint, _keyPointsList, firstToursId, _dateTimeList.Count);
             _tourService.AddToursKeyPoints(_keyPointsList, firstToursId);
         }
     }

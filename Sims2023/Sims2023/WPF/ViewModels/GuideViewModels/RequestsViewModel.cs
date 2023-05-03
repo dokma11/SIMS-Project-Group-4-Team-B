@@ -52,7 +52,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             LabelsForTheMostRequested = new ObservableCollection<string>();
             foreach (var l in LabelsMonth)
             {
-                Labels.Add(l);
+                LabelsForTheMostRequested.Add(l);
             }
 
             DisplayTheMostRequestedLanguage();

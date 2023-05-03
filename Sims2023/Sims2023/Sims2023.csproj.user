@@ -28,6 +28,9 @@
     <Compile Update="WPF\Views\GuideViews\GuideAccountView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\GuideViews\GuideView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\GuideViews\HandleTourRequestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -105,6 +108,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\GuideViews\GuideAccountView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\GuideViews\GuideView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\GuideViews\HandleTourRequestsView.xaml">

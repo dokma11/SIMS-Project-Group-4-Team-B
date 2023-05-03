@@ -73,5 +73,10 @@ namespace Sims2023.WPF.Views.GuideViews
             MainWindow mainWindow = new();
             mainWindow.Show();
         }
+
+        private void mybutton_click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

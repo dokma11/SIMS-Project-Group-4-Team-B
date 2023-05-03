@@ -38,8 +38,8 @@ namespace Sims2023.WPF.Views.GuideViews
         }
         private void AcceptButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateTourFromRequestView createTourFromRequestView = new(HandleTourRequestsViewModel.SelectedRequest, LoggedInGuide, _tourService, _keyPointService);
-            createTourFromRequestView.Show();
+            //CreateTourFromRequestView createTourFromRequestView = new(HandleTourRequestsViewModel.SelectedRequest, LoggedInGuide, _tourService, _keyPointService);
+            //createTourFromRequestView.Show();
             HandleTourRequestsViewModel.AcceptRequest();
         }
 

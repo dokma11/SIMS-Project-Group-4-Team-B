@@ -34,7 +34,7 @@ namespace Sims2023.WPF.Views.GuideViews
             _requestService = requestService;
             _tourReservationService = tourReservationService;
             _countriesAndCitiesService = countriesAndCitiesService;
-            _voucherService = voucherService;   
+            _voucherService = voucherService;
             _userService = userService;
 
             LoggedInGuide = loggedInGuide;
@@ -46,6 +46,17 @@ namespace Sims2023.WPF.Views.GuideViews
             locationComboBox.ItemsSource = RequestsViewModel.GetLocations();
             languageYearComboBox.ItemsSource = RequestsViewModel.GetYears();
             locationYearComboBox.ItemsSource = RequestsViewModel.GetYears();
+
+            locationTextBox.GotFocus += TextBox_GotFocus;
+            locationTextBox.LostFocus += TextBox_LostFocus;
+            guestNumberTextBox.GotFocus += TextBox_GotFocus;
+            guestNumberTextBox.LostFocus += TextBox_LostFocus;
+            languageTextBox.GotFocus += TextBox_GotFocus;
+            languageTextBox.LostFocus += TextBox_LostFocus;
+
+            locationTextBox.Text = locationTextBox.Tag.ToString();
+            guestNumberTextBox.Text = guestNumberTextBox.Tag.ToString();
+            languageTextBox.Text = languageTextBox.Tag.ToString();
         }
 
         private void LanguageComboBox_SelectionChanged(object sender, RoutedEventArgs e)
@@ -66,21 +77,37 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void LanguageConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateTourFromFrequentLanguageView createTourFromFrequentLanguageView = new(RequestsViewModel.TheMostRequestedLanguage, _tourService, _locationService, _keyPointService, LoggedInGuide);
-            createTourFromFrequentLanguageView.Show();
+            CreateTourFromFrequentLanguageView createTourFromFrequentLanguageView = new(RequestsViewModel.TheMostRequestedLanguage, _tourService, _locationService, _keyPointService, _tourReviewService, _requestService, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, LoggedInGuide);
+            FrameManagerGuide.Instance.MainFrame.Navigate(createTourFromFrequentLanguageView);
         }
 
         private void LocationConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateTourFromFrequentLocationView createTourFromFrequentLocationView = new(RequestsViewModel.TheMostRequestedLocation, _tourService, _keyPointService, LoggedInGuide);
-            createTourFromFrequentLocationView.Show();
+            CreateTourFromFrequentLocationView createTourFromFrequentLocationView = new(RequestsViewModel.TheMostRequestedLocation, _tourService, _locationService, _keyPointService, _tourReviewService, _requestService, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, LoggedInGuide);
+            FrameManagerGuide.Instance.MainFrame.Navigate(createTourFromFrequentLocationView);
         }
 
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
-            string locationSearchTerm = locationTextBox.Text;
-            string guestNumberSearchTerm = guestNumberTextBox.Text;
-            string languageSearchTerm = languageTextBox.Text;
+            string locationSearchTerm = "";
+            string guestNumberSearchTerm = "";
+            string languageSearchTerm = "";
+
+            if (locationTextBox.Text != "Unesite lokaciju")
+            {
+                locationSearchTerm = locationTextBox.Text;
+            }
+
+            if (guestNumberTextBox.Text != "Unesite broj gostiju")
+            {
+                guestNumberSearchTerm = guestNumberTextBox.Text;
+            }
+
+            if (languageTextBox.Text != "Unesite jezik")
+            {
+                languageSearchTerm = languageTextBox.Text;
+            }
+
             string dateStartSearchTerm = dateStartTextBox.Text;
             string dateEndSearchTerm = dateEndTextBox.Text;
 
@@ -89,14 +116,34 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void AcceptButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateTourFromRequestView createTourFromRequestView = new(RequestsViewModel.SelectedRequest, LoggedInGuide, _tourService, _keyPointService);
-            createTourFromRequestView.Show();
+            CreateTourFromRequestView createTourFromRequestView = new(RequestsViewModel.SelectedRequest, _tourService, _locationService, _keyPointService, _tourReviewService, _requestService, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, LoggedInGuide);
+            FrameManagerGuide.Instance.MainFrame.Navigate(createTourFromRequestView);
             RequestsViewModel.AcceptRequest();
         }
 
         private void DeclineButton_Click(object sender, RoutedEventArgs e)
         {
             RequestsViewModel.DeclineRequest();
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            string placeholderText = textBox.Tag.ToString();
+            if (textBox.Text == placeholderText)
+            {
+                textBox.Text = "";
+            }
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            string placeholderText = textBox.Tag.ToString();
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.Text = placeholderText;
+            }
         }
 
         //TOOLBAR

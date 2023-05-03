@@ -13,11 +13,11 @@
     <StackPanel Background="Gray">
         <DockPanel>
             <ToolBar>
-                <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica"/>
+                <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
                 <Button x:Name="toursButton" Content="Ture" IsEnabled="False"/>
-                <Button x:Name="requestsButton" Click="RequestsButton_Click" Content="Zahtevi" />
-                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije"/>
-                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" />
+                <Button x:Name="requestsButton" Click="RequestsButton_Click" Content="Zahtevi" ToolTip="Idite na zahteve" />
+                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije" ToolTip="Idite na recenzije"/>
+                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog"/>
             </ToolBar>
         </DockPanel>
         <TabControl x:Name="tabControl" Height="650" Width="1200" Margin="0,10,0,0" SelectionChanged="TabControl_SelectionChanged">

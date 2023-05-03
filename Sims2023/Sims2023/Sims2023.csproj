@@ -32,6 +32,9 @@
     <None Remove="Images\Guest2Images\Nis1.jpg" />
     <None Remove="Images\Guest2Images\Nis2.png" />
     <None Remove="Images\Guest2Images\Nis3.jpg" />
+    <None Remove="Resources\GuideResources\account-logo.png" />
+    <None Remove="Resources\GuideResources\Horizont_SRB.png" />
+    <None Remove="Resources\GuideResources\icon-account-2.jpg" />
     <None Remove="Resources\OwnerResources\homeOwner.png" />
     <None Remove="Resources\OwnerResources\lol.png" />
     <None Remove="Resources\OwnerResources\menu.png" />
@@ -146,6 +149,9 @@
     <Resource Include="Images\OwnerImages\slikaSmestaja6.jpg" />
     <Resource Include="Images\OwnerImages\slikaSmestaja7.jpg" />
     <Resource Include="Images\OwnerImages\slikaSmestaja8.jpg" />
+    <Resource Include="Resources\GuideResources\account-logo.png" />
+    <Resource Include="Resources\GuideResources\Horizont_SRB.png" />
+    <Resource Include="Resources\GuideResources\icon-account-2.jpg" />
     <Resource Include="Resources\OwnerResources\homeOwner.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

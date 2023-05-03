@@ -2,5 +2,9 @@
 2|x|Visited||1
 3|d|NotVisited||2
 4|s|NotVisited||2
-5|c|NotVisited||3
-6|x|NotVisited||3
+5|c|NotVisited|1,2,5|3
+6|x|NotVisited|7,8|3
+7|1|NotVisited||4
+8|2|NotVisited||4
+9|2|NotVisited||5
+10|3|NotVisited||5
