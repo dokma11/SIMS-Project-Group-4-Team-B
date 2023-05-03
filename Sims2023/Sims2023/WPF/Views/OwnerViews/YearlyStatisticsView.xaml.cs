@@ -22,12 +22,15 @@ namespace Sims2023.WPF.Views.OwnerViews
     /// </summary>
     public partial class YearlyStatisticsView : Page
     {
-        public YearlyStatisticsViewModel yearlyStatisticsViewModel; 
+        public YearlyStatisticsViewModel yearlyStatisticsViewModel;
+
+        public string welcomeString { get; set; }
         public YearlyStatisticsView(Accommodation Selected)
         {
             yearlyStatisticsViewModel = new YearlyStatisticsViewModel(Selected);
             InitializeComponent();
             DataContext = yearlyStatisticsViewModel;
+            welcomeString = "Statistika smještaja " + Selected.Name;
         }
     }
 }
