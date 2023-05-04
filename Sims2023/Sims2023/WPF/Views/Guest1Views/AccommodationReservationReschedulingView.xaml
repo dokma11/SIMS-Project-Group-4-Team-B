@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
         <Label x:Name="label" Content="Zahtevi za pomeranje rezervacija" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="0"/>
         <Label x:Name="label1" Content="Prethodno podneti zahtevi:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Margin="50,0,0,0" Grid.Row="1"/>
-        <DataGrid x:Name="myDataGrid" Background="#DDF2FF"
+        <DataGrid x:Name="myDataGrid" Background="#DDF2FF" TabIndex="15"
                   ItemsSource="{Binding Path=FilteredData, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedAccommodationReservationRescheduling, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="50,10,50,30"
@@ -44,8 +44,8 @@
                 <DataGridTextColumn Header="Komentar" Binding="{Binding Comment}" Width="150"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="newRequest" Content="Novi zahtev" Margin="350,10,350,20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="4" FontSize="20" Command="cmd:RoutedCommands.Command1View" />
-        <Button x:Name="comment" Content="Prikaži komentar" Margin="750,0,50,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="3" FontSize="20" Command="cmd:RoutedCommands.Command2View"/>
-        <Button x:Name="report" Content="Izveštaj" Margin="50,0,800,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="3" FontSize="20" Command="cmd:RoutedCommands.Command3View"/>
+        <Button x:Name="newRequest" Content="Novi zahtev" TabIndex="16" Margin="350,10,350,20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="4" FontSize="20" Command="cmd:RoutedCommands.Command1View" />
+        <Button x:Name="comment" Content="Prikaži komentar" TabIndex="17" Margin="750,0,50,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="3" FontSize="20" Command="cmd:RoutedCommands.Command2View"/>
+        <Button x:Name="report" Content="Izveštaj"  TabIndex="18" Margin="50,0,800,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="3" FontSize="20" Command="cmd:RoutedCommands.Command3View"/>
     </Grid>
 </Page>

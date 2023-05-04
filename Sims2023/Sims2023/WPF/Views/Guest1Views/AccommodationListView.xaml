@@ -44,24 +44,24 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <Label x:Name="windowName" Grid.Row="0" Content="Pretraga smeštaja" FontSize="25" VerticalAlignment="Center" Margin="0,5,0,0"/>
-            <TextBox x:Name="nameSearchBox"  Grid.Row="1" Grid.Column="0" Margin="0,25,0,0"/>
-            <TextBox x:Name="citySearchBox" Grid.Row="2" Grid.Column="0" Margin="0,25,0,0"/>
-            <TextBox x:Name="countrySearchBox" Grid.Row="3" Grid.Column="0" Margin="0,25,0,0"/>
-            <ComboBox x:Name="typeComboBox" Grid.Row="4" Grid.Column="0" Margin="0,25,0,0">
+            <TextBox x:Name="nameSearchBox" TabIndex="16" Grid.Row="1" Grid.Column="0" Margin="0,25,0,0"/>
+            <TextBox x:Name="citySearchBox" TabIndex="17" Grid.Row="2" Grid.Column="0" Margin="0,25,0,0"/>
+            <TextBox x:Name="countrySearchBox" TabIndex="18" Grid.Row="3" Grid.Column="0" Margin="0,25,0,0"/>
+            <ComboBox x:Name="typeComboBox" Grid.Row="19" TabIndex="4" Grid.Column="0" Margin="0,25,0,0">
                 <ComboBoxItem Content="apartman"/>
                 <ComboBoxItem Content="kuća"/>
                 <ComboBoxItem Content="koliba"/>
             </ComboBox>
-            <xctk:IntegerUpDown Name="numberOfGuests" Grid.Row="5" Grid.Column="0" Margin="0,25,0,0" Minimum="0" Value="0" AllowTextInput="False"/>
-            <xctk:IntegerUpDown Name="numberOfDays" Grid.Row="6" Grid.Column="0" Margin="0,25,0,0" Minimum="0" Value="0"  AllowTextInput="False"/>
+            <xctk:IntegerUpDown Name="numberOfGuests" TabIndex="20" Grid.Row="5" Grid.Column="0" Margin="0,25,0,0" Minimum="0" Value="0" AllowTextInput="False"/>
+            <xctk:IntegerUpDown Name="numberOfDays" TabIndex="21" Grid.Row="6" Grid.Column="0" Margin="0,25,0,0" Minimum="0" Value="0"  AllowTextInput="False"/>
             <Label x:Name="nameSearch" Content="Naziv: "  FontSize="15" Grid.Row="1" Margin="0,0,0,15"/>
             <Label x:Name="citySearch" Content="Grad:"  FontSize="15" Margin="0,0,0,15" Grid.Row="2" />
             <Label x:Name="countrySearch" Content="Država:"  FontSize="15" Margin="0,0,0,15" Grid.Row="3"/>
             <Label x:Name="typeSearch" Content="Tip smeštaja: "  FontSize="15" Margin="0,0,0,15" Grid.Row="4"/>
             <Label x:Name="numberOfGuestsSearch" Content="Broj gostiju: "  FontSize="15" Margin="0,45,0,25" Grid.Row="4" Grid.RowSpan="2"/>
             <Label x:Name="numberOfDaysSearch" Content="Broj dana: "  FontSize="15" Margin="0,45,0,25" Grid.Row="5" Grid.RowSpan="2"/>
-            <Button Content="Otkaži pretragu" Grid.Row="9" Grid.Column="0" FontSize="13" HorizontalAlignment="Center" Command="cmd:RoutedCommands.Command4View" Margin="0,0,0,0" Width="130" Height="30" VerticalAlignment="Center"/>
-            <Button Content="Pretraži smeštaj" Grid.Row="8" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Command="cmd:RoutedCommands.Command3View" Width="150" Height="30" Margin="0,0,0,10"/>
+            <Button Content="Pretraži smeštaj" Grid.Row="8" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Command="cmd:RoutedCommands.Command3View" Width="150" Height="30" Margin="0,0,0,10" TabIndex="22"/>
+            <Button Content="Otkaži pretragu" Grid.Row="9" Grid.Column="0" FontSize="13" HorizontalAlignment="Center" Command="cmd:RoutedCommands.Command4View" Margin="0,0,0,0" Width="130" Height="30" VerticalAlignment="Center" TabIndex="23"/>
         </Grid>
         <Grid Grid.Row="0" Grid.Column="1">
             <Grid.RowDefinitions>
@@ -71,9 +71,7 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <Button x:Name="DetailViewbutton" Content="Prikaži smeštaj" FontSize="20" Margin="485,0,50,0" Grid.Row="2" Command="cmd:RoutedCommands.Command2View" />
-            <Button x:Name="button" Content="    Rezerviši    " FontSize="26" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Command="cmd:RoutedCommands.Command1View"/>
-            <DataGrid x:Name="myDataGrid" Background="#DDF2FF"
+            <DataGrid x:Name="myDataGrid" Background="#DDF2FF"  TabIndex="24"
           ItemsSource="{Binding Source={StaticResource AccommodationsList}, UpdateSourceTrigger=PropertyChanged}"
           SelectedItem="{Binding Path=SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Margin="50,0,50,20"
           Grid.Row="1">
@@ -108,7 +106,8 @@
                     <DataGridTextColumn Header="Minimalni broj dana za rezervaciju" Binding="{Binding MinDays}" Width="210"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
+            <Button x:Name="DetailViewbutton" TabIndex="25" Content="Prikaži smeštaj" FontSize="20" Margin="485,0,50,0" Grid.Row="2" Command="cmd:RoutedCommands.Command2View" />
+            <Button x:Name="button" TabIndex="26" Content="    Rezerviši    " FontSize="26" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Command="cmd:RoutedCommands.Command1View"/>
         </Grid>
-        
     </Grid>
 </Page>

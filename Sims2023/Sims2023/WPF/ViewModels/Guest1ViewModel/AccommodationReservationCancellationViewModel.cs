@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
@@ -46,7 +47,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         }
 
-        public void cancellation_Click(object sender, RoutedEventArgs e)
+        public bool cancellation_Click()
         {
             SelectedAccommodationReservation = (AccommodationReservation)AccommodationReservationCancellationView.myDataGrid.SelectedItem;
             if (CheckSelectedAccommodationReservation(SelectedAccommodationReservation))
@@ -58,13 +59,10 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                     AccommodationReservations.Remove(SelectedAccommodationReservation);
                     _accommodationReservationService.DeleteAccommodationReservation(SelectedAccommodationReservation);
                     Update();
-                }
-                else
-                {
-                    return;
+                    return true;
                 }
             }
-            return;
+            return false;
         }
 
         private bool HasActiveReschedulingRequest(AccommodationReservation selectedAccommodationReservation)

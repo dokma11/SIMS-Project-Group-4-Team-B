@@ -24,7 +24,7 @@
             </Rectangle.Fill>
         </Rectangle>
         <Label x:Name="label" Content="Moje rezervacije" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="0"/>
-        <DataGrid x:Name="myDataGrid"
+        <DataGrid x:Name="myDataGrid" TabIndex="15"
                   ItemsSource="{Binding Path=AccommodationReservations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedAccommodationReservation, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="50,10,50,30"
@@ -49,8 +49,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="grading" Content="Ocenite smeštaj i vlasnika" Grid.Column="0" Margin="110,15,60,20" FontSize="20" Command="cmd:RoutedCommands.Command1View"/>
-            <Button x:Name="renovation" Content="Preporuka za renoviranje" Grid.Column="1" Margin="60,15,110,20" FontSize="20" Command="cmd:RoutedCommands.Command2View"/>
+            <Button x:Name="grading" Content="Ocenite smeštaj i vlasnika" TabIndex="16" Grid.Column="0" Margin="110,15,60,20" FontSize="20" Command="cmd:RoutedCommands.Command1View"/>
+            <Button x:Name="renovation" Content="Preporuka za renoviranje" TabIndex="17" Grid.Column="1" Margin="60,15,110,20" FontSize="20" Command="cmd:RoutedCommands.Command2View"/>
         </Grid>
     </Grid>
 </Page>
