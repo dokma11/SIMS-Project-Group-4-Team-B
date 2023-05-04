@@ -46,6 +46,6 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="button" Content="Zakaži renoviranje" Click="Shedule_Click" HorizontalAlignment="Left" Margin="44,599,0,0" VerticalAlignment="Top" Width="123" Height="54"  Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3"/>
-        <Button x:Name="button1" Content="Pregled renoviranja" Click="Review_Click" HorizontalAlignment="Left" Margin="255,599,0,0" VerticalAlignment="Top" Height="54" Width="123" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3"/>
+        <Button x:Name="button1" Content="Pregled renoviranja" HorizontalAlignment="Left" Margin="255,599,0,0" VerticalAlignment="Top" Height="54" Width="123" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3"/>
     </Grid>
 </Page>

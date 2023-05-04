@@ -52,7 +52,7 @@
                 <DataGridTextColumn Header="Krajnji datum" Binding="{Binding EndDate, StringFormat={}{0:d}}" Width="200"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="button" Content="Zakaži renoviranje" Click="Schedule_Click" HorizontalAlignment="Left"  Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" Margin="36,599,0,0" VerticalAlignment="Top" Width="137" Height="49"/>
-        <Button x:Name="button1" Content="Nazad" Click="Close_Click" HorizontalAlignment="Left"  Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" Margin="257,599,0,0" VerticalAlignment="Top" Height="49" Width="137"/>
+        <Button x:Name="button" Content="Zakaži renoviranje" Click="Schedule_Click" HorizontalAlignment="Left" Margin="36,599,0,0" VerticalAlignment="Top" Width="137" Height="49"/>
+        <Button x:Name="button1" Content="Nazad" Click="Close_Click" HorizontalAlignment="Left" Margin="257,599,0,0" VerticalAlignment="Top" Height="49" Width="137"/>
     </Grid>
 </Page>

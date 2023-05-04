@@ -16,8 +16,6 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         public AccommodationReservationService _reservationService;
 
-        public AccommodationStatisticsService _statisticsService;
-
         public ObservableCollection<AccommodationReservationRescheduling> peoplee;
 
         public AccommodationReservationReschedulingService _reschedulingService;
@@ -28,7 +26,6 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         {
             _reservationService = new AccommodationReservationService();
             _reschedulingService = new AccommodationReservationReschedulingService();
-            _statisticsService = new AccommodationStatisticsService();
             View = view;
             guest = SelectedGuest;
             peoplee = people;
@@ -36,10 +33,8 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             UpdatedReservationStatus = new AccommodationReservation();
         }
 
-        public void Accept_Click(object sender, RoutedEventArgs e)
+        public void button2_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationStatistics statistic = new AccommodationStatistics(guest.AccommodationReservation.Accommodation, DateTime.Now, true, false, false);
-            _statisticsService.Create(statistic);
             guest.Status = RequestStatus.Approved;
             UpdatedReservationStatus = GetById(guest.AccommodationReservation.Id);
             UpdatedReservationStatus.StartDate = guest.NewStartDate;

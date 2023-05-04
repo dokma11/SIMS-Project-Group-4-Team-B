@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Navigation;
 
 namespace Sims2023.WPF.ViewModels.OwnerViewModel
 {
@@ -34,7 +33,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             {
                 AccommodationRenovation renovation = new AccommodationRenovation(0, selectedAccommodation, SelectedDate.StartDate, SelectedDate.EndDate);
                 _renovationService.Create(renovation);
-
+              
             }
         }
     }

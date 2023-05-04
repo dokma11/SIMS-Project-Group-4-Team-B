@@ -16,8 +16,6 @@ namespace Sims2023.Domain.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public string Status { get; set; }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
@@ -33,7 +31,6 @@ namespace Sims2023.Domain.Models
             Accommodation = accommodation;
             StartDate = startDate;
             EndDate = endDate;
-            Status = "nije zapoceto";
         }
 
         public string[] ToCSV()
@@ -43,8 +40,7 @@ namespace Sims2023.Domain.Models
                 Id.ToString(),
                 Accommodation.Id.ToString(),
                 StartDate.ToString(),
-                EndDate.ToString(),
-                Status,
+                EndDate.ToString(),             
             };
             return csvValues;
         }
@@ -60,7 +56,6 @@ namespace Sims2023.Domain.Models
             Accommodation = accommodationService.GetById(accommodation.Id);
             StartDate = DateTime.Parse(values[2]);
             EndDate = DateTime.Parse(values[3]);
-            Status = values[4];
         }
   
     }

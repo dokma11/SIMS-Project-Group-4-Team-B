@@ -64,16 +64,10 @@
     <Compile Update="WPF\Views\GuideViews\RequestStatisticsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="WPF\Views\OwnerViews\AllAccommodationStatisticsView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="WPF\Views\OwnerViews\AllAccommodationsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\OwnerViews\AllGuestsView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="WPF\Views\OwnerViews\AllRenovationsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\OwnerViews\AvailableDatesView.xaml.cs">
@@ -91,9 +85,6 @@
     <Compile Update="WPF\Views\OwnerViews\AccommodationRegistrationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="WPF\Views\OwnerViews\MonthlyStatiticsView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="WPF\Views\OwnerViews\OwnerView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -106,9 +97,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\OwnerViews\StartView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="WPF\Views\OwnerViews\YearlyStatisticsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -182,9 +170,6 @@
     <Page Update="WPF\Views\GuideViews\RequestStatisticsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\Views\OwnerViews\AllAccommodationStatisticsView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="WPF\Views\OwnerViews\AllAccommodationsView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -192,9 +177,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\GuideViews\CreateTourView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="WPF\Views\OwnerViews\AllRenovationsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\AvailableDatesView.xaml">
@@ -212,9 +194,6 @@
     <Page Update="WPF\Views\OwnerViews\AccommodationRegistrationView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\Views\OwnerViews\MonthlyStatiticsView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="WPF\Views\OwnerViews\OwnerView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -225,9 +204,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\StartView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="WPF\Views\OwnerViews\YearlyStatisticsView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

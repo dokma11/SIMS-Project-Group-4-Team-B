@@ -84,9 +84,6 @@
     <None Update="Resources\Data\accommodations.csv">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="Resources\Data\accommodationStatistics.csv">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
   </ItemGroup>
 
   <ItemGroup>

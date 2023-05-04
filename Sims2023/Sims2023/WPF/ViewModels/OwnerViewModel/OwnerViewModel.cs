@@ -121,11 +121,5 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             FrameManager.Instance.MainFrame.Navigate(renovations);
         }
 
-        public void Statistics_Click()
-        {
-            var accommodations = new AllAccommodationStatisticsView(User);
-            FrameManager.Instance.MainFrame.Navigate(accommodations);
-        }
-
     }
 }
