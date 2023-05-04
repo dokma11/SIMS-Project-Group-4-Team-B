@@ -18,26 +18,21 @@ using System.Windows.Shapes;
 namespace Sims2023.WPF.Views.OwnerViews
 {
     /// <summary>
-    /// Interaction logic for AllAccommodationsView.xaml
+    /// Interaction logic for AllAccommodationStatisticsView.xaml
     /// </summary>
-    public partial class AllAccommodationsView : Page
+    public partial class AllAccommodationStatisticsView : Page
     {
         public AllAccommodationsViewModel AllAccommodationsViewModel;
-        public AllAccommodationsView(User owner)
+        public AllAccommodationStatisticsView(User user)
         {
+            AllAccommodationsViewModel = new AllAccommodationsViewModel(user);
             InitializeComponent();
-            AllAccommodationsViewModel = new AllAccommodationsViewModel(owner);
             DataContext = AllAccommodationsViewModel;
         }
 
-        private void Shedule_Click(object sender, RoutedEventArgs e)
+        private void Statistics_Click(object sender, RoutedEventArgs e)
         {
-            AllAccommodationsViewModel.Shedule_Click();
-        }
-
-        private void Review_Click(object sender, RoutedEventArgs e)
-        {
-            AllAccommodationsViewModel.Review_Click();
+            AllAccommodationsViewModel.Statistics_Click();
         }
     }
 }

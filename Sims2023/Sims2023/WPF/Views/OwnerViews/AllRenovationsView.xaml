@@ -1,0 +1,25 @@
+﻿<Page x:Class="Sims2023.WPF.Views.OwnerViews.AllRenovationsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Sims2023.WPF.Views.OwnerViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="430"
+      Title="AllRenovationsView">
+
+    <Grid Background="#B3E5FC">
+        <Label x:Name="label" Content="Pregled renoviranja" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Center" Margin="0,41,0,0" VerticalAlignment="Top" Width="306"/>
+        <ListView ItemsSource="{Binding renovations}" SelectedItem="{Binding SelectedRenovation}" HorizontalAlignment="Center" Margin="0,112,0,226" Width="349" Background="#FFFFFF" BorderBrush="#E5E5E5" BorderThickness="1">
+            <ListView.View>
+                <GridView AllowsColumnReorder="False">
+                    <GridViewColumn Header="Naziv" Width="120" DisplayMemberBinding="{Binding Accommodation.Name}" />
+                    <GridViewColumn  Header="Lokacija" Width="120" DisplayMemberBinding="{Binding Accommodation.Location.City}" />
+                    <GridViewColumn  Header="Status" Width="100" DisplayMemberBinding="{Binding Status}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="button" Content="Nazad" Click="Close_Click" HorizontalAlignment="Left" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" Margin="250,573,0,0" VerticalAlignment="Top" Height="62" Width="140"/>
+        <Button x:Name="button1" Content="Otkaži renoviranje" Click="Delete_Click" HorizontalAlignment="Left" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" Margin="40,573,0,0" VerticalAlignment="Top" Height="62" Width="140"/>
+    </Grid>
+</Page>

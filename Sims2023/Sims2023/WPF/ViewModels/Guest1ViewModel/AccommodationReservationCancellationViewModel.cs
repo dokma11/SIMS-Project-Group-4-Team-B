@@ -15,6 +15,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
     /// </summary>
     public partial class AccommodationReservationCancellationViewModel : Window, IObserver
     {
+        public AccommodationStatisticsService _statisticsService;
         public AccommodationReservation SelectedAccommodationReservation { get; set; }
 
         private AccommodationReservationService _accommodationReservationService;
@@ -34,6 +35,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             User = guest1;
 
+            _statisticsService = new AccommodationStatisticsService();
             _accommodationReservationService = new AccommodationReservationService();
             _accommodationReservationService.Subscribe(this);
 
@@ -55,8 +57,11 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 MessageBoxResult result = System.Windows.MessageBox.Show("Da li ste sigurni da zelite da obrisete ovu rezervaciju?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
                 if (result == System.Windows.MessageBoxResult.Yes)
                 {
+                    AccommodationStatistics statistic = new AccommodationStatistics(SelectedAccommodationReservation.Accommodation, DateTime.Now, true, false, false);
+                    _statisticsService.Create(statistic);
                     CreateAccommodationCancellation(SelectedAccommodationReservation);
                     AccommodationReservations.Remove(SelectedAccommodationReservation);
+
                     _accommodationReservationService.DeleteAccommodationReservation(SelectedAccommodationReservation);
                     Update();
                     return true;

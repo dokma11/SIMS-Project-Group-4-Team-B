@@ -15,7 +15,6 @@ namespace Sims2023.Repositories
         private AccommodationFileHandler _fileHandler;
         private List<Accommodation> _accommodations;
 
-
         public AccommodationCSVRepository()
         {
             _fileHandler = new AccommodationFileHandler();
@@ -65,7 +64,6 @@ namespace Sims2023.Repositories
             return _accommodations;
         }
 
-
         public List<Accommodation> GetOwnerAccommodations(List<Accommodation> accommodations, User user)
         {
             List<Accommodation> ownerAccommodations = accommodations.Where(a => a.Owner.Id == user.Id).ToList();
@@ -88,7 +86,6 @@ namespace Sims2023.Repositories
                 observer.Update();
             }
         }
-
         public void CheckSearchTermConditions(List<Accommodation> FilteredData, string nameSearchTerm, string citySearchTerm, string countrySearchTerm, string typeSearchTerm, int maxGuests, int minDays)
         {
             foreach (Accommodation accommodation in _accommodations)
@@ -101,7 +98,6 @@ namespace Sims2023.Repositories
 
             }
         }
-
         public void MarkRenovated(List<AccommodationRenovation> renovations)
         {
             List<Accommodation> accommodationsToUpdate = new List<Accommodation>();
@@ -131,7 +127,6 @@ namespace Sims2023.Repositories
             }
             return false;
         }
-
         public bool CheckSearchTerm(Accommodation accommodation, string nameSearchTerm, string citySearchTerm, string countrySearchTerm, string typeSearchTerm, int maxGuestsSearchTerm, int minDaysSearchTerm)
         {
             bool nameCondition = true;
