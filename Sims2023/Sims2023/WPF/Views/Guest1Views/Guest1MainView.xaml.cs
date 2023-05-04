@@ -3,7 +3,8 @@ using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using Sims2023.WPF.Commands;
 using System.Windows;
 using System.Windows.Input;
-using Sims2023.WPF.Views.GuideViews;
+using System.Windows.Controls;
+using Sims2023.WPF.Views.Guest1Views.Guest1HelpViews;
 
 namespace Sims2023.WPF.Views.Guest1Views
 {
@@ -46,8 +47,9 @@ namespace Sims2023.WPF.Views.Guest1Views
 
         public void OpenHelp_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var AllGuestOneReservationsView = new GuestOneHelpView(User);
-            AllGuestOneReservationsView.Show();
+            Page currentPage = MainFrame.Content as Page;
+            var GuestOneMainHelpView = new GuestOneMainHelpView(currentPage.Title);
+            GuestOneMainHelpView.Show();
         }
 
         public void LogOut_Executed(object sender, ExecutedRoutedEventArgs e)

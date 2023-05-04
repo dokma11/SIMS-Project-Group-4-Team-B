@@ -3,7 +3,6 @@ using Sims2023.Domain.Models;
 using Sims2023.WPF.Views.Guest1Views;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Input;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
@@ -16,6 +15,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         private AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
+
         Guest1MainView Guest1MainView;
         public Guest1MainViewModel(Guest1MainView guest1MainView, User guest1)
         {

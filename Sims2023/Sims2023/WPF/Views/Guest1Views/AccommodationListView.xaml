@@ -47,7 +47,7 @@
             <TextBox x:Name="nameSearchBox" TabIndex="16" Grid.Row="1" Grid.Column="0" Margin="0,25,0,0"/>
             <TextBox x:Name="citySearchBox" TabIndex="17" Grid.Row="2" Grid.Column="0" Margin="0,25,0,0"/>
             <TextBox x:Name="countrySearchBox" TabIndex="18" Grid.Row="3" Grid.Column="0" Margin="0,25,0,0"/>
-            <ComboBox x:Name="typeComboBox" Grid.Row="19" TabIndex="4" Grid.Column="0" Margin="0,25,0,0">
+            <ComboBox x:Name="typeComboBox" Grid.Row="4" TabIndex="19" Grid.Column="0" Margin="0,25,0,0">
                 <ComboBoxItem Content="apartman"/>
                 <ComboBoxItem Content="kuća"/>
                 <ComboBoxItem Content="koliba"/>

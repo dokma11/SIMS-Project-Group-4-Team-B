@@ -14,7 +14,7 @@ namespace Sims2023.WPF.Commands
             typeof(RoutedCommands),
             new InputGestureCollection()
             {
-                new KeyGesture(Key.M, ModifierKeys.Control)
+                new KeyGesture(Key.M, ModifierKeys.Alt)
             }
             );
         public static readonly RoutedUICommand OpenHelp = new RoutedUICommand(
@@ -23,7 +23,7 @@ namespace Sims2023.WPF.Commands
             typeof(RoutedCommands),
             new InputGestureCollection()
             {
-                new KeyGesture(Key.H, ModifierKeys.Control)
+                new KeyGesture(Key.H, ModifierKeys.Alt)
             }
             );
         public static readonly RoutedUICommand LogOut = new RoutedUICommand(
@@ -32,7 +32,7 @@ namespace Sims2023.WPF.Commands
             typeof(RoutedCommands),
             new InputGestureCollection()
             {
-                new KeyGesture(Key.L, ModifierKeys.Control)
+                new KeyGesture(Key.L, ModifierKeys.Alt)
             }
             );
         public static readonly RoutedUICommand GuestOneMainView = new RoutedUICommand(
@@ -104,7 +104,7 @@ namespace Sims2023.WPF.Commands
             typeof(RoutedCommands),
             new InputGestureCollection()
             {
-                new KeyGesture(Key.F, ModifierKeys.Control)
+                new KeyGesture(Key.H, ModifierKeys.Control)
             }
             );
         public static readonly RoutedUICommand Command1View = new RoutedUICommand(

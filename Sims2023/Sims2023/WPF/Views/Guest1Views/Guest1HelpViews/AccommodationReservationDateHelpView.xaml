@@ -1,0 +1,33 @@
+﻿<Page x:Class="Sims2023.WPF.Views.Guest1Views.Guest1HelpViews.AccommodationReservationDateHelpView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views.Guest1HelpViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="200" d:DesignWidth="150"
+      Title="AccommodationReservationDateHelpView">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="86"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Label Content="Alt+Enter" Foreground="#E0942C" FontSize="18" Grid.Row="0" VerticalAlignment="Center" Grid.RowSpan="2" HorizontalAlignment="Center" Height="34" Width="86"/>
+        <Label Content="Alt+A" Foreground="#E0942C" FontSize="18" Grid.Row="2" VerticalAlignment="Center" Grid.RowSpan="2" HorizontalAlignment="Center" Height="34" Width="56"/>
+        <Label Content="Alt+B" Foreground="#E0942C" FontSize="18" Grid.Row="4" VerticalAlignment="Center" Grid.RowSpan="2" HorizontalAlignment="Center" Height="34" Width="54"/>
+        <Label Content="Pretraga" Foreground="#E0942C" FontSize="13" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Center" VerticalContentAlignment="Top" Grid.RowSpan="2"/>
+        <Label Content="datuma"  Foreground="#E0942C" FontSize="13" Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Top"  HorizontalAlignment="Center" Width="58"/>
+        <Label Content="Izaberi" Foreground="#E0942C" FontSize="14" Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center" Grid.RowSpan="2" Width="50"/>
+        <Label Content="Odustani" Foreground="#E0942C" FontSize="14" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"  Grid.RowSpan="2" HorizontalAlignment="Center" Height="28" Width="64"/>
+    </Grid>
+</Page>

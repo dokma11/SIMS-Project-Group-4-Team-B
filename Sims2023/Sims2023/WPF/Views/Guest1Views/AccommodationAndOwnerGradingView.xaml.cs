@@ -4,6 +4,7 @@ using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Sims2023.WPF.Views.Guest1Views.Guest1HelpViews;
 
 namespace Sims2023.WPF.Views.Guest1Views
 {
@@ -53,6 +54,12 @@ namespace Sims2023.WPF.Views.Guest1Views
         public void AddPicture(object sender, ExecutedRoutedEventArgs e)
         {
             AccommodationAndOwnerGradingViewModel.addPicture_Click(sender, e);
+        }
+
+        public void OpenHelp_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var GuestOneMainHelpView = new GuestOneMainHelpView("AccommodationAndOwnerGradingView");
+            GuestOneMainHelpView.Show();
         }
 
     }

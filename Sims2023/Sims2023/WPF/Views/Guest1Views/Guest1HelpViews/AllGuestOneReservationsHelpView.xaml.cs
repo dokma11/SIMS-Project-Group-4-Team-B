@@ -1,5 +1,4 @@
-﻿using Sims2023.Domain.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Sims2023.WPF.Views.Guest1Views
+namespace Sims2023.WPF.Views.Guest1Views.Guest1HelpViews
 {
     /// <summary>
-    /// Interaction logic for GuestOneHelpView.xaml
+    /// Interaction logic for AllGuestOneReservationsHelpView.xaml
     /// </summary>
-    public partial class GuestOneHelpView : Window
+    public partial class AllGuestOneReservationsHelpView : Page
     {
-        public GuestOneHelpView(User guest1)
+        public AllGuestOneReservationsHelpView()
         {
             InitializeComponent();
         }
