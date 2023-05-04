@@ -23,6 +23,8 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         List<AccommodationReservation> FilteredData = new List<AccommodationReservation>();
         public User User { get; set; }
 
+        public AccommodationReservation SelectedAccommodationReservation { get; set; }
+
         NewAccommodationReservationReschedulingRequestView NewAccommodationReservationReschedulingRequestView;
 
         public NewAccommodationReservationReschedulingRequestViewModel(NewAccommodationReservationReschedulingRequestView newAccommodationReservationReschedulingRequestView, User guest1)

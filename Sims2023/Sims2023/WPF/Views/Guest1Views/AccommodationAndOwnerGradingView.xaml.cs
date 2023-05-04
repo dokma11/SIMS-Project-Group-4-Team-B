@@ -2,6 +2,9 @@
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using Sims2023.WPF.Views.Guest1Views.Guest1HelpViews;
 
 namespace Sims2023.WPF.Views.Guest1Views
 {
@@ -19,7 +22,17 @@ namespace Sims2023.WPF.Views.Guest1Views
 
         }
 
-        private void accept_Click(object sender, RoutedEventArgs e)
+        public void RemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+            AccommodationAndOwnerGradingViewModel.RemoveButton_Click(sender, e);
+        }
+
+        public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        public void CreateRecension(object sender, ExecutedRoutedEventArgs e)
         {
             var result = System.Windows.MessageBox.Show("Da li ste sigurni da zelite da ostavite ovu recenziju?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
             if (result == System.Windows.MessageBoxResult.Yes)
@@ -33,19 +46,20 @@ namespace Sims2023.WPF.Views.Guest1Views
             }
         }
 
-        public void giveUp_Click(object sender, RoutedEventArgs e)
+        public void GoBack(object sender, ExecutedRoutedEventArgs e)
         {
             Close();
         }
 
-        public void addPicture_Click(object sender, RoutedEventArgs e)
+        public void AddPicture(object sender, ExecutedRoutedEventArgs e)
         {
             AccommodationAndOwnerGradingViewModel.addPicture_Click(sender, e);
         }
 
-        public void RemoveButton_Click(object sender, RoutedEventArgs e)
+        public void OpenHelp_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            AccommodationAndOwnerGradingViewModel.RemoveButton_Click(sender, e);
+            var GuestOneMainHelpView = new GuestOneMainHelpView("AccommodationAndOwnerGradingView");
+            GuestOneMainHelpView.Show();
         }
 
     }

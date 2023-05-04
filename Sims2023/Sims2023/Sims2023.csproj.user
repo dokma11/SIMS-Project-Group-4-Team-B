@@ -10,6 +10,39 @@
     <Compile Update="WPF\Views\Guest1Views\AccommodationDetailedView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationAndOwnerGradingViewHelp.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationDetailedViewHelp.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationListViewHelp.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationCancellationViewHelp.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationConfirmationHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationDateHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationReschedulingHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AllGuestOneReservationsHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneMainHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\NewAccommodationReservationReschedulingRequestHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\GuestOneStartView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest2Views\TourDetailedView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -84,6 +117,39 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest1Views\AccommodationReservationCancellationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationAndOwnerGradingViewHelp.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationDetailedViewHelp.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationListViewHelp.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationCancellationViewHelp.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationConfirmationHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationDateHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationReschedulingHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AllGuestOneReservationsHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneMainHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\NewAccommodationReservationReschedulingRequestHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\GuestOneStartView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest2Views\Guest2View.xaml">

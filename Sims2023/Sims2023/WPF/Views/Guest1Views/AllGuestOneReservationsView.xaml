@@ -1,25 +1,34 @@
-﻿<Window x:Class="Sims2023.WPF.Views.Guest1Views.AllGuestOneReservationsView"
+﻿<Page x:Class="Sims2023.WPF.Views.Guest1Views.AllGuestOneReservationsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views"
+      xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         mc:Ignorable="d"
-        Title="AllGuestOneReservationsView" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
+        Title="AllGuestOneReservationsView" Height="515" Width="1000">
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="GradeAccommodation"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="NotImplemented"></CommandBinding>
+    </Page.CommandBindings>
     <Grid Margin="0,0,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
             <RowDefinition Height="80"/>
             <RowDefinition/>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="20" />
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Label x:Name="label" Content="Moje rezervacije" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="1"/>
-        <DataGrid x:Name="myDataGrid"
+        <Rectangle x:Name="Overlay1" Panel.ZIndex="1" Visibility="Collapsed" Grid.RowSpan="4">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#E0942C" Opacity="0.65" />
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label x:Name="label" Content="Moje rezervacije" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="0"/>
+        <DataGrid x:Name="myDataGrid" TabIndex="15"
                   ItemsSource="{Binding Path=AccommodationReservations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedAccommodationReservation, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="50,10,50,30"
-                  Grid.Row="2">
+                  Grid.Row="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ime" Binding="{Binding Accommodation.Name}" Width="190"></DataGridTextColumn>
                 <DataGridTextColumn Header="Grad" Binding="{Binding Accommodation.Location.City}" Width="190"></DataGridTextColumn>
@@ -35,15 +44,13 @@
                 <DataGridTextColumn Header="Datum kraja" Binding="{Binding EndDate, StringFormat={}{0:d}}" Width="190"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="grading" Content="Ocenite smestaj i vlasnika" Grid.Column="0" Margin="110,15,60,20" FontSize="20" Click="grading_Click"/>
-            <Button x:Name="renovation" Content="Preporuka za renoviranje" Grid.Column="1" Margin="60,15,110,20" FontSize="20" Click="renovation_Click"/>
+            <Button x:Name="grading" Content="Ocenite smeštaj i vlasnika" TabIndex="16" Grid.Column="0" Margin="110,15,60,20" FontSize="20" Command="cmd:RoutedCommands.Command1View"/>
+            <Button x:Name="renovation" Content="Preporuka za renoviranje" TabIndex="17" Grid.Column="1" Margin="60,15,110,20" FontSize="20" Command="cmd:RoutedCommands.Command2View"/>
         </Grid>
-        <ToolBar x:Name="toolBar" Grid.Row="0"/>
-        <StatusBar Grid.Row="4" Margin="0,0,0,0"/>
     </Grid>
-</Window>
+</Page>

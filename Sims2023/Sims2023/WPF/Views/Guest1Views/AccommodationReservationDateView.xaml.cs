@@ -3,15 +3,20 @@ using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace Sims2023.WPF.Views.Guest1Views
 {
     /// <summary>
     /// Interaction logic for AccommodationReservationConfirmationWindow.xaml
     /// </summary>
-    public partial class AccommodationReservationDateView : Window
+    public partial class AccommodationReservationDateView : Page
     {
         public AccommodationReservationDateViewModel AccommodationReservationDateViewModel;
+
+        public Frame MainFrame;
 
         AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
         public Accommodation SelectedAccommodation { get; set; }
@@ -20,40 +25,50 @@ namespace Sims2023.WPF.Views.Guest1Views
         public AccommodationStay SelectedAccommodationStay { get; set; }
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
 
-        public AccommodationReservationDateView(int reservationId, Accommodation selectedAccommodation, User guest1, ObservableCollection<AccommodationReservationRescheduling> accommodationReservationReschedulings, AccommodationReservationReschedulingService accommodationReservationReschedulingService)
+        public AccommodationReservationDateView(int reservationId, Accommodation selectedAccommodation, User guest1, ObservableCollection<AccommodationReservationRescheduling> accommodationReservationReschedulings, AccommodationReservationReschedulingService accommodationReservationReschedulingService,Frame mainFrame)
         {
             InitializeComponent();
             AccommodationReservationDateViewModel = new AccommodationReservationDateViewModel(this, reservationId, selectedAccommodation, guest1);
             DataContext = AccommodationReservationDateViewModel;
 
             User = guest1;
+            MainFrame = mainFrame;
             ReservationId = reservationId;
             SelectedAccommodation = selectedAccommodation;
             AccommodationReservationReschedulings = accommodationReservationReschedulings;
             _accommodationReservationReschedulingService = accommodationReservationReschedulingService;
         }
 
-        private void MakeReservation_Click(object sender, RoutedEventArgs e)
+        public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            AccommodationReservationDateViewModel.MakeReservation_Click(sender, e);
+            e.CanExecute = true;
         }
 
-        private void ButtonDateConfirmation_Click(object sender, RoutedEventArgs e)
+        public void MakeReservation(object sender, ExecutedRoutedEventArgs e)
         {
             int daysNumber = (int)numberOfDays.Value;
             int guestsNumber = (int)numberOfGuests.Value;
             SelectedAccommodationStay = (AccommodationStay)availableDatesGrid.SelectedItem;
             if (AccommodationReservationDateViewModel.ButtonDateConfirmation_Check(SelectedAccommodationStay))
             {
-                AccommodationReservationConfirmationView accommodationReservationConfirmationView = new AccommodationReservationConfirmationView(ReservationId, SelectedAccommodation, SelectedAccommodationStay, daysNumber, guestsNumber, User, AccommodationReservationReschedulings,_accommodationReservationReschedulingService);
-                accommodationReservationConfirmationView.Show();
-                Close();
+                MainFrame.Navigate(new AccommodationReservationConfirmationView(ReservationId, SelectedAccommodation, SelectedAccommodationStay, daysNumber, guestsNumber, User, AccommodationReservationReschedulings, _accommodationReservationReschedulingService, MainFrame));
             }
+            
         }
 
-        private void ButtonDateCancelation_Click(object sender, RoutedEventArgs e)
+        public void ConfirmReservation(object sender, ExecutedRoutedEventArgs e)
         {
-            Close();
+            AccommodationReservationDateViewModel.MakeReservation_Click();
+        }
+
+        public void GoBack(object sender, ExecutedRoutedEventArgs e)
+        {
+            NavigationService navigationService = NavigationService.GetNavigationService(this);
+
+            if (navigationService.CanGoBack)
+            {
+                navigationService.GoBack();
+            }
         }
     }
 }

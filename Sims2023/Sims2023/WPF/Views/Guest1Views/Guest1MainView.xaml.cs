@@ -1,6 +1,10 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest1ViewModel;
+using Sims2023.WPF.Commands;
 using System.Windows;
+using System.Windows.Input;
+using System.Windows.Controls;
+using Sims2023.WPF.Views.Guest1Views.Guest1HelpViews;
 
 namespace Sims2023.WPF.Views.Guest1Views
 {
@@ -15,6 +19,7 @@ namespace Sims2023.WPF.Views.Guest1Views
         public Guest1MainView(User guest1)
         {
             InitializeComponent();
+            MainFrame.Navigate(new GuestOneStartView());
             Guest1MainViewModel = new Guest1MainViewModel(this, guest1);
             DataContext = Guest1MainViewModel;
 
@@ -25,33 +30,68 @@ namespace Sims2023.WPF.Views.Guest1Views
             Guest1MainViewModel.Window_Loaded(sender, e);
         }
 
-        private void VewAccommodation_Click(object sender, RoutedEventArgs e)
+        private void Overlay_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var AccommodationListView = new AccommodationListView(User);
-            AccommodationListView.Show();
+            Guest1MainViewModel.HideMainMenu();
         }
 
-        private void ButtonLogOut_Click(object sender, RoutedEventArgs e)
+        public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
+            e.CanExecute = true;
+        }
+
+        public void OpenMenu_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Guest1MainViewModel.ToggleMainMenu();
+        }
+
+        public void OpenHelp_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Page currentPage = MainFrame.Content as Page;
+            var GuestOneMainHelpView = new GuestOneMainHelpView(currentPage.Title);
+            GuestOneMainHelpView.Show();
+        }
+
+        public void LogOut_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MainWindow LogIn = new();
+            LogIn.Show();
             Close();
         }
 
-        private void buttonGrading_Click(object sender, RoutedEventArgs e)
+        public void GuestOneMainView_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var AllGuestOneReservationsView = new AllGuestOneReservationsView(User);
-            AllGuestOneReservationsView.Show();
+            Guest1MainViewModel.HideMainMenu();
+            MainFrame.Navigate(new GuestOneStartView());
         }
 
-        private void AccommodationCancellation_Click(object sender, RoutedEventArgs e)
+        public void AccommodationListView_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var AccommodationReservationCancellationView = new AccommodationReservationCancellationView(User);
-            AccommodationReservationCancellationView.Show();
+            Guest1MainViewModel.HideMainMenu();
+            MainFrame.Navigate(new AccommodationListView(User,MainFrame));
         }
 
-        private void buttonReservationMove_Click(object sender, RoutedEventArgs e)
+        public void AccommodationReservationReschedulingView_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var AccommodationReservationReschedulingView = new AccommodationReservationReschedulingView(User);
-            AccommodationReservationReschedulingView.Show();
+            Guest1MainViewModel.HideMainMenu();
+            MainFrame.Navigate(new AccommodationReservationReschedulingView(User,MainFrame));
+        }
+
+        public void AccommodationReservationCancellation_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Guest1MainViewModel.HideMainMenu();
+            MainFrame.Navigate(new AccommodationReservationCancellationView(User));
+        }
+
+        public void AllGuestOneReservationsView_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Guest1MainViewModel.HideMainMenu();
+            MainFrame.Navigate(new AllGuestOneReservationsView(User));
+        }
+
+        public void NotImplemented_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("Ova funkcionalnost jos uvek nije implementirana");
         }
     }
 }

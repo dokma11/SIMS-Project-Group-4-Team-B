@@ -65,5 +65,15 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             FilteredData = _accommodationReservationService.FindSuitablePastReservations(User);
             AllGuestOneReservationsView.myDataGrid.ItemsSource = FilteredData;
         }
+
+        internal void BackgroundShading()
+        {
+            AllGuestOneReservationsView.Overlay1.Visibility = Visibility.Visible;
+        }
+
+        internal void BackgroundUnshading()
+        {
+            AllGuestOneReservationsView.Overlay1.Visibility = Visibility.Collapsed;
+        }
     }
 }
