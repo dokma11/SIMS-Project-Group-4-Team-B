@@ -18,24 +18,19 @@ using System.Windows.Shapes;
 namespace Sims2023.WPF.Views.OwnerViews
 {
     /// <summary>
-    /// Interaction logic for AvailableDatesView.xaml
+    /// Interaction logic for MonthlyStatitics.xaml
     /// </summary>
-    public partial class AvailableDatesView : Page
+    public partial class MonthlyStatiticsView : Page
     {
-        private AvailableDatesViewModel AvailableDatesViewModel;
-        public AvailableDatesView(Accommodation selectedAccommodation, List<AccommodationStay> stayss)
+        public string welcomeString { get; set; }
+
+        public MonthlyStatiticsViewModel MonthlyStatiticsViewModel;
+        public MonthlyStatiticsView(Accommodation accommodation, int year)
         {
+            MonthlyStatiticsViewModel = new MonthlyStatiticsViewModel(accommodation, year);
             InitializeComponent();
-            AvailableDatesViewModel = new AvailableDatesViewModel(selectedAccommodation,stayss);
-            DataContext = AvailableDatesViewModel;
-        }
-        
-        private void Schedule_Click(object sender, RoutedEventArgs e)
-        {
-            AvailableDatesViewModel.Schedule_Click();
-            NavigationService navigationService = NavigationService.GetNavigationService(this);
-            navigationService?.GoBack();
-            navigationService?.GoBack();
+            DataContext = MonthlyStatiticsViewModel;
+            welcomeString = "          Statistika\n smještaja " + accommodation.Name + "\n    za godinu " + year;
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -43,5 +38,7 @@ namespace Sims2023.WPF.Views.OwnerViews
             NavigationService navigationService = NavigationService.GetNavigationService(this);
             navigationService?.GoBack();
         }
+
+
     }
 }
