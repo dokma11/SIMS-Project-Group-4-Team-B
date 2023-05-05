@@ -49,6 +49,7 @@
         <xctk:IntegerUpDown Name="guestNumberBox" AllowTextInput="False" HorizontalAlignment="Left" Margin="730,314,0,0" VerticalAlignment="Top" Minimum="1" Value="1" Width="120"/>
         <Button x:Name="MyReservations" Content="My reservations" HorizontalAlignment="Left" Margin="517,357,0,35" Click="MyReservations_Click"/>
         <Button x:Name="SeeDetails" Content="See details" HorizontalAlignment="Left" Margin="368,359,0,33" Click="SeeDetails_Click"/>
+        <Button x:Name="CreateTourRequest" Content="Create Tour request" HorizontalAlignment="Left" Margin="110,359,0,33" Click="CreateTourRequest_Click"/>
 
     </Grid>
 </Window>

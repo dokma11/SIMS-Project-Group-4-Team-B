@@ -179,6 +179,12 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
                 TourDetailedView.Show();
             }
         }
+
+        public void CreateTourRequest_Click()
+        {
+            CreateTourRequestView CreateTourRequestView = new CreateTourRequestView();
+            CreateTourRequestView.Show();
+        }
         public void Update()
         {
             Guest2View.dataGridTours.ItemsSource = new ObservableCollection<Tour>(_tourService.GetCreated());

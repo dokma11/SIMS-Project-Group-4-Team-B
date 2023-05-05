@@ -31,7 +31,7 @@ namespace Sims2023.Domain.Models
             GuestNumber = guestNumber;
             Start = start;
             End = end;
-            State = state;
+            State = RequestsState.OnHold;
             Guest = guest;
         }
 
