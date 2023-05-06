@@ -182,7 +182,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         public void CreateTourRequest_Click()
         {
-            CreateTourRequestView CreateTourRequestView = new CreateTourRequestView();
+            CreateTourRequestView CreateTourRequestView = new CreateTourRequestView(User);
             CreateTourRequestView.Show();
         }
         public void Update()

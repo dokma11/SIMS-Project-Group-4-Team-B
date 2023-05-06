@@ -22,9 +22,9 @@ namespace Sims2023.Domain.Models
 
         public Request() { }
 
-        public Request(int id, Location location, string description, RequestsLanguage language, int guestNumber, DateTime start, DateTime end, RequestsState state, User guest)
+        public Request(Location location, string description, RequestsLanguage language, int guestNumber, DateTime start, DateTime end,User guest)
         {
-            Id = id;
+           
             Location = location;
             Description = description;
             Language = language;
