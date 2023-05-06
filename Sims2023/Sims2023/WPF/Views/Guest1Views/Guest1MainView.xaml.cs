@@ -87,7 +87,11 @@ namespace Sims2023.WPF.Views.Guest1Views
             Guest1MainViewModel.HideMainMenu();
             MainFrame.Navigate(new AllGuestOneReservationsView(User));
         }
-
+        public void GuestOneAllGradesView_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Guest1MainViewModel.HideMainMenu();
+            MainFrame.Navigate(new GuestOneReviewsView(User));
+        }
         public void NotImplemented_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             MessageBox.Show("Ova funkcionalnost jos uvek nije implementirana");

@@ -18,6 +18,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void NotifyObservers();
         public int NextId();
         public List<GuestGrade> GetAll();
-
+        List<GuestGrade> FindSuitableGrades(User user);
     }
 }
