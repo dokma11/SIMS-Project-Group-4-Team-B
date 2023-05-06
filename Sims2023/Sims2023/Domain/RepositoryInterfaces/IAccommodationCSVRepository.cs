@@ -1,12 +1,10 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.Observer;
-using Sims2023.Repository;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Sims2023.Domain.RepositoryInterfaces
 {
-     public interface IAccommodationCSVRepository
+    public interface IAccommodationCSVRepository
     {
         public Accommodation GetById(int id);
         public int NextId();
@@ -21,6 +19,5 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void NotifyObservers();
         public List<Accommodation> GetOwnerAccommodations(List<Accommodation> accommodations, User user);
         public void CheckSearchTermConditions(List<Accommodation> FilteredData, string nameSearchTerm, string citySearchTerm, string countrySearchTerm, string typeSearchTerm, int maxGuests, int minDays);
-        public bool CheckSearchTerm(Accommodation accommodation, string nameSearchTerm, string citySearchTerm, string countrySearchTerm, string typeSearchTerm, int maxGuestsSearchTerm, int minDaysSearchTerm);
     }
 }

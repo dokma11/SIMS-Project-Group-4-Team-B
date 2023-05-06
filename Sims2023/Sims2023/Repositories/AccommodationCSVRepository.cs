@@ -1,10 +1,10 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sims2023.Domain.RepositoryInterfaces;
-using System;
 
 namespace Sims2023.Repositories
 {
@@ -86,18 +86,6 @@ namespace Sims2023.Repositories
                 observer.Update();
             }
         }
-        public void CheckSearchTermConditions(List<Accommodation> FilteredData, string nameSearchTerm, string citySearchTerm, string countrySearchTerm, string typeSearchTerm, int maxGuests, int minDays)
-        {
-            foreach (Accommodation accommodation in _accommodations)
-            {
-                if (CheckSearchTerm(accommodation, nameSearchTerm, citySearchTerm, countrySearchTerm, typeSearchTerm, maxGuests, minDays))
-                {
-                    FilteredData.Add(accommodation);
-
-                }
-
-            }
-        }
         public void MarkRenovated(List<AccommodationRenovation> renovations)
         {
             List<Accommodation> accommodationsToUpdate = new List<Accommodation>();
@@ -127,65 +115,22 @@ namespace Sims2023.Repositories
             }
             return false;
         }
-        public bool CheckSearchTerm(Accommodation accommodation, string nameSearchTerm, string citySearchTerm, string countrySearchTerm, string typeSearchTerm, int maxGuestsSearchTerm, int minDaysSearchTerm)
+        public void CheckSearchTermConditions(List<Accommodation> FilteredData, string nameSearchTerm, string citySearchTerm, string countrySearchTerm, string typeSearchTerm, int maxGuests, int minDays)
         {
-            bool nameCondition = true;
-            bool cityCondition = true;
-            bool countryCondition = true;
-            bool typeCondition = true;
-            bool maxGuestsCondition = true;
-            bool minDaysCondition = true;
+            foreach (Accommodation accommodation in _accommodations)
+            {
+                bool nameCondition = string.IsNullOrEmpty(nameSearchTerm) || accommodation.Name.ToLower().Contains(nameSearchTerm.ToLower());
+                bool cityCondition = string.IsNullOrEmpty(citySearchTerm) || accommodation.Location.City.ToLower().Contains(citySearchTerm.ToLower());
+                bool countryCondition = string.IsNullOrEmpty(countrySearchTerm) || accommodation.Location.Country.ToLower().Contains(countrySearchTerm.ToLower());
+                bool typeCondition = string.IsNullOrEmpty(typeSearchTerm) || accommodation.Type.ToLower().Contains(typeSearchTerm.ToLower());
+                bool maxGuestsCondition = maxGuests <= 0 || accommodation.MaxGuests >= maxGuests;
+                bool minDaysCondition = minDays <= 0 || accommodation.MinDays >= minDays;
 
-            if (!string.IsNullOrEmpty(nameSearchTerm))
-            {
-                if (!accommodation.Name.ToLower().Contains(nameSearchTerm.ToLower()))
+                if (nameCondition && cityCondition && countryCondition && typeCondition && maxGuestsCondition && minDaysCondition)
                 {
-                    nameCondition = false;
+                    FilteredData.Add(accommodation);
                 }
             }
-
-            if (!string.IsNullOrEmpty(citySearchTerm))
-            {
-                if (!accommodation.Location.City.ToLower().Contains(citySearchTerm.ToLower()))
-                {
-                    cityCondition = false;
-                }
-            }
-            if (!string.IsNullOrEmpty(countrySearchTerm))
-            {
-                if (!accommodation.Location.Country.ToLower().Contains(countrySearchTerm.ToLower()))
-                {
-                    countryCondition = false;
-                }
-            }
-            if (!string.IsNullOrEmpty(typeSearchTerm))
-            {
-                if (!accommodation.Type.ToLower().Contains(typeSearchTerm.ToLower()))
-                {
-                    typeCondition = false;
-                }
-            }
-            if (maxGuestsSearchTerm > 0)
-            {
-                if (accommodation.MaxGuests < maxGuestsSearchTerm)
-                {
-                    maxGuestsCondition = false;
-                }
-            }
-            if (minDaysSearchTerm > 0)
-            {
-                if (accommodation.MinDays > minDaysSearchTerm)
-                {
-                    minDaysCondition = false;
-                }
-            }
-
-            if (nameCondition && cityCondition && countryCondition && typeCondition && maxGuestsCondition && minDaysCondition)
-            {
-                return true;
-
-            }
-            return false;
         }
     }
 }

@@ -1,8 +1,5 @@
-﻿using Sims2023.Application.Services;
-using Sims2023.Domain.Models;
-using Sims2023.Observer;
+﻿using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest1ViewModel;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -29,8 +26,8 @@ namespace Sims2023.WPF.Views.Guest1Views
 
         public void CancelReservation(object sender, ExecutedRoutedEventArgs e)
         {
-           if(AccommodationReservationCancellationViewModel.cancellation_Click())
-           {
+            if (AccommodationReservationCancellationViewModel.cancellation_Click())
+            {
                 NavigationService navigationService = NavigationService.GetNavigationService(this);
 
                 if (navigationService.CanGoBack)

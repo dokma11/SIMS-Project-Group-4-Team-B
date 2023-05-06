@@ -9,7 +9,7 @@
         Title="AllGuestOneReservationsView" Height="515" Width="1000">
     <Page.CommandBindings>
         <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="GradeAccommodation"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="NotImplemented"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="MakeRenovationRecommedation"></CommandBinding>
     </Page.CommandBindings>
     <Grid Margin="0,0,0,0">
         <Grid.RowDefinitions>

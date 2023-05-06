@@ -1,14 +1,10 @@
-﻿using Sims2023.Application.Services;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Repositories
 {
@@ -174,7 +170,7 @@ namespace Sims2023.Repositories
 
             for (DateTime startDate = startDateSelected; startDate <= endDateSelected.AddDays(-stayLength); startDate = startDate.AddDays(1), endDate = endDate.AddDays(1))
             {
-                isAvailable = IsDateSpanAvailable(selectedAccommodation,startDate, endDate);
+                isAvailable = IsDateSpanAvailable(selectedAccommodation, startDate, endDate);
                 if (isAvailable)
                 {
                     if (datesList.Count == 0)
@@ -220,7 +216,7 @@ namespace Sims2023.Repositories
             List<AccommodationReservation> FilteredReservations = new List<AccommodationReservation>();
             foreach (AccommodationReservation accommodationReservation in _accommodationReservations)
             {
-                if (CheckReschedulingReservation(accommodationReservation,guest1))
+                if (CheckReschedulingReservation(accommodationReservation, guest1))
                 {
                     FilteredReservations.Add(accommodationReservation);
                 }

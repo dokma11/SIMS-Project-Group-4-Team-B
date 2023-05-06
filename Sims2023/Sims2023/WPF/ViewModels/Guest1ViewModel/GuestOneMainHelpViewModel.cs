@@ -1,9 +1,7 @@
-﻿using Sims2023.WPF.Views.Guest1Views;
-using Sims2023.WPF.Views.Guest1Views.Guest1HelpViews;
+﻿using Sims2023.WPF.Views.Guest1Views.Guest1HelpViews;
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
@@ -26,7 +24,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         private void SetCurrentPageCommands()
         {
-            if(CurrentPage != "GuestOneStartView")
+            if (CurrentPage != "GuestOneStartView")
             {
                 GuestOneMainHelpView.AddedCommandsGrid.Visibility = Visibility.Visible;
                 GuestOneMainHelpView.SpaceFillerGrid.Visibility = Visibility.Collapsed;
@@ -77,7 +75,10 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             {
                 HelpFrame.Navigate(new NewAccommodationReservationReschedulingRequestHelpView());
             }
-            
+            if (CurrentPage == "AccommodationRenovationRecommodationView")
+            {
+                HelpFrame.Navigate(new AccommodationRenovationRecommodationHelpView());
+            }
         }
     }
 }

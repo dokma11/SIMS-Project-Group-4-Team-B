@@ -10,6 +10,9 @@
     <Compile Update="WPF\Views\Guest1Views\AccommodationDetailedView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\Guest1Views\AccommodationRenovationRecommodationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationAndOwnerGradingViewHelp.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -17,6 +20,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationListViewHelp.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationRenovationRecommodationHelpView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationCancellationViewHelp.xaml.cs">
@@ -116,6 +122,9 @@
     <Page Update="WPF\Views\Guest1Views\AccommodationDetailedView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\Guest1Views\AccommodationRenovationRecommodationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\Guest1Views\AccommodationReservationCancellationView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -126,6 +135,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationListViewHelp.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationRenovationRecommodationHelpView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationCancellationViewHelp.xaml">

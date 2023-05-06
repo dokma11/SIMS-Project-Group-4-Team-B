@@ -151,7 +151,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             {
                 todaysDay = true;
             }
-            if(numberOfGuests>SelectedAccommodation.MaxGuests)
+            if (numberOfGuests > SelectedAccommodation.MaxGuests)
             {
                 MessageBox.Show($"Ovaj smestaj nije u mogucnosti da primi toliko ljudi. Kapacitet je {SelectedAccommodation.MaxGuests}");
                 return false;

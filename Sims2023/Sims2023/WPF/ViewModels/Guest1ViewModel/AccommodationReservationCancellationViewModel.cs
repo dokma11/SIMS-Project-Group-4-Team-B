@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Navigation;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {

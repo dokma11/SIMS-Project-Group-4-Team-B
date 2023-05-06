@@ -1,21 +1,16 @@
-﻿using Sims2023.Application.Services;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
-using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using static Sims2023.Domain.Models.AccommodationReservationRescheduling;
-using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Repositories
 {
-    public class AccommodationReservationReschedulingCSVRepository: IAccommodationReservationReschedulingCSVRepository
+    public class AccommodationReservationReschedulingCSVRepository : IAccommodationReservationReschedulingCSVRepository
     {
         private List<IObserver> _observers;
         private AccommodationReservationCSVRepository reservations { get; set; }

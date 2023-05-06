@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace Sims2023.WPF.Commands
 {
@@ -97,7 +93,7 @@ namespace Sims2023.WPF.Commands
             {
                 new KeyGesture(Key.G, ModifierKeys.Control)
             }
-            ); 
+            );
         public static readonly RoutedUICommand ForumView = new RoutedUICommand(
             "Forum View",
             "Forum View",

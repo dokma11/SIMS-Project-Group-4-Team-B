@@ -2,7 +2,6 @@
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -25,7 +24,7 @@ namespace Sims2023.WPF.Views.Guest1Views
         public AccommodationStay SelectedAccommodationStay { get; set; }
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
 
-        public AccommodationReservationDateView(int reservationId, Accommodation selectedAccommodation, User guest1, ObservableCollection<AccommodationReservationRescheduling> accommodationReservationReschedulings, AccommodationReservationReschedulingService accommodationReservationReschedulingService,Frame mainFrame)
+        public AccommodationReservationDateView(int reservationId, Accommodation selectedAccommodation, User guest1, ObservableCollection<AccommodationReservationRescheduling> accommodationReservationReschedulings, AccommodationReservationReschedulingService accommodationReservationReschedulingService, Frame mainFrame)
         {
             InitializeComponent();
             AccommodationReservationDateViewModel = new AccommodationReservationDateViewModel(this, reservationId, selectedAccommodation, guest1);
@@ -53,7 +52,7 @@ namespace Sims2023.WPF.Views.Guest1Views
             {
                 MainFrame.Navigate(new AccommodationReservationConfirmationView(ReservationId, SelectedAccommodation, SelectedAccommodationStay, daysNumber, guestsNumber, User, AccommodationReservationReschedulings, _accommodationReservationReschedulingService, MainFrame));
             }
-            
+
         }
 
         public void ConfirmReservation(object sender, ExecutedRoutedEventArgs e)

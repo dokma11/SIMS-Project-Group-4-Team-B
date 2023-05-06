@@ -2,14 +2,9 @@
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
-using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace Sims2023.Repositories
 {
@@ -26,7 +21,7 @@ namespace Sims2023.Repositories
             _fileHandler = new AccommodationRenovationFileHandler();
             _renovations = _fileHandler.Load();
             UpdateStatus(_renovations);
-          
+
         }
         public int NextId()
         {
@@ -39,7 +34,7 @@ namespace Sims2023.Repositories
             grade.Id = NextId();
             _renovations.Add(grade);
             _fileHandler.Save(_renovations);
-       
+
         }
 
         public void Remove(AccommodationRenovation renovation)
@@ -58,7 +53,7 @@ namespace Sims2023.Repositories
             }
 
             _fileHandler.Save(_renovations);
-         
+
         }
 
         public List<AccommodationRenovation> GetAll()
