@@ -91,8 +91,8 @@
                     <RowDefinition Height="100"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Image Grid.Row="1" Source="pack://application:,,,/Sims2023;component/Images/Guest1Images/Horizont_ICO.png"/>
-                <Image Grid.Row="2" Source="pack://application:,,,/Sims2023;component/Images/Guest1Images/Horizont_SRB.png"/>
+                <Image Grid.Row="1" Source="pack://application:,,,/Sims2023;component/Resources/GuestOneResources/Horizont_ICO.png"/>
+                <Image Grid.Row="2" Source="pack://application:,,,/Sims2023;component/Resources/GuestOneResources/Horizont_SRB.png"/>
             </Grid>
             <Grid x:Name="AddedCommandsGrid" Background="#DDF2FF" Grid.Column="1" Margin="10,0,40,0" Visibility="Collapsed">
                 <Grid.RowDefinitions>

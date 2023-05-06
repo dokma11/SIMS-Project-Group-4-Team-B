@@ -90,13 +90,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\Guest1Images\add.jpg">
+    <Resource Include="Resources\GuestOneResources\add.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\Guest1Images\help.png">
+    <Resource Include="Resources\GuestOneResources\help.png">
       <Generator>Resource</Generator>
     </Resource>
-    <Resource Include="Images\Guest1Images\Horizont_ICO.png" />
+    <Resource Include="Resources\GuestOneResources\Horizont_ICO.png" />
     <Resource Include="Images\Guest1Images\slikaSmestaja1.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -171,7 +171,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\Guest1Images\Horizont_SRB.png" />
+    <Resource Include="Resources\GuestOneResources\Horizont_SRB.png" />
   </ItemGroup>
 
 </Project>
