@@ -28,19 +28,79 @@
                     <DataGrid x:Name="toursDataGrid" ItemsSource="{Binding CreatedToursToDisplay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedCreatedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="1100" Height="430" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Naziv" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.Id}"/>
-                            <DataGridTextColumn Header="Ključne tačke" Binding="{Binding KeyPoints}"/>
-                            <DataGridTextColumn Header="Maksimalan broj gostiju" Binding="{Binding MaxGuestNumber}"/>
-                            <DataGridTextColumn Header="Datum i vreme polaska" Binding="{Binding Start}"/>
-                            <DataGridTextColumn Header="Trajanje(h)" Binding="{Binding Length}"/>
-                            <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage}"/>
+                            <DataGridTextColumn Header="Naziv" Binding="{Binding Name}" Width="170">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Padding" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.City}" Width="160">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Padding" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <!-- NIJE KRAJ OVDE-->
+                            <DataGridTemplateColumn Header="Ključne tačke" Width="170">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="Prikaži ključne tačke ture"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Maksimalan broj gostiju" Binding="{Binding MaxGuestNumber}" Width="150">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Padding" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Datum i vreme polaska" Binding="{Binding Start}" Width="180">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Padding" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Trajanje(h)" Binding="{Binding Length}" Width="90">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Padding" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage}" Width="130">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Padding" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
                         </DataGrid.Columns>
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding KeyPoints}" Padding="5,5,0,5" Height="25"/>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
                     </DataGrid>
                     <DockPanel>
                         <Label x:Name="successfulCancellationLabel" Content="Uspešno ste otkazali turu!" FontSize="24" Margin="450,20,40,0" Visibility="Hidden"/>
-                        <Button x:Name="startTourButton" Click="StartTourButton_Click" Content="Započni turu" Width="150" Height="50" Margin="20,20,0,0"/>
-                        <Button x:Name="cancelTourButton" Click="CancelTourButton_Click" Content="Otkaži turu" Width="150" Height="50" Margin="5,20,0,0"/>
+                        <Button x:Name="startTourButton" Click="StartTourButton_Click" Content="Započni turu" Width="150" Height="50" Margin="20,20,0,0" ToolTip="Pritisnite da biste započeli izabranu turu"/>
+                        <Button x:Name="cancelTourButton" Click="CancelTourButton_Click" Content="Otkaži turu" Width="150" Height="50" Margin="5,20,0,0" ToolTip="Pritisnite da biste otkazali izabranu turu"/>
                     </DockPanel>
                 </StackPanel>
             </TabItem>
@@ -112,24 +172,64 @@
                 <DockPanel Background="#B3E5FC">
                     <StackPanel Width="640">
                         <Label Content="Završene ture" FontSize="32" Margin="20,10,0,0"/>
-                        <DataGrid Width="625" Height="380" ItemsSource="{Binding FinishedToursToDisplay, UpdateSourceTrigger=PropertyChanged}"
+                        <DataGrid Width="625" Height="440" ItemsSource="{Binding FinishedToursToDisplay, UpdateSourceTrigger=PropertyChanged}"
                         SelectedItem="{Binding SelectedFinishedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" Margin="25,10,0,0">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Naziv" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.Id, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Datum i vreme početka ture" Binding="{Binding Start, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Broj gostiju" Binding="{Binding AttendedGuestsNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Naziv" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="150">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.Id, UpdateSourceTrigger=PropertyChanged}" Width="100">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage, UpdateSourceTrigger=PropertyChanged}" Width="100">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Datum i vreme početka ture" Binding="{Binding Start, UpdateSourceTrigger=PropertyChanged}" Width="180"> 
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Broj gostiju" Binding="{Binding AttendedGuestsNumber, UpdateSourceTrigger=PropertyChanged}" Width="85">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <Button x:Name="displayStatisticsButton" Click="DisplayStatisticsButton_Click" Height="50" Width="150" Content="Prikaži statistiku" Margin="495,10,0,0"/>
+                        <Button x:Name="displayStatisticsButton" Click="DisplayStatisticsButton_Click" Height="50" Width="150" Content="Prikaži statistiku" Margin="495,10,0,0" ToolTip="Pritistnite da biste prikazali statistiku izabrane ture"/>
                     </StackPanel>
                     <StackPanel Width="640">
                         <DockPanel>
-                            <Label Content="Najposećenija tura" FontSize="32" Margin="40,0,-175,0"/>
-                            <ComboBox x:Name="yearComboBox" ItemsSource="{Binding ComboBoxItems}"  Width="120" Height="30" IsReadOnly="True" Margin="0,10,0,0" SelectionChanged="YearComboBox_SelectionChanged"/>
+                            <Label x:Name="theMostVisitedTourLabel" Content="Najposećenija tura" FontSize="32" Margin="40,10,-175,0" Visibility="Visible"/>
+                            <ComboBox x:Name="yearComboBox" ItemsSource="{Binding ComboBoxItems}"  Width="120" Height="30" IsReadOnly="True" Margin="0,20,0,0" SelectionChanged="YearComboBox_SelectionChanged"/>
                         </DockPanel>
-                        <DataGrid Width="420" Height="50" ItemsSource="{Binding TheMostVisitedTour, UpdateSourceTrigger=PropertyChanged}" Margin="45,0,190,0" IsReadOnly="True" AutoGenerateColumns="False">
+                        <DataGrid Width="420" Height="50" ItemsSource="{Binding TheMostVisitedTour, UpdateSourceTrigger=PropertyChanged}" Margin="45,10,190,0" IsReadOnly="True" AutoGenerateColumns="False" x:Name="theMostVisitedTourDataGrid">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Naziv" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.Id, UpdateSourceTrigger=PropertyChanged}"/>
@@ -137,24 +237,23 @@
                                 <DataGridTextColumn Header="Broj gostiju" Binding="{Binding AttendedGuestsNumber, UpdateSourceTrigger=PropertyChanged}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <Label Content="Statistika najposećenije ture" FontSize="24" Margin="40,0,-175,0"/>
+                        <Label x:Name="theMostVisitedTourStatisticsLabel" Content="Statistika najposećenije ture" FontSize="24" Margin="40,0,-175,0"/>
                         <DockPanel>
-                            <Label Content="Broj gostiju po starosnoj grupi" FontSize="16" Margin="40,0,0,0"/>
-                            <Label Content="Procenat gostiju sa/bez vaučera" FontSize="16" Margin="40,0,0,0"/>
+                            <Label x:Name="cartesianChartLabel" Content="Broj gostiju po starosnoj grupi" FontSize="16" Margin="40,0,0,0"/>
+                            <Label x:Name="pieChartLabel" Content="Procenat gostiju sa/bez vaučera" FontSize="16" Margin="40,0,0,0"/>
                         </DockPanel>
                         <DockPanel>
-                            <lvc:CartesianChart Series="{Binding NekiSeries}" Height="316" LegendLocation="Bottom" Width="266" Margin="0,20,0,0">
+                            <lvc:CartesianChart Series="{Binding TheMostVisitedTourSeriesCollection}" Height="316" LegendLocation="Bottom" Width="320" Margin="0,20,0,0" x:Name="cartesianChart">
                                 <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Title="Dole" Labels="{Binding Labels}"/>
+                                    <lvc:Axis Title="Dole" Labels="{Binding LabelsForTheMostVisitedTour}"/>
                                 </lvc:CartesianChart.AxisX>
                                 <lvc:CartesianChart.AxisY>
                                     <lvc:Axis Title="Gore" Labels="{Binding Values}"/>
                                 </lvc:CartesianChart.AxisY>
                             </lvc:CartesianChart>
-                            <lvc:PieChart Width="279">
-
-                            </lvc:PieChart>
+                            <lvc:PieChart Width="220" Series="{Binding PieSeries}" Margin="0,0,80,0" LegendLocation="Bottom" Hoverable="False" x:Name="pieChart"/>
                         </DockPanel>
+                        <Button x:Name="displayTheMostVisitedTourButton" Click="DisplayTheMostVisitedTourButton" Content="Prikaži najposećeniju turu" Height="50" Width="150" Margin="280,10,0,0" Visibility="Hidden"/>
                     </StackPanel>
                 </DockPanel>
             </TabItem>

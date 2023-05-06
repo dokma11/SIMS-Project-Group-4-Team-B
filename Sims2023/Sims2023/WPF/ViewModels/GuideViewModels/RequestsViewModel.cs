@@ -205,20 +205,12 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             return _requestService.GetFiltered(locationSearchTerm, guestNumberSearchTerm, languageSearchTerm, dateStartSearchTerm, dateEndSearchTerm);
         }
 
-        public void AcceptRequest()
+        public void HandleRequest(bool accepted)
         {
             if (SelectedRequest != null)
             {
-                _requestService.UpdateState(SelectedRequest, RequestsState.Accepted);
-                Update();
-            }
-        }
-
-        public void DeclineRequest()
-        {
-            if (SelectedRequest != null)
-            {
-                _requestService.UpdateState(SelectedRequest, RequestsState.Invalid);
+                var state = accepted ? RequestsState.Accepted : RequestsState.Invalid;
+                _requestService.UpdateState(SelectedRequest, state);
                 Update();
             }
         }

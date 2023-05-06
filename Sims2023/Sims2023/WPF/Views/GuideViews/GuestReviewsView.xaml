@@ -18,7 +18,8 @@
         <Label Content="Recenzije" FontSize="40" Width="190" HorizontalAlignment="Center"/>
         <Label Content="Odaberire turu za koju želite da vidite sve recenzije gostiju" FontSize="24" HorizontalAlignment="Center"></Label>
         <DockPanel Height="460">
-            <DataGrid x:Name="TourDataGrid" Width="625" Height="375" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid x:Name="TourDataGrid" Width="625" Height="375" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" Margin="15">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Naziv" Binding="{Binding Name}" Width="150">
                     <DataGridTextColumn.ElementStyle>
@@ -67,7 +68,8 @@
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid x:Name="ReviewDataGrid" Width="590" Height="375" ItemsSource="{Binding ReviewsToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedReview, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid x:Name="ReviewDataGrid" Width="590" Height="375" ItemsSource="{Binding ReviewsToDisplay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding Path=SelectedReview, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single" SelectionChanged="OnSelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Ime" Binding="{Binding Guest.Name}" Width="115">
                         <DataGridTextColumn.ElementStyle>
@@ -81,7 +83,7 @@
                     <DataGridTextColumn Header="Prezime" Binding="{Binding Guest.Surname}" Width="115">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                                 <Setter Property="Padding" Value="5,0,0,0"/>
                             </Style>
@@ -126,7 +128,7 @@
                 </DataGrid.Columns>
                 <DataGrid.RowDetailsTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Comment}" />
+                        <TextBlock Text="{Binding Comment}" Padding="5,5,0,5" Height="25"/>
                     </DataTemplate>
                 </DataGrid.RowDetailsTemplate>
             </DataGrid>

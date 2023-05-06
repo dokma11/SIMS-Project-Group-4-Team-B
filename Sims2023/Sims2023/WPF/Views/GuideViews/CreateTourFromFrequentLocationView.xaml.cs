@@ -99,7 +99,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void ToursButton_Click(object sender, RoutedEventArgs e)
         {
-            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService);
+            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
         }
 

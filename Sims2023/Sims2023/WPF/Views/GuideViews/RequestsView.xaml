@@ -100,7 +100,7 @@
                             </DataGrid.Columns>
                             <DataGrid.RowDetailsTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Description}" />
+                                    <TextBlock Text="{Binding Description}" Padding="5,5,0,5"/>
                                 </DataTemplate>
                             </DataGrid.RowDetailsTemplate>
                         </DataGrid>

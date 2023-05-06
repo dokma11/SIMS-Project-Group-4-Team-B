@@ -68,13 +68,5 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 ToursToDisplay.Add(tour);
             }
         }
-
-        
-        public void Create(TourService tourService, LocationService locationService, KeyPointService keyPointService, User loggedInGuide)
-        {
-            CreateTourView createTourView = new(tourService, locationService, keyPointService, loggedInGuide);
-            FrameManagerGuide.Instance.MainFrame.Navigate(createTourView);
-        }
-        
     }
 }

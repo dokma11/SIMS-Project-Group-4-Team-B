@@ -31,9 +31,6 @@
     <Compile Update="WPF\Views\GuideViews\GuideView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="WPF\Views\GuideViews\HandleTourRequestsView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="WPF\Views\GuideViews\RequestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -113,9 +110,6 @@
     <Page Update="WPF\Views\GuideViews\GuideView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\Views\GuideViews\HandleTourRequestsView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="WPF\Views\GuideViews\RequestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -126,9 +120,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\AllGuestsView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="WPF\Views\GuideViews\CreateTourView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\AvailableDatesView.xaml">
@@ -147,9 +138,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\OwnerView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="WPF\Views\GuideViews\TourStatisticsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\SchedulingRenovationAppointmentsView.xaml">

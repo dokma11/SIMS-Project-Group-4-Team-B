@@ -36,6 +36,7 @@ namespace Sims2023.WPF.Views.GuideViews
             _countriesAndCitiesService = countriesAndCitiesService;
             _voucherService = voucherService;
             _userService = userService;
+            _requestService = requestService;
 
             LoggedInGuide = loggedInGuide;
 
@@ -47,16 +48,14 @@ namespace Sims2023.WPF.Views.GuideViews
             languageYearComboBox.ItemsSource = RequestsViewModel.GetYears();
             locationYearComboBox.ItemsSource = RequestsViewModel.GetYears();
 
-            locationTextBox.GotFocus += TextBox_GotFocus;
-            locationTextBox.LostFocus += TextBox_LostFocus;
-            guestNumberTextBox.GotFocus += TextBox_GotFocus;
-            guestNumberTextBox.LostFocus += TextBox_LostFocus;
-            languageTextBox.GotFocus += TextBox_GotFocus;
-            languageTextBox.LostFocus += TextBox_LostFocus;
+            TextBox[] textBoxes = { locationTextBox, guestNumberTextBox, languageTextBox };
 
-            locationTextBox.Text = locationTextBox.Tag.ToString();
-            guestNumberTextBox.Text = guestNumberTextBox.Tag.ToString();
-            languageTextBox.Text = languageTextBox.Tag.ToString();
+            foreach (TextBox textBox in textBoxes)
+            {
+                textBox.GotFocus += TextBox_GotFocus;
+                textBox.LostFocus += TextBox_LostFocus;
+                textBox.Text = textBox.Tag.ToString();
+            }
         }
 
         private void LanguageComboBox_SelectionChanged(object sender, RoutedEventArgs e)
@@ -89,25 +88,9 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
-            string locationSearchTerm = "";
-            string guestNumberSearchTerm = "";
-            string languageSearchTerm = "";
-
-            if (locationTextBox.Text != "Unesite lokaciju")
-            {
-                locationSearchTerm = locationTextBox.Text;
-            }
-
-            if (guestNumberTextBox.Text != "Unesite broj gostiju")
-            {
-                guestNumberSearchTerm = guestNumberTextBox.Text;
-            }
-
-            if (languageTextBox.Text != "Unesite jezik")
-            {
-                languageSearchTerm = languageTextBox.Text;
-            }
-
+            string locationSearchTerm = locationTextBox.Text == "Unesite lokaciju" ? "" : locationTextBox.Text;
+            string guestNumberSearchTerm = guestNumberTextBox.Text == "Unesite broj gostiju" ? "" : guestNumberTextBox.Text;
+            string languageSearchTerm = languageTextBox.Text == "Unesite jezik" ? "" : languageTextBox.Text;
             string dateStartSearchTerm = dateStartTextBox.Text;
             string dateEndSearchTerm = dateEndTextBox.Text;
 
@@ -118,12 +101,12 @@ namespace Sims2023.WPF.Views.GuideViews
         {
             CreateTourFromRequestView createTourFromRequestView = new(RequestsViewModel.SelectedRequest, _tourService, _locationService, _keyPointService, _tourReviewService, _requestService, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, LoggedInGuide);
             FrameManagerGuide.Instance.MainFrame.Navigate(createTourFromRequestView);
-            RequestsViewModel.AcceptRequest();
+            RequestsViewModel.HandleRequest(true);
         }
 
         private void DeclineButton_Click(object sender, RoutedEventArgs e)
         {
-            RequestsViewModel.DeclineRequest();
+            RequestsViewModel.HandleRequest(false);
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -156,7 +139,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void ToursButton_Click(object sender, RoutedEventArgs e)
         {
-            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService);
+            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
         }
 

@@ -21,6 +21,8 @@ namespace Sims2023.WPF.Views.GuideViews
         private UserService _userService;
         private CountriesAndCitiesService _countriesAndCitiesService;
         public User LoggedInGuide { get; set; }
+        private bool _rowExpanded;
+
         public GuestReviewsView(TourService tourService, TourReviewService tourReviewService, LocationService locationService, RequestService requestService, KeyPointService keyPointService, User loggedInGuide, TourReservationService tourReservationService, VoucherService voucherService, UserService userService, CountriesAndCitiesService countriesAndCitiesService)
         {
             InitializeComponent();
@@ -39,6 +41,8 @@ namespace Sims2023.WPF.Views.GuideViews
 
             GuestReviewsViewModel = new(tourService, tourReviewService, loggedInGuide);
             DataContext = GuestReviewsViewModel;
+
+            _rowExpanded = false;
         }
 
         private void DisplayReviewsButton_Click(object sender, RoutedEventArgs e)
@@ -78,25 +82,19 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void DisplayCommentButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GuestReviewsViewModel.IsReviewSelected())
+            if (ReviewDataGrid.SelectedItem != null)
             {
-                var selectedReview = ReviewDataGrid.SelectedItem as TourReview;
+                DataGridRow row = (DataGridRow)ReviewDataGrid.ItemContainerGenerator.ContainerFromItem(ReviewDataGrid.SelectedItem);
+                row.DetailsVisibility = Visibility.Visible;
+            }
+        }
 
-                if (selectedReview != null)
-                {
-                    // Select the row to show the details
-                    ReviewDataGrid.SelectedItem = selectedReview;
-                    ReviewDataGrid.UpdateLayout();
-
-                    // Find the row container for the selected item
-                    var row = (DataGridRow)ReviewDataGrid.ItemContainerGenerator.ContainerFromItem(selectedReview);
-
-                    // Set the IsSelected property to true to expand the row
-                    if (row != null)
-                    {
-                        row.IsSelected = true;
-                    }
-                }
+        private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.RemovedItems.Count > 0)
+            {
+                DataGridRow row = (DataGridRow)ReviewDataGrid.ItemContainerGenerator.ContainerFromItem(e.RemovedItems[0]);
+                row.DetailsVisibility = Visibility.Collapsed;
             }
         }
 
@@ -110,7 +108,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void ToursButton_Click(object sender, RoutedEventArgs e)
         {
-            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService);
+            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
         }
 

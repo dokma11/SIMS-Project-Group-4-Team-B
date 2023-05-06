@@ -27,7 +27,7 @@ namespace Sims2023.WPF.Views.GuideViews
         public User LoggedInGuide { get; set; }
         private bool addDatesButtonClicked;
 
-        public ToursView(TourService tourService, TourReviewService tourReviewService, TourReservationService tourReservationService, KeyPointService keyPointService, LocationService locationService, VoucherService voucherService, UserService userService, User loggedInGuide, CountriesAndCitiesService countriesAndCitiesService)
+        public ToursView(TourService tourService, TourReviewService tourReviewService, TourReservationService tourReservationService, KeyPointService keyPointService, LocationService locationService, VoucherService voucherService, UserService userService, User loggedInGuide, CountriesAndCitiesService countriesAndCitiesService, RequestService requestService)
         {
             InitializeComponent();
 
@@ -39,6 +39,7 @@ namespace Sims2023.WPF.Views.GuideViews
             _voucherService = voucherService;
             _userService = userService;
             _countriesAndCitiesService = countriesAndCitiesService;
+            _requestService = requestService;
 
             LoggedInGuide = loggedInGuide;
 
@@ -54,8 +55,8 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void TabControl_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            
-            if(tabControl.SelectedIndex == 1)
+
+            if (tabControl.SelectedIndex == 1)
             {
                 /*
                 toursNameTextBox.Text = string.Empty;
@@ -74,14 +75,14 @@ namespace Sims2023.WPF.Views.GuideViews
                 }
                 */
             }
-            
+
         }
 
         //PREDSTOJECE TURE
 
         private void StartTourButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ToursViewModel.IsTourSelected())
+            if (ToursViewModel.IsCreatedTourSelected())
             {
                 startTourButton.IsEnabled = false;
                 LiveTourTrackingView liveTourTrackingView = new(ToursViewModel.SelectedCreatedTour, _keyPointService, _tourReservationService, _userService, _tourService, _tourReviewService, _requestService, LoggedInGuide, _locationService, _voucherService, _countriesAndCitiesService);
@@ -96,7 +97,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void CancelTourButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ToursViewModel.IsTourSelected() && ToursViewModel.IsTourEligibleForCancellation())
+            if (ToursViewModel.IsCreatedTourSelected() && ToursViewModel.IsTourEligibleForCancellation())
             {
                 string additionalComment = Microsoft.VisualBasic.Interaction.InputBox("Unesite razlog:", "Input String");
                 if (!string.IsNullOrEmpty(additionalComment))
@@ -216,12 +217,42 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void DisplayStatisticsButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (ToursViewModel.IsFinishedTourSelected())
+            {
+                ChangeDisplay();
+                ToursViewModel.DisplayStatistics();
+            }
         }
 
-        private void YearComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ChangeDisplay()
         {
+            theMostVisitedTourLabel.Content = "Statistika izabrane ture";
+            yearComboBox.Visibility = Visibility.Hidden;
+            theMostVisitedTourDataGrid.Visibility = Visibility.Hidden;
+            theMostVisitedTourStatisticsLabel.Visibility = Visibility.Hidden;
+            displayTheMostVisitedTourButton.Visibility = Visibility.Visible;
+            displayTheMostVisitedTourButton.Margin = new Thickness(270, -100, 0, 0);
+            cartesianChart.Height = 400;
+            cartesianChart.Margin = new Thickness(0, -60, 0, 100);
+            cartesianChartLabel.Margin = new Thickness(40, -100, 0, 0);
+            pieChart.Height = 400;
+            pieChart.Margin = new Thickness(0, -60, 80, 100);
+            pieChartLabel.Margin = new Thickness(40, -100, 0, 0);
+        }
 
+        private void YearComboBox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            ComboBox cBox = (ComboBox)sender;
+            string year = (cBox.SelectedItem.ToString());
+            ToursViewModel.UpdateTheMostVisitedTour(LoggedInGuide, year);
+        }
+
+        private void DisplayTheMostVisitedTourButton(object sender, RoutedEventArgs e)
+        {
+            //vrati nazad sve
+            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
+            toursView.tabControl.SelectedIndex = 2;
         }
     }
 }
