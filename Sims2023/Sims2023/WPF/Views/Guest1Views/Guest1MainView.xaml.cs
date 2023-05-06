@@ -1,10 +1,9 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest1ViewModel;
-using Sims2023.WPF.Commands;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Controls;
 using Sims2023.WPF.Views.Guest1Views.Guest1HelpViews;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Sims2023.WPF.Views.Guest1Views
 {
@@ -68,13 +67,13 @@ namespace Sims2023.WPF.Views.Guest1Views
         public void AccommodationListView_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Guest1MainViewModel.HideMainMenu();
-            MainFrame.Navigate(new AccommodationListView(User,MainFrame));
+            MainFrame.Navigate(new AccommodationListView(User, MainFrame));
         }
 
         public void AccommodationReservationReschedulingView_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Guest1MainViewModel.HideMainMenu();
-            MainFrame.Navigate(new AccommodationReservationReschedulingView(User,MainFrame));
+            MainFrame.Navigate(new AccommodationReservationReschedulingView(User, MainFrame));
         }
 
         public void AccommodationReservationCancellation_Executed(object sender, ExecutedRoutedEventArgs e)

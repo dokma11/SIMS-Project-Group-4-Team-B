@@ -44,5 +44,15 @@ namespace Sims2023.Application.Services
         {
             _accommodationGrade.Subscribe(observer);
         }
+
+        internal void Update(AccommodationGrade grade)
+        {
+            _accommodationGrade.Update(grade);
+        }
+
+        public AccommodationGrade FindGrade(AccommodationReservation selectedAccommodationReservation)
+        {
+            return _accommodationGrade.FindGrade(selectedAccommodationReservation);
+        }
     }
 }

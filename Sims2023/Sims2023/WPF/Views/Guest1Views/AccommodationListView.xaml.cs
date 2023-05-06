@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Navigation;
 
 namespace Sims2023.WPF.Views.Guest1Views
 {
@@ -21,7 +20,7 @@ namespace Sims2023.WPF.Views.Guest1Views
         private AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
 
 
-        public AccommodationListView(User guest1,Frame mainFrame)
+        public AccommodationListView(User guest1, Frame mainFrame)
         {
             InitializeComponent();
             AccommodationListViewModel = new AccommodationListViewModel(this, guest1);
@@ -47,7 +46,7 @@ namespace Sims2023.WPF.Views.Guest1Views
                 MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da rezervisete.");
                 return;
             }
-            MainFrame.Navigate(new AccommodationReservationDateView(-1, SelectedAccommodation, User, AccommodationReservationReschedulings, _accommodationReservationReschedulingService,MainFrame));
+            MainFrame.Navigate(new AccommodationReservationDateView(-1, SelectedAccommodation, User, AccommodationReservationReschedulings, _accommodationReservationReschedulingService, MainFrame));
         }
 
         public void ShowDetailedView(object sender, ExecutedRoutedEventArgs e)
@@ -59,7 +58,7 @@ namespace Sims2023.WPF.Views.Guest1Views
                 MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da prikazete detaljnije.");
                 return;
             }
-            MainFrame.Navigate(new AccommodationDetailedView(User, SelectedAccommodation,MainFrame));
+            MainFrame.Navigate(new AccommodationDetailedView(User, SelectedAccommodation, MainFrame));
         }
 
         public void Search(object sender, ExecutedRoutedEventArgs e)

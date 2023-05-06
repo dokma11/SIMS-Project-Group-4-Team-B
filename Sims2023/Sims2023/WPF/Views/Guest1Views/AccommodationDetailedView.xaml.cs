@@ -2,7 +2,6 @@
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -23,7 +22,7 @@ namespace Sims2023.WPF.Views.Guest1Views
 
         private AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
 
-        public AccommodationDetailedView(User guest1, Accommodation selectedAccommodation,Frame mainFrame)
+        public AccommodationDetailedView(User guest1, Accommodation selectedAccommodation, Frame mainFrame)
         {
             InitializeComponent();
             AccommodationDetailedViewModel = new AccommodationDetailedViewModel(this, guest1, selectedAccommodation);

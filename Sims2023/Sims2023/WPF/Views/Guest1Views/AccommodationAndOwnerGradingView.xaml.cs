@@ -1,10 +1,9 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest1ViewModel;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using Sims2023.WPF.Views.Guest1Views.Guest1HelpViews;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Sims2023.WPF.Views.Guest1Views
 {
@@ -14,12 +13,15 @@ namespace Sims2023.WPF.Views.Guest1Views
     public partial class AccommodationAndOwnerGradingView : Window
     {
         public AccommodationAndOwnerGradingViewModel AccommodationAndOwnerGradingViewModel;
-        public AccommodationAndOwnerGradingView(AccommodationReservation SelectedAccommodationReservationn, User guest1, AccommodationReservationService accommodationReservationController)
+        private AccommodationGradeService _accommodationGradeService;
+        AccommodationGrade Grade;
+
+        public AccommodationAndOwnerGradingView(AccommodationReservation SelectedAccommodationReservationn, User guest1, AccommodationReservationService accommodationReservationController, AccommodationGradeService accommodationGradeService)
         {
             InitializeComponent();
-            AccommodationAndOwnerGradingViewModel = new AccommodationAndOwnerGradingViewModel(this, SelectedAccommodationReservationn, guest1, accommodationReservationController);
+            _accommodationGradeService = accommodationGradeService;
+            AccommodationAndOwnerGradingViewModel = new AccommodationAndOwnerGradingViewModel(this, SelectedAccommodationReservationn, guest1, accommodationReservationController, _accommodationGradeService);
             DataContext = AccommodationAndOwnerGradingViewModel;
-
         }
 
         public void RemoveButton_Click(object sender, RoutedEventArgs e)
@@ -37,7 +39,7 @@ namespace Sims2023.WPF.Views.Guest1Views
             var result = System.Windows.MessageBox.Show("Da li ste sigurni da zelite da ostavite ovu recenziju?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
             if (result == System.Windows.MessageBoxResult.Yes)
             {
-                AccommodationAndOwnerGradingViewModel.AddCreatedGrade();
+                AccommodationAndOwnerGradingViewModel.AddCreatedGrade(Grade);
                 Close();
             }
             else
@@ -61,6 +63,5 @@ namespace Sims2023.WPF.Views.Guest1Views
             var GuestOneMainHelpView = new GuestOneMainHelpView("AccommodationAndOwnerGradingView");
             GuestOneMainHelpView.Show();
         }
-
     }
 }

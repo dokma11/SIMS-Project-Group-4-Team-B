@@ -2,7 +2,6 @@
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -22,13 +21,13 @@ namespace Sims2023.WPF.Views.Guest1Views
 
         Frame MainFrame;
 
-        public AccommodationReservationConfirmationView(int reservationId, Accommodation selectedAccommodation, AccommodationStay selectedAccommodationStay, int daysNumber,int guestsNumber, User guest1, ObservableCollection<AccommodationReservationRescheduling> accommodationReservationReschedulings, AccommodationReservationReschedulingService accommodationReservationReschedulingService,Frame mainFrame)
+        public AccommodationReservationConfirmationView(int reservationId, Accommodation selectedAccommodation, AccommodationStay selectedAccommodationStay, int daysNumber, int guestsNumber, User guest1, ObservableCollection<AccommodationReservationRescheduling> accommodationReservationReschedulings, AccommodationReservationReschedulingService accommodationReservationReschedulingService, Frame mainFrame)
         {
             InitializeComponent();
             AccommodationReservationReschedulings = accommodationReservationReschedulings;
             _accommodationReservationReschedulingService = accommodationReservationReschedulingService;
             MainFrame = mainFrame;
-            AccommodationReservationConfirmationViewModel = new AccommodationReservationConfirmationViewModel(this, reservationId, selectedAccommodation, selectedAccommodationStay, daysNumber, guestsNumber, guest1, accommodationReservationReschedulings,_accommodationReservationReschedulingService);
+            AccommodationReservationConfirmationViewModel = new AccommodationReservationConfirmationViewModel(this, reservationId, selectedAccommodation, selectedAccommodationStay, daysNumber, guestsNumber, guest1, accommodationReservationReschedulings, _accommodationReservationReschedulingService);
             DataContext = AccommodationReservationConfirmationViewModel;
         }
 

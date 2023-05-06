@@ -2,16 +2,12 @@
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace Sims2023.Repositories
 {
-    public class AccommodationCancellationCSVRepository: IAccommodationCancellationCSVRepository
+    public class AccommodationCancellationCSVRepository : IAccommodationCancellationCSVRepository
     {
         private List<IObserver> _observers;
 

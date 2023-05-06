@@ -7,7 +7,6 @@ namespace Sims2023.Domain.Models
 {
     public class AccommodationGrade : ISerializable, INotifyPropertyChanged
     {
-
         public int Id { get; set; }
         public Accommodation Accommodation { get; set; }
         public User Guest { get; set; }
@@ -17,10 +16,12 @@ namespace Sims2023.Domain.Models
         public int Owner { get; set; }
         public int ValueForMoney { get; set; }
         public string Comment { get; set; }
-
+        public string CurrentAccommodationState { get; set; }
+        public string RenovationUrgency { get; set; }
+        public DateTime ReservationStartDate { get; set; }
 
         public AccommodationGrade() { }
-        public AccommodationGrade(int id, int cleanliness, int comfort, int location, int owner, int valueForMoney, string comment, Accommodation accommodation, User user)
+        public AccommodationGrade(int id, int cleanliness, int comfort, int location, int owner, int valueForMoney, string comment, Accommodation accommodation, User user, string currentAccommodationState, string renovationUrgency, DateTime reservationStartDate)
         {
             Id = id;
             Cleanliness = cleanliness;
@@ -31,7 +32,9 @@ namespace Sims2023.Domain.Models
             Comment = comment;
             Accommodation = accommodation;
             Guest = user;
-
+            CurrentAccommodationState = currentAccommodationState;
+            RenovationUrgency = renovationUrgency;
+            ReservationStartDate = reservationStartDate;
         }
 
 
@@ -49,7 +52,10 @@ namespace Sims2023.Domain.Models
                 Location.ToString(),
                 Owner.ToString(),
                 ValueForMoney.ToString(),
-                Comment
+                Comment,
+                CurrentAccommodationState,
+                RenovationUrgency,
+                ReservationStartDate.ToString()
             };
             return csvValues;
         }
@@ -76,9 +82,9 @@ namespace Sims2023.Domain.Models
             Owner = Convert.ToInt32(values[6]);
             ValueForMoney = Convert.ToInt32(values[7]);
             Comment = values[8];
+            CurrentAccommodationState = values[9];
+            RenovationUrgency = values[10];
+            ReservationStartDate = DateTime.Parse(values[11]);
         }
-
-
-
     }
 }

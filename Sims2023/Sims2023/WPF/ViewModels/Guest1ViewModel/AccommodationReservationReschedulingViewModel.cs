@@ -2,7 +2,6 @@
 using Sims2023.Domain.Models;
 using Sims2023.Observer;
 using Sims2023.WPF.Views.Guest1Views;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -32,7 +31,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             _accommodationReservationReschedulingService = accommodationReservationReschedulingService;
             _accommodationReservationReschedulingService.Subscribe(this);
-                        
+
             AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingService.GetAllReservationReschedulings());
             FilteredData = _accommodationReservationReschedulingService.FindSuitableReservationReschedulings(User, AccommodationReservationReschedulings);
             AccommodationReservationReschedulingView.myDataGrid.ItemsSource = FilteredData;
