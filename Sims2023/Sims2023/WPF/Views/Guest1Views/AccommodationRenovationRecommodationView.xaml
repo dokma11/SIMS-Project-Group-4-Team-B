@@ -34,7 +34,7 @@
 renovira"/>
         </ComboBox>
         <Button  Grid.Row="0" Width="16" TabIndex="5" HorizontalAlignment="Right" Margin="0,9,30,30" Background="#4CE0942C" Command="cmd:RoutedCommands.OpenHelp">
-            <Image Source="pack://application:,,,/Sims2023;component/Images/Guest1Images/help.png"/>
+            <Image Source="pack://application:,,,/Sims2023;component/Resources/GuestOneResources/help.png"/>
         </Button>
         <Grid Grid.Row="14" Margin="0,0,0,0">
             <Grid.ColumnDefinitions>

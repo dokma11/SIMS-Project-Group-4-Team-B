@@ -14,7 +14,7 @@
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Grid  Grid.Row="0" Margin="100,50,100,10">
-            <Image  Source="pack://application:,,,/Sims2023;component/Images/Guest1Images/Horizont_SRB.png"/>
+            <Image  Source="pack://application:,,,/Sims2023;component/Resources/GuestOneResources/Horizont_SRB.png"/>
         </Grid>
         <Grid  Grid.Row="1" Margin="200,0,200,50">
             <Label  Content="dobrodošli!" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="28" Foreground="#E0942C" FontFamily="Copperplate Gothic Light" />

@@ -43,7 +43,13 @@
     <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneMainHelpView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneReviewsHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\NewAccommodationReservationReschedulingRequestHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\GuestOneReviewsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\Guest1Views\GuestOneStartView.xaml.cs">
@@ -158,7 +164,13 @@
     <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneMainHelpView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneReviewsHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\NewAccommodationReservationReschedulingRequestHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\GuestOneReviewsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest1Views\GuestOneStartView.xaml">

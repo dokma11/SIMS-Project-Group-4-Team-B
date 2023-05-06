@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
         <Label x:Name="label" Content="Ocenjivanje smestaja i vlasnika" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="0" Margin="0,0,0,0"/>
         <Button  Grid.Row="0" Width="16" TabIndex="4" HorizontalAlignment="Right" Margin="0,9,30,30" Background="#4CE0942C" Command="cmd:RoutedCommands.OpenHelp">
-            <Image Source="pack://application:,,,/Sims2023;component/Images/Guest1Images/help.png"/>
+            <Image Source="pack://application:,,,/Sims2023;component/Resources/GuestOneResources/help.png"/>
         </Button>
         <Grid Grid.Row="2" Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
@@ -72,7 +72,7 @@
                 </Grid.RowDefinitions>
                 <Label x:Name="picturesLabel" Content="Ostavite Vaše slike smeštaja:" VerticalContentAlignment="Center" FontSize="15" Grid.Row="0" Margin="20,0,230,0"/>
                 <Button x:Name="addPicture" Grid.Row="1" Margin="20,0,230,0" Command="cmd:RoutedCommands.Command2View">
-                    <Image Source="pack://application:,,,/Sims2023;component/Images/Guest1Images/add.jpg" />
+                    <Image Source="pack://application:,,,/Sims2023;component/Resources/GuestOneResources/add.jpg" />
                     <Button.Background>
                         <SolidColorBrush Color="White"/>
                     </Button.Background>

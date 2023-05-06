@@ -2,6 +2,7 @@
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repositories;
+using System;
 using System.Collections.Generic;
 
 namespace Sims2023.Application.Services
@@ -41,5 +42,9 @@ namespace Sims2023.Application.Services
             _grade.Subscribe(observer);
         }
 
+        public List<GuestGrade> FindSuitableGrades(User user)
+        {
+            return _grade.FindSuitableGrades(user);
+        }
     }
 }

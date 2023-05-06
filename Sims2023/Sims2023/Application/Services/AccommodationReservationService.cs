@@ -75,5 +75,10 @@ namespace Sims2023.Application.Services
         {
             _accommodationReservation.DeleteAccommodationReservation(selectedAccommodationReservation);
         }
+
+        public List<GuestGrade> FindSuitableGrades(User user, List<GuestGrade> guestGrades)
+        {
+            return _accommodationReservation.FindSuitableGrades(user, guestGrades);
+        }
     }
 }
