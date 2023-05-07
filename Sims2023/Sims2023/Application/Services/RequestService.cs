@@ -100,5 +100,12 @@ namespace Sims2023.Application.Services
         {
             return _request.GetTheMostRequestedLocation();
         }
+
+        public List<Request> GetByUser(User user)
+        {
+            return _request.GetByUser(user);
+        }
+
+        
     }
 }
