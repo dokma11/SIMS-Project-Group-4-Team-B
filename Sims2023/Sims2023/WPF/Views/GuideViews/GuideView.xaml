@@ -8,7 +8,7 @@
         Title="GuideView" Height="720" Width="1280" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid>
-            <Frame x:Name="MainFrameGuide" NavigationUIVisibility="Hidden" Height="720" Width="1280" Margin="-10,0,10,-16" />
+            <Frame x:Name="MainFrameGuide" NavigationUIVisibility="Hidden" Height="720" Width="1280" Margin="0,0,0,-16" />
         </Grid>
     </Grid>
 </Window>

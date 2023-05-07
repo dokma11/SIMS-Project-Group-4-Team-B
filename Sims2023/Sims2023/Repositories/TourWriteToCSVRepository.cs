@@ -161,8 +161,12 @@ namespace Sims2023.Repository
 
         public void UpdateState(Tour selectedTour, ToursState state)
         {
-            selectedTour.CurrentState = state;
-            Save(); 
+            var tourToUpdate = _tours.FirstOrDefault(t => t.Id == selectedTour.Id);
+            if (tourToUpdate != null)
+            {
+                tourToUpdate.CurrentState = state;
+                Save();
+            }
         }
 
         public void SetLanguage(Tour selectedTour, ToursLanguage language)

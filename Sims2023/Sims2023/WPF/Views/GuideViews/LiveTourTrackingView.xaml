@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="LiveTourTrackingView" Height="720" Width="1280">
-    <StackPanel Background="AliceBlue">
+    <StackPanel Background="#ff9e3d">
         <DockPanel>
-            <ToolBar>
-                <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica"/>
-                <Button x:Name="toursButton" Content="Ture" IsEnabled="False"/>
-                <Button x:Name="requestsButton" Click="RequestsButton_Click" Content="Zahtevi" />
-                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije"/>
-                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" />
-            </ToolBar>
+            <Menu>
+                <MenuItem x:Name="homePageButton" Click="HomePageButton_Click" Header="naziv" />
+                <MenuItem x:Name="toursButton"  IsEnabled="False"/>
+                <MenuItem x:Name="requestsButton" Click="RequestsButton_Click"  />
+                <MenuItem x:Name="reviewsButton" Click="ReviewsButton_Click" />
+                <MenuItem x:Name="accountButton" Click="AccountButton_Click"  />
+            </Menu>
         </DockPanel>
         <DockPanel>
             <Label Content="Ključne tačke ture" FontSize="28" Margin="50,20,0,0"/>
@@ -22,20 +22,76 @@
         <DockPanel Height="510">
             <DataGrid ItemsSource="{Binding KeyPointsToDisplay, UpdateSourceTrigger=PropertyChanged}" 
             SelectedItem="{Binding Path=SelectedKeyPoint, UpdateSourceTrigger=PropertyChanged}" 
-            Height="500" IsReadOnly="True" Width="560" Margin="57,0,0,0">
+            Height="500" IsReadOnly="True" Width="560" Margin="57,0,0,0" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Naziv" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Trenutno stanje" Binding="{Binding State}" />
-                    <DataGridTextColumn Header="Broj priključenih gostiju" Binding="{Binding MORAMMENJATI}" />
+                    <DataGridTextColumn Header="Naziv" Binding="{Binding Name}" Width="200">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Trenutno stanje" Binding="{Binding CurrentState}" Width="200">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Broj priključenih gostiju" Binding="{Binding PresentGuestsNumber}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <DataGrid x:Name="guestDataGrid" ItemsSource="{Binding GuestsToDisplay}" SelectionMode="Extended"
             Height="500" Width="560" Margin="35,0,0,0" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Ime" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Prezime" Binding="{Binding Surname}" />
-                    <DataGridTextColumn Header="Korisničko ime" Binding="{Binding Username}" />
-                    <DataGridTextColumn Header="Godine" Binding="{Binding Age}" />
+                    <DataGridTextColumn Header="Ime" Binding="{Binding Name}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Prezime" Binding="{Binding Surname}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Korisničko ime" Binding="{Binding Username}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Godine" Binding="{Binding Age}" Width="100">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>

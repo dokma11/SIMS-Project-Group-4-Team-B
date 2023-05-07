@@ -122,7 +122,7 @@ namespace Sims2023.Repositories
 
         private bool CheckIfGuestMarked(User guest, KeyPoint keyPoint, List<User> markedGuests)
         {
-            return !keyPoint.ShowedGuestsIds.Contains(guest.Id) &&
+            return !keyPoint.PresentGuestsIds.Contains(guest.Id) &&
                 !markedGuests.Any(markedGuest => markedGuest.Id == guest.Id);
         }
     }

@@ -14,23 +14,25 @@ namespace Sims2023.Domain.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public KeyPointsState CurrentState { get; set; }
-        public List<int> ShowedGuestsIds { get; set; }
+        public List<int> PresentGuestsIds { get; set; }
         //Just so I can save it to file, I will concatenate all of them into one string
-        public string ShowedGuestsIdsString { get; set; }
+        public string PresentGuestsIdsString { get; set; }
+        public int PresentGuestsNumber { get; set; }
         public Tour Tour { get; set; }
 
         public KeyPoint()
         {
-            ShowedGuestsIds = new List<int>();
+            PresentGuestsIds = new List<int>();
         }
 
-        public KeyPoint(int id, string name, KeyPointsState currentState, string showedGuestsIdsString, Tour tour)
+        public KeyPoint(int id, string name, KeyPointsState currentState, string showedGuestsIdsString, Tour tour, int presentGuestsNumber)
         {
             Id = id;
             Name = name;
             CurrentState = currentState;
             List<int> ShowedGuestsIds = showedGuestsIdsString.Split(",").Select(int.Parse).ToList();
             Tour = tour;
+            PresentGuestsNumber = presentGuestsNumber;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -42,7 +44,8 @@ namespace Sims2023.Domain.Models
                 Id.ToString(),
                 Name,
                 CurrentState.ToString(),
-                ShowedGuestsIdsString,
+                PresentGuestsIdsString,
+                PresentGuestsNumber.ToString(),
                 Tour.Id.ToString()
             };
             return csvValues;
@@ -53,18 +56,19 @@ namespace Sims2023.Domain.Models
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
             CurrentState = (KeyPointsState)Enum.Parse(typeof(KeyPointsState), values[2]);
-            ShowedGuestsIdsString = values[3];
-            if (!string.IsNullOrEmpty(ShowedGuestsIdsString))
+            PresentGuestsIdsString = values[3];
+            if (!string.IsNullOrEmpty(PresentGuestsIdsString))
             {
-                string[] showedGuestsIdsStringArray = ShowedGuestsIdsString.Split(",");
+                string[] showedGuestsIdsStringArray = PresentGuestsIdsString.Split(",");
                 foreach (var instanceString in showedGuestsIdsStringArray)
                 {
                     int instance = Convert.ToInt32(instanceString);
-                    ShowedGuestsIds.Add(instance);
+                    PresentGuestsIds.Add(instance);
                 }
             }
+            PresentGuestsNumber = Convert.ToInt32(values[4]);
             TourService tourService = new();
-            Tour = tourService.GetById(Convert.ToInt32(values[4]));
+            Tour = tourService.GetById(Convert.ToInt32(values[5]));
         }
     }
 }

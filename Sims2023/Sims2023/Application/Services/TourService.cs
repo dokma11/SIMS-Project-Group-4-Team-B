@@ -97,7 +97,6 @@ namespace Sims2023.Application.Services
         public void UpdateState(Tour selectedTour, ToursState state)
         {
             _tour.UpdateState(selectedTour, state);
-            _tourReadFromCSVRepository.Save();
         }
 
         public void SetLanguage(Tour selectedTour, ToursLanguage language)

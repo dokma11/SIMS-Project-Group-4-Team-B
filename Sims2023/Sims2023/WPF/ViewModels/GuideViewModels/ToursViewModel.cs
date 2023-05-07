@@ -6,7 +6,6 @@ using Sims2023.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
@@ -113,6 +112,11 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public bool IsTourEligibleForCancellation()
         {
             return SelectedCreatedTour.Start >= DateTime.Now.AddHours(48);
+        }
+
+        public bool IsTourFinishedProperly()
+        {
+            return SelectedCreatedTour.CurrentState != ToursState.Finished;
         }
 
         //KREIRANJE TURE

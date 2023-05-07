@@ -18,7 +18,6 @@ namespace Sims2023.WPF.Views.GuideViews
         private VoucherService _voucherService;
         private RequestService _requestService;
         private CountriesAndCitiesService _countriesAndCitiesService;
-
         public User LoggedInGuide { get; set; }
         public GuideViewModel GuideViewModel;
         public GuideHomePageView(User user)
@@ -78,6 +77,8 @@ namespace Sims2023.WPF.Views.GuideViews
             {
                 tourRequestsLabel.Content = "- Pregledali ste sve zahteve!";
             }
+
+            tourReviewsLabel.Content = "- Proverite recenzije gostiju";
         }
 
         private void GoToToursButton_Click(object sender, RoutedEventArgs e)

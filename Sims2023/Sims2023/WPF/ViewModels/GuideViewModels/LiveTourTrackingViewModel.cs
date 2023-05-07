@@ -34,9 +34,11 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
             MarkedGuests = markedGuests;
             KeyPointsToDisplay = new ObservableCollection<KeyPoint>(_keyPointService.GetByToursId(Tour.Id));
-            GuestsToDisplay = new ObservableCollection<User>(_userService.GetGuestsWithReservations(SelectedKeyPoint, MarkedGuests));
 
             firstKeyPointId = FindAndMarkFirstKeyPoint();
+            SelectedKeyPoint = _keyPointService.GetById(firstKeyPointId);
+            GuestsToDisplay = new ObservableCollection<User>(_userService.GetGuestsWithReservations(SelectedKeyPoint, MarkedGuests));
+
             lastVisitedKeyPointId = firstKeyPointId;
             lastKeyPointId = FindLastKeyPoint();
             LastKeyPointVisited = false;
@@ -102,6 +104,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 _keyPointService.AddGuestsId(SelectedKeyPoint, guest.Id);
                 MarkedGuests.Add(guest);
                 ShouldConfirmParticipation(guest);
+                GuestsToDisplay.Remove(guest);
             }
             _keyPointService.Save();
         }

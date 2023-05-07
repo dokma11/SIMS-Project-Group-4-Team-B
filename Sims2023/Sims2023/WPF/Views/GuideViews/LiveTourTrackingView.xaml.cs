@@ -161,5 +161,10 @@ namespace Sims2023.WPF.Views.GuideViews
             DispatcherTimer timer = (DispatcherTimer)sender;
             timer.Stop();
         }
+
+        private void NavigateToPageToursView()
+        {
+            NavigationService.Navigate(new Uri("/ToursView.xaml", UriKind.Relative));
+        }
     }
 }

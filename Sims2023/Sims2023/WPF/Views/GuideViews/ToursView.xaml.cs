@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 using System.Windows.Threading;
 
 namespace Sims2023.WPF.Views.GuideViews
@@ -89,10 +90,41 @@ namespace Sims2023.WPF.Views.GuideViews
                 FrameManagerGuide.Instance.MainFrame.Navigate(liveTourTrackingView);
                 ToursViewModel.Update();
             }
+/*
+            if (ToursViewModel.IsTourFinishedProperly())
+            {
+                SuccessfulFinishLabelEvent();
+            }
             else
             {
-                MessageBox.Show("Odaberite turu koju zelite da zapocnete");
-            }
+                SuccessfulInterruptionLabelEvent();
+            }*/
+        }
+
+        private void SuccessfulFinishLabelEvent()
+        {
+            successfulEventLabel.Content = "Uspešno ste završili turu";
+            successfulEventLabel.Visibility = Visibility.Visible;
+            startTourButton.Margin = new Thickness(20, 20, 0, 0);
+            DispatcherTimer timer = new()
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void SuccessfulInterruptionLabelEvent()
+        {
+            successfulEventLabel.Content = "Uspešno ste prekinuli turu";
+            successfulEventLabel.Visibility = Visibility.Visible;
+            startTourButton.Margin = new Thickness(20, 20, 0, 0);
+            DispatcherTimer timer = new()
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
         }
 
         private void CancelTourButton_Click(object sender, RoutedEventArgs e)
@@ -110,7 +142,9 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void SuccessfulCancellationLabelEvent()
         {
-            successfulCancellationLabel.Visibility = Visibility.Visible;
+            successfulEventLabel.Content = "Uspešno ste otkazali turu";
+            successfulEventLabel.Visibility = Visibility.Visible;
+            startTourButton.Margin = new Thickness(20, 20, 0, 0);
             DispatcherTimer timer = new()
             {
                 Interval = TimeSpan.FromSeconds(5)
@@ -121,7 +155,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            successfulCancellationLabel.Visibility = Visibility.Hidden;
+            successfulEventLabel.Visibility = Visibility.Hidden;
             DispatcherTimer timer = (DispatcherTimer)sender;
             timer.Stop();
         }
@@ -145,11 +179,21 @@ namespace Sims2023.WPF.Views.GuideViews
                 ToursViewModel.ConfirmCreation(countryComboBox.Text, cityComboBox.Text);
                 ToursViewModel.Update();
                 tabControl.SelectedIndex = 0;
+                SuccessfulCreationLabelEvent();
             }
-            else
+        }
+
+        private void SuccessfulCreationLabelEvent()
+        {
+            successfulEventLabel.Content = "Uspešno ste kreirali turu";
+            successfulEventLabel.Visibility = Visibility.Visible;
+            startTourButton.Margin = new Thickness(20, 20, 0, 0);
+            DispatcherTimer timer = new()
             {
-                MessageBox.Show("Popunite sva polja molim Vas");
-            }
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -191,30 +235,6 @@ namespace Sims2023.WPF.Views.GuideViews
 
         //STATISTIKA TURE
 
-        private void HomePageButton_Click(object sender, RoutedEventArgs e)
-        {
-            GuideHomePageView guideHomePageView = new(LoggedInGuide);
-            FrameManagerGuide.Instance.MainFrame.Navigate(guideHomePageView);
-        }
-
-        private void RequestsButton_Click(object sender, RoutedEventArgs e)
-        {
-            RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService);
-            FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
-        }
-
-        private void ReviewsButton_Click(object sender, RoutedEventArgs e)
-        {
-            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService);
-            FrameManagerGuide.Instance.MainFrame.Navigate(guestReviewsView);
-        }
-
-        private void AccountButton_Click(object sender, RoutedEventArgs e)
-        {
-            GuideAccountView guideAccountView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService);
-            FrameManagerGuide.Instance.MainFrame.Navigate(guideAccountView);
-        }
-
         private void DisplayStatisticsButton_Click(object sender, RoutedEventArgs e)
         {
             if (ToursViewModel.IsFinishedTourSelected())
@@ -253,6 +273,32 @@ namespace Sims2023.WPF.Views.GuideViews
             ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
             toursView.tabControl.SelectedIndex = 2;
+        }
+
+        //TOOLBAR
+
+        private void HomePageButton_Click(object sender, RoutedEventArgs e)
+        {
+            GuideHomePageView guideHomePageView = new(LoggedInGuide);
+            FrameManagerGuide.Instance.MainFrame.Navigate(guideHomePageView);
+        }
+
+        private void RequestsButton_Click(object sender, RoutedEventArgs e)
+        {
+            RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
+        }
+
+        private void ReviewsButton_Click(object sender, RoutedEventArgs e)
+        {
+            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(guestReviewsView);
+        }
+
+        private void AccountButton_Click(object sender, RoutedEventArgs e)
+        {
+            GuideAccountView guideAccountView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(guideAccountView);
         }
     }
 }

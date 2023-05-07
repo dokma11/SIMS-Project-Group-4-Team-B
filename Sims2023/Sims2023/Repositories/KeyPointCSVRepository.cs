@@ -106,22 +106,23 @@ namespace Sims2023.Repositories
         public void AddGuestsId(KeyPoint selectedKeyPoint, int guestsId)
         {
             var keyPoint = _keyPoints.FirstOrDefault(k => k.Id == selectedKeyPoint.Id);
-            keyPoint?.ShowedGuestsIds.Add(guestsId);
+            keyPoint?.PresentGuestsIds.Add(guestsId);
             //initialize the start of the string if necessary
-            if (keyPoint?.ShowedGuestsIdsString.Length == 0)
+            if (keyPoint?.PresentGuestsIdsString.Length == 0)
             {
-                keyPoint.ShowedGuestsIdsString = guestsId.ToString();
+                keyPoint.PresentGuestsIdsString = guestsId.ToString();
             }
             else
             {
-                keyPoint.ShowedGuestsIdsString += "," + guestsId.ToString();
+                keyPoint.PresentGuestsIdsString += "," + guestsId.ToString();
             }
+            keyPoint.PresentGuestsNumber++;
         }
 
         public KeyPoint GetWhereGuestJoined(Tour selectedTour, User loggedInGuest)
         {
             return _keyPoints.FirstOrDefault(keyPoint => keyPoint.Tour.Id == selectedTour.Id &&
-                              keyPoint.ShowedGuestsIds.Contains(loggedInGuest.Id));
+                              keyPoint.PresentGuestsIds.Contains(loggedInGuest.Id));
         }
     }
 }

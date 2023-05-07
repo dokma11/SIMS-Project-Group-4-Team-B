@@ -10,7 +10,7 @@
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="ToursView">
 
-    <StackPanel Background="Gray">
+    <StackPanel Background="#ff9e3d">
         <DockPanel>
             <ToolBar>
                 <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
@@ -20,7 +20,7 @@
                 <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog"/>
             </ToolBar>
         </DockPanel>
-        <TabControl x:Name="tabControl" Height="650" Width="1200" Margin="0,10,0,0" SelectionChanged="TabControl_SelectionChanged">
+        <TabControl x:Name="tabControl" Height="630" Width="1200" Margin="0,10,0,0" SelectionChanged="TabControl_SelectionChanged">
             <!-- FIRST TAB-->
             <TabItem Header="Predstojeće ture">
                 <StackPanel>
@@ -53,8 +53,8 @@
                                         <Label Content="Prikaži ključne tačke ture"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTextColumn Header="Maksimalan broj gostiju" Binding="{Binding MaxGuestNumber}" Width="150">
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Maksimalan broj gostiju" Binding="{Binding MaxGuestNumber}" Width="150">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -98,8 +98,8 @@
                         </DataGrid.RowDetailsTemplate>
                     </DataGrid>
                     <DockPanel>
-                        <Label x:Name="successfulCancellationLabel" Content="Uspešno ste otkazali turu!" FontSize="24" Margin="450,20,40,0" Visibility="Hidden"/>
-                        <Button x:Name="startTourButton" Click="StartTourButton_Click" Content="Započni turu" Width="150" Height="50" Margin="20,20,0,0" ToolTip="Pritisnite da biste započeli izabranu turu"/>
+                        <Label x:Name="successfulEventLabel" FontSize="24" Margin="450,20,40,0" Visibility="Hidden"/>
+                        <Button x:Name="startTourButton" Click="StartTourButton_Click" Content="Započni turu" Width="150" Height="50" Margin="285,20,0,0" ToolTip="Pritisnite da biste započeli izabranu turu"/>
                         <Button x:Name="cancelTourButton" Click="CancelTourButton_Click" Content="Otkaži turu" Width="150" Height="50" Margin="5,20,0,0" ToolTip="Pritisnite da biste otkazali izabranu turu"/>
                     </DockPanel>
                 </StackPanel>
@@ -107,8 +107,8 @@
             <!-- SECOND TAB -->
             <TabItem Header="Kreiranje ture">
                 <StackPanel>
-                    <Label Content="Kreiranje Ture" FontSize="32" HorizontalAlignment="Center" Margin="0,20"/>
-                    <Grid Height="450" Width="1100" Background="#B3E5FC" Margin="0,10,0,0">
+                    <Label Content="Kreiranje ture" FontSize="32" HorizontalAlignment="Center" Margin="0,20"/>
+                    <Grid Height="450" Width="1100" Background="White" Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -146,9 +146,9 @@
                             <ComboBoxItem>Japanese</ComboBoxItem>
                         </ComboBox>
                         <Label Grid.Column="0" Grid.Row="6" Content="Maksimalan broj gostiju:" FontSize="16"/>
-                        <xctk:IntegerUpDown Name="maximumNumberOfGuests" Grid.Row="6" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,27,49,27" Grid.RowSpan="3" Text="{Binding Path=NewTour.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                        <xctk:IntegerUpDown Name="maximumNumberOfGuests" Grid.Row="7" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,4,133,4" Text="{Binding Path=NewTour.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                         <Label Grid.Column="0" Grid.Row="8" Content="Trajanje ture(u satima):" FontSize="16"/>
-                        <xctk:IntegerUpDown Name="duration" Grid.Row="9" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,0,49,0" Text="{Binding Path=NewTour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                        <xctk:IntegerUpDown Name="duration" Grid.Row="9" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,4,133,5" Text="{Binding Path=NewTour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                         <Label Grid.Column="0" Grid.Row="10" Content="Jedna ili više slika:" FontSize="16"/>
                         <TextBox Grid.Column="0" Grid.Row="10" Width="230" Height="30" Margin="4,37,133,8" Text="{Binding Path=NewTour.ConcatenatedPictures, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.RowSpan="2"/>
                         <!--Kolona u sredini-->
@@ -161,15 +161,15 @@
                         <Button Width="70" Name="addDatesButton" Click="AddDatesButton_Click" Grid.Row="7" Grid.ColumnSpan="2" Margin="300,4,363,26" Grid.RowSpan="2" Grid.Column="1" >+</Button>
                         <!--Desna kolona-->
                         <Label Grid.Column="2" Grid.Row="2" Content="Opis događaja na turi" Margin="122,0,-122,0" FontSize="16"/>
-                        <TextBox x:Name="descriptionTextBox" Grid.Column="2" Grid.Row="2" Margin="122,29,-69,11" Height="NaN" Grid.RowSpan="9" Text="{Binding Path=NewTour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
-                        <Button x:Name="confirmButton" Click="ConfirmButton_Click" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Potvrdi" Margin="122,23,61,-5" Grid.RowSpan="2"/>
-                        <Button x:Name="cancelButton" Click="CancelButton_Click" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Odustani" Margin="252,23,-69,-5" Grid.RowSpan="2"/>
+                        <TextBox x:Name="descriptionTextBox" Grid.Column="2" Grid.Row="2" Margin="127,29,10,10" Height="NaN" Grid.RowSpan="9" Width="230" Text="{Binding Path=NewTour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                        <Button x:Name="confirmButton" Click="ConfirmButton_Click" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Potvrdi" Margin="127,35,140,0" Grid.RowSpan="2"/>
+                        <Button x:Name="cancelButton" Click="CancelButton_Click" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Odustani" Margin="257,35,10,0" Grid.RowSpan="2"/>
                     </Grid>
                 </StackPanel>
             </TabItem>
             <!-- THIRD TAB -->
             <TabItem Header="Statistika tura">
-                <DockPanel Background="#B3E5FC">
+                <DockPanel Background="White">
                     <StackPanel Width="640">
                         <Label Content="Završene ture" FontSize="32" Margin="20,10,0,0"/>
                         <DataGrid Width="625" Height="440" ItemsSource="{Binding FinishedToursToDisplay, UpdateSourceTrigger=PropertyChanged}"
@@ -202,7 +202,7 @@
                                         </Style>
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
-                                <DataGridTextColumn Header="Datum i vreme početka ture" Binding="{Binding Start, UpdateSourceTrigger=PropertyChanged}" Width="180"> 
+                                <DataGridTextColumn Header="Datum i vreme početka ture" Binding="{Binding Start, UpdateSourceTrigger=PropertyChanged}" Width="180">
                                     <DataGridTextColumn.ElementStyle>
                                         <Style TargetType="TextBlock">
                                             <Setter Property="HorizontalAlignment" Value="Left"/>
