@@ -43,7 +43,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         {
             Location.City = city;
             Location.Country = country;
-            _locationService.Create(Location);
+            _locationService.CheckExistance(Location);
             Request Request = new Request(Location, description, language, guestNumber, startDate, endDate, user);
             _requestService.Create(Request);
             

@@ -13,7 +13,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void Add(Location location);
         public List<Location> GetAll();
 
-       
+        public void CheckExistance(Location location);
         public void Subscribe(IObserver observer);
         public void NotifyObservers();
     }
