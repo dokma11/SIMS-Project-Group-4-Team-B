@@ -163,7 +163,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public bool AreAllGuestsAreMarked()
         {
-            return _tourReservationService.GetReservationsByToursid(Tour.Id).Count == MarkedGuests.Count;
+            return _tourReservationService.GetByToursid(Tour.Id).Count == MarkedGuests.Count;
         }
     }
 }

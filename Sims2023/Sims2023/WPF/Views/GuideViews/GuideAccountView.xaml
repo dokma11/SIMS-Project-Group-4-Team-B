@@ -45,7 +45,7 @@
             </StackPanel>
         </DockPanel>
         <DockPanel Margin="0,260">
-            <Button x:Name="qutiJobButton" Content="Daj otkaz" Height="50" Width="150" Margin="200,0,100,0" ToolTip="Pritisnite kako biste dali otkaz"/>
+            <Button x:Name="dismissalButton" Content="Podnesite ostavku" Click="DismissalButton_Click" Height="50" Width="150" Margin="200,0,100,0" ToolTip="Pritisnite kako biste dali otkaz"/>
             <Button x:Name="logOutButton" Content="Odjavi se" Click="LogOutButton_Click" Height="50" Width="150" ToolTip="Pritisnite kako biste se odjavili"/>
             <Button x:Name="MyButton" Content="Hover over me!" Height="50" Width="150" Click="mybutton_click">
                 <Button.Triggers>

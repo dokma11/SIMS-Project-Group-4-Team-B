@@ -173,5 +173,12 @@ namespace Sims2023.Repository
         {
             selectedTour.GuideLanguage = language;
         }
+
+        public void CancelAll(User loggedInGuide)
+        {
+            _tours.Where(t => t.CurrentState == ToursState.Created && t.Guide.Id == loggedInGuide.Id).ToList()
+                  .ForEach(t => t.CurrentState = ToursState.Cancelled);
+            Save();    
+        }
     }
 }

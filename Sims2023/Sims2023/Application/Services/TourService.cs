@@ -118,5 +118,10 @@ namespace Sims2023.Application.Services
         {
             return _tourReadFromCSVRepository.GetTodaysNumber(loggedInGuide);
         }
+
+        public void CancelAll(User loggedInGuide)
+        {
+            _tour.CancelAll(loggedInGuide);
+        }
     }
 }

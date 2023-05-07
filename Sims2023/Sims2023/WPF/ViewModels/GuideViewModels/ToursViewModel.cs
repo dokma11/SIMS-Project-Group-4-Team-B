@@ -92,7 +92,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public void CreateVouchersForCancelledTour(int toursId, string additionalComment)
         {
-            foreach (var reservation in _tourReservationService.GetReservationsByToursid(toursId))
+            foreach (var reservation in _tourReservationService.GetByToursid(toursId))
             {
                 Voucher voucher = new(0, Voucher.VoucherType.CancelingTour, _userService.GetById(reservation.User.Id), _tourService.GetById(toursId), DateTime.Now, DateTime.Today.AddYears(1), additionalComment, false);
                 _voucherService.Create(voucher);

@@ -18,6 +18,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void SetLanguage(Tour selectedTour, ToursLanguage language);  
         public void UpdateAvailableSpace(int reservedSpace, Tour tour);
         public void Update(Tour tour);
+        public void CancelAll(User loggedInGuide);
         public void Subscribe(IObserver observer);
         public void NotifyObservers();
     }
