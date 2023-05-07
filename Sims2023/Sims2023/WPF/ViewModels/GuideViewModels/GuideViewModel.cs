@@ -1,6 +1,8 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.Observer;
+using Sims2023.WPF.ViewModels.OwnerViewModel;
+using Sims2023.WPF.Views.GuideViews;
 using System;
 using System.Collections.ObjectModel;
 

@@ -20,7 +20,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _tourReviewService = tourReviewService;
             _tourService = tourService;
 
-            ToursToDisplay = new ObservableCollection<Tour>(_tourService.GetFinishedTours(loggedInGuide));
+            ToursToDisplay = new ObservableCollection<Tour>(_tourService.GetFinished(loggedInGuide));
             ReviewsToDisplay = new ObservableCollection<TourReview>();
 
             GetAttendedGuestsNumber();

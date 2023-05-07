@@ -109,52 +109,51 @@ namespace Sims2023.Repositories
             return _tourReservations.Where(reservation => reservation.Tour.Id == id).ToList();
         }
 
-        public string GetAgeStatistics(Tour selectedTour, string ageGroup)
+        public int GetAgeStatistics(Tour selectedTour, string ageGroup)
         {
             if (ageGroup == "young")
             {
-                int young = _tourReservations
+                return _tourReservations
                 .Where(res => res.Tour.Id == selectedTour.Id && res.ConfirmedParticipation && res.User.Age <= 18)
                 .Sum(res => res.GuestNumber);
-                return young.ToString();
             }
             else if (ageGroup == "middleAged")
             {
-                int middle = _tourReservations
+                return _tourReservations
                 .Where(res => res.Tour.Id == selectedTour.Id && res.ConfirmedParticipation && res.User.Age > 18 && res.User.Age <= 50)
                 .Sum(res => res.GuestNumber);
-                return middle.ToString();
             }
             else if (ageGroup == "old")
             {
-                int old = _tourReservations
+                return _tourReservations
                 .Where(res => res.Tour.Id == selectedTour.Id && res.ConfirmedParticipation && res.User.Age > 50)
                 .Sum(res => res.GuestNumber);
-                return old.ToString();
             }
             else
             {
-                return "Nije dobra godina unesena";
+                return 0;
             }
         }
 
-        public string GetVoucherStatistics(Tour selectedTour, bool used)
+        public int GetVoucherStatistics(Tour selectedTour, bool used)
         {
             int usedCounter = _tourReservations.Where(res => res.Tour.Id == selectedTour.Id)
                                           .Count(res => res.UsedVoucher && res.ConfirmedParticipation);
             int notUsedCounter = _tourReservations.Where(res => res.Tour.Id == selectedTour.Id)
                                              .Count(res => !res.UsedVoucher && res.ConfirmedParticipation);
 
-            double usedPercentage = (double)usedCounter / (usedCounter + notUsedCounter);
-            double notUsedPercentage = (double)notUsedCounter / (usedCounter + notUsedCounter);
+            //double usedPercentage = (double)usedCounter / (usedCounter + notUsedCounter);
+            //double notUsedPercentage = (double)notUsedCounter / (usedCounter + notUsedCounter);
 
             if (used)
             {
-                return usedPercentage.ToString("P1");
+                return usedCounter;
+                //return usedPercentage.ToString("P1");
             }
             else
             {
-                return notUsedPercentage.ToString("P1");
+                return notUsedCounter;
+                //return notUsedPercentage.ToString("P1");
             }
         }
     }

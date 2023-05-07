@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
-    public partial class RequestStatisticsViewModel
+    public partial class RequestsViewModel
     {
         public ObservableCollection<string> Labels { get; set; }
         public ObservableCollection<string> LabelsForTheMostRequested { get; set; }
@@ -22,8 +22,10 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public RequestsLanguage TheMostRequestedLanguage { get; set; }
         public Location TheMostRequestedLocation { get; set; }
         public string TheMostRequestedLocationString { get; set; }
+        public ObservableCollection<Request> RequestsToDisplay { get; set; }
+        public Request SelectedRequest { get; set; }
 
-        public RequestStatisticsViewModel(RequestService requestService)
+        public RequestsViewModel(RequestService requestService)
         {
             _requestService = requestService;
 
@@ -50,11 +52,13 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             LabelsForTheMostRequested = new ObservableCollection<string>();
             foreach (var l in LabelsMonth)
             {
-                Labels.Add(l);
+                LabelsForTheMostRequested.Add(l);
             }
 
             DisplayTheMostRequestedLanguage();
             DisplayTheMostRequestedLocation();
+
+            RequestsToDisplay = new ObservableCollection<Request>(_requestService.GetOnHold());
         }
 
         public List<RequestsLanguage> GetLanguages()
@@ -98,7 +102,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             {
                 Labels.Add(l);
             }
-            Values = value => value.ToString("N");
+            Values = value => value.ToString("D");
         }
 
         public void DisplayMonthlyLanguageStatistics(string language, string year)
@@ -115,7 +119,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             {
                 Labels.Add(l);
             }
-            Values = value => value.ToString("N");
+            Values = value => value.ToString("D");
         }
 
         public void DisplayLocationStatistics(string location, string year)
@@ -144,7 +148,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             {
                 Labels.Add(l);
             }
-            Values = value => value.ToString("N");
+            Values = value => value.ToString("D");
         }
 
         public void DisplayYearlyLocationStatistics(string location, string year)
@@ -161,7 +165,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             {
                 Labels.Add(l);
             }
-            Values = value => value.ToString("N");
+            Values = value => value.ToString("D");
         }
 
         public RequestsLanguage GetTheMostRequestedLanguage()
@@ -177,7 +181,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 monthlyStats.Add(_requestService.GetMonthlyLanguageStatistics(TheMostRequestedLanguage.ToString(), month, "2023"));
             }
             TheMostRequestedLanguageSeriesCollection.Add(new ColumnSeries { Values = monthlyStats, Title = "Broj zahteva u " + "2023" + ":" });
-            Values = value => value.ToString("N");
+            Values = value => value.ToString("D");
         }
 
         public Location GetTheMostRequestedLocation()
@@ -193,7 +197,31 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 monthlyStats.Add(_requestService.GetMonthlyLocationStatistics(TheMostRequestedLocationString, month, "2023"));
             }
             TheMostRequestedLocationSeriesCollection.Add(new ColumnSeries { Values = monthlyStats, Title = "Broj zahteva u " + "2023" + ":" });
-            Values = value => value.ToString("N");
+            Values = value => value.ToString("D");
+        }
+
+        public List<Request> FilterRequests(string locationSearchTerm, string guestNumberSearchTerm, string languageSearchTerm, string dateStartSearchTerm, string dateEndSearchTerm)
+        {
+            return _requestService.GetFiltered(locationSearchTerm, guestNumberSearchTerm, languageSearchTerm, dateStartSearchTerm, dateEndSearchTerm);
+        }
+
+        public void HandleRequest(bool accepted)
+        {
+            if (SelectedRequest != null)
+            {
+                var state = accepted ? RequestsState.Accepted : RequestsState.Invalid;
+                _requestService.UpdateState(SelectedRequest, state);
+                Update();
+            }
+        }
+
+        public void Update()
+        {
+            RequestsToDisplay.Clear();
+            foreach (Request request in _requestService.GetOnHold())
+            {
+                RequestsToDisplay.Add(request);
+            }
         }
     }
 }
