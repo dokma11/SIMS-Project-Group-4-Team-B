@@ -1,18 +1,22 @@
-﻿using Sims2023.Domain.Models;
+﻿using Microsoft.Win32;
+using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Sims2023.Repositories
 {
-    public class UserCSVRepository: IUserCSVRepository
+    public class UserCSVRepository : IUserCSVRepository
     {
         private List<IObserver> _observers;
         private List<User> _users;
         private UserFileHandler _fileHandler;
         private TourReservationCSVRepository _tourReservationRepository;
+        private TourReadFromCSVRepository _tourRepository;
+        private TourReviewCSVRepository _tourReviewRepository;
         private AccommodationGradeCSVRepository guests;
 
         public UserCSVRepository()
@@ -57,7 +61,7 @@ namespace Sims2023.Repositories
                     {
                         ++counter;
                         zbir += guests.FindAverage(grade);
-                     }
+                    }
                 }
                 Average = zbir / counter;
 
@@ -124,6 +128,45 @@ namespace Sims2023.Repositories
         {
             return !keyPoint.PresentGuestsIds.Contains(guest.Id) &&
                 !markedGuests.Any(markedGuest => markedGuest.Id == guest.Id);
+        }
+
+        public List<User> GetGuides()
+        {
+            return _users.Where(user => user.UserType == User.Type.Guide).ToList();
+        }
+
+        public void GetSuperGuides()
+        {
+            var dic = Enum.GetValues(typeof(ToursLanguage)).Cast<ToursLanguage>().ToDictionary(k => k, v => 0);
+
+            _tourReviewRepository = new();
+            _tourRepository = new();
+
+            var lastYearStartDate = new DateTime(DateTime.Today.Year - 1, DateTime.Today.Month, DateTime.Today.Day);
+            var lastYearEndDate = DateTime.Today;
+
+            foreach (var guide in GetGuides())
+            {
+                foreach (var tour in _tourRepository.GetFinished(guide).Where(r => r.Start >= lastYearStartDate && r.Start <= lastYearEndDate))
+                {
+                    var tourReviews = _tourReviewRepository.GetByToursId(tour.Id);
+                    if (tourReviews.Any())
+                    {
+                        var averageGrade = tourReviews.Average(review => review.AverageGrade);
+                        if (averageGrade <= 4.0)
+                        {
+                            dic[tour.GuideLanguage]++;
+                        }
+                    }
+                }
+
+                if (dic.Values.Any(v => v >= 20))
+                {
+                    guide.SuperGuide = true;
+                    _fileHandler.Save(_users);
+                    NotifyObservers();
+                }
+            }
         }
     }
 }

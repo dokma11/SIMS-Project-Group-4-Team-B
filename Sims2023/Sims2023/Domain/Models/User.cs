@@ -20,9 +20,10 @@ namespace Sims2023.Domain.Models
 
         public bool superOwner { get; set; }
         //Treba i sliku dodati
+        public bool SuperGuide { get; set; }
         public User() { }
 
-        public User(int id, string username, string password, string name, string surname, int age, string phoneNumber, string email, Type userType, bool superOwner)
+        public User(int id, string username, string password, string name, string surname, int age, string phoneNumber, string email, Type userType, bool superOwner, bool superGuide)
         {
             Id = id;
             Username = username;
@@ -34,6 +35,7 @@ namespace Sims2023.Domain.Models
             Email = email;
             UserType = userType;
             this.superOwner = superOwner;
+            SuperGuide = superGuide;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -55,7 +57,8 @@ namespace Sims2023.Domain.Models
                 PhoneNumber,
                 Email,
                 UserType.ToString(),
-                superOwner.ToString()
+                superOwner.ToString(),
+                SuperGuide.ToString()
             };
             return csvValues;
         }
@@ -72,6 +75,7 @@ namespace Sims2023.Domain.Models
             Email = values[7];
             UserType = (Type)Enum.Parse(typeof(Type), values[8]);
             superOwner = Convert.ToBoolean(values[9]);
+            SuperGuide = Convert.ToBoolean(values[10]);
         }
     }
 }

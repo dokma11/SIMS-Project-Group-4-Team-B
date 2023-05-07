@@ -56,6 +56,8 @@ namespace Sims2023.WPF.Views.GuideViews
             DataContext = GuideViewModel;
 
             DisplayLabels();
+
+            //_userService.GetSuperGuides();
         }
 
         private void DisplayLabels()
