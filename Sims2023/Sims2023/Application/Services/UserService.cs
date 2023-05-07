@@ -40,5 +40,10 @@ namespace Sims2023.Application.Services
         {
             return _user.GetGuestsWithReservations(keyPoint, markedGuests);
         }
+
+        public void GetSuperGuides()
+        {
+            _user.GetSuperGuides();
+        }
     }
 }
