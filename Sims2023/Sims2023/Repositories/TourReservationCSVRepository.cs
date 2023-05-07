@@ -104,7 +104,7 @@ namespace Sims2023.Repositories
             }
         }
 
-        public List<TourReservation> GetReservationsByToursId(int id)
+        public List<TourReservation> GetByToursId(int id)
         {
             return _tourReservations.Where(reservation => reservation.Tour.Id == id).ToList();
         }
@@ -141,19 +141,13 @@ namespace Sims2023.Repositories
                                           .Count(res => res.UsedVoucher && res.ConfirmedParticipation);
             int notUsedCounter = _tourReservations.Where(res => res.Tour.Id == selectedTour.Id)
                                              .Count(res => !res.UsedVoucher && res.ConfirmedParticipation);
-
-            //double usedPercentage = (double)usedCounter / (usedCounter + notUsedCounter);
-            //double notUsedPercentage = (double)notUsedCounter / (usedCounter + notUsedCounter);
-
             if (used)
             {
                 return usedCounter;
-                //return usedPercentage.ToString("P1");
             }
             else
             {
                 return notUsedCounter;
-                //return notUsedPercentage.ToString("P1");
             }
         }
     }

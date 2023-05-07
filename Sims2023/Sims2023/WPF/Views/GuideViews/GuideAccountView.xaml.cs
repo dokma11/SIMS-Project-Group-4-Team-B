@@ -20,6 +20,7 @@ namespace Sims2023.WPF.Views.GuideViews
         private VoucherService _voucherService;
         private UserService _userService;
         private CountriesAndCitiesService _countriesAndCitiesService;
+        private GuideAccountViewModel GuideAccountViewModel;
         public User LoggedInGuide { get; set; }
         public GuideAccountView(TourService tourService, TourReviewService tourReviewService, LocationService locationService, RequestService requestService, KeyPointService keyPointService, User loggedInGuide, TourReservationService tourReservationService, VoucherService voucherService, UserService userService, CountriesAndCitiesService countriesAndCitiesService)
         {
@@ -42,7 +43,28 @@ namespace Sims2023.WPF.Views.GuideViews
             ageLabel.Content = loggedInGuide.Age;
             phoneNumberLabel.Content = loggedInGuide.PhoneNumber;
             emailLabel.Content = loggedInGuide.Email;
+
+            GuideAccountViewModel = new(_tourService, _voucherService, _tourReservationService, LoggedInGuide);
+            DataContext = GuideAccountViewModel;
         }
+
+        private void LogOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new();
+            mainWindow.Show();
+        }
+
+        private void DismissalButton_Click(object sender, RoutedEventArgs e)
+        {
+            GuideAccountViewModel.Dismissal();
+        }
+
+        private void mybutton_click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        //TOOLBAR
 
         private void HomePageButton_Click(object sender, RoutedEventArgs e)
         {
@@ -66,17 +88,6 @@ namespace Sims2023.WPF.Views.GuideViews
         {
             GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService);
             FrameManagerGuide.Instance.MainFrame.Navigate(guestReviewsView);
-        }
-
-        private void LogOutButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow mainWindow = new();
-            mainWindow.Show();
-        }
-
-        private void mybutton_click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
