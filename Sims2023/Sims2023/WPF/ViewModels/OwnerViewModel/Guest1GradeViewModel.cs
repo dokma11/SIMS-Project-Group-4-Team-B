@@ -49,7 +49,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                 int clean = int.Parse(cleaN);
                 int RespectRules = int.Parse(Respectrules);
                 int Communication = int.Parse(Communicationn);
-                Grade = new GuestGrade(id, Guest.Accommodation, Guest.Guest, clean, RespectRules, Communication, comment);
+                Grade = new GuestGrade(id, Guest.Accommodation, Guest.Guest, clean, RespectRules, Communication, comment,Guest.StartDate,Guest.EndDate);
                 CreateGrade(Grade);
                 resevationss.Remove(Guest);
                 MessageBox.Show("Uspijesno davanje ocjene");

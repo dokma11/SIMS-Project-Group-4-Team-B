@@ -1,14 +1,10 @@
-﻿using Sims2023.Application.Services;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Repositories
 {
@@ -160,11 +156,7 @@ namespace Sims2023.Repositories
         public bool FilterdDataSelection(AccommodationReservation accommodationReservation, User guest1)
         {
             TimeSpan difference = accommodationReservation.StartDate - DateTime.Today;
-            if (difference.TotalDays >= 0 && accommodationReservation.Guest.Id == guest1.Id)
-            {
-                return true;
-            }
-            return false;
+            return difference.TotalDays >= 0 && accommodationReservation.Guest.Id == guest1.Id;
         }
 
         public int CheckDates(Accommodation selectedAccommodation, DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> datesList)
@@ -174,7 +166,7 @@ namespace Sims2023.Repositories
 
             for (DateTime startDate = startDateSelected; startDate <= endDateSelected.AddDays(-stayLength); startDate = startDate.AddDays(1), endDate = endDate.AddDays(1))
             {
-                isAvailable = IsDateSpanAvailable(selectedAccommodation,startDate, endDate);
+                isAvailable = IsDateSpanAvailable(selectedAccommodation, startDate, endDate);
                 if (isAvailable)
                 {
                     if (datesList.Count == 0)
@@ -220,7 +212,7 @@ namespace Sims2023.Repositories
             List<AccommodationReservation> FilteredReservations = new List<AccommodationReservation>();
             foreach (AccommodationReservation accommodationReservation in _accommodationReservations)
             {
-                if (CheckReschedulingReservation(accommodationReservation,guest1))
+                if (CheckReschedulingReservation(accommodationReservation, guest1))
                 {
                     FilteredReservations.Add(accommodationReservation);
                 }
@@ -231,11 +223,7 @@ namespace Sims2023.Repositories
         public bool CheckReschedulingReservation(AccommodationReservation accommodationReservation, User guest1)
         {
             TimeSpan difference = DateTime.Today - accommodationReservation.EndDate;
-            if (difference.TotalDays >= 0 && accommodationReservation.Guest.Id == guest1.Id)
-            {
-                return true;
-            }
-            return false;
+            return difference.TotalDays >= 0 && accommodationReservation.Guest.Id == guest1.Id;
 
         }
         public void DeleteAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
@@ -249,5 +237,32 @@ namespace Sims2023.Repositories
                 }
             }
         }
+        public List<GuestGrade> FindSuitableGrades(User user, List<GuestGrade> guestGrades)
+        {
+            List<GuestGrade> SuitableGrades=new List<GuestGrade>();
+            foreach (GuestGrade grade in guestGrades)
+            {
+                AccommodationReservation accommodationReservation = FindReservation(user, grade);
+                if (accommodationReservation != null && accommodationReservation.Graded)
+                {
+                    SuitableGrades.Add(grade);
+                }
+            }
+            
+            return SuitableGrades;
+        }
+
+        private AccommodationReservation FindReservation(User user, GuestGrade grade)
+        {
+            foreach (AccommodationReservation accommodationReservation in _accommodationReservations)
+            {
+                if(user.Id == accommodationReservation.Guest.Id && grade.StartDate == accommodationReservation.StartDate && grade.Accommodation.Id == accommodationReservation.Accommodation.Id)
+                {
+                    return accommodationReservation;
+                }
+            }
+            return null;
+        }
+        // treba da nadem rezervaciju pa da vidim dal je ocenjen a pa ako jeste onda da ne dodam taj grade
     }
 }

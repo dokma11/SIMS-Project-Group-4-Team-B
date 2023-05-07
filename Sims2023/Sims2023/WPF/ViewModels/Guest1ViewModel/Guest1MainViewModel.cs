@@ -15,11 +15,13 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         private AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
+
         Guest1MainView Guest1MainView;
         public Guest1MainViewModel(Guest1MainView guest1MainView, User guest1)
         {
             Guest1MainView = guest1MainView;
             User = guest1;
+            Guest1MainView.userName_label.Content = User.Name;
             _accommodationReservationReschedulingService = new AccommodationReservationReschedulingService();
             AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingService.GetAllReservationReschedulings());
         }
@@ -49,5 +51,27 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
             return false;
         }
+        public void HideMainMenu()
+        {
+            Guest1MainView.MainMenu.Visibility = Visibility.Collapsed;
+            Guest1MainView.Overlay.Visibility = Visibility.Collapsed;
+        }
+        public void ToggleMainMenu()
+        {
+            if (Guest1MainView.MainMenu.Visibility == Visibility.Visible)
+            {
+                HideMainMenu();
+            }
+            else
+            {
+                ShowMainMenu();
+            }
+        }
+        public void ShowMainMenu()
+        {
+            Guest1MainView.MainMenu.Visibility = Visibility.Visible;
+            Guest1MainView.Overlay.Visibility = Visibility.Visible;
+        }
+
     }
 }

@@ -47,6 +47,20 @@ namespace Sims2023.Repositories
             }
         }
 
+        public void CheckExistance(Location location)
+        {
+            foreach(Location Location in _locations)
+            {
+                if(Location.City==location.City && Location.Country == location.Country)
+                {
+                    location.Id = Location.Id;
+                    return;
+                }
+            }
+            Add(location);
+        }
+
+        
         public void Add(Location location)
         {
             location.Id = NextId();

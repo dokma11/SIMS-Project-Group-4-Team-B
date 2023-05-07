@@ -2,6 +2,7 @@
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -76,6 +77,27 @@ namespace Sims2023.Repositories
             {
                 observer.Update();
             }
+        }
+        public List<GuestGrade> FindSuitableGrades(User guest1)
+        {
+            List<GuestGrade> FilteredGrades = new();
+            foreach (GuestGrade grade in _grades)
+            {
+                if (FilterGrades(grade,guest1))
+                {
+                    FilteredGrades.Add(grade);
+                }
+            }
+            return FilteredGrades;
+        }
+
+        private bool FilterGrades(GuestGrade grade,User guest1)
+        {
+            if(guest1.Id == grade.Guest.Id)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

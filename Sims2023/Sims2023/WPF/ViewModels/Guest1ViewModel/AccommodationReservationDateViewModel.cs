@@ -61,7 +61,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         }
 
-        public void MakeReservation_Click(object sender, RoutedEventArgs e)
+        public void MakeReservation_Click()
         {
             _stays.Clear();
             AccommodationReservationDateView.availableDatesGrid.ItemsSource = _stays;
@@ -151,7 +151,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             {
                 todaysDay = true;
             }
-            if(numberOfGuests>SelectedAccommodation.MaxGuests)
+            if (numberOfGuests > SelectedAccommodation.MaxGuests)
             {
                 MessageBox.Show($"Ovaj smestaj nije u mogucnosti da primi toliko ljudi. Kapacitet je {SelectedAccommodation.MaxGuests}");
                 return false;

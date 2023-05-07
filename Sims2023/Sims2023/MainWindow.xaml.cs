@@ -68,6 +68,7 @@ namespace Sims2023
             {
                 Guest1MainView guest1MainView = new(user);
                 guest1MainView.Show();
+                Close();
             }
             else if (user.UserType == User.Type.Guest2)
             {

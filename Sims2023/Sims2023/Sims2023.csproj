@@ -9,6 +9,9 @@
 
   <ItemGroup>
     <None Remove="Images\Guest1Images\add.jpg" />
+    <None Remove="Images\Guest1Images\help.png" />
+    <None Remove="Images\Guest1Images\Horizont_ICO.png" />
+    <None Remove="Images\Guest1Images\Horizont_SRB.png" />
     <None Remove="Images\Guest1Images\slikaSmestaja3.jpg" />
     <None Remove="Images\Guest1Images\slikaSmestaja6.jpg" />
     <None Remove="Images\OwnerImages\slikaSmestaja3.jpg" />
@@ -84,12 +87,19 @@
     <None Update="Resources\Data\accommodations.csv">
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <None Update="Resources\Data\accommodationStatistics.csv">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\Guest1Images\add.jpg">
+    <Resource Include="Resources\GuestOneResources\add.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\GuestOneResources\help.png">
+      <Generator>Resource</Generator>
+    </Resource>
+    <Resource Include="Resources\GuestOneResources\Horizont_ICO.png" />
     <Resource Include="Images\Guest1Images\slikaSmestaja1.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -164,6 +174,10 @@
     <Resource Include="Resources\OwnerResources\plus.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\GuestOneResources\Horizont_SRB.png" />
   </ItemGroup>
 
 </Project>

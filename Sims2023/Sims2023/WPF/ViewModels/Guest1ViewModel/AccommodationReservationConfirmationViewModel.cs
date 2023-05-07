@@ -49,12 +49,12 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         public void FillTextBoxes(Accommodation selectedAccommodation, AccommodationStay selectedAccommodationStay)
         {
-            AccommodationReservationConfirmationView.accommodatioNameTextBox.Text = selectedAccommodation.Name;
-            AccommodationReservationConfirmationView.accommodatioCityTextBox.Text = selectedAccommodation.Location.City;
-            AccommodationReservationConfirmationView.accommodatioCountryTextBox.Text = selectedAccommodation.Location.Country;
-            AccommodationReservationConfirmationView.accommodatioTypeTextBox.Text = selectedAccommodation.Type.ToString();
-            AccommodationReservationConfirmationView.accommodatioStartDateTextBox.Text = selectedAccommodationStay.StartDate.ToString("MM/dd/yyyy");
-            AccommodationReservationConfirmationView.accommodatioEndDateTextBox.Text = selectedAccommodationStay.EndDate.ToString("MM/dd/yyyy");
+            AccommodationReservationConfirmationView.accommodatioNameLabel.Content = "Naziv smeštaja: " + selectedAccommodation.Name;
+            AccommodationReservationConfirmationView.accommodatioCityLabel.Content = "Grad: " + selectedAccommodation.Location.City;
+            AccommodationReservationConfirmationView.accommodatioCountryLabel.Content = "Država: " + selectedAccommodation.Location.Country;
+            AccommodationReservationConfirmationView.accommodatioTypeLabel.Content = "Tip smeštaja: " + selectedAccommodation.Type.ToString();
+            AccommodationReservationConfirmationView.accommodatioStartDateLabel.Content = "Datum početka: " + selectedAccommodationStay.StartDate.ToString("MM/dd/yyyy");
+            AccommodationReservationConfirmationView.accommodatioEndDateLabel.Content = "Datum kraja: " + selectedAccommodationStay.EndDate.ToString("MM/dd/yyyy");
             AccommodationReservationConfirmationView.PicturesListView.ItemsSource = selectedAccommodation.Imageurls;
         }
 
@@ -73,7 +73,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         public void MakeNewAccommodationReservation()
         {
-            AccommodationReservation accommodationReservation = new AccommodationReservation(-1, User, SelectedAccommodation, SelectedAccommodationStay.StartDate, SelectedAccommodationStay.EndDate, days, guests, false);
+            AccommodationReservation accommodationReservation = new AccommodationReservation(-1, User, SelectedAccommodation, SelectedAccommodationStay.StartDate, SelectedAccommodationStay.EndDate, days, guests, false, false);
             _accommodationReservationService.Create(accommodationReservation);
 
             MessageBox.Show("Uspesno ste rezervisali objekat!");
@@ -91,7 +91,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             _accommodationReservationReschedulingService.Create(accommodationReservationRescheduling);
             AccommodationReservationReschedulings.Add(accommodationReservationRescheduling);
             MessageBox.Show("Uspesno ste podneli zahtev za pomeranje rezervacije!");
-
         }
     }
 }

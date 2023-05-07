@@ -1,60 +1,64 @@
-﻿<Window x:Class="Sims2023.WPF.Views.Guest1Views.AccommodationReservationDateView"
+﻿<Page x:Class="Sims2023.WPF.Views.Guest1Views.AccommodationReservationDateView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views"
         mc:Ignorable="d"
-        Title="AccommodationReservationDateView" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
+        Title="AccommodationReservationDateView" Height="515" Width="1000">
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="MakeReservation"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="ConfirmReservation"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command3View" CanExecute="CanExecute" Executed="GoBack"></CommandBinding>
+    </Page.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
+            <RowDefinition Height="0" />
             <RowDefinition Height="80"/>
             <RowDefinition/>
-            <RowDefinition Height="70"/>
-            <RowDefinition Height="20" />
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Label x:Name="label" Content="Proverite dostupnst smestaja" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="1"/>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="450*"/>
-                <ColumnDefinition Width="550*"/>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Margin="0,0,57,0">
+            <Grid Grid.Column="0" Margin="0,0,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
+                    <RowDefinition Height="30"/>
                     <RowDefinition/>
+                    <RowDefinition Height="30"/>
                     <RowDefinition/>
+                    <RowDefinition Height="30"/>
                     <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <Label x:Name="startDate" Content="Unesite pocetni datum:" FontSize="20" Grid.Row="0" Margin="100,0,0,0"/>
                 <Label x:Name="endDate" Content="Unesite zavrsni datum:" FontSize="20" Grid.Row="2" Margin="100,0,0,0"/>
-                <Label x:Name="numberOfDaysEnter" Content="Unesite broj dana:" FontSize="20" Grid.Row="4" Margin="100,0,0,0"/>
-                <Label x:Name="numberOfGuestsEnter" Content="Unesite broj gostiju:" FontSize="20" Grid.Row="6" Margin="100,0,0,0"/>
-                <DatePicker x:Name="startDatePicker" Margin="100,0,0,10" Grid.Row="1"/>
-                <DatePicker x:Name="endDatePicker" Margin="100,0,0,10" Grid.Row="3"/>
-                <xctk:IntegerUpDown Name="numberOfDays" Grid.Row="5" Margin="100,0,0,10" Minimum="0" Value="0" AllowTextInput="False"/>
-                <xctk:IntegerUpDown Name="numberOfGuests" Grid.Row="7" Margin="100,0,0,10" Minimum="0" Value="0" AllowTextInput="False"/>
-                <Button x:Name="makeReservation" Content="Rezervisi" FontSize="20" Margin="150,10,50,0" Grid.Row="8" Click="MakeReservation_Click"/>
+                <Label x:Name="numberOfDaysEnter" Content="Broj dana za rezervaciju:" FontSize="20" Grid.Row="4" Margin="100,0,0,0"/>
+                <Label x:Name="numberOfGuestsEnter" Content="Broj gostiju:" FontSize="20" Grid.Row="6" Margin="100,0,0,0"/>
+                <DatePicker x:Name="startDatePicker" Margin="100,0,0,0" TabIndex="15" Grid.Row="1"/>
+                <DatePicker x:Name="endDatePicker" Margin="100,0,0,0" TabIndex="16" Grid.Row="3"/>
+                <xctk:IntegerUpDown Name="numberOfDays" Grid.Row="5" TabIndex="17" Margin="100,0,0,0" Minimum="0" Value="0" AllowTextInput="False"/>
+                <xctk:IntegerUpDown Name="numberOfGuests" Grid.Row="7" TabIndex="18" Margin="100,0,0,0" Minimum="0" Value="0" AllowTextInput="False"/>
             </Grid>
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" Margin="0,0,0,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="0" />
                     <RowDefinition Height="50" />
                     <RowDefinition/>
                     <RowDefinition Height="50"/>
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="15" />
                 </Grid.RowDefinitions>
-                <Label x:Name="label1" Content="Izaberite datume za koje zelite da rezervisete smestaj" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="18" Grid.Row="1"/>
-                <DataGrid x:Name="availableDatesGrid"
-                  ItemsSource="{Binding Path=AccommodationReservationDateViewModel.stays, UpdateSourceTrigger=PropertyChanged}"
+                <Label x:Name="label1" Content="Izaberite datume za koje zelite da rezervišete smeštaj" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="18" Grid.Row="1"/>
+                <DataGrid x:Name="availableDatesGrid" TabIndex="20" Background="#DDF2FF"
+                  ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedAccommodationStay, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="70,0,70,20"
                   Grid.Row="2" HorizontalAlignment="Center">
@@ -63,11 +67,10 @@
                         <DataGridTextColumn Header="Krajnji datum" Binding="{Binding EndDate, StringFormat={}{0:d}}" Width="200"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button x:Name="buttonDateConfirmation" Content="Potvrdite datum" Margin="150,10,150,0" FontSize="15" Grid.Row="3" Click="ButtonDateConfirmation_Click" Height="40" VerticalAlignment="Top" RenderTransformOrigin="0.517,0.15"/>
+                <Button x:Name="buttonDateConfirmation" Content="Izaberi" TabIndex="21" Margin="200,0,200,0" FontSize="20" Grid.Row="3" Command="cmd:RoutedCommands.Command1View" Height="40" VerticalAlignment="Top"/>
             </Grid>
         </Grid>
-        <Button x:Name="buttonDateCancelation" Content="Odustani"  Margin="750,0,50,20" FontSize="15" Grid.Row="3" Click="ButtonDateCancelation_Click"/>
-        <ToolBar x:Name="toolBar" Grid.Row="0"/>
-        <StatusBar Grid.Row="4" Margin="0,0,0,0"/>
+        <Button x:Name="makeReservation"  Content="  Pretraži datume  " TabIndex="19" FontSize="20" Margin="165,0,665,10" Grid.Row="3" Command="cmd:RoutedCommands.Command2View"/>
+        <Button x:Name="buttonDateCancelation" Content="Odustani" TabIndex="22" Margin="800,0,50,10" FontSize="15" Grid.Row="3" Command="cmd:RoutedCommands.Command3View"/>
     </Grid>
-</Window>
+</Page>

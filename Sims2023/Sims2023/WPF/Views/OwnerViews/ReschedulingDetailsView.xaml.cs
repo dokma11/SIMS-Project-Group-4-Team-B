@@ -61,9 +61,9 @@ namespace Sims2023.WPF.Views.OwnerViews
             NavigationService navigationService = NavigationService.GetNavigationService(this);
             navigationService?.GoBack();
         }
-        private void button2_Click(object sender, RoutedEventArgs e)
+        private void Accept_Click(object sender, RoutedEventArgs e)
         {
-            ReschedulingDetailsViewModel.button2_Click(sender, e);
+            ReschedulingDetailsViewModel.Accept_Click(sender, e);
             NavigationService navigationService = NavigationService.GetNavigationService(this);
             navigationService?.GoBack();
         }

@@ -33,6 +33,9 @@ namespace Sims2023.WPF.Views.OwnerViews
         private void Schedule_Click(object sender, RoutedEventArgs e)
         {
             AvailableDatesViewModel.Schedule_Click();
+            NavigationService navigationService = NavigationService.GetNavigationService(this);
+            navigationService?.GoBack();
+            navigationService?.GoBack();
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)

@@ -1,21 +1,16 @@
-﻿using Sims2023.Application.Services;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
-using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using static Sims2023.Domain.Models.AccommodationReservationRescheduling;
-using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Repositories
 {
-    public class AccommodationReservationReschedulingCSVRepository: IAccommodationReservationReschedulingCSVRepository
+    public class AccommodationReservationReschedulingCSVRepository : IAccommodationReservationReschedulingCSVRepository
     {
         private List<IObserver> _observers;
         private AccommodationReservationCSVRepository reservations { get; set; }
@@ -129,13 +124,10 @@ namespace Sims2023.Repositories
 
         public ObservableCollection<AccommodationReservationRescheduling> FindSuitableReservationReschedulings(User guest1, ObservableCollection<AccommodationReservationRescheduling> accommodationReservationReschedulings)
         {
-            ObservableCollection<AccommodationReservationRescheduling> FilteredReservationReschedulings = accommodationReservationReschedulings;
-            foreach (AccommodationReservationRescheduling accommodationReservationRescheduling in FilteredReservationReschedulings)
+            ObservableCollection<AccommodationReservationRescheduling> FilteredReservationReschedulings = new();
+            foreach (AccommodationReservationRescheduling accommodationReservationRescheduling in _accommodationReservationReschedulings)
             {
-                if (!FilterdDataSelection(accommodationReservationRescheduling, guest1))
-                {
-                    FilteredReservationReschedulings.Remove(accommodationReservationRescheduling);
-                }
+                FilteredReservationReschedulings.Add(accommodationReservationRescheduling);
             }
             return FilteredReservationReschedulings;
         }

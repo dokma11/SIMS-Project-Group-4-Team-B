@@ -2,7 +2,6 @@
 using Sims2023.Domain.Models;
 using Sims2023.Observer;
 using Sims2023.WPF.Views.Guest1Views;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -22,6 +21,8 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         List<AccommodationReservation> FilteredData = new List<AccommodationReservation>();
         public User User { get; set; }
+
+        public AccommodationReservation SelectedAccommodationReservation { get; set; }
 
         NewAccommodationReservationReschedulingRequestView NewAccommodationReservationReschedulingRequestView;
 
@@ -50,7 +51,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         public bool CheckIfPossible(AccommodationReservation selectedAccommodationReservation)
         {
-            if(selectedAccommodationReservation==null)
+            if (selectedAccommodationReservation == null)
             {
                 MessageBox.Show("Molimo Vas selektujte rezervaciju koji zelite obrisete.");
                 return false;

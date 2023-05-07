@@ -24,5 +24,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void Subscribe(IObserver observer);
         public void Unsubscribe(IObserver observer);
         public void NotifyObservers();
+        AccommodationGrade FindGrade(AccommodationReservation selectedAccommodationReservation);
     }
 }

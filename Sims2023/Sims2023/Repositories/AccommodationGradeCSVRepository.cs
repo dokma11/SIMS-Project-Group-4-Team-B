@@ -1,13 +1,9 @@
 ﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
-using Sims2023.Repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sims2023.Domain.RepositoryInterfaces;
 
 namespace Sims2023.Repositories
 {
@@ -110,6 +106,17 @@ namespace Sims2023.Repositories
             {
                 observer.Update();
             }
+        }
+        public AccommodationGrade FindGrade(AccommodationReservation selectedAccommodationReservation)
+        {
+            foreach (AccommodationGrade grade in _accommodationGrades)
+            {
+                if (grade.Accommodation.Id == selectedAccommodationReservation.Accommodation.Id && grade.Guest.Id == selectedAccommodationReservation.Guest.Id && grade.ReservationStartDate == selectedAccommodationReservation.StartDate)
+                {
+                    return grade;
+                }
+            }
+            return null;
         }
     }
 }
