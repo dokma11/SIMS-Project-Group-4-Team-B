@@ -1,8 +1,11 @@
-1|1|ima opis|Serbian|20|4/25/2023 12:00:00 AM|4/30/2023 12:00:00 AM|OnHold|1
-2|2|ima drugi opis|Spanish|10|3/11/2023 12:00:00 AM|3/24/2023 12:00:00 AM|OnHold|3
-3|3|ima treci opis|French|30|5/1/2023 12:00:00 AM|5/7/2023 12:00:00 AM|OnHold|2
-4|4|ima cetvvrti opis|Chinese|50|4/10/2023 12:00:00 AM|4/15/2023 12:00:00 AM|OnHold|4
-5|5|ima peti opis|Chinese|50|1/10/2023 12:00:00 AM|4/15/2024 12:00:00 AM|OnHold|4
-6|5|ima sesti opis|Chinese|50|2/10/2023 12:00:00 AM|8/15/2023 12:00:00 AM|OnHold|4
-7|5|ima sedmi opis|Chinese|50|5/10/2023 12:00:00 AM|9/15/2023 12:00:00 AM|OnHold|4
-8|5|ima osmi opis|Chinese|50|5/10/2023 12:00:00 AM|9/15/2023 12:00:00 AM|OnHold|4
+1|1|ima opis|Serbian|20|4/25/2023 12:00:00 AM|4/30/2023 12:00:00 AM|OnHold|1|False
+2|2|ima drugi opis|Spanish|10|3/11/2023 12:00:00 AM|3/24/2023 12:00:00 AM|OnHold|3|False
+3|3|ima treci opis|French|30|5/1/2023 12:00:00 AM|5/7/2023 12:00:00 AM|Invalid|2|False
+4|4|ima cetvvrti opis|Chinese|50|4/10/2023 12:00:00 AM|4/15/2023 12:00:00 AM|OnHold|4|False
+5|5|ima peti opis|Chinese|50|1/10/2023 12:00:00 AM|4/15/2024 12:00:00 AM|OnHold|4|False
+6|5|ima sesti opis|Chinese|50|2/10/2023 12:00:00 AM|8/15/2023 12:00:00 AM|OnHold|4|False
+7|5|ima sedmi opis|Chinese|50|5/10/2023 12:00:00 AM|9/15/2023 12:00:00 AM|OnHold|4|False
+8|5|ima osmi opis|Chinese|50|5/10/2023 12:00:00 AM|9/15/2023 12:00:00 AM|OnHold|4|False
+9|26|dasd|Serbian|2|5/18/2023 12:00:00 AM|5/30/2023 12:00:00 AM|OnHold|2|False
+10|27|dasdas|French|2|5/8/2023 12:00:00 AM|5/10/2023 12:00:00 AM|Accepted|2|True
+11|28|dasdas|French|3|5/10/2023 12:00:00 AM|5/17/2023 12:00:00 AM|OnHold|2|False

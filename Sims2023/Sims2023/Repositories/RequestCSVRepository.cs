@@ -14,12 +14,14 @@ namespace Sims2023.Repositories
         private List<IObserver> _observers;
         private List<Request> _requests;
         private RequestFileHandler _fileHandler;
+        private TourReadFromCSVRepository _tours;
 
         public RequestCSVRepository()
         {
             _fileHandler = new RequestFileHandler();
             _requests = _fileHandler.Load();
             _observers = new List<IObserver>();
+            _tours = new TourReadFromCSVRepository();
         }
 
         public int NextId()
@@ -175,6 +177,42 @@ namespace Sims2023.Repositories
             return _requests
                 .Where(r => r.Guest.Id == user.Id && r.State == RequestsState.OnHold)
                 .ToList();
+        }
+
+        public List<Request> GetAccepted(User user)
+        {
+            return _requests
+                .Where(r => r.State == RequestsState.Accepted && r.Guest.Id == user.Id && r.IsNotified==true)
+                .ToList();
+        }
+
+        public List<Tour> GetRequestedTours(User user)
+        {
+            List<Tour> tours = new List<Tour>();    
+            foreach (var request in GetAccepted(user))
+            {
+                foreach (var tour in _tours.GetCreated())
+                {
+                    if (request.Language.ToString() == tour.GuideLanguage.ToString() && request.Location == tour.Location)
+                    {
+                        tours.Add(tour); 
+                    }
+                }
+            }
+            return tours;
+        }
+
+        public void CheckExpirationDate(User user)
+        {
+            foreach(Request request in GetByUser(user))
+            {
+                TimeSpan tillExpiration=request.Start-DateTime.Now;
+                if(tillExpiration.TotalHours < 48)
+                {
+                    request.State= RequestsState.Invalid;
+                    Save();
+                }
+            }
         }
     }
 }

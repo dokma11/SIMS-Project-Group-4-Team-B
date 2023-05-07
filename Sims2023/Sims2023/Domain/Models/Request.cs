@@ -19,6 +19,7 @@ namespace Sims2023.Domain.Models
         public DateTime End { get; set; }
         public RequestsState State { get; set; }
         public User Guest { get; set; }
+        public bool IsNotified { get; set; }
 
         public Request() { }
 
@@ -33,6 +34,7 @@ namespace Sims2023.Domain.Models
             End = end;
             State = RequestsState.OnHold;
             Guest = guest;
+            IsNotified = false;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -49,7 +51,8 @@ namespace Sims2023.Domain.Models
                 Start.ToString(),
                 End.ToString(),
                 State.ToString(),
-                Guest.Id.ToString()
+                Guest.Id.ToString(),
+                IsNotified.ToString()
             };
             return csvValues;
         }
@@ -67,6 +70,7 @@ namespace Sims2023.Domain.Models
             State = (RequestsState)Enum.Parse(typeof(RequestsState), values[7]);
             UserService userService = new();
             Guest = userService.GetById(Convert.ToInt32(values[8]));
+            IsNotified = Convert.ToBoolean(values[9]);
         }
     }
 }

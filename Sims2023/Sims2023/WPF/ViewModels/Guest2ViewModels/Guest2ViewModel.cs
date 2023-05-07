@@ -17,6 +17,8 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         private TourReservationService _tourReservationService;
 
         private VoucherService _voucherService;
+
+        private RequestService _requestService;
        
         public ObservableCollection<Tour> Tours { get; set; }
         public Tour SelectedTour { get; set; }
@@ -29,6 +31,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             _tourService = new TourService();
             _tourReservationService = new TourReservationService();
             _voucherService = new VoucherService();
+            _requestService = new RequestService();
             
             Tours = new ObservableCollection<Tour>(_tourService.GetCreated());
             FilteredData = new List<Tour>();
@@ -42,17 +45,26 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         
         public void Window_Loaded()
         {
-            bool confirmed;
+            bool confirmedParticipation;
             foreach (var tourReservation in _tourReservationService.GetNotConfirmedParticipation())
             {
-                confirmed = DisplayMessageBox(tourReservation);
-                _tourReservationService.ConfirmReservation(tourReservation, confirmed);
+                confirmedParticipation = DisplayReservationConfirmationMessageBox(tourReservation);
+                _tourReservationService.ConfirmReservation(tourReservation, confirmedParticipation);
                 break;
+            }
+            
+            foreach(var request in _requestService.GetRequestedTours(User))
+            {
+                MessageBox.Show("Ispisi turu");
             }
 
         }
 
-        public bool DisplayMessageBox(TourReservation tourReservation)
+        public void DisplayNewTourMessageBox()
+        {
+            
+        }
+        public bool DisplayReservationConfirmationMessageBox(TourReservation tourReservation)
         {
             string messageBoxText = "Do you want to confirm your participation?";
             string caption = "Confirmation";
@@ -64,17 +76,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             return (result == MessageBoxResult.Yes);
         }
 
-        public bool ConfirmParticipation()
-        {
-            string messageBoxText = "Do you want to confirm your participation?";
-            string caption = "Confirmation";
-            MessageBoxButton button = MessageBoxButton.YesNo;
-            MessageBoxImage icon = MessageBoxImage.Question;
-
-            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
-
-            return (result == MessageBoxResult.Yes);
-        }
+        
 
 
        public void SearchTours_Click()
