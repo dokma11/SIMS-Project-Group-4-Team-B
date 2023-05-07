@@ -51,9 +51,9 @@ namespace Sims2023.WPF.Views.Guest2Views
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsFilled())
+            if (IsFilled() && IsStartBeforeEnd())
             {
-                CreateTourRequestViewModel.ConfirmCreation(countryComboBox.ToString(), cityComboBox.ToString(), DateTime.Parse(startDatePicker.Text), DateTime.Parse(endDatePicker.Text), descriptionTextBox.Text, User, (RequestsLanguage)Enum.Parse(typeof(RequestsLanguage), languageComboBox.Text), int.Parse(guestNumberBox.Text));
+                CreateTourRequestViewModel.ConfirmCreation(countryComboBox.Text, cityComboBox.Text, DateTime.Parse(startDatePicker.Text), DateTime.Parse(endDatePicker.Text), descriptionTextBox.Text, User, (RequestsLanguage)Enum.Parse(typeof(RequestsLanguage), languageComboBox.Text), int.Parse(guestNumberBox.Text));
                 MessageBox.Show("Uspesno kreiranje");
                 this.Close();
             }
@@ -71,6 +71,18 @@ namespace Sims2023.WPF.Views.Guest2Views
                     startDatePicker.SelectedDate.HasValue &&
                     endDatePicker.SelectedDate.HasValue &&
                    !string.IsNullOrWhiteSpace(descriptionTextBox.Text);
+        }
+
+        private bool IsStartBeforeEnd()
+        {
+            int result = DateTime.Compare(DateTime.Parse(startDatePicker.Text), DateTime.Parse(endDatePicker.Text));
+            if (result <= 0)
+                return true;
+            else
+            {
+                MessageBox.Show("Startni datum mora biti manji od krajnjeg datuma");
+                return false;
+            }
         }
     }
 }

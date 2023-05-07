@@ -169,5 +169,12 @@ namespace Sims2023.Repositories
             Location loc = locationCSV.GetById(ret);
             return loc;
         }
+
+        public List<Request> GetByUser(User user)
+        {
+            return _requests
+                .Where(r => r.Guest.Id == user.Id && r.State == RequestsState.OnHold)
+                .ToList();
+        }
     }
 }

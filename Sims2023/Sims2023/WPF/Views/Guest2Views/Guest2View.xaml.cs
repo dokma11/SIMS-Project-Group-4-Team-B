@@ -1,6 +1,7 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.Observer;
 using Sims2023.WPF.ViewModels.Guest2ViewModels;
+using Sims2023.WPF.Views.Guest2Views;
 using System.Windows;
 
 namespace Sims2023.WPF.Views
@@ -11,6 +12,7 @@ namespace Sims2023.WPF.Views
     public partial class Guest2View : Window, IObserver
     {
         public Guest2ViewModel Guest2ViewModel { get; set; }
+        public User User { get; set; }
        
 
         public Guest2View(User user)
@@ -18,6 +20,7 @@ namespace Sims2023.WPF.Views
             InitializeComponent();
             DataContext = this;
             Guest2ViewModel = new Guest2ViewModel(user,this);
+            User= user;
 
             DataContext = Guest2ViewModel;
             dataGridTours.ItemsSource = Guest2ViewModel.Tours;
@@ -59,6 +62,12 @@ namespace Sims2023.WPF.Views
         private void CreateTourRequest_Click(object sender, RoutedEventArgs e)
         {
             Guest2ViewModel.CreateTourRequest_Click();
+        }
+
+        private void SeeTourRequests_Click(object sender, RoutedEventArgs e)
+        {
+            Guest2TourRequestListView guest2TourRequestListView = new Guest2TourRequestListView(User);
+            guest2TourRequestListView.Show();
         }
     }
 }

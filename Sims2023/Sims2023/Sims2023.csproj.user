@@ -46,6 +46,9 @@
     <Compile Update="WPF\Views\Guest2Views\CreateTourRequestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\Guest2Views\Guest2TourRequestListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest2Views\TourDetailedView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -156,6 +159,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest2Views\CreateTourRequestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest2Views\Guest2TourRequestListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest2Views\Guest2View.xaml">

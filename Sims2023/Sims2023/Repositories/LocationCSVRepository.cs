@@ -47,6 +47,9 @@ namespace Sims2023.Repositories
             }
         }
 
+        
+
+        
         public void Add(Location location)
         {
             location.Id = NextId();
