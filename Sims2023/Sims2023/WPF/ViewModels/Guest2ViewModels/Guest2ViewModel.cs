@@ -19,6 +19,8 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         private VoucherService _voucherService;
 
         private RequestService _requestService;
+
+        private AcceptedTourRequestService _acceptedTourRequestService;
        
         public ObservableCollection<Tour> Tours { get; set; }
         public Tour SelectedTour { get; set; }
@@ -32,6 +34,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             _tourReservationService = new TourReservationService();
             _voucherService = new VoucherService();
             _requestService = new RequestService();
+            _acceptedTourRequestService = new AcceptedTourRequestService();
             
             Tours = new ObservableCollection<Tour>(_tourService.GetCreated());
             FilteredData = new List<Tour>();
@@ -52,17 +55,26 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
                 _tourReservationService.ConfirmReservation(tourReservation, confirmedParticipation);
                 break;
             }
+
+            DisplayAcceptedTourMessageBox();
             
-            foreach(var request in _requestService.GetRequestedTours(User))
-            {
-                MessageBox.Show("Ispisi turu");
-            }
 
         }
 
-        public void DisplayNewTourMessageBox()
+        public void DisplayAcceptedTourMessageBox()
         {
-            
+            foreach(Request request in _requestService.GetByUser(User))
+            {
+                foreach(AcceptedTourRequest acceptedRequest in _acceptedTourRequestService.GetByUser(User))
+                {
+                    if (request.Id == acceptedRequest.Request.Id && !acceptedRequest.IsNotified)
+                    {
+                        string message = $"Name: {acceptedRequest.Tour.Name}\nLocation: {acceptedRequest.Tour.Location.City},{acceptedRequest.Tour.Location.Country}\nStart:{acceptedRequest.Tour.Start}";
+                        MessageBox.Show(message, "Tour details");
+                        
+                    }
+                }
+            }
         }
         public bool DisplayReservationConfirmationMessageBox(TourReservation tourReservation)
         {

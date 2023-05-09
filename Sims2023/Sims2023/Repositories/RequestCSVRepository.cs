@@ -42,6 +42,7 @@ namespace Sims2023.Repositories
             return _requests;
         }
 
+        
         public Request GetById(int id)
         {
             return _fileHandler.GetById(id);
@@ -175,11 +176,11 @@ namespace Sims2023.Repositories
         public List<Request> GetByUser(User user)
         {
             return _requests
-                .Where(r => r.Guest.Id == user.Id && r.State == RequestsState.OnHold)
+                .Where(r => r.Guest.Id == user.Id)
                 .ToList();
         }
 
-        public List<Request> GetAccepted(User user)
+        /*public List<Request> GetAccepted(User user)
         {
             return _requests
                 .Where(r => r.State == RequestsState.Accepted && r.Guest.Id == user.Id && r.IsNotified==true)
@@ -200,7 +201,7 @@ namespace Sims2023.Repositories
                 }
             }
             return tours;
-        }
+        }*/
 
         public void CheckExpirationDate(User user)
         {
