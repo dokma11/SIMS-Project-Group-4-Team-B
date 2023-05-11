@@ -18,9 +18,9 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         private VoucherService _voucherService;
 
-        private RequestService _requestService;
+       
 
-        private AcceptedTourRequestService _acceptedTourRequestService;
+        private TourNotificationService _tourNotificationService;
        
         public ObservableCollection<Tour> Tours { get; set; }
         public Tour SelectedTour { get; set; }
@@ -33,8 +33,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             _tourService = new TourService();
             _tourReservationService = new TourReservationService();
             _voucherService = new VoucherService();
-            _requestService = new RequestService();
-            _acceptedTourRequestService = new AcceptedTourRequestService();
+            _tourNotificationService = new TourNotificationService();
             
             Tours = new ObservableCollection<Tour>(_tourService.GetCreated());
             FilteredData = new List<Tour>();
@@ -57,25 +56,42 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             }
 
             DisplayAcceptedTourMessageBox();
+            DisplayMatchedTourRequestsLocationMessageBox();
+            DisplayMatchedTourRequestsLanguageMessageBox();
             
 
         }
 
         public void DisplayAcceptedTourMessageBox()
         {
-            foreach(Request request in _requestService.GetByUser(User))
+            foreach(TourNotification tourNotification in _tourNotificationService.GetAcceptedTourRequest(User))
             {
-                foreach(AcceptedTourRequest acceptedRequest in _acceptedTourRequestService.GetByUser(User))
-                {
-                    if (request.Id == acceptedRequest.Request.Id && !acceptedRequest.IsNotified)
-                    {
-                        string message = $"Name: {acceptedRequest.Tour.Name}\nLocation: {acceptedRequest.Tour.Location.City},{acceptedRequest.Tour.Location.Country}\nStart:{acceptedRequest.Tour.Start}";
-                        MessageBox.Show(message, "Tour details");
-                        
-                    }
-                }
+                _tourNotificationService.SetIsNotified(tourNotification);
+                string message = $"Name: {tourNotification.Tour.Name}\nLocation: {tourNotification.Tour.Location.City},{tourNotification.Tour.Location.Country}\nLanguage:{tourNotification.Tour.GuideLanguage}\nStart:{tourNotification.Tour.Start}";
+                MessageBox.Show(message, "Accepted tour request");
             }
         }
+
+        public void DisplayMatchedTourRequestsLocationMessageBox()
+        {
+            foreach (TourNotification tourNotification in _tourNotificationService.GetMatchedTourRequestsLocation(User))
+            {
+                _tourNotificationService.SetIsNotified(tourNotification);
+                string message = $"Name: {tourNotification.Tour.Name}\nLocation: {tourNotification.Tour.Location.City},{tourNotification.Tour.Location.Country}\nLanguage:{tourNotification.Tour.GuideLanguage}\nStart:{tourNotification.Tour.Start}";
+                MessageBox.Show(message, "New tour with location same as your request");
+            }
+        }
+
+        public void DisplayMatchedTourRequestsLanguageMessageBox()
+        {
+            foreach (TourNotification tourNotification in _tourNotificationService.GetMatchedTourRequestsLanguage(User))
+            {
+                _tourNotificationService.SetIsNotified(tourNotification);
+                string message = $"Name: {tourNotification.Tour.Name}\nLocation: {tourNotification.Tour.Location.City},{tourNotification.Tour.Location.Country}\nLanguage:{tourNotification.Tour.GuideLanguage}\nStart:{tourNotification.Tour.Start}";
+                MessageBox.Show(message, "New tour with language same as your request");
+            }
+        }
+
         public bool DisplayReservationConfirmationMessageBox(TourReservation tourReservation)
         {
             string messageBoxText = "Do you want to confirm your participation?";

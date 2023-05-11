@@ -9,18 +9,21 @@ using Sims2023.Serialization;
 
 namespace Sims2023.Domain.Models
 {
-    public class AcceptedTourRequest: ISerializable, INotifyPropertyChanged
+    public enum NotificationType { TourStarted, AcceptedTourRequest, MatchedTourRequestsLocation, MatchedTourRequestsLanguage }
+    public class TourNotification: ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public Tour Tour { get; set; }
-        public Request Request { get; set; }
+        public User Guest { get; set; }
+        public NotificationType Type { get; set; }
         public bool IsNotified { get; set; }
-        public AcceptedTourRequest() { }
-        public AcceptedTourRequest(Tour tour, Request request)
+        public TourNotification() { }
+        public TourNotification(Tour tour, User guest, NotificationType type)
         {
             
             Tour = tour;
-            Request = request;
+            Guest = guest;
+            Type = type;    
             IsNotified = false;
         }
 
@@ -32,7 +35,8 @@ namespace Sims2023.Domain.Models
             {
                 Id.ToString(),
                 Tour.Id.ToString(),
-                Request.Id.ToString(),
+                Guest.Id.ToString(),
+                Type.ToString(),
                 IsNotified.ToString()
             };
             return csvValues;
@@ -43,9 +47,10 @@ namespace Sims2023.Domain.Models
             Id = Convert.ToInt32(values[0]);
             TourService tourService = new();
             Tour =tourService.GetById(Convert.ToInt32(values[1]));
-            RequestService requestService = new();
-            Request =requestService.GetById(Convert.ToInt32(values[2]));
-            IsNotified = Convert.ToBoolean(values[3]);
+            UserService tourUserService = new();
+            Guest = tourUserService.GetById(Convert.ToInt32(values[2]));
+            Type = (NotificationType)Enum.Parse(typeof(NotificationType), values[3]);
+            IsNotified = Convert.ToBoolean(values[4]);
         }
     }
 }
