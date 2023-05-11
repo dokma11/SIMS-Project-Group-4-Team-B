@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.WPF.ViewModels.Guest2ViewModels;
 
 namespace Sims2023.WPF.Views.Guest2Views
 {
@@ -21,17 +22,18 @@ namespace Sims2023.WPF.Views.Guest2Views
     /// </summary>
     public partial class Guest2TourRequestListView : Window
     {
-        public List<Request> TourRequests { get; set; }
+      
 
         public User User { get; set; }
-        public RequestService _requestService { get; set; }
+        public Guest2TourRequestListViewModel Guest2TourRequestListViewModel { get; set; }
         public Guest2TourRequestListView(User user)
         {
             InitializeComponent();
-            _requestService = new RequestService();
-            User = user;
-            DataContext = this;
-            TourRequests = _requestService.GetByUser(user);
+            Guest2TourRequestListViewModel = new Guest2TourRequestListViewModel(user);
+            
+            DataContext = Guest2TourRequestListViewModel;
+            dataGridGuestTourRequests.ItemsSource = Guest2TourRequestListViewModel.TourRequests;
+            
         }
     }
 }

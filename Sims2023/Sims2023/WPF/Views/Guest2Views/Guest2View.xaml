@@ -4,13 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         xmlns:local="clr-namespace:Sims2023.WPF.Views"
         mc:Ignorable="d"
-        Title="Guest2View" Height="450" Width="970" Loaded="Window_Loaded">
-
+        Title="Guest2View" Height="450" Width="970" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+    <Window.CommandBindings>
+        
+        <CommandBinding Command="cmd:RoutedCommands.OpenHelp" CanExecute="CanExecute" Executed="OpenHelp_Executed"></CommandBinding>
+        </Window.CommandBindings>
+    
     <Grid>
+        <Menu Margin="0 0 0 10">
 
-        <DataGrid x:Name="dataGridTours" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
+            <MenuItem Command="cmd:RoutedCommands.OpenHelp" Header="Help" InputGestureText="Ctrl + N">
+                </MenuItem>
+         </Menu>
+
+            <DataGrid x:Name="dataGridTours" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged }" SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Width="665" Height="270" Margin="36,82,269,82">
             <DataGrid.RowStyle>
