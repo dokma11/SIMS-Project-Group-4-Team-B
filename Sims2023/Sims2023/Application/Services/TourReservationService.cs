@@ -65,17 +65,17 @@ namespace Sims2023.Application.Services
             _tourReservations.Save();
         }
 
-        public List<TourReservation> GetReservationsByToursid(int id)
+        public List<TourReservation> GetByToursid(int id)
         {
-            return _tourReservations.GetReservationsByToursId(id);
+            return _tourReservations.GetByToursId(id);
         }
 
-        public string GetAgeStatistics(Tour selectedTour, string ageGroup)
+        public int GetAgeStatistics(Tour selectedTour, string ageGroup)
         {
             return _tourReservations.GetAgeStatistics(selectedTour, ageGroup);
         }
 
-        public string GetVoucherStatistics(Tour selectedTour, bool used)
+        public int GetVoucherStatistics(Tour selectedTour, bool used)
         {
             return _tourReservations.GetVoucherStatistics(selectedTour, used);
         }

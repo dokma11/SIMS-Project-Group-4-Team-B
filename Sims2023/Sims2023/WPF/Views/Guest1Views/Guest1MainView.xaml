@@ -31,7 +31,7 @@
             </Grid.RowDefinitions>
             <ToolBar x:Name="toolBar" Background="#DDF2FF" Grid.Row="0">
                 <Button Command="cmd:RoutedCommands.GuestOneMainView" TabIndex="1">
-                    <Image  Source="pack://application:,,,/Sims2023;component/Images/Guest1Images/Horizont_ICO.png" Width="16" Height="16"/>
+                    <Image  Source="pack://application:,,,/Sims2023;component/Resources/GuestOneResources/Horizont_ICO.png" Width="16" Height="16"/>
                 </Button>
                 <Button Command="cmd:RoutedCommands.OpenMenu" TabIndex="2" Content="MENI" Width="90" Height="30" Foreground="#E0942C" Background="#4CE0942C"/>
                 <Separator Margin="600,0,0,0" Foreground="#E0942C"/>

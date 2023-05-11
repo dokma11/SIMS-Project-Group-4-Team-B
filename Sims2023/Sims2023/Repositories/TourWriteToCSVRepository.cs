@@ -161,13 +161,24 @@ namespace Sims2023.Repository
 
         public void UpdateState(Tour selectedTour, ToursState state)
         {
-            selectedTour.CurrentState = state;
-            Save(); 
+            var tourToUpdate = _tours.FirstOrDefault(t => t.Id == selectedTour.Id);
+            if (tourToUpdate != null)
+            {
+                tourToUpdate.CurrentState = state;
+                Save();
+            }
         }
 
         public void SetLanguage(Tour selectedTour, ToursLanguage language)
         {
             selectedTour.GuideLanguage = language;
+        }
+
+        public void CancelAll(User loggedInGuide)
+        {
+            _tours.Where(t => t.CurrentState == ToursState.Created && t.Guide.Id == loggedInGuide.Id).ToList()
+                  .ForEach(t => t.CurrentState = ToursState.Cancelled);
+            Save();    
         }
     }
 }

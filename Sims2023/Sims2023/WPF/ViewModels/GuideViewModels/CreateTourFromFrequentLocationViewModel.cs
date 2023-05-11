@@ -7,8 +7,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
     public partial class CreateTourFromFrequentLocationViewModel
     {
-        public Tour Tour { get; set; }
-        public KeyPoint KeyPoint { get; set; }
+        public Tour NewTour { get; set; }
+        public KeyPoint NewKeyPoint { get; set; }
         private TourService _tourService;
         private KeyPointService _keyPointService;
         public Location SelectedLocation { get; set; }
@@ -19,8 +19,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         {
             SelectedLocation = selectedLocation;
 
-            Tour = new();
-            KeyPoint = new();
+            NewTour = new();
+            NewKeyPoint = new();
 
             _tourService = tourService;
             _keyPointService = keyPointService;
@@ -54,17 +54,17 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         {
             if (Enum.TryParse(languageString, out ToursLanguage language))
             {
-                _tourService.SetLanguage(Tour, language);
+                _tourService.SetLanguage(NewTour, language);
             }
         }
 
         public void ConfirmCreation()
         {
-            Tour.Location = SelectedLocation;
-            _tourService.Create(Tour, _dateTimeList, SelectedLocation, LoggedInGuide);
-            int firstToursId = Tour.Id - _dateTimeList.Count + 1;
-            _tourService.AddToursLocation(Tour, SelectedLocation, _dateTimeList.Count);
-            _keyPointService.Create(KeyPoint, _keyPointsList, firstToursId, _dateTimeList.Count);
+            NewTour.Location = SelectedLocation;
+            _tourService.Create(NewTour, _dateTimeList, SelectedLocation, LoggedInGuide);
+            int firstToursId = NewTour.Id - _dateTimeList.Count + 1;
+            _tourService.AddToursLocation(NewTour, SelectedLocation, _dateTimeList.Count);
+            _keyPointService.Create(NewKeyPoint, _keyPointsList, firstToursId, _dateTimeList.Count);
             _tourService.AddToursKeyPoints(_keyPointsList, firstToursId);
         }
     }

@@ -3,34 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        d:DataContext="{Binding GuideViewModel}"
+        xmlns:local="clr-namespace:Sims2023.WPF.Views.GuideViews"
         mc:Ignorable="d"
-        Title="GuideView" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
-    <StackPanel>
-        <DockPanel>
-            <ToolBar Height="30">
-                <Button x:Name="createTourButton" Click="CreateTourButton_Click">Kreiraj turu</Button>
-                <Button x:Name="displayReviewsButton" Click="DisplayReviewsButton_Click">Vidi recenzije</Button>
-                <Button x:Name="displayStatisticsButton" Click="DisplayStatisticsButton_Click">Vidi statistiku</Button>
-                <Button x:Name="displayRequestsButton" Click="DisplayRequestsButton_Click">Vidi zahteve</Button>
-                <Button x:Name="displayRequestStatistcsButton" Click="DisplayRequestsStatisticsButton_Click">Vidi statistiku zahteva</Button>
-            </ToolBar>
-        </DockPanel>
-        <DataGrid x:Name="toursDataGrid" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="1100" Height="350" Margin="100" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.Id}"/>
-                <DataGridTextColumn Header="Ključne tačke" Binding="{Binding KeyPoints}"/>
-                <DataGridTextColumn Header="Maksimalan broj gostiju" Binding="{Binding MaxGuestNumber}"/>
-                <DataGridTextColumn Header="Datum i vreme polaska" Binding="{Binding Start}"/>
-                <DataGridTextColumn Header="Trajanje(h)" Binding="{Binding Length}"/>
-                <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <DockPanel>
-            <Label x:Name="successfulCancellationLabel" Content="Uspešno ste otkazali turu!" FontSize="24" Margin="450,0,40,0" Visibility="Hidden"/>
-            <Button x:Name="startTourButton" Click="StartTourButton_Click" Content="Započni turu" Width="150" Height="50" Margin="0,0,0,0"/>
-            <Button x:Name="cancelTourButton" Click="CancelTourButton_Click" Content="Otkaži turu" Width="150" Height="50"/>
-        </DockPanel>
-    </StackPanel>
+        Title="GuideView" Height="720" Width="1280" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid>
+            <Frame x:Name="MainFrameGuide" NavigationUIVisibility="Hidden" Height="720" Width="1280" Margin="0,0,0,-16" />
+        </Grid>
+    </Grid>
 </Window>

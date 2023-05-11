@@ -1,0 +1,74 @@
+﻿<Page x:Class="Sims2023.WPF.Views.GuideViews.GuideAccountView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sims2023.WPF.Views.GuideViews"
+        mc:Ignorable="d"
+        Title="GuideAccountView" Height="720" Width="1280">
+    <StackPanel Background="#ff9e3d">
+        <DockPanel>
+            <ToolBar>
+                <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
+                <Button x:Name="toursButton" Click="ToursButton_Click" Content="Ture" ToolTip="Idite na ture"/>
+                <Button x:Name="requestsButton" Click="RequestsButton_Click" Content="Zahtevi" ToolTip="Idite na zahteve"/>
+                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije" ToolTip="Idite na recenzije"/>
+                <Button x:Name="accountButton" Content="Nalog" IsEnabled="False"/>
+            </ToolBar>
+        </DockPanel>
+        <DockPanel>
+            <Grid Width="367" Margin="0,-70">
+                <Image Source="pack://application:,,,/Sims2023;component/Resources/GuideResources/account-logo.png"
+                 HorizontalAlignment="Left" Margin="163,205,0,0" VerticalAlignment="Top" Height="195" Width="200" />
+            </Grid>
+            <StackPanel Margin="0,-70">
+                <DockPanel>
+                    <Label Content="Ime:" FontSize="24" FontWeight="Bold" Margin="100,200,0,0"/>
+                    <Label x:Name="nameLabel" FontSize="24" Margin="160,200,0,0"/>
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Prezime: " FontSize="24" FontWeight="Bold" Margin="100,0,0,0"/>
+                    <Label x:Name="surnameLabel" FontSize="24" Margin="106,0,0,0"/>
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Godine: " FontSize="24" FontWeight="Bold" Margin="100,0,0,0"/>
+                    <Label x:Name="ageLabel" FontSize="24" Margin="116,0,0,0"/>
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Kontakt telefon: " FontSize="24" FontWeight="Bold" Margin="100,0,0,0"/>
+                    <Label x:Name="phoneNumberLabel" FontSize="24" Margin="21,0,0,0"/>
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="E-mail: " FontSize="24" FontWeight="Bold" Margin="100,0,0,0"/>
+                    <Label x:Name="emailLabel" FontSize="24" Margin="127,0,0,0"/>
+                </DockPanel>
+            </StackPanel>
+        </DockPanel>
+        <DockPanel Margin="0,260">
+            <Button x:Name="dismissalButton" Content="Podnesite ostavku" Click="DismissalButton_Click" Height="50" Width="150" Margin="200,0,100,0" ToolTip="Pritisnite kako biste dali otkaz"/>
+            <Button x:Name="logOutButton" Content="Odjavi se" Click="LogOutButton_Click" Height="50" Width="150" ToolTip="Pritisnite kako biste se odjavili"/>
+            <Button x:Name="MyButton" Content="Hover over me!" Height="50" Width="150" Click="mybutton_click">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Click">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <BooleanAnimationUsingKeyFrames Storyboard.TargetName="MyPopup"
+                                                     Storyboard.TargetProperty="IsOpen"
+                                                     Duration="0">
+                                    <DiscreteBooleanKeyFrame Value="True" />
+                                </BooleanAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+        </DockPanel>
+        <Popup x:Name="MyPopup" PlacementTarget="{Binding ElementName=MyButton}" Placement="Bottom">
+            <!-- Add content to the popup here -->
+            <StackPanel Background="White">
+                <TextBlock Text="Ovo je prikaz Vaših informacija. Postoje dva dugmeta dole pritiskom na jedan dajete otkaz"/> 
+                <TextBlock Text=" a pritiskom na drugi je odjava sa naloga." />
+            </StackPanel>
+        </Popup>
+    </StackPanel>
+</Page>

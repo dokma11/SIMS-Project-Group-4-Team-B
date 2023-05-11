@@ -76,10 +76,16 @@
     <Compile Update="WPF\Views\GuideViews\CreateTourFromRequestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="WPF\Views\GuideViews\HandleTourRequestsView.xaml.cs">
+    <Compile Update="WPF\Views\GuideViews\GuideAccountView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="WPF\Views\GuideViews\RequestStatisticsView.xaml.cs">
+    <Compile Update="WPF\Views\GuideViews\GuideView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\GuideViews\RequestsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\GuideViews\ToursView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\OwnerViews\AllAccommodationStatisticsView.xaml.cs">
@@ -212,10 +218,13 @@
     <Page Update="WPF\Views\GuideViews\CreateTourFromRequestView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\Views\GuideViews\HandleTourRequestsView.xaml">
+    <Page Update="WPF\Views\GuideViews\GuideAccountView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\Views\GuideViews\RequestStatisticsView.xaml">
+    <Page Update="WPF\Views\GuideViews\GuideView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\GuideViews\RequestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\AllAccommodationStatisticsView.xaml">
@@ -224,10 +233,13 @@
     <Page Update="WPF\Views\OwnerViews\AllAccommodationsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\Views\OwnerViews\AllGuestsView.xaml">
+    <Page Update="WPF\Views\GuideViews\ToursView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\Views\GuideViews\CreateTourView.xaml">
+    <Page Update="WPF\Views\OwnerViews\AllAccommodationsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\AllGuestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\AllRenovationsView.xaml">
@@ -252,9 +264,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\OwnerView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="WPF\Views\GuideViews\TourStatisticsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\SchedulingRenovationAppointmentsView.xaml">
