@@ -168,5 +168,26 @@ namespace Sims2023.Repositories
                 }
             }
         }
+        public void MarkGuestAsSuper(User user)
+        {
+            user.SuperGuest1 = true;
+            user.Guest1Points = 5;
+            user.DateOfBecomingSuperGuest = DateTime.Today;
+            Update(user);
+        }
+        public void MarkGuestAsRegular(User user)
+        {
+            user.SuperGuest1 = false;
+            user.Guest1Points = 0;
+            Update(user);
+        }
+        public void RemovePointFromGuest1(User user)
+        {
+            if(user.Guest1Points > 0)
+            {
+                user.Guest1Points--;
+            }
+            Update(user);
+        }
     }
 }

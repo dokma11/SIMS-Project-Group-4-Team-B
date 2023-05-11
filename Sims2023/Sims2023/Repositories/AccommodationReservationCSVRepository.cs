@@ -263,6 +263,20 @@ namespace Sims2023.Repositories
             }
             return null;
         }
-        // treba da nadem rezervaciju pa da vidim dal je ocenjen a pa ako jeste onda da ne dodam taj grade
+
+        public List<AccommodationReservation> FindAllGuestsReservations(User user)
+        {
+            List<AccommodationReservation> AllGuestsReservations = new();
+            var lastYearStartDate = new DateTime(DateTime.Today.Year - 1, DateTime.Today.Month, DateTime.Today.Day);
+            var lastYearEndDate = DateTime.Today;
+            foreach (AccommodationReservation accommodationReservation in _accommodationReservations)
+            {
+                if(accommodationReservation.Guest.Id == user.Id && accommodationReservation.StartDate>lastYearStartDate && accommodationReservation.EndDate<lastYearEndDate)
+                {
+                    AllGuestsReservations.Add(accommodationReservation);
+                }
+            }
+            return AllGuestsReservations;
+        }
     }
 }

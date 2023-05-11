@@ -80,5 +80,10 @@ namespace Sims2023.Application.Services
         {
             return _accommodationReservation.FindSuitableGrades(user, guestGrades);
         }
+
+        public List<AccommodationReservation> FindAllGuestsReservations(User user)
+        {
+            return _accommodationReservation.FindAllGuestsReservations(user);
+        }
     }
 }

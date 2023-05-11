@@ -2,6 +2,7 @@
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repositories;
+using System;
 using System.Collections.Generic;
 
 namespace Sims2023.Application.Services
@@ -44,6 +45,21 @@ namespace Sims2023.Application.Services
         public void GetSuperGuides()
         {
             _user.GetSuperGuides();
+        }
+
+        public void MarkGuestAsSuper(User user)
+        {
+            _user.MarkGuestAsSuper(user);
+        }
+
+        public void MarkGuestAsRegular(User user)
+        {
+            _user.MarkGuestAsRegular(user);
+        }
+
+        public void RemovePoint(User user)
+        {
+            _user.RemovePointFromGuest1(user);
         }
     }
 }

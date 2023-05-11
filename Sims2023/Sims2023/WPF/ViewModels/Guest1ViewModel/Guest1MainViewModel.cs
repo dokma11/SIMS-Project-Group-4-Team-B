@@ -1,7 +1,12 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.WPF.ViewModels.OwnerViewModel;
 using Sims2023.WPF.Views.Guest1Views;
+using Sims2023.WPF.Views.OwnerViews;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Transactions;
 using System.Windows;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
@@ -14,7 +19,11 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public User User { get; set; }
 
         private AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
+
+        private AccommodationReservationService _accommodationReservationService;
         public ObservableCollection<AccommodationReservationRescheduling> AccommodationReservationReschedulings { get; set; }
+
+        private UserService _userService;
 
         Guest1MainView Guest1MainView;
         public Guest1MainViewModel(Guest1MainView guest1MainView, User guest1)
@@ -23,13 +32,63 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             User = guest1;
             Guest1MainView.userName_label.Content = User.Name;
             _accommodationReservationReschedulingService = new AccommodationReservationReschedulingService();
+            _accommodationReservationService = new AccommodationReservationService();
+            _userService= new UserService();
             AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingService.GetAllReservationReschedulings());
         }
 
         public void Window_Loaded(object sender, RoutedEventArgs e)
         {
             checkForNotifications(User);
+            CheckGuestStatus();
         }
+
+        private void CheckGuestStatus()
+        {
+            if(User.SuperGuest1)
+            {
+                if(CheckTheSuperGuestDate())
+                {
+                    Guest1MainView.userStatus_label.Content = "Super gost";
+                    return;
+                }
+            }
+            else
+            {
+                if(CheckIfSuperGuest(User))
+                {
+                    Guest1MainView.userStatus_label.Content = "Super gost";
+                    return;
+                }
+                Guest1MainView.userStatus_label.Content = "Regularan gost";
+            }
+            
+        }
+
+        private bool CheckTheSuperGuestDate()
+        {
+
+            TimeSpan diff = DateTime.Today - User.DateOfBecomingSuperGuest;
+            if(diff.TotalDays>=365)
+            {
+                return CheckIfSuperGuest(User);
+            }
+            return true;
+        }
+
+
+        private bool CheckIfSuperGuest(User user)
+        {
+            List<AccommodationReservation> AllReservations = _accommodationReservationService.FindAllGuestsReservations(User);
+            if(AllReservations.Count > 10)
+            {
+                _userService.MarkGuestAsSuper(user);
+                return true;
+            }
+            _userService.MarkGuestAsRegular(user);
+            return false;
+        }
+
         public void checkForNotifications(User guest1)
         {
             foreach (AccommodationReservationRescheduling accommodationReservationRescheduling in AccommodationReservationReschedulings)
