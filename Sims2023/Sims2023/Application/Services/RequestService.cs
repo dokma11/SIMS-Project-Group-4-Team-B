@@ -106,6 +106,11 @@ namespace Sims2023.Application.Services
             return _request.GetByUser(user);
         }
 
-        
+        public void CheckExpirationDate(User user)
+        {
+            _request.CheckExpirationDate(user);
+        }
+
+       
     }
 }
