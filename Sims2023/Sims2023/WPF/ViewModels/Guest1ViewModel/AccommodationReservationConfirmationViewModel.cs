@@ -1,6 +1,8 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.Views.Guest1Views;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -26,6 +28,8 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         int guests;
 
+        private UserService _userService;
+
         AccommodationReservationConfirmationView AccommodationReservationConfirmationView;
         public AccommodationReservationConfirmationViewModel(AccommodationReservationConfirmationView accommodationReservationConfirmationView, int reservationId, Accommodation selectedAccommodation, AccommodationStay selectedAccommodationStay, int daysNumber, int guestsNumber, User guest1, ObservableCollection<AccommodationReservationRescheduling> accommodationReservationReschedulings, AccommodationReservationReschedulingService accommodationReservationReschedulingService)
         {
@@ -39,6 +43,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             ReservationId = reservationId;
 
             _accommodationReservationService = new AccommodationReservationService();
+            _userService = new UserService();
 
             _accommodationReservationReschedulingService = accommodationReservationReschedulingService;
             AccommodationReservationReschedulings = accommodationReservationReschedulings;
@@ -73,10 +78,20 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         public void MakeNewAccommodationReservation()
         {
+            RegulateUserStatus();
+            
             AccommodationReservation accommodationReservation = new AccommodationReservation(-1, User, SelectedAccommodation, SelectedAccommodationStay.StartDate, SelectedAccommodationStay.EndDate, days, guests, false, false);
             _accommodationReservationService.Create(accommodationReservation);
 
             MessageBox.Show("Uspesno ste rezervisali objekat!");
+        }
+
+        private void RegulateUserStatus()
+        {
+            if (User.SuperGuest1)
+            {
+                _userService.RemovePoint(User);
+            }
         }
 
         public void MakeNewAccommodationReservationRescheduling(int ReservationId)

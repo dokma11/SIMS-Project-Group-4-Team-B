@@ -16,5 +16,8 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void GetSuperGuides();
         public void Subscribe(IObserver observer);
         public void NotifyObservers();
+        void MarkGuestAsSuper(User user);
+        void MarkGuestAsRegular(User user);
+        void RemovePointFromGuest1(User user);
     }
 }
