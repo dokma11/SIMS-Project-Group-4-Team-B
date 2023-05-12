@@ -7,7 +7,7 @@
         xmlns:models="clr-namespace:Sims2023.Domain.Models" d:DataContext="{d:DesignInstance Type=models:Tour}"
         mc:Ignorable="d"
         
-        Title="GuestLiveTrackingTourView" Height="463" Width="561">
+        Title="GuestLiveTrackingTourView" Height="463" Width="561"  WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Name:" FontSize="20" HorizontalAlignment="Left" Margin="28,92,0,0" VerticalAlignment="Top"/>
         <Label Content="City:" FontSize="20" HorizontalAlignment="Left" Margin="28,150,0,0" VerticalAlignment="Top"/>

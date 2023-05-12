@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
         mc:Ignorable="d"
-        Title="CreateTourRequestView" Height="463" Width="785">
+        Title="CreateTourRequestView" Height="463" Width="785"  WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="New tour request"  FontSize="28" HorizontalAlignment="Left" Margin="25,22,0,0" VerticalAlignment="Top"/>
         <Label Content="Country:"  FontSize="20" HorizontalAlignment="Left" Margin="25,82,0,0" VerticalAlignment="Top"/>

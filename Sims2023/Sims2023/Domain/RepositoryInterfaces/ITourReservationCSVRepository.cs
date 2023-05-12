@@ -17,7 +17,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<TourReservation> GetNotConfirmedParticipation();//new
         public void ConfirmReservation(TourReservation tourReservation, bool confirmed);//new
         public bool CountReservationsByUser(TourReservation tourReservation);//new
-        public List<Tour> GetByUser(User user);//new
+        public List<TourReservation> GetByUser(User user);//new
         public void Subscribe(IObserver observer);
         public void NotifyObservers();
     }

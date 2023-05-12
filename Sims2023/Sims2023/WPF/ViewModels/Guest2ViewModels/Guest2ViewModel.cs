@@ -10,7 +10,7 @@ using Sims2023.Observer;
 
 namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 {   
-    public class Guest2ViewModel:IObserver
+    public class Guest2ViewModel//IObserver
     {
         private TourService _tourService;
 
@@ -27,8 +27,8 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         public User User { get; set; }
         public List<Tour> FilteredData { get; set; }
 
-        private Guest2View Guest2View;
-        public Guest2ViewModel(User user,Guest2View guest2View)
+        private Guest2View TourListView;
+        public Guest2ViewModel(User user,Guest2View tourListView)
         {
             _tourService = new TourService();
             _tourReservationService = new TourReservationService();
@@ -40,7 +40,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             
             SelectedTour = null;
             User = user;
-            Guest2View = guest2View;
+            TourListView = tourListView;
 
         }
 
@@ -107,16 +107,16 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         
 
 
-       public void SearchTours_Click()
+       /*public void SearchTours_Click()
         {
-            string citySearchTerm = Guest2View.citySearchBox.Text.ToLower();
-            string countrySearchTerm = Guest2View.countrySearchBox.Text.ToLower();
-            string lengthSearchTerm = Guest2View.lengthSearchBox.Text.ToLower();
-            string guideLanguageSearchTerm = Guest2View.guideLanguageSearchBox.Text.ToLower();
-            int maxGuestNumberSearchTerm = (int)Guest2View.guestNumberBox.Value;
+            string citySearchTerm = TourListView.citySearchBox.Text.ToLower();
+            string countrySearchTerm = TourListView.countrySearchBox.Text.ToLower();
+            string lengthSearchTerm = TourListView.lengthSearchBox.Text.ToLower();
+            string guideLanguageSearchTerm = TourListView.guideLanguageSearchBox.Text.ToLower();
+            int maxGuestNumberSearchTerm = (int)TourListView.guestNumberBox.Value;
 
             FilteredData = _tourService.GetFiltered(citySearchTerm, countrySearchTerm, lengthSearchTerm, guideLanguageSearchTerm, maxGuestNumberSearchTerm);
-            Guest2View.dataGridTours.ItemsSource = FilteredData;
+            TourListView.dataGridTours.ItemsSource = FilteredData;
         }
 
         public void MyReservations_Click()
@@ -127,7 +127,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         public void ReserveTour_Click()
         {
-            int reservedSpace = (int)Guest2View.guestNumberBox.Value;
+            int reservedSpace = (int)TourListView.guestNumberBox.Value;
 
             if (IsNull(SelectedTour))
                 return;
@@ -173,14 +173,14 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         {
             FilteredData.Clear();
             FilteredData.Add(SelectedTour);
-            Guest2View.dataGridTours.ItemsSource = FilteredData;
+            TourListView.dataGridTours.ItemsSource = FilteredData;
 
             MessageBox.Show($"U ponudi je ostalo još {SelectedTour.AvailableSpace} slobodnih mesta.");
         }
 
         public void DisplayAlternativeTours(int reservedSpace, Tour selectedTour)
         {
-            Guest2View.dataGridTours.ItemsSource = _tourService.GetAlternatives(reservedSpace, selectedTour);
+            TourListView.dataGridTours.ItemsSource = _tourService.GetAlternatives(reservedSpace, selectedTour);
             MessageBox.Show("Nema slobodnih mesta, ali imamo na istoj lokaciji u ponudi:");
         }
 
@@ -217,7 +217,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         }
         public void Update()
         {
-            Guest2View.dataGridTours.ItemsSource = new ObservableCollection<Tour>(_tourService.GetCreated());
-        }
+            TourListView.dataGridTours.ItemsSource = new ObservableCollection<Tour>(_tourService.GetCreated());
+        }*/
     }
 }

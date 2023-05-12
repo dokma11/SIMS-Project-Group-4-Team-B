@@ -19,7 +19,7 @@ using Sims2023.WPF.ViewModels.Guest2ViewModels;
 
 namespace Sims2023.WPF.Views.Guest2Views
 {   
-    public partial class Guest2TourListView : Window
+    public partial class Guest2TourListView : Page
     {
         public Guest2TourListViewModel Guest2TourListViewModel { get; set; }
         
@@ -31,12 +31,16 @@ namespace Sims2023.WPF.Views.Guest2Views
             Guest2TourListViewModel = new Guest2TourListViewModel(user, this);
 
             DataContext = Guest2TourListViewModel;
-            dataGridGuestTours.ItemsSource = Guest2TourListViewModel.Tours;
-            dataGridGuestTours.SelectedItem = Guest2TourListViewModel.SelectedTour;
+            dataGridGuestTours.ItemsSource = Guest2TourListViewModel.TourReservations;
+            dataGridGuestTours.SelectedItem = Guest2TourListViewModel.SelectedTourReservation;
 
 
         }
-        
+
+        private void RateSeeTour_Click(object sender,RoutedEventArgs e)
+        {
+            
+        }
         private void RateTour_Click(object sender, RoutedEventArgs e)
         {
             Guest2TourListViewModel.RateTour_Click();

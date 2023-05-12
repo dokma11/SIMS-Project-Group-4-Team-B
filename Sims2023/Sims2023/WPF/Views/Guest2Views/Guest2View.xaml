@@ -7,72 +7,52 @@
         xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         xmlns:local="clr-namespace:Sims2023.WPF.Views"
         mc:Ignorable="d"
-        Title="Guest2View" Height="450" Width="970" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
-    <Window.CommandBindings>
-        
-        <CommandBinding Command="cmd:RoutedCommands.OpenHelp" CanExecute="CanExecute" Executed="OpenHelp_Executed"></CommandBinding>
-        </Window.CommandBindings>
+        Title="Guest2View" Height="650" Width="1024" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+    <Window.Icon>
+        <ImageSource>pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/HorizontBW-02.ico</ImageSource>
+    </Window.Icon>
     
+    <Window.CommandBindings>
+
+        <CommandBinding Command="cmd:RoutedCommands.OpenHelp" CanExecute="CanExecute" Executed="Home_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.LogOut" CanExecute="CanExecute" Executed="LogOut_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="MyTours_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="TourRequest_Executed"></CommandBinding>
+    </Window.CommandBindings>
+    <Window.Resources>
+        <Style x:Key="MenuItemStyle" TargetType="{x:Type MenuItem}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Black"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Menu Margin="0 0 0 10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Margin="0 0 0 0">
+                      
+            <MenuItem Style="{StaticResource MenuItemStyle}" Command="cmd:RoutedCommands.OpenHelp" Header="Home" InputGestureText="Ctrl + N"></MenuItem>
+            <MenuItem Header="All tours"></MenuItem>
+            <MenuItem Header="My tours" Command="cmd:RoutedCommands.Command1View"></MenuItem>
+            <MenuItem Header="Tour request" Command="cmd:RoutedCommands.Command2View"></MenuItem>
+            <MenuItem Header="Complex tour request"></MenuItem>
+            <MenuItem Header="My coupons"></MenuItem>
+            <Separator Width="150"></Separator>
+            <MenuItem Header="Report"></MenuItem>
+            <MenuItem Header="Notifications"></MenuItem>
+            <Separator Width="50"></Separator>
+            <MenuItem Header="Serbian"></MenuItem>
+            <MenuItem Header="English"></MenuItem>
+            <MenuItem Header="Theme"></MenuItem>
+            <MenuItem Header="Logout" Command="cmd:RoutedCommands.LogOut"></MenuItem>
+        </Menu>
+        <Frame Grid.Row="1" x:Name="MainFrame" NavigationUIVisibility="Hidden" TabIndex="13" IsTabStop="False" UseLayoutRounding="True"/>
 
-            <MenuItem Command="cmd:RoutedCommands.OpenHelp" Header="Help" InputGestureText="Ctrl + N">
-                </MenuItem>
-         </Menu>
-
-            <DataGrid x:Name="dataGridTours" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged }" SelectionMode="Single"
-                    IsReadOnly="True" AutoGenerateColumns="False" Width="665" Height="270" Margin="36,82,269,82">
-            <DataGrid.RowStyle>
-                <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="Background" Value="White"/>
-                    <Setter Property="Foreground" Value="Black"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Guide.SuperGuide}" Value="True">
-                            <Setter Property="Background" Value="#eab676"/>
-                            <Setter Property="Foreground" Value="Black"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.RowStyle>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv" Width="90" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Grad" Width="90" Binding="{Binding Location.City}"/>
-                <DataGridTextColumn Header="Drzava" Width="80" Binding="{Binding Location.Country}"/>
-                <DataGridTextColumn Header="Jezik" Width="60" Binding="{Binding GuideLanguage}" />
-                <DataGridTextColumn Header="Pocetak" Width="150" Binding="{Binding Start}"/>
-                <DataGridTextColumn Header="Trajanje" Width="50" Binding="{Binding Length}"/>
-                <DataGridTextColumn Header="Broj ljudi" Width="60" Binding="{Binding MaxGuestNumber}"/>
-                <DataGridTextColumn Header="Slobodno" Width="80" Binding="{Binding AvailableSpace}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
-        <Button x:Name="SearchTours" Content="Pretraga" HorizontalAlignment="Left" Margin="730,370,0,0" VerticalAlignment="Top" Height="29" Click="SearchTours_Click"/>
-        <Button x:Name="ReserveTour" Content="Rezervisi" HorizontalAlignment="Left" Margin="790,370,0,0" VerticalAlignment="Top" Height="29" Click="ReserveTour_Click"/>
-        <Label Content="Grad" HorizontalAlignment="Left" Margin="730,85,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="citySearchBox" HorizontalAlignment="Left" Margin="730,114,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
-        <Label Content="Drzava" HorizontalAlignment="Left" Margin="730,132,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="countrySearchBox" HorizontalAlignment="Left" Margin="730,163,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
-        <Label Content="Trajanje ture" HorizontalAlignment="Left" Margin="730,185,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="lengthSearchBox" HorizontalAlignment="Left" Margin="730,211,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
-        <Label Content="Jezik" HorizontalAlignment="Left" Margin="730,234,0,0" VerticalAlignment="Top"/>
-        <ComboBox Name="guideLanguageSearchBox" HorizontalAlignment="Left" Margin="730,260,0,0"  VerticalAlignment="Top"  Width="120" >
-            <ComboBoxItem></ComboBoxItem>
-            <ComboBoxItem>English</ComboBoxItem>
-            <ComboBoxItem>Serbian</ComboBoxItem>
-            <ComboBoxItem>German</ComboBoxItem>
-            <ComboBoxItem>French</ComboBoxItem>
-            <ComboBoxItem>Spanish</ComboBoxItem>
-            <ComboBoxItem>Italian</ComboBoxItem>
-            <ComboBoxItem>Chinese</ComboBoxItem>
-            <ComboBoxItem>Japanese</ComboBoxItem>
-        </ComboBox>
-        <Label Content="Broj ljudi" HorizontalAlignment="Left" Margin="730,288,0,0" VerticalAlignment="Top"/>
-        <xctk:IntegerUpDown Name="guestNumberBox" AllowTextInput="False" HorizontalAlignment="Left" Margin="730,314,0,0" VerticalAlignment="Top" Minimum="1" Value="1" Width="120"/>
-        <Button x:Name="MyReservations" Content="My reservations" HorizontalAlignment="Left" Margin="517,357,0,35" Click="MyReservations_Click"/>
-        <Button x:Name="SeeDetails" Content="See details" HorizontalAlignment="Left" Margin="368,359,0,33" Click="SeeDetails_Click"/>
-        <Button x:Name="CreateTourRequest" Content="Create Tour request" HorizontalAlignment="Left" Margin="66,356,0,35" Click="CreateTourRequest_Click"/>
-        <Button x:Name="SeeTourRequests" Content="See Tour request" HorizontalAlignment="Left" Margin="223,359,0,33" Click="SeeTourRequests_Click"/>
-
+        
     </Grid>
 </Window>

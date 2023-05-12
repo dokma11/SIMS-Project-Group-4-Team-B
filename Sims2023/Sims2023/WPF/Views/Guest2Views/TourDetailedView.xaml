@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
         mc:Ignorable="d"
-        Title="TourDetailedView" Height="768" Width="1024">
+        Title="TourDetailedView" Height="768" Width="1024"  WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Name:" FontSize="20" HorizontalAlignment="Left" Margin="456,61,0,0" VerticalAlignment="Top"/>
         <TextBlock x:Name="nameTextBlock" Width="437" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="546,66,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>

@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
         mc:Ignorable="d"
-        Title="RateTourView" Height="463" Width="700">
+        Title="RateTourView" Height="463" Width="700"  WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Guide's Knowledge:" FontSize="20" HorizontalAlignment="Left" Margin="36,79,0,0" VerticalAlignment="Top"/>
         <Label Content="Interest of tour:" FontSize="20" HorizontalAlignment="Left" Margin="371,80,0,0" VerticalAlignment="Top"/>

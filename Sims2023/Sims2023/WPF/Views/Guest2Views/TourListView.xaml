@@ -1,0 +1,96 @@
+﻿<Page x:Class="Sims2023.WPF.Views.Guest2Views.TourListView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="620" d:DesignWidth="1024"
+      Title="TourListView">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="500"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="700"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Row="1" Grid.Column="0" x:Name="dataGridTours" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged }" SelectionMode="Single"
+                    IsReadOnly="True" AutoGenerateColumns="False" Width="665" Height="478" Margin="36,0,0,0">
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Guide.SuperGuide}" Value="True">
+                            <Setter Property="Background" Value="#eab676"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv" Width="90" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Grad" Width="90" Binding="{Binding Location.City}"/>
+                <DataGridTextColumn Header="Drzava" Width="80" Binding="{Binding Location.Country}"/>
+                <DataGridTextColumn Header="Jezik" Width="60" Binding="{Binding GuideLanguage}" />
+                <DataGridTextColumn Header="Pocetak" Width="150" Binding="{Binding Start}"/>
+                <DataGridTextColumn Header="Trajanje" Width="50" Binding="{Binding Length}"/>
+                <DataGridTextColumn Header="Broj ljudi" Width="60" Binding="{Binding MaxGuestNumber}"/>
+                <DataGridTextColumn Header="Slobodno" Width="80" Binding="{Binding AvailableSpace}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        
+        
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="1" Content="Country" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+            <Label Grid.Row="2" Content="City" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+            <Label Grid.Row="3" Content="Language" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+            <Label Grid.Row="4" Content="Length" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+            <Label Grid.Row="5" Content="Number of guests" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+            <Button Grid.Row="6" Grid.Column="1" x:Name="SearchTours" Content="Pretraga" HorizontalAlignment="Left" Margin="50,25,0,0" VerticalAlignment="Top" Height="29" Click="SearchTours_Click"/>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBox Grid.Row="2" x:Name="citySearchBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+            <TextBox Grid.Row="1" x:Name="countrySearchBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+            <TextBox Grid.Row="4" x:Name="lengthSearchBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+            <ComboBox Grid.Row="3" Name="guideLanguageSearchBox" HorizontalAlignment="Left" Margin="0,0,0,0"  VerticalAlignment="Top"  Width="120" >
+                <ComboBoxItem></ComboBoxItem>
+                <ComboBoxItem>English</ComboBoxItem>
+                <ComboBoxItem>Serbian</ComboBoxItem>
+                <ComboBoxItem>German</ComboBoxItem>
+                <ComboBoxItem>French</ComboBoxItem>
+                <ComboBoxItem>Spanish</ComboBoxItem>
+                <ComboBoxItem>Italian</ComboBoxItem>
+                <ComboBoxItem>Chinese</ComboBoxItem>
+                <ComboBoxItem>Japanese</ComboBoxItem>
+            </ComboBox>
+            <xctk:IntegerUpDown Grid.Row="5" Name="guestNumberBox" AllowTextInput="False" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Minimum="1" Value="1" Width="120"/>
+            <Button Grid.Row="6" Grid.Column="2" x:Name="ReserveTour" Content="Rezervisi" HorizontalAlignment="Left" Margin="50,35,0,0" VerticalAlignment="Top" Height="29" Click="ReserveTour_Click"/>
+        </Grid>
+    </Grid>
+</Page>
