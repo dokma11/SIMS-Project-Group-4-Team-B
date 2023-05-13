@@ -59,10 +59,7 @@ namespace Sims2023.WPF.Views
             //Guest2ViewModel.SeeDetails_Click();
         }
 
-        private void CreateTourRequest_Click(object sender, RoutedEventArgs e)
-        {
-            //Guest2ViewModel.CreateTourRequest_Click();
-        }
+        
 
         private void MyTours_Executed(object sender, RoutedEventArgs e)
         {

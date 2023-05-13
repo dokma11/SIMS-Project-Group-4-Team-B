@@ -18,6 +18,7 @@
         <CommandBinding Command="cmd:RoutedCommands.LogOut" CanExecute="CanExecute" Executed="LogOut_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="MyTours_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="TourRequest_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command3View" CanExecute="CanExecute" Executed="TourList_Executed"></CommandBinding>
     </Window.CommandBindings>
     <Window.Resources>
         <Style x:Key="MenuItemStyle" TargetType="{x:Type MenuItem}">
@@ -37,7 +38,7 @@
         <Menu Grid.Row="0" Margin="0 0 0 0">
                       
             <MenuItem Style="{StaticResource MenuItemStyle}" Command="cmd:RoutedCommands.OpenHelp" Header="Home" InputGestureText="Ctrl + N"></MenuItem>
-            <MenuItem Header="All tours"></MenuItem>
+            <MenuItem Header="All tours" Command="cmd:RoutedCommands.Command3View"></MenuItem>
             <MenuItem Header="My tours" Command="cmd:RoutedCommands.Command1View"></MenuItem>
             <MenuItem Header="Tour request" Command="cmd:RoutedCommands.Command2View"></MenuItem>
             <MenuItem Header="Complex tour request"></MenuItem>

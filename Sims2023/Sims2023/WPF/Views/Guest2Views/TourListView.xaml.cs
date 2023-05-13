@@ -23,23 +23,41 @@ namespace Sims2023.WPF.Views.Guest2Views
     public partial class TourListView : Page
     {
         public User User { get; set; }
-        public Guest2ViewModel Guest2ViewModel { get; set; }    
+        public TourListViewModel TourListViewModel { get; set; }
+        public Tour SelectedTour { get; set; }
         public TourListView(User user)
         {
             InitializeComponent();
             User = user;
-            //Guest2ViewModel = new Guest2ViewModel(user, this);
-            DataContext=Guest2ViewModel;
+            TourListViewModel = new TourListViewModel(this,user);
+            DataContext=TourListViewModel;
+            dataGridTours.ItemsSource = TourListViewModel.Tours;
+            dataGridTours.SelectedItem = TourListViewModel.SelectedTour;
+
+            countrySearchBox.ItemsSource = TourListViewModel.GetCitiesAndCountries();
+            countrySearchBox.DisplayMemberPath = "CountryName";
+            countrySearchBox.SelectedValuePath = "CountryName";
+
         }
 
         private void SearchTours_Click(object sender, RoutedEventArgs e)
         {
-           // Guest2ViewModel.SearchTours_Click();
+           TourListViewModel.SearchTours_Click();
         }
 
-        private void ReserveTour_Click(object sender, RoutedEventArgs e)
+        private void SeeMore_Click(object sender, RoutedEventArgs e)
         {
-           // Guest2ViewModel.ReserveTour_Click();
+            TourListViewModel.SeeDetails_Click();
+        }
+
+        public void CountrySearchBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Retrieve the list of cities for the selected country
+            var selectedCountry = (CountriesAndCities)countrySearchBox.SelectedItem;
+            var cities = new List<string> { selectedCountry.City1, selectedCountry.City2, selectedCountry.City3, selectedCountry.City4, selectedCountry.City5 };
+
+            // Bind the city ComboBox to the list of cities
+            citySearchBox.ItemsSource = cities;
         }
     }
 }

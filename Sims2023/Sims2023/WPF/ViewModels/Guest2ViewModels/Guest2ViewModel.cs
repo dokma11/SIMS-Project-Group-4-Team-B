@@ -27,8 +27,8 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         public User User { get; set; }
         public List<Tour> FilteredData { get; set; }
 
-        private Guest2View TourListView;
-        public Guest2ViewModel(User user,Guest2View tourListView)
+        private Guest2View Guest2View;
+        public Guest2ViewModel(User user,Guest2View guest2View)
         {
             _tourService = new TourService();
             _tourReservationService = new TourReservationService();
@@ -40,7 +40,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             
             SelectedTour = null;
             User = user;
-            TourListView = tourListView;
+            Guest2View = guest2View;
 
         }
 
@@ -107,117 +107,6 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         
 
 
-       /*public void SearchTours_Click()
-        {
-            string citySearchTerm = TourListView.citySearchBox.Text.ToLower();
-            string countrySearchTerm = TourListView.countrySearchBox.Text.ToLower();
-            string lengthSearchTerm = TourListView.lengthSearchBox.Text.ToLower();
-            string guideLanguageSearchTerm = TourListView.guideLanguageSearchBox.Text.ToLower();
-            int maxGuestNumberSearchTerm = (int)TourListView.guestNumberBox.Value;
-
-            FilteredData = _tourService.GetFiltered(citySearchTerm, countrySearchTerm, lengthSearchTerm, guideLanguageSearchTerm, maxGuestNumberSearchTerm);
-            TourListView.dataGridTours.ItemsSource = FilteredData;
-        }
-
-        public void MyReservations_Click()
-        {
-            Guest2TourListView guest2TourListView = new Guest2TourListView(User);
-            guest2TourListView.Show();
-        }
-
-        public void ReserveTour_Click()
-        {
-            int reservedSpace = (int)TourListView.guestNumberBox.Value;
-
-            if (IsNull(SelectedTour))
-                return;
-
-            if (SelectedTour.AvailableSpace >= reservedSpace)
-            {
-                TourReservation tourReservation = new TourReservation(SelectedTour, User, reservedSpace);
-                _tourReservationService.Create(tourReservation);
-                _tourService.UpdateAvailableSpace(reservedSpace, SelectedTour);
-                
-                Update();
-                MessageBox.Show("Uspesna rezervacija");
-                CheckVouchers(tourReservation);
-               
-                ShowVoucherListView();
-                
-            }
-            else if (SelectedTour.AvailableSpace > 0)
-            {
-                DisplaySelectedTour();
-            }
-            else
-            {
-                DisplayAlternativeTours(reservedSpace, SelectedTour);
-            }
-        }
-
-        public bool IsNull(Tour selectedTour)
-        {
-            if (selectedTour == null)
-            {
-                MessageBox.Show("Izaberite turu");
-                return true;
-            }
-
-            return false;
-        }
-
        
-        
-
-        public void DisplaySelectedTour()
-        {
-            FilteredData.Clear();
-            FilteredData.Add(SelectedTour);
-            TourListView.dataGridTours.ItemsSource = FilteredData;
-
-            MessageBox.Show($"U ponudi je ostalo još {SelectedTour.AvailableSpace} slobodnih mesta.");
-        }
-
-        public void DisplayAlternativeTours(int reservedSpace, Tour selectedTour)
-        {
-            TourListView.dataGridTours.ItemsSource = _tourService.GetAlternatives(reservedSpace, selectedTour);
-            MessageBox.Show("Nema slobodnih mesta, ali imamo na istoj lokaciji u ponudi:");
-        }
-
-        public void ShowVoucherListView()
-        {
-            var voucherListView = new VoucherListView(User);
-            voucherListView.Show();
-        }
-
-        public void CheckVouchers(TourReservation tourReservation)
-        {
-            if (_tourReservationService.CheckVouchers(tourReservation))
-            {
-                Voucher Voucher = new Voucher(Voucher.VoucherType.FiveReservations, User, SelectedTour);
-                _voucherService.Create(Voucher);
-            }
-        }
-
-        public void SeeDetails_Click()
-        {
-            if (IsNull(SelectedTour))
-                return;
-            else
-            {
-                TourDetailedView TourDetailedView = new TourDetailedView(SelectedTour);
-                TourDetailedView.Show();
-            }
-        }
-
-        public void CreateTourRequest_Click()
-        {
-            CreateTourRequestView CreateTourRequestView = new CreateTourRequestView(User);
-            CreateTourRequestView.Show();
-        }
-        public void Update()
-        {
-            TourListView.dataGridTours.ItemsSource = new ObservableCollection<Tour>(_tourService.GetCreated());
-        }*/
     }
 }

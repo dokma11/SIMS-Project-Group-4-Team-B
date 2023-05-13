@@ -6,9 +6,11 @@
       xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1024"
-      Title="Guest2StartView">
-
-    <Grid Background="#bcbcbc">
+      Title="Guest2StartView" >
+    <Page.Resources>
+        <ImageBrush x:Key="BackgroundBrush" ImageSource="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/backgroundtexture.jpg" Stretch="UniformToFill" />
+    </Page.Resources>
+    <Grid Background="{StaticResource BackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="100"/>
