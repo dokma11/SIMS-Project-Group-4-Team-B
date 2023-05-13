@@ -47,11 +47,11 @@ namespace Sims2023.Repositories
             }
         }
 
-        public double FindAverage(AccommodationGrade grade)
+        public double FindAverageGrade(AccommodationGrade grade)
         {
-            double prosjek;
-            prosjek = (grade.Cleanliness + grade.Comfort + grade.Location + grade.Owner + grade.ValueForMoney) / 5;
-            return prosjek;
+            double avg;
+            avg = (grade.Cleanliness + grade.Comfort + grade.Location + grade.Owner + grade.ValueForMoney) / 5;
+            return avg;
         }
         public int NextId()
         {

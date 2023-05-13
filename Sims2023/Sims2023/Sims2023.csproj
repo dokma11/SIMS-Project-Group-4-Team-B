@@ -41,6 +41,9 @@
     <None Remove="Resources\OwnerResources\homeOwner.png" />
     <None Remove="Resources\OwnerResources\lol.png" />
     <None Remove="Resources\OwnerResources\menu.png" />
+    <None Remove="Resources\OwnerResources\menu2.png" />
+    <None Remove="Resources\OwnerResources\menu3.png" />
+    <None Remove="Resources\OwnerResources\notification.png" />
     <None Remove="Resources\OwnerResources\plus.png" />
   </ItemGroup>
 
@@ -169,6 +172,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\OwnerResources\menu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\OwnerResources\menu2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\OwnerResources\menu3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\OwnerResources\notification.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\OwnerResources\plus.png">

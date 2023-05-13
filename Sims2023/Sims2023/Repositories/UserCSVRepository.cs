@@ -48,7 +48,6 @@ namespace Sims2023.Repositories
 
         public void FindSuperOwners()
         {
-            guests = new AccommodationGradeCSVRepository();
             foreach (User user in FindOwners())
             {
                 double counter = 0.0;
@@ -60,7 +59,7 @@ namespace Sims2023.Repositories
                     if (grade.Accommodation.Owner.Id == user.Id)
                     {
                         ++counter;
-                        zbir += guests.FindAverage(grade);
+                        zbir += FindAverageGrade(grade);
                     }
                 }
                 Average = zbir / counter;
@@ -76,6 +75,13 @@ namespace Sims2023.Repositories
                     Update(user);
                 }
             }
+        }
+
+        public double FindAverageGrade(AccommodationGrade grade)
+        {
+            double avg;
+            avg = (grade.Cleanliness + grade.Comfort + grade.Location + grade.Owner + grade.ValueForMoney) / 5;
+            return avg;
         }
 
         public void Update(User user)
