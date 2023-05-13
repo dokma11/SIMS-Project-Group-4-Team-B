@@ -20,6 +20,8 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         public Accommodation Accommodation { get; set; }
         public int SelectedYear { get; set; }
 
+        string busiestMonth = "";
+
         public MonthlyStatiticsViewModel(Accommodation selectedAccommodation, int year)
         {
             Statistics = new ObservableCollection<MonthlyStatistics>();
@@ -33,13 +35,17 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         private void LoadData()
         {
-            List<string> mjeseci = new List<String> { "Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Avg", "Sep", "Okt", "Nov", "Dec" };
+
+            List<string> mjeseci = new List<String> { "Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar" };
+            double maxOccupancy = 0;
+            
             for (int month = 1; month <= 12; month++)
             {
+                int NumReservationss = CountReservations(Accommodation, SelectedYear, month);
                 MonthlyStatistics MonthlyStat = new MonthlyStatistics
                 {
-                    Month = mjeseci[month-1],
-                    NumReservations = CountReservations(Accommodation, SelectedYear, month),
+                    Month = mjeseci[month - 1],
+                    NumReservations = NumReservationss,
                     NumCanceled = 0,
                     NumRescheduled = 0,
                     NumRenovationRecommendation = 0
@@ -54,6 +60,18 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
                     }
                 }
+
+                if (NumReservationss > 0)
+                {
+                    double occupancyPercentage = (double)NumReservationss / DateTime.DaysInMonth(SelectedYear, month) * 100;
+
+                    if (occupancyPercentage > maxOccupancy)
+                    {
+                        maxOccupancy = occupancyPercentage;
+                        busiestMonth = mjeseci[month - 1];
+                    }
+                }
+
                 Statistics.Add(MonthlyStat);
             }
         }
@@ -70,5 +88,11 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             }
             return counter;
         }
+
+        public string FindBusiestMonth()
+        {
+            return busiestMonth;
+        }
+
     }
 }
