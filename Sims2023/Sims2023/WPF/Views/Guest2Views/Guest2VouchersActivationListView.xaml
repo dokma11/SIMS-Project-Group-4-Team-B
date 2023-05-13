@@ -6,10 +6,57 @@
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
         mc:Ignorable="d"
         Title="Guest2VouchersActivationListView" Height="400" Width="700"  WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Window.Icon>
+        <ImageSource>pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/HorizontBW-02.ico</ImageSource>
+    </Window.Icon>
+    <Window.Resources>
+        <ImageBrush x:Key="BackgroundBrush" ImageSource="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/backgroundtexture.jpg" Stretch="UniformToFill" />
+    </Window.Resources>
+    <Grid Background="{StaticResource BackgroundBrush}">
         <DataGrid x:Name="dataGridVouchers" ItemsSource="{Binding Vouchers, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedVoucher, UpdateSourceTrigger=PropertyChanged }" SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Width="634" Height="215" Margin="33,85,33,84">
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="FontSize" Value="12" />
+
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Gray" />
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#BCBCBC" />
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="BorderBrush" Value="Black" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="FontSize" Value="12" />
+
+                    <Setter Property="FontWeight" Value="DemiBold"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Black" />
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Foreground" Value="Black"/>
+
+
+
+
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Expiring" Width="150" Binding="{Binding Expired}"/>
@@ -17,8 +64,9 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Activate" Width="147" Height="42" HorizontalAlignment="Left" Margin="309,322,0,0" VerticalAlignment="Top" Click="ActivateVoucher_Click"/>
-        <Button Content="Skip" Width="147" Height="42" HorizontalAlignment="Left" Margin="520,322,0,0" VerticalAlignment="Top" Click="SkipVoucher_Click"/>
+        <Button Content="Activate" Background="#bcbcbc" Width="147" Height="42" FontSize="17" HorizontalAlignment="Left" Margin="309,315,0,0" VerticalAlignment="Top" Click="ActivateVoucher_Click"/>
+        <Button Content="Skip" Background="#bcbcbc" Width="147" Height="42" FontSize="17" HorizontalAlignment="Left" Margin="520,315,0,0" VerticalAlignment="Top" Click="SkipVoucher_Click"/>
+        <Label Content="My coupons" FontSize="32" HorizontalAlignment="Left" Margin="33,10,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest2ViewModels;
+using System.Windows.Controls;
 
 namespace Sims2023.WPF.Views.Guest2Views
 {
@@ -22,16 +23,27 @@ namespace Sims2023.WPF.Views.Guest2Views
     public partial class CreateTourRequestView : Window
     {
         public CreateTourRequestViewModel CreateTourRequestViewModel { get; set; }
+         
         public User User { get; set; }
         public CreateTourRequestView(User user)
         {
             InitializeComponent();
             CreateTourRequestViewModel = new CreateTourRequestViewModel();
             User = user;
+           
+            
 
             countryComboBox.ItemsSource = CreateTourRequestViewModel.GetCitiesAndCountries();
             countryComboBox.DisplayMemberPath = "CountryName";
             countryComboBox.SelectedValuePath = "CountryName";
+
+            startDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(2)));
+            endDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(2)));
+        }
+
+        private void StartDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            endDatePicker.DisplayDateStart = startDatePicker.SelectedDate;
         }
 
         public void CountryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -84,5 +96,7 @@ namespace Sims2023.WPF.Views.Guest2Views
                 return false;
             }
         }
+
+        
     }
 }

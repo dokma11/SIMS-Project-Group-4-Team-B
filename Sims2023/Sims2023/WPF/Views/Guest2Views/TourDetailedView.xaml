@@ -30,11 +30,11 @@
         <TextBlock x:Name="guestNumberTextBlock" Background="LightGray" Width="287" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="653,248,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
         <Label Content="Description:" FontSize="20" HorizontalAlignment="Left" Margin="462,342,0,0" VerticalAlignment="Top"/>
         <TextBlock x:Name="descriptionTextBlock" Background="LightGray" Width="518" Height="89" FontSize="20" HorizontalAlignment="Left" Margin="471,384,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
-        <Button Content="Cancel" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="842,497,0,0" VerticalAlignment="Top" Click="Cancel_Click"/>
+        <Button Content="Cancel" Background="#bcbcbc" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="842,497,0,0" VerticalAlignment="Top" Click="Cancel_Click"/>
         <Image x:Name="tourImage" Width="285" Height="285" Margin="66,105,673,194" MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseMove="Image_MouseMove"></Image>
         <Label Content="Start time:" FontSize="20" HorizontalAlignment="Left" Margin="462,297,0,0" VerticalAlignment="Top"/>
         <Image x:Name="LeftArrowImage" Source="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/left.png" Visibility="Collapsed" Opacity="0.5" RenderTransformOrigin="0.413,0.5" Margin="42,197,854,284" MouseLeftButtonDown="PreviousImage_MouseLeftButtonDown"/>
         <Image x:Name="RightArrowImage" Source="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/right.png" Visibility="Collapsed" Opacity="0.5" RenderTransformOrigin="0.413,0.5" Margin="265,197,661,284" MouseLeftButtonDown="NextImage_MouseLeftButtonDown"/>
-        <Button Content="Reserve" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="635,497,0,0" VerticalAlignment="Top" Click="Reserve_Click"/>
+        <Button Content="Reserve" Background="#bcbcbc" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="635,497,0,0" VerticalAlignment="Top" Click="Reserve_Click"/>
     </Grid>
 </Window>

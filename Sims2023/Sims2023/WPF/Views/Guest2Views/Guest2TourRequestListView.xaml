@@ -55,14 +55,14 @@
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Grad" Width="124" Binding="{Binding Location.City}"/>
-                <DataGridTextColumn Header="Drzava" Width="110" Binding="{Binding Location.Country}"/>
-                <DataGridTextColumn Header="Jezik" Width="82" Binding="{Binding Language}" />
-                <DataGridTextColumn Header="Broj gostiju" Width="90" Binding="{Binding GuestNumber}"/>
-                <DataGridTextColumn Header="Pocetak" Width="125" Binding="{Binding Start}"/>
-                <DataGridTextColumn Header="Kraj" Width="125" Binding="{Binding End}"/>
+                <DataGridTextColumn Header="City" Width="124" Binding="{Binding Location.City}"/>
+                <DataGridTextColumn Header="Country" Width="110" Binding="{Binding Location.Country}"/>
+                <DataGridTextColumn Header="Language" Width="82" Binding="{Binding Language}" />
+                <DataGridTextColumn Header="Guests" Width="90" Binding="{Binding GuestNumber}"/>
+                <DataGridTextColumn Header="Start date" Width="125" Binding="{Binding Start}"/>
+                <DataGridTextColumn Header="End date" Width="125" Binding="{Binding End}"/>
                 <DataGridTextColumn Header="Status" Width="82" Binding="{Binding State}"/>
-                <DataGridTextColumn Header="Opis" Width="200" Binding="{Binding Description}"/>
+                <DataGridTextColumn Header="Description" Width="200" Binding="{Binding Description}"/>
 
             </DataGrid.Columns>
         </DataGrid>

@@ -40,7 +40,18 @@ namespace Sims2023.WPF.Views.Guest2Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             CreateTourRequestView createTourRequestView = new CreateTourRequestView(User);
+            createTourRequestView.Closed += CreateTourRequestView_Closed;
+            
             createTourRequestView.Show();
+        }
+        private void CreateTourRequestView_Closed(object sender, EventArgs e)
+        {
+            // Refresh the data grid
+            Guest2TourRequestListViewModel = new Guest2TourRequestListViewModel(User);
+
+            DataContext = Guest2TourRequestListViewModel;
+            dataGridGuestTourRequests.ItemsSource = Guest2TourRequestListViewModel.TourRequests;
+
         }
     }
 }

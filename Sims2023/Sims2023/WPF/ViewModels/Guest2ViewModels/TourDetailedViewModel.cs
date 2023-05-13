@@ -97,8 +97,23 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         public void ShowVoucherListView()
         {
-            var Guest2VouchersActivationListView = new Guest2VouchersActivationListView(User);
-            Guest2VouchersActivationListView.Show();
+            if (_voucherService.GetByUser(User).Count > 0)
+            {
+                var Guest2VouchersActivationListView = new Guest2VouchersActivationListView(User);
+                Guest2VouchersActivationListView.Closed += Guest2VouchersActivationListView_Closed;
+                Guest2VouchersActivationListView.Show();
+            }
+            else
+            {
+                TourDetailedView.Close();
+            }
+        }
+
+        private void Guest2VouchersActivationListView_Closed(object sender, EventArgs e)
+        {
+            
+            TourDetailedView.Close();
+
         }
 
         public void CheckVouchers(TourReservation tourReservation)
