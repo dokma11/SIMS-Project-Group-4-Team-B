@@ -52,7 +52,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         {
             string citySearchTerm = TourListView.citySearchBox.Text.ToLower();
             string countrySearchTerm = TourListView.countrySearchBox.Text.ToLower();
-            string lengthSearchTerm = TourListView.lengthSearchBox.Text.ToLower();
+            int lengthSearchTerm = (int)TourListView.lengthSearchBox.Value;
             string guideLanguageSearchTerm = TourListView.guideLanguageSearchBox.Text.ToLower();
             int maxGuestNumberSearchTerm = (int)TourListView.guestNumberBox.Value;
 
@@ -142,12 +142,22 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         public void SeeDetails_Click()
         {
+            int reservedSpace = (int)TourListView.guestNumberBox.Value;
             if (IsNull(SelectedTour))
                 return;
+           
+            if (SelectedTour.AvailableSpace >= reservedSpace)
+            {    
+                TourDetailedView TourDetailedView = new TourDetailedView(SelectedTour, (int)TourListView.guestNumberBox.Value, User);
+                TourDetailedView.Show();
+            }
+            else if (SelectedTour.AvailableSpace > 0)
+            {
+                DisplaySelectedTour();
+            }
             else
             {
-                TourDetailedView TourDetailedView = new TourDetailedView(SelectedTour, (int)TourListView.guestNumberBox.Value,User);
-                TourDetailedView.Show();
+                DisplayAlternativeTours(reservedSpace, SelectedTour);
             }
         }
 
