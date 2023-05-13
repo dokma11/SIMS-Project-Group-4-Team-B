@@ -6,10 +6,54 @@
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
         mc:Ignorable="d"
         Title="Guest2TourRequestListView"  d:DesignHeight="620" d:DesignWidth="1024">
-    <Grid>
+    <Page.Resources>
+        <ImageBrush x:Key="BackgroundBrush" ImageSource="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/backgroundtexture.jpg" Stretch="UniformToFill" />
+    </Page.Resources>
+    <Grid Background="{StaticResource BackgroundBrush}">
         <DataGrid x:Name="dataGridGuestTourRequests" ItemsSource="{Binding TourRequests}"
                      SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Width="878" Height="400" Margin="44,110,80,110">
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="FontSize" Value="12" />
+
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Gray" />
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#BCBCBC" />
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="BorderBrush" Value="Black" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="FontSize" Value="12" />
+
+                    <Setter Property="FontWeight" Value="DemiBold"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Black" />
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    
+
+                    
+
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Grad" Width="124" Binding="{Binding Location.City}"/>
                 <DataGridTextColumn Header="Drzava" Width="110" Binding="{Binding Location.Country}"/>
@@ -22,8 +66,8 @@
                 
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="New request" FontSize="15" Width="147" Height="42" HorizontalAlignment="Left" Margin="580,518,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Button Content="Statistics" FontSize="15" Width="147" Height="42" HorizontalAlignment="Left" Margin="780,518,0,0" VerticalAlignment="Top"/>
+        <Button Content="New request" FontSize="15" Width="147" Height="42" Background="#bcbcbc" HorizontalAlignment="Left" Margin="580,518,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Statistics" FontSize="15" Width="147" Height="42"  Background="#bcbcbc" HorizontalAlignment="Left" Margin="780,518,0,0" VerticalAlignment="Top"/>
         <Label Content="My tour requests" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
 
     </Grid>

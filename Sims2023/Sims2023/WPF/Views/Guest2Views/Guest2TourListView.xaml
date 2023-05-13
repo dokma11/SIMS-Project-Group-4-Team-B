@@ -11,13 +11,13 @@
     <Page.Resources>
         <!-- Define DataTemplates for each possible value of Status -->
         <DataTemplate x:Key="CreatedTemplate">
-            <Button Content="Create" Visibility="Hidden"/>
+            <Button Content="Create" Visibility="Hidden" />
         </DataTemplate>
         <DataTemplate x:Key="StartedTemplate">
-            <Button Content="Join" Visibility="Visible" Click="SeeActiveTour_Click"/>
+            <Button Content="Join" Visibility="Visible"  Click="SeeActiveTour_Click"/>
         </DataTemplate>
         <DataTemplate x:Key="FinishedTemplate">
-            <Button Content="Rate" Visibility="Visible" Click="RateTour_Click"/>
+            <Button Content="Rate" Visibility="Visible"  Click="RateTour_Click"/>
         </DataTemplate>
 
         <!-- Define DataTemplateSelector to choose appropriate DataTemplate for each row -->
@@ -25,29 +25,22 @@
             CreatedTemplate="{StaticResource CreatedTemplate}"
             StartedTemplate="{StaticResource StartedTemplate}"
             FinishedTemplate="{StaticResource FinishedTemplate}" />
+        <ImageBrush x:Key="BackgroundBrush" ImageSource="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/backgroundtexture.jpg" Stretch="UniformToFill" />
+        
     </Page.Resources>
-    <Grid>
+    <Grid Background="{StaticResource BackgroundBrush}">
         <DataGrid x:Name="dataGridGuestTours" ItemsSource="{Binding TourReservations, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedTourReservation, UpdateSourceTrigger=PropertyChanged }" SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Width="940" Margin="44,111,40,59">
-            <DataGrid.CellStyle>
-                <Style TargetType="DataGridCell">
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="Gray" />
-                            <Setter Property="BorderBrush" Value="Transparent" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.CellStyle>
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#BCBCBC" />
                     <Setter Property="Foreground" Value="Black" />
                     <Setter Property="BorderBrush" Value="Black" />
                     <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="FontSize" Value="12" />
+
+                    <Setter Property="FontWeight" Value="DemiBold"/>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="Black" />
@@ -56,6 +49,21 @@
                     </Style.Triggers>
                 </Style>
             </DataGrid.ColumnHeaderStyle>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                     
+                    <Setter Property="Foreground" Value="Black" />
+                    
+                    <Setter Property="FontSize" Value="12" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Gray" />
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+            
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="180" Binding="{Binding Tour.Name}"/>
                 <DataGridTextColumn Header="City" Width="135" Binding="{Binding Tour.Location.City}"/>
@@ -64,8 +72,8 @@
                 <DataGridTextColumn Header="Start time" Width="150" Binding="{Binding Tour.Start}"/>
                 <DataGridTextColumn Header="Hours" Width="50" Binding="{Binding Tour.Length}"/>
                 <DataGridTextColumn Header="Reserved for" Width="80" Binding="{Binding GuestNumber}"/>
-                <DataGridTextColumn Header="Stanje" Width="60" Binding="{Binding Tour.CurrentState}"/>
-                <DataGridTemplateColumn Header="" CellTemplateSelector="{StaticResource StatusTemplateSelector}"/>
+                <DataGridTextColumn Header="State" Width="60" Binding="{Binding Tour.CurrentState}"/>
+                <DataGridTemplateColumn  Header="" CellTemplateSelector="{StaticResource StatusTemplateSelector}"/>
 
             </DataGrid.Columns>
         </DataGrid>
