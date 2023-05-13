@@ -39,6 +39,11 @@
     <None Remove="Resources\GuestTwoResources\HorizontBW-01.png" />
     <None Remove="Resources\GuestTwoResources\HorizontBW-02.ico" />
     <None Remove="Resources\GuestTwoResources\HorizontBW-02.png" />
+    <None Remove="Resources\GuestTwoResources\left-arrow-icon-27.png" />
+    <None Remove="Resources\GuestTwoResources\left.png" />
+    <None Remove="Resources\GuestTwoResources\leftArrow.png" />
+    <None Remove="Resources\GuestTwoResources\right-arrow-icon-27.png" />
+    <None Remove="Resources\GuestTwoResources\right.png" />
     <None Remove="Resources\GuideResources\account-logo.png" />
     <None Remove="Resources\GuideResources\Horizont_SRB.png" />
     <None Remove="Resources\GuideResources\icon-account-2.jpg" />
@@ -167,6 +172,11 @@
     <Resource Include="Images\OwnerImages\slikaSmestaja7.jpg" />
     <Resource Include="Images\OwnerImages\slikaSmestaja8.jpg" />
     <Resource Include="Resources\GuestTwoResources\HorizontBW-02.ico" />
+    <Resource Include="Resources\GuestTwoResources\left-arrow-icon-27.png" />
+    <Resource Include="Resources\GuestTwoResources\left.png" />
+    <Resource Include="Resources\GuestTwoResources\leftArrow.png" />
+    <Resource Include="Resources\GuestTwoResources\right-arrow-icon-27.png" />
+    <Resource Include="Resources\GuestTwoResources\right.png" />
     <Resource Include="Resources\GuideResources\account-logo.png" />
     <Resource Include="Resources\GuideResources\Horizont_SRB.png" />
     <Resource Include="Resources\GuideResources\icon-account-2.jpg" />

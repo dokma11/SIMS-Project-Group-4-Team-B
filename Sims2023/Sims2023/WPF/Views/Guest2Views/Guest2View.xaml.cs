@@ -25,22 +25,13 @@ namespace Sims2023.WPF.Views
             Guest2ViewModel = new Guest2ViewModel(user,this);
             User= user;
 
-           // DataContext = Guest2ViewModel;
-           // dataGridTours.ItemsSource = Guest2ViewModel.Tours;
-            //dataGridTours.SelectedItem = Guest2ViewModel.SelectedTour;
-
-
-
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Guest2ViewModel.Window_Loaded();
         }
 
-        private void SearchTours_Click(object sender, RoutedEventArgs e)
-        {
-           // Guest2ViewModel.SearchTours_Click();
-        }
+       
 
         private void ReserveTour_Click(object sender, RoutedEventArgs e)
         {
@@ -77,7 +68,7 @@ namespace Sims2023.WPF.Views
         }
         public void TourList_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            MainFrame.Navigate(new TourListView(User));//not ready
+            MainFrame.Navigate(new TourListView(User));//all tours view
         }
         public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -89,6 +80,11 @@ namespace Sims2023.WPF.Views
             MainWindow LogIn = new();
             LogIn.Show();
             Close();
+        }
+
+        public void VoucherList_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Guest2VoucherListView(User));
         }
 
     }

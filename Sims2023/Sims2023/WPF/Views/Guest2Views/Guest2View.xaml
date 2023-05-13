@@ -19,6 +19,7 @@
         <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="MyTours_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="TourRequest_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Command3View" CanExecute="CanExecute" Executed="TourList_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command4View" CanExecute="CanExecute" Executed="VoucherList_Executed"></CommandBinding>
     </Window.CommandBindings>
     <Window.Resources>
         <Style x:Key="MenuItemStyle" TargetType="{x:Type MenuItem}">
@@ -42,11 +43,11 @@
             <MenuItem Header="My tours" Command="cmd:RoutedCommands.Command1View"></MenuItem>
             <MenuItem Header="Tour request" Command="cmd:RoutedCommands.Command2View"></MenuItem>
             <MenuItem Header="Complex tour request"></MenuItem>
-            <MenuItem Header="My coupons"></MenuItem>
-            <Separator Width="150"></Separator>
+            <MenuItem Header="My coupons" Command="cmd:RoutedCommands.Command4View"></MenuItem>
+            <Separator Margin="100,0,0,0"></Separator>
             <MenuItem Header="Report"></MenuItem>
             <MenuItem Header="Notifications"></MenuItem>
-            <Separator Width="50"></Separator>
+            <Separator Margin="50,0,0,0"></Separator>
             <MenuItem Header="Serbian"></MenuItem>
             <MenuItem Header="English"></MenuItem>
             <MenuItem Header="Theme"></MenuItem>

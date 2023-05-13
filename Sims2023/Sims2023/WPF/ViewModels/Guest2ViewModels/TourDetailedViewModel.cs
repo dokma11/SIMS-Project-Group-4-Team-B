@@ -17,17 +17,23 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
     {
         public TourDetailedView TourDetailedView;
         public Tour Tour { get; set; }
+        public User User { get; set; }
         
         private TourService _tourService;
+        private TourReservationService _tourReservationService;
+        private VoucherService _voucherService;
         
         public int currentIndex;
-        public TourDetailedViewModel(TourDetailedView tourDetailedView,Tour tour)
+        public TourDetailedViewModel(TourDetailedView tourDetailedView,Tour tour,User user)
         {
             TourDetailedView = tourDetailedView;
             Tour = tour;
             _tourService = new TourService();
+            _tourReservationService = new TourReservationService();
+            _voucherService = new VoucherService();
+            User = user;
             
-            
+
             currentIndex = 0;
            
             FillTextBoxes();
@@ -66,8 +72,43 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             }
             TourDetailedView.tourImage.Source = new BitmapImage(_tourService.GetPictureUri(Tour, currentIndex));
         }
-       
 
+        public void ReserveTour_Click()
+        {
+            int reservedSpace = TourDetailedView.GuestNumber;
+
+            
+
+           
+                TourReservation tourReservation = new TourReservation(Tour, User, reservedSpace);
+                _tourReservationService.Create(tourReservation);
+                _tourService.UpdateAvailableSpace(reservedSpace, Tour);
+
+               
+                MessageBox.Show("Uspesna rezervacija");
+                CheckVouchers(tourReservation);
+
+                ShowVoucherListView();
+
+            
+
+            
+        }
+
+        public void ShowVoucherListView()
+        {
+            var Guest2VouchersActivationListView = new Guest2VouchersActivationListView(User);
+            Guest2VouchersActivationListView.Show();
+        }
+
+        public void CheckVouchers(TourReservation tourReservation)
+        {
+            if (_tourReservationService.CheckVouchers(tourReservation))
+            {
+                Voucher Voucher = new Voucher(Voucher.VoucherType.FiveReservations, User, Tour);
+                _voucherService.Create(Voucher);
+            }
+        }
         public void Cancel_Click()
         {
             TourDetailedView.Close();

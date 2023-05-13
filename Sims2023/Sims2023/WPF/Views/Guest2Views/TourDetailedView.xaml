@@ -5,26 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
         mc:Ignorable="d"
-        Title="TourDetailedView" Height="768" Width="1024"  WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Label Content="Name:" FontSize="20" HorizontalAlignment="Left" Margin="456,61,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="nameTextBlock" Width="437" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="546,66,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
-        <Label Content="City:" FontSize="20" HorizontalAlignment="Left" Margin="456,129,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="cityTextBlock" Width="180" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="521,134,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
-        <Label Content="Country:" FontSize="20" HorizontalAlignment="Left" Margin="714,129,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="countryTextBlock" Width="180" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="803,134,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
-        <Label Content="Language:" FontSize="20" HorizontalAlignment="Left" Margin="456,198,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="languageTextBlock" Width="180" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="562,203,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
-        <Label Content="Hours:" FontSize="20" HorizontalAlignment="Left" Margin="747,198,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="hoursTextBlock" Width="169" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="814,203,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
-        <Label Content="Start time:" FontSize="20" HorizontalAlignment="Left" Margin="456,269,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="startTimeTextBlock" Width="287" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="561,274,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
-        <Label Content="Description:" FontSize="20" HorizontalAlignment="Left" Margin="456,418,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="descriptionTextBlock" Width="518" Height="89" FontSize="20" HorizontalAlignment="Left" Margin="465,460,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
-        <Button Content="Cancel" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="227,454,0,0" VerticalAlignment="Top" Click="Cancel_Click"/>
-        <Image x:Name="tourImage" Width="285" Height="285" Margin="60,74,680,393"></Image>
-        <Button Content="Next" FontSize="17" Width="146" Height="42" HorizontalAlignment="Left" Margin="207,376,0,0" VerticalAlignment="Top" Click="NextPicture_Click"/>
-        <Button Content="Previous" FontSize="17" Width="146" Height="42" HorizontalAlignment="Left" Margin="56,376,0,0" VerticalAlignment="Top" Click="PreviousPicture_Click"/>
+        Title="TourDetailedView" Height="600" Width="1024"  WindowStartupLocation="CenterScreen">
+    <Window.Icon>
+        <ImageSource>pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/HorizontBW-02.ico</ImageSource>
+    </Window.Icon>
+    <Window.Resources>
+        <ImageBrush x:Key="BackgroundBrush" ImageSource="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/backgroundtexture.jpg" Stretch="UniformToFill" />
+    </Window.Resources>
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <Label Content="Tour details" FontSize="32" HorizontalAlignment="Left" Margin="62,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Name:" FontSize="20" HorizontalAlignment="Left" Margin="462,92,0,0" VerticalAlignment="Top"/>
+        <TextBlock Background="LightGray"  x:Name="nameTextBlock" Width="437" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="552,97,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
 
+        <Label Content="City:" FontSize="20" HorizontalAlignment="Left" Margin="462,142,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="cityTextBlock" Background="LightGray" Width="180" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="530,147,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <Label Content="Country:" FontSize="20" HorizontalAlignment="Left" Margin="725,142,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="countryTextBlock" Background="LightGray" Width="180" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="809,147,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <Label Content="Language:" FontSize="20" HorizontalAlignment="Left" Margin="462,192,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="languageTextBlock" Background="LightGray" Width="180" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="563,197,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <Label Content="Hours:" FontSize="20" HorizontalAlignment="Left" Margin="748,192,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="hoursTextBlock" Background="LightGray" Width="169" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="820,197,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <Label Content="Number of people:" FontSize="20" HorizontalAlignment="Left" Margin="462,242,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="startTimeTextBlock" Background="LightGray" Width="287" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="578,297,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <TextBlock x:Name="guestNumberTextBlock" Background="LightGray" Width="287" Height="27" FontSize="20" HorizontalAlignment="Left" Margin="653,248,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <Label Content="Description:" FontSize="20" HorizontalAlignment="Left" Margin="462,342,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="descriptionTextBlock" Background="LightGray" Width="518" Height="89" FontSize="20" HorizontalAlignment="Left" Margin="471,384,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <Button Content="Cancel" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="842,497,0,0" VerticalAlignment="Top" Click="Cancel_Click"/>
+        <Image x:Name="tourImage" Width="285" Height="285" Margin="66,105,673,194" MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseMove="Image_MouseMove"></Image>
+        <Label Content="Start time:" FontSize="20" HorizontalAlignment="Left" Margin="462,297,0,0" VerticalAlignment="Top"/>
+        <Image x:Name="LeftArrowImage" Source="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/left.png" Visibility="Collapsed" Opacity="0.5" RenderTransformOrigin="0.413,0.5" Margin="42,197,854,284" MouseLeftButtonDown="PreviousImage_MouseLeftButtonDown"/>
+        <Image x:Name="RightArrowImage" Source="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/right.png" Visibility="Collapsed" Opacity="0.5" RenderTransformOrigin="0.413,0.5" Margin="265,197,661,284" MouseLeftButtonDown="NextImage_MouseLeftButtonDown"/>
+        <Button Content="Reserve" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="635,497,0,0" VerticalAlignment="Top" Click="Reserve_Click"/>
     </Grid>
 </Window>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ using Sims2023.WPF.Views.Guest2Views;
 
 namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 {
-    public class TourListViewModel:IObserver
+    public class TourListViewModel:IObserver,INotifyPropertyChanged
     {
         private TourService _tourService;
         private CountriesAndCitiesService _countriesAndCitiesService;
@@ -20,7 +21,18 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         public List<Tour> FilteredData { get; set; }
         public Tour SelectedTour { get; set; }
         public User User { get; set; }
-        public ObservableCollection<Tour> Tours { get; set; }
+        private ObservableCollection<Tour> _tours;
+        public ObservableCollection<Tour> Tours {
+            get { return _tours; }
+            set
+            {
+                if (_tours != value)
+                {
+                    _tours = value;
+                    OnPropertyChanged("Tours");
+                }
+            }
+        }
         public TourListViewModel(TourListView tourListView,User user)
         {
             TourListView = tourListView;
@@ -28,6 +40,10 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             _tourService = new TourService();
             _countriesAndCitiesService = new CountriesAndCitiesService();
             Tours = new ObservableCollection<Tour>(_tourService.GetCreated());
+            foreach (Tour tour in Tours)
+            {
+                tour.PropertyChanged += Tour_PropertyChanged;
+            }
 
             SelectedTour = null;
             User = user;
@@ -130,7 +146,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
                 return;
             else
             {
-                TourDetailedView TourDetailedView = new TourDetailedView(SelectedTour);
+                TourDetailedView TourDetailedView = new TourDetailedView(SelectedTour, (int)TourListView.guestNumberBox.Value,User);
                 TourDetailedView.Show();
             }
         }
@@ -139,6 +155,22 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         public void Update()
         {
             TourListView.dataGridTours.ItemsSource = new ObservableCollection<Tour>(_tourService.GetCreated());
+        }
+
+        private void Tour_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            // Refresh the list of tours when the AvailableSpace property of a tour changes
+            if (e.PropertyName == "AvailableSpace")
+            {
+                OnPropertyChanged("Tours");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

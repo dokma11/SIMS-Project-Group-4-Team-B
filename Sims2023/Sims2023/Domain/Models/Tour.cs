@@ -21,7 +21,20 @@ namespace Sims2023.Domain.Models
         public DateTime Start { get; set; }
         public int Length { get; set; }
         public ToursState CurrentState { get; set; }
-        public int AvailableSpace { get; set; }
+        private int _availableSpace;
+
+        public int AvailableSpace
+        {
+            get { return _availableSpace; }
+            set
+            {
+                if (_availableSpace != value)
+                {
+                    _availableSpace = value;
+                    OnPropertyChanged("AvailableSpace");
+                }
+            }
+        }
         public List<string> Pictures { get; set; }
         //concatenating all of the pictures urls into one string so I can save it easier
         public string ConcatenatedPictures { get; set; }
