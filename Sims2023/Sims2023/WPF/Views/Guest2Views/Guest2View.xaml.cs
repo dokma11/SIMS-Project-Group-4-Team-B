@@ -3,6 +3,8 @@ using Sims2023.Observer;
 using Sims2023.WPF.ViewModels.Guest2ViewModels;
 using Sims2023.WPF.Views.Guest2Views;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Sims2023.WPF.Views
 {
@@ -68,6 +70,17 @@ namespace Sims2023.WPF.Views
         {
             Guest2TourRequestListView guest2TourRequestListView = new Guest2TourRequestListView(User);
             guest2TourRequestListView.Show();
+        }
+
+        public void OpenHelp_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+           
+            var Guest2TourListView = new Guest2TourListView(User);
+            Guest2TourListView.Show();
+        }
+        public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
         }
     }
 }

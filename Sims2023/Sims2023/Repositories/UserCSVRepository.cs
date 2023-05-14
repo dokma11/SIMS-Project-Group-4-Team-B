@@ -48,7 +48,6 @@ namespace Sims2023.Repositories
 
         public void FindSuperOwners()
         {
-            guests = new AccommodationGradeCSVRepository();
             foreach (User user in FindOwners())
             {
                 double counter = 0.0;
@@ -60,7 +59,7 @@ namespace Sims2023.Repositories
                     if (grade.Accommodation.Owner.Id == user.Id)
                     {
                         ++counter;
-                        zbir += guests.FindAverage(grade);
+                        zbir += FindAverageGrade(grade);
                     }
                 }
                 Average = zbir / counter;
@@ -76,6 +75,13 @@ namespace Sims2023.Repositories
                     Update(user);
                 }
             }
+        }
+
+        public double FindAverageGrade(AccommodationGrade grade)
+        {
+            double avg;
+            avg = (grade.Cleanliness + grade.Comfort + grade.Location + grade.Owner + grade.ValueForMoney) / 5;
+            return avg;
         }
 
         public void Update(User user)
@@ -167,6 +173,27 @@ namespace Sims2023.Repositories
                     NotifyObservers();
                 }
             }
+        }
+        public void MarkGuestAsSuper(User user)
+        {
+            user.SuperGuest1 = true;
+            user.Guest1Points = 5;
+            user.DateOfBecomingSuperGuest = DateTime.Today;
+            Update(user);
+        }
+        public void MarkGuestAsRegular(User user)
+        {
+            user.SuperGuest1 = false;
+            user.Guest1Points = 0;
+            Update(user);
+        }
+        public void RemovePointFromGuest1(User user)
+        {
+            if(user.Guest1Points > 0)
+            {
+                user.Guest1Points--;
+            }
+            Update(user);
         }
     }
 }

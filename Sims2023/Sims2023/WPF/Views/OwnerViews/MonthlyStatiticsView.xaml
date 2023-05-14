@@ -11,7 +11,7 @@
         <Label x:Name="label"  Content="{Binding welcomeString}" DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthlyStatiticsView}}}" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="416" Height="141"/>
         <DataGrid x:Name="myDataGrid" 
           ItemsSource="{Binding Path=Statistics, UpdateSourceTrigger=PropertyChanged}"  AutoGenerateColumns="False" 
-          IsReadOnly="True" Margin="10,156,10,126" Grid.Row="0" Grid.Column="0" AlternatingRowBackground="#BDE2FF" Background="#E1F5FE" BorderBrush="#4FC3F7" 
+          IsReadOnly="True" Margin="10,156,10,207" Grid.Row="0" Grid.Column="0" AlternatingRowBackground="#BDE2FF" Background="#E1F5FE" BorderBrush="#4FC3F7" 
           RowBackground="#E1F5FE" SelectionMode="Single" SelectionUnit="FullRow" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch"
           GridLinesVisibility="None">
 
@@ -36,6 +36,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="button" Content="Nazad" HorizontalAlignment="Left" Click="Close_Click" Margin="265,604,0,0" VerticalAlignment="Top" Height="66" Width="136"  Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3"/>
+        <Label x:Name="label1" Content="{Binding welcomeString2}" DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthlyStatiticsView}}}" FontSize="22" HorizontalAlignment="Center" Margin="0,498,0,0" VerticalAlignment="Top" Height="101" Width="410"/>
 
     </Grid>
 </Page>

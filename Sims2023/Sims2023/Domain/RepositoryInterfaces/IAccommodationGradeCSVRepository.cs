@@ -15,7 +15,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<AccommodationGrade> GetAllGuestsWhoGraded(List<AccommodationGrade> people, List<GuestGrade> ListOfGuests, User owner);
         public void FindGradesForOwner(List<AccommodationGrade> people, User owner);
         public void RemoveUngradedGuests(List<AccommodationGrade> people, List<GuestGrade> guestGrades);
-        public double FindAverage(AccommodationGrade grade);
+        public double FindAverageGrade(AccommodationGrade grade);
         public int NextId();
         public void Add(AccommodationGrade accommodationGrade);
         public void Remove(AccommodationGrade accommodationGrade);

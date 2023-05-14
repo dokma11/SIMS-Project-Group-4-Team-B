@@ -1,5 +1,6 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.OwnerViewModel;
+using Sims2023.WPF.Views.Guest2Views;
 using Sims2023.WPF.Views.OwnerViews;
 using System;
 using System.Collections.Generic;
@@ -106,6 +107,13 @@ namespace Sims2023.View
             ActionBarTextBlock.Text = StartButton.Content.ToString();
             StartView start = new StartView(User);
             FrameManager.Instance.MainFrame.Navigate(start);
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new MainWindow();
+            main.Show();
+            Close();           
         }
     }
 }

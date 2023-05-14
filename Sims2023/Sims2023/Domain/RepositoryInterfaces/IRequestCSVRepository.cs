@@ -27,6 +27,11 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public Location GetTheMostRequestedLocation();
         public List<Request> GetByUser(User user);
 
+        public void CheckExpirationDate(User user);
         
+        
+        
+
+
     }
 }

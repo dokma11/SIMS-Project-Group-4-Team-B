@@ -21,9 +21,12 @@ namespace Sims2023.Domain.Models
         public bool superOwner { get; set; }
         //Treba i sliku dodati
         public bool SuperGuide { get; set; }
+        public bool SuperGuest1 { get; set; }
+        public int Guest1Points { get; set; }
+        public DateTime DateOfBecomingSuperGuest { get; set; }
         public User() { }
 
-        public User(int id, string username, string password, string name, string surname, int age, string phoneNumber, string email, Type userType, bool superOwner, bool superGuide)
+        public User(int id, string username, string password, string name, string surname, int age, string phoneNumber, string email, Type userType, bool superOwner, bool superGuide, bool superGuest1, int guest1Points, DateTime dateOfBecomingSuperGuest)
         {
             Id = id;
             Username = username;
@@ -36,6 +39,9 @@ namespace Sims2023.Domain.Models
             UserType = userType;
             this.superOwner = superOwner;
             SuperGuide = superGuide;
+            SuperGuest1 = superGuest1;
+            Guest1Points = guest1Points;
+            DateOfBecomingSuperGuest = dateOfBecomingSuperGuest;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -58,7 +64,10 @@ namespace Sims2023.Domain.Models
                 Email,
                 UserType.ToString(),
                 superOwner.ToString(),
-                SuperGuide.ToString()
+                SuperGuide.ToString(),
+                SuperGuest1.ToString(),
+                Guest1Points.ToString(),
+                DateOfBecomingSuperGuest.ToString()
             };
             return csvValues;
         }
@@ -76,6 +85,9 @@ namespace Sims2023.Domain.Models
             UserType = (Type)Enum.Parse(typeof(Type), values[8]);
             superOwner = Convert.ToBoolean(values[9]);
             SuperGuide = Convert.ToBoolean(values[10]);
+            SuperGuest1 = Convert.ToBoolean(values[11]);
+            Guest1Points = Convert.ToInt32(values[12]);
+            DateOfBecomingSuperGuest = Convert.ToDateTime(values[13]);
         }
     }
 }

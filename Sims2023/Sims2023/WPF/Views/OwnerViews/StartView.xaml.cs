@@ -38,7 +38,7 @@ namespace Sims2023.WPF.Views.OwnerViews
 
         public string welcome_string(User user)
         {
-            var message = "Dobrodosli " + user.Name + " " + user.Surname;
+            var message = "Dobrodošli " + user.Name + " " + user.Surname;
             return message;
             
         }

@@ -25,12 +25,15 @@ namespace Sims2023.WPF.Views.OwnerViews
         public YearlyStatisticsViewModel yearlyStatisticsViewModel;
 
         public string welcomeString { get; set; }
+
+        public string welcomeString2 { get; set; }
         public YearlyStatisticsView(Accommodation Selected)
         {
             yearlyStatisticsViewModel = new YearlyStatisticsViewModel(Selected);
             InitializeComponent();
             DataContext = yearlyStatisticsViewModel;
             welcomeString = "Statistika smještaja " + Selected.Name;
+            welcomeString2 = "Smještaj je bio najzauzetiji u " + yearlyStatisticsViewModel.BusiestYear() + ". godini";
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
