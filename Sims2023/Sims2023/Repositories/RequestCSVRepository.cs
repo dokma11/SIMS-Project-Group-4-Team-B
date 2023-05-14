@@ -194,5 +194,20 @@ namespace Sims2023.Repositories
                 }
             }
         }
+
+        public List<Request> GetAcceptedTourRequestsByUser(User user)
+        {
+            return GetByUser(user).Where(r=> r.State==RequestsState.Accepted).ToList(); 
+        }
+
+        public double AcceptedTourRequestPercentageByUser(User user)
+        {
+            return (_requests.Where(r => r.State == RequestsState.Accepted && r.Guest.Id==user.Id).Count() / _requests.Where(r=> r.Guest.Id==user.Id).Count())*100;
+        }
+
+        public List<Request> GetYearlyAcceptedTourRequestsByUser(User user, int year)
+        {
+            return GetAcceptedTourRequestsByUser(user).Where(r => r.Start.Year == year).ToList();
+        }
     }
 }

@@ -111,6 +111,16 @@ namespace Sims2023.Application.Services
             _request.CheckExpirationDate(user);
         }
 
-       
+        public List<Request> GetAcceptedTourRequestsByUser(User user)
+        {
+            return _request.GetAcceptedTourRequestsByUser(user);
+        }
+
+        public List<Request> GetYearlyAcceptedTourRequestsByUser(User user, int year)
+        {
+            return _request.GetYearlyAcceptedTourRequestsByUser(user, year);
+        }
+
+
     }
 }

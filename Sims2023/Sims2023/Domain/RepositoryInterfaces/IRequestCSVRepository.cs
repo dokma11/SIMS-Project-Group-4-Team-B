@@ -28,9 +28,13 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<Request> GetByUser(User user);
 
         public void CheckExpirationDate(User user);
-        
-        
-        
+
+        public List<Request> GetAcceptedTourRequestsByUser(User user);
+        public double AcceptedTourRequestPercentageByUser(User user);
+
+        public List<Request> GetYearlyAcceptedTourRequestsByUser(User user,int year);
+
+
 
 
     }

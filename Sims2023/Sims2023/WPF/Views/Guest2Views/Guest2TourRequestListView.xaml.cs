@@ -53,5 +53,11 @@ namespace Sims2023.WPF.Views.Guest2Views
             dataGridGuestTourRequests.ItemsSource = Guest2TourRequestListViewModel.TourRequests;
 
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Guest2TourRequestStatisticsView guest2TourRequestStatisticsView = new Guest2TourRequestStatisticsView(User);
+            guest2TourRequestStatisticsView.Show();
+        }
     }
 }

@@ -11,6 +11,7 @@
         <ImageBrush x:Key="BackgroundBrush" ImageSource="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/backgroundtexture.jpg" Stretch="UniformToFill" />
     </Page.Resources>
     <Grid Background="{StaticResource BackgroundBrush}">
+        
         <DataGrid x:Name="dataGridVouchers" ItemsSource="{Binding Vouchers, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedVoucher, UpdateSourceTrigger=PropertyChanged }" SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Width="938" Height="400" Margin="43,110,43,110">
