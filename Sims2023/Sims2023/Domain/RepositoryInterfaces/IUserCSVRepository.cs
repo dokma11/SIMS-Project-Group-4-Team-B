@@ -12,8 +12,8 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void Update(User user);
         public List<User> GetAll();
         public User GetById(int id);
-        public List<User> GetGuestsWithReservations(KeyPoint keyPoint, List<User> markedGuests);
-        public void GetSuperGuides();
+        //public List<User> GetGuestsWithReservations(KeyPoint keyPoint, List<User> markedGuests, List<TourReservation> reservations);
+        //public void GetSuperGuides();
         public void Subscribe(IObserver observer);
         public void NotifyObservers();
         void MarkGuestAsSuper(User user);

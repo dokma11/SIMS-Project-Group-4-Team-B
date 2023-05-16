@@ -33,17 +33,22 @@ namespace Sims2023.Repositories
                 foreach (string keyPointName in keyPointNames)
                 {
                     _keyPoints = _fileHandler.Load();
-                    keyPoint.Id = NextId();
-                    TourService tourService = new();
-                    keyPoint.Tour = tourService.GetById(toursId);
-                    keyPoint.Name = keyPointName;
-                    keyPoint.CurrentState = KeyPointsState.NotVisited;
+                    AddKeyPointsData(keyPoint, toursId, keyPointName);
                     _keyPoints.Add(keyPoint);
                     _fileHandler.Save(_keyPoints);
                     NotifyObservers();
                 }
                 toursId++;
             }
+        }
+
+        public void AddKeyPointsData(KeyPoint keyPoint, int toursId, string keyPointName)
+        {
+            keyPoint.Id = NextId();
+            TourService tourService = new();
+            keyPoint.Tour = tourService.GetById(toursId);
+            keyPoint.Name = keyPointName;
+            keyPoint.CurrentState = KeyPointsState.NotVisited;
         }
 
         public List<KeyPoint> GetAll()
@@ -86,7 +91,6 @@ namespace Sims2023.Repositories
 
             return null;
         }
-
 
         public void Save()
         {

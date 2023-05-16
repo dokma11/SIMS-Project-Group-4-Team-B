@@ -1,7 +1,6 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
-using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +9,12 @@ namespace Sims2023.Repositories
 {
     public class TourReadFromCSVRepository : ITourReadFromCSVRepository
     {
-        private List<IObserver> _observers;
         private List<Tour> _tours;
         private TourFileHandler _fileHandler;
         public TourReadFromCSVRepository()
         {
             _fileHandler = new TourFileHandler();
             _tours = _fileHandler.Load();
-            _observers = new List<IObserver>();
         }
 
         public List<Tour> GetCreated()//new method for guest2
@@ -51,25 +48,18 @@ namespace Sims2023.Repositories
 
         public Tour GetTheMostVisited(User loggedInGuide, string year)
         {
-            Tour ret = new();
             var tours = _tours.Where(tour => tour.Guide.Id == loggedInGuide.Id &&
-                        (tour.CurrentState == ToursState.Finished || tour.CurrentState == ToursState.Interrupted));
+                 (tour.CurrentState == ToursState.Finished || tour.CurrentState == ToursState.Interrupted));
+
             if (year == "Svih vremena")
             {
                 return tours.OrderByDescending(tour => tour.AttendedGuestsNumber).FirstOrDefault();
             }
-            else
-            {
-                if (tours.Where(tour => tour.Start.Year.ToString() == year) != null)
-                {
-                    return tours.Where(tour => tour.Start.Year.ToString() == year)
-                             .OrderByDescending(tour => tour.AttendedGuestsNumber).FirstOrDefault();
-                }
-                else
-                {
-                    return ret;
-                }
-            }
+
+            var selectedTours = tours.Where(tour => tour.Start.Year.ToString() == year)
+                                     .OrderByDescending(tour => tour.AttendedGuestsNumber);
+
+            return selectedTours.FirstOrDefault();
         }
 
         public List<Tour> GetGuidesCreated(User loggedInGuide)
@@ -101,24 +91,6 @@ namespace Sims2023.Repositories
         public Tour GetById(int id)
         {
             return _fileHandler.GetById(id);
-        }
-
-        public void Subscribe(IObserver observer)
-        {
-            _observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            _observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (var observer in _observers)
-            {
-                observer.Update();
-            }
         }
 
         public void Save()

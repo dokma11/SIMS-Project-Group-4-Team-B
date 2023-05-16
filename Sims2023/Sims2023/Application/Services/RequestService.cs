@@ -9,11 +9,14 @@ namespace Sims2023.Application.Services
     public class RequestService
     {
         private IRequestCSVRepository _request;
+        private ILocationCSVRepository _location;
 
         public RequestService()
         {
             _request = new RequestCSVRepository();
             //_request = Injection.Injector.CreateInstance<IRequestCSVRepository>();
+            _location = new LocationCSVRepository();
+            //_location = Injection.Injector.CreateInstance<ILocationCSVRepository>();
         }
 
         public void Create(Request request)
@@ -21,24 +24,9 @@ namespace Sims2023.Application.Services
             _request.Add(request);
         }
 
-        public List<Request> GetAll()
-        {
-            return _request.GetAll();
-        }
-
-        public Request GetById(int id)
-        {
-            return _request.GetById(id);
-        }
-
         public List<Request> GetOnHold()
         {
             return _request.GetOnHold();
-        }
-
-        public void Save()
-        {
-            _request.Save();
         }
 
         public void Subscribe(IObserver observer)
@@ -58,37 +46,27 @@ namespace Sims2023.Application.Services
 
         public int GetMonthlyLanguageStatistics(string language, int ordinal, string year)
         {
-            return _request.GetMonthlyLanguageStatistics(language, ordinal, year);
+            return _request.GetMonthlyStatistics("language", language, year, ordinal);
         }
         
         public int GetYearlyLanguageStatistics(string language, string year)
         {
-            return _request.GetYearlyLanguageStatistics(language, year);
+            return _request.GetYearlyStatistics("language", language, year);
         }
         
         public int GetMonthlyLocationStatistics(string location, int ordinal, string year)
         {
-            return _request.GetMonthlyLocationStatistics(location, ordinal, year);
+            return _request.GetMonthlyStatistics("location", location, year, ordinal);
         }
         
         public int GetYearlyLocationStatistics(string location, string year)
         {
-            return _request.GetYearlyLocationStatistics(location, year);
+            return _request.GetYearlyStatistics("location", location, year);
         }
 
-        public List<RequestsLanguage> GetLanguages()
+        public List<string> GetComboBoxData(string purpose)
         {
-            return _request.GetLanguages();
-        }
-        
-        public List<string> GetLocations()
-        {
-            return _request.GetLocations();
-        }
-
-        public List<string> GetYears()
-        {
-            return _request.GetYears();
+            return _request.GetComboBoxData(purpose);
         }
 
         public RequestsLanguage GetTheMostRequestedLanguage()
@@ -98,7 +76,7 @@ namespace Sims2023.Application.Services
 
         public Location GetTheMostRequestedLocation()
         {
-            return _request.GetTheMostRequestedLocation();
+            return _location.GetById(_request.GetTheMostRequestedLocation());
         }
 
         public List<Request> GetByUser(User user)
@@ -110,7 +88,5 @@ namespace Sims2023.Application.Services
         {
             _request.CheckExpirationDate(user);
         }
-
-       
     }
 }

@@ -12,13 +12,15 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public ObservableCollection<TourReview> ReviewsToDisplay { get; set; }
         private TourService _tourService;
         private TourReviewService _tourReviewService;
+        private TourReservationService _tourReservationService;
         public User LoggedInGuide;
-        public GuestReviewsViewModel(TourService tourService, TourReviewService tourReviewService, User loggedInGuide)
+        public GuestReviewsViewModel(TourService tourService, TourReviewService tourReviewService, User loggedInGuide, TourReservationService tourReservationService)
         {
             LoggedInGuide = loggedInGuide;
 
             _tourReviewService = tourReviewService;
             _tourService = tourService;
+            _tourReservationService = tourReservationService;
 
             ToursToDisplay = new ObservableCollection<Tour>(_tourService.GetFinished(loggedInGuide));
             ReviewsToDisplay = new ObservableCollection<TourReview>();
@@ -28,7 +30,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public void GetAttendedGuestsNumber()
         {
-            _tourService.GetAttendedGuestsNumber(LoggedInGuide);
+            _tourReservationService.GetAttendedGuestsNumber(LoggedInGuide);
         }
 
         public void UpdateReviewsList()

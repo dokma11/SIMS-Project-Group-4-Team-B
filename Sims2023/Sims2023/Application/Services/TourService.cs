@@ -13,6 +13,7 @@ namespace Sims2023.Application.Services
         private ITourWriteToCSVRepository _tour;
         private ILocationCSVRepository _location;
         private ITourReadFromCSVRepository _tourReadFromCSVRepository;
+
         public TourService()
         {
             _tour = new TourWriteToCSVRepository();
@@ -72,11 +73,6 @@ namespace Sims2023.Application.Services
         public List<Tour> GetFinished(User loggedInGuide)
         {
             return _tourReadFromCSVRepository.GetFinished(loggedInGuide);
-        }
-
-        public void GetAttendedGuestsNumber(User loggedInGuide)
-        {
-            _tour.CalculateAttendedGuestsNumber(loggedInGuide);
         }
 
         public Tour GetTheMostVisitedTour(User loggedInGuide, string year)
