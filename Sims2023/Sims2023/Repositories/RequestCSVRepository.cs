@@ -181,10 +181,13 @@ namespace Sims2023.Repositories
         }
 
         
-
+       /* public List<Request> GetOnHoldByUser(User user)
+        {
+            return GetByUser(user).Intersect(GetOnHold()).ToList();
+        }*/
         public void CheckExpirationDate(User user)
         {
-            foreach(Request request in GetByUser(user))
+            foreach(Request request in GetByUser(user).Intersect(GetOnHold()))
             {
                 TimeSpan tillExpiration=request.Start-DateTime.Now;
                 if(tillExpiration.TotalHours < 48)
@@ -194,6 +197,8 @@ namespace Sims2023.Repositories
                 }
             }
         }
+
+        
 
         public List<Request> GetAcceptedTourRequestsByUser(User user)
         {
