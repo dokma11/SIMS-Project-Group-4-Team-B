@@ -9,13 +9,16 @@
         <DockPanel>
             <ToolBar>
                 <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
-                <Button x:Name="toursButton" Click="ToursButton_Click" Content="Ture" ToolTip="Idite na ture"/>
-                <Button x:Name="requestsButton" Click="RequestsButton_Click" Content="Zahtevi" ToolTip="Idite na zahteve"/>
-                <Button x:Name="reviewsButton" Content="Recenzije" IsEnabled="False"/>
-                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog"/>
+                <Button x:Name="toursButton" Click="ToursButton_Click" Content="Ture" ToolTip="Idite na ture" Margin="150,0"/>
+                <Button x:Name="requestsButton" Click="RequestsButton_Click" Content="Zahtevi" ToolTip="Idite na zahteve" Margin="150,0"/>
+                <Button x:Name="reviewsButton" Content="Recenzije" IsEnabled="False" Margin="150,0"/>
+                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
             </ToolBar>
         </DockPanel>
-        <Label Content="Recenzije" FontSize="40" Width="190" HorizontalAlignment="Center"/>
+        <DockPanel>
+            <Label Content="Recenzije" FontSize="40" Width="190" HorizontalAlignment="Center" Margin="550,0,0,0"/>
+            <Button Content="?" Width="20" Height="20" Margin="450,0,0,0"/>
+        </DockPanel>
         <Label Content="Odaberire turu za koju želite da vidite sve recenzije gostiju" FontSize="24" HorizontalAlignment="Center"></Label>
         <DockPanel Height="460">
             <DataGrid x:Name="TourDataGrid" Width="625" Height="375" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}"

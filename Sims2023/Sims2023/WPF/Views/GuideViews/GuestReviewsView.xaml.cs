@@ -39,7 +39,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
             LoggedInGuide = loggedInGuide;
 
-            GuestReviewsViewModel = new(tourService, tourReviewService, loggedInGuide);
+            GuestReviewsViewModel = new(tourService, tourReviewService, loggedInGuide, tourReservationService);
             DataContext = GuestReviewsViewModel;
 
             _rowExpanded = false;

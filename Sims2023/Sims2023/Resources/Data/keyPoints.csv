@@ -10,9 +10,9 @@
 10|3|NotVisited||0|5
 11|1|NotVisited||0|11
 12|2|NotVisited||0|11
-13|a|NotVisited||0|12
-14|s|NotVisited||0|12
-15|d|NotVisited||0|12
+13|a|Visited||0|12
+14|s|Visited||0|12
+15|d|Visited||0|12
 16|z|NotVisited||0|13
 17|x|NotVisited||0|13
 18|c|NotVisited||0|13

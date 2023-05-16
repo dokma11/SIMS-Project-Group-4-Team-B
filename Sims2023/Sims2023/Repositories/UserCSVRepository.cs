@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
@@ -14,9 +13,8 @@ namespace Sims2023.Repositories
         private List<IObserver> _observers;
         private List<User> _users;
         private UserFileHandler _fileHandler;
-        private TourReservationCSVRepository _tourReservationRepository;
-        private TourReadFromCSVRepository _tourRepository;
-        private TourReviewCSVRepository _tourReviewRepository;
+        //private TourReadFromCSVRepository _tourRepository;
+        //private TourReviewCSVRepository _tourReviewRepository;
         private AccommodationGradeCSVRepository guests;
 
         public UserCSVRepository()
@@ -118,24 +116,7 @@ namespace Sims2023.Repositories
                 observer.Update();
             }
         }
-
-        public List<User> GetGuestsWithReservations(KeyPoint keyPoint, List<User> markedGuests)
-        {
-            _tourReservationRepository = new TourReservationCSVRepository();
-            return _tourReservationRepository
-                .GetAll()
-                .Where(reservation => reservation.Tour.Id == keyPoint.Tour.Id)
-                .Select(reservation => GetById(reservation.User.Id))
-                .Where(guest => CheckIfGuestMarked(guest, keyPoint, markedGuests))
-                .ToList();
-        }
-
-        private bool CheckIfGuestMarked(User guest, KeyPoint keyPoint, List<User> markedGuests)
-        {
-            return !keyPoint.PresentGuestsIds.Contains(guest.Id) &&
-                !markedGuests.Any(markedGuest => markedGuest.Id == guest.Id);
-        }
-
+/*
         public List<User> GetGuides()
         {
             return _users.Where(user => user.UserType == User.Type.Guide).ToList();
@@ -174,6 +155,7 @@ namespace Sims2023.Repositories
                 }
             }
         }
+*/
         public void MarkGuestAsSuper(User user)
         {
             user.SuperGuest1 = true;
@@ -189,7 +171,7 @@ namespace Sims2023.Repositories
         }
         public void RemovePointFromGuest1(User user)
         {
-            if(user.Guest1Points > 0)
+            if (user.Guest1Points > 0)
             {
                 user.Guest1Points--;
             }

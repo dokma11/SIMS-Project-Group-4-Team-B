@@ -5,6 +5,7 @@ using Sims2023.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
@@ -63,17 +64,19 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public List<RequestsLanguage> GetLanguages()
         {
-            return _requestService.GetLanguages();
+            return _requestService.GetComboBoxData("languages")
+                .Select(Enum.Parse<RequestsLanguage>)
+                .ToList();
         }
 
         public List<string> GetLocations()
         {
-            return _requestService.GetLocations();
+            return _requestService.GetComboBoxData("locations");
         }
 
         public List<string> GetYears()
         {
-            return _requestService.GetYears();
+            return _requestService.GetComboBoxData("years");
         }
 
         public void DisplayLanguageStatistics(string language, string year)
@@ -92,13 +95,13 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         {
             LanguageSeriesCollection.Clear();
             var yearlyStats = new ChartValues<int>();
-            foreach (var y in _requestService.GetYears())
+            foreach (var y in _requestService.GetComboBoxData("years"))
             {
                 yearlyStats.Add(_requestService.GetYearlyLanguageStatistics(language, y));
             }
             LanguageSeriesCollection.Add(new ColumnSeries { Values = yearlyStats, Title = "Broj zahteva po godinama" });
             Labels.Clear();
-            foreach (var l in _requestService.GetYears())
+            foreach (var l in _requestService.GetComboBoxData("years"))
             {
                 Labels.Add(l);
             }
@@ -126,7 +129,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         {
             if (year == "Svih vremena")
             {
-                DisplayYearlyLocationStatistics(location, year);
+                DisplayYearlyLocationStatistics(location);
             }
             else
             {
@@ -151,17 +154,17 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             Values = value => value.ToString("D");
         }
 
-        public void DisplayYearlyLocationStatistics(string location, string year)
+        public void DisplayYearlyLocationStatistics(string location)
         {
             LocationSeriesCollection.Clear();
             var yearlyStats = new ChartValues<int>();
-            foreach (var y in _requestService.GetYears())
+            foreach (var y in _requestService.GetComboBoxData("years"))
             {
                 yearlyStats.Add(_requestService.GetYearlyLocationStatistics(location, y));
             }
             LocationSeriesCollection.Add(new ColumnSeries { Values = yearlyStats, Title = "Broj zahteva po godinama" });
             Labels.Clear();
-            foreach (var l in _requestService.GetYears())
+            foreach (var l in _requestService.GetComboBoxData("years"))
             {
                 Labels.Add(l);
             }

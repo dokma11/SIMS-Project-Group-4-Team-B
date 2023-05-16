@@ -9,11 +9,11 @@
     <StackPanel Background="#ff9e3d">
         <DockPanel>
             <ToolBar>
-                <Button x:Name="homePageButton" Content="Početna stranica" IsEnabled="False" />
-                <Button x:Name="toursButton" Click="ToursButton_Click" Content="Ture" ToolTip="Idite na ture"/>
-                <Button x:Name="requestsButton" Click="RequestsButton_Click" Content="Zahtevi" ToolTip="Idite na zahteve"/>
-                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije" ToolTip="Idite na recenzije"/>
-                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog"/>
+                <Button x:Name="homePageButton" Content="Početna stranica" IsEnabled="False"/>
+                <Button x:Name="toursButton" Click="ToursButton_Click" Content="Ture" ToolTip="Idite na ture" Margin="150,0"/>
+                <Button x:Name="requestsButton" Click="RequestsButton_Click" Content="Zahtevi" ToolTip="Idite na zahteve" Margin="150,0"/>
+                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
+                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
             </ToolBar>
         </DockPanel>
         <DockPanel>
@@ -36,6 +36,7 @@
                     </StackPanel>
                 </DockPanel>
             </StackPanel>
+            <Button Content="?" Width="20" Height="20" Margin="0,0,0,410"/>
         </DockPanel>
     </StackPanel>
 </Page>

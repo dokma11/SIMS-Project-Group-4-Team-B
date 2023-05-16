@@ -24,13 +24,13 @@
         <DockPanel Margin="0,0,0,690">
             <ToolBar>
                 <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
-                <Button x:Name="toursButton" Click="ToursButton_Click" Content="Ture" ToolTip="Idite na ture"/>
-                <Button x:Name="requestsButton" Content="Zahtevi" IsEnabled="False"/>
-                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije" ToolTip="Idite na recenzije"/>
-                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog"/>
+                <Button x:Name="toursButton" Click="ToursButton_Click" Content="Ture" ToolTip="Idite na ture" Margin="150,0"/>
+                <Button x:Name="requestsButton" Content="Zahtevi" IsEnabled="False" Margin="150,0"/>
+                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
+                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
             </ToolBar>
         </DockPanel>
-        
+        <Button Content="?" Width="20" Height="20" Margin="1230,0,0,610"/>
         <TabControl Height="600" Width="1200">
             <TabItem Header="Zahtevi za kreiranje ture">
                 <DockPanel>
