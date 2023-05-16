@@ -34,9 +34,6 @@ namespace Sims2023.Repositories
             _fileHandler.Save(_grades);
             NotifyObservers();
         }
-
-
-
         public void Remove(GuestGrade grade)
         {
             _grades.Remove(grade);

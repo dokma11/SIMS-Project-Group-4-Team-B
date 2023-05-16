@@ -24,6 +24,8 @@ namespace Sims2023.WPF.Views.OwnerViews
     {
         public string welcomeString { get; set; }
 
+        public string welcomeString2 { get; set; }
+
         public MonthlyStatiticsViewModel MonthlyStatiticsViewModel;
         public MonthlyStatiticsView(Accommodation accommodation, int year)
         {
@@ -31,6 +33,7 @@ namespace Sims2023.WPF.Views.OwnerViews
             InitializeComponent();
             DataContext = MonthlyStatiticsViewModel;
             welcomeString = "          Statistika\n smještaja " + accommodation.Name + "\n    za godinu " + year;
+            welcomeString2 = "    Smještaj je bio najzauzetiji u mjesecu\n                            " + MonthlyStatiticsViewModel.FindBusiestMonth();
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)

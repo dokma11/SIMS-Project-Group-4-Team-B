@@ -170,7 +170,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public void GetAttendedGuestsNumber()
         {
-            _tourService.GetAttendedGuestsNumber(LoggedInGuide);
+            _tourReservationService.GetAttendedGuestsNumber(LoggedInGuide);
         }
 
         public void GetAgeStatistics()

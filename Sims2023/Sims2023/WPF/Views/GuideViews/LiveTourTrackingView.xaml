@@ -9,15 +9,16 @@
         <DockPanel>
             <Menu>
                 <MenuItem x:Name="homePageButton" Click="HomePageButton_Click" Header="naziv" />
-                <MenuItem x:Name="toursButton"  IsEnabled="False"/>
-                <MenuItem x:Name="requestsButton" Click="RequestsButton_Click"  />
-                <MenuItem x:Name="reviewsButton" Click="ReviewsButton_Click" />
-                <MenuItem x:Name="accountButton" Click="AccountButton_Click"  />
+                <MenuItem x:Name="toursButton"  IsEnabled="False" Margin="150,0"/>
+                <MenuItem x:Name="requestsButton" Click="RequestsButton_Click"  Margin="150,0"/>
+                <MenuItem x:Name="reviewsButton" Click="ReviewsButton_Click" Margin="150,0"/>
+                <MenuItem x:Name="accountButton" Click="AccountButton_Click"  Margin="40,0"/>
             </Menu>
         </DockPanel>
         <DockPanel>
             <Label Content="Ključne tačke ture" FontSize="28" Margin="50,20,0,0"/>
             <Label Content="Gosti sa rezervacijama" FontSize="28" Margin="400,20,0,0"/>
+            <Button Content="?" Width="20" Height="20" Margin="250,0,0,0"/>
         </DockPanel>
         <DockPanel Height="510">
             <DataGrid ItemsSource="{Binding KeyPointsToDisplay, UpdateSourceTrigger=PropertyChanged}" 

@@ -6,6 +6,8 @@
 6|n|3|o|Serbian|110|10|1,2,3|4/9/2023 12:00:00 AM|2|asd, asd, asd, asd|Created|6|0
 7|n|3|o|Serbian|15|11|1,2,3|4/12/2022 12:00:00 AM|2|asd, asd, asd, asd|Started|6|10
 8|n|3|o|Serbian|21|11|1,2,3|4/11/2021 12:00:00 AM|2|asd, asd, asd, asd|Finished|6|0
-9|n|3|o|Serbian|11|11|1,2,3|4/20/2023 12:00:00 AM|2|asd, asd, asd, asd|Started|6|0
-10|n|3|o|Serbian|11|8|1,2,3|4/26/2023 12:00:00 AM|2|asd, asd, asd, asd|Created|6|0
-11|asd|5|ima sedmi opis|Chinese|50|49|1,2|1/1/0001 12:00:00 AM|21|asd|Started|6|0
+9|n|3|o|Serbian|11|11|1,2,3|4/20/2023 12:00:00 AM|2|asd, asd, asd, asd|Finished|6|0
+10|n|3|o|Serbian|11|11|1,2,3|4/26/2023 12:00:00 AM|2|asd, asd, asd, asd|Finished|6|0
+11|asd|5|ima sedmi opis|Chinese|50|50|1,2|1/1/0001 12:00:00 AM|21|asd|Cancelled|6|0
+12|Nova preko lokacije|5|Ima neki opis mnogo me mrzi iskreno|Chinese|30|30|a,s,d|1/1/0001 12:00:00 AM|2|slike|Finished|6|0
+13|Nova preko jezika|29|Postoji opis ali opet mrzi me|Chinese|55|55|z,x,c|1/1/0001 12:00:00 AM|3|slike|Created|6|0

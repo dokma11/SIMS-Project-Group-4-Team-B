@@ -9,14 +9,17 @@
         <DockPanel>
             <ToolBar>
                 <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
-                <Button x:Name="toursButton" Content="Ture" Click="ToursButton_Click" ToolTip="Idite na ture"/>
-                <Button x:Name="requestsButton" Content="Zahtevi" IsEnabled="False" />
-                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije" ToolTip="Idite na recenzije"/>
-                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog"/>
+                <Button x:Name="toursButton" Content="Ture" Click="ToursButton_Click" ToolTip="Idite na ture" Margin="150,0"/>
+                <Button x:Name="requestsButton" Content="Zahtevi" IsEnabled="False" Margin="150,0"/>
+                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
+                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog" Margin="50,0"/>
             </ToolBar>
         </DockPanel>
-        <Label Content="Kreiranje Ture na najtraženijem jeziku" FontSize="32" HorizontalAlignment="Left" Margin="55,50"/>
-        <Grid Height="450" Width="1100" Background="AliceBlue" Margin="0,0,70,0">
+        <DockPanel>
+            <Label Content="Kreiranje Ture na najtraženijem jeziku" FontSize="32" HorizontalAlignment="Left" Margin="75,50"/>
+            <Button Content="?" Width="20" Height="20" Margin="500,0,0,60"/>
+        </DockPanel>
+        <Grid Height="450" Width="1100" Background="AliceBlue" Margin="0,0,30,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>

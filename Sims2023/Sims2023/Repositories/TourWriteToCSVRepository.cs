@@ -2,7 +2,6 @@
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
-using Sims2023.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +14,7 @@ namespace Sims2023.Repository
         private List<IObserver> _observers;
         private List<Tour> _tours;
         private TourFileHandler _fileHandler;
-        private TourReservationCSVRepository _reservations;
+
         public TourWriteToCSVRepository()
         {
             _fileHandler = new TourFileHandler();
@@ -56,7 +55,7 @@ namespace Sims2023.Repository
             NotifyObservers();
         }
 
-        
+
         public void AddLocation(int toursId, Location location)
         {
             var tour = _tours.FirstOrDefault(t => t.Id == toursId);
@@ -142,23 +141,6 @@ namespace Sims2023.Repository
             _fileHandler.Save(_tours);
         }
 
-        public void CalculateAttendedGuestsNumber(User loggedInGuide)
-        {
-            _reservations = new TourReservationCSVRepository();
-            List<TourReservation> reservations = _reservations.GetAll();
-
-            _tours = _fileHandler.Load();
-
-            foreach (var tour in _tours.Where(t => (t.CurrentState == ToursState.Finished || t.CurrentState == ToursState.Interrupted)
-                         && t.Guide.Id == loggedInGuide.Id).ToList())
-            {
-                tour.AttendedGuestsNumber = reservations.Where(res => res.Tour.Id == tour.Id && res.ConfirmedParticipation)
-                                                        .Sum(res => res.GuestNumber);
-            }
-
-            Save();
-        }
-
         public void UpdateState(Tour selectedTour, ToursState state)
         {
             var tourToUpdate = _tours.FirstOrDefault(t => t.Id == selectedTour.Id);
@@ -178,7 +160,7 @@ namespace Sims2023.Repository
         {
             _tours.Where(t => t.CurrentState == ToursState.Created && t.Guide.Id == loggedInGuide.Id).ToList()
                   .ForEach(t => t.CurrentState = ToursState.Cancelled);
-            Save();    
+            Save();
         }
     }
 }

@@ -7,16 +7,30 @@
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="RequestStatisticsView" Height="720" Width="1280">
+    
+    <Page.Resources>
+        <Style TargetType="{x:Type Label}" x:Key="HyperlinkStyle">
+            <Setter Property="Foreground" Value="Blue" />
+            <Setter Property="TextBlock.TextDecorations" Value="Underline" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+    
     <Grid Background="#ff9e3d">
         <DockPanel Margin="0,0,0,690">
             <ToolBar>
                 <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
-                <Button x:Name="toursButton" Click="ToursButton_Click" Content="Ture" ToolTip="Idite na ture"/>
-                <Button x:Name="requestsButton" Content="Zahtevi" IsEnabled="False"/>
-                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije" ToolTip="Idite na recenzije"/>
-                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog"/>
+                <Button x:Name="toursButton" Click="ToursButton_Click" Content="Ture" ToolTip="Idite na ture" Margin="150,0"/>
+                <Button x:Name="requestsButton" Content="Zahtevi" IsEnabled="False" Margin="150,0"/>
+                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
+                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
             </ToolBar>
         </DockPanel>
+        <Button Content="?" Width="20" Height="20" Margin="1230,0,0,610"/>
         <TabControl Height="600" Width="1200">
             <TabItem Header="Zahtevi za kreiranje ture">
                 <DockPanel>
@@ -83,7 +97,7 @@
                                 <DataGridTemplateColumn Header="Opis" Width="100">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                                <Label Content="Prikaži opis ture"/>
+                                            <Label Content="Prikaži opis ture" Style="{StaticResource HyperlinkStyle}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -108,17 +122,29 @@
                     <StackPanel>
                         <Label Content="Filtriraj prema" FontSize="32" Margin="20,20,0,0"/>
                         <Label Content="Lokaciji:" FontSize="16" Margin="20,20,0,0"/>
-                        <TextBox x:Name="locationTextBox" Tag="Unesite lokaciju" Width="150" Height="30" HorizontalAlignment="Left" Margin="25,0,0,0"/>
+                        <TextBox x:Name="locationTextBox" Tag="Unesite lokaciju" Width="150" Height="30" HorizontalAlignment="Left" Margin="25,0,0,0" ToolTip="Unesite lokaciju prema kojoj želite da filtrirate ture"/>
                         <Label Content="Broju gostiju:" FontSize="16" Margin="20,10,0,0"/>
-                        <TextBox x:Name="guestNumberTextBox" Tag="Unesite broj gostiju" Width="150" Height="30" HorizontalAlignment="Left" Margin="25,0,0,0"/>
+                        <TextBox x:Name="guestNumberTextBox" Tag="Unesite broj gostiju" Width="150" Height="30" HorizontalAlignment="Left" Margin="25,0,0,0" ToolTip="Unesite broj gostiju prema kojem želite da filtrirate ture"/>
                         <Label Content="Jeziku:" FontSize="16" Margin="20,10,0,0"/>
-                        <TextBox x:Name="languageTextBox" Tag="Unesite jezik" Width="150" Height="30" HorizontalAlignment="Left" Margin="25,0,0,0"/>
+                        <TextBox x:Name="languageTextBox" Tag="Unesite jezik" Width="150" Height="30" HorizontalAlignment="Left" Margin="25,0,0,0" ToolTip="Unesite jezik prema kojem želite da filtrirate ture"/>
                         <Label Content="Opsegu datuma:" FontSize="16" Margin="20,10,0,0"/>
-                        <Label Content="Pocetak opsega:" FontSize="16" Margin="20,0,0,0"/>
-                        <TextBox x:Name="dateStartTextBox" Width="150" Height="30" HorizontalAlignment="Left" Margin="25,0,0,0" ToolTip="Unesite početak opsega"/>
-                        <Label Content="Kraj opsega:" FontSize="16" Margin="20,10,0,0"/>
-                        <TextBox x:Name="dateEndTextBox" Width="150" Height="30" HorizontalAlignment="Left" Margin="25,0,0,0" ToolTip="Unesite kraj opsega"/>
-                        <Button x:Name="filterButton" Click="FilterButton_Click" Content="Filtriraj" Width="150" Height="50" HorizontalAlignment="Left" Margin="25,10,0,0">
+                        <Label Content="Početak opsega:" FontSize="16" Margin="20,0,0,0"/>
+                        <DatePicker x:Name="dateStartTextBox" Margin="-125,0,0,0" Width="150" Height="30" ToolTip="Unesite početak opsega datuma prema kojem želite da filtrirate ture">
+                            <DatePicker.Resources>
+                                <Style TargetType="{x:Type DatePickerTextBox}">
+                                    <Setter Property="Text" Value="Unesite početak opsega"/>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>
+                        <Label Content="Kraj opsega:" FontSize="16" Margin="20,5,0,0"/>
+                        <DatePicker x:Name="dateEndTextBox" Margin="-125,0,0,0" Width="150" Height="30" ToolTip="Unesite kraj opsega datuma prema kojem želite da filtrirate ture">
+                            <DatePicker.Resources>
+                                <Style TargetType="{x:Type DatePickerTextBox}">
+                                    <Setter Property="Text" Value="Unesite kraj opsega"/>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>
+                        <Button x:Name="filterButton" Click="FilterButton_Click" Content="Filtriraj" Width="150" Height="50" HorizontalAlignment="Left" Margin="25,15,0,0">
                             <Button.ToolTip>
                                 Filtriraj zahteve u tabeli pored
                             </Button.ToolTip>
@@ -126,6 +152,7 @@
                     </StackPanel>
                 </DockPanel>
             </TabItem>
+            
             <TabItem Header="Statistika zahteva za ture na lokaciji">
                 <DockPanel>
                     <StackPanel Width="600">
@@ -171,6 +198,7 @@
                     </StackPanel>
                 </DockPanel>
             </TabItem>
+            
             <TabItem Header="Statistika zahteva za ture na jeziku">
                 <DockPanel>
                     <StackPanel Width="600">

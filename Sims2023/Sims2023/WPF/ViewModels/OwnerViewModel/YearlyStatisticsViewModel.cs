@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Sims2023.WPF.ViewModels.OwnerViewModel
 {
@@ -22,6 +23,8 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         public Accommodation Accommodation { get; set; }
         public YearlyStatistics SelectedYear { get; set; }
 
+        int busiestYear = 0;
+
         public YearlyStatisticsViewModel(Accommodation selectedAccommodation)
         {
             Statistics = new ObservableCollection<YearlyStatistics>();
@@ -34,12 +37,15 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         private void LoadData()
         {
+            double maxOccupancy = 0;
+            
             for (int year = 2018; year <= 2023; year++)
             {
+                int NumReservationss = CountReservations(Accommodation, year);
                 YearlyStatistics yearlyStat = new YearlyStatistics
                 {
                     Year = year,
-                    NumReservations = CountReservations(Accommodation,year),
+                    NumReservations = NumReservationss,
                     NumCanceled = 0,
                     NumRescheduled = 0,
                     NumRenovationRecommendation = 0
@@ -52,6 +58,17 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                         if (stat.isRescheduled) yearlyStat.NumRescheduled++;
                         if (stat.RenovationRecommendation) yearlyStat.NumRenovationRecommendation++;
 
+                    }
+                }
+
+                if (NumReservationss > 0)
+                {
+                    double occupancyPercentage = (double)NumReservationss / 365 * 100;
+
+                    if (occupancyPercentage > maxOccupancy)
+                    {
+                        maxOccupancy = occupancyPercentage;
+                        busiestYear = year;
                     }
                 }
                 Statistics.Add(yearlyStat);
@@ -80,5 +97,12 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             }
             
         }
+
+        public string BusiestYear()
+        {
+            return busiestYear.ToString();
+        }
+
+
     }
 }

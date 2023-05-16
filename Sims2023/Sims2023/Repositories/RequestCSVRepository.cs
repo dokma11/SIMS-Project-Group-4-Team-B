@@ -5,7 +5,6 @@ using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 
 namespace Sims2023.Repositories
 {
@@ -14,14 +13,12 @@ namespace Sims2023.Repositories
         private List<IObserver> _observers;
         private List<Request> _requests;
         private RequestFileHandler _fileHandler;
-        private TourReadFromCSVRepository _tours;
 
         public RequestCSVRepository()
         {
             _fileHandler = new RequestFileHandler();
             _requests = _fileHandler.Load();
             _observers = new List<IObserver>();
-            _tours = new TourReadFromCSVRepository();
         }
 
         public int NextId()
@@ -35,17 +32,6 @@ namespace Sims2023.Repositories
             _requests.Add(request);
             _fileHandler.Save(_requests);
             NotifyObservers();
-        }
-
-        public List<Request> GetAll()
-        {
-            return _requests;
-        }
-
-        
-        public Request GetById(int id)
-        {
-            return _fileHandler.GetById(id);
         }
 
         public List<Request> GetOnHold()
@@ -65,6 +51,7 @@ namespace Sims2023.Repositories
                 observer.Update();
             }
         }
+
         public void Save()
         {
             _fileHandler.Save(_requests);
@@ -86,113 +73,89 @@ namespace Sims2023.Repositories
             Save();
         }
 
-        public int GetYearlyLanguageStatistics(string language, string year)
+        public int GetYearlyStatistics(string purpose, string statFor, string year)
         {
-            return _requests.Count(r => r.Start.Year.ToString() == year && r.Language.ToString() == language);
+            if (purpose == "location")
+            {
+                return _requests.Count(r => r.Start.Year.ToString() == year && (r.Location.City + ", " + r.Location.Country) == statFor);
+            }
+            else
+            {
+                return _requests.Count(r => r.Start.Year.ToString() == year && r.Language.ToString() == statFor);
+            }
         }
 
-        public int GetMonthlyLanguageStatistics(string language, int ordinal, string year)
+        public int GetMonthlyStatistics(string purpose, string statFor, string year, int ordinal)
         {
-            return _requests.Count(r => r.Language.ToString() == language && r.Start.Year.ToString() == year && r.Start.Month == ordinal);
+            if (purpose == "location")
+            {
+                return _requests.Count(r => r.Start.Month == ordinal && r.Start.Year.ToString() == year && (r.Location.City + ", " + r.Location.Country) == statFor);
+            }
+            else
+            {
+                return _requests.Count(r => r.Language.ToString() == statFor && r.Start.Year.ToString() == year && r.Start.Month == ordinal);
+            }
         }
 
-        public int GetYearlyLocationStatistics(string location, string year)
+        public List<string> GetComboBoxData(string purpose)
         {
-            return _requests.Count(r => r.Start.Year.ToString() == year && (r.Location.City + ", " + r.Location.Country) == location);
-        }
-
-        public int GetMonthlyLocationStatistics(string location, int ordinal, string year)
-        {
-            return _requests.Count(r => r.Start.Month == ordinal && r.Start.Year.ToString() == year && (r.Location.City + ", " + r.Location.Country) == location);
-        }
-
-        public List<RequestsLanguage> GetLanguages()
-        {
-            return _requests.Select(r => r.Language).Distinct().ToList();
-        }
-
-        public List<string> GetLocations()
-        {
-            return _requests.Select(r => $"{r.Location.City}, {r.Location.Country}").Distinct().ToList();
-        }
-
-        public List<string> GetYears()
-        {
-            return _requests.Select(r => r.Start.Year.ToString()).Distinct().Prepend("Svih vremena").ToList();
+            if (purpose == "years")
+            {
+                return _requests.Select(r => r.Start.Year.ToString()).Distinct().Prepend("Svih vremena").ToList();
+            }
+            else if (purpose == "locations")
+            {
+                return _requests.Select(r => $"{r.Location.City}, {r.Location.Country}").Distinct().ToList();
+            }
+            else
+            {
+                return _requests.Select(r => r.Language.ToString()).Distinct().ToList();
+            }
         }
 
         public RequestsLanguage GetTheMostRequestedLanguage()
         {
-            var languageInstanceCounts = new Dictionary<RequestsLanguage, int>();
-            foreach (RequestsLanguage language in Enum.GetValues(typeof(RequestsLanguage)))
-            {
-                languageInstanceCounts[language] = 1;
-            }
-
             var lastYearStartDate = new DateTime(DateTime.Today.Year - 1, DateTime.Today.Month, DateTime.Today.Day);
             var lastYearEndDate = DateTime.Today;
-            var requestsInLastYear = _requests.Where(r => r.Start >= lastYearStartDate && r.Start <= lastYearEndDate);
 
-            foreach (var r in requestsInLastYear)
-            {
-                if (languageInstanceCounts.ContainsKey(r.Language))
-                {
-                    languageInstanceCounts[r.Language]++;
-                }
-            }
+            var requestsInLastYear = _requests
+                .Where(r => r.Start >= lastYearStartDate && r.Start <= lastYearEndDate)
+                .GroupBy(r => r.Language)
+                .ToDictionary(g => g.Key, g => g.Count());
 
-            var maxCount = languageInstanceCounts.Values.Max();
-            return languageInstanceCounts.FirstOrDefault(r => r.Value == maxCount).Key;
+            var maxCount = requestsInLastYear.Values.Max();
+            return requestsInLastYear.FirstOrDefault(r => r.Value == maxCount).Key;
         }
 
-        public Location GetTheMostRequestedLocation()
+        public int GetTheMostRequestedLocation()
         {
-            LocationCSVRepository locationCSV = new();
-
-            var locationInstanceCounts = new Dictionary<int, int>();
-            foreach (int locationId in _requests.Select(r => r.Location.Id).Distinct().ToList())
-            {
-                locationInstanceCounts[locationId] = 1;
-            }
-
             var lastYearStartDate = new DateTime(DateTime.Today.Year - 1, DateTime.Today.Month, DateTime.Today.Day);
             var lastYearEndDate = DateTime.Today;
-            var requestsInLastYear = _requests.Where(r => r.Start >= lastYearStartDate && r.Start <= lastYearEndDate);
 
-            foreach (var r in requestsInLastYear)
-            {
-                if (locationInstanceCounts.ContainsKey(r.Location.Id))
-                {
-                    locationInstanceCounts[r.Location.Id]++;
-                }
-            }
+            var requestsInLastYear = _requests
+                .Where(r => r.Start >= lastYearStartDate && r.Start <= lastYearEndDate)
+                .GroupBy(r => r.Location.Id)
+                .ToDictionary(g => g.Key, g => g.Count());
 
-            var maxCount = locationInstanceCounts.Values.Max();
-            var ret = locationInstanceCounts.FirstOrDefault(r => r.Value == maxCount).Key;
-            Location loc = locationCSV.GetById(ret);
-            return loc;
+            var maxCount = requestsInLastYear.Values.Max();
+            return requestsInLastYear.FirstOrDefault(r => r.Value == maxCount).Key;
         }
 
         public List<Request> GetByUser(User user)
         {
-            return _requests
-                .Where(r => r.Guest.Id == user.Id)
-                .ToList();
+            return _requests.Where(r => r.Guest.Id == user.Id).ToList();
         }
 
         
-       /* public List<Request> GetOnHoldByUser(User user)
-        {
-            return GetByUser(user).Intersect(GetOnHold()).ToList();
-        }*/
+       
         public void CheckExpirationDate(User user)
         {
             foreach(Request request in GetByUser(user).Intersect(GetOnHold()))
             {
-                TimeSpan tillExpiration=request.Start-DateTime.Now;
-                if(tillExpiration.TotalHours < 48)
+                TimeSpan tillExpiration = request.Start - DateTime.Now;
+                if (tillExpiration.TotalHours < 48)
                 {
-                    request.State= RequestsState.Invalid;
+                    request.State = RequestsState.Invalid;
                     Save();
                 }
             }

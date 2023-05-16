@@ -29,6 +29,9 @@ namespace Sims2023.WPF.Views.GuideViews
             _tourService = new TourService();
             _tourService.Subscribe(this);
 
+            _tourReservationService = new TourReservationService();
+            _tourReservationService.Subscribe(this);
+
             _locationService = new LocationService();
             _locationService.Subscribe(this);
 
@@ -37,9 +40,6 @@ namespace Sims2023.WPF.Views.GuideViews
 
             _userService = new UserService();
             _userService.Subscribe(this);
-
-            _tourReservationService = new TourReservationService();
-            _tourReservationService.Subscribe(this);
 
             _tourReviewService = new TourReviewService();
             _tourReviewService.Subscribe(this);

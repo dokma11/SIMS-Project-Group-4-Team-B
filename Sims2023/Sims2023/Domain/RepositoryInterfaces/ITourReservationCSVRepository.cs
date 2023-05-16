@@ -20,5 +20,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<TourReservation> GetByUser(User user);//new
         public void Subscribe(IObserver observer);
         public void NotifyObservers();
+        public void CalculateAttendedGuestsNumber(User loggedInGuide, List<Tour> tours);
+        public List<User> GetGuestsWithReservations(KeyPoint keyPoint, List<User> markedGuests, List<User> users);
     }
 }

@@ -136,18 +136,44 @@ namespace Sims2023.Repositories
 
         public int GetVoucherStatistics(Tour selectedTour, bool used)
         {
-            int usedCounter = _tourReservations.Where(res => res.Tour.Id == selectedTour.Id)
-                                          .Count(res => res.UsedVoucher && res.ConfirmedParticipation);
-            int notUsedCounter = _tourReservations.Where(res => res.Tour.Id == selectedTour.Id)
-                                             .Count(res => !res.UsedVoucher && res.ConfirmedParticipation);
-            if (used)
+            return _tourReservations.Where(res => res.Tour.Id == selectedTour.Id && res.ConfirmedParticipation)
+                                           .Sum(res => used ? (res.UsedVoucher ? 1 : 0) : (!res.UsedVoucher ? 1 : 0));
+        }
+
+        public void CalculateAttendedGuestsNumber(User loggedInGuide, List<Tour> tours)
+        {
+            foreach (var tour in tours.Where(t => (t.CurrentState == ToursState.Finished || t.CurrentState == ToursState.Interrupted)
+                         && t.Guide.Id == loggedInGuide.Id).ToList())
             {
-                return usedCounter;
+                tour.AttendedGuestsNumber = _tourReservations.Where(res => res.Tour.Id == tour.Id && res.ConfirmedParticipation)
+                                                        .Sum(res => res.GuestNumber);
             }
-            else
-            {
-                return notUsedCounter;
-            }
+
+            Save();
+        }
+
+        public List<User> GetGuestsWithReservations(KeyPoint keyPoint, List<User> markedGuests, List<User> users)
+        {
+            List<User?> guests = _tourReservations.Where(reservation => reservation.Tour.Id == keyPoint.Tour.Id)
+                       .Select(reservation =>
+                        {
+                            User? user = users.FirstOrDefault(u => u.Id == reservation.User.Id);
+                            if (user != null && CheckIfGuestMarked(user, keyPoint, markedGuests))
+                            {
+                                return user;
+                            }
+                            return null;
+                        })
+                       .Where(user => user != null)
+                       .ToList();
+
+            return guests.Where(user => user != null).Select(user => user!).ToList();
+        }
+
+        private bool CheckIfGuestMarked(User guest, KeyPoint keyPoint, List<User> markedGuests)
+        {
+            return !keyPoint.PresentGuestsIds.Contains(guest.Id) &&
+                !markedGuests.Any(markedGuest => markedGuest.Id == guest.Id);
         }
     }
 }
