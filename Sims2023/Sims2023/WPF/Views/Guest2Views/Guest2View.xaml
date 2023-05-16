@@ -7,7 +7,7 @@
         xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         xmlns:local="clr-namespace:Sims2023.WPF.Views"
         mc:Ignorable="d"
-        Title="Guest2View" Height="650" Width="1024" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="Horizont" Height="650" Width="1024" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Window.Icon>
         <ImageSource>pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/HorizontBW-02.ico</ImageSource>
     </Window.Icon>
