@@ -22,11 +22,14 @@ namespace Sims2023.WPF.Views.Guest2Views
     public partial class TourDetailedView : Window
     {
         public TourDetailedViewModel TourDetailedViewModel { get; set; }
-        public TourDetailedView(Tour tour)
+        public int GuestNumber { get; set; }
+        public TourDetailedView(Tour tour, int guestNumber,User user)
         {
             InitializeComponent();
-            TourDetailedViewModel = new TourDetailedViewModel(this, tour);
+            TourDetailedViewModel = new TourDetailedViewModel(this, tour,user);
+            GuestNumber = guestNumber;
             DataContext = TourDetailedViewModel;
+            guestNumberTextBlock.Text=guestNumber.ToString();
         }
 
         
@@ -44,6 +47,69 @@ namespace Sims2023.WPF.Views.Guest2Views
         private void PreviousPicture_Click(object sender, RoutedEventArgs e)
         {
             TourDetailedViewModel.PreviousPicture_Click();
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Image image = (Image)sender;
+            double clickPosition = e.GetPosition(image).X;
+            double leftSidePosition = image.ActualWidth * 0.25;
+            double rightSidePosition = image.ActualWidth * 0.75;
+
+            if (clickPosition < leftSidePosition)
+            {
+                TourDetailedViewModel.PreviousPicture_Click();
+            }
+            else if (clickPosition > rightSidePosition)
+            {
+                TourDetailedViewModel.NextPicture_Click();
+            }
+        }
+
+        private void Image_MouseMove(object sender, MouseEventArgs e)
+        {
+            Image image = (Image)sender;
+            double mousePosition = e.GetPosition(image).X;
+            double leftSidePosition = image.ActualWidth * 0.25;
+            double rightSidePosition = image.ActualWidth * 0.75;
+
+            if (mousePosition < leftSidePosition)
+            {
+                LeftArrowImage.Visibility = Visibility.Visible;
+                RightArrowImage.Visibility = Visibility.Collapsed;
+                Canvas.SetLeft(LeftArrowImage, mousePosition);
+                Canvas.SetTop(LeftArrowImage, e.GetPosition(image).Y);
+            }
+            else if (mousePosition > rightSidePosition)
+            {
+                RightArrowImage.Visibility = Visibility.Visible;
+                LeftArrowImage.Visibility = Visibility.Collapsed;
+                Canvas.SetLeft(RightArrowImage, mousePosition - RightArrowImage.Width);
+                Canvas.SetTop(RightArrowImage, e.GetPosition(image).Y);
+            }
+            else
+            {
+                LeftArrowImage.Visibility = Visibility.Collapsed;
+                RightArrowImage.Visibility = Visibility.Collapsed;
+            }
+        }
+
+
+        private void NextImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        { 
+                TourDetailedViewModel.NextPicture_Click();
+            
+        }
+
+        private void PreviousImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            TourDetailedViewModel.PreviousPicture_Click();
+
+        }
+
+        private void Reserve_Click(object sender, RoutedEventArgs e)
+        {
+            TourDetailedViewModel.ReserveTour_Click();
         }
     }
 }

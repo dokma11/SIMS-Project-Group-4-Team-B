@@ -1,7 +1,7 @@
-1|c|NotVisited||0|1
-2|x|NotVisited||0|1
-3|d|NotVisited||0|2
-4|s|NotVisited||0|2
+1|c|NotVisited|2|0|1
+2|x|NotVisited|2|0|1
+3|d|NotVisited|2|0|2
+4|s|NotVisited|2|0|2
 5|c|NotVisited|1,2,5|3|3
 6|x|NotVisited|7,8|2|3
 7|1|Visited||0|4

@@ -146,9 +146,11 @@ namespace Sims2023.Repositories
             return _requests.Where(r => r.Guest.Id == user.Id).ToList();
         }
 
+        
+       
         public void CheckExpirationDate(User user)
         {
-            foreach (Request request in GetByUser(user))
+            foreach(Request request in GetByUser(user).Intersect(GetOnHold()))
             {
                 TimeSpan tillExpiration = request.Start - DateTime.Now;
                 if (tillExpiration.TotalHours < 48)
@@ -157,6 +159,23 @@ namespace Sims2023.Repositories
                     Save();
                 }
             }
+        }
+
+        
+
+        public List<Request> GetAcceptedTourRequestsByUser(User user)
+        {
+            return GetByUser(user).Where(r=> r.State==RequestsState.Accepted).ToList(); 
+        }
+
+        public double AcceptedTourRequestPercentageByUser(User user)
+        {
+            return (_requests.Where(r => r.State == RequestsState.Accepted && r.Guest.Id==user.Id).Count() / _requests.Where(r=> r.Guest.Id==user.Id).Count())*100;
+        }
+
+        public List<Request> GetYearlyAcceptedTourRequestsByUser(User user, int year)
+        {
+            return GetAcceptedTourRequestsByUser(user).Where(r => r.Start.Year == year).ToList();
         }
     }
 }

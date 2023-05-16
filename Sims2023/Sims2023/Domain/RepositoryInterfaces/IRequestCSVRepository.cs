@@ -18,9 +18,14 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public int GetTheMostRequestedLocation();
         public List<Request> GetByUser(User user);
         public void CheckExpirationDate(User user);
-        public List<string> GetComboBoxData(string purpose);
-        public int GetYearlyStatistics(string purpose, string statFor, string year);
-        public int GetMonthlyStatistics(string purpose, string statFor, string year, int ordinal);
+
+        public List<Request> GetAcceptedTourRequestsByUser(User user);
+        public double AcceptedTourRequestPercentageByUser(User user);
+
+        public List<Request> GetYearlyAcceptedTourRequestsByUser(User user,int year);
+
+
+
 
     }
 }

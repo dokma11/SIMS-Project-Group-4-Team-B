@@ -12,21 +12,21 @@ using Sims2023.WPF.Views.Guest2Views;
 namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 {
    
-    public class VoucherListViewModel
+    public class Guest2VouchersActivationListViewModel
     {
         private VoucherService _voucherService;
         public Voucher SelectedVoucher { get; set; }
         public List<Voucher> Vouchers { get; set; }
         
 
-        public VoucherListView VoucherListView { get; set; }
-        public VoucherListViewModel(User user,VoucherListView voucherListView)
+        public Guest2VouchersActivationListView Guest2VouchersActivationListView { get; set; }
+        public Guest2VouchersActivationListViewModel(User user,Guest2VouchersActivationListView voucherListView)
         {
             _voucherService = new VoucherService();
             
 
             SelectedVoucher = null;
-            VoucherListView = voucherListView;
+            Guest2VouchersActivationListView = voucherListView;
             Vouchers = _voucherService.GetByUser(user);
         }
 
@@ -35,7 +35,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             if(IsNull(SelectedVoucher))
                 return;
             _voucherService.UpdateIsUsed(SelectedVoucher);
-            VoucherListView.Close();
+            Guest2VouchersActivationListView.Close();
         }
 
         public bool IsNull(Voucher voucher)
@@ -55,7 +55,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         public void SkipVoucher_Click()
         {
-            VoucherListView.Close();
+            Guest2VouchersActivationListView.Close();
         }
 
         

@@ -77,11 +77,10 @@ namespace Sims2023.Repositories
             return countReservation > 0 && countReservation % 5 == 0;
         }
 
-        public List<Tour> GetByUser(User user)//new method for guest2
+        public List<TourReservation> GetByUser(User user)//new method for guest2
         {
             return _tourReservations
                 .Where(r => r.User.Id == user.Id && (r.Tour.CurrentState != ToursState.Started || r.ConfirmedParticipation))
-                .Select(r => r.Tour)
                 .ToList();
         }
 

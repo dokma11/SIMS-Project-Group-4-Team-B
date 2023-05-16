@@ -1,14 +1,5 @@
-1|2|1|5/7/2023 10:35:16 AM|5/7/2024 12:00:00 AM|CancelingTour|k|False
-2|2|1|5/7/2023 10:35:16 AM|5/7/2024 12:00:00 AM|CancelingTour|k|False
-3|2|1|5/7/2023 10:37:43 AM|5/7/2024 12:00:00 AM|CancelingTour|l|False
-4|2|1|5/7/2023 10:37:43 AM|5/7/2024 12:00:00 AM|CancelingTour|l|False
-5|2|1|5/7/2023 10:46:00 AM|5/7/2024 12:00:00 AM|CancelingTour|as|False
-6|2|1|5/7/2023 10:46:00 AM|5/7/2024 12:00:00 AM|CancelingTour|as|False
-7|2|1|5/7/2023 6:06:51 PM|5/7/2025 6:06:51 PM|CancelingTour|The guide quit his job|False
-8|2|1|5/7/2023 6:06:51 PM|5/7/2025 6:06:51 PM|CancelingTour|The guide quit his job|False
-9|2|1|5/7/2023 6:27:06 PM|5/7/2025 6:27:06 PM|CancelingTour|The guide quit his job|False
-10|2|1|5/7/2023 6:27:06 PM|5/7/2025 6:27:06 PM|CancelingTour|The guide quit his job|False
-11|1|2|5/7/2023 6:27:06 PM|5/7/2025 6:27:06 PM|CancelingTour|The guide quit his job|False
-12|2|2|5/7/2023 6:27:06 PM|5/7/2025 6:27:06 PM|CancelingTour|The guide quit his job|False
-13|3|2|5/7/2023 6:27:06 PM|5/7/2025 6:27:06 PM|CancelingTour|The guide quit his job|False
-14|4|2|5/7/2023 6:27:06 PM|5/7/2025 6:27:06 PM|CancelingTour|The guide quit his job|False
+15|2|3|5/13/2023 7:41:46 PM|11/13/2023 7:41:46 PM|FiveReservations|After five reservations you get this coupon|True
+16|2|3|5/13/2023 7:42:13 PM|11/13/2023 7:42:13 PM|FiveReservations|After five reservations you get this coupon|True
+17|2|3|5/13/2023 7:51:15 PM|11/13/2023 7:51:15 PM|FiveReservations|After five reservations you get this coupon|True
+18|2|5|5/13/2023 9:41:58 PM|11/13/2023 9:41:58 PM|FiveReservations|After five reservations you get this coupon|True
+19|2|10|5/13/2023 11:15:28 PM|11/13/2023 11:15:28 PM|FiveReservations|After five reservations you get this coupon|True

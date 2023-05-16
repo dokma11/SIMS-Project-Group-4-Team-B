@@ -47,7 +47,7 @@ namespace Sims2023.Application.Services
             _tourReservations.ConfirmReservation(tourReservation, confirmed);
         }
 
-        public List<Tour> GetByUser(User user)//new method for guest2
+        public List<TourReservation> GetByUser(User user)//new method for guest2
         {
             return _tourReservations.GetByUser(user);
         }

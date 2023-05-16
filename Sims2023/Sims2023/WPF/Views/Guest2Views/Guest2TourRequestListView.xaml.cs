@@ -20,7 +20,7 @@ namespace Sims2023.WPF.Views.Guest2Views
     /// <summary>
     /// Interaction logic for Guest2TourRequestListView.xaml
     /// </summary>
-    public partial class Guest2TourRequestListView : Window
+    public partial class Guest2TourRequestListView : Page
     {
       
 
@@ -33,7 +33,31 @@ namespace Sims2023.WPF.Views.Guest2Views
             
             DataContext = Guest2TourRequestListViewModel;
             dataGridGuestTourRequests.ItemsSource = Guest2TourRequestListViewModel.TourRequests;
+            User = user;
             
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CreateTourRequestView createTourRequestView = new CreateTourRequestView(User);
+            createTourRequestView.Closed += CreateTourRequestView_Closed;
+            
+            createTourRequestView.Show();
+        }
+        private void CreateTourRequestView_Closed(object sender, EventArgs e)
+        {
+            // Refresh the data grid
+            Guest2TourRequestListViewModel = new Guest2TourRequestListViewModel(User);
+
+            DataContext = Guest2TourRequestListViewModel;
+            dataGridGuestTourRequests.ItemsSource = Guest2TourRequestListViewModel.TourRequests;
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Guest2TourRequestStatisticsView guest2TourRequestStatisticsView = new Guest2TourRequestStatisticsView(User);
+            guest2TourRequestStatisticsView.Show();
         }
     }
 }

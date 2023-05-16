@@ -38,7 +38,7 @@ namespace Sims2023.WPF.Views.Guest2Views
 
         private void AddPicture_Click(object sender,RoutedEventArgs e)
         {
-            RateTourViewModel.AddPicture_Click();
+            RateTourViewModel.SaveButton_Click();
         }
 
         

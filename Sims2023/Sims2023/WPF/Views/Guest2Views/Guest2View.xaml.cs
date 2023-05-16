@@ -20,15 +20,10 @@ namespace Sims2023.WPF.Views
         public Guest2View(User user)
         {
             InitializeComponent();
+            MainFrame.Navigate(new Guest2StartView());
             DataContext = this;
             Guest2ViewModel = new Guest2ViewModel(user,this);
             User= user;
-
-            DataContext = Guest2ViewModel;
-            dataGridTours.ItemsSource = Guest2ViewModel.Tours;
-            dataGridTours.SelectedItem = Guest2ViewModel.SelectedTour;
-
-
 
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -36,51 +31,61 @@ namespace Sims2023.WPF.Views
             Guest2ViewModel.Window_Loaded();
         }
 
-        private void SearchTours_Click(object sender, RoutedEventArgs e)
-        {
-            Guest2ViewModel.SearchTours_Click();
-        }
+       
 
         private void ReserveTour_Click(object sender, RoutedEventArgs e)
         {
-            Guest2ViewModel.ReserveTour_Click();
+            //Guest2ViewModel.ReserveTour_Click();
         }
 
-        private void MyReservations_Click(object sender, RoutedEventArgs e)
-        {
-            Guest2ViewModel.MyReservations_Click();
-        }
+        
 
         public void Update()
         {
-            Guest2ViewModel.Update();
+            //Guest2ViewModel.Update();
         }
 
         private void SeeDetails_Click(object sender, RoutedEventArgs e)
         {
-            Guest2ViewModel.SeeDetails_Click();
+            //Guest2ViewModel.SeeDetails_Click();
         }
 
-        private void CreateTourRequest_Click(object sender, RoutedEventArgs e)
+        
+
+        private void MyTours_Executed(object sender, RoutedEventArgs e)
         {
-            Guest2ViewModel.CreateTourRequest_Click();
+            MainFrame.Navigate(new Guest2TourListView(User));//list of guests reserved tours
         }
 
-        private void SeeTourRequests_Click(object sender, RoutedEventArgs e)
+        public void TourRequest_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            Guest2TourRequestListView guest2TourRequestListView = new Guest2TourRequestListView(User);
-            guest2TourRequestListView.Show();
+            MainFrame.Navigate(new Guest2TourRequestListView(User));//list of guests tour requests 
         }
 
-        public void OpenHelp_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void Home_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-           
-            var Guest2TourListView = new Guest2TourListView(User);
-            Guest2TourListView.Show();
+            MainFrame.Navigate(new Guest2StartView());//start view
+        }
+        public void TourList_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MainFrame.Navigate(new TourListView(User));//all tours view
         }
         public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }
+
+        public void LogOut_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MainWindow LogIn = new();
+            LogIn.Show();
+            Close();
+        }
+
+        public void VoucherList_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Guest2VoucherListView(User));
+        }
+
     }
 }
