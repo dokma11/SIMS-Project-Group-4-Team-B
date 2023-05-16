@@ -1,4 +1,5 @@
-﻿using Sims2023.Domain.Models;
+﻿using Sims2023.Application.Injection;
+using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repositories;
@@ -12,8 +13,8 @@ namespace Sims2023.Application.Services
 
         public UserService()
         {
-            _user = new UserCSVRepository();
-            //_user = Injection.Injector.CreateInstance<IUserRepository>();
+         //   _user = new UserCSVRepository();
+             _user = Injector.CreateInstance<IUserCSVRepository>();
         }
 
         public void MarkSuperOwner()

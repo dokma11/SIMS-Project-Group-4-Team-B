@@ -1,4 +1,5 @@
-﻿using Sims2023.Domain.Models;
+﻿using Sims2023.Application.Injection;
+using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repositories;
@@ -12,8 +13,8 @@ namespace Sims2023.Application.Services
 
         public AccommodationCancellationService()
         {
-            _accommodationCancellation = new AccommodationCancellationCSVRepository();
-            //_accommodationCancellation = Injection.Injector.CreateInstance<IAccommodationCancellationRepository>();
+           // _accommodationCancellation = new AccommodationCancellationCSVRepository();
+           _accommodationCancellation = Injector.CreateInstance<IAccommodationCancellationCSVRepository>();
         }
 
         public List<AccommodationCancellation> GetAllAccommodationCancellations()
