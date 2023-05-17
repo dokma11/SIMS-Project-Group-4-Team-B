@@ -19,8 +19,8 @@
             </Style.Triggers>
         </Style>
     </Page.Resources>
-    
-    <Grid Background="#ff9e3d">
+
+    <Grid Background="PeachPuff">
         <DockPanel Margin="0,0,0,690">
             <ToolBar>
                 <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
