@@ -99,6 +99,14 @@ namespace Sims2023.Application.Services
             return _request.GetYearlyAcceptedTourRequestsByUser(user, year);
         }
 
+        public List<Request> GetByLocation(Location location)
+        {
+            return _request.GetByLocation(location);
+        }
 
+        public List<Request> GetByLanguage(string language)
+        {
+            return _request.GetByLanguage(language);
+        }
     }
 }

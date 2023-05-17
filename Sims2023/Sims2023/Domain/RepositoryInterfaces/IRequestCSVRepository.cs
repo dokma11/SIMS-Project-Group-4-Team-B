@@ -27,9 +27,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<string> GetComboBoxData(string purpose);
         public int GetYearlyStatistics(string purpose, string statFor, string year);
         public int GetMonthlyStatistics(string purpose, string statFor, string year, int ordinal);
-
-
-
-
+        public List<Request> GetByLocation(Location location);
+        public List<Request> GetByLanguage(string language);
     }
 }

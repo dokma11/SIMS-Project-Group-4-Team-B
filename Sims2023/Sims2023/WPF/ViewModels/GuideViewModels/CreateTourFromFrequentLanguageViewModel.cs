@@ -14,12 +14,14 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         private LocationService _locationService;
         private KeyPointService _keyPointService;
         private CountriesAndCitiesService _countriesAndCitiesService;
+        private RequestService _requestService;
+        private TourNotificationService _tourNotificationService;
         public RequestsLanguage SelectedLanguage { get; set; }
         private List<DateTime> _dateTimeList;
         private List<string> _keyPointsList;
         public User LoggedInGuide { get; set; }
         
-        public CreateTourFromFrequentLanguageViewModel(RequestsLanguage selectedLanguage, TourService tourService, LocationService locationService, KeyPointService keyPointService, User loggedInGuide)
+        public CreateTourFromFrequentLanguageViewModel(RequestsLanguage selectedLanguage, TourService tourService, LocationService locationService, KeyPointService keyPointService, User loggedInGuide, RequestService requestService, TourNotificationService tourNotificationService)
         {
             SelectedLanguage = selectedLanguage;
 
@@ -30,6 +32,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _tourService = tourService;
             _locationService = locationService;
             _keyPointService = keyPointService;
+            _requestService = requestService;
+            _tourNotificationService = tourNotificationService;
             _countriesAndCitiesService = new CountriesAndCitiesService();
 
             _dateTimeList = new List<DateTime>();
@@ -74,6 +78,16 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _tourService.AddToursLocation(NewTour, NewLocation, _dateTimeList.Count);
             _keyPointService.Create(NewKeyPoint, _keyPointsList, firstToursId, _dateTimeList.Count);
             _tourService.AddToursKeyPoints(_keyPointsList, firstToursId);
+            NotifyGuests();
+        }
+
+        public void NotifyGuests()
+        {
+            foreach (var req in _requestService.GetByLanguage(SelectedLanguage.ToString()))
+            {
+                TourNotification tourNotification = new(NewTour, req.Guest, NotificationType.MatchedTourRequestsLanguage);
+                _tourNotificationService.Create(tourNotification);
+            }
         }
     }
 }

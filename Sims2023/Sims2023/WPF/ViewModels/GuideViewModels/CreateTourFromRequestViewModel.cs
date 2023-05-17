@@ -16,7 +16,9 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         private TourService _tourService;
         private KeyPointService _keyPointService;
         private RequestService _requestService;
-        public CreateTourFromRequestViewModel(Request selectedRequest, User loggedInGuide, TourService tourService, KeyPointService keyPointService, RequestService requestService)
+        private TourNotificationService _tourNotificationService;
+        private TourReservationService _tourReservationService;
+        public CreateTourFromRequestViewModel(Request selectedRequest, User loggedInGuide, TourService tourService, KeyPointService keyPointService, RequestService requestService, TourNotificationService tourNotificationService, TourReservationService tourReservationService)
         {
             SelectedRequest = selectedRequest;
 
@@ -35,6 +37,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _tourService = tourService;
             _keyPointService = keyPointService;
             _requestService = requestService;
+            _tourNotificationService = tourNotificationService;
+            _tourReservationService = tourReservationService;
         }
 
         public void AddKeyPointsToList(string inputText)
@@ -63,6 +67,15 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _tourService.AddToursLocation(Tour, SelectedRequest.Location, _dateTimeList.Count);
             _keyPointService.Create(KeyPoint, _keyPointsList, firstToursId, _dateTimeList.Count);
             _tourService.AddToursKeyPoints(_keyPointsList, firstToursId);
+            NotifyGuest();
+        }
+
+        public void NotifyGuest()
+        {
+            TourNotification tourNotification = new(Tour, SelectedRequest.Guest, NotificationType.AcceptedTourRequest);
+            _tourNotificationService.Create(tourNotification);
+            TourReservation tourReservation = new(0, Tour, SelectedRequest.Guest, SelectedRequest.GuestNumber, false, false);
+            _tourReservationService.Create(tourReservation);
         }
 
         public void CancelCreation()
