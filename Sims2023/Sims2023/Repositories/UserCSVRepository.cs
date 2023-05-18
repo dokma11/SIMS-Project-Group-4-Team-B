@@ -51,8 +51,8 @@ namespace Sims2023.Repositories
                 double counter = 0.0;
                 double zbir = 1;
                 double Average;
-                guests = new AccommodationGradeCSVRepository();
-                foreach (AccommodationGrade grade in guests.GetAll())
+         //       guests = new AccommodationGradeCSVRepository();
+        //        foreach (AccommodationGrade grade in guests.GetAll())
                 {
 
              //       if (grade.Accommodation.Owner.Id == user.Id)

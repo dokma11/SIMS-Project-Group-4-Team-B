@@ -24,7 +24,7 @@ namespace Sims2023.Application.Injection
             { typeof(ITourReservationCSVRepository), new TourReservationCSVRepository() },
             { typeof(ITourReviewCSVRepository), new TourReviewCSVRepository() },
             { typeof(IVoucherCSVRepository), new VoucherCSVRepository() },
-            
+            { typeof(IAccommodationStatisticsCSVRepository), new AccommodationStatisticsCSVRepository() },
             { typeof(ICountriesAndCitiesCSVRepository), new CountriesAndCitiesCSVRepository() },
             { typeof(IAccommodationRenovationCSVRepository), new AccommodationRenovationCSVRepository() }
 

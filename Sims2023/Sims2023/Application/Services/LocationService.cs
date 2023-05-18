@@ -10,8 +10,8 @@ namespace Sims2023.Application.Services
         private readonly ILocationCSVRepository _location;
         public LocationService()
         {
-            _location = new LocationCSVRepository();
-            //_location = Injection.Injector.CreateInstance<ILocationRepository>();
+            //_location = new LocationCSVRepository();
+            _location = Injection.Injector.CreateInstance<ILocationCSVRepository>();
         }
 
         public Location GetById(int id)

@@ -9,12 +9,29 @@ namespace Sims2023.Application.Services
 {
     public class AccommodationCancellationService
     {
+        private IUserCSVRepository _user;
+        private IAccommodationCSVRepository _accommodation;
         private IAccommodationCancellationCSVRepository _accommodationCancellation;
 
         public AccommodationCancellationService()
         {
-           _accommodationCancellation = new AccommodationCancellationCSVRepository();
-           //_accommodationCancellation = Injector.CreateInstance<IAccommodationCancellationCSVRepository>();
+            _user = Injector.CreateInstance<IUserCSVRepository>();
+            _accommodation = Injector.CreateInstance<IAccommodationCSVRepository>();
+            _accommodationCancellation = Injector.CreateInstance<IAccommodationCancellationCSVRepository>();
+            FindForeignAtributes();
+        }
+
+        private void FindForeignAtributes()
+        {
+            foreach (var item in _accommodationCancellation.GetAll())
+            {
+                item.Guest = _user.GetById(item.Guest.Id);
+            }
+
+            foreach (var item in _accommodationCancellation.GetAll())
+            {
+                item.Accommodation = _accommodation.GetById(item.Accommodation.Id);
+            }
         }
 
         public List<AccommodationCancellation> GetAllAccommodationCancellations()

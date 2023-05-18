@@ -14,12 +14,17 @@ namespace Sims2023.Application.Services
 {
     public class AccommodationReservationService
     {
+        private IUserCSVRepository _user;
+        private AccommodationService _accommodation;
         private IAccommodationReservationCSVRepository _accommodationReservation;
 
         public AccommodationReservationService()
         {
-            _accommodationReservation = new AccommodationReservationCSVRepository();
-            //_accommodationReservation = Injector.CreateInstance<IAccommodationReservationCSVRepository>();
+            _user = Injector.CreateInstance<IUserCSVRepository>();
+            _accommodation = new AccommodationService();
+            //_accommodationReservation = new AccommodationReservationCSVRepository();
+            _accommodationReservation = Injector.CreateInstance<IAccommodationReservationCSVRepository>();
+            FindForeignAtributes();
         }
 
         public List<AccommodationReservation> GetGradableGuests(User user, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
@@ -27,6 +32,15 @@ namespace Sims2023.Application.Services
             return _accommodationReservation.GetGradableGuests(user, reservatons, grades);
         }
 
+        private void FindForeignAtributes()
+        {
+            foreach (var item in _accommodationReservation.GetAll())
+            {
+                item.Guest = _user.GetById(item.Guest.Id);
+                item.Accommodation = _accommodation.GetById(item.Accommodation.Id);
+
+            }
+        }
 
         public List<AccommodationReservation> GetAllReservations()
         {

@@ -14,7 +14,7 @@ namespace Sims2023
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IObserver
+    public partial class MainWindow : Window
     {
         private string _username;
         private string _password;
@@ -25,7 +25,7 @@ namespace Sims2023
             DataContext = this;
 
             _userService = new UserService();
-            _userService.Subscribe(this);
+            
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -86,9 +86,5 @@ namespace Sims2023
             }
         }
 
-        public void Update()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

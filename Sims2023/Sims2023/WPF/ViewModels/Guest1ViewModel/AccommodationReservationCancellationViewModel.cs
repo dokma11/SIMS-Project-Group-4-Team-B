@@ -45,6 +45,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             FilteredData = _accommodationReservationService.FindSuitableUpcomingReservations(User);
             AccommodationReservationCancellationView.myDataGrid.ItemsSource = FilteredData;
+            MessageBox.Show("lokacija je " + FilteredData[0].Accommodation.Location.City);
 
         }
 

@@ -7,17 +7,37 @@ using System.Linq;
 using System.Text;
 using Sims2023.Domain.RepositoryInterfaces;
 using System.Threading.Tasks;
+using Sims2023.Application.Injection;
 
 namespace Sims2023.Application.Services
 {
     public class AccommodationService
     {
         private IAccommodationCSVRepository _accomodation;
+        private IUserCSVRepository _users;
+        private ILocationCSVRepository _locations;
 
         public AccommodationService()
         {
-            _accomodation = new AccommodationCSVRepository();
-            //_accomodation =  Injection.Injector.CreateInstance<IAccommodationRepository>();
+            _users = Injector.CreateInstance<IUserCSVRepository>();
+            _locations = Injector.CreateInstance<ILocationCSVRepository>();
+            _accomodation = Injector.CreateInstance<IAccommodationCSVRepository>();
+           
+           
+            FindForeignAtributes();
+        }
+
+        private void FindForeignAtributes()
+        {
+            foreach (var item in _accomodation.GetAll())
+            {
+                item.Owner = _users.GetById(item.Owner.Id);
+            }
+
+            foreach (var item in _accomodation.GetAll())
+            {
+                item.Location = _locations.GetById(item.Location.Id);
+            }
         }
 
         public List<Accommodation> GetAllAccommodations()
