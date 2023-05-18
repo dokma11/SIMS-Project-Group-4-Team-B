@@ -13,8 +13,8 @@ namespace Sims2023.Application.Services
 
         public AccommodationCancellationService()
         {
-           // _accommodationCancellation = new AccommodationCancellationCSVRepository();
-           _accommodationCancellation = Injector.CreateInstance<IAccommodationCancellationCSVRepository>();
+           _accommodationCancellation = new AccommodationCancellationCSVRepository();
+           //_accommodationCancellation = Injector.CreateInstance<IAccommodationCancellationCSVRepository>();
         }
 
         public List<AccommodationCancellation> GetAllAccommodationCancellations()

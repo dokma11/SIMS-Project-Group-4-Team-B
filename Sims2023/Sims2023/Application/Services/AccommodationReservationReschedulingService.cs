@@ -18,8 +18,8 @@ public class AccommodationReservationReschedulingService
 
     public AccommodationReservationReschedulingService()
     {
-      //  _accommodationReservationRescheduling = new AccommodationReservationReschedulingCSVRepository();
-          _accommodationReservationRescheduling = Injector.CreateInstance<IAccommodationReservationReschedulingCSVRepository>();
+          _accommodationReservationRescheduling = new AccommodationReservationReschedulingCSVRepository();
+          //_accommodationReservationRescheduling = Injector.CreateInstance<IAccommodationReservationReschedulingCSVRepository>();
     }
 
     public AccommodationReservationRescheduling GetById(int id)
