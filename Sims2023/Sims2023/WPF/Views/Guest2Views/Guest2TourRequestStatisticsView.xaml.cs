@@ -36,6 +36,7 @@ namespace Sims2023.WPF.Views.Guest2Views
             //locationComboBox.ItemsSource = ViewModel.GetLocations();
             languageYearComboBox.ItemsSource = ViewModel.GetYears();
             locationYearComboBox.ItemsSource = ViewModel.GetYears();
+            yearComboBox.ItemsSource= ViewModel.GetYears();
 
             
 
@@ -55,6 +56,14 @@ namespace Sims2023.WPF.Views.Guest2Views
             if (languageYearComboBox.SelectedItem != null)
             {
                 ViewModel.DisplayLanguageStatistics( languageYearComboBox.SelectedItem.ToString());
+            }
+        }
+
+        private void YearComboBox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if (yearComboBox.SelectedItem != null)
+            {
+                ViewModel.DisplayTourRequestStatistics(yearComboBox.SelectedItem.ToString());
             }
         }
 

@@ -21,6 +21,10 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         public SeriesCollection LanguageSeriesCollection { get; set; }
         public ObservableCollection<string> Labels { get; set; }
 
+        public ChartValues<double> AcceptedPercentage { get; set; }
+        public ChartValues<double> DeclinedPercentage { get; set; }
+
+
         public ObservableCollection<string> LabelsLanguage { get; set; }
         public string[] LabelsMonth { get; set; }
 
@@ -33,6 +37,8 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             User = user;
             LocationSeriesCollection = new SeriesCollection();
             LanguageSeriesCollection = new SeriesCollection();
+            AcceptedPercentage = new ChartValues<double>();
+            DeclinedPercentage = new ChartValues<double>();
             LabelsMonth = _requestService.GetComboBoxData("locations").ToArray();
 
             Labels = new ObservableCollection<string>();
@@ -135,6 +141,35 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             LanguageSeriesCollection.Add(new ColumnSeries { Values = monthlyStats, Title = "Broj zahteva u " + year + ":" });
             
             Values = value => value.ToString("D");
+        }
+
+        public void DisplayTourRequestStatistics(string year)
+        {
+            if(year=="Svih vremena")
+            {
+                DisplayAllTimeTourRequestStatistic();
+            }
+            else
+            {
+                DisplayYearlyTourRequestStatistic(year);
+            }
+        }
+
+        public void DisplayAllTimeTourRequestStatistic()
+        {
+            AcceptedPercentage.Clear();
+            DeclinedPercentage.Clear();
+            AcceptedPercentage.Add(_requestService.GetAcceptedTourRequestsByUser(User).Count() );
+            DeclinedPercentage.Add( _requestService.GetByUser(User).Count() - _requestService.GetAcceptedTourRequestsByUser(User).Count() );
+        }
+
+        public void DisplayYearlyTourRequestStatistic(string year)
+        {
+            AcceptedPercentage.Clear();
+            DeclinedPercentage.Clear();
+            AcceptedPercentage.Add( _requestService.GetYearlyAcceptedTourRequestsByUser(User,Convert.ToInt32(year)).Count() );
+           
+            DeclinedPercentage.Add(_requestService.GetYearlyDeclinedTourRequestsByUser(User, Convert.ToInt32(year)).Count());
         }
 
     }

@@ -10,6 +10,31 @@
         Title="Guest2TourRequestStatisticsView" Height="450" Width="800">
     <Grid>
         <TabControl Height="350" Width="750">
+            <TabItem Header="Statistika o prihvacenim turama">
+                <StackPanel Width="600">
+                    <DockPanel>
+
+                        <ComboBox x:Name="yearComboBox" Width="150" Margin="50,10,0,0" SelectionChanged="YearComboBox_SelectionChanged" ToolTip="Odaberite godinu za koju želite želite da vidite statistiku"/>
+
+                    </DockPanel>
+                    
+                    <lvc:PieChart Height="270"
+                      LegendLocation="Right" Margin="0,0,267,0" >
+                        <lvc:PieChart.Series>
+                            <lvc:PieSeries 
+                                Title="Accepted"
+                               Values="{Binding AcceptedPercentage}"
+                               Fill="#FF00BFFF" />
+                            <lvc:PieSeries
+                                Title="Declined"
+                               Values="{Binding DeclinedPercentage}"
+                               Fill="#FFFFA500" />
+                        </lvc:PieChart.Series>
+                    </lvc:PieChart>
+
+
+                </StackPanel>
+            </TabItem>
             <TabItem Header="Statistika zahteva za ture na lokaciji">
                 <StackPanel Width="600">
                     <Label Content="Statistika o zahtevima za ture na lokaciji" FontSize="32" Margin="20,10,0,0"/>
@@ -46,6 +71,7 @@
                     </lvc:CartesianChart>
                 </StackPanel>
             </TabItem>
+            
         </TabControl>
 
     </Grid>
