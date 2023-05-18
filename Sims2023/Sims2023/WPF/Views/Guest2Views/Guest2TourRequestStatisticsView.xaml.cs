@@ -37,6 +37,8 @@ namespace Sims2023.WPF.Views.Guest2Views
             languageYearComboBox.ItemsSource = ViewModel.GetYears();
             locationYearComboBox.ItemsSource = ViewModel.GetYears();
             yearComboBox.ItemsSource= ViewModel.GetYears();
+            acceptedRequestsTextBox.Text = ViewModel.AcceptedPercentage;
+            notAcceptedRequestsTextBox.Text= ViewModel.NotAcceptedPercentage;
 
             
 
@@ -64,6 +66,9 @@ namespace Sims2023.WPF.Views.Guest2Views
             if (yearComboBox.SelectedItem != null)
             {
                 ViewModel.DisplayTourRequestStatistics(yearComboBox.SelectedItem.ToString());
+                acceptedRequestsTextBox.Text = ViewModel.AcceptedPercentage;
+                notAcceptedRequestsTextBox.Text = ViewModel.NotAcceptedPercentage;
+                averageNumberTextBox.Text = ViewModel.AverageAcceptedRequestsGuestNumber.ToString();
             }
         }
 

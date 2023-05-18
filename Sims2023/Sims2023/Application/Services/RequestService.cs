@@ -104,9 +104,9 @@ namespace Sims2023.Application.Services
             return _request.GetYearlyDeclinedTourRequestsByUser(user, year);
         }
 
-        public int GetYerlyStatisticByUser(User user, string location, string year)
+        public int GetYearlyLocationStatisticByUser(User user, string location, string year)
         {
-            return _request.GetYerlyStatisticByUser(user, location, year);
+            return _request.GetYearlyLocationStatisticByUser(user, location, year);
         }
 
         public int GetAllTimeLocationStatisticByUser(User user, string location)
@@ -122,6 +122,16 @@ namespace Sims2023.Application.Services
         public int GetYearlyLanguageStatisticByUser(User user,string language,string year)
         {
             return _request.GetYearlyLanguageStatisticByUser(user, language, year);
+        }
+
+        public double GetAverageYearlyAcceptedTourRequestGuestNumber(User user, int year)
+        {
+            return _request.GetAverageYearlyAcceptedTourRequestGuestNumber(user, year);
+        }
+
+        public double GetAverageAllTimeAcceptedTourRequestGuestNumber(User user)
+        {
+            return _request.GetAverageAllTimeAcceptedTourRequestGuestNumber(user);
         }
 
 

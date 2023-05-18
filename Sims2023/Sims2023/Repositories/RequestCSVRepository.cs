@@ -85,7 +85,7 @@ namespace Sims2023.Repositories
             }
         }
 
-        public int GetYerlyStatisticByUser(User user,string location,string year)
+        public int GetYearlyLocationStatisticByUser(User user,string location,string year)
         {
             return _requests.Count(r => r.Start.Year.ToString() == year && r.Guest.Id == user.Id && (r.Location.City + ", " + r.Location.Country) == location);
         }
@@ -198,6 +198,38 @@ namespace Sims2023.Repositories
         public List<Request> GetYearlyDeclinedTourRequestsByUser(User user, int year)
         {
             return _requests.Where(r=>r.Guest.Id==user.Id && r.Start.Year == year && r.State!=RequestsState.Accepted).ToList();
+        }
+
+        public double GetAverageAllTimeAcceptedTourRequestGuestNumber(User user)
+        {
+            double sum = 0;
+            int counter= GetAcceptedTourRequestsByUser(user).Count();
+            if (counter == 0)
+            {
+                return 0;
+            }
+            foreach(Request request in GetAcceptedTourRequestsByUser(user))
+            {
+                sum += request.GuestNumber;
+              
+            }
+            return sum/counter;
+        }
+
+        public double GetAverageYearlyAcceptedTourRequestGuestNumber(User user,int year)
+        {
+            double sum = 0;
+            int counter = GetYearlyAcceptedTourRequestsByUser(user,year).Count();
+            if (counter == 0)
+            {
+                return 0;
+            }
+            foreach (Request request in GetYearlyAcceptedTourRequestsByUser(user,year))
+            {
+                sum += request.GuestNumber;
+
+            }
+            return sum / counter;
         }
     }
 }

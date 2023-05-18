@@ -21,8 +21,12 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         public SeriesCollection LanguageSeriesCollection { get; set; }
         public ObservableCollection<string> Labels { get; set; }
 
-        public ChartValues<double> AcceptedPercentage { get; set; }
-        public ChartValues<double> DeclinedPercentage { get; set; }
+        public ChartValues<double> AcceptedRequests { get; set; }
+        public ChartValues<double> NotAcceptedRequests { get; set; }
+
+        public string AcceptedPercentage { get; set; }
+        public string NotAcceptedPercentage { get; set; }
+        public int AverageAcceptedRequestsGuestNumber { get; set; }
 
 
         public ObservableCollection<string> LabelsLanguage { get; set; }
@@ -37,8 +41,9 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             User = user;
             LocationSeriesCollection = new SeriesCollection();
             LanguageSeriesCollection = new SeriesCollection();
-            AcceptedPercentage = new ChartValues<double>();
-            DeclinedPercentage = new ChartValues<double>();
+            AcceptedRequests = new ChartValues<double>();
+            NotAcceptedRequests = new ChartValues<double>();
+           
             LabelsMonth = _requestService.GetComboBoxData("locations").ToArray();
 
             Labels = new ObservableCollection<string>();
@@ -81,7 +86,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             var yearlyStats = new ChartValues<int>();
             foreach (var l in Labels)
             {
-                yearlyStats.Add(_requestService.GetYerlyStatisticByUser(User,l,year));
+                yearlyStats.Add(_requestService.GetYearlyLocationStatisticByUser(User,l,year));
               
             }
             LocationSeriesCollection.Add(new ColumnSeries { Values = yearlyStats, Title = "Broj zahteva u " + year + ":" });
@@ -122,8 +127,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             foreach (var l in LabelsLanguage)
             {
                 yearlyStats.Add(_requestService.GetAllTimeLanguageStatisticByUser(User,l));
-                string message = User + " " + l + " "  + _requestService.GetAllTimeLanguageStatisticByUser(User, l).ToString();
-                MessageBox.Show(message);
+                
             }
             LanguageSeriesCollection.Add(new ColumnSeries { Values = yearlyStats, Title = "Broj zahteva po godinama" });
             
@@ -153,24 +157,51 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             {
                 DisplayYearlyTourRequestStatistic(year);
             }
+            GetAverageYearlyAcceptedRequestsGuestNumber(year);
         }
 
         public void DisplayAllTimeTourRequestStatistic()
         {
-            AcceptedPercentage.Clear();
-            DeclinedPercentage.Clear();
-            AcceptedPercentage.Add(_requestService.GetAcceptedTourRequestsByUser(User).Count() );
-            DeclinedPercentage.Add( _requestService.GetByUser(User).Count() - _requestService.GetAcceptedTourRequestsByUser(User).Count() );
+            int acceptedRequestCount = _requestService.GetAcceptedTourRequestsByUser(User).Count();
+            int notAcceptedRequestCount = _requestService.GetByUser(User).Count() - _requestService.GetAcceptedTourRequestsByUser(User).Count();
+            AcceptedRequests.Clear();
+            NotAcceptedRequests.Clear();
+            AcceptedRequests.Add(acceptedRequestCount );
+            NotAcceptedRequests.Add(notAcceptedRequestCount  );
+            GetPercentages(acceptedRequestCount,notAcceptedRequestCount);
         }
 
         public void DisplayYearlyTourRequestStatistic(string year)
         {
-            AcceptedPercentage.Clear();
-            DeclinedPercentage.Clear();
-            AcceptedPercentage.Add( _requestService.GetYearlyAcceptedTourRequestsByUser(User,Convert.ToInt32(year)).Count() );
-           
-            DeclinedPercentage.Add(_requestService.GetYearlyDeclinedTourRequestsByUser(User, Convert.ToInt32(year)).Count());
+            int acceptedRequestCount = _requestService.GetYearlyAcceptedTourRequestsByUser(User, Convert.ToInt32(year)).Count();
+            int notAcceptedRequestCount = _requestService.GetYearlyDeclinedTourRequestsByUser(User, Convert.ToInt32(year)).Count();
+            AcceptedRequests.Clear();
+            NotAcceptedRequests.Clear();
+            AcceptedRequests.Add( acceptedRequestCount);
+            NotAcceptedRequests.Add(notAcceptedRequestCount);
+            GetPercentages(acceptedRequestCount, notAcceptedRequestCount);  
         }
 
+        public void GetPercentages(double acceptedRequestCount,double notAcceptedRequestCount)
+        {
+            double acceptedRequests = Math.Round(acceptedRequestCount * 100 / (acceptedRequestCount + notAcceptedRequestCount),2);
+            AcceptedPercentage = acceptedRequests + "%";
+           
+            double notAcceptedRequests = Math.Round(notAcceptedRequestCount * 100 / (acceptedRequestCount + notAcceptedRequestCount),2);
+            NotAcceptedPercentage = notAcceptedRequests + "%";
+        }
+
+        public void GetAverageYearlyAcceptedRequestsGuestNumber(string year)
+        {
+            if (year == "Svih vremena")
+            {
+                AverageAcceptedRequestsGuestNumber =Convert.ToInt32(_requestService.GetAverageAllTimeAcceptedTourRequestGuestNumber(User));
+            }
+            else
+            {
+                AverageAcceptedRequestsGuestNumber = Convert.ToInt32(_requestService.GetAverageYearlyAcceptedTourRequestGuestNumber(User,Convert.ToInt32(year)));
+            }
+
+        }
     }
 }
