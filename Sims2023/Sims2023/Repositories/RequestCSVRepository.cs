@@ -177,5 +177,17 @@ namespace Sims2023.Repositories
         {
             return GetAcceptedTourRequestsByUser(user).Where(r => r.Start.Year == year).ToList();
         }
+
+        public List<Request> GetByLocation(Location location)
+        {
+            return _requests.Where(req => req.Location.City.ToString() == location.City.ToString() &&
+                                   req.Location.Country.ToString() == location.Country.ToString() && 
+                                   req.State == RequestsState.OnHold).ToList();
+        }
+
+        public List<Request> GetByLanguage(string language)
+        {
+            return _requests.Where(req => req.Language.ToString() == language && req.State == RequestsState.OnHold).ToList();
+        }
     }
 }

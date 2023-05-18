@@ -10,7 +10,7 @@
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="ToursView">
 
-    <StackPanel Background="#ff9e3d">
+    <StackPanel Background="PeachPuff">
         <DockPanel>
             <ToolBar>
                 <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>

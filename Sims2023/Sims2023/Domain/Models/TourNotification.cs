@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sims2023.Application.Services;
+﻿using Sims2023.Application.Services;
 using Sims2023.Serialization;
+using System;
+using System.ComponentModel;
 
 namespace Sims2023.Domain.Models
 {
     public enum NotificationType { TourStarted, AcceptedTourRequest, MatchedTourRequestsLocation, MatchedTourRequestsLanguage }
-    public class TourNotification: ISerializable, INotifyPropertyChanged
+    public class TourNotification : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public Tour Tour { get; set; }
@@ -20,10 +16,10 @@ namespace Sims2023.Domain.Models
         public TourNotification() { }
         public TourNotification(Tour tour, User guest, NotificationType type)
         {
-            
+
             Tour = tour;
             Guest = guest;
-            Type = type;    
+            Type = type;
             IsNotified = false;
         }
 
@@ -46,7 +42,7 @@ namespace Sims2023.Domain.Models
         {
             Id = Convert.ToInt32(values[0]);
             TourService tourService = new();
-            Tour =tourService.GetById(Convert.ToInt32(values[1]));
+            Tour = tourService.GetById(Convert.ToInt32(values[1]));
             UserService tourUserService = new();
             Guest = tourUserService.GetById(Convert.ToInt32(values[2]));
             Type = (NotificationType)Enum.Parse(typeof(NotificationType), values[3]);
