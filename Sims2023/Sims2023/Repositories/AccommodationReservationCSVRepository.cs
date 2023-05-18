@@ -41,7 +41,6 @@ namespace Sims2023.Repositories
             NotifyObservers();
         }
 
-        // guests who are already graded should not appear in a list
         public void RemoveAlreadyGraded(List<AccommodationReservation> reservations, List<GuestGrade> grades)
         {
             for (int i = reservations.Count - 1; i >= 0; i--)
@@ -53,6 +52,7 @@ namespace Sims2023.Repositories
                 }
             }
         }
+
         public bool isGuestAlreadyGraded(AccommodationReservation reservation, List<GuestGrade> grades)
         {
             foreach (var grade in grades)
@@ -62,7 +62,6 @@ namespace Sims2023.Repositories
             return false;
         }
 
-        // searching for the guests who left not more than 5 days ago
         public void GetGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons)
         {
             for (int i = reservatons.Count - 1; i >= 0; i--)
@@ -90,8 +89,6 @@ namespace Sims2023.Repositories
             reservatons.RemoveAll(r => r.Accommodation.Owner.Id != user.Id);
         }
 
-
-        // finds all guests who owner can grade
         public List<AccommodationReservation> GetGradableGuests(User user, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
         {
             GetGuestsParticularOwner(reservatons, user);
@@ -153,6 +150,7 @@ namespace Sims2023.Repositories
             }
             return FilteredReservations;
         }
+
         public bool FilterdDataSelection(AccommodationReservation accommodationReservation, User guest1)
         {
             TimeSpan difference = accommodationReservation.StartDate - DateTime.Today;
@@ -226,6 +224,7 @@ namespace Sims2023.Repositories
             return difference.TotalDays >= 0 && accommodationReservation.Guest.Id == guest1.Id;
 
         }
+
         public void DeleteAccommodationReservation(AccommodationReservation selectedAccommodationReservation)
         {
             foreach (AccommodationReservation accommodationResrvation in _accommodationReservations)
@@ -237,6 +236,7 @@ namespace Sims2023.Repositories
                 }
             }
         }
+
         public List<GuestGrade> FindSuitableGrades(User user, List<GuestGrade> guestGrades)
         {
             List<GuestGrade> SuitableGrades=new List<GuestGrade>();

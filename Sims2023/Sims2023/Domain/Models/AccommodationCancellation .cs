@@ -13,8 +13,6 @@ namespace Sims2023.Domain.Models
 {
     public class AccommodationCancellation : ISerializable, INotifyPropertyChanged
     {
-        public ObservableCollection<Accommodation> Accommodations { get; set; }
-        public ObservableCollection<User> Users { get; set; }
         public int Id { get; set; }
         public User Guest { get; set; }
         public Accommodation Accommodation { get; set; }

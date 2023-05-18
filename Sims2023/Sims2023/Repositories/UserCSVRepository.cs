@@ -51,6 +51,7 @@ namespace Sims2023.Repositories
                 double counter = 0.0;
                 double zbir = 0.0;
                 double Average;
+                guests = new AccommodationGradeCSVRepository();
                 foreach (AccommodationGrade grade in guests.GetAll())
                 {
 
