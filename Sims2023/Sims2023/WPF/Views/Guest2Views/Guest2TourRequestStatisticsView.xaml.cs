@@ -25,17 +25,40 @@ namespace Sims2023.WPF.Views.Guest2Views
     public partial class Guest2TourRequestStatisticsView :Window
     {
         public Guest2TourRequestStatisticsViewModel ViewModel { get; set; }
+        
         public Guest2TourRequestStatisticsView(User user)
         {
             InitializeComponent();
-            YearComboBox.Text = "All time";
-            ViewModel = new Guest2TourRequestStatisticsViewModel(user,YearComboBox.Text); 
-            DataContext=ViewModel;
+            ViewModel = new Guest2TourRequestStatisticsViewModel(user);
+            DataContext = ViewModel;
+
+            //languageComboBox.ItemsSource = ViewModel.GetLanguages();
+            //locationComboBox.ItemsSource = ViewModel.GetLocations();
+            languageYearComboBox.ItemsSource = ViewModel.GetYears();
+            locationYearComboBox.ItemsSource = ViewModel.GetYears();
 
             
+
+
         }
 
-        
+        private void LocationComboBox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if (locationYearComboBox.SelectedItem != null)
+            {
+                ViewModel.DisplayLocationStatistics( locationYearComboBox.SelectedItem.ToString());
+            }
+        }
+
+        private void LanguageComboBox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if (languageYearComboBox.SelectedItem != null)
+            {
+                ViewModel.DisplayLanguageStatistics( languageYearComboBox.SelectedItem.ToString());
+            }
+        }
+
+
 
 
     }

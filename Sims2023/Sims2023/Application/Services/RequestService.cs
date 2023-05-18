@@ -99,6 +99,26 @@ namespace Sims2023.Application.Services
             return _request.GetYearlyAcceptedTourRequestsByUser(user, year);
         }
 
+        public int GetYerlyStatisticByUser(User user, string location, string year)
+        {
+            return _request.GetYerlyStatisticByUser(user, location, year);
+        }
+
+        public int GetAllTimeLocationStatisticByUser(User user, string location)
+        {
+            return _request.GetAllTimeLocationStatisticByUser(user, location);
+        }
+
+        public int GetAllTimeLanguageStatisticByUser(User user, string language)
+        {
+            return _request.GetAllTimeLanguageStatisticByUser(user, language);
+        }
+
+        public int GetYearlyLanguageStatisticByUser(User user,string language,string year)
+        {
+            return _request.GetYearlyLanguageStatisticByUser(user, language, year);
+        }
+
 
     }
 }

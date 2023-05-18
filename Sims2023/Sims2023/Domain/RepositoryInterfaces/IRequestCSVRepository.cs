@@ -28,6 +28,12 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public int GetYearlyStatistics(string purpose, string statFor, string year);
         public int GetMonthlyStatistics(string purpose, string statFor, string year, int ordinal);
 
+        public int GetYerlyStatisticByUser(User user, string location, string year);
+
+        public int GetAllTimeLocationStatisticByUser(User user, string location);
+        public int GetYearlyLanguageStatisticByUser(User user, string language, string year);
+        public int GetAllTimeLanguageStatisticByUser(User user, string language);
+
 
 
 

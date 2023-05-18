@@ -85,6 +85,26 @@ namespace Sims2023.Repositories
             }
         }
 
+        public int GetYerlyStatisticByUser(User user,string location,string year)
+        {
+            return _requests.Count(r => r.Start.Year.ToString() == year && r.Guest.Id == user.Id && (r.Location.City + ", " + r.Location.Country) == location);
+        }
+
+        public int GetAllTimeLocationStatisticByUser(User user,string location)
+        {
+            return _requests.Count(r=>r.Guest.Id == user.Id && (r.Location.City + ", " + r.Location.Country) == location);
+        }
+
+        public int GetAllTimeLanguageStatisticByUser(User user, string language)
+        {
+            return _requests.Count(r => r.Guest.Id == user.Id && r.Language.ToString() == language);
+        }
+
+        public int GetYearlyLanguageStatisticByUser(User user, string language, string year)
+        {
+            return _requests.Count(r => r.Start.Year.ToString() == year && r.Guest.Id == user.Id && r.Language.ToString() == language);
+        }
+
         public int GetMonthlyStatistics(string purpose, string statFor, string year, int ordinal)
         {
             if (purpose == "location")

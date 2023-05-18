@@ -9,22 +9,44 @@
         mc:Ignorable="d"
         Title="Guest2TourRequestStatisticsView" Height="450" Width="800">
     <Grid>
-        <lvc:PieChart x:Name="MyPieChart"
-                      LegendLocation="Right" Margin="0,0,267,0" >
-            <lvc:PieChart.Series>
-                <lvc:PieSeries Title="Accepted"
-                               Values="{Binding AcceptedPercentage}"
-                               Fill="#FF00BFFF" />
-                <lvc:PieSeries Title="Declined"
-                               Values="{Binding DeclinedPercentage}"
-                               Fill="#FFFFA500" />
-            </lvc:PieChart.Series>
-        </lvc:PieChart>
-        <ComboBox x:Name="YearComboBox"  HorizontalAlignment="Left" Margin="612,159,0,0" VerticalAlignment="Top" Width="120">
-            <ComboBoxItem IsSelected="True" Content="All time"></ComboBoxItem>
-            <ComboBoxItem Content="2023"></ComboBoxItem>
-            <ComboBoxItem Content="2022"></ComboBoxItem>
-        </ComboBox>
+        <TabControl Height="350" Width="750">
+            <TabItem Header="Statistika zahteva za ture na lokaciji">
+                <StackPanel Width="600">
+                    <Label Content="Statistika o zahtevima za ture na lokaciji" FontSize="32" Margin="20,10,0,0"/>
+                    <DockPanel>
+                        
+                        <ComboBox x:Name="locationYearComboBox" Width="150" Margin="50,10,0,0" SelectionChanged="LocationComboBox_SelectionChanged" ToolTip="Odaberite godinu za koju želite želite da vidite statistiku"/>
+                        
+                    </DockPanel>
+                    <lvc:CartesianChart Series="{Binding LocationSeriesCollection}" Height="200" LegendLocation="Bottom" Width="580" Margin="0,20,0,0">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Mesec" Labels="{Binding Labels}"/>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Broj zahteva" Labels="{Binding Values}"/>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Statistika zahteva za ture na jeziku">
+                <StackPanel Width="600">
+                    <Label Content="Statistika o zahtevima za ture na jeziku" FontSize="32" Margin="20,10,0,0"/>
+                    <DockPanel>
+
+                        <ComboBox x:Name="languageYearComboBox" Width="150" Margin="50,10,0,0" SelectionChanged="LanguageComboBox_SelectionChanged" ToolTip="Odaberite godinu za koju želite želite da vidite statistiku"/>
+
+                    </DockPanel>
+                    <lvc:CartesianChart Series="{Binding LanguageSeriesCollection}" Height="200" LegendLocation="Bottom" Width="580" Margin="0,20,0,0">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Jezici" Labels="{Binding LabelsLanguage}"/>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Broj zahteva" Labels="{Binding LanguageValues}"/>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>
