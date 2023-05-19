@@ -11,11 +11,13 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public KeyPoint NewKeyPoint { get; set; }
         private TourService _tourService;
         private KeyPointService _keyPointService;
+        private RequestService _requestService;
+        private TourNotificationService _tourNotificationService;
         public Location SelectedLocation { get; set; }
         private List<DateTime> _dateTimeList;
         private List<string> _keyPointsList;
         public User LoggedInGuide { get; set; }
-        public CreateTourFromFrequentLocationViewModel(Location selectedLocation, TourService tourService, KeyPointService keyPointService, User loggedInGuide)
+        public CreateTourFromFrequentLocationViewModel(Location selectedLocation, TourService tourService, KeyPointService keyPointService, User loggedInGuide, RequestService requestService, TourNotificationService tourNotificationService)
         {
             SelectedLocation = selectedLocation;
 
@@ -24,6 +26,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
             _tourService = tourService;
             _keyPointService = keyPointService;
+            _requestService = requestService;
+            _tourNotificationService = tourNotificationService;
 
             _dateTimeList = new List<DateTime>();
             _keyPointsList = new List<string>();
@@ -66,6 +70,16 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _tourService.AddToursLocation(NewTour, SelectedLocation, _dateTimeList.Count);
             _keyPointService.Create(NewKeyPoint, _keyPointsList, firstToursId, _dateTimeList.Count);
             _tourService.AddToursKeyPoints(_keyPointsList, firstToursId);
+            NotifyGuests();
+        }
+
+        public void NotifyGuests()
+        {
+            foreach (var req in _requestService.GetByLocation(SelectedLocation))
+            {
+                TourNotification tourNotification = new(NewTour, req.Guest, NotificationType.MatchedTourRequestsLocation);
+                _tourNotificationService.Create(tourNotification);
+            }
         }
     }
 }

@@ -8,8 +8,6 @@ namespace Sims2023.Domain.Models
 {
     public class AccommodationReservationRescheduling : ISerializable, INotifyPropertyChanged
     {
-        public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
-        public ObservableCollection<User> Users { get; set; }
         public int Id { get; set; }
         public AccommodationReservation AccommodationReservation { get; set; }
         public enum RequestStatus { Pending, Approved, Rejected }

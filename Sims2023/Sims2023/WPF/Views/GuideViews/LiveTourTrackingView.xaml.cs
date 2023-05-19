@@ -22,11 +22,12 @@ namespace Sims2023.WPF.Views.GuideViews
         private LocationService _locationService;
         private VoucherService _voucherService;
         private CountriesAndCitiesService _countriesAndCitiesService;
+        private TourNotificationService _tourNotificationService;
 
         public List<User> MarkedGuests { get; set; }
         public LiveTourTrackingViewModel LiveTourTrackingViewModel;
         public User LoggedInGuide { get; set; }
-        public LiveTourTrackingView(Tour selectedTour, KeyPointService keyPointService, TourReservationService tourReservationController, UserService userService, TourService tourService, TourReviewService tourReviewService, RequestService requestService, User loggedInGuide, LocationService locationService, VoucherService voucherService, CountriesAndCitiesService countriesAndCitiesService)
+        public LiveTourTrackingView(Tour selectedTour, KeyPointService keyPointService, TourReservationService tourReservationController, UserService userService, TourService tourService, TourReviewService tourReviewService, RequestService requestService, User loggedInGuide, LocationService locationService, VoucherService voucherService, CountriesAndCitiesService countriesAndCitiesService, TourNotificationService tourNotificationService)
         {
             InitializeComponent();
 
@@ -46,6 +47,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
             LiveTourTrackingViewModel = new(Tour, _keyPointService, _tourService, _tourReservationService, MarkedGuests, _userService);
             DataContext = LiveTourTrackingViewModel;
+            _tourNotificationService = tourNotificationService;
         }
 
         private void MarkKeyPointButton_Click(object sender, RoutedEventArgs e)
@@ -128,7 +130,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void GoBackButton_Click(object sender, RoutedEventArgs e)
         {
-            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService);
+            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService, _tourNotificationService);
             FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
         }
 
@@ -139,19 +141,19 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void RequestsButton_Click(object sender, RoutedEventArgs e)
         {
-            RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService);
+            RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
             FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
         }
 
         private void ReviewsButton_Click(object sender, RoutedEventArgs e)
         {
-            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService);
+            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
             FrameManagerGuide.Instance.MainFrame.Navigate(guestReviewsView);
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            GuideAccountView guideAccountView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService);
+            GuideAccountView guideAccountView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
             FrameManagerGuide.Instance.MainFrame.Navigate(guideAccountView);
         }
 

@@ -34,5 +34,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
 
 
 
+        public List<Request> GetByLocation(Location location);
+        public List<Request> GetByLanguage(string language);
     }
 }
