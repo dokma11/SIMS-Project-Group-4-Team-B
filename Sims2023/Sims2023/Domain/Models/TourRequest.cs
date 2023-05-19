@@ -8,7 +8,7 @@ namespace Sims2023.Domain.Models
     public enum RequestsLanguage { Serbian, English, German, French, Spanish, Italian, Chinese, Japanese }
     public enum RequestsState { OnHold, Invalid, Accepted }
 
-    public class Request: ISerializable, INotifyPropertyChanged
+    public class TourRequest: ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public Location Location { get; set; }
@@ -21,9 +21,9 @@ namespace Sims2023.Domain.Models
         public User Guest { get; set; }
        
 
-        public Request() { }
+        public TourRequest() { }
 
-        public Request(Location location, string description, RequestsLanguage language, int guestNumber, DateTime start, DateTime end,User guest)
+        public TourRequest(Location location, string description, RequestsLanguage language, int guestNumber, DateTime start, DateTime end,User guest)
         {
            
             Location = location;

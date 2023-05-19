@@ -5,31 +5,31 @@ using System.Linq;
 
 namespace Sims2023.FileHandler
 {
-    public class RequestFileHandler
+    public class TourRequestFileHandler
     {
-        private List<Request> _requests;
-        private readonly Serializer<Request> _serializer;
-        private const string FilePath = "../../../Resources/Data/requests.csv";
+        private List<TourRequest> _requests;
+        private readonly Serializer<TourRequest> _serializer;
+        private const string FilePath = "../../../Resources/Data/tourRequests.csv";
 
-        public RequestFileHandler()
+        public TourRequestFileHandler()
         {
-            _serializer = new Serializer<Request>();
+            _serializer = new Serializer<TourRequest>();
             _requests = _serializer.FromCSV(FilePath);
         }
 
-        public Request GetById(int id)
+        public TourRequest GetById(int id)
         {
             _requests = _serializer.FromCSV(FilePath);
             return _requests.FirstOrDefault(r => r.Id == id);
         }
 
-        public List<Request> Load()
+        public List<TourRequest> Load()
         {
             _requests = _serializer.FromCSV(FilePath);
             return _requests;
         }
 
-        public void Save(List<Request> requests)
+        public void Save(List<TourRequest> requests)
         {
             _serializer.ToCSV(FilePath, requests);
         }

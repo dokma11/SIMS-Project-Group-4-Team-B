@@ -12,9 +12,9 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 {
     public class Guest2TourRequestListViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Request> _tourRequests;
+        private ObservableCollection<TourRequest> _tourRequests;
 
-        public ObservableCollection<Request> TourRequests
+        public ObservableCollection<TourRequest> TourRequests
         {
             get { return _tourRequests; }
             set
@@ -34,7 +34,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             _requestService = new RequestService();
             User = user;
             _requestService.CheckExpirationDate(user);
-            TourRequests = new ObservableCollection<Request>(_requestService.GetByUser(user));
+            TourRequests = new ObservableCollection<TourRequest>(_requestService.GetByUser(user));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
