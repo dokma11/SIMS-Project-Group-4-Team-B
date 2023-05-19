@@ -64,6 +64,7 @@ namespace Sims2023.Application.Services
             return _request.GetYearlyStatistics("location", location, year);
         }
 
+       
         public List<string> GetComboBoxData(string purpose)
         {
             return _request.GetComboBoxData(purpose);
@@ -94,9 +95,30 @@ namespace Sims2023.Application.Services
             return _request.GetAcceptedTourRequestsByUser(user);
         }
 
-        public List<Request> GetYearlyAcceptedTourRequestsByUser(User user, int year)
+        
+        public List<Request> GetYearlyFilteredTourRequestsByUser(User user, int year, string state)
         {
-            return _request.GetYearlyAcceptedTourRequestsByUser(user, year);
+            return _request.GetYearlyFilteredTourRequestsByUser(user,year,state);
+        }
+
+        public int GetYearlyStatisticByUser(User user, string statFor, string year, string purpose)
+        {
+            return _request.GetYearlyStatisticByUser(user, statFor, year, purpose);
+        }
+
+        public int GetAllTimeStatisticByUser(User user, string statFor, string purpose)
+        {
+            return _request.GetAllTimeStatisticByUser(user, statFor, purpose);
+        }
+
+        public double GetAverageYearlyAcceptedTourRequestGuestNumber(User user, int year)
+        {
+            return _request.GetAverageYearlyAcceptedTourRequestGuestNumber(user, year);
+        }
+
+        public double GetAverageAllTimeAcceptedTourRequestGuestNumber(User user)
+        {
+            return _request.GetAverageAllTimeAcceptedTourRequestGuestNumber(user);
         }
 
         public List<Request> GetByLocation(Location location)

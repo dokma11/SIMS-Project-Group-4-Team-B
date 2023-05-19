@@ -85,6 +85,7 @@ namespace Sims2023.Repositories
             }
         }
 
+        
         public int GetMonthlyStatistics(string purpose, string statFor, string year, int ordinal)
         {
             if (purpose == "location")
@@ -94,6 +95,30 @@ namespace Sims2023.Repositories
             else
             {
                 return _requests.Count(r => r.Language.ToString() == statFor && r.Start.Year.ToString() == year && r.Start.Month == ordinal);
+            }
+        }
+
+        public int GetYearlyStatisticByUser(User user, string statFor, string year, string purpose)
+        {
+            if(purpose == "location")
+            {
+                return _requests.Count(r => r.Start.Year.ToString() == year && r.Guest.Id == user.Id && (r.Location.City + ", " + r.Location.Country) == statFor);
+            }
+            else
+            {
+                return _requests.Count(r => r.Start.Year.ToString() == year && r.Guest.Id == user.Id && r.Language.ToString() == statFor);
+            }
+        }
+
+        public int GetAllTimeStatisticByUser(User user, string statFor, string purpose)
+        {
+            if(purpose == "location")
+            {
+                return _requests.Count(r => r.Guest.Id == user.Id && (r.Location.City + ", " + r.Location.Country) == statFor);
+            }
+            else
+            {
+                return _requests.Count(r => r.Guest.Id == user.Id && r.Language.ToString() == statFor);
             }
         }
 
@@ -168,16 +193,57 @@ namespace Sims2023.Repositories
             return GetByUser(user).Where(r=> r.State==RequestsState.Accepted).ToList(); 
         }
 
-        public double AcceptedTourRequestPercentageByUser(User user)
+        
+
+        
+
+        public List<Request> GetYearlyFilteredTourRequestsByUser(User user, int year,string state)
         {
-            return (_requests.Where(r => r.State == RequestsState.Accepted && r.Guest.Id==user.Id).Count() / _requests.Where(r=> r.Guest.Id==user.Id).Count())*100;
+            if (state == "Accepted")
+            {
+                return _requests.Where(r => r.Guest.Id == user.Id && r.Start.Year == year && r.State == RequestsState.Accepted).ToList();
+            }
+            else
+            {
+                return _requests.Where(r => r.Guest.Id == user.Id && r.Start.Year == year && r.State != RequestsState.Accepted).ToList();
+            }
         }
 
-        public List<Request> GetYearlyAcceptedTourRequestsByUser(User user, int year)
+        public double GetAverageAllTimeAcceptedTourRequestGuestNumber(User user)
         {
-            return GetAcceptedTourRequestsByUser(user).Where(r => r.Start.Year == year).ToList();
+            double sum = 0;
+            int counter= GetAcceptedTourRequestsByUser(user).Count();
+            if (counter == 0)
+            {
+                return 0;
+            }
+            foreach(Request request in GetAcceptedTourRequestsByUser(user))
+            {
+                sum += request.GuestNumber;
+              
+            }
+            return sum/counter;
         }
 
+        public double GetAverageYearlyAcceptedTourRequestGuestNumber(User user,int year)
+        {
+            double sum = 0;
+            int counter = GetYearlyFilteredTourRequestsByUser(user,year,"Accepted").Count();
+            if (counter == 0)
+            {
+                return 0;
+            }
+            foreach (Request request in GetYearlyFilteredTourRequestsByUser(user,year,"Accepted"))
+            {
+                sum += request.GuestNumber;
+
+            }
+            return sum / counter;
+        }
+
+        
+
+        
         public List<Request> GetByLocation(Location location)
         {
             return _requests.Where(req => req.Location.City.ToString() == location.City.ToString() &&
