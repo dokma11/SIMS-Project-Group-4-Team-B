@@ -16,25 +16,20 @@ namespace Sims2023.Domain.RepositoryInterfaces
         void UpdateState(Request selectedRequest, RequestsState requestsState);
         public RequestsLanguage GetTheMostRequestedLanguage();
         public int GetTheMostRequestedLocation();
-        public List<Request> GetByUser(User user);
-        public void CheckExpirationDate(User user);
-
-        public List<Request> GetAcceptedTourRequestsByUser(User user);
-        
-
-        public List<Request> GetYearlyAcceptedTourRequestsByUser(User user,int year);
-        public List<Request> GetYearlyDeclinedTourRequestsByUser(User user, int year);
-
         public List<string> GetComboBoxData(string purpose);
         public int GetYearlyStatistics(string purpose, string statFor, string year);
         public int GetMonthlyStatistics(string purpose, string statFor, string year, int ordinal);
 
-        public int GetYearlyLocationStatisticByUser(User user, string location, string year);
-        public int GetYearlyLanguageStatisticByUser(User user, string language, string year);
-        public int GetAllTimeLocationStatisticByUser(User user, string location);
-        public int GetAllTimeLanguageStatisticByUser(User user, string language);
+        public List<Request> GetByUser(User user);
+        public void CheckExpirationDate(User user);
+
+        public int GetYearlyStatisticByUser(User user, string statFor,string year,string purpose);
+        public int GetAllTimeStatisticByUser(User user, string statFor, string purpose);
+        
         public double GetAverageAllTimeAcceptedTourRequestGuestNumber(User user);
         public double GetAverageYearlyAcceptedTourRequestGuestNumber(User user, int year);
+        public List<Request> GetAcceptedTourRequestsByUser(User user);
+        public List<Request> GetYearlyFilteredTourRequestsByUser(User user, int year, string state);
 
 
 

@@ -64,6 +64,7 @@ namespace Sims2023.Application.Services
             return _request.GetYearlyStatistics("location", location, year);
         }
 
+       
         public List<string> GetComboBoxData(string purpose)
         {
             return _request.GetComboBoxData(purpose);
@@ -94,34 +95,20 @@ namespace Sims2023.Application.Services
             return _request.GetAcceptedTourRequestsByUser(user);
         }
 
-        public List<Request> GetYearlyAcceptedTourRequestsByUser(User user, int year)
+        
+        public List<Request> GetYearlyFilteredTourRequestsByUser(User user, int year, string state)
         {
-            return _request.GetYearlyAcceptedTourRequestsByUser(user, year);
+            return _request.GetYearlyFilteredTourRequestsByUser(user,year,state);
         }
 
-        public List<Request> GetYearlyDeclinedTourRequestsByUser(User user, int year)
+        public int GetYearlyStatisticByUser(User user, string statFor, string year, string purpose)
         {
-            return _request.GetYearlyDeclinedTourRequestsByUser(user, year);
+            return _request.GetYearlyStatisticByUser(user, statFor, year, purpose);
         }
 
-        public int GetYearlyLocationStatisticByUser(User user, string location, string year)
+        public int GetAllTimeStatisticByUser(User user, string statFor, string purpose)
         {
-            return _request.GetYearlyLocationStatisticByUser(user, location, year);
-        }
-
-        public int GetAllTimeLocationStatisticByUser(User user, string location)
-        {
-            return _request.GetAllTimeLocationStatisticByUser(user, location);
-        }
-
-        public int GetAllTimeLanguageStatisticByUser(User user, string language)
-        {
-            return _request.GetAllTimeLanguageStatisticByUser(user, language);
-        }
-
-        public int GetYearlyLanguageStatisticByUser(User user,string language,string year)
-        {
-            return _request.GetYearlyLanguageStatisticByUser(user, language, year);
+            return _request.GetAllTimeStatisticByUser(user, statFor, purpose);
         }
 
         public double GetAverageYearlyAcceptedTourRequestGuestNumber(User user, int year)

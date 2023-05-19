@@ -86,7 +86,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             var yearlyStats = new ChartValues<int>();
             foreach (var l in Labels)
             {
-                yearlyStats.Add(_requestService.GetYearlyLocationStatisticByUser(User,l,year));
+                yearlyStats.Add(_requestService.GetYearlyStatisticByUser(User,l,year,"location"));
               
             }
             LocationSeriesCollection.Add(new ColumnSeries { Values = yearlyStats, Title = "Broj zahteva u " + year + ":" });
@@ -101,7 +101,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             var allTimeStats = new ChartValues<int>();
             foreach (var l in Labels)
             {
-                allTimeStats.Add(_requestService.GetAllTimeLocationStatisticByUser(User,l));
+                allTimeStats.Add(_requestService.GetAllTimeStatisticByUser(User,l,"location"));
             }
             LocationSeriesCollection.Add(new ColumnSeries { Values = allTimeStats, Title = "Broj zahteva po godinama" });
             
@@ -112,37 +112,37 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         {
             if (year == "Svih vremena")
             {
-                DisplayYearlyLanguageStatistics();
+                DisplayAllTimeLanguageStatistics();
             }
             else
             {
-                DisplayMonthlyLanguageStatistics(year);
+                DisplayYearlyLanguageStatistics(year);
             }
         }
 
-        public void DisplayYearlyLanguageStatistics()
+        public void DisplayAllTimeLanguageStatistics()
+        {
+            LanguageSeriesCollection.Clear();
+            var allTimeStats = new ChartValues<int>();
+            foreach (var l in LabelsLanguage)
+            {
+                allTimeStats.Add(_requestService.GetAllTimeStatisticByUser(User,l,"language"));
+                
+            }
+            LanguageSeriesCollection.Add(new ColumnSeries { Values = allTimeStats, Title = "Broj zahteva po godinama" });
+            
+            LanguageValues = value => value.ToString("D");
+        }
+
+        public void DisplayYearlyLanguageStatistics(string year)
         {
             LanguageSeriesCollection.Clear();
             var yearlyStats = new ChartValues<int>();
             foreach (var l in LabelsLanguage)
             {
-                yearlyStats.Add(_requestService.GetAllTimeLanguageStatisticByUser(User,l));
-                
+                yearlyStats.Add(_requestService.GetYearlyStatisticByUser(User,l,year,"language"));
             }
-            LanguageSeriesCollection.Add(new ColumnSeries { Values = yearlyStats, Title = "Broj zahteva po godinama" });
-            
-            LanguageValues = value => value.ToString("D");
-        }
-
-        public void DisplayMonthlyLanguageStatistics(string year)
-        {
-            LanguageSeriesCollection.Clear();
-            var monthlyStats = new ChartValues<int>();
-            foreach (var l in LabelsLanguage)
-            {
-                monthlyStats.Add(_requestService.GetYearlyLanguageStatisticByUser(User,l,year));
-            }
-            LanguageSeriesCollection.Add(new ColumnSeries { Values = monthlyStats, Title = "Broj zahteva u " + year + ":" });
+            LanguageSeriesCollection.Add(new ColumnSeries { Values = yearlyStats, Title = "Broj zahteva u " + year + ":" });
             
             Values = value => value.ToString("D");
         }
@@ -173,8 +173,8 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         public void DisplayYearlyTourRequestStatistic(string year)
         {
-            int acceptedRequestCount = _requestService.GetYearlyAcceptedTourRequestsByUser(User, Convert.ToInt32(year)).Count();
-            int notAcceptedRequestCount = _requestService.GetYearlyDeclinedTourRequestsByUser(User, Convert.ToInt32(year)).Count();
+            int acceptedRequestCount = _requestService.GetYearlyFilteredTourRequestsByUser(User, Convert.ToInt32(year),"Accepted").Count();
+            int notAcceptedRequestCount = _requestService.GetYearlyFilteredTourRequestsByUser(User, Convert.ToInt32(year),"Not accepted").Count();
             AcceptedRequests.Clear();
             NotAcceptedRequests.Clear();
             AcceptedRequests.Add( acceptedRequestCount);
