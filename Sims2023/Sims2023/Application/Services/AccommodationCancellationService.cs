@@ -26,10 +26,6 @@ namespace Sims2023.Application.Services
             foreach (var item in _accommodationCancellation.GetAll())
             {
                 item.Guest = _user.GetById(item.Guest.Id);
-            }
-
-            foreach (var item in _accommodationCancellation.GetAll())
-            {
                 item.Accommodation = _accommodation.GetById(item.Accommodation.Id);
             }
         }

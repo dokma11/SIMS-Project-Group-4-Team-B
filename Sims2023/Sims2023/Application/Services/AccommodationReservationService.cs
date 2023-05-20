@@ -9,22 +9,23 @@ using Sims2023.Repositories;
 using System.Collections.ObjectModel;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Application.Injection;
+using System.Windows;
 
 namespace Sims2023.Application.Services
 {
     public class AccommodationReservationService
     {
         private IUserCSVRepository _user;
-        private AccommodationService _accommodation;
+        private IAccommodationCSVRepository _accommodation;
         private IAccommodationReservationCSVRepository _accommodationReservation;
-
+        private ILocationCSVRepository _location;
         public AccommodationReservationService()
         {
             _user = Injector.CreateInstance<IUserCSVRepository>();
-            _accommodation = new AccommodationService();
-            //_accommodationReservation = new AccommodationReservationCSVRepository();
+            _accommodation = Injector.CreateInstance<IAccommodationCSVRepository>();
             _accommodationReservation = Injector.CreateInstance<IAccommodationReservationCSVRepository>();
-            FindForeignAtributes();
+            _location = Injector.CreateInstance<ILocationCSVRepository>();
+            GetReservationReferences();
         }
 
         public List<AccommodationReservation> GetGradableGuests(User user, List<AccommodationReservation> reservatons, List<GuestGrade> grades)
@@ -32,29 +33,44 @@ namespace Sims2023.Application.Services
             return _accommodationReservation.GetGradableGuests(user, reservatons, grades);
         }
 
-        private void FindForeignAtributes()
+        public void GetReservationReferences()
         {
-            foreach (var item in _accommodationReservation.GetAll())
+            foreach (var item in GetAllReservations())
             {
-                item.Guest = _user.GetById(item.Guest.Id);
-                item.Accommodation = _accommodation.GetById(item.Accommodation.Id);
+                var accommodation = _accommodation.GetById(item.Accommodation.Id);
+                var owner = _user.GetById(accommodation.Owner.Id);
+                var location = _location.GetById(accommodation.Location.Id);
+                var user = _user.GetById(item.Guest.Id);
+                if (accommodation != null)
+                {
+                    item.Guest = user;
+                    item.Accommodation = accommodation;
+                    item.Accommodation.Owner = owner;
+                    item.Accommodation.Location = location;
 
+                }
             }
+        }
+        public void Save()
+        {
+            _accommodationReservation.Save();
+            GetReservationReferences();
         }
 
         public List<AccommodationReservation> GetAllReservations()
         {
             return _accommodationReservation.GetAll();
         }
-
         public void Create(AccommodationReservation reservation)
         {
             _accommodationReservation.Add(reservation);
+            Save();
         }
 
         public void Delete(AccommodationReservation reservation)
         {
             _accommodationReservation.Remove(reservation);
+            Save();
         }
 
         public AccommodationReservation GetById(int Id)
@@ -64,6 +80,7 @@ namespace Sims2023.Application.Services
         public void Update(AccommodationReservation reservation)
         {
             _accommodationReservation.Update(reservation);
+            Save();
         }
 
         public void Subscribe(IObserver observer)

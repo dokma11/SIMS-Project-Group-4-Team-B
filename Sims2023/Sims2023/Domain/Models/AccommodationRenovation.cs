@@ -52,17 +52,15 @@ namespace Sims2023.Domain.Models
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            Accommodation accommodation = new()
+            Accommodation = new()
             {
                 Id = Convert.ToInt32(values[1])
             };
-            AccommodationService accommodationService = new();
-            Accommodation = accommodationService.GetById(accommodation.Id);
             StartDate = DateTime.Parse(values[2]);
             EndDate = DateTime.Parse(values[3]);
             Status = values[4];
         }
-  
+
     }
 
 }

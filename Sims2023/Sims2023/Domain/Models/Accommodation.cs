@@ -74,14 +74,18 @@ namespace Sims2023.Domain.Models
         {
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
-            Location = new Location(); // Instantiate Location object
-            Location.Id = Convert.ToInt32(values[2]);
+            Location = new Location() // Instantiate Location object
+            {
+                Id = Convert.ToInt32(values[2])
+            };
             Type = values[3];
             MaxGuests = Convert.ToInt32(values[4]);
             MinDays = Convert.ToInt32(values[5]);
             CancelDays = Convert.ToInt32(values[6]);
-            Owner = new User();
-            Owner.Id = Convert.ToInt32(values[7]);
+            Owner = new()
+            {
+                Id = Convert.ToInt32(values[7])
+            };
             Imageurls = values[8].Split('!').ToList();
             Renovated = Convert.ToBoolean(values[9]);
 
