@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Sims2023.Repositories
 {
-    public class TourRequestStatisticCSVRepository:ITourRequestStatisticCSVRepository
+    public class TourRequestStatisticCSVRepository : ITourRequestStatisticCSVRepository
     {
         private List<IObserver> _observers;
         private List<TourRequest> _requests;
@@ -161,9 +159,7 @@ namespace Sims2023.Repositories
 
         public List<TourRequest> GetUsersAccepted(User user)
         {
-            return _requests.Where(r => r.State == RequestsState.Accepted && r.Guest.Id==user.Id).ToList();
+            return _requests.Where(r => r.State == RequestsState.Accepted && r.Guest.Id == user.Id).ToList();
         }
-
-
     }
 }

@@ -88,7 +88,6 @@ namespace Sims2023.Repositories
 
         public Uri GetPictureUri(Tour tour, int i)
         {
-
             Uri imageUri = new Uri(tour.Pictures[i], UriKind.RelativeOrAbsolute);
             return imageUri;
         }
@@ -108,6 +107,12 @@ namespace Sims2023.Repositories
             _tours = _fileHandler.Load();
             return _tours.Count(tour => tour.CurrentState == ToursState.Created
                                 && tour.Guide.Id == loggedInGuide.Id && tour.Start.Date == DateTime.Today);
+        }
+
+        public List<DateTime> GetBusyDates(User loggedInGuide)
+        {
+            return _tours.Where(tour => tour.Guide.Id == loggedInGuide.Id && tour.CurrentState == ToursState.Created)
+                         .Select(tour => tour.Start).ToList();
         }
     }
 }

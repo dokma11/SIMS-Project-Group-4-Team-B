@@ -57,9 +57,7 @@ namespace Sims2023.Repositories
 
         public void AddReviewsPictures(string concatenatedPictures, TourReview tourReview)
         {
-
             tourReview.ConcatenatedPictures = concatenatedPictures;
-
             _fileHandler.Save(_tourReviews);
             NotifyObservers();
         }

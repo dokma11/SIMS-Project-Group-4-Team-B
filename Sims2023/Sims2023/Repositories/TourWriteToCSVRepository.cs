@@ -70,36 +70,11 @@ namespace Sims2023.Repository
         public void DecideLocationToAdd(Tour tour, Location location, int newToursNumber, List<Location> locations)
         {
             int toursId = tour.Id - newToursNumber + 1;
-            if (locations.Count == 0)
-            {
-                Enumerable.Range(0, newToursNumber).ToList().ForEach(_ => AddLocation(toursId++, location));
-            }
-            else
-            {
-                for (int i = 0; i < newToursNumber; i++, toursId++)
-                {
-                    if (locations.Any(l => l.City == location.City && l.Country == location.Country))
-                    {
-                        AddLocation(toursId, locations.First(l => l.City == location.City && l.Country == location.Country));
-                    }
-                    else
-                    {
-                        AddLocation(toursId, location);
-                    }
-                }
-            }
-        }
 
-        public void AddLocationsToTour(ObservableCollection<Location> locations, ObservableCollection<Tour> tours)//new,delete later
-        {
-            foreach (var tour in tours)
+            for (int i = 0; i < newToursNumber; i++, toursId++)
             {
-                var location = locations.FirstOrDefault(l => l.Id == tour.Location.Id);
-                if (location != null)
-                {
-                    tour.Location.City = location.City;
-                    tour.Location.Country = location.Country;
-                }
+                Location selectedLocation = locations.FirstOrDefault(l => l.City == location.City && l.Country == location.Country);
+                AddLocation(toursId, selectedLocation ?? location);
             }
         }
 
