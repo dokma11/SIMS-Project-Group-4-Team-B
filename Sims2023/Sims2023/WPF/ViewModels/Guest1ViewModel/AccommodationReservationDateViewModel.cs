@@ -56,7 +56,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(_accommodationReservationService.GetAllReservations());
             _accommodationRenovationService = new AccommodationRenovationService();
             List<AccommodationRenovation> accommodationRenovations = _accommodationRenovationService.GetAll();
-            MessageBox.Show($"{accommodationRenovations.Count}");
 
             AvailableDates = new List<DateTime>();
             AdditionalAvailableDates = new List<DateTime>();
