@@ -16,8 +16,7 @@ namespace Sims2023.Application.Services
 
         public AccommodationStatisticsService()
         {
-            _statistics = new AccommodationStatisticsCSVRepository();
-            //_grade = Injection.Injector.CreateInstance<IAccommodationStatisticsCSVRepository>();
+            _statistics = Injection.Injector.CreateInstance<IAccommodationStatisticsCSVRepository>();
         }
 
         public List<AccommodationStatistics> GetAll()

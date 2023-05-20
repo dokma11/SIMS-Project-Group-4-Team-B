@@ -1,7 +1,6 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
-using Sims2023.Repositories;
 using System.Collections.Generic;
 
 namespace Sims2023.Application.Services
@@ -11,15 +10,17 @@ namespace Sims2023.Application.Services
         private ITourRequestCSVRepository _tourRequest;
         private ITourRequestStatisticCSVRepository _tourRequestStatistic;
         private ILocationCSVRepository _location;
+        private IUserCSVRepository _user;
 
         public RequestService()
         {
-            _tourRequest = new TourRequestCSVRepository();
-            //_request = Injection.Injector.CreateInstance<IRequestCSVRepository>();
-            _location = new LocationCSVRepository();
-            //_location = Injection.Injector.CreateInstance<ILocationCSVRepository>();
-            _tourRequestStatistic = new TourRequestStatisticCSVRepository();
-           // _tourRequestStatistic = Injection.Injector.CreateInstance<ITourRequestStatisticCSVRepository>();
+            _tourRequest = Injection.Injector.CreateInstance<ITourRequestCSVRepository>();
+            _location = Injection.Injector.CreateInstance<ILocationCSVRepository>();
+            _tourRequestStatistic = Injection.Injector.CreateInstance<ITourRequestStatisticCSVRepository>();
+            _user = Injection.Injector.CreateInstance<IUserCSVRepository>();
+
+            GetUserReferences();
+            GetLocationReferences();
         }
 
         public void Create(TourRequest request)
@@ -51,23 +52,23 @@ namespace Sims2023.Application.Services
         {
             return _tourRequestStatistic.GetMonthlyStatistics("language", language, year, ordinal);
         }
-        
+
         public int GetYearlyLanguageStatistics(string language, string year)
         {
             return _tourRequestStatistic.GetYearlyStatistics("language", language, year);
         }
-        
+
         public int GetMonthlyLocationStatistics(string location, int ordinal, string year)
         {
             return _tourRequestStatistic.GetMonthlyStatistics("location", location, year, ordinal);
         }
-        
+
         public int GetYearlyLocationStatistics(string location, string year)
         {
             return _tourRequestStatistic.GetYearlyStatistics("location", location, year);
         }
 
-       
+
         public List<string> GetComboBoxData(string purpose)
         {
             return _tourRequestStatistic.GetComboBoxData(purpose);
@@ -98,10 +99,9 @@ namespace Sims2023.Application.Services
             return _tourRequestStatistic.GetUsersAccepted(user);
         }
 
-        
         public List<TourRequest> GetYearlyFilteredTourRequestsByUser(User user, int year, string state)
         {
-            return _tourRequestStatistic.GetYearlyFilteredTourRequestsByUser(user,year,state);
+            return _tourRequestStatistic.GetYearlyFilteredTourRequestsByUser(user, year, state);
         }
 
         public int GetYearlyStatisticByUser(User user, string statFor, string year, string purpose)
@@ -132,6 +132,27 @@ namespace Sims2023.Application.Services
         public List<TourRequest> GetByLanguage(string language)
         {
             return _tourRequest.GetByLanguage(language);
+        }
+
+        public void GetLocationReferences()
+        {
+            foreach (var request in GetAll())
+            {
+                request.Location = _location.GetById(request.Location.Id) ?? request.Location;
+            }
+        }
+
+        public void GetUserReferences()
+        {
+            foreach (var request in GetAll())
+            {
+                request.Guest = _user.GetById(request.Guest.Id) ?? request.Guest;
+            }
+        }
+
+        public List<TourRequest> GetAll()
+        {
+            return _tourRequest.GetAll();
         }
     }
 }

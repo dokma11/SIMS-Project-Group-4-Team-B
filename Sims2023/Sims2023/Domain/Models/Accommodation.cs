@@ -71,25 +71,20 @@ namespace Sims2023.Domain.Models
         {
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
-            Location location = new()
+            Location = new()
             {
                 Id = Convert.ToInt32(values[2])
             };
-            LocationService locationController = new();
-            Location = locationController.GetById(location.Id);
             Type = values[3];
             MaxGuests = Convert.ToInt32(values[4]);
             MinDays = Convert.ToInt32(values[5]);
             CancelDays = Convert.ToInt32(values[6]);
-            User owner = new()
+            Owner = new()
             {
                 Id = Convert.ToInt32(values[7])
             };
-            UserService userController = new();
-            Owner = userController.GetById(owner.Id);
             Imageurls = values[8].Split('!').ToList();
             Renovated = Convert.ToBoolean(values[9]);
-
         }
 
         public string IsVaild(Accommodation a)

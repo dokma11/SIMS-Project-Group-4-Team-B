@@ -21,6 +21,11 @@ namespace Sims2023.Repositories
             _observers = new List<IObserver>();
         }
 
+        public List<TourRequest> GetAll()
+        {
+            return _requests;
+        }
+
         public int NextId()
         {
             return _requests.Count == 0 ? 1 : _requests.Max(r => r.Id) + 1;

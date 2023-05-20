@@ -15,7 +15,7 @@ namespace Sims2023.Repositories
         private UserFileHandler _fileHandler;
         //private TourReadFromCSVRepository _tourRepository;
         //private TourReviewCSVRepository _tourReviewRepository;
-        private AccommodationGradeCSVRepository guests;
+        //private AccommodationGradeCSVRepository guests;
 
         public UserCSVRepository()
         {
@@ -46,7 +46,7 @@ namespace Sims2023.Repositories
 
         public void FindSuperOwners()
         {
-            foreach (User user in FindOwners())
+          /*  foreach (User user in FindOwners())
             {
                 double counter = 0.0;
                 double zbir = 0.0;
@@ -74,6 +74,7 @@ namespace Sims2023.Repositories
                     Update(user);
                 }
             }
+          */
         }
 
         public double FindAverageGrade(AccommodationGrade grade)
@@ -117,46 +118,7 @@ namespace Sims2023.Repositories
                 observer.Update();
             }
         }
-/*
-        public List<User> GetGuides()
-        {
-            return _users.Where(user => user.UserType == User.Type.Guide).ToList();
-        }
 
-        public void GetSuperGuides()
-        {
-            var dic = Enum.GetValues(typeof(ToursLanguage)).Cast<ToursLanguage>().ToDictionary(k => k, v => 0);
-
-            _tourReviewRepository = new();
-            _tourRepository = new();
-
-            var lastYearStartDate = new DateTime(DateTime.Today.Year - 1, DateTime.Today.Month, DateTime.Today.Day);
-            var lastYearEndDate = DateTime.Today;
-
-            foreach (var guide in GetGuides())
-            {
-                foreach (var tour in _tourRepository.GetFinished(guide).Where(r => r.Start >= lastYearStartDate && r.Start <= lastYearEndDate))
-                {
-                    var tourReviews = _tourReviewRepository.GetByToursId(tour.Id);
-                    if (tourReviews.Any())
-                    {
-                        var averageGrade = tourReviews.Average(review => review.AverageGrade);
-                        if (averageGrade <= 4.0)
-                        {
-                            dic[tour.GuideLanguage]++;
-                        }
-                    }
-                }
-
-                if (dic.Values.Any(v => v >= 20))
-                {
-                    guide.SuperGuide = true;
-                    _fileHandler.Save(_users);
-                    NotifyObservers();
-                }
-            }
-        }
-*/
         public void MarkGuestAsSuper(User user)
         {
             user.SuperGuest1 = true;

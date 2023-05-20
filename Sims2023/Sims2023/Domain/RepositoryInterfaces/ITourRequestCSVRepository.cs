@@ -12,25 +12,12 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void NotifyObservers();
         public void Save();
         void UpdateState(TourRequest selectedRequest, RequestsState requestsState);
-
-
+        public List<TourRequest> GetAll();
         public List<TourRequest> GetFiltered(string locationSearchTerm, string guestNumberSearchTerm, string languageSearchTerm, string dateStartSearchTerm, string dateEndSearchTerm);
         public List<TourRequest> GetOnHold();
-
         public List<TourRequest> GetByUser(User user);
-
         public void CheckExpirationDate(User user);
-
-
         public List<TourRequest> GetByLocation(Location location);
-
-
         public List<TourRequest> GetByLanguage(string language);
-        
-
-
-
-
-
     }
 }

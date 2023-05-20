@@ -60,17 +60,20 @@ namespace Sims2023.Domain.Models
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            LocationService locationService = new();
-            Location = locationService.GetById(Convert.ToInt32(values[1]));
+            Location = new()
+            {
+                Id = Convert.ToInt32(values[1])
+            };
             Description = values[2];
             Language = (RequestsLanguage)Enum.Parse(typeof(RequestsLanguage), values[3]);
             GuestNumber = Convert.ToInt32(values[4]);
             Start = DateTime.Parse(values[5]);
             End = DateTime.Parse(values[6]);
             State = (RequestsState)Enum.Parse(typeof(RequestsState), values[7]);
-            UserService userService = new();
-            Guest = userService.GetById(Convert.ToInt32(values[8]));
-            
+            Guest = new()
+            {
+                Id = Convert.ToInt32(values[8])
+            };
         }
     }
 }

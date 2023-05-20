@@ -55,12 +55,10 @@ namespace Sims2023.Domain.Models
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            AccommodationReservation accommodationReservation = new()
+            AccommodationReservation = new()
             {
                 Id = Convert.ToInt32(values[1])
             };
-            AccommodationReservationService accommodationReservationService = new();
-            AccommodationReservation = accommodationReservationService.GetById(accommodationReservation.Id);
             Status = (RequestStatus)Enum.Parse(typeof(RequestStatus), values[2]);
             Notified = Convert.ToBoolean(values[3]);
             NewStartDate = Convert.ToDateTime(values[4]);
@@ -68,6 +66,5 @@ namespace Sims2023.Domain.Models
             Comment = values[6];
         }
     }
-
 }
 

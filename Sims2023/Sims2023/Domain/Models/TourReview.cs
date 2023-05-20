@@ -83,14 +83,19 @@ namespace Sims2023.Domain.Models
 
         public void FromCSV(string[] values)
         {
-
             Id = Convert.ToInt32(values[0]);
-            User guest = new() { Id = Convert.ToInt32(values[1]) };
-            Guest = new UserService().GetById(guest.Id);
-            Tour tour = new() { Id = Convert.ToInt32(values[2]) };
-            Tour = new TourService().GetById(tour.Id);
-            KeyPoint keyPoint = new() { Id = Convert.ToInt32(values[3]) };
-            KeyPointJoined = new KeyPointService().GetById(keyPoint.Id);
+            Guest = new()
+            {
+                Id = Convert.ToInt32(values[1])
+            };
+            Tour = new()
+            {
+                Id = Convert.ToInt32(values[2])
+            };
+            KeyPointJoined = new()
+            {
+                Id = Convert.ToInt32(values[3])
+            };
             GuideKnowledge = Convert.ToInt32(values[4]);
             TourInterest = Convert.ToInt32(values[5]);
             GuidesLanguageCapability = Convert.ToInt32(values[6]);

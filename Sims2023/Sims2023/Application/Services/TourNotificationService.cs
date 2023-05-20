@@ -1,56 +1,81 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
-using Sims2023.Repositories;
+using System.Collections.Generic;
 
 namespace Sims2023.Application.Services
 {
     public class TourNotificationService
     {
-        private readonly ITourNotificationCSVRepository _tourNotifications;
+        private readonly ITourNotificationCSVRepository _tourNotification;
+        private ITourReadFromCSVRepository _tour;
+        private IUserCSVRepository _user;
         public TourNotificationService()
         {
-            _tourNotifications = new TourNotificationCSVRepository();
-            //_tourNotifications = Injection.Injector.CreateInstance<ITourNotificationCSVRepository>();
+            _tourNotification = Injection.Injector.CreateInstance<ITourNotificationCSVRepository>();
+            _tour = Injection.Injector.CreateInstance<ITourReadFromCSVRepository>();
+            _user = Injection.Injector.CreateInstance<IUserCSVRepository>();
+
+            GetTourReferences();
+            GetUserReferences();
+        }
+
+        public List<TourNotification> GetAll()
+        {
+            return _tourNotification.GetAll();
         }
 
         public TourNotification GetById(int id)
         {
-            return _tourNotifications.GetById(id);
+            return _tourNotification.GetById(id);
         }
 
         public void Create(TourNotification acceptedTourRequest)
         {
-            _tourNotifications.Add(acceptedTourRequest);
+            _tourNotification.Add(acceptedTourRequest);
         }
 
-        
+
         public void Subscribe(IObserver observer)
         {
-            _tourNotifications.Subscribe(observer);
+            _tourNotification.Subscribe(observer);
         }
 
-        
+
         public List<TourNotification> GetAcceptedTourRequest(User user)
         {
-            return _tourNotifications.GetAcceptedTourRequest(user);
+            return _tourNotification.GetAcceptedTourRequest(user);
         }
+
         public List<TourNotification> GetMatchedTourRequestsLocation(User user)
         {
-            return _tourNotifications.GetMatchedTourRequestsLocation(user);
+            return _tourNotification.GetMatchedTourRequestsLocation(user);
         }
+
         public List<TourNotification> GetMatchedTourRequestsLanguage(User user)
         {
-            return _tourNotifications.GetMatchedTourRequestsLanguage(user);
+            return _tourNotification.GetMatchedTourRequestsLanguage(user);
         }
+
         public void SetIsNotified(TourNotification tourNotification)
         {
-            _tourNotifications.SetIsNotified(tourNotification);
+            _tourNotification.SetIsNotified(tourNotification);
+        }
+
+        public void GetTourReferences()
+        {
+            foreach (var notification in GetAll())
+            {
+                notification.Tour = _tour.GetById(notification.Tour.Id) ?? notification.Tour;
+            }
+        }
+
+        public void GetUserReferences()
+        {
+            foreach (var notification in GetAll())
+            {
+                notification.Guest = _user.GetById(notification.Guest.Id) ?? notification.Guest;
+            }
         }
     }
 }

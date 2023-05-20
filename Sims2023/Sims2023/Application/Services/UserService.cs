@@ -1,7 +1,6 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
-using Sims2023.Repositories;
 using System.Collections.Generic;
 
 namespace Sims2023.Application.Services
@@ -12,8 +11,7 @@ namespace Sims2023.Application.Services
 
         public UserService()
         {
-            _user = new UserCSVRepository();
-            //_user = Injection.Injector.CreateInstance<IUserRepository>();
+            _user = Injection.Injector.CreateInstance<IUserCSVRepository>();
         }
 
         public void MarkSuperOwner()
@@ -35,17 +33,7 @@ namespace Sims2023.Application.Services
         {
             return _user.GetById(id);
         }
-/*
-        public List<User> GetGuestsWithReservations(KeyPoint keyPoint, List<User> markedGuests)
-        {
-            return _user.GetGuestsWithReservations(keyPoint, markedGuests, _tourReservation.GetAll());
-        }
 
-        public void GetSuperGuides()
-        {
-            _user.GetSuperGuides();
-        }
-*/
         public void MarkGuestAsSuper(User user)
         {
             _user.MarkGuestAsSuper(user);

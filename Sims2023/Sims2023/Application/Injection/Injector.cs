@@ -8,8 +8,9 @@ namespace Sims2023.Application.Injection
 {
     public class Injector
     {
-        private static Dictionary<Type, object> _implementations = new Dictionary<Type, object>
+        private static Dictionary<Type, object> _implementations = new()
         {
+            { typeof(IUserCSVRepository), new UserCSVRepository() },
             { typeof(IAccommodationCancellationCSVRepository), new AccommodationCancellationCSVRepository() },
             { typeof(IAccommodationGradeCSVRepository), new AccommodationGradeCSVRepository() },
             { typeof(IAccommodationCSVRepository), new AccommodationCSVRepository() },
@@ -23,17 +24,21 @@ namespace Sims2023.Application.Injection
             { typeof(ITourReservationCSVRepository), new TourReservationCSVRepository() },
             { typeof(ITourReviewCSVRepository), new TourReviewCSVRepository() },
             { typeof(IVoucherCSVRepository), new VoucherCSVRepository() },
-            { typeof(IUserCSVRepository), new UserCSVRepository() },
-            { typeof(ICountriesAndCitiesCSVRepository), new CountriesAndCitiesCSVRepository() }
+            { typeof(ITourRequestCSVRepository), new TourRequestCSVRepository() },
+            { typeof(ITourRequestStatisticCSVRepository), new TourRequestStatisticCSVRepository() },
+            { typeof(ITourNotificationCSVRepository), new TourNotificationCSVRepository() },
+            { typeof(IAccommodationStatisticsCSVRepository), new AccommodationStatisticsCSVRepository() },
+            { typeof(ICountriesAndCitiesCSVRepository), new CountriesAndCitiesCSVRepository() },
+            { typeof(IAccommodationRenovationCSVRepository), new AccommodationRenovationCSVRepository() }
         };
 
         public static T CreateInstance<T>()
         {
             Type type = typeof(T);
 
-            if (_implementations.ContainsKey(type))
+            if (Injector._implementations.ContainsKey(type))
             {
-                return (T)_implementations[type];
+                return (T)Injector._implementations[type];
             }
 
             throw new ArgumentException($"No implementation found for type {type}");

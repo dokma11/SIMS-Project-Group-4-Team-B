@@ -56,10 +56,14 @@ namespace Sims2023.Domain.Models
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            UserService userService = new();
-            User = userService.GetById(Convert.ToInt32(values[1]));
-            TourService tourService = new();
-            Tour = tourService.GetById(Convert.ToInt32(values[2]));
+            User = new()
+            {
+                Id = Convert.ToInt32(values[1])
+            };
+            Tour = new()
+            {
+                Id = Convert.ToInt32(values[2])
+            };
             Created = DateTime.Parse(values[3]);
             Expired = DateTime.Parse(values[4]);
             Name = (VoucherType)Enum.Parse(typeof(VoucherType), values[5]);
