@@ -43,12 +43,10 @@ public class AccommodationReservationReschedulingService
             if (accommodationReservation != null)
             {
                 item.AccommodationReservation = accommodationReservation;
+                item.AccommodationReservation.Accommodation = accommodation;
                 item.AccommodationReservation.Accommodation.Owner = owner;
                 item.AccommodationReservation.Guest = guest;
                 item.AccommodationReservation.Accommodation.Location = location;
-                item.AccommodationReservation.Guest.Name = guest.Name;
-                item.AccommodationReservation.Guest.Surname = guest.Surname;
-                item.AccommodationReservation.Accommodation.Name = accommodation.Name;
 
             }
         }
@@ -61,6 +59,7 @@ public class AccommodationReservationReschedulingService
     public void Save()
     {
         _accommodationReservationRescheduling.Save();
+        GetReservationReferences();
     }
 
     public List<AccommodationReservationRescheduling> GetAllReservationReschedulings()
@@ -71,6 +70,7 @@ public class AccommodationReservationReschedulingService
 
     public List<AccommodationReservationRescheduling> GetGuestsForOwner(User owner, List<AccommodationReservationRescheduling> guests)
     {
+        Save();
         return _accommodationReservationRescheduling.GetGuestsForOwner(owner, guests);
     }
 
