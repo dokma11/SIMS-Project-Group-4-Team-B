@@ -62,5 +62,4 @@ namespace Sims2023.Domain.Models
         }
 
     }
-
 }

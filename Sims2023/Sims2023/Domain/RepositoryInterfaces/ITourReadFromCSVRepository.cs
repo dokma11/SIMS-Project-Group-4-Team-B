@@ -16,5 +16,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<Tour> GetFiltered(string citySearchTerm, string countrySearchTerm, int lengthSearchTerm, string guideLanguageSearchTerm, int maxGuestNumberSearchTerm);
         public void Save();
         public int GetTodaysNumber(User loggedInGuide);
+        public List<Tour> GetAll();
     }
 }

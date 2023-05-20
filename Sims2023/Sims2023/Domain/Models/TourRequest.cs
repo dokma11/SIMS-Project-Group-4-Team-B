@@ -8,7 +8,7 @@ namespace Sims2023.Domain.Models
     public enum RequestsLanguage { Serbian, English, German, French, Spanish, Italian, Chinese, Japanese }
     public enum RequestsState { OnHold, Invalid, Accepted }
 
-    public class Request: ISerializable, INotifyPropertyChanged
+    public class TourRequest: ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public Location Location { get; set; }
@@ -21,9 +21,9 @@ namespace Sims2023.Domain.Models
         public User Guest { get; set; }
        
 
-        public Request() { }
+        public TourRequest() { }
 
-        public Request(Location location, string description, RequestsLanguage language, int guestNumber, DateTime start, DateTime end,User guest)
+        public TourRequest(Location location, string description, RequestsLanguage language, int guestNumber, DateTime start, DateTime end,User guest)
         {
            
             Location = location;
@@ -60,17 +60,20 @@ namespace Sims2023.Domain.Models
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            LocationService locationService = new();
-            Location = locationService.GetById(Convert.ToInt32(values[1]));
+            Location = new()
+            {
+                Id = Convert.ToInt32(values[1])
+            };
             Description = values[2];
             Language = (RequestsLanguage)Enum.Parse(typeof(RequestsLanguage), values[3]);
             GuestNumber = Convert.ToInt32(values[4]);
             Start = DateTime.Parse(values[5]);
             End = DateTime.Parse(values[6]);
             State = (RequestsState)Enum.Parse(typeof(RequestsState), values[7]);
-            UserService userService = new();
-            Guest = userService.GetById(Convert.ToInt32(values[8]));
-            
+            Guest = new()
+            {
+                Id = Convert.ToInt32(values[8])
+            };
         }
     }
 }

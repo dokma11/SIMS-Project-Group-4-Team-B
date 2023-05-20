@@ -68,10 +68,14 @@ namespace Sims2023.Domain.Models
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            TourService tourService = new();
-            Tour = tourService.GetById(Convert.ToInt32(values[1]));
-            UserService userService = new();
-            User = userService.GetById(Convert.ToInt32(values[2]));
+            Tour = new()
+            {
+                Id = Convert.ToInt32(values[1])
+            };
+            User = new()
+            {
+                Id = Convert.ToInt32(values[2])
+            };
             GuestNumber = int.Parse(values[3]);
             ReservationTime = DateTime.Parse(values[4]);
             ConfirmedParticipation = bool.Parse(values[5]);

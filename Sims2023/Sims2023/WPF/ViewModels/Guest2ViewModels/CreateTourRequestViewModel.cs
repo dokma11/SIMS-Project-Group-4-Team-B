@@ -12,7 +12,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
     public class CreateTourRequestViewModel
     {
         public CountriesAndCitiesService _countriesAndCitiesService;
-        public Request Request { get; set; }
+        public TourRequest Request { get; set; }
         public Location Location { get; set; }
         public LocationService _locationService { get; set; }
 
@@ -26,7 +26,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             _countriesAndCitiesService = new CountriesAndCitiesService();
             _locationService = new LocationService();
             _requestService = new RequestService();
-            Request = new Request();
+            Request = new TourRequest();
             Location = new Location();
             
             
@@ -44,7 +44,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             Location.City = city;
             Location.Country = country;
             _locationService.CheckExistance(Location);
-            Request Request = new Request(Location, description, language, guestNumber, startDate, endDate, user);
+            TourRequest Request = new TourRequest(Location, description, language, guestNumber, startDate, endDate, user);
             _requestService.Create(Request);
             
             

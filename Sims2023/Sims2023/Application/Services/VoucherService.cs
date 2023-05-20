@@ -1,7 +1,6 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
-using Sims2023.Repositories;
 using System.Collections.Generic;
 
 namespace Sims2023.Application.Services
@@ -9,10 +8,16 @@ namespace Sims2023.Application.Services
     public class VoucherService
     {
         private readonly IVoucherCSVRepository _voucher;
+        private readonly ITourReadFromCSVRepository _tour;
+        private readonly IUserCSVRepository _user;
         public VoucherService()
         {
-            _voucher = new VoucherCSVRepository();
-            //_voucher = Injection.Injector.CreateInstance<IVoucherRepository>();
+            _voucher = Injection.Injector.CreateInstance<IVoucherCSVRepository>();
+            _tour = Injection.Injector.CreateInstance<ITourReadFromCSVRepository>();
+            _user = Injection.Injector.CreateInstance<IUserCSVRepository>();
+
+            GetUserReferences();
+            GetTourReferences();
         }
 
         public List<Voucher> GetAll()
@@ -33,11 +38,13 @@ namespace Sims2023.Application.Services
         public void Create(Voucher voucher)
         {
             _voucher.Add(voucher);
+            Save();
         }
 
         public void Update(Voucher voucher)//deleted edit method and add this
         {
             _voucher.Update(voucher);
+            Save();
         }
 
         public void UpdateIsUsed(Voucher voucher)//new method
@@ -53,6 +60,24 @@ namespace Sims2023.Application.Services
         public void Save()
         {
             _voucher.Save();
+            GetUserReferences();
+            GetTourReferences();
+        }
+
+        public void GetUserReferences()
+        {
+            foreach (var voucher in GetAll())
+            {
+                voucher.User = _user.GetById(voucher.User.Id) ?? voucher.User;
+            }
+        }
+
+        public void GetTourReferences()
+        {
+            foreach (var voucher in GetAll())
+            {
+                voucher.Tour = _tour.GetById(voucher.Tour.Id) ?? voucher.Tour;
+            }
         }
     }
 }

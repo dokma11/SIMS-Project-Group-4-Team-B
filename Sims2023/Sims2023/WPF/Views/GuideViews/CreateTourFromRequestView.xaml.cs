@@ -24,7 +24,7 @@ namespace Sims2023.WPF.Views.GuideViews
         private TourNotificationService _tourNotificationService;
         public User LoggedInGuide { get; set; }
         bool addDatesButtonClicked;
-        public CreateTourFromRequestView(Request selectedTourRequest, TourService tourService, LocationService locationService, KeyPointService keyPointService, TourReviewService tourReviewService, RequestService requestService, TourReservationService tourReservationService, VoucherService voucherService, UserService userService, CountriesAndCitiesService countriesAndCitiesService, User loggedInGuide, TourNotificationService tourNotificationService)
+        public CreateTourFromRequestView(TourRequest selectedTourRequest, TourService tourService, LocationService locationService, KeyPointService keyPointService, TourReviewService tourReviewService, RequestService requestService, TourReservationService tourReservationService, VoucherService voucherService, UserService userService, CountriesAndCitiesService countriesAndCitiesService, User loggedInGuide, TourNotificationService tourNotificationService)
         {
             InitializeComponent();
 
@@ -38,6 +38,8 @@ namespace Sims2023.WPF.Views.GuideViews
             _userService = userService;
             _countriesAndCitiesService = countriesAndCitiesService;
             _tourNotificationService = tourNotificationService;
+
+            LoggedInGuide = loggedInGuide;
 
             CreateTourFromRequestViewModel = new(selectedTourRequest, loggedInGuide, tourService, keyPointService, requestService, tourNotificationService, tourReservationService);
             DataContext = CreateTourFromRequestViewModel;

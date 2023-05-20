@@ -88,7 +88,6 @@ namespace Sims2023.Domain.Models
             };
             Imageurls = values[8].Split('!').ToList();
             Renovated = Convert.ToBoolean(values[9]);
-
         }
 
         public string IsVaild(Accommodation a)

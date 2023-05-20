@@ -1,112 +1,158 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
-using Sims2023.Repositories;
 using System.Collections.Generic;
 
 namespace Sims2023.Application.Services
 {
     public class RequestService
     {
-        private IRequestCSVRepository _request;
+        private ITourRequestCSVRepository _tourRequest;
+        private ITourRequestStatisticCSVRepository _tourRequestStatistic;
         private ILocationCSVRepository _location;
+        private IUserCSVRepository _user;
 
         public RequestService()
         {
-            _request = new RequestCSVRepository();
-            //_request = Injection.Injector.CreateInstance<IRequestCSVRepository>();
-            _location = new LocationCSVRepository();
-            //_location = Injection.Injector.CreateInstance<ILocationCSVRepository>();
+            _tourRequest = Injection.Injector.CreateInstance<ITourRequestCSVRepository>();
+            _location = Injection.Injector.CreateInstance<ILocationCSVRepository>();
+            _tourRequestStatistic = Injection.Injector.CreateInstance<ITourRequestStatisticCSVRepository>();
+            _user = Injection.Injector.CreateInstance<IUserCSVRepository>();
+
+            GetUserReferences();
+            GetLocationReferences();
         }
 
-        public void Create(Request request)
+        public void Create(TourRequest request)
         {
-            _request.Add(request);
+            _tourRequest.Add(request);
         }
 
-        public List<Request> GetOnHold()
+        public List<TourRequest> GetOnHold()
         {
-            return _request.GetOnHold();
+            return _tourRequest.GetOnHold();
         }
 
         public void Subscribe(IObserver observer)
         {
-            _request.Subscribe(observer);
+            _tourRequest.Subscribe(observer);
         }
 
-        public List<Request> GetFiltered(string locationSearchTerm, string guestNumberSearchTerm, string languageSearchTerm, string dateStartSearchTerm, string dateEndSearchTerm)
+        public List<TourRequest> GetFiltered(string locationSearchTerm, string guestNumberSearchTerm, string languageSearchTerm, string dateStartSearchTerm, string dateEndSearchTerm)
         {
-            return _request.GetFiltered(locationSearchTerm, guestNumberSearchTerm, languageSearchTerm, dateStartSearchTerm, dateEndSearchTerm);
+            return _tourRequest.GetFiltered(locationSearchTerm, guestNumberSearchTerm, languageSearchTerm, dateStartSearchTerm, dateEndSearchTerm);
         }
 
-        public void UpdateState(Request selectedRequest, RequestsState requestsState)
+        public void UpdateState(TourRequest selectedRequest, RequestsState requestsState)
         {
-            _request.UpdateState(selectedRequest, requestsState);
+            _tourRequest.UpdateState(selectedRequest, requestsState);
         }
 
         public int GetMonthlyLanguageStatistics(string language, int ordinal, string year)
         {
-            return _request.GetMonthlyStatistics("language", language, year, ordinal);
+            return _tourRequestStatistic.GetMonthlyStatistics("language", language, year, ordinal);
         }
-        
+
         public int GetYearlyLanguageStatistics(string language, string year)
         {
-            return _request.GetYearlyStatistics("language", language, year);
+            return _tourRequestStatistic.GetYearlyStatistics("language", language, year);
         }
-        
+
         public int GetMonthlyLocationStatistics(string location, int ordinal, string year)
         {
-            return _request.GetMonthlyStatistics("location", location, year, ordinal);
+            return _tourRequestStatistic.GetMonthlyStatistics("location", location, year, ordinal);
         }
-        
+
         public int GetYearlyLocationStatistics(string location, string year)
         {
-            return _request.GetYearlyStatistics("location", location, year);
+            return _tourRequestStatistic.GetYearlyStatistics("location", location, year);
         }
+
 
         public List<string> GetComboBoxData(string purpose)
         {
-            return _request.GetComboBoxData(purpose);
+            return _tourRequestStatistic.GetComboBoxData(purpose);
         }
 
         public RequestsLanguage GetTheMostRequestedLanguage()
         {
-            return _request.GetTheMostRequestedLanguage();
+            return _tourRequestStatistic.GetTheMostRequestedLanguage();
         }
 
         public Location GetTheMostRequestedLocation()
         {
-            return _location.GetById(_request.GetTheMostRequestedLocation());
+            return _location.GetById(_tourRequestStatistic.GetTheMostRequestedLocation());
         }
 
-        public List<Request> GetByUser(User user)
+        public List<TourRequest> GetByUser(User user)
         {
-            return _request.GetByUser(user);
+            return _tourRequest.GetByUser(user);
         }
 
         public void CheckExpirationDate(User user)
         {
-            _request.CheckExpirationDate(user);
+            _tourRequest.CheckExpirationDate(user);
         }
 
-        public List<Request> GetAcceptedTourRequestsByUser(User user)
+        public List<TourRequest> GetAcceptedTourRequestsByUser(User user)
         {
-            return _request.GetAcceptedTourRequestsByUser(user);
+            return _tourRequestStatistic.GetUsersAccepted(user);
         }
 
-        public List<Request> GetYearlyAcceptedTourRequestsByUser(User user, int year)
+        public List<TourRequest> GetYearlyFilteredTourRequestsByUser(User user, int year, string state)
         {
-            return _request.GetYearlyAcceptedTourRequestsByUser(user, year);
+            return _tourRequestStatistic.GetYearlyFilteredTourRequestsByUser(user, year, state);
         }
 
-        public List<Request> GetByLocation(Location location)
+        public int GetYearlyStatisticByUser(User user, string statFor, string year, string purpose)
         {
-            return _request.GetByLocation(location);
+            return _tourRequestStatistic.GetYearlyStatisticByUser(user, statFor, year, purpose);
         }
 
-        public List<Request> GetByLanguage(string language)
+        public int GetAllTimeStatisticByUser(User user, string statFor, string purpose)
         {
-            return _request.GetByLanguage(language);
+            return _tourRequestStatistic.GetAllTimeStatisticByUser(user, statFor, purpose);
+        }
+
+        public double GetAverageYearlyAcceptedTourRequestGuestNumber(User user, int year)
+        {
+            return _tourRequestStatistic.GetAverageYearlyAcceptedTourRequestGuestNumber(user, year);
+        }
+
+        public double GetAverageAllTimeAcceptedTourRequestGuestNumber(User user)
+        {
+            return _tourRequestStatistic.GetAverageAllTimeAcceptedTourRequestGuestNumber(user);
+        }
+
+        public List<TourRequest> GetByLocation(Location location)
+        {
+            return _tourRequest.GetByLocation(location);
+        }
+
+        public List<TourRequest> GetByLanguage(string language)
+        {
+            return _tourRequest.GetByLanguage(language);
+        }
+
+        public void GetLocationReferences()
+        {
+            foreach (var request in GetAll())
+            {
+                request.Location = _location.GetById(request.Location.Id) ?? request.Location;
+            }
+        }
+
+        public void GetUserReferences()
+        {
+            foreach (var request in GetAll())
+            {
+                request.Guest = _user.GetById(request.Guest.Id) ?? request.Guest;
+            }
+        }
+
+        public List<TourRequest> GetAll()
+        {
+            return _tourRequest.GetAll();
         }
     }
 }

@@ -23,8 +23,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public RequestsLanguage TheMostRequestedLanguage { get; set; }
         public Location TheMostRequestedLocation { get; set; }
         public string TheMostRequestedLocationString { get; set; }
-        public ObservableCollection<Request> RequestsToDisplay { get; set; }
-        public Request SelectedRequest { get; set; }
+        public ObservableCollection<TourRequest> RequestsToDisplay { get; set; }
+        public TourRequest SelectedRequest { get; set; }
 
         public RequestsViewModel(RequestService requestService)
         {
@@ -59,7 +59,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             DisplayTheMostRequestedLanguage();
             DisplayTheMostRequestedLocation();
 
-            RequestsToDisplay = new ObservableCollection<Request>(_requestService.GetOnHold());
+            RequestsToDisplay = new ObservableCollection<TourRequest>(_requestService.GetOnHold());
         }
 
         public List<RequestsLanguage> GetLanguages()
@@ -203,7 +203,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             Values = value => value.ToString("D");
         }
 
-        public List<Request> FilterRequests(string locationSearchTerm, string guestNumberSearchTerm, string languageSearchTerm, string dateStartSearchTerm, string dateEndSearchTerm)
+        public List<TourRequest> FilterRequests(string locationSearchTerm, string guestNumberSearchTerm, string languageSearchTerm, string dateStartSearchTerm, string dateEndSearchTerm)
         {
             return _requestService.GetFiltered(locationSearchTerm, guestNumberSearchTerm, languageSearchTerm, dateStartSearchTerm, dateEndSearchTerm);
         }
@@ -221,7 +221,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public void Update()
         {
             RequestsToDisplay.Clear();
-            foreach (Request request in _requestService.GetOnHold())
+            foreach (TourRequest request in _requestService.GetOnHold())
             {
                 RequestsToDisplay.Add(request);
             }

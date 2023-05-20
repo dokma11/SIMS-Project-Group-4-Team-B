@@ -14,5 +14,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void AddReviewsPictures(string concatenatedPictures, TourReview tourReview);
         public void Subscribe(IObserver observer);
         void NotifyObservers();
+        public List<TourReview> GetAll();
     }
 }

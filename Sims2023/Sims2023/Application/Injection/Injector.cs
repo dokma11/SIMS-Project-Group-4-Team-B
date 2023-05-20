@@ -8,7 +8,7 @@ namespace Sims2023.Application.Injection
 {
     public class Injector
     {
-        private static Dictionary<Type, object> _implementations = new Dictionary<Type, object>
+        private static Dictionary<Type, object> _implementations = new()
         {
             { typeof(IUserCSVRepository), new UserCSVRepository() },
             { typeof(IAccommodationCancellationCSVRepository), new AccommodationCancellationCSVRepository() },
@@ -24,10 +24,12 @@ namespace Sims2023.Application.Injection
             { typeof(ITourReservationCSVRepository), new TourReservationCSVRepository() },
             { typeof(ITourReviewCSVRepository), new TourReviewCSVRepository() },
             { typeof(IVoucherCSVRepository), new VoucherCSVRepository() },
+            { typeof(ITourRequestCSVRepository), new TourRequestCSVRepository() },
+            { typeof(ITourRequestStatisticCSVRepository), new TourRequestStatisticCSVRepository() },
+            { typeof(ITourNotificationCSVRepository), new TourNotificationCSVRepository() },
             { typeof(IAccommodationStatisticsCSVRepository), new AccommodationStatisticsCSVRepository() },
             { typeof(ICountriesAndCitiesCSVRepository), new CountriesAndCitiesCSVRepository() },
             { typeof(IAccommodationRenovationCSVRepository), new AccommodationRenovationCSVRepository() }
-
         };
 
         public static T CreateInstance<T>()

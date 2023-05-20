@@ -9,7 +9,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
     {
         public Tour Tour { get; set; }
         public KeyPoint KeyPoint { get; set; }
-        public Request SelectedRequest { get; set; }
+        public TourRequest SelectedRequest { get; set; }
         private List<string> _keyPointsList;
         private List<DateTime> _dateTimeList;
         public User LoggedInGuide { get; set; }
@@ -18,7 +18,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         private RequestService _requestService;
         private TourNotificationService _tourNotificationService;
         private TourReservationService _tourReservationService;
-        public CreateTourFromRequestViewModel(Request selectedRequest, User loggedInGuide, TourService tourService, KeyPointService keyPointService, RequestService requestService, TourNotificationService tourNotificationService, TourReservationService tourReservationService)
+        public CreateTourFromRequestViewModel(TourRequest selectedRequest, User loggedInGuide, TourService tourService, KeyPointService keyPointService, RequestService requestService, TourNotificationService tourNotificationService, TourReservationService tourReservationService)
         {
             SelectedRequest = selectedRequest;
 

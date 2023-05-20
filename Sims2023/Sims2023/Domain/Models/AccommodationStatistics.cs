@@ -56,7 +56,5 @@ namespace Sims2023.Domain.Models
             isRescheduled = Convert.ToBoolean(values[3]);
             RenovationRecommendation = Convert.ToBoolean(values[4]);
         }
-
-
     }
 }

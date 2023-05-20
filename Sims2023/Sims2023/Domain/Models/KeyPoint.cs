@@ -67,8 +67,10 @@ namespace Sims2023.Domain.Models
                 }
             }
             PresentGuestsNumber = Convert.ToInt32(values[4]);
-            TourService tourService = new();
-            Tour = tourService.GetById(Convert.ToInt32(values[5]));
+            Tour = new()
+            {
+                Id = Convert.ToInt32(values[5])
+            };
         }
     }
 }
