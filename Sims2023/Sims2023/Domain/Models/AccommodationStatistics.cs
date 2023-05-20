@@ -49,10 +49,8 @@ namespace Sims2023.Domain.Models
 
         public void FromCSV(string[] values)
         {
-            Accommodation = new()
-            {
-                Id = Convert.ToInt32(values[0])
-            };
+            Accommodation = new();
+            Accommodation.Id = Convert.ToInt32(values[0]);
             DateOfEntry = DateTime.Parse(values[1]);
             isCanceled = Convert.ToBoolean(values[2]);
             isRescheduled = Convert.ToBoolean(values[3]);

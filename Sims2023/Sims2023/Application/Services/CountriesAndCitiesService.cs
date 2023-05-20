@@ -1,4 +1,5 @@
-﻿using Sims2023.Domain.Models;
+﻿using Sims2023.Application.Injection;
+using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using System.Collections.Generic;
 
@@ -10,7 +11,8 @@ namespace Sims2023.Application.Services
 
         public CountriesAndCitiesService()
         {
-            _countriesAndCities = Injection.Injector.CreateInstance<ICountriesAndCitiesCSVRepository>();
+           // _countriesAndCities = new CountriesAndCitiesCSVRepository();
+            _countriesAndCities = Injector.CreateInstance<ICountriesAndCitiesCSVRepository>();
         }
 
         public List<CountriesAndCities> GetAllLocations()

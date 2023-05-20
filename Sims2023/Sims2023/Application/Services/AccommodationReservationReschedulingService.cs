@@ -8,6 +8,7 @@ using Sims2023.Domain.Models;
 using Sims2023.Repositories;
 using System.Collections.ObjectModel;
 using Sims2023.Domain.RepositoryInterfaces;
+using Sims2023.Application.Injection;
 
 namespace Sims2023.Application.Services;
 
@@ -17,7 +18,8 @@ public class AccommodationReservationReschedulingService
 
     public AccommodationReservationReschedulingService()
     {
-        _accommodationReservationRescheduling = Injection.Injector.CreateInstance<IAccommodationReservationReschedulingCSVRepository>();
+          _accommodationReservationRescheduling = new AccommodationReservationReschedulingCSVRepository();
+          //_accommodationReservationRescheduling = Injector.CreateInstance<IAccommodationReservationReschedulingCSVRepository>();
     }
 
     public AccommodationReservationRescheduling GetById(int id)

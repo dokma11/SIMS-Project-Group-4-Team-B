@@ -1,4 +1,5 @@
-﻿using Sims2023.Domain.Models;
+﻿using Sims2023.Application.Injection;
+using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repositories;
@@ -14,12 +15,27 @@ namespace Sims2023.Application.Services
     public class AccommodationRenovationService
     {
         private IAccommodationRenovationCSVRepository _accommodationRenovation;
+        private IAccommodationCSVRepository _accommodation;
 
         public AccommodationRenovationService()
         {
-            _accommodationRenovation = Injection.Injector.CreateInstance<IAccommodationRenovationCSVRepository>();
+            _accommodation = Injector.CreateInstance<IAccommodationCSVRepository>();
+            //_accommodationRenovation = new AccommodationRenovationCSVRepository();
+            _accommodationRenovation = Injector.CreateInstance<IAccommodationRenovationCSVRepository>();
+            GetReservationReferences();
         }
 
+        public void GetReservationReferences()
+        {
+            foreach (var item in GetAll())
+            {
+                var accommodation = _accommodation.GetById(item.Accommodation.Id);
+                if (accommodation != null)
+                {
+                    item.Accommodation = accommodation;
+                }
+            }
+        }
         public List<AccommodationRenovation> GetAll()
         {
             return _accommodationRenovation.GetAll();

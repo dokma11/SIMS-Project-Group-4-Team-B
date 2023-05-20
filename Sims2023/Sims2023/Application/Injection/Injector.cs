@@ -42,6 +42,7 @@ namespace Sims2023.Application.Injection
             }
 
             throw new ArgumentException($"No implementation found for type {type}");
+            return default(T);
         }
     }
 }

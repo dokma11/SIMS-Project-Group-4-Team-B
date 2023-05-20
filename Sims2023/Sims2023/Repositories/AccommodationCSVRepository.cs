@@ -48,6 +48,10 @@ namespace Sims2023.Repositories
             NotifyObservers();
         }
 
+        public void Save()
+        {
+            _fileHandler.Save(_accommodations);
+        }
         public void Update(Accommodation accommodation)
         {
             int index = _accommodations.FindIndex(p => p.Id == accommodation.Id);

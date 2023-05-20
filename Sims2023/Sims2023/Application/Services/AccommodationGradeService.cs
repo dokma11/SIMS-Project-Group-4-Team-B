@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Sims2023.Domain.Models;
 using Sims2023.Repositories;
 using Sims2023.Domain.RepositoryInterfaces;
+using Sims2023.Application.Injection;
 
 namespace Sims2023.Application.Services
 {
@@ -16,7 +17,8 @@ namespace Sims2023.Application.Services
 
         public AccommodationGradeService()
         {
-            _accommodationGrade = Injection.Injector.CreateInstance<IAccommodationGradeCSVRepository>();
+             _accommodationGrade = new AccommodationGradeCSVRepository();
+             //_accommodationGrade = Injector.CreateInstance<IAccommodationGradeCSVRepository>();
         }
 
         public List<AccommodationGrade> GetAllAccommodationGrades()

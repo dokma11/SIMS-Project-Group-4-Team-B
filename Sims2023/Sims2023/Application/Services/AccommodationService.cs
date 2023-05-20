@@ -7,18 +7,44 @@ using System.Linq;
 using System.Text;
 using Sims2023.Domain.RepositoryInterfaces;
 using System.Threading.Tasks;
+using Sims2023.Application.Injection;
+using System.Windows;
 
 namespace Sims2023.Application.Services
 {
     public class AccommodationService
     {
         private IAccommodationCSVRepository _accomodation;
+        private IUserCSVRepository _users;
+        private ILocationCSVRepository _locations;
 
         public AccommodationService()
         {
-            _accomodation =  Injection.Injector.CreateInstance<IAccommodationCSVRepository>();
+            _users = Injector.CreateInstance<IUserCSVRepository>();
+            _locations = Injector.CreateInstance<ILocationCSVRepository>();
+            _accomodation = Injector.CreateInstance<IAccommodationCSVRepository>();
+            FindForeignAtributes();
         }
 
+        private void FindForeignAtributes()
+        {
+            foreach (var item in GetAllAccommodations())
+            {
+                var user = _users.GetById(item.Owner.Id);
+                var loc = _locations.GetById(item.Location.Id);
+                if (user != null && loc != null)
+                {
+                    item.Owner = user;
+                    item.Location = loc;
+                }
+            }
+        }
+
+        public void Save()
+        {
+            _accomodation.Save();
+            FindForeignAtributes();
+        }
         public List<Accommodation> GetAllAccommodations()
         {
             return _accomodation.GetAll();
@@ -27,16 +53,19 @@ namespace Sims2023.Application.Services
         public void Create(Accommodation accommodation)
         {
             _accomodation.Add(accommodation);
+            Save();
         }
 
         public void Delete(Accommodation accommodation)
         {
             _accomodation.Remove(accommodation);
+            Save();
         }
 
         public void Update(Accommodation accommodation)
         {
             _accomodation.Update(accommodation);
+            Save();
         }
 
         public List<Accommodation> GetOwnerAccommodations(List<Accommodation> accommodations, User user)

@@ -1,5 +1,6 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Serialization;
+using Sims2023.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +22,8 @@ namespace Sims2023.Domain.Models
         public string ImageUrl { get; set; }
 
         public bool Renovated { get; set; }
+
+        int locid;
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -71,7 +74,7 @@ namespace Sims2023.Domain.Models
         {
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
-            Location = new()
+            Location = new Location() // Instantiate Location object
             {
                 Id = Convert.ToInt32(values[2])
             };

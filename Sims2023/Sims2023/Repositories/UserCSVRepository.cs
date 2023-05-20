@@ -15,7 +15,7 @@ namespace Sims2023.Repositories
         private UserFileHandler _fileHandler;
         //private TourReadFromCSVRepository _tourRepository;
         //private TourReviewCSVRepository _tourReviewRepository;
-        //private AccommodationGradeCSVRepository guests;
+     //   private AccommodationGradeCSVRepository guests;
 
         public UserCSVRepository()
         {
@@ -49,16 +49,16 @@ namespace Sims2023.Repositories
           /*  foreach (User user in FindOwners())
             {
                 double counter = 0.0;
-                double zbir = 0.0;
+                double zbir = 1;
                 double Average;
-                guests = new AccommodationGradeCSVRepository();
-                foreach (AccommodationGrade grade in guests.GetAll())
+         //       guests = new AccommodationGradeCSVRepository();
+        //        foreach (AccommodationGrade grade in guests.GetAll())
                 {
 
-                    if (grade.Accommodation.Owner.Id == user.Id)
+             //       if (grade.Accommodation.Owner.Id == user.Id)
                     {
                         ++counter;
-                        zbir += FindAverageGrade(grade);
+              //          zbir += FindAverageGrade(grade);
                     }
                 }
                 Average = zbir / counter;

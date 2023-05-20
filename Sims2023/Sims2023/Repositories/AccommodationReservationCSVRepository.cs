@@ -33,6 +33,10 @@ namespace Sims2023.Repositories
             return _accommodationReservations.Max(s => s.Id) + 1;
         }
 
+        public void Save()
+        {
+            _fileHandler.Save(_accommodationReservations);
+        }
         public void Add(AccommodationReservation reservation)
         {
             reservation.Id = NextId();

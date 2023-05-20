@@ -1,4 +1,5 @@
-﻿using Sims2023.Domain.Models;
+﻿using Sims2023.Application.Injection;
+using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repositories;
@@ -8,11 +9,25 @@ namespace Sims2023.Application.Services
 {
     public class AccommodationCancellationService
     {
+        private IUserCSVRepository _user;
+        private IAccommodationCSVRepository _accommodation;
         private IAccommodationCancellationCSVRepository _accommodationCancellation;
 
         public AccommodationCancellationService()
         {
-            _accommodationCancellation = Injection.Injector.CreateInstance<IAccommodationCancellationCSVRepository>();
+            _user = Injector.CreateInstance<IUserCSVRepository>();
+            _accommodation = Injector.CreateInstance<IAccommodationCSVRepository>();
+            _accommodationCancellation = Injector.CreateInstance<IAccommodationCancellationCSVRepository>();
+            FindForeignAtributes();
+        }
+
+        private void FindForeignAtributes()
+        {
+            foreach (var item in _accommodationCancellation.GetAll())
+            {
+                item.Guest = _user.GetById(item.Guest.Id);
+                item.Accommodation = _accommodation.GetById(item.Accommodation.Id);
+            }
         }
 
         public List<AccommodationCancellation> GetAllAccommodationCancellations()

@@ -13,12 +13,23 @@ namespace Sims2023.Application.Services
     public class AccommodationStatisticsService
     {
         private IAccommodationStatisticsCSVRepository _statistics;
+        private IAccommodationCSVRepository _accommodations;
 
         public AccommodationStatisticsService()
         {
+            _accommodations = Injection.Injector.CreateInstance<IAccommodationCSVRepository>();
+            //_statistics = new AccommodationStatisticsCSVRepository();
             _statistics = Injection.Injector.CreateInstance<IAccommodationStatisticsCSVRepository>();
+            FindForeignAtributes();
         }
 
+        private void FindForeignAtributes()
+        {
+            foreach (var item in _statistics.GetAll())
+            {
+                item.Accommodation = _accommodations.GetById(item.Accommodation.Id);
+            }
+        }
         public List<AccommodationStatistics> GetAll()
         {
             return _statistics.GetAll();

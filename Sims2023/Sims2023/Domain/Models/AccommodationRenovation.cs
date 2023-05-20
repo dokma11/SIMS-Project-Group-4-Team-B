@@ -60,5 +60,6 @@ namespace Sims2023.Domain.Models
             EndDate = DateTime.Parse(values[3]);
             Status = values[4];
         }
+
     }
 }
