@@ -19,7 +19,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         private GuestGradeService _guestGradeService;
 
         User User;
-        GuestGrade SelectedGuestGrade { get; set; }
+        public GuestGrade SelectedGuestGrade { get; set; }
 
         List<GuestGrade> FilteredData = new ();
 

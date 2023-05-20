@@ -161,14 +161,14 @@ namespace Sims2023.Repositories
             return difference.TotalDays >= 0 && accommodationReservation.Guest.Id == guest1.Id;
         }
 
-        public int CheckDates(Accommodation selectedAccommodation, DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> datesList)
+        public int CheckDates(Accommodation selectedAccommodation, DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> datesList, List<AccommodationRenovation> accommodationRenovations)
         {
             DateTime endDate = startDateSelected.AddDays(stayLength);
             bool isAvailable;
 
             for (DateTime startDate = startDateSelected; startDate <= endDateSelected.AddDays(-stayLength); startDate = startDate.AddDays(1), endDate = endDate.AddDays(1))
             {
-                isAvailable = IsDateSpanAvailable(selectedAccommodation, startDate, endDate);
+                isAvailable = IsDateSpanAvailable(selectedAccommodation, startDate, endDate,accommodationRenovations);
                 if (isAvailable)
                 {
                     if (datesList.Count == 0)
@@ -188,13 +188,37 @@ namespace Sims2023.Repositories
             return datesList.Count;
         }
 
-        public bool IsDateSpanAvailable(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate)
+        public bool IsDateSpanAvailable(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, List<AccommodationRenovation> accommodationRenovations)
+        {
+            return IsDateSpanForReservationAvailable(selectedAccommodation, startDate, endDate) && IsDateSpanForRenovationAvailable(selectedAccommodation, startDate, endDate, accommodationRenovations);
+        }
+        public bool IsDateSpanForReservationAvailable(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate)
         {
             foreach (AccommodationReservation reservation in _accommodationReservations)
             {
                 if (reservation.Accommodation.Id == selectedAccommodation.Id)
                 {
                     for (DateTime i = reservation.StartDate; i <= reservation.EndDate; i = i.AddDays(1))
+                    {
+                        for (DateTime j = startDate; j <= endDate; j = j.AddDays(1))
+                        {
+                            if (i == j)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+        public bool IsDateSpanForRenovationAvailable(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, List<AccommodationRenovation> accommodationRenovations)
+        {
+            foreach (AccommodationRenovation renovation in accommodationRenovations)
+            {
+                if (renovation.Accommodation.Id == selectedAccommodation.Id)
+                {
+                    for (DateTime i = renovation.StartDate; i <= renovation.EndDate; i = i.AddDays(1))
                     {
                         for (DateTime j = startDate; j <= endDate; j = j.AddDays(1))
                         {

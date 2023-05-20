@@ -30,8 +30,10 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void NotifyObservers();
         public List<AccommodationReservation> FindSuitableUpcomingReservations(User guest1);
         public bool FilterdDataSelection(AccommodationReservation accommodationReservation, User guest1);
-        public int CheckDates(Accommodation selectedAccommodation, DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> datesList);
-        public bool IsDateSpanAvailable(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate);
+        public int CheckDates(Accommodation selectedAccommodation, DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> datesList, List<AccommodationRenovation> accommodationRenovations);
+        public bool IsDateSpanAvailable(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, List<AccommodationRenovation> accommodationRenovations);
+        public bool IsDateSpanForReservationAvailable(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate);
+        public bool IsDateSpanForRenovationAvailable(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, List<AccommodationRenovation> accommodationRenovations);
         public List<AccommodationReservation> FindSuitablePastReservations(User guest1);
         public bool CheckReschedulingReservation(AccommodationReservation accommodationReservation, User guest1);
         public void DeleteAccommodationReservation(AccommodationReservation selectedAccommodationReservation);
