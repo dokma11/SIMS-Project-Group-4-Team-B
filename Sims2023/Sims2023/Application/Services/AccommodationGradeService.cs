@@ -13,14 +13,39 @@ namespace Sims2023.Application.Services
 {
     public class AccommodationGradeService
     {
+        private IUserCSVRepository _user;
+        private IAccommodationCSVRepository _accommodation;
+        private ILocationCSVRepository _location;
         private IAccommodationGradeCSVRepository _accommodationGrade;
 
         public AccommodationGradeService()
         {
-             _accommodationGrade = new AccommodationGradeCSVRepository();
-             //_accommodationGrade = Injector.CreateInstance<IAccommodationGradeCSVRepository>();
+            _location = Injector.CreateInstance<ILocationCSVRepository>();
+            _user = Injector.CreateInstance<IUserCSVRepository>();
+            _accommodation = Injector.CreateInstance<IAccommodationCSVRepository>();
+            _accommodationGrade = Injector.CreateInstance<IAccommodationGradeCSVRepository>();
+            GetReservationReferences();
         }
 
+
+        public void GetReservationReferences()
+        {
+            foreach (var item in GetAllAccommodationGrades())
+            {
+                var accommodation = _accommodation.GetById(item.Accommodation.Id);
+                var owner = _user.GetById(accommodation.Owner.Id);
+                var location = _location.GetById(accommodation.Location.Id);
+                var user = _user.GetById(item.Guest.Id);
+                if (accommodation != null)
+                {
+                    item.Guest = user;
+                    item.Accommodation = accommodation;
+                    item.Accommodation.Owner = owner;
+                    item.Accommodation.Location = location;
+
+                }
+            }
+        }
         public List<AccommodationGrade> GetAllAccommodationGrades()
         {
             return _accommodationGrade.GetAll();
