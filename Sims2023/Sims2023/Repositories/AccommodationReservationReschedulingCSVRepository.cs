@@ -28,7 +28,7 @@ namespace Sims2023.Repositories
         public List<AccommodationReservationRescheduling> GetGuestsForOwner(User owner, List<AccommodationReservationRescheduling> guests)
         {
             DateTime today = DateTime.Today;
-            MessageBox.Show("broj gostiju: " + guests.Where(g => g.AccommodationReservation.Accommodation.Owner.Id == owner.Id && g.Status == RequestStatus.Pending && g.AccommodationReservation.StartDate > today).ToList().Count());
+      //      MessageBox.Show("broj gostiju: " + guests.Where(g => g.AccommodationReservation.Accommodation.Owner.Id == owner.Id && g.Status == RequestStatus.Pending && g.AccommodationReservation.StartDate > today).ToList().Count());
             return guests.Where(g => g.AccommodationReservation.Accommodation.Owner.Id == owner.Id && g.Status == RequestStatus.Pending && g.AccommodationReservation.StartDate > today).ToList();
         }
 
