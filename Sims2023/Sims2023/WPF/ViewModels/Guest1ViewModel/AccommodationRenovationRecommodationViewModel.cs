@@ -1,6 +1,7 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.Views.Guest1Views;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -47,6 +48,13 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             Grade.CurrentAccommodationState = _accommodationRenovationRecommodationView.textBox.Text;
             Grade.RenovationUrgency = _accommodationRenovationRecommodationView.typeComboBox.Text;
             SelectedAccommodationReservation.RecommendedRenovation = true;
+        }
+
+        public bool CheckIfAllFiledsFilled()
+        {
+            if (string.IsNullOrEmpty(_accommodationRenovationRecommodationView.textBox.Text)) return false;
+            else if (string.IsNullOrEmpty(_accommodationRenovationRecommodationView.typeComboBox.Text)) return false;
+            else return true;
         }
     }
 }
