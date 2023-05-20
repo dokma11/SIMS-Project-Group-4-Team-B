@@ -34,12 +34,12 @@
                     <Image  Source="pack://application:,,,/Sims2023;component/Resources/GuestOneResources/Horizont_ICO.png" Width="16" Height="16"/>
                 </Button>
                 <Button Command="cmd:RoutedCommands.OpenMenu" TabIndex="2" Content="MENI" Width="90" Height="30" Foreground="#E0942C" Background="#4CE0942C"/>
-                <Separator Margin="600,0,0,0" Foreground="#E0942C"/>
-                <Label x:Name="userName_label" Content="Korisnicko ime" Foreground="#E0942C"/>
-                <Separator Foreground="#E0942C"/>
-                <Label x:Name="userStatus_label" Content="Status gosta" Height="30" Foreground="#E0942C"/>
-                <Separator Foreground="#E0942C"/>
-                <Button Command="cmd:RoutedCommands.LogOut" TabIndex="3" Content="Odjavi se" Foreground="#E0942C" Background="#4CE0942C" Width="95" Height="30"/>
+                <Separator Margin="600,0,0,0" HorizontalAlignment="Right" Foreground="#E0942C"/>
+                <Label x:Name="userName_label"  HorizontalAlignment="Right" Content="Korisnicko ime" Foreground="#E0942C"/>
+                <Separator Foreground="#E0942C" HorizontalAlignment="Right" />
+                <Label x:Name="userStatus_label" Content="Status gosta" Height="30" HorizontalAlignment="Right" Foreground="#E0942C"/>
+                <Separator Foreground="#E0942C" HorizontalAlignment="Right"/>
+                <Button Command="cmd:RoutedCommands.LogOut"  HorizontalAlignment="Right" TabIndex="3" Content="Odjavi se" Foreground="#E0942C" Background="#4CE0942C" Width="95" Height="30"/>
             </ToolBar>
             <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" TabIndex="13" IsTabStop="False" UseLayoutRounding="True" Grid.Row="2"/>
             <StatusBar Background="#DDF2FF" Grid.Row="3" Margin="0,0,0,0"/>

@@ -98,9 +98,9 @@ namespace Sims2023.Application.Services
             return _accommodationReservation.FindSuitablePastReservations(guest1);
         }
 
-        public int CheckDates(Accommodation selectedAccommodation, DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> datesList)
+        public int CheckDates(Accommodation selectedAccommodation, DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> datesList, List<AccommodationRenovation> accommodationRenovations)
         {
-            return _accommodationReservation.CheckDates(selectedAccommodation,startDateSelected, endDateSelected, stayLength, datesList);
+            return _accommodationReservation.CheckDates(selectedAccommodation,startDateSelected, endDateSelected, stayLength, datesList, accommodationRenovations);
         }
 
         public void DeleteAccommodationReservation(AccommodationReservation selectedAccommodationReservation)

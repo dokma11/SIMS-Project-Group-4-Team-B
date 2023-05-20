@@ -1,14 +1,9 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
-using Sims2023.View;
-using Sims2023.WPF.Views.Guest1Views;
 using Sims2023.WPF.Views.OwnerViews;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -22,6 +17,8 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         private AccommodationService _accommodationService;
 
+        private AccommodationRenovationService _accommodationRenovationService;
+
         public List<DateTime> AvailableDates = new List<DateTime>();
 
         public SchedulingRenovationAppointmentsView view;
@@ -30,6 +27,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         private AccommodationReservationService _accommodationReservationService;
         int daysNumber;
+        private List<AccommodationRenovation> accommodationRenovations = new();
 
         public SchedulingRenovationAppointmentsViewModel(SchedulingRenovationAppointmentsView View, Accommodation selectedAccommodationn)
         {
@@ -40,6 +38,8 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             _accommodationReservationService = new AccommodationReservationService();
             stays = new List<AccommodationStay>();
             AvailableDates = new List<DateTime>();
+            _accommodationRenovationService = new AccommodationRenovationService();
+            List<AccommodationRenovation> accommodationRenovations = _accommodationRenovationService.GetAll();
         }
 
         public void FindDates()
@@ -53,7 +53,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             DateTime endDateSelected = view.datePicker1.SelectedDate.Value;
             int stayLength = (int)view.numberOfDays.Value;
             daysNumber = stayLength;
-            _accommodationReservationService.CheckDates(selectedAccommodation, startDateSelected, endDateSelected, stayLength, AvailableDates);
+            _accommodationReservationService.CheckDates(selectedAccommodation, startDateSelected, endDateSelected, stayLength, AvailableDates, accommodationRenovations);
             OriginalAvailableDatesFound(AvailableDates, stayLength);
 
             var dates = new AvailableDatesView(selectedAccommodation, stays);
@@ -76,7 +76,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                 stay.EndDate = endDate;
                 stays.Add(stay);
                 _stays.Add(stay);
-                
+
             }
         }
 
@@ -90,13 +90,13 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             DateTime startDateSelected = view.datePicker.SelectedDate.Value;
             DateTime endDateSelected = view.datePicker1.SelectedDate.Value;
             int stayLength = (int)view.numberOfDays.Value;
-              
+
             if (DateTime.Compare(startDateSelected, endDateSelected) > 0)
             {
                 MessageBox.Show("Molimo Vas selektujete pravilno datume.");
                 return false;
             }
-        
+
             if ((endDateSelected - startDateSelected).TotalDays < daysNumber)
             {
                 MessageBox.Show($"Niste dobro uneli podatke. Vremensko ogranicenje nije dovoljno da bi se rezervisao {daysNumber} dana");

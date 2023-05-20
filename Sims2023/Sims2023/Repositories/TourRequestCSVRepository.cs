@@ -96,7 +96,6 @@ namespace Sims2023.Repositories
             }
         }
 
-
         public List<TourRequest> GetByLocation(Location location)
         {
             return _requests.Where(req => req.Location.City.ToString() == location.City.ToString() &&

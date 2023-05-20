@@ -11,7 +11,7 @@ namespace Sims2023.WPF.Views.Guest1Views
     /// </summary>
     public partial class GuestOneReviewsView : Page
     {
-        GuestOneReviewsViewModel GuestOneReviewsViewModel;
+        public GuestOneReviewsViewModel GuestOneReviewsViewModel;
         public GuestOneReviewsView(User guest)
         {
             InitializeComponent();
@@ -26,15 +26,7 @@ namespace Sims2023.WPF.Views.Guest1Views
 
         public void ShowComment(object sender, ExecutedRoutedEventArgs e)
         {
-            if (GuestOneReviewsViewModel.ShowComment())
-            {
-                NavigationService navigationService = NavigationService.GetNavigationService(this);
-
-                if (navigationService.CanGoBack)
-                {
-                    navigationService.GoBack();
-                }
-            }
+            GuestOneReviewsViewModel.ShowComment();
         }
     }
 }
