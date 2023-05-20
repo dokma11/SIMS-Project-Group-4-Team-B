@@ -9,17 +9,49 @@ using Sims2023.Repositories;
 using System.Collections.ObjectModel;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Application.Injection;
+using System.Windows;
 
 namespace Sims2023.Application.Services;
 
 public class AccommodationReservationReschedulingService
 {
+    private IUserCSVRepository _user;
+    private ILocationCSVRepository _location;
+    private IAccommodationCSVRepository _accommodation;
+    private IAccommodationReservationCSVRepository _accommodationReservation;
     private IAccommodationReservationReschedulingCSVRepository _accommodationReservationRescheduling;
 
     public AccommodationReservationReschedulingService()
     {
-          _accommodationReservationRescheduling = new AccommodationReservationReschedulingCSVRepository();
-          //_accommodationReservationRescheduling = Injector.CreateInstance<IAccommodationReservationReschedulingCSVRepository>();
+        _user = Injector.CreateInstance<IUserCSVRepository>();
+        _accommodation = Injector.CreateInstance<IAccommodationCSVRepository>();
+        _accommodationReservation = Injector.CreateInstance<IAccommodationReservationCSVRepository>();
+        _location = Injector.CreateInstance<ILocationCSVRepository>();
+        _accommodationReservationRescheduling = Injector.CreateInstance<IAccommodationReservationReschedulingCSVRepository>();
+        GetReservationReferences();
+    }
+
+    public void GetReservationReferences()
+    {
+        foreach (var item in GetAllReservationReschedulings())
+        {
+            var accommodationReservation = _accommodationReservation.GetById(item.AccommodationReservation.Id);
+            var accommodation = _accommodation.GetById(accommodationReservation.Accommodation.Id);
+            var location = _location.GetById(accommodation.Location.Id);
+            var guest = _user.GetById(accommodationReservation.Guest.Id);
+            var owner = _user.GetById(accommodation.Owner.Id);
+            if (accommodationReservation != null)
+            {
+                item.AccommodationReservation = accommodationReservation;
+                item.AccommodationReservation.Accommodation.Owner = owner;
+                item.AccommodationReservation.Guest = guest;
+                item.AccommodationReservation.Accommodation.Location = location;
+                item.AccommodationReservation.Guest.Name = guest.Name;
+                item.AccommodationReservation.Guest.Surname = guest.Surname;
+                item.AccommodationReservation.Accommodation.Name = accommodation.Name;
+
+            }
+        }
     }
 
     public AccommodationReservationRescheduling GetById(int id)
