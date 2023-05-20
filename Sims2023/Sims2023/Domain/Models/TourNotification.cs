@@ -41,10 +41,14 @@ namespace Sims2023.Domain.Models
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            TourService tourService = new();
-            Tour = tourService.GetById(Convert.ToInt32(values[1]));
-            UserService tourUserService = new();
-            Guest = tourUserService.GetById(Convert.ToInt32(values[2]));
+            Tour = new()
+            {
+                Id = Convert.ToInt32(values[1])
+            };
+            Guest = new()
+            {
+                Id = Convert.ToInt32(values[2])
+            };
             Type = (NotificationType)Enum.Parse(typeof(NotificationType), values[3]);
             IsNotified = Convert.ToBoolean(values[4]);
         }

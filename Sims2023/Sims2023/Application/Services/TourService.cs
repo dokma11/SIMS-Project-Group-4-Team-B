@@ -1,8 +1,6 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
-using Sims2023.Repositories;
-using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
 
@@ -13,36 +11,47 @@ namespace Sims2023.Application.Services
         private ITourWriteToCSVRepository _tour;
         private ILocationCSVRepository _location;
         private ITourReadFromCSVRepository _tourReadFromCSVRepository;
+        private IUserCSVRepository _user;
 
         public TourService()
         {
-            _tour = new TourWriteToCSVRepository();
-            //_tour = Injection.Injector.CreateInstance<ITourWriteToCSVRepository>();
-            _location = new LocationCSVRepository();
-            //_location = Injection.Injector.CreateInstance<ILocationRepository>();
-            _tourReadFromCSVRepository = new TourReadFromCSVRepository();
-            //_tourReadFromCSVRepository = Injection.Injector.CreateInstance<ITourReadFromCSVRepository>();
+            _tour = Injection.Injector.CreateInstance<ITourWriteToCSVRepository>();
+            _location = Injection.Injector.CreateInstance<ILocationCSVRepository>();
+            _tourReadFromCSVRepository = Injection.Injector.CreateInstance<ITourReadFromCSVRepository>();
+            _user = Injection.Injector.CreateInstance<IUserCSVRepository>();
+
+            GetLocationReferences();
+            GetUserReferences();
         }
 
-        public void Create(Tour tour, List<DateTime> dateTimes, Location location, User loggedInGuide)
+        public List<Tour> GetAll()
+        {
+            return _tourReadFromCSVRepository.GetAll();
+        }
+
+        public void Create(Tour tour, List<DateTime> dateTimes, Domain.Models.Location location, User loggedInGuide)
         {
             _tour.Add(tour, dateTimes, location, loggedInGuide);
+            Save();
         }
-        
+
         public void UpdateAvailableSpace(int reservedSpace, Tour tour)//new for guest2
         {
             _tour.UpdateAvailableSpace(reservedSpace, tour);
+            Save();
         }
 
-        public void AddToursLocation(Tour tour, Location location, int newToursNumber)
+        public void AddToursLocation(Tour tour, Domain.Models.Location location, int newToursNumber)
         {
             _tour.DecideLocationToAdd(tour, location, newToursNumber, _location.GetAll());
+            Save();
         }
 
         public void AddToursKeyPoints(List<string> keyPoints, int firstToursId)
         {
             string keyPointsString = string.Join(",", keyPoints);
             _tour.AddKeyPoints(keyPointsString, firstToursId);
+            Save();
         }
 
         public Uri GetPictureUri(Tour tour, int i)
@@ -69,10 +78,12 @@ namespace Sims2023.Application.Services
         {
             return _tourReadFromCSVRepository.GetAlternatives(reserved, tour);
         }
-        
+
         public List<Tour> GetFinished(User loggedInGuide)
         {
-            return _tourReadFromCSVRepository.GetFinished(loggedInGuide);
+            List<Tour> ret = _tourReadFromCSVRepository.GetFinished(loggedInGuide);
+            Save();
+            return ret;
         }
 
         public Tour GetTheMostVisitedTour(User loggedInGuide, string year)
@@ -82,22 +93,27 @@ namespace Sims2023.Application.Services
 
         public List<Tour> GetGuidesCreated(User loggedInGuide)
         {
-            return _tourReadFromCSVRepository.GetGuidesCreated(loggedInGuide);
+            List<Tour> ret = _tourReadFromCSVRepository.GetGuidesCreated(loggedInGuide);
+            Save();
+            return ret;
         }
 
         public void Update(Tour tour)//new method and deleted edit za sad nam ne treba vrv
         {
             _tour.Update(tour);
+            Save();
         }
 
         public void UpdateState(Tour selectedTour, ToursState state)
         {
             _tour.UpdateState(selectedTour, state);
+            Save();
         }
 
         public void SetLanguage(Tour selectedTour, ToursLanguage language)
         {
             _tour.SetLanguage(selectedTour, language);
+            Save();
         }
 
         public List<Tour> GetFiltered(string citySearchTerm, string countrySearchTerm, int lengthSearchTerm, string guideLanguageSearchTerm, int maxGuestNumberSearchTerm)
@@ -108,6 +124,9 @@ namespace Sims2023.Application.Services
         public void Save()
         {
             _tour.Save();
+            _tourReadFromCSVRepository.Save();
+            GetLocationReferences();
+            GetUserReferences();
         }
 
         public int GetTodaysNumber(User loggedInGuide)
@@ -118,6 +137,23 @@ namespace Sims2023.Application.Services
         public void CancelAll(User loggedInGuide)
         {
             _tour.CancelAll(loggedInGuide);
+            Save();
+        }
+
+        public void GetLocationReferences()
+        {
+            foreach (var tour in GetAll())
+            {
+                tour.Location = _location.GetById(tour.Location.Id) ?? tour.Location;
+            }
+        }
+
+        public void GetUserReferences()
+        {
+            foreach (var tour in GetAll())
+            {
+                tour.Guide = _user.GetById(tour.Guide.Id) ?? tour.Guide;
+            }
         }
     }
 }

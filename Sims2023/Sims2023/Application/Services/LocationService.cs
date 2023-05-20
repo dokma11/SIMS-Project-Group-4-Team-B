@@ -1,7 +1,6 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
-using Sims2023.Repositories;
 
 namespace Sims2023.Application.Services
 {
@@ -10,8 +9,7 @@ namespace Sims2023.Application.Services
         private readonly ILocationCSVRepository _location;
         public LocationService()
         {
-            _location = new LocationCSVRepository();
-            //_location = Injection.Injector.CreateInstance<ILocationRepository>();
+            _location = Injection.Injector.CreateInstance<ILocationCSVRepository>();
         }
 
         public Location GetById(int id)

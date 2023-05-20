@@ -43,6 +43,7 @@ namespace Sims2023.WPF.Views.GuideViews
             _countriesAndCitiesService = countriesAndCitiesService;
 
             LoggedInGuide = loggedInGuide;
+
             addDatesButtonClicked = false;
             _tourNotificationService = tourNotificationService;
         }

@@ -8,88 +8,108 @@ namespace Sims2023.Application.Services
 {
     public class TourReservationService
     {
-        private ITourReservationCSVRepository _tourReservations;
-        private ITourReadFromCSVRepository _tours;
-        private IUserCSVRepository _users;
+        private ITourReservationCSVRepository _tourReservation;
+        private ITourReadFromCSVRepository _tour;
+        private IUserCSVRepository _user;
 
         public TourReservationService()
         {
-            _tourReservations = new TourReservationCSVRepository();
-            //_tourReservations = Injection.Injector.CreateInstance<ITourReservationRepository>();
-            _tours = new TourReadFromCSVRepository();
-            //_tours = Injection.Injector.CreateInstance<ITourReadFromCSVRepository>();
-            _users = new UserCSVRepository();
-            //_users = Injection.Injector.CreateInstance<IUserCSVRepository>();
+            _tourReservation = Injection.Injector.CreateInstance<ITourReservationCSVRepository>();
+            _tour = Injection.Injector.CreateInstance<ITourReadFromCSVRepository>();
+            _user = Injection.Injector.CreateInstance<IUserCSVRepository>();
+
+            GetUserReferences();
+            GetTourReferences();
         }
 
         public List<TourReservation> GetAll()
         {
-            return _tourReservations.GetAll();
+            return _tourReservation.GetAll();
         }
 
         public List<TourReservation> GetNotConfirmedParticipation()//new method for guest2
         {
-            return _tourReservations.GetNotConfirmedParticipation();
+            return _tourReservation.GetNotConfirmedParticipation();
         }
 
         public void Create(TourReservation reservation)
         {
-            _tourReservations.Add(reservation);
+            _tourReservation.Add(reservation);
+            Save();
         }
 
         public void Update(TourReservation reservation)
         {
-            _tourReservations.Update(reservation);
+            _tourReservation.Update(reservation);
+            Save();
         }
 
         public void ConfirmReservation(TourReservation tourReservation, bool confirmed)//new method for guest2
         {
-            _tourReservations.ConfirmReservation(tourReservation, confirmed);
+            _tourReservation.ConfirmReservation(tourReservation, confirmed);
         }
 
         public List<TourReservation> GetByUser(User user)//new method for guest2
         {
-            return _tourReservations.GetByUser(user);
+            return _tourReservation.GetByUser(user);
         }
 
         public bool CheckVouchers(TourReservation tourReservation)//new method for guest2
         {
-            return _tourReservations.CountReservationsByUser(tourReservation);
+            return _tourReservation.CountReservationsByUser(tourReservation);
         }
 
         public void Subscribe(IObserver observer)
         {
-            _tourReservations.Subscribe(observer);
+            _tourReservation.Subscribe(observer);
         }
 
         public void Save()
         {
-            _tourReservations.Save();
+            _tourReservation.Save();
+            GetUserReferences();
+            GetTourReferences();
         }
 
         public List<TourReservation> GetByToursid(int id)
         {
-            return _tourReservations.GetByToursId(id);
+            return _tourReservation.GetByToursId(id);
         }
 
         public int GetAgeStatistics(Tour selectedTour, string ageGroup)
         {
-            return _tourReservations.GetAgeStatistics(selectedTour, ageGroup);
+            return _tourReservation.GetAgeStatistics(selectedTour, ageGroup);
         }
 
         public int GetVoucherStatistics(Tour selectedTour, bool used)
         {
-            return _tourReservations.GetVoucherStatistics(selectedTour, used);
+            return _tourReservation.GetVoucherStatistics(selectedTour, used);
         }
 
         public void GetAttendedGuestsNumber(User loggedInGuide)
         {
-            _tourReservations.CalculateAttendedGuestsNumber(loggedInGuide, _tours.GetFinished(loggedInGuide));
+            _tourReservation.CalculateAttendedGuestsNumber(loggedInGuide, _tour.GetFinished(loggedInGuide));
         }
 
         public List<User> GetGuestsWithReservations(KeyPoint keyPoint, List<User> markedGuests)
         {
-            return _tourReservations.GetGuestsWithReservations(keyPoint, markedGuests, _users.GetAll());
+            return _tourReservation.GetGuestsWithReservations(keyPoint, markedGuests, _user.GetAll());
+        }
+
+        public void GetTourReferences()
+        {
+            foreach (var reservation in GetAll())
+            {
+                reservation.Tour = _tour.GetById(reservation.Tour.Id) ?? reservation.Tour;
+            }
+        }
+
+        public void GetUserReferences()
+        {
+            foreach (var reservation in GetAll())
+            {
+                reservation.User = _user.GetById(reservation.User.Id) ?? reservation.User;
+            }
         }
     }
 }

@@ -101,8 +101,10 @@ namespace Sims2023.Domain.Models
         {
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
-            LocationService locationService = new();
-            Location = locationService.GetById(Convert.ToInt32(values[2]));
+            Location = new()
+            {
+                Id = Convert.ToInt32(values[2])
+            };
             Description = values[3];
             GuideLanguage = (ToursLanguage)Enum.Parse(typeof(ToursLanguage), values[4]);
             MaxGuestNumber = Convert.ToInt32(values[5]);
@@ -117,8 +119,10 @@ namespace Sims2023.Domain.Models
                 Pictures.Add(picture);
             }
             CurrentState = (ToursState)Enum.Parse(typeof(ToursState), values[11]);
-            UserService userService = new();
-            Guide = userService.GetById(Convert.ToInt32(values[12]));
+            Guide = new()
+            {
+                Id = Convert.ToInt32(values[12])
+            };
             AttendedGuestsNumber = Convert.ToInt32(values[13]);
         }
     }

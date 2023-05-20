@@ -56,18 +56,14 @@ namespace Sims2023.Domain.Models
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            Accommodation accommodation = new()
+            Accommodation = new()
             {
                 Id = Convert.ToInt32(values[1])
             };
-            AccommodationService accommodationController = new();
-            Accommodation = accommodationController.GetById(accommodation.Id);
-            User guest = new()
+            Guest = new()
             {
                 Id = Convert.ToInt32(values[2])
             };
-            UserService userService = new();
-            Guest = userService.GetById(guest.Id);
             Cleanliness = Convert.ToInt32(values[3]);
             RespectRules = Convert.ToInt32(values[4]);
             Communication = Convert.ToInt32(values[5]);
@@ -75,8 +71,5 @@ namespace Sims2023.Domain.Models
             StartDate = DateTime.Parse(values[7]);
             EndDate = DateTime.Parse(values[8]);
         }
-
-
-
     }
 }

@@ -17,6 +17,11 @@ namespace Sims2023.Repositories
             _tours = _fileHandler.Load();
         }
 
+        public List<Tour> GetAll()
+        {
+            return _tours;
+        }
+
         public List<Tour> GetCreated()//new method for guest2
         {
             List<Tour> available = new List<Tour>();
