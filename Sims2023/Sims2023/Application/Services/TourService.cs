@@ -155,5 +155,10 @@ namespace Sims2023.Application.Services
                 tour.Guide = _user.GetById(tour.Guide.Id) ?? tour.Guide;
             }
         }
+
+        public List<DateTime> GetBusyDates(User loggedInGuide)
+        {
+            return _tourReadFromCSVRepository.GetBusyDates(loggedInGuide);  
+        }
     }
 }

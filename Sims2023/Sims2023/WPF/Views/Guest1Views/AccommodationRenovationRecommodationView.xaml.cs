@@ -33,17 +33,20 @@ namespace Sims2023.WPF.Views.Guest1Views
         }
 
         public void CreateRecommodation(object sender, ExecutedRoutedEventArgs e)
-        {
-            var result = System.Windows.MessageBox.Show("Da li ste sigurni da zelite da ostavite ovu preporuku?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
-            if (result == System.Windows.MessageBoxResult.Yes)
+        {   if(AccommodationRenovationRecommodationViewModel.CheckIfAllFiledsFilled())
             {
-                AccommodationRenovationRecommodationViewModel.AddRenovationRecommodation();
-                Close();
+                var result = System.Windows.MessageBox.Show("Da li ste sigurni da zelite da ostavite ovu preporuku?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
+                if (result == System.Windows.MessageBoxResult.Yes)
+                {
+                    AccommodationRenovationRecommodationViewModel.AddRenovationRecommodation();
+                    Close();
+                }
             }
             else
             {
-                return;
+                MessageBox.Show("Molimo Vas popunite sva polja");
             }
+            
         }
 
         public void GoBack(object sender, ExecutedRoutedEventArgs e)

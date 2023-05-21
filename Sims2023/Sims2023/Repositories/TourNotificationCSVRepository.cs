@@ -29,12 +29,11 @@ namespace Sims2023.Repositories
             return _fileHandler.GetById(id);
         }
 
-        
-
         public int NextId()
         {
             return _tourNotifications.Count == 0 ? 1 : _tourNotifications.Max(t => t.Id) + 1;
         }
+
         public void Add(TourNotification tourRequest)
         {
             tourRequest.Id = NextId();

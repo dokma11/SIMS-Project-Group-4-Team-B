@@ -1,6 +1,7 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.GuideViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -23,7 +24,6 @@ namespace Sims2023.WPF.Views.GuideViews
         private CountriesAndCitiesService _countriesAndCitiesService;
         private TourNotificationService _tourNotificationService;
         public User LoggedInGuide { get; set; }
-        bool addDatesButtonClicked;
         public CreateTourFromRequestView(TourRequest selectedTourRequest, TourService tourService, LocationService locationService, KeyPointService keyPointService, TourReviewService tourReviewService, RequestService requestService, TourReservationService tourReservationService, VoucherService voucherService, UserService userService, CountriesAndCitiesService countriesAndCitiesService, User loggedInGuide, TourNotificationService tourNotificationService)
         {
             InitializeComponent();
@@ -44,7 +44,20 @@ namespace Sims2023.WPF.Views.GuideViews
             CreateTourFromRequestViewModel = new(selectedTourRequest, loggedInGuide, tourService, keyPointService, requestService, tourNotificationService, tourReservationService);
             DataContext = CreateTourFromRequestViewModel;
 
-            addDatesButtonClicked = false;  
+            foreach (var date in _tourService.GetBusyDates(LoggedInGuide))
+            {
+                requestDatePicker.BlackoutDates.Add(new CalendarDateRange(date, date.AddHours(1)));
+            }
+
+            requestDatePicker.DisplayDateStart = CreateTourFromRequestViewModel.SelectedRequest.Start;
+
+            requestDatePicker.BlackoutDates.Add(new CalendarDateRange(CreateTourFromRequestViewModel.SelectedRequest.End.AddDays(1), DateTime.MaxValue)); 
+        }
+
+        private void RequestDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CreateTourFromRequestViewModel.Tour.Start = (DateTime)requestDatePicker.SelectedDate;
+            CreateTourFromRequestViewModel.AddDatesToList(requestDatePicker.Text);
         }
 
         private void AddKeyPointsButton_Click(object sender, RoutedEventArgs e)
@@ -55,15 +68,9 @@ namespace Sims2023.WPF.Views.GuideViews
             keyPointTextBox.Clear();
         }
 
-        private void AddDatesButton_Click(object sender, RoutedEventArgs e)
-        {
-            addDatesButtonClicked = true;
-            CreateTourFromRequestViewModel.AddDatesToList(dateTimeTextBox.Text);
-        }
-
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            if (addDatesButtonClicked && keyPointsOutput.Items.Count > 1)
+            if (keyPointsOutput.Items.Count > 1)
             {
                 CreateTourFromRequestViewModel.ConfirmCreation();
                 RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
@@ -85,11 +92,6 @@ namespace Sims2023.WPF.Views.GuideViews
         private void KeyPointTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             addKeyPointsButton.IsEnabled = !string.IsNullOrEmpty(keyPointTextBox.Text);
-        }
-
-        private void DateTimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            addDatesButton.IsEnabled = !string.IsNullOrEmpty(dateTimeTextBox.Text);
         }
 
         //TOOLBAR

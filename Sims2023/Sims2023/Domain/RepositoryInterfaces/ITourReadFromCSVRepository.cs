@@ -17,5 +17,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void Save();
         public int GetTodaysNumber(User loggedInGuide);
         public List<Tour> GetAll();
+        public List<DateTime> GetBusyDates(User loggedInGuide);
     }
 }
