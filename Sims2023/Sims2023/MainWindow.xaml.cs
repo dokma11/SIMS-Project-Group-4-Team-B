@@ -8,6 +8,8 @@ using Sims2023.WPF.Views.Guest1Views;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Sims2023
 {
@@ -45,7 +47,8 @@ namespace Sims2023
         private void GetUser(String username, String password)
         {
             bool loggedIn = false;
-            foreach (var user in _userService.GetAllUsers())
+            var users = _userService.GetAllUsers().ToList();
+            foreach (var user in users)
             {
                 if (user.Username == username && user.Password == password)
                 {
