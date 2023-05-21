@@ -101,6 +101,11 @@ namespace Sims2023.Repositories
                     accommodation.Renovated = true;
                     accommodationsToUpdate.Add(accommodation);
                 }
+                else
+                {
+                    accommodation.Renovated = false;
+                    accommodationsToUpdate.Add(accommodation);
+                }
             }
 
             foreach (Accommodation accommodation in accommodationsToUpdate)
