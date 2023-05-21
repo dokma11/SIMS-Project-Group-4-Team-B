@@ -112,13 +112,14 @@ namespace Sims2023.Repositories
         {
             foreach (AccommodationRenovation renovation in renovations)
             {
-                if (accommodation.Id == renovation.Accommodation.Id && renovation.EndDate < DateTime.Today)
+                if (accommodation.Id == renovation.Accommodation.Id && renovation.EndDate >= DateTime.Today.AddDays(-365) && renovation.EndDate <= DateTime.Today)
                 {
                     return true;
                 }
             }
             return false;
         }
+
         public void CheckSearchTermConditions(List<Accommodation> FilteredData, string nameSearchTerm, string citySearchTerm, string countrySearchTerm, string typeSearchTerm, int maxGuests, int minDays)
         {
             foreach (Accommodation accommodation in _accommodations)

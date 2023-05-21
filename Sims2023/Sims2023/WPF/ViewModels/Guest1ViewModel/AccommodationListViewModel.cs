@@ -30,6 +30,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             User = guest1;
 
             _userService.MarkSuperOwner();
+
             _accommodationService = new AccommodationService();
             _accommodationService.MarkRenovated(_renovationService.GetAll());
             Accommodations = new ObservableCollection<Accommodation>(_accommodationService.GetAllAccommodations());
