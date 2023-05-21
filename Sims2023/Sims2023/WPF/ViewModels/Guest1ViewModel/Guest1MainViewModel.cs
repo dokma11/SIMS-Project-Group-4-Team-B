@@ -52,6 +52,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                     Guest1MainView.userStatus_label.Content = "Super gost";
                     return;
                 }
+                Guest1MainView.userStatus_label.Content = "Regularan gost";
             }
             else
             {
