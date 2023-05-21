@@ -41,6 +41,7 @@ namespace Sims2023.WPF.Views.GuideViews
             _voucherService = voucherService;
             _userService = userService;
             _countriesAndCitiesService = countriesAndCitiesService;
+            _tourNotificationService = tourNotificationService;
 
             LoggedInGuide = loggedInGuide;
 

@@ -1,7 +1,6 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
-using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,6 @@ namespace Sims2023.Repositories
 {
     public class TourRequestStatisticCSVRepository : ITourRequestStatisticCSVRepository
     {
-        private List<IObserver> _observers;
         private List<TourRequest> _requests;
         private TourRequestFileHandler _fileHandler;
 
@@ -18,7 +16,6 @@ namespace Sims2023.Repositories
         {
             _fileHandler = new TourRequestFileHandler();
             _requests = _fileHandler.Load();
-            _observers = new List<IObserver>();
         }
 
         public int GetYearlyStatistics(string purpose, string statFor, string year)
@@ -74,10 +71,8 @@ namespace Sims2023.Repositories
             var lastYearStartDate = new DateTime(DateTime.Today.Year - 1, DateTime.Today.Month, DateTime.Today.Day);
             var lastYearEndDate = DateTime.Today;
 
-            var requestsInLastYear = _requests
-                .Where(r => r.Start >= lastYearStartDate && r.Start <= lastYearEndDate)
-                .GroupBy(r => r.Language)
-                .ToDictionary(g => g.Key, g => g.Count());
+            var requestsInLastYear = _requests.Where(r => r.Start >= lastYearStartDate && r.Start <= lastYearEndDate)
+                                              .GroupBy(r => r.Language).ToDictionary(g => g.Key, g => g.Count());
 
             var maxCount = requestsInLastYear.Values.Max();
             return requestsInLastYear.FirstOrDefault(r => r.Value == maxCount).Key;
@@ -88,10 +83,8 @@ namespace Sims2023.Repositories
             var lastYearStartDate = new DateTime(DateTime.Today.Year - 1, DateTime.Today.Month, DateTime.Today.Day);
             var lastYearEndDate = DateTime.Today;
 
-            var requestsInLastYear = _requests
-                .Where(r => r.Start >= lastYearStartDate && r.Start <= lastYearEndDate)
-                .GroupBy(r => r.Location.Id)
-                .ToDictionary(g => g.Key, g => g.Count());
+            var requestsInLastYear = _requests.Where(r => r.Start >= lastYearStartDate && r.Start <= lastYearEndDate)
+                                              .GroupBy(r => r.Location.Id).ToDictionary(g => g.Key, g => g.Count());
 
             var maxCount = requestsInLastYear.Values.Max();
             return requestsInLastYear.FirstOrDefault(r => r.Value == maxCount).Key;
@@ -111,6 +104,11 @@ namespace Sims2023.Repositories
             {
                 return _requests.Select(r => r.Language.ToString()).Distinct().ToList();
             }
+        }
+
+        public List<TourRequest> GetAll()
+        {
+            return _requests;
         }
 
         public double GetAverageAllTimeAcceptedTourRequestGuestNumber(User user)
@@ -160,6 +158,11 @@ namespace Sims2023.Repositories
         public List<TourRequest> GetUsersAccepted(User user)
         {
             return _requests.Where(r => r.State == RequestsState.Accepted && r.Guest.Id == user.Id).ToList();
+        }
+
+        public void Save()
+        {
+            _fileHandler.Save(_requests);
         }
     }
 }

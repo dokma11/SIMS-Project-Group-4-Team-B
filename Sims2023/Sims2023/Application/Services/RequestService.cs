@@ -20,7 +20,9 @@ namespace Sims2023.Application.Services
             _user = Injection.Injector.CreateInstance<IUserCSVRepository>();
 
             GetUserReferences();
+            GetUserReferencesForStatistics();
             GetLocationReferences();
+            GetLocationReferencesForStatistics();
         }
 
         public void Create(TourRequest request)
@@ -30,6 +32,8 @@ namespace Sims2023.Application.Services
 
         public List<TourRequest> GetOnHold()
         {
+            GetLocationReferences();
+            GetUserReferences();
             return _tourRequest.GetOnHold();
         }
 
@@ -60,17 +64,24 @@ namespace Sims2023.Application.Services
 
         public int GetMonthlyLocationStatistics(string location, int ordinal, string year)
         {
-            return _tourRequestStatistic.GetMonthlyStatistics("location", location, year, ordinal);
+            GetLocationReferencesForStatistics();
+            GetUserReferencesForStatistics();
+            int ret = _tourRequestStatistic.GetMonthlyStatistics("location", location, year, ordinal);
+            return ret;
         }
 
         public int GetYearlyLocationStatistics(string location, string year)
         {
-            return _tourRequestStatistic.GetYearlyStatistics("location", location, year);
+            GetLocationReferencesForStatistics();
+            GetUserReferencesForStatistics();
+            int ret =  _tourRequestStatistic.GetYearlyStatistics("location", location, year);
+            return ret;
         }
 
 
         public List<string> GetComboBoxData(string purpose)
         {
+            GetLocationReferencesForStatistics();
             return _tourRequestStatistic.GetComboBoxData(purpose);
         }
 
@@ -142,6 +153,14 @@ namespace Sims2023.Application.Services
             }
         }
 
+        public void GetLocationReferencesForStatistics()
+        {
+            foreach (var request in GetAllStatistics())
+            {
+                request.Location = _location.GetById(request.Location.Id) ?? request.Location;
+            }
+        }
+
         public void GetUserReferences()
         {
             foreach (var request in GetAll())
@@ -150,9 +169,30 @@ namespace Sims2023.Application.Services
             }
         }
 
+        public void GetUserReferencesForStatistics()
+        {
+            foreach (var request in GetAllStatistics())
+            {
+                request.Guest = _user.GetById(request.Guest.Id) ?? request.Guest;
+            }
+        }
+
         public List<TourRequest> GetAll()
         {
             return _tourRequest.GetAll();
+        }
+
+        public List<TourRequest> GetAllStatistics()
+        {
+            return _tourRequestStatistic.GetAll();
+        }
+
+        public void Save()
+        {
+            _tourRequest.Save();
+            _tourRequestStatistic.Save();
+            GetLocationReferences();
+            GetUserReferences();
         }
     }
 }

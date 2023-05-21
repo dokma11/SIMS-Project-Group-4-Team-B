@@ -18,6 +18,7 @@ namespace Sims2023.Domain.Models
         public ToursLanguage GuideLanguage { get; set; }
         public int MaxGuestNumber { get; set; }
         public string KeyPoints { get; set; }
+        public List<KeyPoint> KeyPointList { get; set; }
         public DateTime Start { get; set; }
         public int Length { get; set; }
         public ToursState CurrentState { get; set; }
