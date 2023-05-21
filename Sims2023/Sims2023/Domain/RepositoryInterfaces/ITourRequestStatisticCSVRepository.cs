@@ -20,5 +20,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public double GetAverageYearlyAcceptedTourRequestGuestNumber(User user, int year);
         public List<TourRequest> GetYearlyFilteredTourRequestsByUser(User user, int year, string state);
         public List<TourRequest> GetUsersAccepted(User user);
+        public void Save();
+        public List<TourRequest> GetAll();
     }
 }

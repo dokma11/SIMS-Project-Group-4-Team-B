@@ -13,8 +13,6 @@ namespace Sims2023.Repositories
         private List<IObserver> _observers;
         private List<User> _users;
         private UserFileHandler _fileHandler;
-        //private TourReadFromCSVRepository _tourRepository;
-        //private TourReviewCSVRepository _tourReviewRepository;
      //   private AccommodationGradeCSVRepository guests;
 
         public UserCSVRepository()

@@ -1,7 +1,6 @@
 using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
-using Sims2023.Repositories;
 using System.Collections.Generic;
 
 namespace Sims2023.Application.Services
@@ -33,6 +32,7 @@ namespace Sims2023.Application.Services
         public void Create(TourReview tourReview)
         {
             _tourReviews.Add(tourReview);
+            Save();
         }
 
         public void Subscribe(IObserver observer)
@@ -43,12 +43,16 @@ namespace Sims2023.Application.Services
         public void Save()
         {
             _tourReviews.Save();
+            GetTourReferences();
+            GetUserReferences();
+            GetKeyPointReferences();
         }
 
         public void AddReviewsPictures(List<string> pictures, TourReview tourReview)
         {
             string picturesString = string.Join("!", pictures);
             _tourReviews.AddReviewsPictures(picturesString, tourReview);
+            Save();
         }
 
         public List<TourReview> GetByToursId(int id)
@@ -59,6 +63,7 @@ namespace Sims2023.Application.Services
         public void Report(TourReview tourReview)
         {
             _tourReviews.Report(tourReview);
+            Save();
         }
 
         public void GetTourReferences()

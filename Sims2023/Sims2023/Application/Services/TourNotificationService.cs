@@ -35,12 +35,10 @@ namespace Sims2023.Application.Services
             _tourNotification.Add(acceptedTourRequest);
         }
 
-
         public void Subscribe(IObserver observer)
         {
             _tourNotification.Subscribe(observer);
         }
-
 
         public List<TourNotification> GetAcceptedTourRequest(User user)
         {

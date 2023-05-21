@@ -85,7 +85,7 @@ namespace Sims2023.Repositories
 
         public void CheckExpirationDate(User user)
         {
-            foreach(TourRequest request in GetByUser(user).Intersect(GetOnHold()))
+            foreach (TourRequest request in GetByUser(user).Intersect(GetOnHold()))
             {
                 TimeSpan tillExpiration = request.Start - DateTime.Now;
                 if (tillExpiration.TotalHours < 48)

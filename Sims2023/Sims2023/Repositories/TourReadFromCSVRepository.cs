@@ -61,10 +61,8 @@ namespace Sims2023.Repositories
                 return tours.OrderByDescending(tour => tour.AttendedGuestsNumber).FirstOrDefault();
             }
 
-            var selectedTours = tours.Where(tour => tour.Start.Year.ToString() == year)
-                                     .OrderByDescending(tour => tour.AttendedGuestsNumber);
-
-            return selectedTours.FirstOrDefault();
+            return tours.Where(tour => tour.Start.Year.ToString() == year)
+                        .OrderByDescending(tour => tour.AttendedGuestsNumber).FirstOrDefault();
         }
 
         public List<Tour> GetGuidesCreated(User loggedInGuide)

@@ -26,6 +26,7 @@ namespace Sims2023.Application.Services
         {
             _location.CheckExistance(location);
         }
+
         public void Subscribe(IObserver observer)
         {
             _location.Subscribe(observer);
