@@ -1,0 +1,189 @@
+@startuml
+hide footbox
+
+actor "User" as U
+participant  WPFApplication as WPF
+participant "AccommodationReservationService" as ARS
+participant "AccommodationReservationRepository" as ARR
+participant "UserService" as US
+participant "UserRepository" as UR
+
+U -> WPF: Window_Loaded(sender, e)
+activate WPF
+WPF -> WPF: CheckGuestStatus()
+activate WPF
+alt User.SuperGuest1 == true
+        activate WPF
+	WPF -> WPF: CheckTheSuperGuestDate()
+	alt CheckTheSuperGuestDate() == true
+                activate WPF
+		alt (DateTime.Today - User.DateOfBecomingSuperGuest).TotalDays>=365
+     	   		WPF -> WPF: CheckIfSuperGuest(User)
+    			activate WPF
+			WPF -> ARS: FindAllGuestsReservations(User)
+    			activate ARS
+			ARS -> ARR: FindAllGuestsReservations(User)
+    			activate ARR
+    			ARR --> ARS: List<AccommodationReservation> AllReservations
+			deactivate ARR
+			ARS --> WPF: List<AccommodationReservation> AllReservations
+			deactivate ARS
+			alt AllReservations.Count>10
+        			activate WPF
+        			WPF -> US: MarkGuestAsSuper(user)
+        			activate US
+				US -> UR: MarkGuestAsSuper(user)
+        			activate UR
+				UR -> UR: Update(user)
+ 				activate UR
+				UR --> UR:
+ 				deactivate UR
+        			UR --> US: 
+ 				deactivate UR
+        			US --> WPF: 
+ 				deactivate US
+				WPF --> WPF: true
+			else
+        			WPF -> US: MarkGuestAsRegular(user)
+        			activate US
+				US -> UR: MarkGuestAsRegular(user)
+        			activate UR
+				UR -> UR: Update(user)
+ 				activate UR
+                                UR --> UR: 
+ 				deactivate UR
+        			UR --> US:
+ 				deactivate UR
+        			US --> WPF: 
+ 				deactivate US
+        			WPF --> WPF:  false
+			end
+		        WPF --> WPF: AllReservations.Count>10
+        		deactivate WPF
+		        WPF --> WPF: CheckIfSuperGuest(User)
+			deactivate WPF
+		else
+		WPF --> WPF: true
+		end
+	WPF --> WPF: (DateTime.Today - User.DateOfBecomingSuperGuest).TotalDays>=365
+	deactivate WPF
+	WPF --> WPF: CheckTheSuperGuestDate()
+        deactivate WPF
+	WPF --> WPF: userStatus_label.Content="Super gost"
+        else 
+	WPF --> WPF: Updte userStatus_label.Content="Regularan gost"
+        end
+        deactivate WPF
+else User.SuperGuest1 == false
+	WPF -> WPF: CheckIfSuperGuest(User)
+	alt CheckIfSuperGuest(User) == true
+	activate WPF
+		WPF -> ARS: FindAllGuestsReservations(User)
+    		activate ARS
+		ARS -> ARR: FindAllGuestsReservations(User)
+    		activate ARR
+    		ARR --> ARS: List<AccommodationReservation> AllReservations
+		deactivate ARR
+		ARS --> WPF:  List<AccommodationReservation> AllReservations
+		deactivate ARS
+		alt AllReservations.Count>10
+        		activate WPF
+        		WPF -> US: MarkGuestAsSuper(user)
+        		activate US
+			US -> UR: MarkGuestAsSuper(user)
+        		activate UR
+			UR -> UR: Update(user)
+ 			activate UR
+                        UR --> UR: 
+ 			deactivate UR
+        		UR --> US: 
+ 			deactivate UR
+       			US --> WPF: 
+ 			deactivate US
+			WPF --> WPF: true
+		else 
+        		WPF -> US: MarkGuestAsRegular(user)
+        		activate US
+			US -> UR: MarkGuestAsRegular(user)
+        		activate UR
+			UR -> UR: Update(user)
+ 			activate UR
+                        UR --> UR: 
+ 			deactivate UR
+        		UR --> US: 
+ 			deactivate UR
+       			US --> WPF:
+ 			deactivate US
+        		WPF --> WPF:  false
+		end
+	WPF --> WPF: AllReservations.Count>10
+       	deactivate WPF
+	WPF --> WPF: CheckIfSuperGuest(User)
+	deactivate WPF
+	else
+	WPF --> WPF: true
+	end
+end
+WPF --> WPF: CheckGuestStatus()
+deactivate WPF
+WPF --> U: 
+
+@startuml
+hide footbox
+
+actor "User" as U
+participant WPFApplication as WPF
+participant "UserService" as US
+participant "UserRepository" as UR
+participant "AccommodationReservationService" as ARS
+participant "AccommodationReservationRepository" as ARR
+
+U -> WPF: ConfirmReservation()
+activate WPF
+WPF -> WPF: ReservationButton_Click()
+activate WPF
+alt ReservationId == -1
+        WPF -> WPF: MakeNewAccommodationReservation()
+        activate WPF
+        WPF -> WPF: RegulateUserStatus()
+        activate WPF
+        opt User.SuperGuest1
+        WPF -> US: RemovePoint(User)
+        activate US
+	US -> UR: RemovePointFromGuest1(User))
+        activate UR
+        opt user.Guest1Points > 0
+            UR -> UR: user.Guest1Points--
+        end
+	UR -> UR: Update(user)
+ 	activate UR
+        UR --> UR: 
+ 	deactivate UR
+        UR --> US: 
+ 	deactivate UR
+       	US --> WPF: 
+ 	deactivate US
+        end
+        WPF --> WPF:
+        deactivate WPF
+        WPF -> ARS: Create(accommodationReservation)
+        activate ARS
+	ARS -> ARR: Add(accommodationReservation)
+    	activate ARR
+        ARR --> ARS: 
+ 	deactivate ARR
+       	ARS --> WPF:
+ 	deactivate ARS
+        WPF --> WPF
+        deactivate WPF
+        WPF --> U:
+        deactivate WPF
+else ReservationId != -1
+        WPF -> WPF: MakeNewAccommodationReservationRescheduling(ReservationId)
+        activate WPF
+        WPF --> WPF:
+        deactivate WPF
+        WPF --> U:
+end
+deactivate WPF
+@enduml
