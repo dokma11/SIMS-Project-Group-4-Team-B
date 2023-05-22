@@ -18,6 +18,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         private AccommodationReservationService _accommodationReservationService;
 
+        private AccommodationStatisticsService _statisticSerice;
         public AccommodationReservation SelectedAccommodationReservation { get; set; }
         public User User { get; set; }
 
@@ -29,6 +30,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             Grade = grade;
             SelectedAccommodationReservation = selectedAccommodationReservationn;
             User = guest1;
+            _statisticSerice = new AccommodationStatisticsService();
             _accommodationReservationService = accommodationReservationController;
         }
 
@@ -36,6 +38,8 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             if (Grade != null)
             {
+                AccommodationStatistics statistic = new AccommodationStatistics(SelectedAccommodationReservation.Accommodation, DateTime.Now, false, false, true);
+                _statisticSerice.Create(statistic);
                 MakeRenovationRecommodation();
                 _accommodationGradeService.Update(Grade);
                 _accommodationReservationService.Update(SelectedAccommodationReservation);
