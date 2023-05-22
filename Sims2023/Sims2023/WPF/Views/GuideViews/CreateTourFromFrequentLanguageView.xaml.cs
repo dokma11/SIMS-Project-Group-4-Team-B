@@ -14,7 +14,6 @@ namespace Sims2023.WPF.Views.GuideViews
     public partial class CreateTourFromFrequentLanguageView : Page
     {
         public CreateTourFromFrequentLanguageViewModel CreateTourFromFrequentLanguageViewModel;
-        private bool addDatesButtonClicked;
         private TourService _tourService;
         private LocationService _locationService;
         private KeyPointService _keyPointService;
@@ -46,7 +45,6 @@ namespace Sims2023.WPF.Views.GuideViews
 
             LoggedInGuide = loggedInGuide;
 
-            addDatesButtonClicked = false;
             countryComboBox.ItemsSource = CreateTourFromFrequentLanguageViewModel.GetCitiesAndCountries();
             countryComboBox.DisplayMemberPath = "CountryName";
             countryComboBox.SelectedValuePath = "CountryName";
@@ -77,7 +75,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            if (addDatesButtonClicked && keyPointsOutput.Items.Count > 1)
+            if (keyPointsOutput.Items.Count > 1)
             {
                 CreateTourFromFrequentLanguageViewModel.ConfirmCreation(countryComboBox.Text, cityComboBox.Text);
                 RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
