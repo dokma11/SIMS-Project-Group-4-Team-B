@@ -1,0 +1,248 @@
+@startuml
+title Sims2023.WPF.Views.GuideViews.RequestsView
+
+actor "User" as U
+
+participant "WPF" as WPF
+participant "RequestService" as RS
+participant "TourRequestCSVRepository" as TRR
+participant "TourService" as TS
+participant "TourReadFromCSVRepository" as TRFR
+participant "KeyPointService" as KPS
+participant "TourWriteToCSVRepository" as TWTR
+participant "KeyPointCSVRepository" as KPR
+participant "TourNotificationService" as TNS
+participant "TourNotificationRepository" as TNR
+participant "TourReservationService" as TRS
+participant "TourReservationRepository" as TRR
+
+opt
+U -> WPF: FilterButton_Click(object sender, RoutedEventArgs e)
+activate WPF
+
+WPF -> RS: GetFiltered(locationSearchTerm, guestNumberSearchTerm, languageSearchTerm, dateStartSearchTerm, dateEndSearchTerm)
+activate RS
+RS -> TRR: GetFiltered(locationSearchTerm, guestNumberSearchTerm, languageSearchTerm, dateStartSearchTerm, dateEndSearchTerm)
+activate TRR
+TRR -> TRR: GetOnHold()
+activate TRR
+TRR --> TRR: requestsOnHold
+deactivate TRR
+TRR --> RS: filteredRequests
+deactivate TRR
+RS --> WPF: filteredRequests
+deactivate RS
+end
+
+U ->> WPF: AcceptButtonClick(object sender, RoutedEventArgs e)
+
+WPF -> TS: GetBusyDates(LoggedInGuide)
+activate TS
+
+TS -> TRFR: GetBusyDates(loggedInGuide)
+activate TRFR
+
+TRFR --> TS: busyDates
+deactivate TRFR
+
+TS --> WPF: busyDates
+deactivate TS
+
+WPF -> TS: Create(Tour, _dateTimeList, SelectedRequest.Location, LoggedInGuide)
+activate TS
+
+TS -> TWTR: Add(tour, dateTimes, location, loggedInGuide)
+activate TWTR
+loop foreach var date in dateTimes
+TWTR -> TWTR: AddLocation(tour.Id, location)
+activate TWTR
+TWTR --> TWTR
+deactivate TWTR
+end
+TWTR --> TS
+deactivate TWTR
+
+TS -> TS: Save()
+activate TS
+TS -> TWTR: Save()
+activate TWTR
+TWTR --> TS
+deactivate TWTR
+TS -> TRFR: Save()
+activate TRFR
+TRFR --> TS
+deactivate TRFR
+TS --> TS
+deactivate TS
+TS --> WPF
+deactivate TS
+
+WPF -> TS: AddToursLocation(Tour, SelectedRequest.Location, _dateTimeList.Count)
+activate TS
+
+TS -> TWTR: DecideLocationToAdd(tour, location, newToursNumber, _location.GetAll())
+activate TWTR
+
+loop for i < newToursNumber 
+TWTR -> TWTR: AddLocation(toursId, selectedLocation ?? location)
+activate TWTR
+TWTR --> TWTR
+deactivate TWTR
+end
+TWTR --> TS
+deactivate TWTR
+
+TS -> TS: Save()
+activate TS
+
+TS -> TWTR: Save()
+activate TWTR
+TWTR --> TS
+deactivate TWTR
+
+TS -> TRFR: Save()
+activate TRFR
+TRFR --> TS
+deactivate TRFR
+TS --> TS
+deactivate TS
+TS --> WPF
+deactivate TS
+
+WPF -> KPS: Create(KeyPoint, _keyPointList, firstToursId, _dateTimeList.Count)
+activate KPS
+
+KPS -> KPR: Add(keyPoint, keyPointNames, toursId, newToursNumber)
+activate KPR
+
+loop for i <= newToursNumber
+KPR -> KPR: AddKeyPointsData(keyPoint, toursId, keyPointName)
+activate KPR
+KPR -> TS: GetById(toursId)
+activate TS
+
+TS --> KPR: Tour
+deactivate TS
+KPR --> KPR
+deactivate KPR
+end
+KPR --> KPS
+deactivate KPR
+
+KPS -> KPS:Save()
+activate KPS
+KPS -> KPR:Save()
+activate KPR
+KPR --> KPS
+deactivate KPR
+KPS --> KPS
+deactivate KPS
+KPS --> WPF
+deactivate KPS
+
+
+WPF -> TS: AddToursKeyPoints(_keyPointsList, firstToursId)
+activate TS
+
+TS --> TWTR: AddKeyPoints(keyPointsString, firstToursId)
+activate TWTR
+TWTR --> TS
+deactivate TWTR
+
+TS -> TS: Save()
+activate TS
+TS -> TWTR: Save()
+activate TWTR
+TWTR --> TS
+deactivate TWTR
+
+TS -> TRFR: Save()
+activate TRFR
+TRFR --> TS
+deactivate TRFR
+TS --> TS
+deactivate TS
+TS --> WPF
+deactivate TS
+
+WPF -> TNS: Create(tourNotification)
+activate TNS
+TNS -> TNR: Add(acceptedTourRequest)
+activate TNR
+TNR -> TNS
+deactivate TNR
+TNS --> WPF
+deactivate TNS
+
+WPF -> TRS: Create(tourReservation)
+activate TRS
+TRS -> TRR: Add(reservation)
+activate TRR
+TRR --> TRS
+deactivate TRR
+TRS -> TRS: Save()
+activate TRS
+TRS -> TRR: Save()
+activate TRR
+TRR --> TRS
+deactivate TRR
+deactivate TRR
+TRS --> TRS
+deactivate TRS
+TRS --> WPF
+deactivate TRS
+
+
+opt SelectedRequest != null
+WPF -> RS: UpdateState(SelectedRequest, state)
+activate RS
+
+RS -> TRR: UpdateState(SelectedRequest, state)
+activate TRR
+TRR --> RS
+deactivate TRR
+RS --> WPF
+deactivate RS
+
+WPF -> RS: GetOnHold()
+activate RS
+
+RS -> TRR: GetOnHold()
+activate TRR
+
+TRR --> RS: List<TourRequest>
+deactivate TRR
+
+RS --> WPF: List<TourRequest>
+deactivate RS
+
+end
+
+U -> WPF: DeclineButtonClick(object sender, RoutedEventArgs e)
+
+opt SelectedRequest != null
+WPF -> RS: UpdateState(SelectedRequest, state)
+activate RS
+
+RS -> TRR: UpdateState(SelectedRequest, state)
+activate TRR
+TRR --> RS
+deactivate TRR
+RS --> WPF
+deactivate RS
+
+WPF -> RS: GetOnHold()
+activate RS
+
+RS -> TRR: GetOnHold()
+activate TRR
+
+TRR --> RS: List<TourRequest>
+deactivate TRR
+
+RS --> WPF: List<TourRequest>
+deactivate RS
+deactivate WPF
+
+end
+@enduml
