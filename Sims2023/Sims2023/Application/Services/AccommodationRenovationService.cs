@@ -16,12 +16,14 @@ namespace Sims2023.Application.Services
     {
         private IAccommodationRenovationCSVRepository _accommodationRenovation;
         private IAccommodationCSVRepository _accommodation;
+        private ILocationCSVRepository _location;
 
         public AccommodationRenovationService()
         {
             _accommodation = Injector.CreateInstance<IAccommodationCSVRepository>();
             //_accommodationRenovation = new AccommodationRenovationCSVRepository();
             _accommodationRenovation = Injector.CreateInstance<IAccommodationRenovationCSVRepository>();
+            _location = Injector.CreateInstance<ILocationCSVRepository>();
             GetReservationReferences();
         }
 
@@ -30,9 +32,11 @@ namespace Sims2023.Application.Services
             foreach (var item in GetAll())
             {
                 var accommodation = _accommodation.GetById(item.Accommodation.Id);
+                var location = _location.GetById(accommodation.Location.Id);
                 if (accommodation != null)
                 {
                     item.Accommodation = accommodation;
+                    item.Accommodation.Location = location;
                 }
             }
         }
