@@ -1,6 +1,7 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.GuideViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,7 +13,6 @@ namespace Sims2023.WPF.Views.GuideViews
     public partial class CreateTourFromFrequentLocationView : Page
     {
         public CreateTourFromFrequentLocationViewModel CreateTourFromFrequentLocationViewModel;
-        private bool addDatesButtonClicked;
         private TourService _tourService;
         private LocationService _locationService;
         private KeyPointService _keyPointService;
@@ -44,13 +44,25 @@ namespace Sims2023.WPF.Views.GuideViews
 
             LoggedInGuide = loggedInGuide;
 
-            addDatesButtonClicked = false;
             _tourNotificationService = tourNotificationService;
+
+            foreach (var date in _tourService.GetBusyDates(LoggedInGuide))
+            {
+                requestDatePicker.BlackoutDates.Add(new CalendarDateRange(date, date.AddHours(1)));
+            }
+
+            requestDatePicker.DisplayDateStart = DateTime.Today.AddDays(1);
+        }
+
+        private void RequestDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CreateTourFromFrequentLocationViewModel.NewTour.Start = (DateTime)requestDatePicker.SelectedDate;
+            CreateTourFromFrequentLocationViewModel.AddDatesToList(requestDatePicker.Text);
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            if (addDatesButtonClicked && keyPointsOutput.Items.Count > 1)
+            if (keyPointsOutput.Items.Count > 1)
             {
                 CreateTourFromFrequentLocationViewModel.ConfirmCreation();
                 RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
@@ -84,16 +96,7 @@ namespace Sims2023.WPF.Views.GuideViews
             addKeyPointsButton.IsEnabled = !string.IsNullOrEmpty(keyPointTextBox.Text);
         }
 
-        private void DateTimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            addDatesButton.IsEnabled = !string.IsNullOrEmpty(dateTimeTextBox.Text);
-        }
-
-        private void AddDatesButton_Click(object sender, RoutedEventArgs e)
-        {
-            addDatesButtonClicked = true;
-            CreateTourFromFrequentLocationViewModel.AddDatesToList(dateTimeTextBox.Text);
-        }
+        //TOOLBAR
 
         private void HomePageButton_Click(object sender, RoutedEventArgs e)
         {

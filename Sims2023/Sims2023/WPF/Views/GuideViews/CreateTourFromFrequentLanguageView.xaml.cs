@@ -1,6 +1,7 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.GuideViewModels;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -49,6 +50,19 @@ namespace Sims2023.WPF.Views.GuideViews
             countryComboBox.ItemsSource = CreateTourFromFrequentLanguageViewModel.GetCitiesAndCountries();
             countryComboBox.DisplayMemberPath = "CountryName";
             countryComboBox.SelectedValuePath = "CountryName";
+
+            foreach (var date in _tourService.GetBusyDates(LoggedInGuide))
+            {
+                requestDatePicker.BlackoutDates.Add(new CalendarDateRange(date, date.AddHours(1)));
+            }
+
+            requestDatePicker.DisplayDateStart = DateTime.Today.AddDays(1);
+        }
+
+        private void RequestDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CreateTourFromFrequentLanguageViewModel.NewTour.Start = (DateTime)requestDatePicker.SelectedDate;
+            CreateTourFromFrequentLanguageViewModel.AddDatesToList(requestDatePicker.Text);
         }
 
         public void CountryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -88,17 +102,6 @@ namespace Sims2023.WPF.Views.GuideViews
         private void KeyPointTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             addKeyPointsButton.IsEnabled = !string.IsNullOrEmpty(keyPointTextBox.Text);
-        }
-
-        private void DateTimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            addDatesButton.IsEnabled = !string.IsNullOrEmpty(dateTimeTextBox.Text);
-        }
-
-        private void AddDatesButton_Click(object sender, RoutedEventArgs e)
-        {
-            addDatesButtonClicked = true;
-            CreateTourFromFrequentLanguageViewModel.AddDatesToList(dateTimeTextBox.Text);
         }
 
         private void HomePageButton_Click(object sender, RoutedEventArgs e)
