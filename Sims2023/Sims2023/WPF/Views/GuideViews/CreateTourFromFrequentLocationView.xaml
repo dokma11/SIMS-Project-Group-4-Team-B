@@ -68,8 +68,7 @@
             <Button x:Name="addKeyPointsButton" Click="AddKeyPointsButton_Click"  Grid.Column="1" Width="130" Height="30" Margin="240,36,363,9" Grid.RowSpan="2" Grid.ColumnSpan="2" Content="Dodaj ključnu tačku"/>
             <ListBox x:Name="keyPointsOutput" Grid.Column="1" Width="370" Height="92" Grid.ColumnSpan="2" Margin="0,0,363,20" Grid.RowSpan="3" Grid.Row="2" ItemsSource="{Binding Path=NewTour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
             <Label Grid.Column="1" Grid.Row="6" Content="Datum i vreme početka ture" FontSize="16"/>
-            <TextBox Width="230" Height="30" Grid.Row="7" Grid.Column="1" Text="{Binding Path=NewTour.Start, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Name="dateTimeTextBox" TextChanged="DateTimeTextBox_TextChanged" Margin="10,8,126,0"/>
-            <Button Width="70" Name="addDatesButton" Click="AddDatesButton_Click" Grid.Row="7" Grid.ColumnSpan="2" Margin="300,4,363,26" Grid.RowSpan="2" Grid.Column="1" >+</Button>
+            <DatePicker x:Name="requestDatePicker" Width="230" Height="30" Grid.Row="8" Grid.Column="1" SelectedDateChanged="RequestDatePicker_SelectedDateChanged" Margin="5,4,131,4"/>
             <!--Desna kolona-->
             <Label Grid.Column="2" Grid.Row="2" Content="Opis događaja na turi" Margin="122,0,-122,0" FontSize="16"/>
             <TextBox x:Name="descriptionTextBox" Grid.Column="2" Grid.Row="2" Margin="122,29,-69,11" Height="NaN" Grid.RowSpan="9" Text="{Binding Path=NewTour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
