@@ -13,14 +13,13 @@ namespace Sims2023.Repositories
         private List<IObserver> _observers;
         private List<User> _users;
         private UserFileHandler _fileHandler;
-     //   private AccommodationGradeCSVRepository guests;
 
         public UserCSVRepository()
         {
             _observers = new List<IObserver>();
             _fileHandler = new UserFileHandler();
             _users = _fileHandler.Load();
-            //        guests = new GuestGradeDAO();
+
         }
 
         public int NextId()
@@ -43,36 +42,7 @@ namespace Sims2023.Repositories
         }
 
         public void FindSuperOwners()
-        {
-          /*  foreach (User user in FindOwners())
-            {
-                double counter = 0.0;
-                double zbir = 1;
-                double Average;
-         //       guests = new AccommodationGradeCSVRepository();
-        //        foreach (AccommodationGrade grade in guests.GetAll())
-                {
-
-             //       if (grade.Accommodation.Owner.Id == user.Id)
-                    {
-                        ++counter;
-              //          zbir += FindAverageGrade(grade);
-                    }
-                }
-                Average = zbir / counter;
-
-                if (Average > 4.5 && counter > 50)
-                {
-                    user.superOwner = true;
-                    Update(user);
-                }
-                else
-                {
-                    user.superOwner = false;
-                    Update(user);
-                }
-            }
-          */
+        {          
         }
 
         public double FindAverageGrade(AccommodationGrade grade)
