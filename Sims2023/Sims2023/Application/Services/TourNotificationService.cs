@@ -10,11 +10,13 @@ namespace Sims2023.Application.Services
         private readonly ITourNotificationCSVRepository _tourNotification;
         private ITourReadFromCSVRepository _tour;
         private IUserCSVRepository _user;
+        private ILocationCSVRepository _location;
         public TourNotificationService()
         {
             _tourNotification = Injection.Injector.CreateInstance<ITourNotificationCSVRepository>();
             _tour = Injection.Injector.CreateInstance<ITourReadFromCSVRepository>();
             _user = Injection.Injector.CreateInstance<IUserCSVRepository>();
+            _location=Injection.Injector.CreateInstance<ILocationCSVRepository>();  
 
             GetTourReferences();
             GetUserReferences();
@@ -32,7 +34,10 @@ namespace Sims2023.Application.Services
 
         public void Create(TourNotification acceptedTourRequest)
         {
+            
             _tourNotification.Add(acceptedTourRequest);
+            GetTourReferences();
+            GetUserReferences();
         }
 
         public void Subscribe(IObserver observer)
@@ -42,22 +47,32 @@ namespace Sims2023.Application.Services
 
         public List<TourNotification> GetAcceptedTourRequest(User user)
         {
+            GetTourReferences();
+            GetUserReferences();
             return _tourNotification.GetAcceptedTourRequest(user);
         }
 
         public List<TourNotification> GetMatchedTourRequestsLocation(User user)
         {
+            GetTourReferences();
+            GetUserReferences();
             return _tourNotification.GetMatchedTourRequestsLocation(user);
         }
 
         public List<TourNotification> GetMatchedTourRequestsLanguage(User user)
         {
+            GetTourReferences();
+            GetUserReferences();
+           
             return _tourNotification.GetMatchedTourRequestsLanguage(user);
         }
 
         public void SetIsNotified(TourNotification tourNotification)
         {
+            
             _tourNotification.SetIsNotified(tourNotification);
+            GetTourReferences();
+            GetUserReferences();
         }
 
         public void GetTourReferences()
@@ -65,7 +80,10 @@ namespace Sims2023.Application.Services
             foreach (var notification in GetAll())
             {
                 notification.Tour = _tour.GetById(notification.Tour.Id) ?? notification.Tour;
+                notification.Tour.Location = _location.GetById(notification.Tour.Location.Id);
             }
+
+            
         }
 
         public void GetUserReferences()
@@ -75,5 +93,7 @@ namespace Sims2023.Application.Services
                 notification.Guest = _user.GetById(notification.Guest.Id) ?? notification.Guest;
             }
         }
+
+
     }
 }
