@@ -63,7 +63,7 @@ namespace Sims2023.WPF.Views.GuideViews
 
             DisplayLabels();
 
-            //_userService.GetSuperGuides();
+            _userService.MarkSuperGuides(LoggedInGuide);
         }
 
         private void DisplayLabels()

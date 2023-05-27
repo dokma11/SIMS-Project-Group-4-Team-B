@@ -1,5 +1,4 @@
-﻿using Sims2023.Application.Injection;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using System.Collections.Generic;
@@ -9,10 +8,14 @@ namespace Sims2023.Application.Services
     public class UserService
     {
         private IUserCSVRepository _user;
+        private ITourReviewCSVRepository _tourReview;
+        private ITourReadFromCSVRepository _tour;
 
         public UserService()
         {
             _user = Injection.Injector.CreateInstance<IUserCSVRepository>();
+            _tourReview = Injection.Injector.CreateInstance<ITourReviewCSVRepository>();
+            _tour = Injection.Injector.CreateInstance<ITourReadFromCSVRepository>();
         }
 
         public void MarkSuperOwner()
@@ -48,6 +51,11 @@ namespace Sims2023.Application.Services
         public void RemovePoint(User user)
         {
             _user.RemovePointFromGuest1(user);
+        }
+
+        public void MarkSuperGuides(User loggedInGuide)
+        {
+            _user.MarkSuperGuides(_tourReview.GetAll(), _tour.GetFinished(loggedInGuide), loggedInGuide);
         }
     }
 }

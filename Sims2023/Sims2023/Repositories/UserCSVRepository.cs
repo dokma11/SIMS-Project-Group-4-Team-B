@@ -42,7 +42,7 @@ namespace Sims2023.Repositories
         }
 
         public void FindSuperOwners()
-        {          
+        {
         }
 
         public double FindAverageGrade(AccommodationGrade grade)
@@ -94,12 +94,14 @@ namespace Sims2023.Repositories
             user.DateOfBecomingSuperGuest = DateTime.Today;
             Update(user);
         }
+
         public void MarkGuestAsRegular(User user)
         {
             user.SuperGuest1 = false;
             user.Guest1Points = 0;
             Update(user);
         }
+
         public void RemovePointFromGuest1(User user)
         {
             if (user.Guest1Points > 0)
@@ -107,6 +109,41 @@ namespace Sims2023.Repositories
                 user.Guest1Points--;
             }
             Update(user);
+        }
+
+        public void MarkSuperGuides(List<TourReview> tourReviews, List<Tour> finishedTours, User loggedInGuide)
+        {
+            var averageGradeSumByLanguage = new Dictionary<ToursLanguage, double>();
+            var averageGradeSumByLanguageCount = new Dictionary<ToursLanguage, int>();
+
+            var lastYearStartDate = new DateTime(DateTime.Today.Year - 1, DateTime.Today.Month, DateTime.Today.Day);
+            var lastYearEndDate = DateTime.Today;
+
+            foreach (var tour in finishedTours.Where(r => r.Start >= lastYearStartDate && r.Start <= lastYearEndDate))
+            {
+                CalculateGradeAverages(tourReviews, tour, averageGradeSumByLanguage, averageGradeSumByLanguageCount);
+            }
+
+            loggedInGuide.SuperGuide = averageGradeSumByLanguageCount.Any(kv => kv.Value >= 20 && 
+                         averageGradeSumByLanguage.ContainsKey(kv.Key) && averageGradeSumByLanguage[kv.Key] / kv.Value > 4.0);
+            _fileHandler.Save(_users);
+            NotifyObservers();
+        }
+
+        public void CalculateGradeAverages(List<TourReview> tourReviews, Tour tour, Dictionary<ToursLanguage, double> averageGradeSumByLanguage,
+            Dictionary<ToursLanguage, int> averageGradeSumByLanguageCount)
+        {
+            if (!averageGradeSumByLanguage.ContainsKey(tour.GuideLanguage))
+            {
+                averageGradeSumByLanguage[tour.GuideLanguage] = 0.0;
+                averageGradeSumByLanguageCount[tour.GuideLanguage] = 0;
+            }
+
+            foreach (var tourReview in tourReviews.Where(tr => tr.Tour.Id == tour.Id))
+            {
+                averageGradeSumByLanguage[tour.GuideLanguage] += tourReview.AverageGrade;
+                averageGradeSumByLanguageCount[tour.GuideLanguage]++;
+            }
         }
     }
 }
