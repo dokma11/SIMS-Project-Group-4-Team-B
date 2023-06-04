@@ -30,6 +30,7 @@ namespace Sims2023.WPF.Views.OwnerViews
         private void Decline_Click(object sender, RoutedEventArgs e)
         {
             NavigationService navigationService = NavigationService.GetNavigationService(this);
+            ToastNotificationService.ShowInformation("Uspiješno odbijanje zahtjeva");
             navigationService?.GoBack();
             navigationService?.GoBack();
             DeclineRescheduleViewModel.Decline_Click(sender, e);
