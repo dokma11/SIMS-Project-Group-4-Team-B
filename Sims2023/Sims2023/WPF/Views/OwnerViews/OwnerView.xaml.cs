@@ -31,6 +31,7 @@ namespace Sims2023.View
             MenuButton.IsChecked = false;
             User = owner;
             ownerViewModel = new OwnerViewModel(User);
+            ToastNotificationService.Initialize(this);
 
         }
 
