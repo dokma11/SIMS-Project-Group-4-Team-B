@@ -74,6 +74,15 @@ namespace Sims2023.View
             FrameManager.Instance.MainFrame.Navigate(registrationView);
         }
 
+        private void Recommendation_Click(object sender, RoutedEventArgs e)
+        {
+            MenuButton.IsChecked = false;
+            ActionBarTextBlock.Text = RecommendationsButton.Content.ToString();
+            RecommendationTabsView recom = new RecommendationTabsView();
+            FrameManager.Instance.MainFrame.Navigate(recom);
+        }
+
+
         private void Grades_Given_From_Guests(object sender, RoutedEventArgs e)
         {
             MenuButton.IsChecked = false;

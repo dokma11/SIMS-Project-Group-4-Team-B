@@ -23,8 +23,6 @@ namespace Sims2023.Domain.Models
 
         public bool Renovated { get; set; }
 
-        int locid;
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)

@@ -50,12 +50,14 @@
         <Grid x:Name="MenuPanel" Background="#B3E5FC" Width="0" HorizontalAlignment="Left" VerticalAlignment="Stretch" Grid.RowSpan="2" Margin="0,50,0,0">
             <StackPanel>
                 <Button x:Name="StartButton" Content="Početna stranica" Height="35" Click="StartButton_Click"/>
-                <Button x:Name="RegistrationButton" Content="Registracija smještaja" Height="35"  Click="AddAccommodation_Click"/> <!-- Click="Option1Button_Click" /> -->
+                <Button x:Name="RegistrationButton" Content="Registracija smještaja" Height="35"  Click="AddAccommodation_Click"/>
+                <Button  x:Name="StatisticsButton" Content="Statistika o smještaju " Click="Statistics_Click" Height="35" />
+                <Button  x:Name="RecommendationsButton" Content="Preporuke o smještaju" Click="Recommendation_Click" Height="35" />
+                <Button  x:Name="ReservationsButton" Content="Zahtjevi za rezervacije" Click="Reservations_Click" Height="35" />
                 <Button  x:Name="GradeGuestsButton" Content="Ocijeni goste" Click="Grade_Click" Height="35" />
                 <Button x:Name="ReviewButton" Content="Pregled dobijenih ocijena" Click="Grades_Given_From_Guests" Height="35" />
-                <Button  x:Name="ReservationsButton" Content="Zahtjevi za rezervacije" Click="Reservations_Click" Height="35" />
                 <Button  x:Name="RenovationsButton" Content="Renoviranja" Click="Renovations_Click" Height="35" />
-                <Button  x:Name="StatisticsButton" Content="Statistika o smještaju " Click="Statistics_Click" Height="35" />
+                
             </StackPanel>
             <Button x:Name="CloseButton" Content="Odjava" Click="Close_Click"  Height="35" Margin="0,650,0,0" />
         </Grid>

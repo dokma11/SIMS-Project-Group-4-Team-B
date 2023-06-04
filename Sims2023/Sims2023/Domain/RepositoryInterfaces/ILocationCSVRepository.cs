@@ -15,5 +15,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void CheckExistance(Location location);
         public void Subscribe(IObserver observer);
         public void NotifyObservers();
+        public List<Location> GetPopularLocations(List<AccommodationReservation> reservations);
     }
 }

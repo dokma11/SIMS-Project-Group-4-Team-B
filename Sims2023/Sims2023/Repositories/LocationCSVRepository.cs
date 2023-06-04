@@ -4,6 +4,7 @@ using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace Sims2023.Repositories
 {
@@ -39,7 +40,18 @@ namespace Sims2023.Repositories
             return _locations.Count == 0 ? 1 : _locations.Max(t => t.Id) + 1;
         }
 
-        public void CheckIdItShouldBeAdded(Location location)
+        public List<Location> GetPopularLocations(List<AccommodationReservation> reservations)
+        {
+            var popularLocations = reservations
+            .GroupBy(reservation => reservation.Accommodation.Location.Id)
+            .OrderByDescending(group => group.Count())
+            .Take(3)
+            .Select(group => _locations.FirstOrDefault(location => location.Id == group.Key))
+            .ToList();
+
+             return popularLocations;
+        }
+            public void CheckIdItShouldBeAdded(Location location)
         {
             if (!_locations.Contains(location))
             {
