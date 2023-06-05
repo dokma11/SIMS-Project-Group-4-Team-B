@@ -52,6 +52,35 @@ namespace Sims2023.WPF.Views.GuideViews
             }
 
             requestDatePicker.DisplayDateStart = DateTime.Today.AddDays(1);
+
+            TextBox[] textBoxes = { toursNameTextBox, keyPointTextBox, picturesTextBox, descriptionTextBox };
+
+            foreach (TextBox textBox in textBoxes)
+            {
+                textBox.GotFocus += TextBox_GotFocus;
+                textBox.LostFocus += TextBox_LostFocus;
+                textBox.Text = textBox.Tag.ToString();
+            }
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            string placeholderText = textBox.Tag.ToString();
+            if (textBox.Text == placeholderText)
+            {
+                textBox.Text = "";
+            }
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            string placeholderText = textBox.Tag.ToString();
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.Text = placeholderText;
+            }
         }
 
         private void RequestDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -62,7 +91,9 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            if (keyPointsOutput.Items.Count > 1)
+            if (keyPointsOutput.Items.Count > 1 && toursNameTextBox.Text != "" && toursNameTextBox.Text != "Unesite naziv"
+                && keyPointTextBox.Text != "" && keyPointTextBox.Text != "Unesite ključne tačke" && picturesTextBox.Text != "" && picturesTextBox.Text != "Unesite putanje slika"
+                && descriptionTextBox.Text != "" && descriptionTextBox.Text != "Unesite opis ture")
             {
                 CreateTourFromFrequentLocationViewModel.ConfirmCreation();
                 RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);

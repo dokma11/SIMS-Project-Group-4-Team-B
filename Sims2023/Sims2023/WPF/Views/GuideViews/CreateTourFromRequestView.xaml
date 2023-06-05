@@ -16,8 +16,35 @@
             </ToolBar>
         </DockPanel>
         <DockPanel>
-            <Label Content="Kreiranje Ture preko zahteva" FontSize="32" HorizontalAlignment="Center" Margin="85,50"/>
-            <Button Content="?" Width="20" Height="20" Margin="600,0,0,60"/>
+            <Label Content="Kreiranje ture preko zahteva" FontSize="32" HorizontalAlignment="Center" Margin="85,50"/>
+            <Button Content="?" Width="20" Height="20" Margin="600,0,0,60">
+                <Button.ToolTip>
+                    <TextBlock>
+                        Dobrodošli na stranicu ,,Kreiranje ture preko zahteva"!
+                        <LineBreak />
+                        <LineBreak />
+                        Pošto ste prihvatili zahtev za turu, sva polja koja su navedena već u zahtevu su Vam popunjena
+                        <LineBreak />
+                        Na Vama je da popunite ostala polja po svojoj volji, to su sledeća polja:
+                        <LineBreak />
+                        • Naziv ture: unesite željeni naziv nove ture
+                        <LineBreak />
+                        • Trajanje ture(u satima): unesite koliko želite da nova tura traje
+                        <LineBreak />
+                        • Jedna ili više slika: unesite url putanje slika koje će korisnici moći da vide prilikom odabira ture
+                        <LineBreak />
+                        • Ključne tačke: unesite makar dve ključne tačke iz kojih će Vaša nova tura da se sastoji. U polju ispod možete videti koje ste uneli
+                        <LineBreak /> 
+                        • Datum i vreme početka ture: klikom na kalendar imaćete priliku da odaberete jedan od datuma koji se nalazi u već unapred zadatom opseg,
+                        <LineBreak />
+                        odaberite onaj datum za koji ste sigurni da Vam je slobodan.
+                        <LineBreak />
+                        <LineBreak />
+                        Ako ste zadovoljni Vašim unosom i želite da konačno potvrdite tj kreirate turu pritisnite na dugme ,,Potvrdi"
+                        Ako niste zadovoljni i želite da otkažete kreiranje ture pritisnite na dugme ,,Odustani"
+                    </TextBlock>
+                </Button.ToolTip>
+            </Button>
         </DockPanel>
         <Grid Height="450" Width="1100" Background="AliceBlue">
             <Grid.ColumnDefinitions>
@@ -41,7 +68,7 @@
             </Grid.RowDefinitions>
             <!--Leva kolona-->
             <Label Grid.Column="0" Grid.Row="0" Content="Naziv ture:" FontSize="16"/>
-            <TextBox Grid.Column="0" Width="230" Margin="10,36,127,10" Grid.RowSpan="2" Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+            <TextBox x:Name="toursNameTextBox" Tag="Unesite naziv" Grid.Column="0" Width="230" Margin="10,36,127,10" Grid.RowSpan="2" Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
             <Label Grid.Column="0" Grid.Row="2" Content="Lokacija održavanja:" FontSize="16"/>
             <TextBox Grid.Column="0" Grid.Row="2" Width="110" Text="{Binding SelectedRequest.Location.City}" Margin="10,37,247,11" Grid.RowSpan="2" IsReadOnly="True"/>
             <TextBox Grid.Column="0" Grid.Row="2" Width="110" Text="{Binding SelectedRequest.Location.Country}" Margin="130,37,127,11" Grid.RowSpan="2" IsReadOnly="True"/>
@@ -52,10 +79,10 @@
             <Label Grid.Column="0" Grid.Row="8" Content="Trajanje ture(u satima):" FontSize="16"/>
             <TextBox Grid.Column="0" Grid.Row="9" Width="230" Margin="10,0,127,0" Text="{Binding Path=Tour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
             <Label Grid.Column="0" Grid.Row="10" Content="Jedna ili više slika:" FontSize="16"/>
-            <TextBox Grid.Column="0" Grid.Row="10" Width="230" Margin="10,37,127,0" Text="{Binding Path=Tour.ConcatenatedPictures, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.RowSpan="2"/>
+            <TextBox x:Name="picturesTextBox" Tag="Unesite putanje slika" Grid.Column="0" Grid.Row="10" Width="230" Margin="10,37,127,0" Text="{Binding Path=Tour.ConcatenatedPictures, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.RowSpan="2"/>
             <!--Kolona u sredini-->
             <Label Grid.Column="1" Grid.Row="0" Content="Ključne tačke" FontSize="16"/>
-            <TextBox x:Name="keyPointTextBox" Width="230" Margin="5,36,131,0" Grid.RowSpan="2" Grid.Column="1" TextChanged="KeyPointTextBox_TextChanged"/>
+            <TextBox x:Name="keyPointTextBox" Tag="Unesite ključne tačke" Width="230" Margin="5,36,131,0" Grid.RowSpan="2" Grid.Column="1" TextChanged="KeyPointTextBox_TextChanged"/>
             <Button x:Name="addKeyPointsButton" Click="AddKeyPointsButton_Click"  Grid.Column="1" Margin="240,0,358,0" Content="Dodaj ključnu tačku" Grid.Row="1" Grid.ColumnSpan="2"/>
             <ListBox x:Name="keyPointsOutput" Grid.Column="1" Width="370" Height="92" Grid.ColumnSpan="2" Margin="5,20,358,0" Grid.RowSpan="3" Grid.Row="2" ItemsSource="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
             <Label Grid.Column="1" Grid.Row="6" Content="Datum i vreme početka ture" FontSize="16"/>

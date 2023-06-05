@@ -131,6 +131,52 @@ namespace Sims2023.WPF.Views.GuideViews
             }
         }
 
+        private void TabControlSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if(TabControl.SelectedIndex == 0)
+            {
+                toolTipButton.ToolTip = "Sa Vaše leve strane prikazani su svi zahtevi za kreiranje ture.\n\n"
+                + "U tabeli sa leve strane možete prvo videti šest informacija:\n"
+                + "• Korisničko ime korisnika koji je kreirao zahtev\n"
+                + "• Lokaciju na kojoj korisnik želi da se tura održi\n"
+                + "• Broj gostiju koji bi bio prisutan na turi\n"
+                + "• Početak i kraj opsega za datum održavanja date ture. \n"
+                + "Treba da odaberete jedan datum kad ste slobodni u datom opsegu\n"
+                + "• Da biste videli opis ture koji je korisnik zadao, morate da pritisnete na taj zahtev\n"
+                + "Jednim levim klikom red će se proširiti i Vi ćete moći da pročitate opis datog zahteva za turu.\n"
+                + "• U koloni prihvati postoje dva dugmeta, jedno je za prihvatanje drugo za odbijanje zahteva:\n"
+                + "Ako kliknete da dugme ,,Prihvati\" preći ćete na prozor za kreiranje ture preko prihvaćenog zahteva\n"
+                + "Ako kliknete na dugme ,,Odbij\" odabrani zahtev će biti odbijen i samim time uklonjne iz liste.\n\n"
+                + "Sa desne strane, ispod naslova ,,Filtriraj prema\" videćete više polja pomoću kojih možete da filtrirate zahteve: \n"
+                + "• Kada filtrirate prema lokaciji, biće Vam ispisani samo zahtevi koji se nalaze na unetoj lokaciji \n"
+                + "• Kada filtrirate prema broju gostiju, biće Vam ispisani samo zahtevi koji su predviđeni za uneti broj gostiju \n"
+                + "• Kada filtrirate prema jeziku, biće Vam ispisani samo zahtevi koji su predviđeni da se održe na unetom jeziku \n"
+                + "• Kada filtrirate prema datumima, unosite početni i krajnji opseg u kojem želite da vidite zahteve.\n"
+                + "Biće prikazani oni zahtevi koji su zadovoljili uneti opseg \n"
+                + "• Na samom kraju postoji dugme ,,Filtriraj\" na koje kad kliknete primenićete željene promene.\n";
+            }
+            else if(TabControl.SelectedIndex == 1)
+            {
+                toolTipButton.ToolTip = "Sa Vaše leve strane prikazana je statistika o zahtevima za ture na lokaciji.\n\n"
+                + "Postoje dva padajuća menija:\n"
+                + "• Levi Vam služi da odaberete lokaciju za koju želite da vidite statistiku.\n"
+                + "• Desni Vam služi da odaberete godinu u kojoj želite da vidite statistiku za odabranu lokaciju.\n\n"
+                + "Sa Vaše desne strane prikazana je najtraženija lokacija u proteklih godinu dana.\n"
+                + "Ispod nje prikazana je statistika date lokacije, takođe postoji dugme sa natpisom ,,Da\".\n"
+                + "Pritiskom na to dugme, preći ćete na prozor za kreiranje ture na najtraženijoj lokaciji.";
+            }
+            else
+            {
+                toolTipButton.ToolTip = "Sa Vaše leve strane prikazana je statistika o zahtevima za ture na jeziku.\n\n"
+                + "Postoje dva padajuća menija:\n"
+                + "• Levi Vam služi da odaberete jezik za koji želite da vidite statistiku.\n"
+                + "• Desni Vam služi da odaberete godinu u kojoj želite da vidite statistiku za odabrani jezik.\n\n"
+                + "Sa Vaše desne strane prikazana je najtraženiji jezik u proteklih godinu dana.\n"
+                + "Ispod nje prikazana je statistika datog jezika, takođe postoji dugme sa natpisom ,,Da\".\n"
+                + "Pritiskom na to dugme, preći ćete na prozor za kreiranje ture na najtraženijem jeziku.";
+            }
+        }
+
         //TOOLBAR
 
         private void HomePageButton_Click(object sender, RoutedEventArgs e)

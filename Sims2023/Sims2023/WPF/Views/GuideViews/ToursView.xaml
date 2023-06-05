@@ -20,6 +20,7 @@
                 <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
             </ToolBar>
         </DockPanel>
+        <Button Content="?" Width="20" Height="20" Margin="1180,15,0,-25" x:Name="toolTipButton" />
         <TabControl x:Name="tabControl" Height="630" Width="1200" Margin="0,10,0,0" SelectionChanged="TabControl_SelectionChanged">
             <!-- FIRST TAB-->
             <TabItem Header="Predstojeće ture">
@@ -99,7 +100,7 @@
                     </DataGrid>
                     <DockPanel>
                         <Label x:Name="successfulEventLabel" FontSize="24" Margin="450,20,40,0" Visibility="Hidden"/>
-                        <Button x:Name="startTourButton" Click="StartTourButton_Click" Content="Započni turu" Width="150" Height="50" Margin="285,20,0,0" ToolTip="Pritisnite da biste započeli izabranu turu"/>
+                        <Button x:Name="startTourButton" Click="StartTourButton_Click" Content="Započni turu" Width="150" Height="50" Margin="295,20,0,0" ToolTip="Pritisnite da biste započeli izabranu turu"/>
                         <Button x:Name="cancelTourButton" Click="CancelTourButton_Click" Content="Otkaži turu" Width="150" Height="50" Margin="5,20,0,0" ToolTip="Pritisnite da biste otkazali izabranu turu"/>
                     </DockPanel>
                 </StackPanel>
@@ -130,7 +131,7 @@
                         </Grid.RowDefinitions>
                         <!--Leva kolona-->
                         <Label Grid.Column="0" Grid.Row="0" Content="Naziv ture:" FontSize="16"/>
-                        <TextBox x:Name="toursNameTextBox" Grid.Column="0" Width="230" Height="30" Margin="4,35,133,10" Grid.RowSpan="2" Text="{Binding Path=NewTour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                        <TextBox x:Name="toursNameTextBox" Tag="Unesite naziv" Grid.Column="0" Width="230" Height="30" Margin="4,35,133,10" Grid.RowSpan="2" Text="{Binding Path=NewTour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                         <Label Grid.Column="0" Grid.Row="2" Content="Lokacija održavanja:" FontSize="16"/>
                         <ComboBox x:Name="countryComboBox" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" Height="28" SelectionChanged="CountryComboBox_SelectionChanged" Margin="4,2,0,0"/>
                         <ComboBox x:Name="cityComboBox" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Width="110" Height="28" Margin="124,2,133,0" />
@@ -150,10 +151,10 @@
                         <Label Grid.Column="0" Grid.Row="8" Content="Trajanje ture(u satima):" FontSize="16"/>
                         <xctk:IntegerUpDown Name="duration" Grid.Row="9" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,4,133,5" Text="{Binding Path=NewTour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                         <Label Grid.Column="0" Grid.Row="10" Content="Jedna ili više slika:" FontSize="16"/>
-                        <TextBox Grid.Column="0" Grid.Row="10" Width="230" Height="30" Margin="4,37,133,8" Text="{Binding Path=NewTour.ConcatenatedPictures, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.RowSpan="2"/>
+                        <TextBox x:Name="picturesTextBox" Tag="Unesite putanje slika" Grid.Column="0" Grid.Row="10" Width="230" Height="30" Margin="4,37,133,8" Text="{Binding Path=NewTour.ConcatenatedPictures, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.RowSpan="2"/>
                         <!--Kolona u sredini-->
                         <Label Grid.Column="1" Grid.Row="0" Content="Ključne tačke" FontSize="16"/>
-                        <TextBox x:Name="keyPointTextBox" Width="230" Height="30" Margin="0,35,136,10" Grid.RowSpan="2" Grid.Column="1" TextChanged="KeyPointTextBox_TextChanged"/>
+                        <TextBox x:Name="keyPointTextBox" Tag="Unesite ključne tačke" Width="230" Height="30" Margin="0,35,136,10" Grid.RowSpan="2" Grid.Column="1" TextChanged="KeyPointTextBox_TextChanged"/>
                         <Button x:Name="addKeyPointsButton" Click="AddKeyPointsButton_Click"  Grid.Column="1" Width="130" Height="30" Margin="240,36,363,9" Grid.RowSpan="2" Grid.ColumnSpan="2" Content="Dodaj ključnu tačku"/>
                         <ListBox x:Name="keyPointsOutput" Grid.Column="1" Width="370" Height="92" Grid.ColumnSpan="2" Margin="0,0,363,20" Grid.RowSpan="3" Grid.Row="2" ItemsSource="{Binding Path=NewTour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                         <Label Grid.Column="1" Grid.Row="6" Content="Datum i vreme početka ture" FontSize="16"/>
@@ -161,7 +162,7 @@
                         <Button Width="70" Name="addDatesButton" Click="AddDatesButton_Click" Grid.Row="7" Grid.ColumnSpan="2" Margin="300,4,363,26" Grid.RowSpan="2" Grid.Column="1" >+</Button>
                         <!--Desna kolona-->
                         <Label Grid.Column="2" Grid.Row="2" Content="Opis događaja na turi" Margin="122,0,-122,0" FontSize="16"/>
-                        <TextBox x:Name="descriptionTextBox" Grid.Column="2" Grid.Row="2" Margin="127,29,10,10" Height="NaN" Grid.RowSpan="9" Width="230" Text="{Binding Path=NewTour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                        <TextBox x:Name="descriptionTextBox" Tag="Unesite opis ture" Grid.Column="2" Grid.Row="2" Margin="127,29,10,10" Height="NaN" Grid.RowSpan="9" Width="230" Text="{Binding Path=NewTour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                         <Button x:Name="confirmButton" Click="ConfirmButton_Click" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Potvrdi" Margin="127,35,140,0" Grid.RowSpan="2"/>
                         <Button x:Name="cancelButton" Click="CancelButton_Click" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Odustani" Margin="257,35,10,0" Grid.RowSpan="2"/>
                     </Grid>
@@ -222,7 +223,7 @@
                                 </DataGridTextColumn>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <Button x:Name="displayStatisticsButton" Click="DisplayStatisticsButton_Click" Height="50" Width="150" Content="Prikaži statistiku" Margin="495,10,0,0" ToolTip="Pritistnite da biste prikazali statistiku izabrane ture"/>
+                        <Button x:Name="displayStatisticsButton" Click="DisplayStatisticsButton_Click" Height="50" Width="150" Content="Prikaži statistiku" Margin="485,10,0,0" ToolTip="Pritistnite da biste prikazali statistiku izabrane ture"/>
                     </StackPanel>
                     <StackPanel Width="640">
                         <DockPanel>
@@ -253,7 +254,7 @@
                             </lvc:CartesianChart>
                             <lvc:PieChart Width="220" Series="{Binding PieSeries}" Margin="0,0,80,0" LegendLocation="Bottom" Hoverable="False" x:Name="pieChart"/>
                         </DockPanel>
-                        <Button x:Name="displayTheMostVisitedTourButton" Click="DisplayTheMostVisitedTourButton" Content="Prikaži najposećeniju turu" Height="50" Width="150" Margin="280,10,0,0" Visibility="Hidden"/>
+                        <Button x:Name="displayTheMostVisitedTourButton" Click="DisplayTheMostVisitedTourButton" Content="Prikaži najposećeniju turu" Height="50" Width="150" Margin="280,-10,0,0" Visibility="Hidden"/>
                     </StackPanel>
                 </DockPanel>
             </TabItem>

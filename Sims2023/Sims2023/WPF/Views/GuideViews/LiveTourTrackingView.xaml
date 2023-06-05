@@ -18,7 +18,42 @@
         <DockPanel>
             <Label Content="Ključne tačke ture" FontSize="28" Margin="50,20,0,0"/>
             <Label Content="Gosti sa rezervacijama" FontSize="28" Margin="400,20,0,0"/>
-            <Button Content="?" Width="20" Height="20" Margin="250,0,0,0"/>
+            <Button Content="?" Width="20" Height="20" Margin="250,0,0,0">
+                <Button.ToolTip>
+                    <TextBlock>
+                        Dobrodošli na stranicu ,,Praćenje ture uživo"!
+                        <LineBreak />
+                        Nakon što ste započeli turu, možete da pratite dešavanja na njoj i vodite evidenciju prisutnih gostiju
+                        <LineBreak />
+                        <LineBreak />
+                        Sa Vaše leve strane prikazane su ključne tačke započete ture, tu se nalaze tri kolone:
+                        <LineBreak />
+                        • Naziv: predstavlja naziv same ključne tačke
+                        <LineBreak />
+                        • Trenutno stanje: može biti posećena, neposećena, i trenutno posećena (u zavisnosti od toga da li ste bili na njoj, tek treba da budete ili ste trenutno na njoj)
+                        <LineBreak />
+                        Da biste označili ključnu tačku kao trenutnu treba da prvo pritisnete na nju levim klikom a zatim isto tako pritisnete na dugme ,,Označi ključnu tačku".
+                        <LineBreak />
+                        Nakon toga prethodna ključna tačka će biti označena kao posećena, dok nova ključna tačka će biti označena kao trenutna
+                        <LineBreak />
+                        • Broj priključenih gostiju: predstavlja broj gostiju koji su se priključili na datu ključnu tačku. Vi vodite datu evidenciju
+                        <LineBreak />
+                        Da biste dodali nekog gosta kao prisutnog na ključnu tačku morate da odaberete prvo ključnu tačku, a zatim iz kolone sa Vaše leve strane ,,Gosti sa rezervacijama",
+                        <LineBreak />
+                        odaberete gosta kojeg želite da označite kao prisutnog. U datoj koloni će biti izlistani svi gosti koji su rezervisali svoje mesto na Vašoj turi
+                        <LineBreak />
+                        Nakon što se odabrali gosta, pritisnete na dugme ,,Dodaj prisutne goste" (možete istovremeno da odaberete više gostiu) i oni će biti označeni kao prisutni na trenutnoj ključnoj tački
+                        <LineBreak />
+                        <LineBreak />
+                        Pritiskom na dugme ,,Prekini turu" koje kada kliknete prekinuće turu automatski i ona će samim time biti gotova. Koristi se u slučajevima kada se nešto neočekivano dogodi
+                        <LineBreak />
+                        Pritiskom na dugme ,,Nazad" bićete vraćeni na prethodni prozor, sa kojeg ćete kasnije moći da se vratite na ovaj
+                        <LineBreak />
+                        <LineBreak />
+                        Za sam kraj: kada označite poslednju ključnu tačku kao posećenu, Vaša tura će se završiti i bićete vraćeni na prehodnu stranicu. Time ste označili da je tura uspešno završena
+                    </TextBlock>
+                </Button.ToolTip>
+            </Button>
         </DockPanel>
         <DockPanel Height="510">
             <DataGrid ItemsSource="{Binding KeyPointsToDisplay, UpdateSourceTrigger=PropertyChanged}" 

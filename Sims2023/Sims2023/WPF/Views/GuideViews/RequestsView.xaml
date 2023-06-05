@@ -30,8 +30,8 @@
                 <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
             </ToolBar>
         </DockPanel>
-        <Button Content="?" Width="20" Height="20" Margin="1230,0,0,610"/>
-        <TabControl Height="600" Width="1200">
+        <Button Content="?" Width="20" Height="20" Margin="1170,0,0,610" x:Name="toolTipButton" />
+        <TabControl Height="600" Width="1200" SelectionChanged="TabControlSelectionChanged" x:Name="TabControl">
             <TabItem Header="Zahtevi za kreiranje ture">
                 <DockPanel>
                     <StackPanel>
@@ -188,7 +188,7 @@
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                         <DockPanel>
-                            <Label Content="Da li želite da kreirate novu turu na najtraženijem jeziku?" Margin="25,10,0,0"/>
+                            <Label Content="Da li želite da kreirate novu turu na najtraženijoj lokaciji?" Margin="25,10,0,0"/>
                             <Button x:Name="locationConfirmButton" Click="LocationConfirmButton_Click" Content="Da" Width="50" Height="30" Margin="-100,10,0,0">
                                 <Button.ToolTip>
                                     Kreirajte novu turu na najtraženijoj lokaciji

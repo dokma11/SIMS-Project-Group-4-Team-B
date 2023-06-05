@@ -17,7 +17,46 @@
         </DockPanel>
         <DockPanel>
             <Label Content="Recenzije" FontSize="40" Width="190" HorizontalAlignment="Center" Margin="550,0,0,0"/>
-            <Button Content="?" Width="20" Height="20" Margin="450,0,0,0"/>
+            <Button Content="?" Width="20" Height="20" Margin="450,0,0,0">
+                <Button.ToolTip>
+                    <TextBlock>
+                        Dobrodošli na stranicu za recenzije!
+                        <LineBreak />
+                        <LineBreak />
+                        Sa Vaše leve strane prikazana je tabela u kojoj se nalaze završene ture.
+                        <LineBreak />
+                        Da biste videli recenzije za određenu turu:
+                        <LineBreak />
+                        • Prvo morate da pritisnete levim klikom na turu za koju želite da vidite recenzije
+                        <LineBreak />
+                        • Potom da pritisnete na dugme ,,Pikaži recenzije"
+                        <LineBreak />
+                        Nakon toga će u tabeli sa Vaše desne strane biti prikazane sve recenzije koje su ostavili gosti koji su prisustvovali odabranoj turi
+                        <LineBreak />
+                        <LineBreak />
+                        Za svaku recenziju možete videti:
+                        <LineBreak />
+                        • Ime, prezime i korisničko ime korisnika koji je napisao recenziju
+                        <LineBreak />
+                        • Ključnu tačku na kojoj se priključio, to Vam služi najviše da biste imali uvid u to da li je validna recenzija
+                        <LineBreak />
+                        • Ocenu koju Vam je dao
+                        <LineBreak />
+                        • Oznaku da li je data recenzija validna.
+                        <LineBreak />
+                        • Ako želite da vidite dodatni komentar morate da pritisnete na samu recenziju nakon čega će Vam ispod nje biti prikazan dodatni komentar koji je gost ostavio
+                        <LineBreak />
+                        <LineBreak />
+                        Ako mislite da je recenzija nevalidna, možete je prijaviti tako što ćete:
+                        <LineBreak />
+                        • Odabrati sumnjivu recenziju
+                        <LineBreak />
+                        • Pritisnuti na dugme ,,Prijavi recenziju"
+                        <LineBreak />
+                        Nakon ove dve radnje primetićete u koloni ,,Validna recenzija" da odabrana recenzija više nije validna
+                    </TextBlock>
+                </Button.ToolTip>
+            </Button>
         </DockPanel>
         <Label Content="Odaberire turu za koju želite da vidite sve recenzije gostiju" FontSize="24" HorizontalAlignment="Center"></Label>
         <DockPanel Height="460">
