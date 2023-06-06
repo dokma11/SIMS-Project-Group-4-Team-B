@@ -97,9 +97,10 @@ namespace Sims2023.WPF.Views.Guest1Views
             Guest1MainViewModel.HideMainMenu();
             MainFrame.Navigate(new WheneverWhereverMainView(User,MainFrame));
         }
-        public void NotImplemented_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void Forum_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageBox.Show("Ova funkcionalnost jos uvek nije implementirana");
+            Guest1MainViewModel.HideMainMenu();
+            MainFrame.Navigate(new SearchForumView(User, MainFrame));
         }
     }
 }

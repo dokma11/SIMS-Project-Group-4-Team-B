@@ -10,10 +10,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="WheneverWhereverMainView" Height="515" Width="1000">
-    <!-- <Page.DataContext>
-        <guest1viewmodel:WheneverWhereverMainViewModel/>
-    </Page.DataContext>-->
-            
     <Page.CommandBindings>
         <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="MakeReservation"></CommandBinding>
     </Page.CommandBindings>
