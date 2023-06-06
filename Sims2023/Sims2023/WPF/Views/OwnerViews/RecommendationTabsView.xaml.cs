@@ -1,4 +1,5 @@
-﻿using Sims2023.WPF.ViewModels.OwnerViewModel;
+﻿using Sims2023.Domain.Models;
+using Sims2023.WPF.ViewModels.OwnerViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,17 @@ namespace Sims2023.WPF.Views.OwnerViews
 {
     public partial class RecommendationTabsView : Page
     {
-        public RecommendationTabsView()
+        public User owner { get; set; }
+        public RecommendationTabsView(User owner)
         {
             InitializeComponent();
             DataContext = this;
+            owner = owner;
         }
 
         public void Popular_Click(object sender, RoutedEventArgs e)
         {
-            PopularLocationsView popular = new PopularLocationsView();
+            PopularLocationsView popular = new PopularLocationsView(owner);
             FrameManager.Instance.MainFrame.Navigate(popular);
         }
 

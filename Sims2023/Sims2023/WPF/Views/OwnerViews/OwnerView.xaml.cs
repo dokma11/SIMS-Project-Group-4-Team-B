@@ -62,14 +62,14 @@ namespace Sims2023.View
         private void Grade_Click(object sender, RoutedEventArgs e)
         {
             MenuButton.IsChecked = false;
-            ActionBarTextBlock.Text = RegistrationButton.Content.ToString();
+            ActionBarTextBlock.Text = GradeGuestsButton.Content.ToString();
             FrameManager.Instance.MainFrame.Navigate(ownerViewModel.Grade_Click());
         }
 
         private void AddAccommodation_Click(object sender, RoutedEventArgs e)
         {
             MenuButton.IsChecked = false;
-            ActionBarTextBlock.Text = GradeGuestsButton.Content.ToString();
+            ActionBarTextBlock.Text = RegistrationButton.Content.ToString();
             AccommodationRegistrationView registrationView = new AccommodationRegistrationView(User);
             FrameManager.Instance.MainFrame.Navigate(registrationView);
         }
@@ -78,7 +78,7 @@ namespace Sims2023.View
         {
             MenuButton.IsChecked = false;
             ActionBarTextBlock.Text = RecommendationsButton.Content.ToString();
-            RecommendationTabsView recom = new RecommendationTabsView();
+            RecommendationTabsView recom = new RecommendationTabsView(User);
             FrameManager.Instance.MainFrame.Navigate(recom);
         }
 

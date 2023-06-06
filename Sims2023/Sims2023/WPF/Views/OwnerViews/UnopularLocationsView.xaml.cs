@@ -1,6 +1,4 @@
-﻿using Sims2023.Domain.Models;
-using Sims2023.WPF.ViewModels.OwnerViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,22 +16,13 @@ using System.Windows.Shapes;
 namespace Sims2023.WPF.Views.OwnerViews
 {
     /// <summary>
-    /// Interaction logic for PopularLocationsView.xaml
+    /// Interaction logic for UnopularLocationsView.xaml
     /// </summary>
-    public partial class PopularLocationsView : Page
+    public partial class UnopularLocationsView : Page
     {
-        public PopularLocationsViewModel popularLocationsViewModel;
-        public PopularLocationsView(User owner)
+        public UnopularLocationsView()
         {
-            popularLocationsViewModel = new PopularLocationsViewModel(owner);
             InitializeComponent();
-            DataContext = popularLocationsViewModel;
-        }
-
-        private void CreateAccommodation_Click(object sender, RoutedEventArgs e)
-        {
-                popularLocationsViewModel.CreateAccommodation_Click();
-
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
