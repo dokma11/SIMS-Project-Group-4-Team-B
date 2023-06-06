@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Sims2023.Domain.Models;
+using Sims2023.WPF.ViewModels.OwnerViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +22,12 @@ namespace Sims2023.WPF.Views.OwnerViews
     /// </summary>
     public partial class UnopularLocationsView : Page
     {
-        public UnopularLocationsView()
+        public UnopularLocationsViewModel unopularLocationsViewModel;
+        public UnopularLocationsView(User owenr)
         {
+
+            unopularLocationsViewModel = new UnopularLocationsViewModel(owenr);
+            DataContext = unopularLocationsViewModel;
             InitializeComponent();
         }
 
@@ -29,6 +35,11 @@ namespace Sims2023.WPF.Views.OwnerViews
         {
             NavigationService navigationService = NavigationService.GetNavigationService(this);
             navigationService?.GoBack();
+        }
+
+        private void DeleteAccommodations_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

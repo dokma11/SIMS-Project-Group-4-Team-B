@@ -11,6 +11,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void Add(Accommodation accommodation);
         public void Remove(Accommodation accommodation);
 
+        public List<Location> GetOwnerLocations(List<Accommodation> accommodations);
         public void Save();
         public void MarkRenovated(List<AccommodationRenovation> renovations);
         public void Update(Accommodation accommodation);

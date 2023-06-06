@@ -5,6 +5,7 @@ using Sims2023.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace Sims2023.Repositories
 {
@@ -64,6 +65,43 @@ namespace Sims2023.Repositories
                 if (reservation.Guest.Id == grade.Guest.Id) return true;
             }
             return false;
+        }
+
+        public List<Location> GetUnvisitedLocations(List<Location> locations)
+        {
+            List<Location> unvisitedLocations = new List<Location>();
+
+            foreach (Location location in locations)
+            {
+                bool visited = false;
+
+                foreach (AccommodationReservation reservation in _accommodationReservations)
+                {
+                    if (reservation.Accommodation.Location.Id == location.Id)
+                    {
+                        visited = true;
+                        break;
+                    }
+                }
+
+                if (!visited)
+                {
+                    unvisitedLocations.Add(location);
+                }
+            }
+
+            return unvisitedLocations;
+        }
+
+        public List<AccommodationReservation> GetReservationsForOwner(User owner)
+        {
+            List<AccommodationReservation> reservationsForOwner = new List<AccommodationReservation>();
+            foreach (AccommodationReservation reservation in _accommodationReservations)
+            {
+                if(reservation.Accommodation.Owner.Id == owner.Id)
+                    reservationsForOwner.Add(reservation);
+            }
+            return reservationsForOwner;
         }
 
         public void GetGuestsWhoRecentlyLeft(List<AccommodationReservation> reservatons)

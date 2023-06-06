@@ -37,5 +37,10 @@ namespace Sims2023.Application.Services
         {
              return _location.GetPopularLocations(reservations);
         }
+
+        public List<Location> GetUnpopularLocations(List<AccommodationReservation> reservations, List<Location> locations)
+        {
+            return _location.GetUnpopularLocations(reservations, locations);
+        }
     }
 }

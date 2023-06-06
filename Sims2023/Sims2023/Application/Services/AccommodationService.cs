@@ -40,6 +40,11 @@ namespace Sims2023.Application.Services
             }
         }
 
+        public List<Location> GetOwnerLocations(List<Accommodation> accommodations)
+        {
+            Save();
+            return _accomodation.GetOwnerLocations(accommodations);
+        }
         public void Save()
         {
             _accomodation.Save();

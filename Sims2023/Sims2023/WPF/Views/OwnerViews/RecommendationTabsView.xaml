@@ -10,7 +10,7 @@
 
     <Grid Background="#B3E5FC">
         <Button x:Name="button" Content="Preporuke o otvaranju novog smještaja" FontSize="20" HorizontalAlignment="Center" Click="Popular_Click" Margin="0,70,0,0" VerticalAlignment="Top" Height="111" Width="366"/>
-        <Button x:Name="button1" Content="Preporuke o zatvarnju postojećih smjštaja" FontSize="20" HorizontalAlignment="Center" Margin="0,532,0,0" VerticalAlignment="Top" Height="111" Width="368"/>
+        <Button x:Name="button1" Click="Unpopular_Click" Content="Preporuke o zatvarnju postojećih smjštaja" FontSize="20" HorizontalAlignment="Center" Margin="0,532,0,0" VerticalAlignment="Top" Height="111" Width="368"/>
 
         <Button x:Name="playButton" Content="Play Video" FontSize="20" HorizontalAlignment="Center" Margin="0,448,0,0" VerticalAlignment="Top" Height="50" Width="150" Click="PlayVideo_Click"/>
         <MediaElement x:Name="mediaElement" LoadedBehavior="Manual" Visibility="Visible" Source=".\..\..\..\Resources\OwnerResources\rename.mp4" Stretch="Fill" MediaEnded="MediaElement_MediaEnded"/>

@@ -156,6 +156,9 @@
     <Compile Update="WPF\Views\OwnerViews\StartView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\OwnerViews\UnopularLocationsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\OwnerViews\YearlyStatisticsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -318,6 +321,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\StartView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\UnopularLocationsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\YearlyStatisticsView.xaml">

@@ -16,5 +16,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void Subscribe(IObserver observer);
         public void NotifyObservers();
         public List<Location> GetPopularLocations(List<AccommodationReservation> reservations);
+        public List<Location> GetUnpopularLocations(List<AccommodationReservation> reservations, List<Location> locations);
     }
+
 }

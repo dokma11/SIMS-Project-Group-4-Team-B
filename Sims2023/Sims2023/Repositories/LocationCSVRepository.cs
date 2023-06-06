@@ -51,7 +51,46 @@ namespace Sims2023.Repositories
 
              return popularLocations;
         }
-            public void CheckIdItShouldBeAdded(Location location)
+
+        public List<Location> GetUnpopularLocations(List<AccommodationReservation> reservations, List<Location> locations)
+        {
+            List<Location> unpopularLocations = new List<Location>();
+
+            if (locations.Count > 3)
+            {
+                unpopularLocations = locations;
+            }
+            else
+            {
+                Dictionary<Location, int> locationReservationCounts = new Dictionary<Location, int>();
+
+                foreach (AccommodationReservation reservation in reservations)
+                {
+                    Location reservationLocation = reservation.Accommodation.Location;
+
+                    if (locationReservationCounts.ContainsKey(reservationLocation))
+                    {
+                        locationReservationCounts[reservationLocation]++;
+                    }
+                    else
+                    {
+                        locationReservationCounts[reservationLocation] = 1;
+                    }
+                }
+
+                List<Location> leastReservedLocations = locationReservationCounts.OrderBy(pair => pair.Value)
+                                                                               .Select(pair => pair.Key)
+                                                                               .Take(3)
+                                                                               .ToList();
+
+                unpopularLocations.AddRange(locations);
+                unpopularLocations.AddRange(leastReservedLocations);
+                unpopularLocations = unpopularLocations.Take(5).ToList();
+            }
+
+            return unpopularLocations;
+        }
+        public void CheckIdItShouldBeAdded(Location location)
         {
             if (!_locations.Contains(location))
             {
@@ -71,8 +110,6 @@ namespace Sims2023.Repositories
             }
             Add(location);
         }
-
-        
         public void Add(Location location)
         {
             location.Id = NextId();
