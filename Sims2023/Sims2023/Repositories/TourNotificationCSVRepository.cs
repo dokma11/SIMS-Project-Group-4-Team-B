@@ -34,10 +34,10 @@ namespace Sims2023.Repositories
             return _tourNotifications.Count == 0 ? 1 : _tourNotifications.Max(t => t.Id) + 1;
         }
 
-        public void Add(TourNotification tourRequest)
+        public void Add(TourNotification tourNotification)
         {
-            tourRequest.Id = NextId();
-            _tourNotifications.Add(tourRequest);
+            tourNotification.Id = NextId();
+            _tourNotifications.Add(tourNotification);
             _fileHandler.Save(_tourNotifications);
             NotifyObservers();
         }

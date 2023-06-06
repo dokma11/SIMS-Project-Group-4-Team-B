@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
@@ -55,6 +55,12 @@
     <Compile Update="WPF\Views\Guest1Views\GuestOneStartView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\Guest2Views\CreateComplexTourRequestView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest2Views\CreateSubTourRequestView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest1Views\WheneverWhereverMainView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -67,7 +73,13 @@
     <Compile Update="WPF\Views\Guest2Views\CreateTourRequestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\Guest2Views\Guest2ComplexTourRequestListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest2Views\Guest2StartView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest2Views\Guest2SubToursRequestListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\Guest2Views\Guest2TourRequestListView.xaml.cs">
@@ -224,6 +236,12 @@
     <Page Update="WPF\Views\Guest1Views\GuestOneStartView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\Guest2Views\CreateComplexTourRequestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest2Views\CreateSubTourRequestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\Guest1Views\WheneverWhereverMainView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -236,7 +254,13 @@
     <Page Update="WPF\Views\Guest2Views\CreateTourRequestView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\Guest2Views\Guest2ComplexTourRequestListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\Guest2Views\Guest2StartView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest2Views\Guest2SubToursRequestListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest2Views\Guest2TourRequestListView.xaml">
