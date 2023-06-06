@@ -30,6 +30,9 @@ namespace Sims2023.Application.Injection
             { typeof(IAccommodationStatisticsCSVRepository), new AccommodationStatisticsCSVRepository() },
             { typeof(ICountriesAndCitiesCSVRepository), new CountriesAndCitiesCSVRepository() },
             { typeof(IAccommodationRenovationCSVRepository), new AccommodationRenovationCSVRepository() },
+            { typeof(IComplexTourRequestCSVRepository), new ComplexTourRequestCSVRepository()},
+            { typeof(ISubTourRequestCSVRepository), new SubTourRequestCSVRepository()}
+            { typeof(IAccommodationRenovationCSVRepository), new AccommodationRenovationCSVRepository() },
             { typeof(IForumCSVRepository), new ForumCSVRepository() },
             { typeof(IForumCommentRepository), new ForumCommentCSVRepository() }
         };

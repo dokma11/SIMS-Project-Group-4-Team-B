@@ -51,6 +51,19 @@ namespace Sims2023.Application.Services
                 }
             }
         }
+
+        public List<Location> GetUnvisitedLocations(List<Location> locations)
+        {
+            Save();
+            return _accommodationReservation.GetUnvisitedLocations(locations);
+        }
+
+        public List<AccommodationReservation> GetReservationsForOwner(User owner)
+        {
+            Save();
+            return _accommodationReservation.GetReservationsForOwner(owner);
+        }
+
         public void Save()
         {
             _accommodationReservation.Save();

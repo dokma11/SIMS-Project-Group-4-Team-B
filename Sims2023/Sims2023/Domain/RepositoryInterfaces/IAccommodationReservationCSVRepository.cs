@@ -27,6 +27,9 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<AccommodationReservation> GetAll();
         public void Subscribe(IObserver observer);
         public void Unsubscribe(IObserver observer);
+
+        public List<Location> GetUnvisitedLocations(List<Location> locations);
+        public List<AccommodationReservation> GetReservationsForOwner(User owner);
         public void NotifyObservers();
         public List<AccommodationReservation> FindSuitableUpcomingReservations(User guest1);
         public bool FilterdDataSelection(AccommodationReservation accommodationReservation, User guest1);

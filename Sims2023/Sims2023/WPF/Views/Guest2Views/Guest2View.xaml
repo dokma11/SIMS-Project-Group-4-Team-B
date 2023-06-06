@@ -20,6 +20,7 @@
         <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="TourRequest_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Command3View" CanExecute="CanExecute" Executed="TourList_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Command4View" CanExecute="CanExecute" Executed="VoucherList_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command5View" CanExecute="CanExecute" Executed="ComplexTourRequest_Executed"></CommandBinding>
     </Window.CommandBindings>
     <Window.Resources>
         <Style x:Key="MenuItemStyle" TargetType="{x:Type MenuItem}">
@@ -42,7 +43,7 @@
             <MenuItem Header="All tours" Command="cmd:RoutedCommands.Command3View"></MenuItem>
             <MenuItem Header="My tours" Command="cmd:RoutedCommands.Command1View"></MenuItem>
             <MenuItem Header="Tour request" Command="cmd:RoutedCommands.Command2View"></MenuItem>
-            <MenuItem Header="Complex tour request"></MenuItem>
+            <MenuItem Header="Complex tour request" Command="cmd:RoutedCommands.Command5View"></MenuItem>
             <MenuItem Header="My coupons" Command="cmd:RoutedCommands.Command4View"></MenuItem>
             <Separator Margin="100,0,0,0"></Separator>
             <MenuItem Header="Report"></MenuItem>
