@@ -36,10 +36,10 @@ namespace Sims2023.WPF.Views.Guest2Views
 
         private void NewRequest_Click(object sender, RoutedEventArgs e)
         {
-            /* CreateComplexTourRequestView createComplexTourRequestView = new CreateTourRequestView(User);
+             CreateComplexTourRequestView createComplexTourRequestView = new CreateComplexTourRequestView(User);
              createComplexTourRequestView.Closed += CreateComplexTourRequestView_Closed;
 
-             createComplexTourRequestView.Show();*/
+             createComplexTourRequestView.Show();
         }
 
         private void CreateComplexTourRequestView_Closed(object sender, EventArgs e)

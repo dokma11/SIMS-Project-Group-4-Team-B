@@ -28,6 +28,12 @@ namespace Sims2023.Domain.Models
             Guest = guest;
 
         }
+        public ComplexTourRequest(string name,User guest)
+        {
+            Name = name;
+            Guest= guest;
+            CurrentState = ComplexRequestsState.OnHold;
+        }
 
         public string[] ToCSV()
         {
@@ -35,6 +41,7 @@ namespace Sims2023.Domain.Models
             {
                 Id.ToString(),
                 Name,
+                CurrentState.ToString(),
                 Guest.Id.ToString()
             };
             return csvValues;
