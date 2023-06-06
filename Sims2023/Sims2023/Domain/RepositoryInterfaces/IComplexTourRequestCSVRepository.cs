@@ -14,6 +14,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public int NextId();
         public void Add(ComplexTourRequest complexTourRequest);
         public List<ComplexTourRequest> GetAll();
+        public List<ComplexTourRequest> GetByUser(User user);
         public void Subscribe(IObserver observer);
         public void NotifyObservers();
 

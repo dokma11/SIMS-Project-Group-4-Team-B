@@ -46,6 +46,11 @@ namespace Sims2023.Repositories
             return _complexTourRequests;
         }
 
+        public List<ComplexTourRequest> GetByUser(User user)
+        {
+            return _complexTourRequests.Where(r => r.Guest.Id== user.Id).ToList();
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
