@@ -29,6 +29,6 @@
             </ListView.ItemTemplate>
         </ListView>
         <Button x:Name="button" Content="Zatvori smještaje" Click="DeleteAccommodations_Click" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" HorizontalAlignment="Left" Margin="44,497,0,0" Grid.Row="1" VerticalAlignment="Top" Height="63" Width="135"/>
-        <Button x:Name="button1" Click="Back_Click"  Content="Button" HorizontalAlignment="Left" Margin="251,497,0,0" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" Grid.Row="1" VerticalAlignment="Top" Height="63" Width="135"/>
+        <Button x:Name="button1" Click="Back_Click"  Content="Nazad" HorizontalAlignment="Left" Margin="251,497,0,0" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" Grid.Row="1" VerticalAlignment="Top" Height="63" Width="135"/>
     </Grid>
 </Page>

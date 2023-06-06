@@ -56,7 +56,7 @@ namespace Sims2023.Repositories
         {
             List<Location> unpopularLocations = new List<Location>();
 
-            if (locations.Count > 3)
+            if (locations.Count > 10)
             {
                 unpopularLocations = locations;
             }

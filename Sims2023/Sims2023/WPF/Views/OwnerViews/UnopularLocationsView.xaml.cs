@@ -39,7 +39,7 @@ namespace Sims2023.WPF.Views.OwnerViews
 
         private void DeleteAccommodations_Click(object sender, RoutedEventArgs e)
         {
-
+            unopularLocationsViewModel.DeleteAccommodations_Click(sender, e);
         }
     }
 }
