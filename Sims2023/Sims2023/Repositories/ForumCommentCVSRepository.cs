@@ -4,6 +4,7 @@ using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,6 +88,17 @@ namespace Sims2023.Repositories
             {
                 observer.Update();
             }
+        }
+        public ObservableCollection<ForumComment> FilterComments(ObservableCollection<ForumComment> comments, Forum selectedForum)
+        {
+            foreach(var item in _forumComments)
+            {
+                if (item.Forum.Id == selectedForum.Id)
+                {
+                    comments.Add(item);
+                }
+            }
+            return comments;
         }
     }
 

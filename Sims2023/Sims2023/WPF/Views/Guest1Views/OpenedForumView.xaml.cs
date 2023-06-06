@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Sims2023.Application.Services;
+using Sims2023.Domain.Models;
+using Sims2023.WPF.ViewModels.Guest1ViewModel;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +24,27 @@ namespace Sims2023.WPF.Views.Guest1Views
     /// </summary>
     public partial class OpenedForumView : Page
     {
-        public OpenedForumView()
+        public OpenedForumView(ForumService forumService, Frame mainFrame, User user, Forum selectedForum)
         {
             InitializeComponent();
+            this.DataContext = new OpenedForumViewModel(user,mainFrame,selectedForum,this,forumService);
+        }
+
+        public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        public void AddComment(object sender, RoutedEventArgs e)
+        {
+            ((OpenedForumViewModel)this.DataContext).AddComment();
+        }
+        public void ShutDown(object sender, RoutedEventArgs e)
+        {
+            ((OpenedForumViewModel)this.DataContext).ShutDown();
+        }
+        public void GoBack(object sender, RoutedEventArgs e)
+        {
+            ((OpenedForumViewModel)this.DataContext).GoBack();
         }
     }
 }

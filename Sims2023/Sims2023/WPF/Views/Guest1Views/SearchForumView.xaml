@@ -8,7 +8,11 @@
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="1000"
       Title="SearchForumView">
-
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="SearchForum"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="NewForum"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command3View" CanExecute="CanExecute" Executed="ShowForum"></CommandBinding>
+    </Page.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
@@ -32,11 +36,11 @@
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
                 <Label x:Name="label1" Content="Unesite lokaciju koja Vas interesuje:"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="24" Grid.Row="0"/>
-                <Label x:Name="label2" Content="Grad:"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="21" Grid.Row="1"/>
-                <TextBox x:Name="citySearchBox" TabIndex="18" Grid.Row="2" Grid.Column="0" Margin="0,0,50,20"/>
-                <Label x:Name="label3" Content="Država:"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="21" Grid.Row="3"/>
-                <TextBox x:Name="countrySearchBox" TabIndex="18" Grid.Row="4" Grid.Column="0" Margin="0,0,50,20"/>
-                <Button x:Name="searchForum"  Content="Pretraži forume" TabIndex="19" FontSize="20" Margin="115,0,165,0" Grid.Row="6"/>
+                <Label x:Name="label2" Content="Grad:"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="21" Grid.Row="3"/>
+                <ComboBox x:Name="cityBox" TabIndex="18" Grid.Row="4" Grid.Column="0" Margin="0,0,50,20"/>
+                <Label x:Name="label3" Content="Država:"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="21" Grid.Row="1"/>
+                <ComboBox x:Name="countryBox" TabIndex="18" Grid.Row="2" Grid.Column="0" Margin="0,0,50,20" SelectionChanged="CountryComboBox_SelectionChanged"/>
+                <Button x:Name="searchForum"  Content="Pretraži forume" TabIndex="19" FontSize="20" Margin="115,0,165,0" Grid.Row="6" Command="cmd:RoutedCommands.Command1View"/>
             </Grid>
             <Grid Grid.Column="1" Margin="0,0,50,0">
                 <Grid.RowDefinitions>
@@ -48,13 +52,13 @@
                   ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedForum, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True"
-                  Grid.Row="0" HorizontalAlignment="Center" Width="350">
+                  Grid.Row="0" HorizontalAlignment="Center" Width="350" Margin="0,30,0,0" CanUserAddRows="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Tema" Binding="{Binding Theme}" Width="200"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Tema" Binding="{Binding Theme}" Width="340"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button x:Name="makeForum"  Content="  Novi forum  " TabIndex="19" FontSize="20" Margin="15,0,265,0" Grid.Row="2"/>
-                <Button x:Name="showForum"  Content="  Prikaži forum  " TabIndex="19" FontSize="20" Margin="265,0,15,0" Grid.Row="2"/>
+                <Button x:Name="makeForum"  Content="  Novi forum  " TabIndex="19" FontSize="20" Margin="15,0,265,0" Grid.Row="2" Command="cmd:RoutedCommands.Command2View"/>
+                <Button x:Name="showForum"  Content="  Prikaži forum  " TabIndex="19" FontSize="20" Margin="265,0,15,0" Grid.Row="2" Command="cmd:RoutedCommands.Command3View"/>
             </Grid>
         </Grid>
     </Grid>

@@ -5,6 +5,7 @@ using Sims2023.Observer;
 using Sims2023.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -77,6 +78,10 @@ namespace Sims2023.Application.Services
             _forumComments.Subscribe(observer);
         }
 
+        internal ObservableCollection<ForumComment> FilterComments(ObservableCollection<ForumComment> comments, Forum selectedForum)
+        {
+            return _forumComments.FilterComments(comments,selectedForum);
+        }
     }
 
 }

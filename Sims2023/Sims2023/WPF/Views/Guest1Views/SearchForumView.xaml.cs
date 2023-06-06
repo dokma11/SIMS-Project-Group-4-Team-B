@@ -1,17 +1,10 @@
-﻿using System;
+﻿using Sims2023.Domain.Models;
+using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Sims2023.WPF.Views.Guest1Views
 {
@@ -20,9 +13,30 @@ namespace Sims2023.WPF.Views.Guest1Views
     /// </summary>
     public partial class SearchForumView : Page
     {
-        public SearchForumView()
+        public SearchForumView(User user, Frame mainFrame)
         {
             InitializeComponent();
+            this.DataContext = new SearchForumViewModel(user, mainFrame, this);
+        }
+        public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        public void SearchForum(object sender, RoutedEventArgs e)
+        {
+            ((SearchForumViewModel)this.DataContext).SearchForum();
+        }
+        public void NewForum(object sender, RoutedEventArgs e)
+        {
+            ((SearchForumViewModel)this.DataContext).NewForum();
+        }
+        public void ShowForum(object sender, RoutedEventArgs e)
+        {
+            ((SearchForumViewModel)this.DataContext).ShowForum();
+        }
+        public void CountryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ((SearchForumViewModel)this.DataContext).CountryComboBox_SelectionChanged();
         }
     }
 }

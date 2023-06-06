@@ -19,7 +19,7 @@
         <CommandBinding Command="cmd:RoutedCommands.AllGuestOneReservationsView" CanExecute="CanExecute" Executed="AllGuestOneReservationsView_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.GuestOneAllGradesView" CanExecute="CanExecute" Executed="GuestOneAllGradesView_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.WheneverWhereverView" CanExecute="CanExecute" Executed="WheneverWhereverView_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommands.ForumView" CanExecute="CanExecute" Executed="NotImplemented_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.ForumView" CanExecute="CanExecute" Executed="Forum_Executed"></CommandBinding>
     </Window.CommandBindings>
     <Grid>
         <Grid>

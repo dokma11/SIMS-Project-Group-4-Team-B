@@ -8,7 +8,10 @@
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="1000"
       Title="MakeNewForumView">
-
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="NewForum"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="GoBack"></CommandBinding>
+    </Page.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
@@ -24,8 +27,10 @@
         <Label x:Name="label1" Content="Tema:" Margin="50,0,0,0" FontSize="21" Grid.Row="1"/>
         <TextBox x:Name="ThemeBox" TabIndex="18" Grid.Row="2" Grid.Column="0" Margin="50,0,600,20"/>
         <Label x:Name="label2" Content="Unesite komentar:" Margin="50,0,0,0" FontSize="21" Grid.Row="3"/>
-        <TextBox x:Name="CommentBox" TabIndex="18" Grid.Row="4" Grid.Column="0" Margin="50,0,50,30"/>
-        <Button x:Name="postForum"  Content="  Objavi  " TabIndex="19" FontSize="20" Margin="390,0,390,0" Grid.Row="5"/>
-        <Button x:Name="goBack"  Content="  Nazad  " TabIndex="19" FontSize="20" Margin="750,0,50,0" Grid.Row="6"/>
+        <StackPanel Grid.Row="4" Grid.Column="0" Margin="50,0,50,0">
+            <TextBox x:Name="CommentBox" TabIndex="18" TextWrapping="Wrap"  Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}" Height="100"/>
+        </StackPanel>
+        <Button x:Name="postForum"  Content="  Objavi  " TabIndex="19" FontSize="20" Margin="390,0,390,0" Grid.Row="5" Command="cmd:RoutedCommands.Command1View"/>
+        <Button x:Name="goBack"  Content="  Nazad  " TabIndex="19" FontSize="20" Margin="750,0,50,0" Grid.Row="6" Command="cmd:RoutedCommands.Command2View"/>
     </Grid>
 </Page>

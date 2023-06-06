@@ -2,8 +2,10 @@
 using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
+using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,6 +77,11 @@ namespace Sims2023.Application.Services
         public Forum GetById(int id)
         {
             return _forums.GetById(id);
+        }
+
+        public ObservableCollection<Forum> FilterForums(ObservableCollection<Forum> filteredForums, string citySearch, string countrySearch)
+        {
+            return _forums.FilterForums(filteredForums, citySearch, countrySearch);
         }
     }
 

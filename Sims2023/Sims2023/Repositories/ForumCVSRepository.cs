@@ -4,6 +4,7 @@ using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,6 +88,20 @@ namespace Sims2023.Repositories
             {
                 observer.Update();
             }
+        }
+        public ObservableCollection<Forum> FilterForums(ObservableCollection<Forum> filteredForums, string citySearch, string countrySearch)
+        {
+            foreach (Forum forum in _forums)
+            {
+                bool cityCondition = string.IsNullOrEmpty(citySearch) || forum.Location.City==citySearch;
+                bool countryCondition = string.IsNullOrEmpty(countrySearch) || forum.Location.Country==countrySearch;
+
+                if (cityCondition && countryCondition)
+                {
+                    filteredForums.Add(forum);
+                }
+            }
+            return filteredForums;
         }
     }
 
