@@ -52,11 +52,11 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                 Grade = new GuestGrade(id, Guest.Accommodation, Guest.Guest, clean, RespectRules, Communication, comment,Guest.StartDate,Guest.EndDate);
                 CreateGrade(Grade);
                 resevationss.Remove(Guest);
-                MessageBox.Show("Uspijesno davanje ocjene");
+                ToastNotificationService.ShowInformation("Uspiješno davanje ocjene");
                 View.NavigationService.GoBack();
 
             }
-            else MessageBox.Show("Popunite sve podatke");
+            else ToastNotificationService.ShowInformation("Popunite sve podatke");
         }
 
         public bool IsValid(string cleaN, string Respectrules, string Communicationn, string comment)
