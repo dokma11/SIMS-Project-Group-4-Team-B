@@ -8,11 +8,11 @@
     <StackPanel Background="PeachPuff">
         <DockPanel>
             <ToolBar>
-                <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
-                <Button x:Name="toursButton" Click="ToursButton_Click" Content="Ture" ToolTip="Idite na ture" Margin="150,0"/>
-                <Button x:Name="requestsButton" Click="RequestsButton_Click" Content="Zahtevi" ToolTip="Idite na zahteve" Margin="150,0"/>
+                <Button x:Name="homePageButton" Command="{Binding HomePageNavigationCommand}" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
+                <Button x:Name="toursButton" Command="{Binding ToursPageNavigationCommand}" Content="Ture" ToolTip="Idite na ture" Margin="150,0"/>
+                <Button x:Name="requestsButton" Command="{Binding RequestsPageNavigationCommand}" Content="Zahtevi" ToolTip="Idite na zahteve" Margin="150,0"/>
                 <Button x:Name="reviewsButton" Content="Recenzije" IsEnabled="False" Margin="150,0"/>
-                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
+                <Button x:Name="accountButton" Command="{Binding AccountPageNavigationCommand}" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
             </ToolBar>
         </DockPanel>
         <DockPanel>
@@ -61,16 +61,16 @@
         <Label Content="Odaberire turu za koju želite da vidite sve recenzije gostiju" FontSize="24" HorizontalAlignment="Center"></Label>
         <DockPanel Height="460">
             <DataGrid x:Name="TourDataGrid" Width="625" Height="375" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" Margin="15">
+                      SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" Margin="15,0,-10,0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Naziv" Binding="{Binding Name}" Width="150">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Left"/>
-                            <Setter Property="VerticalAlignment" Value="Center"/>
-                            <Setter Property="Padding" Value="5,0,0,0"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.City}" Width="150">
                         <DataGridTextColumn.ElementStyle>
@@ -111,7 +111,7 @@
                 </DataGrid.Columns>
             </DataGrid>
             <DataGrid x:Name="ReviewDataGrid" Width="590" Height="375" ItemsSource="{Binding ReviewsToDisplay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding Path=SelectedReview, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single" SelectionChanged="OnSelectionChanged">
+                      SelectedItem="{Binding Path=SelectedReview, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Ime" Binding="{Binding Guest.Name}" Width="115">
                         <DataGridTextColumn.ElementStyle>
@@ -170,16 +170,30 @@
                 </DataGrid.Columns>
                 <DataGrid.RowDetailsTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Comment}" Padding="5,5,0,5" Height="25"/>
+                        <TextBlock Text="{Binding Comment}" Padding="5,5,0,5"/>
                     </DataTemplate>
                 </DataGrid.RowDetailsTemplate>
             </DataGrid>
         </DockPanel>
         <DockPanel>
-            <Label x:Name="successfulReportLabel" Content="Uspešno ste prijavili recenziju!" Margin="450,0,0,0" FontSize="24" VerticalAlignment="Center" Visibility="Hidden"></Label>
-            <Button Click="ReportReviewButton_Click" Width="150" Height="50" Margin="0,0,0,0" Content="Prijavi recenziju" ToolTip="Prijavite recenziju kao nevalidnu"/>
-            <Button Click="DisplayReviewsButton_Click" Width="150" Height="50" Margin="10,0,0,0" Content="Prikaži recenzije" ToolTip="Prikažite recenzije za odabranu turu"/>
-            <Button Click="DisplayCommentButton_Click" Width="150" Height="50" Margin="0,0,25,0" Content="Prikaži komentar" ToolTip="Prikažite komentar koji je ostavio odabrani korisnik"/>
+            <DockPanel Width="500" Margin="400,0,0,0">
+                <Label x:Name="reportLabel" Content="{Binding LabelContent}" Margin="150,0,0,0" FontSize="24" VerticalAlignment="Center">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsLabelVisible}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+            </DockPanel>
+            <DockPanel Width="400">
+                <Button Command="{Binding ReportReviewCommand}" Width="150" Height="50" Margin="0,0,0,0" Content="Prijavi recenziju" ToolTip="Prijavite recenziju kao nevalidnu"/>
+                <Button Command="{Binding DisplayReviewsCommand}" Width="150" Height="50" Margin="0,0,0,0" Content="Prikaži recenzije" ToolTip="Prikažite recenzije za odabranu turu"/>
+            </DockPanel>
         </DockPanel>
     </StackPanel>
 </Page>

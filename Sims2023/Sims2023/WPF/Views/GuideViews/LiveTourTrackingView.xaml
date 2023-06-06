@@ -8,11 +8,11 @@
     <StackPanel Background="PeachPuff">
         <DockPanel>
             <Menu>
-                <MenuItem x:Name="homePageButton" Click="HomePageButton_Click" Header="naziv" />
+                <MenuItem x:Name="homePageButton" Command="{Binding HomePageNavigationCommand}" Header="naziv" />
                 <MenuItem x:Name="toursButton"  IsEnabled="False" Margin="150,0"/>
-                <MenuItem x:Name="requestsButton" Click="RequestsButton_Click"  Margin="150,0"/>
-                <MenuItem x:Name="reviewsButton" Click="ReviewsButton_Click" Margin="150,0"/>
-                <MenuItem x:Name="accountButton" Click="AccountButton_Click"  Margin="40,0"/>
+                <MenuItem x:Name="requestsButton" Command="{Binding RequestsPageNavigationCommand}"  Margin="150,0"/>
+                <MenuItem x:Name="reviewsButton" Command="{Binding ReviewsPageNavigationCommand}" Margin="150,0"/>
+                <MenuItem x:Name="accountButton" Command="{Binding AccountPageNavigationCommand}" Margin="40,0"/>
             </Menu>
         </DockPanel>
         <DockPanel>
@@ -90,7 +90,8 @@
                 </DataGrid.Columns>
             </DataGrid>
             <DataGrid x:Name="guestDataGrid" ItemsSource="{Binding GuestsToDisplay}" SelectionMode="Extended"
-            Height="500" Width="560" Margin="35,0,0,0" IsReadOnly="True" AutoGenerateColumns="False">
+            Height="500" Width="560" Margin="35,0,0,0" IsReadOnly="True" AutoGenerateColumns="False"
+            SelectedItem="{Binding SelectedUsers}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Ime" Binding="{Binding Name}" Width="150">
                         <DataGridTextColumn.ElementStyle>
@@ -136,10 +137,10 @@
                 <Label x:Name="eventLabel" FontSize="20" Visibility="Hidden" Margin="50,0,0,0"/>
             </DockPanel>
             <DockPanel Width="600" Margin="125,0,0,0">
-                <Button x:Name="markKeyPointButton" Click="MarkKeyPointButton_Click" Content="Označi ključnu tačku" Width="120" Height="40"/>
-                <Button x:Name="markGuestsPresentButton" Click="MarkGuestsPresentButton_Click" Content="Dodaj prisutne goste" Width="120" Height="40" Margin="20,0,0,0"/>
-                <Button x:Name="cancelTourButton" Click="CancelTourButton_Click" Content="Prekini turu" Width="120" Height="40" Margin="20,0,0,0"/>
-                <Button x:Name="goBackButton" Click="GoBackButton_Click" Content="Nazad" Width="120" Height="40" Margin="-30,0,0,0"/>
+                <Button x:Name="markKeyPointButton" Command="{Binding MarkKeyPointCommand}" Content="Označi ključnu tačku" Width="120" Height="40"/>
+                <Button x:Name="markGuestsPresentButton" Command="{Binding MarkGuestPresentCommand}" Content="Dodaj prisutne goste" Width="120" Height="40" Margin="20,0,0,0"/>
+                <Button x:Name="cancelTourButton" Command="{Binding CancelTourCommand}" Content="Prekini turu" Width="120" Height="40" Margin="20,0,0,0"/>
+                <Button x:Name="goBackButton" Command="{Binding GoBackCommand}" Content="Nazad" Width="120" Height="40" Margin="-30,0,0,0"/>
             </DockPanel>
         </DockPanel>
     </StackPanel>

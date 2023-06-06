@@ -4,6 +4,8 @@ using Sims2023.WPF.ViewModels.GuideViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Sims2023.WPF.Views.GuideViews
 {
@@ -29,8 +31,8 @@ namespace Sims2023.WPF.Views.GuideViews
         {
             InitializeComponent();
 
-            CreateTourFromFrequentLocationViewModel = new(selectedLocation, tourService, keyPointService, loggedInGuide, requestService, tourNotificationService);
-            DataContext = CreateTourFromFrequentLocationViewModel;
+            //CreateTourFromFrequentLocationViewModel = new(selectedLocation, tourService, keyPointService, loggedInGuide, requestService, tourNotificationService);
+            //DataContext = CreateTourFromFrequentLocationViewModel;
 
             _tourService = tourService;
             _locationService = locationService;
@@ -63,6 +65,14 @@ namespace Sims2023.WPF.Views.GuideViews
             }
         }
 
+        private void IntegerUpDown_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!int.TryParse(e.Text, out _))
+            {
+                e.Handled = true;
+            }
+        }
+
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -92,13 +102,36 @@ namespace Sims2023.WPF.Views.GuideViews
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             if (keyPointsOutput.Items.Count > 1 && toursNameTextBox.Text != "" && toursNameTextBox.Text != "Unesite naziv"
-                && keyPointTextBox.Text != "" && keyPointTextBox.Text != "Unesite ključne tačke" && picturesTextBox.Text != "" && picturesTextBox.Text != "Unesite putanje slika"
-                && descriptionTextBox.Text != "" && descriptionTextBox.Text != "Unesite opis ture")
+                && picturesTextBox.Text != "" && picturesTextBox.Text != "Unesite putanje slika"
+                && descriptionTextBox.Text != "" && descriptionTextBox.Text != "Unesite opis ture"
+                && maximumNumberOfGuests.Text != "" && duration.Text != "")
             {
                 CreateTourFromFrequentLocationViewModel.ConfirmCreation();
                 RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
                 FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
             }
+            else
+            {
+                ValidationErrorLabelEvent();
+            }
+        }
+
+        public void ValidationErrorLabelEvent()
+        {
+            validationLabel.Visibility = Visibility.Visible;
+            DispatcherTimer timer = new()
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            validationLabel.Visibility = Visibility.Hidden;
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

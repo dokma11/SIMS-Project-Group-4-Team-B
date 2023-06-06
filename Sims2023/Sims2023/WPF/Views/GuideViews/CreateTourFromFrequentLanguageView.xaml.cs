@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Sims2023.WPF.Views.GuideViews
 {
@@ -14,42 +15,18 @@ namespace Sims2023.WPF.Views.GuideViews
     public partial class CreateTourFromFrequentLanguageView : Page
     {
         public CreateTourFromFrequentLanguageViewModel CreateTourFromFrequentLanguageViewModel;
-        private TourService _tourService;
-        private LocationService _locationService;
-        private KeyPointService _keyPointService;
-        private TourReviewService _tourReviewService;
-        private RequestService _requestService;
-        private TourReservationService _tourReservationService;
-        private VoucherService _voucherService;
-        private UserService _userService;
-        private CountriesAndCitiesService _countriesAndCitiesService;
-        private TourNotificationService _tourNotificationService;
-        public User LoggedInGuide { get; set; }
         public CreateTourFromFrequentLanguageView(RequestsLanguage selectedLanguage, TourService tourService, LocationService locationService, KeyPointService keyPointService, TourReviewService tourReviewService, RequestService requestService, TourReservationService tourReservationService, VoucherService voucherService, UserService userService, CountriesAndCitiesService countriesAndCitiesService, User loggedInGuide, TourNotificationService tourNotificationService)
         {
             InitializeComponent();
 
-            CreateTourFromFrequentLanguageViewModel = new(selectedLanguage, tourService, locationService, keyPointService, loggedInGuide, requestService, tourNotificationService);
+            CreateTourFromFrequentLanguageViewModel = new(selectedLanguage, tourService, locationService, keyPointService, tourReviewService, requestService, tourReservationService, voucherService, userService, countriesAndCitiesService, loggedInGuide, tourNotificationService);
             DataContext = CreateTourFromFrequentLanguageViewModel;
-
-            _tourService = tourService;
-            _locationService = locationService;
-            _keyPointService = keyPointService;
-            _tourReviewService = tourReviewService;
-            _requestService = requestService;
-            _tourReservationService = tourReservationService;
-            _voucherService = voucherService;
-            _userService = userService;
-            _countriesAndCitiesService = countriesAndCitiesService;
-            _tourNotificationService = tourNotificationService;
-
-            LoggedInGuide = loggedInGuide;
 
             countryComboBox.ItemsSource = CreateTourFromFrequentLanguageViewModel.GetCitiesAndCountries();
             countryComboBox.DisplayMemberPath = "CountryName";
             countryComboBox.SelectedValuePath = "CountryName";
 
-            foreach (var date in _tourService.GetBusyDates(LoggedInGuide))
+            foreach (var date in tourService.GetBusyDates(loggedInGuide))
             {
                 requestDatePicker.BlackoutDates.Add(new CalendarDateRange(date, date.AddHours(1)));
             }
@@ -63,6 +40,14 @@ namespace Sims2023.WPF.Views.GuideViews
                 textBox.GotFocus += TextBox_GotFocus;
                 textBox.LostFocus += TextBox_LostFocus;
                 textBox.Text = textBox.Tag.ToString();
+            }
+        }
+
+        private void IntegerUpDown_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!int.TryParse(e.Text, out _))
+            {
+                e.Handled = true;
             }
         }
 
@@ -101,60 +86,49 @@ namespace Sims2023.WPF.Views.GuideViews
             // Bind the city ComboBox to the list of cities
             cityComboBox.ItemsSource = cities;
         }
+        /*
+                private void ConfirmButton_Click(object sender, RoutedEventArgs e)
+                {
+                    if (keyPointsOutput.Items.Count > 1 && toursNameTextBox.Text != "" && toursNameTextBox.Text != "Unesite naziv"
+                        && picturesTextBox.Text != "" && picturesTextBox.Text != "Unesite putanje slika"
+                        && descriptionTextBox.Text != "" && descriptionTextBox.Text != "Unesite opis ture"
+                        && maximumNumberOfGuests.Text != "" && duration.Text != "")
+                    {
+                        CreateTourFromFrequentLanguageViewModel.ConfirmCreation(countryComboBox.Text, cityComboBox.Text);
+                        RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
+                        FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
+                    }
+                    else
+                    {
+                        ValidationErrorLabelEvent();
+                    }
+                }
 
-        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (keyPointsOutput.Items.Count > 1 && toursNameTextBox.Text != "" && toursNameTextBox.Text != "Unesite naziv"
-                && keyPointTextBox.Text != "" && keyPointTextBox.Text != "Unesite ključne tačke" && picturesTextBox.Text != "" && picturesTextBox.Text != "Unesite putanje slika"
-                && descriptionTextBox.Text != "" && descriptionTextBox.Text != "Unesite opis ture")
-            {
-                CreateTourFromFrequentLanguageViewModel.ConfirmCreation(countryComboBox.Text, cityComboBox.Text);
-                RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
-                FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
-            }
-        }
+                public void ValidationErrorLabelEvent()
+                {
+                    validationLabel.Visibility = Visibility.Visible;
+                    DispatcherTimer timer = new()
+                    {
+                        Interval = TimeSpan.FromSeconds(5)
+                    };
+                    timer.Tick += Timer_Tick;
+                    timer.Start();
+                }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
-            FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
-        }
-
-        private void AddKeyPointsButton_Click(object sender, RoutedEventArgs e)
-        {
-            string inputText = keyPointTextBox.Text;
-            keyPointsOutput.Items.Add(inputText);
-            CreateTourFromFrequentLanguageViewModel.AddKeyPointsToList(inputText);
-            keyPointTextBox.Clear();
-        }
-
+                private void Timer_Tick(object sender, EventArgs e)
+                {
+                    validationLabel.Visibility = Visibility.Hidden;
+                    DispatcherTimer timer = (DispatcherTimer)sender;
+                    timer.Stop();
+                }
+        */
         private void KeyPointTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             addKeyPointsButton.IsEnabled = !string.IsNullOrEmpty(keyPointTextBox.Text);
-        }
-
-        private void HomePageButton_Click(object sender, RoutedEventArgs e)
-        {
-            GuideHomePageView guideHomePageView = new(LoggedInGuide);
-            FrameManagerGuide.Instance.MainFrame.Navigate(guideHomePageView);
-        }
-
-        private void ToursButton_Click(object sender, RoutedEventArgs e)
-        {
-            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService, _tourNotificationService);
-            FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
-        }
-
-        private void ReviewsButton_Click(object sender, RoutedEventArgs e)
-        {
-            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
-            FrameManagerGuide.Instance.MainFrame.Navigate(guestReviewsView);
-        }
-
-        private void AccountButton_Click(object sender, RoutedEventArgs e)
-        {
-            GuideAccountView guideAccountView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
-            FrameManagerGuide.Instance.MainFrame.Navigate(guideAccountView);
+            if (keyPointTextBox.Text == "Unesite ključne tačke")
+            {
+                addKeyPointsButton.IsEnabled = false;
+            }
         }
     }
 }

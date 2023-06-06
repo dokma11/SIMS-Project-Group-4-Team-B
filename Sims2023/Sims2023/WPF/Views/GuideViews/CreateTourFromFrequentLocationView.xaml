@@ -8,11 +8,11 @@
     <StackPanel Background="PeachPuff">
         <DockPanel>
             <ToolBar>
-                <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
-                <Button x:Name="toursButton" Content="Ture" Click="ToursButton_Click" ToolTip="Idite na ture" Margin="150,0"/>
+                <Button x:Name="homePageButton" Command="{Binding HomePageNavigationCommand}" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
+                <Button x:Name="toursButton" Content="Ture" Command="{Binding ToursPageNavigationCommand}" ToolTip="Idite na ture" Margin="150,0"/>
                 <Button x:Name="requestsButton" Content="Zahtevi" IsEnabled="False" ToolTip="Idite na zahteve" Margin="150,0"/>
-                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
-                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
+                <Button x:Name="reviewsButton" Command="{Binding ReviewsPageNavigationCommand}" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
+                <Button x:Name="accountButton" Command="{Binding AccountPageNavigationCommand}" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
             </ToolBar>
         </DockPanel>
         <DockPanel>
@@ -90,9 +90,9 @@
                 <ComboBoxItem>Japanese</ComboBoxItem>
             </ComboBox>
             <Label Grid.Column="0" Grid.Row="6" Content="Maksimalan broj gostiju:" FontSize="16"/>
-            <xctk:IntegerUpDown Name="maximumNumberOfGuests" Grid.Row="6" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,37,133,4" Grid.RowSpan="2" Text="{Binding Path=NewTour.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Height="NaN"/>
+            <xctk:IntegerUpDown Name="maximumNumberOfGuests" Grid.Row="6" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,37,133,4" Grid.RowSpan="2" Text="{Binding Path=NewTour.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Height="NaN" PreviewTextInput="IntegerUpDown_PreviewTextInput"/>
             <Label Grid.Column="0" Grid.Row="8" Content="Trajanje ture(u satima):" FontSize="16"/>
-            <xctk:IntegerUpDown Name="duration" Grid.Row="9" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,0,133,0" Text="{Binding Path=NewTour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+            <xctk:IntegerUpDown Name="duration" Grid.Row="9" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,0,133,0" Text="{Binding Path=NewTour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" PreviewTextInput="IntegerUpDown_PreviewTextInput"/>
             <Label Grid.Column="0" Grid.Row="10" Content="Jedna ili više slika:" FontSize="16"/>
             <TextBox x:Name="picturesTextBox" Tag="Unesite putanje slika" Grid.Column="0" Grid.Row="10" Width="230" Height="30" Margin="4,37,133,8" Text="{Binding Path=NewTour.ConcatenatedPictures, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.RowSpan="2"/>
             <!--Kolona u sredini-->
@@ -108,5 +108,8 @@
             <Button x:Name="confirmButton" Click="ConfirmButton_Click" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Potvrdi" Margin="122,23,61,-5" Grid.RowSpan="2"/>
             <Button x:Name="cancelButton" Click="CancelButton_Click" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Odustani" Margin="252,23,-69,-5" Grid.RowSpan="2"/>
         </Grid>
+        <DockPanel Margin="0,5">
+            <Label x:Name="validationLabel" Content="Molimo Vas da popunite sva polja u odgovarajućem formatu!" Margin="580,0,0,0" FontSize="24" VerticalAlignment="Center" Visibility="Hidden"></Label>
+        </DockPanel>
     </StackPanel>
 </Page>

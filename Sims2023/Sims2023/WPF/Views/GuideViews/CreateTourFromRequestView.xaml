@@ -77,7 +77,7 @@
             <Label Grid.Column="0" Grid.Row="6" Content="Maksimalan broj gostiju:" FontSize="16"/>
             <TextBox Grid.Column="0" Grid.Row="6" Width="230" Text="{Binding SelectedRequest.GuestNumber}" Margin="10,37,127,36" IsReadOnly="True" Grid.RowSpan="3"/>
             <Label Grid.Column="0" Grid.Row="8" Content="Trajanje ture(u satima):" FontSize="16"/>
-            <TextBox Grid.Column="0" Grid.Row="9" Width="230" Margin="10,0,127,0" Text="{Binding Path=Tour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+            <xctk:IntegerUpDown Name="duration" Grid.Row="9" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,0,133,0" Text="{Binding Path=Tour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" PreviewTextInput="IntegerUpDown_PreviewTextInput"/>
             <Label Grid.Column="0" Grid.Row="10" Content="Jedna ili više slika:" FontSize="16"/>
             <TextBox x:Name="picturesTextBox" Tag="Unesite putanje slika" Grid.Column="0" Grid.Row="10" Width="230" Margin="10,37,127,0" Text="{Binding Path=Tour.ConcatenatedPictures, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.RowSpan="2"/>
             <!--Kolona u sredini-->
@@ -93,5 +93,8 @@
             <Button x:Name="confirmButton" Click="ConfirmButton_Click" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Potvrdi" Margin="127,31,0,4" Grid.RowSpan="2" HorizontalAlignment="Left"/>
             <Button x:Name="cancelButton" Click="CancelButton_Click" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Odustani" Margin="257,31,10,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
         </Grid>
+        <DockPanel Margin="0,5">
+            <Label x:Name="validationLabel" Content="Molimo Vas da popunite sva polja u odgovarajućem formatu!" Margin="530,0,0,0" FontSize="24" VerticalAlignment="Center" Visibility="Hidden"></Label>
+        </DockPanel>
     </StackPanel>
 </Page>

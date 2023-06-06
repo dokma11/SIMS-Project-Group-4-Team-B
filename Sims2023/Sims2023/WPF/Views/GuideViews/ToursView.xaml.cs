@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace Sims2023.WPF.Views.GuideViews
@@ -26,7 +27,6 @@ namespace Sims2023.WPF.Views.GuideViews
         private TourNotificationService _tourNotificationService;
         public ToursViewModel ToursViewModel;
         public User LoggedInGuide { get; set; }
-        private bool addDatesButtonClicked;
 
         public ToursView(TourService tourService, TourReviewService tourReviewService, TourReservationService tourReservationService, KeyPointService keyPointService, LocationService locationService, VoucherService voucherService, UserService userService, User loggedInGuide, CountriesAndCitiesService countriesAndCitiesService, RequestService requestService, TourNotificationService tourNotificationService)
         {
@@ -51,7 +51,6 @@ namespace Sims2023.WPF.Views.GuideViews
             countryComboBox.DisplayMemberPath = "CountryName";
             countryComboBox.SelectedValuePath = "CountryName";
 
-            addDatesButtonClicked = false;
             _tourNotificationService = tourNotificationService;
 
             TextBox[] textBoxes = { toursNameTextBox, keyPointTextBox, picturesTextBox, descriptionTextBox };
@@ -61,6 +60,14 @@ namespace Sims2023.WPF.Views.GuideViews
                 textBox.GotFocus += TextBox_GotFocus;
                 textBox.LostFocus += TextBox_LostFocus;
                 textBox.Text = textBox.Tag.ToString();
+            }
+        }
+
+        private void IntegerUpDown_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!int.TryParse(e.Text, out _))
+            {
+                e.Handled = true;
             }
         }
 
@@ -247,9 +254,10 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            if (addDatesButtonClicked && keyPointsOutput.Items.Count > 1 && toursNameTextBox.Text != "" && toursNameTextBox.Text != "Unesite naziv"
+            if (keyPointsOutput.Items.Count > 1 && toursNameTextBox.Text != "" && toursNameTextBox.Text != "Unesite naziv"
                 && keyPointTextBox.Text != "" && keyPointTextBox.Text != "Unesite ključne tačke" && picturesTextBox.Text != "" && picturesTextBox.Text != "Unesite putanje slika"
                 && descriptionTextBox.Text != "" && descriptionTextBox.Text != "Unesite opis ture"
+                && maximumNumberOfGuests.Text != "" && duration.Text != ""
                 )
             {
                 ToursViewModel.ConfirmCreation(countryComboBox.Text, cityComboBox.Text);
@@ -257,8 +265,29 @@ namespace Sims2023.WPF.Views.GuideViews
                 tabControl.SelectedIndex = 0;
                 SuccessfulCreationLabelEvent();
             }
+            else
+            {
+                ValidationErrorLabelEvent();
+            }
         }
 
+        public void ValidationErrorLabelEvent()
+        {
+            validationLabel.Visibility = Visibility.Visible;
+            DispatcherTimer timer = new()
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick_Validation;
+            timer.Start();
+        }
+
+        private void Timer_Tick_Validation(object sender, EventArgs e)
+        {
+            validationLabel.Visibility = Visibility.Hidden;
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
+        }
         private void SuccessfulCreationLabelEvent()
         {
             successfulEventLabel.Content = "Uspešno ste kreirali turu";
@@ -298,15 +327,9 @@ namespace Sims2023.WPF.Views.GuideViews
             addKeyPointsButton.IsEnabled = !string.IsNullOrEmpty(keyPointTextBox.Text);
         }
 
-        private void DateTimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void TourDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            addDatesButton.IsEnabled = !string.IsNullOrEmpty(dateTimeTextBox.Text);
-        }
-
-        private void AddDatesButton_Click(object sender, RoutedEventArgs e)
-        {
-            addDatesButtonClicked = true;
-            ToursViewModel.AddDatesToList(dateTimeTextBox.Text);
+            ToursViewModel.AddDatesToList(tourDatePicker.Text);
         }
 
         //STATISTIKA TURE
