@@ -23,6 +23,7 @@ namespace Sims2023.WPF.Views.Guest2Views
     public partial class Guest2ComplexTourRequestListView : Page
     {
         public User User { get; set; }
+        public ComplexTourRequest SelectedComplexTourRequest { get; set; }
         public Guest2ComplexTourRequestListViewModel Guest2ComplexTourRequestListViewModel { get; set; }
         public Guest2ComplexTourRequestListView(User user)
         {
@@ -54,7 +55,18 @@ namespace Sims2023.WPF.Views.Guest2Views
 
         private void Show_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (Guest2ComplexTourRequestListViewModel.RateTour_Click())
+            {
+                SelectedComplexTourRequest = Guest2ComplexTourRequestListViewModel.SelectedComplexTourRequest;
+                // Guest2SubToursRequestListView guest2SubToursRequestListView = new Guest2SubToursRequestListView(SelectedComplexTourRequest);
+                //guest2SubToursRequestListView.Show();
+                MessageBox.Show(SelectedComplexTourRequest.ToString());
+                MessageBox.Show($"Name: {SelectedComplexTourRequest.Name}\n");
+            }
+            else
+            {
+                MessageBox.Show("Izaberite turu");
+            }
         }
     }
 }

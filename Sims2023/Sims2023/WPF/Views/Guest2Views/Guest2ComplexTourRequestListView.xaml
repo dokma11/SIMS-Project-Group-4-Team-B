@@ -12,7 +12,7 @@
     </Page.Resources>
     <Grid Background="{StaticResource BackgroundBrush}">
         <DataGrid x:Name="dataGridGuestComplexTourRequests" ItemsSource="{Binding ComplexTourRequests}"
-                     SelectionMode="Single"
+                    SelectedItem="{Binding SelectedComplexTourRequest, UpdateSourceTrigger=PropertyChanged }" SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Width="938" Height="400" Margin="43,110,43,110">
             <DataGrid.CellStyle>
                 <Style TargetType="DataGridCell">

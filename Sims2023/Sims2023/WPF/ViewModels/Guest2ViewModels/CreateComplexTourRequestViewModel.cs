@@ -12,6 +12,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
     {
         public ComplexTourRequestService _complexTourRequestService { get; set; }
         public ComplexTourRequest ComplexTourRequest { get; set; }
+       
 
         public CreateComplexTourRequestViewModel()
         {

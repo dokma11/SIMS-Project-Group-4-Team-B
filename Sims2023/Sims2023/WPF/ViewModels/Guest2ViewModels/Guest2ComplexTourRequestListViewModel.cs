@@ -28,6 +28,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         public User User { get; set; }
         public ComplexTourRequestService _complexRequestService { get; set; }
+        public ComplexTourRequest SelectedComplexTourRequest { get; set; }
 
         public Guest2ComplexTourRequestListViewModel(User user)
         {
@@ -35,6 +36,30 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             User = user;
             //_complexRequestService.CheckExpirationDate(user);
             ComplexTourRequests = new ObservableCollection<ComplexTourRequest>(_complexRequestService.GetByUser(user));
+            SelectedComplexTourRequest = null;
+        }
+
+        public bool RateTour_Click()
+        {
+            if (IsNull(SelectedComplexTourRequest))
+                return false;
+            else
+                return true;
+            
+        }
+
+        public bool IsNull(ComplexTourRequest complexTourRequest)
+        {
+            if (complexTourRequest == null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsFinished(Tour tour)//new for guest2
+        {
+            return tour.CurrentState == ToursState.Finished;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
