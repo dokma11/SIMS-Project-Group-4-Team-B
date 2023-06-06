@@ -51,6 +51,8 @@
     <None Remove="Resources\OwnerResources\menu3.png" />
     <None Remove="Resources\OwnerResources\notification.png" />
     <None Remove="Resources\OwnerResources\plus.png" />
+    <None Remove="Resources\OwnerResources\prroba.avi" />
+    <None Remove="Resources\OwnerResources\rename.mp4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -204,6 +206,12 @@
 
   <ItemGroup>
     <Resource Include="Resources\GuestOneResources\Horizont_SRB.png" />
+    <Resource Include="Resources\OwnerResources\prroba.avi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\OwnerResources\rename.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

@@ -36,10 +36,6 @@ namespace Sims2023.View
             AccommodationRegistrationViewModel.countryComboBox_SelectionChanged(sender, e);
         }
 
-        private void Close_Click(object sender, RoutedEventArgs e)
-        {
-          
-        }
 
     }
 }

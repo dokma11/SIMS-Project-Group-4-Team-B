@@ -112,6 +112,9 @@
     <Compile Update="WPF\Views\GuideViews\ToursView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\OwnerViews\AccommodationRegistrationAlternativeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\OwnerViews\AllAccommodationStatisticsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -150,10 +153,19 @@
     <Compile Update="WPF\Views\Guest2Views\Guest2View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\OwnerViews\PopularLocationsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\RecommendationTabsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\OwnerViews\SchedulingRenovationAppointmentsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\OwnerViews\StartView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\UnopularLocationsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\OwnerViews\YearlyStatisticsView.xaml.cs">
@@ -275,6 +287,9 @@
     <Page Update="WPF\Views\GuideViews\RequestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\OwnerViews\AccommodationRegistrationAlternativeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\OwnerViews\AllAccommodationStatisticsView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -314,10 +329,19 @@
     <Page Update="WPF\Views\OwnerViews\OwnerView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\OwnerViews\PopularLocationsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\RecommendationTabsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\OwnerViews\SchedulingRenovationAppointmentsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\StartView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\UnopularLocationsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\YearlyStatisticsView.xaml">
