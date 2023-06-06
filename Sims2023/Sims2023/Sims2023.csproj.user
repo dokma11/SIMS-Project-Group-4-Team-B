@@ -55,6 +55,15 @@
     <Compile Update="WPF\Views\Guest1Views\GuestOneStartView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\Guest1Views\WheneverWhereverMainView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\WheneverWhereverOptionsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\WhereverWheneverDetailedView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest2Views\CreateTourRequestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -201,6 +210,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest1Views\GuestOneStartView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\WheneverWhereverMainView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\WheneverWhereverOptionsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\WhereverWheneverDetailedView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest2Views\CreateTourRequestView.xaml">

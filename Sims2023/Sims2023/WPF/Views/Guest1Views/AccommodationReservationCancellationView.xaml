@@ -10,7 +10,7 @@
     <Page.CommandBindings>
         <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="CancelReservation"></CommandBinding>
     </Page.CommandBindings>
-    <Grid Margin="0,0,0,0">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition/>
