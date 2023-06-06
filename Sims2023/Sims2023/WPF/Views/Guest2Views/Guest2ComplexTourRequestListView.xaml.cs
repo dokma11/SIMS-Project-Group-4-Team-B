@@ -58,10 +58,9 @@ namespace Sims2023.WPF.Views.Guest2Views
             if (Guest2ComplexTourRequestListViewModel.RateTour_Click())
             {
                 SelectedComplexTourRequest = Guest2ComplexTourRequestListViewModel.SelectedComplexTourRequest;
-                // Guest2SubToursRequestListView guest2SubToursRequestListView = new Guest2SubToursRequestListView(SelectedComplexTourRequest);
-                //guest2SubToursRequestListView.Show();
-                MessageBox.Show(SelectedComplexTourRequest.ToString());
-                MessageBox.Show($"Name: {SelectedComplexTourRequest.Name}\n");
+                Guest2SubToursRequestListView guest2SubToursRequestListView = new Guest2SubToursRequestListView(SelectedComplexTourRequest,User);
+                guest2SubToursRequestListView.Show();
+                
             }
             else
             {

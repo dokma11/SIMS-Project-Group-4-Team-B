@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
 
 namespace Sims2023.Repositories
 {
-    internal class SubTourRequestCSVRepository
+    public class SubTourRequestCSVRepository: ISubTourRequestCSVRepository
     {
         private readonly List<SubTourRequest> _subTourRequests;
         private readonly SubTourRequestFileHandler _fileHandler;
@@ -44,6 +46,8 @@ namespace Sims2023.Repositories
         {
             return _subTourRequests;
         }
+
+
 
         public void Subscribe(IObserver observer)
         {

@@ -58,6 +58,9 @@
     <Compile Update="WPF\Views\Guest2Views\CreateComplexTourRequestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\Guest2Views\CreateSubTourRequestView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest2Views\CreateTourRequestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -65,6 +68,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\Guest2Views\Guest2StartView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest2Views\Guest2SubToursRequestListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\Guest2Views\Guest2TourRequestListView.xaml.cs">
@@ -212,6 +218,9 @@
     <Page Update="WPF\Views\Guest2Views\CreateComplexTourRequestView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\Guest2Views\CreateSubTourRequestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\Guest2Views\CreateTourRequestView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -219,6 +228,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest2Views\Guest2StartView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest2Views\Guest2SubToursRequestListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest2Views\Guest2TourRequestListView.xaml">
