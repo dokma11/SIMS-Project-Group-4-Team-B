@@ -126,10 +126,9 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
                 Accommodation = new Accommodation(Id, Name, location, Type, maxguests, mindayss, canceldays, _addedPictures, User);
                 CreateAccommodation(Accommodation);
-                MessageBox.Show("uspijsna registracija smjestaja");
-                
+                ToastNotificationService.ShowInformation("Uspiješna registracija smještaja");
             }
-            else MessageBox.Show("Niste dobro popunili sve podatke");
+            else ToastNotificationService.ShowInformation("Niste unijeli sve podatke");
         }
 
 

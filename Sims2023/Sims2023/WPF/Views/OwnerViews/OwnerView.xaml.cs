@@ -31,6 +31,7 @@ namespace Sims2023.View
             MenuButton.IsChecked = false;
             User = owner;
             ownerViewModel = new OwnerViewModel(User);
+            ToastNotificationService.Initialize(this);
 
         }
 
@@ -61,17 +62,26 @@ namespace Sims2023.View
         private void Grade_Click(object sender, RoutedEventArgs e)
         {
             MenuButton.IsChecked = false;
-            ActionBarTextBlock.Text = RegistrationButton.Content.ToString();
+            ActionBarTextBlock.Text = GradeGuestsButton.Content.ToString();
             FrameManager.Instance.MainFrame.Navigate(ownerViewModel.Grade_Click());
         }
 
         private void AddAccommodation_Click(object sender, RoutedEventArgs e)
         {
             MenuButton.IsChecked = false;
-            ActionBarTextBlock.Text = GradeGuestsButton.Content.ToString();
+            ActionBarTextBlock.Text = RegistrationButton.Content.ToString();
             AccommodationRegistrationView registrationView = new AccommodationRegistrationView(User);
             FrameManager.Instance.MainFrame.Navigate(registrationView);
         }
+
+        private void Recommendation_Click(object sender, RoutedEventArgs e)
+        {
+            MenuButton.IsChecked = false;
+            ActionBarTextBlock.Text = RecommendationsButton.Content.ToString();
+            RecommendationTabsView recom = new RecommendationTabsView(User);
+            FrameManager.Instance.MainFrame.Navigate(recom);
+        }
+
 
         private void Grades_Given_From_Guests(object sender, RoutedEventArgs e)
         {

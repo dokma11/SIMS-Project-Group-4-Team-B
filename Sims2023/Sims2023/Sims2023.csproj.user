@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
@@ -61,6 +61,15 @@
     <Compile Update="WPF\Views\Guest2Views\CreateSubTourRequestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\Guest1Views\WheneverWhereverMainView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\WheneverWhereverOptionsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\WhereverWheneverDetailedView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest2Views\CreateTourRequestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -115,6 +124,9 @@
     <Compile Update="WPF\Views\GuideViews\ToursView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\OwnerViews\AccommodationRegistrationAlternativeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\OwnerViews\AllAccommodationStatisticsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -153,10 +165,19 @@
     <Compile Update="WPF\Views\Guest2Views\Guest2View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\OwnerViews\PopularLocationsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\RecommendationTabsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\OwnerViews\SchedulingRenovationAppointmentsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\OwnerViews\StartView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\UnopularLocationsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\OwnerViews\YearlyStatisticsView.xaml.cs">
@@ -221,6 +242,15 @@
     <Page Update="WPF\Views\Guest2Views\CreateSubTourRequestView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\Guest1Views\WheneverWhereverMainView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\WheneverWhereverOptionsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\WhereverWheneverDetailedView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\Guest2Views\CreateTourRequestView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -281,6 +311,9 @@
     <Page Update="WPF\Views\GuideViews\RequestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\OwnerViews\AccommodationRegistrationAlternativeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\OwnerViews\AllAccommodationStatisticsView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -320,10 +353,19 @@
     <Page Update="WPF\Views\OwnerViews\OwnerView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\OwnerViews\PopularLocationsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\RecommendationTabsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\OwnerViews\SchedulingRenovationAppointmentsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\StartView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\UnopularLocationsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\YearlyStatisticsView.xaml">

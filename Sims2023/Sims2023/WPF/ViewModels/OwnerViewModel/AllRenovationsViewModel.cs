@@ -29,13 +29,14 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         public void Delete_Click()
         {
+
             TimeSpan difference = SelectedRenovation.StartDate - DateTime.Today;
             if (SelectedRenovation != null && SelectedRenovation.Status == "nije zapoceto" && difference.TotalDays > 5)
             {
                 _accommodationRenovationService.Delete(SelectedRenovation);
                 renovations.Remove(SelectedRenovation);
-                
             }
+            else ToastNotificationService.ShowInformation("Nije moguća operacija brisanja");
         }
     }
 }

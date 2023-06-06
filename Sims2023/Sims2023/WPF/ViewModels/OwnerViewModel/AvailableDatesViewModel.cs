@@ -34,6 +34,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             {
                 AccommodationRenovation renovation = new AccommodationRenovation(0, selectedAccommodation, SelectedDate.StartDate, SelectedDate.EndDate);
                 _renovationService.Create(renovation);
+                ToastNotificationService.ShowInformation("Uspiješno zakazivanje renoviranja");
 
             }
         }
