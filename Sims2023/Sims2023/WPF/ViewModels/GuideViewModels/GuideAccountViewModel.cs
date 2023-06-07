@@ -71,6 +71,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                     _voucherService.Create(newVoucher);
                 }
             }
+            _userService.MarkDismissal(LoggedInGuide);
             _tourService.CancelAll(LoggedInGuide);
         }
 

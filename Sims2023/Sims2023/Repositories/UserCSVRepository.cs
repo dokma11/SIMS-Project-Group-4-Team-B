@@ -145,5 +145,13 @@ namespace Sims2023.Repositories
                 averageGradeSumByLanguageCount[tour.GuideLanguage]++;
             }
         }
+
+        public void MarkDismissal(User loggedInGuide)
+        {
+            loggedInGuide.AbleToLogIn = false;
+            _fileHandler.Save(_users);
+            NotifyObservers();
+        }
+
     }
 }

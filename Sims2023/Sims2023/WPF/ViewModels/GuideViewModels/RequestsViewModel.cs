@@ -7,11 +7,12 @@ using Sims2023.WPF.Views.GuideViews;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
-    public partial class RequestsViewModel
+    public partial class RequestsViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<string> Labels { get; set; }
         public ObservableCollection<string> LabelsForTheMostRequested { get; set; }
@@ -36,16 +37,48 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public Location TheMostRequestedLocation { get; set; }
         public string TheMostRequestedLocationString { get; set; }
         public ObservableCollection<TourRequest> RequestsToDisplay { get; set; }
-        public ObservableCollection<RequestsLanguage> LanguagesToDisplay { get; set; }
-        public ObservableCollection<string> LocationsToDisplay { get; set; }
-        public ObservableCollection<string> LanguageYearsToDisplay { get; set; }
-        public ObservableCollection<string> LocationYearsToDisplay { get; set; }
+        public List<RequestsLanguage> LanguagesToDisplay { get; set; }
+        public List<string> LocationsToDisplay { get; set; }
+        public List<string> LanguageYearsToDisplay { get; set; }
+        public List<string> LocationYearsToDisplay { get; set; }
         public TourRequest SelectedRequest { get; set; }
         public string LocationTextBox { get; set; }
         public string LanguageTextBox { get; set; }
         public string GuestNumberTextBox { get; set; }
-        public string DateStartTextBox { get; set; }
-        public string DateEndTextBox { get; set; }
+
+        private string _dateStartTextBox = DateTime.Today.AddDays(1).ToString();
+        public string DateStartTextBox
+        {
+            get { return _dateStartTextBox; }
+            set
+            {
+                if (_dateStartTextBox != value)
+                {
+                    _dateStartTextBox = value;
+                    OnPropertyChanged(nameof(DateStartTextBox));
+
+                    UpdateDatePickerBlackoutDates();
+                }
+            }
+        }
+        private string _dateEndTextBox = DateTime.Today.AddDays(2).ToString();
+        public string DateEndTextBox
+        {
+            get { return _dateEndTextBox; }
+            set
+            {
+                if (_dateEndTextBox != value)
+                {
+                    _dateEndTextBox = value;
+                    OnPropertyChanged(nameof(DateEndTextBox));
+
+                    UpdateDatePickerBlackoutDates();
+                }
+            }
+        }
+        public DateTime DateStartDisplayDateStart { get; set; }
+        public DateTime DateStartDisplayDateEnd { get; set; }
+        public DateTime DateEndDisplayDateStart { get; set; }
         public RelayCommand LocationConfirmCommand { get; set; }
         public RelayCommand LanguageConfirmCommand { get; set; }
         public RelayCommand AcceptRequestCommand { get; set; }
@@ -55,6 +88,134 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public RelayCommand ToursPageNavigationCommand { get; set; }
         public RelayCommand AccountPageNavigationCommand { get; set; }
         public RelayCommand ReviewsPageNavigationCommand { get; set; }
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private string _selectedLanguagesComboBoxItem;
+
+        public string SelectedLanguagesComboBoxItem
+        {
+            get { return _selectedLanguagesComboBoxItem; }
+            set
+            {
+                _selectedLanguagesComboBoxItem = value;
+                OnPropertyChanged(nameof(SelectedLanguagesComboBoxItem));
+                if (SelectedLanguagesComboBoxItem != null && SelectedLanguageYearsComboBoxItem != null)
+                {
+                    DisplayLanguageStatistics(SelectedLanguagesComboBoxItem.ToString(), SelectedLanguageYearsComboBoxItem.ToString());
+                }
+            }
+        }
+
+        private string _selectedLanguageYearsComboBoxItem;
+
+        public string SelectedLanguageYearsComboBoxItem
+        {
+            get { return _selectedLanguageYearsComboBoxItem; }
+            set
+            {
+                _selectedLanguageYearsComboBoxItem = value;
+                OnPropertyChanged(nameof(SelectedLanguageYearsComboBoxItem));
+                if (SelectedLanguagesComboBoxItem != null && SelectedLanguageYearsComboBoxItem != null)
+                {
+                    DisplayLanguageStatistics(SelectedLanguagesComboBoxItem.ToString(), SelectedLanguageYearsComboBoxItem.ToString());
+                }
+            }
+        }
+
+        private string _selectedLocationsComboBoxItem;
+
+        public string SelectedLocationsComboBoxItem
+        {
+            get { return _selectedLocationsComboBoxItem; }
+            set
+            {
+                _selectedLocationsComboBoxItem = value;
+                OnPropertyChanged(nameof(SelectedLocationsComboBoxItem));
+                if (SelectedLocationsComboBoxItem != null && SelectedLocationYearsComboBoxItem != null)
+                {
+                    DisplayLocationStatistics(SelectedLocationsComboBoxItem.ToString(), SelectedLocationYearsComboBoxItem.ToString());
+                }
+            }
+        }
+
+        private string _selectedLocationYearsComboBoxItem;
+
+        public string SelectedLocationYearsComboBoxItem
+        {
+            get { return _selectedLocationYearsComboBoxItem; }
+            set
+            {
+                _selectedLocationYearsComboBoxItem = value;
+                OnPropertyChanged(nameof(SelectedLocationYearsComboBoxItem));
+                if (SelectedLocationsComboBoxItem != null && SelectedLocationYearsComboBoxItem != null)
+                {
+                    DisplayLocationStatistics(SelectedLocationsComboBoxItem.ToString(), SelectedLocationYearsComboBoxItem.ToString());
+                }
+            }
+        }
+        private string _toolTipContent { get; set; }
+        public string ToolTipContent
+        {
+            get { return _toolTipContent; }
+            set
+            {
+                _toolTipContent = value;
+                OnPropertyChanged(nameof(ToolTipContent));
+            }
+        }
+        private int _selectedTabIndex;
+
+        public int SelectedTabIndex
+        {
+            get { return _selectedTabIndex; }
+            set
+            {
+                _selectedTabIndex = value;
+                OnPropertyChanged(nameof(SelectedTabIndex));
+                UpdateToolTipContent();
+            }
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private string _tab1ToolTip = "Sa Vaše leve strane prikazani su svi zahtevi za kreiranje ture.\n\n"
+                + "U tabeli sa leve strane možete prvo videti šest informacija:\n"
+                + "• Korisničko ime korisnika koji je kreirao zahtev\n"
+                + "• Lokaciju na kojoj korisnik želi da se tura održi\n"
+                + "• Broj gostiju koji bi bio prisutan na turi\n"
+                + "• Početak i kraj opsega za datum održavanja date ture. \n"
+                + "Treba da odaberete jedan datum kad ste slobodni u datom opsegu\n"
+                + "• Da biste videli opis ture koji je korisnik zadao, morate da pritisnete na taj zahtev\n"
+                + "Jednim levim klikom red će se proširiti i Vi ćete moći da pročitate opis datog zahteva za turu.\n"
+                + "• U koloni prihvati postoje dva dugmeta, jedno je za prihvatanje drugo za odbijanje zahteva:\n"
+                + "Ako kliknete da dugme ,,Prihvati\" preći ćete na prozor za kreiranje ture preko prihvaćenog zahteva\n"
+                + "Ako kliknete na dugme ,,Odbij\" odabrani zahtev će biti odbijen i samim time uklonjne iz liste.\n\n"
+                + "Sa desne strane, ispod naslova ,,Filtriraj prema\" videćete više polja pomoću kojih možete da filtrirate zahteve: \n"
+                + "• Kada filtrirate prema lokaciji, biće Vam ispisani samo zahtevi koji se nalaze na unetoj lokaciji \n"
+                + "• Kada filtrirate prema broju gostiju, biće Vam ispisani samo zahtevi koji su predviđeni za uneti broj gostiju \n"
+                + "• Kada filtrirate prema jeziku, biće Vam ispisani samo zahtevi koji su predviđeni da se održe na unetom jeziku \n"
+                + "• Kada filtrirate prema datumima, unosite početni i krajnji opseg u kojem želite da vidite zahteve.\n"
+                + "Biće prikazani oni zahtevi koji su zadovoljili uneti opseg \n"
+                + "• Na samom kraju postoji dugme ,,Filtriraj\" na koje kad kliknete primenićete željene promene.\n";
+
+        private string _tab2ToolTip = "Sa Vaše leve strane prikazana je statistika o zahtevima za ture na lokaciji.\n\n"
+                + "Postoje dva padajuća menija:\n"
+                + "• Levi Vam služi da odaberete lokaciju za koju želite da vidite statistiku.\n"
+                + "• Desni Vam služi da odaberete godinu u kojoj želite da vidite statistiku za odabranu lokaciju.\n\n"
+                + "Sa Vaše desne strane prikazana je najtraženija lokacija u proteklih godinu dana.\n"
+                + "Ispod nje prikazana je statistika date lokacije, takođe postoji dugme sa natpisom ,,Da\".\n"
+                + "Pritiskom na to dugme, preći ćete na prozor za kreiranje ture na najtraženijoj lokaciji.";
+
+        private string _tab3ToolTip = "Sa Vaše leve strane prikazana je statistika o zahtevima za ture na jeziku.\n\n"
+                + "Postoje dva padajuća menija:\n"
+                + "• Levi Vam služi da odaberete jezik za koji želite da vidite statistiku.\n"
+                + "• Desni Vam služi da odaberete godinu u kojoj želite da vidite statistiku za odabrani jezik.\n\n"
+                + "Sa Vaše desne strane prikazana je najtraženiji jezik u proteklih godinu dana.\n"
+                + "Ispod nje prikazana je statistika datog jezika, takođe postoji dugme sa natpisom ,,Da\".\n"
+                + "Pritiskom na to dugme, preći ćete na prozor za kreiranje ture na najtraženijem jeziku.";
 
         public RequestsViewModel(RequestService requestService, TourService tourService, LocationService locationService, KeyPointService keyPointService, TourReviewService tourReviewService, User loggedInGuide, TourReservationService tourReservationService, VoucherService voucherService, UserService userService, CountriesAndCitiesService countriesAndCitiesService, TourNotificationService tourNotificationService)
         {
@@ -114,42 +275,40 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             RequestsToDisplay = new ObservableCollection<TourRequest>(_requestService.GetOnHold());
 
             LanguagesToDisplay = new();
-            GetLanguages();
+            LanguagesToDisplay = _requestService.GetComboBoxData("languages").Select(Enum.Parse<RequestsLanguage>).ToList();
 
             LocationsToDisplay = new();
-            GetLocations();
+            LocationsToDisplay = _requestService.GetComboBoxData("locations");
 
             LanguageYearsToDisplay = new();
+            LanguageYearsToDisplay = _requestService.GetComboBoxData("years");
             LocationYearsToDisplay = new();
-            GetYears();
+            LocationYearsToDisplay = _requestService.GetComboBoxData("years");
+
+            ToolTipContent = _tab1ToolTip;
+
+            DateStartDisplayDateStart = DateTime.Today.AddDays(1);
+            DateEndDisplayDateStart = DateTime.Today.AddDays(2);
         }
 
-        public void GetLanguages()
+        private void UpdateDatePickerBlackoutDates()
         {
-            LanguagesToDisplay.Clear();
-            foreach(var language in _requestService.GetComboBoxData("languages").Select(Enum.Parse<RequestsLanguage>).ToList())
+            DateEndDisplayDateStart = DateStartDisplayDateStart.AddDays(1);
+        }
+
+        private void UpdateToolTipContent()
+        {
+            if (SelectedTabIndex == 0)
             {
-                LanguagesToDisplay.Add(language);
+                ToolTipContent = _tab1ToolTip;
             }
-        }
-
-        public void GetLocations()
-        {
-            LocationsToDisplay.Clear();
-            foreach (var location in _requestService.GetComboBoxData("locations"))
+            else if (SelectedTabIndex == 1)
             {
-                LocationsToDisplay.Add(location);
+                ToolTipContent = _tab2ToolTip;
             }
-        }
-
-        public void GetYears()
-        {
-            LocationYearsToDisplay.Clear();
-            LanguageYearsToDisplay.Clear();
-            foreach (var year in _requestService.GetComboBoxData("years"))
+            else
             {
-                LocationYearsToDisplay.Add(year);
-                LanguageYearsToDisplay.Add(year);
+                ToolTipContent = _tab3ToolTip;
             }
         }
 
@@ -354,7 +513,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             string dateEndSearchTerm = DateEndTextBox;
 
             RequestsToDisplay.Clear();
-            foreach(var filteredRequest in FilterRequests(locationSearchTerm, guestNumberSearchTerm, languageSearchTerm, dateStartSearchTerm, dateEndSearchTerm))
+            foreach (var filteredRequest in FilterRequests(locationSearchTerm, guestNumberSearchTerm, languageSearchTerm, dateStartSearchTerm, dateEndSearchTerm))
             {
                 RequestsToDisplay.Add(filteredRequest);
             }

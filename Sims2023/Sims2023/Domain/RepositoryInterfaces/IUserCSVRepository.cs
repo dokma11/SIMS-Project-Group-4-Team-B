@@ -20,5 +20,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
         void MarkGuestAsSuper(User user);
         void MarkGuestAsRegular(User user);
         void RemovePointFromGuest1(User user);
+        public void MarkDismissal(User loggedInGuide);
     }
 }

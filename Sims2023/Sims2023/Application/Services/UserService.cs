@@ -57,5 +57,10 @@ namespace Sims2023.Application.Services
         {
             _user.MarkSuperGuides(_tourReview.GetAll(), _tour.GetFinished(loggedInGuide), loggedInGuide);
         }
+
+        public void MarkDismissal(User loggedInGuide)
+        {
+            _user.MarkDismissal(loggedInGuide);
+        }
     }
 }
