@@ -9,13 +9,36 @@
     <StackPanel Background="PeachPuff">
         <DockPanel>
             <ToolBar>
-                <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
-                <Button x:Name="toursButton" Click="ToursButton_Click" Content="Ture" ToolTip="Idite na ture" Margin="150,0"/>
-                <Button x:Name="requestsButton" Click="RequestsButton_Click" Content="Zahtevi" ToolTip="Idite na zahteve" Margin="150,0"/>
-                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
+                <Button x:Name="homePageButton" Command="{Binding HomePageNavigationCommand}" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
+                <Button x:Name="toursButton" Command="{Binding ToursPageNavigationCommand}" Content="Ture" ToolTip="Idite na ture" Margin="150,0"/>
+                <Button x:Name="requestsButton" Command="{Binding RequestsPageNavigationCommand}" Content="Zahtevi" ToolTip="Idite na zahteve" Margin="150,0"/>
+                <Button x:Name="reviewsButton" Command="{Binding ReviewsPageNavigationCommand}" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
                 <Button x:Name="accountButton" Content="Nalog" IsEnabled="False" Margin="40,0"/>
             </ToolBar>
         </DockPanel>
+        <Button Content="?" Width="20" Height="20" Margin="1100,50,0,-50" x:Name="toolTipButton">
+            <Button.ToolTip>
+                <TextBlock>
+                    Dobrodošli na stranicu Nalog!
+                    <LineBreak />
+                    <LineBreak />
+                    Na ovoj stranici možete videti osnovne informacije o svom nalogu.
+                    <LineBreak />
+                    Isto tako možete videti da li imate status super-vodiča, označenog malom medaljom ispod slike profila
+                    <LineBreak />
+                    <LineBreak />
+                    Dole, sa Vaše desne strane, postoje dva dugmeta:
+                    <LineBreak />
+                    • ,,Podnestie ostavku": pritiskom na ovo dugme Vi dajete otkaz, sve Vaše ture unapred će biti otkazane
+                    <LineBreak />
+                    i nećete više imati opciju da se ulogujete na ovaj nalog.
+                    <LineBreak />
+                    • ,,Odjavi se": pritiskom na ovo dugme Vi ćete se odjaviti sa Vašeg naloga, 
+                    <LineBreak />
+                    samim time, bićete vraćeni na početni ekran za prijavljivanje
+                </TextBlock>
+            </Button.ToolTip>
+        </Button>
         <DockPanel>
             <Grid Width="367" Margin="0,-70">
                 <Image Source="pack://application:,,,/Sims2023;component/Resources/GuideResources/account-logo.png"
@@ -24,51 +47,29 @@
             <StackPanel Margin="0,-70">
                 <DockPanel>
                     <Label Content="Ime:" FontSize="24" FontWeight="Bold" Margin="100,200,0,0"/>
-                    <Label x:Name="nameLabel" FontSize="24" Margin="160,200,0,0"/>
+                    <Label x:Name="nameLabel" Content="{Binding NameLabelContent}" FontSize="24" Margin="160,200,0,0"/>
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Prezime: " FontSize="24" FontWeight="Bold" Margin="100,0,0,0"/>
-                    <Label x:Name="surnameLabel" FontSize="24" Margin="106,0,0,0"/>
+                    <Label x:Name="surnameLabel" Content="{Binding SurnameLabelContent}" FontSize="24" Margin="106,0,0,0"/>
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Godine: " FontSize="24" FontWeight="Bold" Margin="100,0,0,0"/>
-                    <Label x:Name="ageLabel" FontSize="24" Margin="116,0,0,0"/>
+                    <Label x:Name="ageLabel" Content="{Binding AgeLabelContent}" FontSize="24" Margin="116,0,0,0"/>
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Kontakt telefon: " FontSize="24" FontWeight="Bold" Margin="100,0,0,0"/>
-                    <Label x:Name="phoneNumberLabel" FontSize="24" Margin="21,0,0,0"/>
+                    <Label x:Name="phoneNumberLabel" Content="{Binding PhoneNumberLabelContent}" FontSize="24" Margin="21,0,0,0"/>
                 </DockPanel>
                 <DockPanel>
                     <Label Content="E-mail: " FontSize="24" FontWeight="Bold" Margin="100,0,0,0"/>
-                    <Label x:Name="emailLabel" FontSize="24" Margin="127,0,0,0"/>
+                    <Label x:Name="emailLabel" Content="{Binding EmailLabelContent}" FontSize="24" Margin="127,0,0,0"/>
                 </DockPanel>
             </StackPanel>
         </DockPanel>
         <DockPanel Margin="0,260">
-            <Button x:Name="dismissalButton" Content="Podnesite ostavku" Click="DismissalButton_Click" Height="50" Width="150" Margin="200,0,100,0" ToolTip="Pritisnite kako biste dali otkaz"/>
-            <Button x:Name="logOutButton" Content="Odjavi se" Click="LogOutButton_Click" Height="50" Width="150" ToolTip="Pritisnite kako biste se odjavili"/>
-            <Button x:Name="MyButton" Content="Hover over me!" Height="50" Width="150" Click="mybutton_click">
-                <Button.Triggers>
-                    <EventTrigger RoutedEvent="Button.Click">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <BooleanAnimationUsingKeyFrames Storyboard.TargetName="MyPopup"
-                                                     Storyboard.TargetProperty="IsOpen"
-                                                     Duration="0">
-                                    <DiscreteBooleanKeyFrame Value="True" />
-                                </BooleanAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </Button.Triggers>
-            </Button>
+            <Button x:Name="dismissalButton" Content="Podnesite ostavku" Command="{Binding DismissalCommand}" Height="50" Width="150" Margin="850,0,-20,0" ToolTip="Pritisnite kako biste dali otkaz"/>
+            <Button x:Name="logOutButton" Content="Odjavi se" Command="{Binding LogOutCommand}" Height="50" Width="150" ToolTip="Pritisnite kako biste se odjavili"/>
         </DockPanel>
-        <Popup x:Name="MyPopup" PlacementTarget="{Binding ElementName=MyButton}" Placement="Bottom">
-            <!-- Add content to the popup here -->
-            <StackPanel Background="White">
-                <TextBlock Text="Ovo je prikaz Vaših informacija. Postoje dva dugmeta dole pritiskom na jedan dajete otkaz"/> 
-                <TextBlock Text=" a pritiskom na drugi je odjava sa naloga." />
-            </StackPanel>
-        </Popup>
     </StackPanel>
 </Page>

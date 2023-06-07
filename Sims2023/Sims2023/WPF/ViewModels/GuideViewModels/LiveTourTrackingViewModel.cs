@@ -1,5 +1,7 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.WPF.Commands;
+using Sims2023.WPF.Views.GuideViews;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,28 +13,62 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public Tour Tour { get; set; }
         public KeyPoint SelectedKeyPoint { get; set; }
         private KeyPointService _keyPointService;
-        private TourService _tourService;
-        private TourReservationService _tourReservationService;
         private UserService _userService;
+        private TourReservationService _tourReservationService;
+        private TourService _tourService;
+        private TourReviewService _tourReviewService;
+        private RequestService _requestService;
+        private LocationService _locationService;
+        private VoucherService _voucherService;
+        private CountriesAndCitiesService _countriesAndCitiesService;
+        private TourNotificationService _tourNotificationService;
+        public User LoggedInGuide { get; set; }
         public ObservableCollection<KeyPoint> KeyPointsToDisplay { get; set; }
+        List<User> SelectedUsers { get; set; }
         public int firstKeyPointId = -1;
         public int lastKeyPointId = -1;
         public int lastVisitedKeyPointId = -1;
         public bool LastKeyPointVisited;
-        public List<User> MarkedGuests;
+        public List<User> MarkedGuests { get; set; }
         public ObservableCollection<User> GuestsToDisplay { get; set; }
+        public RelayCommand MarkKeyPointCommand { get; set; }
+        public RelayCommand MarkGuestPresentCommand { get; set; }
+        public RelayCommand CancelTourCommand { get; set; }
+        public RelayCommand GoBackCommand { get; set; }
+        public RelayCommand HomePageNavigationCommand { get; set; }
+        public RelayCommand AccountPageNavigationCommand { get; set; }
+        public RelayCommand RequestsPageNavigationCommand { get; set; }
+        public RelayCommand ReviewsPageNavigationCommand { get; set; }
 
-        public LiveTourTrackingViewModel(Tour tour, KeyPointService keyPointService, TourService tourService, TourReservationService tourReservationService, List<User> markedGuests, UserService userService)
+        public LiveTourTrackingViewModel(Tour tour, TourService tourService, LocationService locationService, KeyPointService keyPointService, TourReviewService tourReviewService, RequestService requestService, TourReservationService tourReservationService, VoucherService voucherService, UserService userService, CountriesAndCitiesService countriesAndCitiesService, User loggedInGuide, TourNotificationService tourNotificationService)
         {
-            _keyPointService = keyPointService;
+            MarkKeyPointCommand = new RelayCommand(Executed_MarkKeyPointCommand, CanExecute_MarkKeyPointCommand);
+            MarkGuestPresentCommand = new RelayCommand(Executed_MarkGuestPresentCommand, CanExecute_MarkGuestPresentCommand);
+            CancelTourCommand = new RelayCommand(Executed_CancelTourCommand, CanExecute_CancelTourCommand);
+            GoBackCommand = new RelayCommand(Executed_GoBackCommand, CanExecute_GoBackCommand);
+            HomePageNavigationCommand = new RelayCommand(Executed_HomePageNavigationCommand, CanExecute_HomePageNavigationCommand);
+            RequestsPageNavigationCommand = new RelayCommand(Executed_RequestsPageNavigationCommand, CanExecute_RequestsPageNavigationCommand);
+            ReviewsPageNavigationCommand = new RelayCommand(Executed_ReviewsPageNavigationCommand, CanExecute_ReviewsPageNavigationCommand);
+            AccountPageNavigationCommand = new RelayCommand(Executed_AccountPageNavigationCommand, CanExecute_AccountPageNavigationCommand);
+
             _tourService = tourService;
+            _locationService = locationService;
+            _keyPointService = keyPointService;
+            _tourReviewService = tourReviewService;
+            _requestService = requestService;
             _tourReservationService = tourReservationService;
+            _voucherService = voucherService;
             _userService = userService;
+            _countriesAndCitiesService = countriesAndCitiesService;
+            _tourNotificationService = tourNotificationService;
+
+            LoggedInGuide = loggedInGuide;
+            SelectedUsers = new();
 
             Tour = tour;
             _tourService.UpdateState(Tour, ToursState.Started);
 
-            MarkedGuests = markedGuests;
+            MarkedGuests = new List<User>();
             KeyPointsToDisplay = new ObservableCollection<KeyPoint>(_keyPointService.GetByToursId(Tour.Id));
 
             firstKeyPointId = FindAndMarkFirstKeyPoint();
@@ -78,25 +114,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             KeyPointsToDisplay.Single(keyPoint => keyPoint.Id == lastKeyPointId).CurrentState = KeyPointsState.Visited;
         }
 
-        public void MarkKeyPoint()
-        {
-            //mark previous key point as visited
-            _keyPointService.ChangeKeyPointsState(KeyPointsToDisplay.First(k => k.Id == lastVisitedKeyPointId), KeyPointsState.Visited);
-
-            _keyPointService.ChangeKeyPointsState(SelectedKeyPoint, KeyPointsState.BeingVisited);
-            lastVisitedKeyPointId = SelectedKeyPoint.Id;
-
-            if (SelectedKeyPoint.Id == lastKeyPointId)
-            {
-                UpdateKeyPointList();
-                _tourService.UpdateState(Tour, ToursState.Finished);
-                MarkLastKeyPoint();
-                LastKeyPointVisited = true;
-            }
-
-            UpdateKeyPointList();
-        }
-
         public void AddMarkedGuests(List<User> items)
         {
             foreach (User guest in items)
@@ -121,33 +138,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             }
         }
 
-        public void CancelTour()
-        {
-            _tourService.UpdateState(Tour, ToursState.Interrupted);
-            MarkLastVisitedKeyPoint();
-            _keyPointService.Save();
-        }
-
-        public bool IsKeyPointSelected()
-        {
-            return SelectedKeyPoint != null;
-        }
-
-        public bool IsKeyPointBeingVisited()
-        {
-            return SelectedKeyPoint.CurrentState == KeyPointsState.BeingVisited;
-        }
-
-        public bool IsKeyPointVisited()
-        {
-            return SelectedKeyPoint.CurrentState == KeyPointsState.Visited;
-        }
-
-        public bool IsKeyPointNextInLine()
-        {
-            return SelectedKeyPoint.Id == lastVisitedKeyPointId + 1;
-        }
-
         public void UpdateKeyPointList()
         {
             KeyPointsToDisplay.Clear();
@@ -164,6 +154,167 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public bool AreAllGuestsAreMarked()
         {
             return _tourReservationService.GetByToursid(Tour.Id).Count == MarkedGuests.Count;
+        }
+
+        private void Executed_MarkKeyPointCommand(object obj)
+        {
+            //mark previous key point as visited
+            _keyPointService.ChangeKeyPointsState(KeyPointsToDisplay.First(k => k.Id == lastVisitedKeyPointId), KeyPointsState.Visited);
+
+            _keyPointService.ChangeKeyPointsState(SelectedKeyPoint, KeyPointsState.BeingVisited);
+            lastVisitedKeyPointId = SelectedKeyPoint.Id;
+
+            if (SelectedKeyPoint.Id == lastKeyPointId)
+            {
+                UpdateKeyPointList();
+                _tourService.UpdateState(Tour, ToursState.Finished);
+                MarkLastKeyPoint();
+                LastKeyPointVisited = true;
+            }
+
+            UpdateKeyPointList();
+        }
+
+        private bool CanExecute_MarkKeyPointCommand(object obj)
+        {
+            return SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPointsState.Visited && SelectedKeyPoint.Id == lastVisitedKeyPointId + 1;
+        }
+
+        /*
+         Moram isto pokusati da dodam one uslove tipa, ne mozes na prethodnu ne mozes ovo ono smaranje...
+         
+        private void SuccessfulKeyPointMarkingLabelEvent()
+        {
+            eventLabel.Content = "Uspešno ste označili trenutnu ključnu tačku!";
+            eventLabel.Visibility = Visibility.Visible;
+            DispatcherTimer timer = new()
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            eventLabel.Visibility = Visibility.Hidden;
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
+        }
+
+         */
+
+        private void Executed_MarkGuestPresentCommand(object obj)
+        {
+            AddMarkedGuests(SelectedUsers);
+            UpdateKeyPointList();
+            if (AreAllGuestsAreMarked())
+            {
+                // markGuestsPresentButton.IsEnabled = false;
+            }
+        }
+
+        /*
+         private void SuccessfulGuestMarkingLabelEvent()
+        {
+            eventLabel.Content = "Uspešno ste dodali sve izabrane goste na turu!";
+            eventLabel.Visibility = Visibility.Visible;
+            DispatcherTimer timer = new()
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+         */
+
+        private bool CanExecute_MarkGuestPresentCommand(object obj)
+        {
+            return SelectedUsers.Count > 0;
+        }
+
+        private void Executed_CancelTourCommand(object obj)
+        {
+            _tourService.UpdateState(Tour, ToursState.Interrupted);
+            MarkLastVisitedKeyPoint();
+            _keyPointService.Save();
+            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService, _tourNotificationService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
+        }
+
+        private bool CanExecute_CancelTourCommand(object obj)
+        {
+            return true;
+        }
+
+        /*
+         private void SuccessfulCancellationLabelEvent()
+        {
+            eventLabel.Content = "Uspešno ste otkazali turu!";
+            eventLabel.Visibility = Visibility.Visible;
+            DispatcherTimer timer = new()
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+         */
+
+        private void Executed_GoBackCommand(object obj)
+        {
+            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService, _tourNotificationService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
+        }
+
+        private bool CanExecute_GoBackCommand(object obj)
+        {
+            return true;
+        }
+
+        //TOOLBAR
+
+        private void Executed_HomePageNavigationCommand(object obj)
+        {
+            GuideHomePageView guideHomePageView = new(LoggedInGuide);
+            FrameManagerGuide.Instance.MainFrame.Navigate(guideHomePageView);
+        }
+
+        private bool CanExecute_HomePageNavigationCommand(object obj)
+        {
+            return true;
+        }
+
+        private void Executed_RequestsPageNavigationCommand(object obj)
+        {
+            RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
+        }
+
+        private bool CanExecute_RequestsPageNavigationCommand(object obj)
+        {
+            return true;
+        }
+
+        private void Executed_ReviewsPageNavigationCommand(object obj)
+        {
+            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(guestReviewsView);
+        }
+
+        private bool CanExecute_ReviewsPageNavigationCommand(object obj)
+        {
+            return true;
+        }
+
+        private void Executed_AccountPageNavigationCommand(object obj)
+        {
+            GuideAccountView guideAccountView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(guideAccountView);
+        }
+        private bool CanExecute_AccountPageNavigationCommand(object obj)
+        {
+            return true;
         }
     }
 }

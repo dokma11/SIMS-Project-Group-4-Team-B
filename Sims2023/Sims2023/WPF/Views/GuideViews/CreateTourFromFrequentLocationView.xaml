@@ -8,18 +8,51 @@
     <StackPanel Background="PeachPuff">
         <DockPanel>
             <ToolBar>
-                <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
-                <Button x:Name="toursButton" Content="Ture" Click="ToursButton_Click" ToolTip="Idite na ture" Margin="150,0"/>
+                <Button x:Name="homePageButton" Command="{Binding HomePageNavigationCommand}" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
+                <Button x:Name="toursButton" Content="Ture" Command="{Binding ToursPageNavigationCommand}" ToolTip="Idite na ture" Margin="150,0"/>
                 <Button x:Name="requestsButton" Content="Zahtevi" IsEnabled="False" ToolTip="Idite na zahteve" Margin="150,0"/>
-                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
-                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
+                <Button x:Name="reviewsButton" Command="{Binding ReviewsPageNavigationCommand}" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
+                <Button x:Name="accountButton" Command="{Binding AccountPageNavigationCommand}" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
             </ToolBar>
         </DockPanel>
         <DockPanel>
-            <Label Content="Kreiranje Ture na najtraženijoj lokaciji" FontSize="32" HorizontalAlignment="Left" Margin="55,50"/>
-            <Button Content="?" Width="20" Height="20" Margin="500,0,0,60"/>
+            <Label Content="Kreiranje ture na najtraženijoj lokaciji" FontSize="32" HorizontalAlignment="Left" Margin="55,50"/>
+            <Button Content="?" Width="20" Height="20" Margin="500,0,0,60">
+                <Button.ToolTip>
+                    <TextBlock>
+                        Dobrodošli na stranicu ,,Kreiranje ture na najtraženijoj lokaciji"!
+                        <LineBreak />
+                        <LineBreak />
+                        Pošto ste odabrali mogućnost da kreirate turu na najtraženijoj lokaciji, lokacija Vam je već popunjena
+                        <LineBreak />
+                        Na Vama je da popunite ostala polja po svojoj volji, to su sledeća polja:
+                        <LineBreak />
+                        • Naziv ture: unesite željeni naziv nove ture
+                        <LineBreak />
+                        • Jezik na kom se tura održava: iz padajućeg menija odaberite jezik na kojem ćete održati Vašu turu
+                        <LineBreak />
+                        • Maksimalan broj gostiju: unesite maksimalan broj gostiju koji može da prisustvuje Vašoj turi
+                        <LineBreak />
+                        • Trajanje ture(u satima): unesite koliko želite da nova tura traje
+                        <LineBreak />
+                        • Jedna ili više slika: unesite url putanje slika koje će korisnici moći da vide prilikom odabira ture
+                        <LineBreak />
+                        • Ključne tačke: unesite makar dve ključne tačke iz kojih će Vaša nova tura da se sastoji. U polju ispod možete videti koje ste uneli
+                        <LineBreak /> 
+                        • Datum i vreme početka ture: klikom na kalendar imaćete priliku da odaberete jedan od datuma koji se nalazi u već unapred zadatom opseg,
+                        <LineBreak />
+                        odaberite onaj datum za koji ste sigurni da Vam je slobodan.
+                        <LineBreak />
+                        • Opis događaja na turi: ukratko opišite šta će se sve dešavati na Vašoj turi, potrudite se da bude interesantno Vašim budućim gostima
+                        <LineBreak />
+                        <LineBreak />
+                        Ako ste zadovoljni Vašim unosom i želite da konačno potvrdite tj kreirate turu pritisnite na dugme ,,Potvrdi"
+                        Ako niste zadovoljni i želite da otkažete kreiranje ture pritisnite na dugme ,,Odustani"
+                    </TextBlock>
+                </Button.ToolTip>
+            </Button>
         </DockPanel>
-        <Grid Height="450" Width="1100" Background="AliceBlue" Margin="0,0,70,0">
+        <Grid Height="450" Width="1100" Background="PeachPuff" Margin="0,0,70,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -41,7 +74,7 @@
             </Grid.RowDefinitions>
             <!--Leva kolona-->
             <Label Grid.Column="0" Grid.Row="0" Content="Naziv ture:" FontSize="16"/>
-            <TextBox x:Name="toursNameTextBox" Grid.Column="0" Width="230" Height="30" Margin="4,35,133,10" Grid.RowSpan="2" Text="{Binding Path=NewTour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+            <xctk:WatermarkTextBox x:Name="toursNameTextBox" Watermark="Unesite naziv" Grid.Column="0" Width="230" Height="30" Margin="4,35,133,10" Grid.RowSpan="2" Text="{Binding Path=NewTour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
             <Label Grid.Column="0" Grid.Row="2" Content="Lokacija održavanja:" FontSize="16"/>
             <TextBox Grid.Column="0" Grid.Row="3" Width="110" Text="{Binding SelectedLocation.City}" Margin="4,0,253,10" IsReadOnly="True"/>
             <TextBox Grid.Column="0" Grid.Row="3" Width="110" Text="{Binding SelectedLocation.Country}" Margin="124,0,133,10" IsReadOnly="True"/>
@@ -57,23 +90,32 @@
                 <ComboBoxItem>Japanese</ComboBoxItem>
             </ComboBox>
             <Label Grid.Column="0" Grid.Row="6" Content="Maksimalan broj gostiju:" FontSize="16"/>
-            <xctk:IntegerUpDown Name="maximumNumberOfGuests" Grid.Row="6" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,37,133,4" Grid.RowSpan="2" Text="{Binding Path=NewTour.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Height="NaN"/>
+            <xctk:IntegerUpDown Watermark="Unesite maksimalan broj gostiju" Name="maximumNumberOfGuests" Grid.Row="6" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,37,133,4" Grid.RowSpan="2" Text="{Binding Path=NewTour.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Height="NaN"/>
             <Label Grid.Column="0" Grid.Row="8" Content="Trajanje ture(u satima):" FontSize="16"/>
-            <xctk:IntegerUpDown Name="duration" Grid.Row="9" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,0,133,0" Text="{Binding Path=NewTour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+            <xctk:IntegerUpDown Watermark="Unesite trajanje" Name="duration" Grid.Row="9" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,0,133,0" Text="{Binding Path=NewTour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
             <Label Grid.Column="0" Grid.Row="10" Content="Jedna ili više slika:" FontSize="16"/>
-            <TextBox Grid.Column="0" Grid.Row="10" Width="230" Height="30" Margin="4,37,133,8" Text="{Binding Path=NewTour.ConcatenatedPictures, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.RowSpan="2"/>
+            <xctk:WatermarkTextBox x:Name="picturesTextBox" Watermark="Unesite putanje slika" Grid.Column="0" Grid.Row="10" Width="230" Height="30" Margin="4,37,133,8" Text="{Binding Path=NewTour.ConcatenatedPictures, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.RowSpan="2"/>
             <!--Kolona u sredini-->
             <Label Grid.Column="1" Grid.Row="0" Content="Ključne tačke" FontSize="16"/>
-            <TextBox x:Name="keyPointTextBox" Width="230" Height="30" Margin="0,35,136,10" Grid.RowSpan="2" Grid.Column="1" TextChanged="KeyPointTextBox_TextChanged"/>
-            <Button x:Name="addKeyPointsButton" Click="AddKeyPointsButton_Click"  Grid.Column="1" Width="130" Height="30" Margin="240,36,363,9" Grid.RowSpan="2" Grid.ColumnSpan="2" Content="Dodaj ključnu tačku"/>
-            <ListBox x:Name="keyPointsOutput" Grid.Column="1" Width="370" Height="92" Grid.ColumnSpan="2" Margin="0,0,363,20" Grid.RowSpan="3" Grid.Row="2" ItemsSource="{Binding Path=NewTour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+            <xctk:WatermarkTextBox x:Name="keyPointTextBox" Text="{Binding KeyPointTextBoxText, Mode=TwoWay}" Watermark="Unesite ključne tačke" Width="230" Height="30" Margin="0,35,136,10" Grid.RowSpan="2" Grid.Column="1"/>
+            <Button x:Name="addKeyPointsButton" Command="{Binding AddItemCommand}" Grid.Column="1" Width="130" Height="30" Margin="240,36,363,9" Grid.RowSpan="2" Grid.ColumnSpan="2" Content="Dodaj ključnu tačku"/>
+            <ListBox x:Name="keyPointsOutput" ItemsSource="{Binding ListBoxItems}" Grid.Column="1" Width="370" Height="92" Grid.ColumnSpan="2" Margin="0,0,363,20" Grid.RowSpan="3" Grid.Row="2"/>
             <Label Grid.Column="1" Grid.Row="6" Content="Datum i vreme početka ture" FontSize="16"/>
-            <DatePicker x:Name="requestDatePicker" Width="230" Height="30" Grid.Row="8" Grid.Column="1" SelectedDateChanged="RequestDatePicker_SelectedDateChanged" Margin="5,4,131,4"/>
+            <DatePicker x:Name="requestDatePicker" SelectedDate="{Binding SelectedDate}" Width="230" Height="30" Grid.Row="8" Grid.Column="1" Margin="5,4,131,4">
+                <DatePicker.Resources>
+                    <Style TargetType="{x:Type DatePickerTextBox}">
+                        <Setter Property="Text" Value="Unesite datum početka ture"/>
+                    </Style>
+                </DatePicker.Resources>
+            </DatePicker>
             <!--Desna kolona-->
             <Label Grid.Column="2" Grid.Row="2" Content="Opis događaja na turi" Margin="122,0,-122,0" FontSize="16"/>
-            <TextBox x:Name="descriptionTextBox" Grid.Column="2" Grid.Row="2" Margin="122,29,-69,11" Height="NaN" Grid.RowSpan="9" Text="{Binding Path=NewTour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
-            <Button x:Name="confirmButton" Click="ConfirmButton_Click" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Potvrdi" Margin="122,23,61,-5" Grid.RowSpan="2"/>
-            <Button x:Name="cancelButton" Click="CancelButton_Click" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Odustani" Margin="252,23,-69,-5" Grid.RowSpan="2"/>
+            <xctk:WatermarkTextBox Watermark="Unesite opis ture" x:Name="descriptionTextBox" Grid.Column="2" Grid.Row="2" Margin="122,29,-69,11" Height="NaN" Grid.RowSpan="9" Text="{Binding Path=NewTour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+            <Button x:Name="confirmButton" Command="{Binding CreateCommand}" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Potvrdi" Margin="122,23,61,-5" Grid.RowSpan="2"/>
+            <Button x:Name="cancelButton" Command="{Binding CancelCommand}" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Odustani" Margin="252,23,-69,-5" Grid.RowSpan="2"/>
         </Grid>
+        <DockPanel Margin="0,5">
+            <Label x:Name="validationLabel" Content="Molimo Vas da popunite sva polja u odgovarajućem formatu!" Margin="580,0,0,0" FontSize="24" VerticalAlignment="Center" Visibility="Hidden"></Label>
+        </DockPanel>
     </StackPanel>
 </Page>
