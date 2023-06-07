@@ -96,6 +96,12 @@ namespace Sims2023.Repositories
             }
         }
 
+        public TourRequest GetById(int id)
+        {
+            return _fileHandler.GetById(id);
+        }
+
+
         public List<TourRequest> GetByLocation(Location location)
         {
             return _requests.Where(req => req.Location.City.ToString() == location.City.ToString() &&

@@ -14,7 +14,55 @@
     </Window.Resources>
     <Grid Background="{StaticResource BackgroundBrush}">
         <Label Content="Subtours" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
-        <DataGrid Height="272" Width="752">
+        <DataGrid Height="272" Width="752" x:Name="dataGridGuestSubTourRequests" ItemsSource="{Binding SubTourRequests}"
+                     SelectionMode="Single"
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="43,110,43,110">
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="FontSize" Value="12" />
+
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Gray" />
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#BCBCBC" />
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="BorderBrush" Value="Black" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="FontSize" Value="12" />
+
+                    <Setter Property="FontWeight" Value="DemiBold"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Black" />
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="City" Width="100" Binding="{Binding TourRequest.Location.City}"/>
+                <DataGridTextColumn Header="Country" Width="100" Binding="{Binding TourRequest.Location.Country}"/>
+                <DataGridTextColumn Header="Language" Width="82" Binding="{Binding TourRequest.Language}" />
+                <DataGridTextColumn Header="Guests" Width="50" Binding="{Binding TourRequest.GuestNumber}"/>
+                <DataGridTextColumn Header="Start date" Width="125" Binding="{Binding TourRequest.Start}"/>
+                <DataGridTextColumn Header="End date" Width="125" Binding="{Binding TourRequest.End}"/>
+                <DataGridTextColumn Header="Status" Width="82" Binding="{Binding TourRequest.State}"/>
+            </DataGrid.Columns>
 
         </DataGrid>
         <Button Content="New subtour" FontSize="15" Width="147" Height="42"  Background="#bcbcbc" HorizontalAlignment="Left" Margin="435,400,0,0" VerticalAlignment="Top" Click="NewSubtour_Click"/>

@@ -19,5 +19,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void CheckExpirationDate(User user);
         public List<TourRequest> GetByLocation(Location location);
         public List<TourRequest> GetByLanguage(string language);
+        public TourRequest GetById(int id);
     }
 }
