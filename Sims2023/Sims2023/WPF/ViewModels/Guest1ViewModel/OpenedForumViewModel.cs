@@ -6,8 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -23,20 +21,48 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         ObservableCollection<ForumComment> Comments = new();
         private ForumCommentService _forumCommentService;
         private ForumService _forumService;
+        private int counter;
 
-        public OpenedForumViewModel(User user, Frame mainFrame, Forum selectedForum, OpenedForumView openedForumView, ForumService forumService)
+        public OpenedForumViewModel(User user, Frame mainFrame, Forum selectedForum, OpenedForumView openedForumView, ForumService forumService,ForumCommentService forumCommentService)
         {
             User = user;
             MainFrame = mainFrame;
             SelectedForum = selectedForum;
             OpenedForumView = openedForumView;
-            _forumCommentService = new ForumCommentService();
+            _forumCommentService = forumCommentService;
+            _forumCommentService.Subscribe(this);
             _forumService = forumService;
+            _forumService.Subscribe(this);
+
+            counter = 0;
+            Update();
             CheckIfUserIsCreator();
+            CheckTheForum();
             FillTheTexts();
 
         }
 
+        private void CheckTheForum()
+        {
+            if (!SelectedForum.Special && counter<=2)
+            {
+                counter++;
+                MarkForumsAsSpecial();
+            }
+            
+            if (SelectedForum.Closed)
+            {
+                OpenedForumView.CloseTheForum.Visibility = Visibility.Collapsed;
+                OpenedForumView.Label1.Visibility = Visibility.Visible;
+                OpenedForumView.postForum.IsEnabled = false;
+            }
+        }
+        public void MarkForumsAsSpecial()
+        {
+            List<ForumComment> allComments = _forumCommentService.GetAllForumComments();
+            _forumService.MarkAsSpecial(allComments);
+        }
+       
         private void CheckIfUserIsCreator()
         {
             if (SelectedForum.User.Id == User.Id)
@@ -47,10 +73,29 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         internal void AddComment()
         {
-            //Proveri da li je selektovani smestaj shut down
-            MessageBox.Show("Nije jos implementirana funkcionalnost");
+            if (SelectedForum.Closed == false)
+            {
+                BackgroundShading();
+                var newWindow = new ForumCommentView(User, _forumCommentService, SelectedForum,_forumService);
+                newWindow.ShowDialog();
+                BackgroundUnshading();
+                Update();
+            }
+            else
+            {
+                MessageBox.Show("Forum je ugasen. Moguc je samo pregled ovog foruma ne i ostavljanje komentara.");
+            }
+
+        }
+        internal void BackgroundShading()
+        {
+            OpenedForumView.Overlay1.Visibility = Visibility.Visible;
         }
 
+        internal void BackgroundUnshading()
+        {
+            OpenedForumView.Overlay1.Visibility = Visibility.Collapsed;
+        }
         public void GoBack()
         {
             NavigationService navigationService = NavigationService.GetNavigationService(OpenedForumView);
@@ -61,21 +106,20 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
         }
 
-        internal void ShutDown()
+        public void ShutDown()
         {
-            if (SelectedForum.Closed == false)
+            if (!SelectedForum.Closed)
             {
-                MessageBoxResult result = MessageBox.Show("Da li ste sigurni da zelite da nastavite? Nakon sto jednom ugasite forum necete moci ponovo da ga pokrenete", "Confirmation", MessageBoxButton.YesNo);
+                MessageBoxResult result = MessageBox.Show("Da li ste sigurni da zelite da nastavite? Nakon sto jednom ugasite forum necete moci ponovo da ga pokrenete",
+                                                          "Confirmation", MessageBoxButton.YesNo);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    SelectedForum.Closed = true;
-                    _forumService.Update(SelectedForum);
-                    MessageBox.Show("Uspesno ste ugasili forum. Sada je moguc samo pregled ovog foruma ne i ostavljanje komentara");
+                    CloseForum();
                 }
                 else
                 {
-                    MessageBox.Show("Forum nije ugasen, idalje je aktivan.");
+                    MessageBox.Show("Forum nije ugasen, i dalje je aktivan.");
                 }
             }
             else
@@ -84,18 +128,29 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
         }
 
+        private void CloseForum()
+        {
+            SelectedForum.Closed = true;
+            _forumService.Update(SelectedForum);
+            MessageBox.Show("Uspesno ste ugasili forum. Sada je moguc samo pregled ovog foruma ne i ostavljanje komentara.");
+        }
+
         private void FillTheTexts()
         {
-            OpenedForumView.label1.Content = SelectedForum.Theme;
-            OpenedForumView.label2.Content=SelectedForum.MainComment;
+            OpenedForumView.label.Content = SelectedForum.Theme;
+            OpenedForumView.label1.Content = SelectedForum.User.Username;
+            OpenedForumView.ThemeBox.Text = SelectedForum.MainComment;
+            Comments = new();
             Comments = _forumCommentService.FilterComments(Comments, SelectedForum);
+            OpenedForumView.CommentsBox.ItemsSource = Comments;
         }
         public void Update()
         {
             Comments.Clear();
             Comments = new();
-            Comments = _forumCommentService.FilterComments(Comments,SelectedForum);
+            Comments = _forumCommentService.FilterComments(Comments, SelectedForum);
             OpenedForumView.CommentsBox.ItemsSource = Comments;
+            CheckTheForum();
         }
     }
 }

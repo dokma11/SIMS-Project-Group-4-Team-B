@@ -19,10 +19,12 @@ namespace Sims2023.Domain.Models
         public bool Special { get; set; }
         public int NumberOfReports { get; set; }
         public bool Closed { get; set; }
+        public int CountGuestComments { get; set; }
+        public int CountOwnerComments { get; set; }
 
         public Forum() { }
 
-        public Forum(int id, User user, string theme, string mainComment, Location location, bool special, int numberOfReports, bool closed)
+        public Forum(int id, User user, string theme, string mainComment, Location location, bool special, int numberOfReports, bool closed, int countGuestComments, int countOwnerComments)
         {
             Id = id;
             User = user;
@@ -32,6 +34,8 @@ namespace Sims2023.Domain.Models
             Special = special;
             NumberOfReports = numberOfReports;
             Closed = closed;
+            CountGuestComments = countGuestComments;
+            CountOwnerComments = countOwnerComments;
         }
         public string[] ToCSV()
         {
@@ -45,6 +49,8 @@ namespace Sims2023.Domain.Models
             Special.ToString(),
             NumberOfReports.ToString(),
             Closed.ToString(),
+            CountGuestComments.ToString(),
+            CountOwnerComments.ToString()
         };
             return csvValues;
         }
@@ -65,6 +71,8 @@ namespace Sims2023.Domain.Models
             Special=Convert.ToBoolean(values[5]);
             NumberOfReports = Convert.ToInt32(values[6]);
             Closed = Convert.ToBoolean(values[7]);
+            CountGuestComments= Convert.ToInt32(values[8]);
+            CountOwnerComments= Convert.ToInt32(values[9]);
         }
     }
 
