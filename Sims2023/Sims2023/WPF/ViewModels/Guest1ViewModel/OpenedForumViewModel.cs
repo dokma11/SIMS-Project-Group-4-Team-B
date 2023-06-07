@@ -3,7 +3,9 @@ using Sims2023.Domain.Models;
 using Sims2023.Observer;
 using Sims2023.WPF.Views.Guest1Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -19,16 +21,21 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         ObservableCollection<ForumComment> Comments = new();
         private ForumCommentService _forumCommentService;
         private ForumService _forumService;
+        private int counter;
 
-        public OpenedForumViewModel(User user, Frame mainFrame, Forum selectedForum, OpenedForumView openedForumView, ForumService forumService)
+        public OpenedForumViewModel(User user, Frame mainFrame, Forum selectedForum, OpenedForumView openedForumView, ForumService forumService,ForumCommentService forumCommentService)
         {
             User = user;
             MainFrame = mainFrame;
             SelectedForum = selectedForum;
             OpenedForumView = openedForumView;
-            _forumCommentService = new ForumCommentService();
+            _forumCommentService = forumCommentService;
             _forumCommentService.Subscribe(this);
             _forumService = forumService;
+            _forumService.Subscribe(this);
+
+            counter = 0;
+            Update();
             CheckIfUserIsCreator();
             CheckTheForum();
             FillTheTexts();
@@ -37,7 +44,12 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         private void CheckTheForum()
         {
-           //ovde treba da proverim da li je mark kao special ako jeste da bude oznacen
+            if (!SelectedForum.Special && counter<=2)
+            {
+                counter++;
+                MarkForumsAsSpecial();
+            }
+            
             if (SelectedForum.Closed)
             {
                 OpenedForumView.CloseTheForum.Visibility = Visibility.Collapsed;
@@ -45,7 +57,12 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 OpenedForumView.postForum.IsEnabled = false;
             }
         }
-
+        public void MarkForumsAsSpecial()
+        {
+            List<ForumComment> allComments = _forumCommentService.GetAllForumComments();
+            _forumService.MarkAsSpecial(allComments);
+        }
+       
         private void CheckIfUserIsCreator()
         {
             if (SelectedForum.User.Id == User.Id)
@@ -58,8 +75,10 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             if (SelectedForum.Closed == false)
             {
-                var newWindow = new ForumCommentView(User, _forumCommentService, SelectedForum);
-                newWindow.Show();
+                BackgroundShading();
+                var newWindow = new ForumCommentView(User, _forumCommentService, SelectedForum,_forumService);
+                newWindow.ShowDialog();
+                BackgroundUnshading();
                 Update();
             }
             else
@@ -68,7 +87,15 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
 
         }
+        internal void BackgroundShading()
+        {
+            OpenedForumView.Overlay1.Visibility = Visibility.Visible;
+        }
 
+        internal void BackgroundUnshading()
+        {
+            OpenedForumView.Overlay1.Visibility = Visibility.Collapsed;
+        }
         public void GoBack()
         {
             NavigationService navigationService = NavigationService.GetNavigationService(OpenedForumView);
@@ -110,8 +137,10 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         private void FillTheTexts()
         {
-            OpenedForumView.label1.Content = SelectedForum.Theme;
+            OpenedForumView.label.Content = SelectedForum.Theme;
+            OpenedForumView.label1.Content = SelectedForum.User.Username;
             OpenedForumView.ThemeBox.Text = SelectedForum.MainComment;
+            Comments = new();
             Comments = _forumCommentService.FilterComments(Comments, SelectedForum);
             OpenedForumView.CommentsBox.ItemsSource = Comments;
         }
@@ -121,6 +150,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             Comments = new();
             Comments = _forumCommentService.FilterComments(Comments, SelectedForum);
             OpenedForumView.CommentsBox.ItemsSource = Comments;
+            CheckTheForum();
         }
     }
 }

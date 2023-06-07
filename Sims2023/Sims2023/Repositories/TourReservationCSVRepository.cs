@@ -175,5 +175,18 @@ namespace Sims2023.Repositories
             return !keyPoint.PresentGuestsIds.Contains(guest.Id) &&
                 !markedGuests.Any(markedGuest => markedGuest.Id == guest.Id);
         }
+
+        public List<TourReservation> GetUsersTours(User user)
+        {
+            List<TourReservation> allUserTours = new();
+            foreach (var reservation in _tourReservations)
+            {
+                if (reservation.User.Id == user.Id && reservation.ConfirmedParticipation)
+                {
+                    allUserTours.Add(reservation);
+                }
+            }
+            return allUserTours;
+        }
     }
 }

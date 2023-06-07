@@ -23,6 +23,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public Location NewLocation { get; set; }
         public Frame MainFrame { get; set; }
         public ForumService _forumService;
+        public ForumCommentService _forumCommentService;
         public ObservableCollection<Forum> FilteredForums=new();
         public String CitySearch;
         public String CountrySearch;
@@ -40,32 +41,23 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             NewLocation = new();
             _forumService =new ForumService();
             _forumService.Subscribe(this);
+            _forumCommentService = new ForumCommentService();
+            _forumCommentService.Subscribe(this);
             FilteredForums = new ();
+
             _countriesAndCitiesService = new CountriesAndCitiesService();
             _locationService = new LocationService();
             SearchForumView.countryBox.ItemsSource = GetCitiesAndCountries();
             SearchForumView.countryBox.DisplayMemberPath = "CountryName";
             SearchForumView.countryBox.SelectedValuePath = "CountryName";
-            ForumsRestart();
 
-        }
-        public void ForumsRestart()
-        {
-            CitySearch = SearchForumView.cityBox.Text;
-            CountrySearch = SearchForumView.countryBox.Text;
-            if (!string.IsNullOrEmpty(CountrySearch) || !string.IsNullOrEmpty(CitySearch))
-            {
-                FilteredForums = _forumService.FilterForums(FilteredForums, CitySearch, CountrySearch);
-                SearchForumView.ForumsGrid.ItemsSource = FilteredForums;
-                return;
-            }
         }
 
         public void CountryComboBox_SelectionChanged()
         {
             var selectedCountry = (CountriesAndCities)SearchForumView.countryBox.SelectedItem;
             var cities = new List<string> { selectedCountry.City1, selectedCountry.City2, selectedCountry.City3, selectedCountry.City4, selectedCountry.City5 };
-
+            NewLocation = new();
             SearchForumView.cityBox.ItemsSource = cities;
         }
         public List<CountriesAndCities> GetCitiesAndCountries()
@@ -77,6 +69,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             CitySearch = SearchForumView.cityBox.Text;
             CountrySearch = SearchForumView.countryBox.Text;
+            NewLocation = new();
             Location location = findLocation(CountrySearch, CitySearch);
             if (!string.IsNullOrEmpty(CountrySearch) || !string.IsNullOrEmpty(CitySearch))
             {
@@ -117,7 +110,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             SelectedForum = (Forum)SearchForumView.ForumsGrid.SelectedItem;
             if(SelectedForum != null)
             {
-                MainFrame.Navigate(new OpenedForumView(_forumService, MainFrame, User,SelectedForum));
+                MainFrame.Navigate(new OpenedForumView(_forumService, MainFrame, User,SelectedForum,_forumCommentService));
                 return;
             }
             MessageBox.Show("Selektujte temu koju zelite da prikazete.");

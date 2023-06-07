@@ -22,6 +22,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
         void Unsubscribe(IObserver observer);
         void NotifyObservers();
         ObservableCollection<Forum> FilterForums(ObservableCollection<Forum> filteredForums, string citySearch, string countrySearch);
+        void MarkAsSpecial(List<ForumComment> allComments);
     }
 
 }
