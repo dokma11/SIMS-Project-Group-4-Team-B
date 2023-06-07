@@ -62,6 +62,11 @@ namespace Sims2023.WPF.Views
             MainFrame.Navigate(new Guest2TourRequestListView(User));//list of guests tour requests 
         }
 
+        public void ComplexTourRequest_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+           MainFrame.Navigate(new Guest2ComplexTourRequestListView(User));//list of guests tour requests 
+        }
+
         public void Home_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             MainFrame.Navigate(new Guest2StartView());//start view

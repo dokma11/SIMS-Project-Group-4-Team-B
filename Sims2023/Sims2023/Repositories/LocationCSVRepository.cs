@@ -4,6 +4,7 @@ using Sims2023.FileHandler;
 using Sims2023.Observer;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace Sims2023.Repositories
 {
@@ -39,6 +40,56 @@ namespace Sims2023.Repositories
             return _locations.Count == 0 ? 1 : _locations.Max(t => t.Id) + 1;
         }
 
+        public List<Location> GetPopularLocations(List<AccommodationReservation> reservations)
+        {
+            var popularLocations = reservations
+            .GroupBy(reservation => reservation.Accommodation.Location.Id)
+            .OrderByDescending(group => group.Count())
+            .Take(3)
+            .Select(group => _locations.FirstOrDefault(location => location.Id == group.Key))
+            .ToList();
+
+             return popularLocations;
+        }
+
+        public List<Location> GetUnpopularLocations(List<AccommodationReservation> reservations, List<Location> locations)
+        {
+            List<Location> unpopularLocations = new List<Location>();
+
+            if (locations.Count > 10)
+            {
+                unpopularLocations = locations;
+            }
+            else
+            {
+                Dictionary<Location, int> locationReservationCounts = new Dictionary<Location, int>();
+
+                foreach (AccommodationReservation reservation in reservations)
+                {
+                    Location reservationLocation = reservation.Accommodation.Location;
+
+                    if (locationReservationCounts.ContainsKey(reservationLocation))
+                    {
+                        locationReservationCounts[reservationLocation]++;
+                    }
+                    else
+                    {
+                        locationReservationCounts[reservationLocation] = 1;
+                    }
+                }
+
+                List<Location> leastReservedLocations = locationReservationCounts.OrderBy(pair => pair.Value)
+                                                                               .Select(pair => pair.Key)
+                                                                               .Take(3)
+                                                                               .ToList();
+
+                unpopularLocations.AddRange(locations);
+                unpopularLocations.AddRange(leastReservedLocations);
+                unpopularLocations = unpopularLocations.Take(5).ToList();
+            }
+
+            return unpopularLocations;
+        }
         public void CheckIdItShouldBeAdded(Location location)
         {
             if (!_locations.Contains(location))
@@ -59,8 +110,6 @@ namespace Sims2023.Repositories
             }
             Add(location);
         }
-
-        
         public void Add(Location location)
         {
             location.Id = NextId();

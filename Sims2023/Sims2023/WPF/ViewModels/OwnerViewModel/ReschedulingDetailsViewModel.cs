@@ -40,6 +40,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         {
             AccommodationStatistics statistic = new AccommodationStatistics(guest.AccommodationReservation.Accommodation, DateTime.Now, true, false, false);
             _statisticsService.Create(statistic);
+            ToastNotificationService.ShowInformation("Zahtjev prihvaćen");
             guest.Status = RequestStatus.Approved;
             UpdatedReservationStatus = GetById(guest.AccommodationReservation.Id);
             UpdatedReservationStatus.StartDate = guest.NewStartDate;
