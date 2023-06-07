@@ -3,11 +3,7 @@ using Sims2023.Domain.Models;
 using Sims2023.Observer;
 using Sims2023.WPF.Views.Guest1Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -31,10 +27,23 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             SelectedForum = selectedForum;
             OpenedForumView = openedForumView;
             _forumCommentService = new ForumCommentService();
+            _forumCommentService.Subscribe(this);
             _forumService = forumService;
             CheckIfUserIsCreator();
+            CheckTheForum();
             FillTheTexts();
 
+        }
+
+        private void CheckTheForum()
+        {
+           //ovde treba da proverim da li je mark kao special ako jeste da bude oznacen
+            if (SelectedForum.Closed)
+            {
+                OpenedForumView.CloseTheForum.Visibility = Visibility.Collapsed;
+                OpenedForumView.Label1.Visibility = Visibility.Visible;
+                OpenedForumView.postForum.IsEnabled = false;
+            }
         }
 
         private void CheckIfUserIsCreator()
@@ -47,8 +56,17 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         internal void AddComment()
         {
-            //Proveri da li je selektovani smestaj shut down
-            MessageBox.Show("Nije jos implementirana funkcionalnost");
+            if (SelectedForum.Closed == false)
+            {
+                var newWindow = new ForumCommentView(User, _forumCommentService, SelectedForum);
+                newWindow.Show();
+                Update();
+            }
+            else
+            {
+                MessageBox.Show("Forum je ugasen. Moguc je samo pregled ovog foruma ne i ostavljanje komentara.");
+            }
+
         }
 
         public void GoBack()
@@ -61,21 +79,20 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
         }
 
-        internal void ShutDown()
+        public void ShutDown()
         {
-            if (SelectedForum.Closed == false)
+            if (!SelectedForum.Closed)
             {
-                MessageBoxResult result = MessageBox.Show("Da li ste sigurni da zelite da nastavite? Nakon sto jednom ugasite forum necete moci ponovo da ga pokrenete", "Confirmation", MessageBoxButton.YesNo);
+                MessageBoxResult result = MessageBox.Show("Da li ste sigurni da zelite da nastavite? Nakon sto jednom ugasite forum necete moci ponovo da ga pokrenete",
+                                                          "Confirmation", MessageBoxButton.YesNo);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    SelectedForum.Closed = true;
-                    _forumService.Update(SelectedForum);
-                    MessageBox.Show("Uspesno ste ugasili forum. Sada je moguc samo pregled ovog foruma ne i ostavljanje komentara");
+                    CloseForum();
                 }
                 else
                 {
-                    MessageBox.Show("Forum nije ugasen, idalje je aktivan.");
+                    MessageBox.Show("Forum nije ugasen, i dalje je aktivan.");
                 }
             }
             else
@@ -84,17 +101,25 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
         }
 
+        private void CloseForum()
+        {
+            SelectedForum.Closed = true;
+            _forumService.Update(SelectedForum);
+            MessageBox.Show("Uspesno ste ugasili forum. Sada je moguc samo pregled ovog foruma ne i ostavljanje komentara.");
+        }
+
         private void FillTheTexts()
         {
             OpenedForumView.label1.Content = SelectedForum.Theme;
-            OpenedForumView.label2.Content=SelectedForum.MainComment;
+            OpenedForumView.ThemeBox.Text = SelectedForum.MainComment;
             Comments = _forumCommentService.FilterComments(Comments, SelectedForum);
+            OpenedForumView.CommentsBox.ItemsSource = Comments;
         }
         public void Update()
         {
             Comments.Clear();
             Comments = new();
-            Comments = _forumCommentService.FilterComments(Comments,SelectedForum);
+            Comments = _forumCommentService.FilterComments(Comments, SelectedForum);
             OpenedForumView.CommentsBox.ItemsSource = Comments;
         }
     }
