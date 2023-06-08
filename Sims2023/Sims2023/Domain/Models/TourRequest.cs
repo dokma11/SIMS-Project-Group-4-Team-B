@@ -1,5 +1,4 @@
-﻿using Sims2023.Application.Services;
-using Sims2023.Serialization;
+﻿using Sims2023.Serialization;
 using System;
 using System.ComponentModel;
 
@@ -8,7 +7,7 @@ namespace Sims2023.Domain.Models
     public enum RequestsLanguage { Serbian, English, German, French, Spanish, Italian, Chinese, Japanese }
     public enum RequestsState { OnHold, Invalid, Accepted }
 
-    public class TourRequest: ISerializable, INotifyPropertyChanged
+    public class TourRequest : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public Location Location { get; set; }
@@ -19,13 +18,13 @@ namespace Sims2023.Domain.Models
         public DateTime End { get; set; }
         public RequestsState State { get; set; }
         public User Guest { get; set; }
-       
+
 
         public TourRequest() { }
 
-        public TourRequest(Location location, string description, RequestsLanguage language, int guestNumber, DateTime start, DateTime end,User guest)
+        public TourRequest(Location location, string description, RequestsLanguage language, int guestNumber, DateTime start, DateTime end, User guest)
         {
-           
+
             Location = location;
             Description = description;
             Language = language;
@@ -34,7 +33,7 @@ namespace Sims2023.Domain.Models
             End = end;
             State = RequestsState.OnHold;
             Guest = guest;
-           
+
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -52,7 +51,7 @@ namespace Sims2023.Domain.Models
                 End.ToString(),
                 State.ToString(),
                 Guest.Id.ToString(),
-               
+
             };
             return csvValues;
         }

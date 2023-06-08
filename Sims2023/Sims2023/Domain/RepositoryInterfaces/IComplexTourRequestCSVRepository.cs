@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
 using Sims2023.Observer;
+using System.Collections.Generic;
 
 namespace Sims2023.Domain.RepositoryInterfaces
 {
@@ -17,6 +13,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<ComplexTourRequest> GetByUser(User user);
         public void Subscribe(IObserver observer);
         public void NotifyObservers();
-
+        public List<ComplexTourRequest> GetOnHold();
     }
 }

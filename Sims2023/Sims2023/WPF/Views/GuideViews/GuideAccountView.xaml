@@ -6,6 +6,11 @@
         xmlns:local="clr-namespace:Sims2023.WPF.Views.GuideViews"
         mc:Ignorable="d"
         Title="GuideAccountView" Height="720" Width="1280">
+
+    <Page.Resources>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Page.Resources>
+
     <StackPanel Background="PeachPuff">
         <DockPanel>
             <ToolBar>
@@ -67,7 +72,13 @@
                 </DockPanel>
             </StackPanel>
         </DockPanel>
-        <DockPanel Margin="0,260">
+        <DockPanel Margin="-770,100,0,0" Height="180">
+            <StackPanel Width="568">
+                <Image Source="pack://application:,,,/Sims2023;component/Resources/GuideResources/achievement-icon-png-22.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="215,0,0,0" Height="139" Width="408" Visibility="{Binding IsImageVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Label Content="Imate dostignuće super-vodiča!" Margin="145,0,0,0" FontSize="20" Visibility="{Binding IsImageVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+            </StackPanel>
+        </DockPanel>
+        <DockPanel>
             <Button x:Name="dismissalButton" Content="Podnesite ostavku" Command="{Binding DismissalCommand}" Height="50" Width="150" Margin="850,0,-20,0" ToolTip="Pritisnite kako biste dali otkaz"/>
             <Button x:Name="logOutButton" Content="Odjavi se" Command="{Binding LogOutCommand}" Height="50" Width="150" ToolTip="Pritisnite kako biste se odjavili"/>
         </DockPanel>
