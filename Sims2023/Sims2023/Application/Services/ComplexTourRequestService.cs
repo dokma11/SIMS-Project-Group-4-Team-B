@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
+using System.Collections.Generic;
 
 namespace Sims2023.Application.Services
 {
@@ -48,6 +44,11 @@ namespace Sims2023.Application.Services
         public void Subscribe(IObserver observer)
         {
             _complexTourRequest.Subscribe(observer);
+        }
+
+        public List<ComplexTourRequest> GetOnHold()
+        {
+            return _complexTourRequest.GetOnHold();
         }
 
         public void GetUserReferences()

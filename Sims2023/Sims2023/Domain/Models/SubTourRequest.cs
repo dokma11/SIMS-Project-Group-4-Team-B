@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sims2023.Serialization;
+﻿using Sims2023.Serialization;
+using System;
 
 namespace Sims2023.Domain.Models
 {
-    public class SubTourRequest:ISerializable
+    public class SubTourRequest : ISerializable
     {
         public int Id { get; set; }
         public TourRequest TourRequest { get; set; }
@@ -16,7 +12,7 @@ namespace Sims2023.Domain.Models
         {
 
         }
-        public SubTourRequest(TourRequest tourRequest,ComplexTourRequest complexTourRequest)
+        public SubTourRequest(TourRequest tourRequest, ComplexTourRequest complexTourRequest)
         {
             TourRequest = tourRequest;
             ComplexTourRequest = complexTourRequest;
@@ -44,7 +40,7 @@ namespace Sims2023.Domain.Models
             {
                 Id = Convert.ToInt32(values[2])
             };
-            
+
         }
 
     }

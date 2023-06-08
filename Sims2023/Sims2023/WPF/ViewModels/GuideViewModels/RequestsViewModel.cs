@@ -28,6 +28,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         private UserService _userService;
         private CountriesAndCitiesService _countriesAndCitiesService;
         private TourNotificationService _tourNotificationService;
+        private ComplexTourRequestService _complexTourRequestService;
+        private SubTourRequestService _subTourRequestService;
         public User LoggedInGuide { get; set; }
         public SeriesCollection LanguageSeriesCollection { get; set; }
         public SeriesCollection TheMostRequestedLanguageSeriesCollection { get; set; }
@@ -37,11 +39,15 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public Location TheMostRequestedLocation { get; set; }
         public string TheMostRequestedLocationString { get; set; }
         public ObservableCollection<TourRequest> RequestsToDisplay { get; set; }
+        public ObservableCollection<ComplexTourRequest> ComplexTourRequestsToDisplay { get; set; }
+        public ObservableCollection<SubTourRequest> SubTourRequestsToDisplay { get; set; }
         public List<RequestsLanguage> LanguagesToDisplay { get; set; }
         public List<string> LocationsToDisplay { get; set; }
         public List<string> LanguageYearsToDisplay { get; set; }
         public List<string> LocationYearsToDisplay { get; set; }
         public TourRequest SelectedRequest { get; set; }
+        public ComplexTourRequest SelectedComplexTourRequest { get; set; }
+        public SubTourRequest SelectedSubTourRequest { get; set; }
         public string LocationTextBox { get; set; }
         public string LanguageTextBox { get; set; }
         public string GuestNumberTextBox { get; set; }
@@ -82,8 +88,11 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public RelayCommand LocationConfirmCommand { get; set; }
         public RelayCommand LanguageConfirmCommand { get; set; }
         public RelayCommand AcceptRequestCommand { get; set; }
+        public RelayCommand AcceptSubTourRequestCommand { get; set; }
         public RelayCommand DeclineRequestCommand { get; set; }
+        public RelayCommand DeclineSubTourRequestCommand { get; set; }
         public RelayCommand FilterCommand { get; set; }
+        public RelayCommand DisplaySubTourRequestsCommand { get; set; }
         public RelayCommand HomePageNavigationCommand { get; set; }
         public RelayCommand ToursPageNavigationCommand { get; set; }
         public RelayCommand AccountPageNavigationCommand { get; set; }
@@ -181,7 +190,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string _tab1ToolTip = "Sa Vaše leve strane prikazani su svi zahtevi za kreiranje ture.\n\n"
+        private string _tab1ToolTip = "Dobrodošli na stranicu Zahtevi! \n" 
+                + "Sa Vaše leve strane prikazani su svi zahtevi za kreiranje ture.\n\n"
                 + "U tabeli sa leve strane možete prvo videti šest informacija:\n"
                 + "• Korisničko ime korisnika koji je kreirao zahtev\n"
                 + "• Lokaciju na kojoj korisnik želi da se tura održi\n"
@@ -201,7 +211,21 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 + "Biće prikazani oni zahtevi koji su zadovoljili uneti opseg \n"
                 + "• Na samom kraju postoji dugme ,,Filtriraj\" na koje kad kliknete primenićete željene promene.\n";
 
-        private string _tab2ToolTip = "Sa Vaše leve strane prikazana je statistika o zahtevima za ture na lokaciji.\n\n"
+        private string _tab2ToolTip = "U tabeli sa Vaše leve strane prikazani su svi zahtevi za složene ture.\n\n"
+                + "U njoj možete da vidite nazic složene ture i korisničko ime korisnika koji ju je kreirao:\n"
+                + "Da biste videli sve delove te složene ture, morate levim klikom da izaberete željenu turu i da pritisnete dugme ,,Prikaži delove ture\"\n"
+                + "Nakon što ste pritisnuli dugme, u tabeli sa Vaše desne strane biće izlistani svi delove prethodno izabrane ture\n\n"
+                + "U njoj možete videti informacije o datom delu kao što su:\n"
+                + "• Lokacija - predstavlja lokaciju na kojoj se dati deo treba održati.\n"
+                + "• Broj gostiju - predstavlja broj gostiju koji bi bio prisutan na datoj turi.\n"
+                + "• Početak i kraj opsega - predstavljaju opseg datuma u kojem bi željena tura trebala da se održi,\n"
+                + "na Vama je da odaberete jedan datum unutar tog opsega. Naravno treba imati u vidu da tog datuma budete slobodni \n"
+                + "• Opis - pritiskom na ovo polje biće Vam prikazan opis izabranog dela ture tako što će se red rasširiti \n"
+                + "• Prihvati - predstavlja polje u kojem se nalaze dva dugmeta ,,Da\" i ,,Ne\". Pritiskom na dugme ,,Da\", \n"
+                + "bićete odvedeni na sledeći prozor u kom ćete moći da popunite ostale informacije vezane za potencijalno novu turu, \n"
+                + "dok pritiskom na dugme ,,Ne\" odbićete zahtev za dati deo ture i on će biti samim time uklonjen iz liste\n";
+
+        private string _tab3ToolTip = "Sa Vaše leve strane prikazana je statistika o zahtevima za ture na lokaciji.\n\n"
                 + "Postoje dva padajuća menija:\n"
                 + "• Levi Vam služi da odaberete lokaciju za koju želite da vidite statistiku.\n"
                 + "• Desni Vam služi da odaberete godinu u kojoj želite da vidite statistiku za odabranu lokaciju.\n\n"
@@ -209,7 +233,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 + "Ispod nje prikazana je statistika date lokacije, takođe postoji dugme sa natpisom ,,Da\".\n"
                 + "Pritiskom na to dugme, preći ćete na prozor za kreiranje ture na najtraženijoj lokaciji.";
 
-        private string _tab3ToolTip = "Sa Vaše leve strane prikazana je statistika o zahtevima za ture na jeziku.\n\n"
+        private string _tab4ToolTip = "Sa Vaše leve strane prikazana je statistika o zahtevima za ture na jeziku.\n\n"
                 + "Postoje dva padajuća menija:\n"
                 + "• Levi Vam služi da odaberete jezik za koji želite da vidite statistiku.\n"
                 + "• Desni Vam služi da odaberete godinu u kojoj želite da vidite statistiku za odabrani jezik.\n\n"
@@ -217,12 +241,15 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 + "Ispod nje prikazana je statistika datog jezika, takođe postoji dugme sa natpisom ,,Da\".\n"
                 + "Pritiskom na to dugme, preći ćete na prozor za kreiranje ture na najtraženijem jeziku.";
 
-        public RequestsViewModel(RequestService requestService, TourService tourService, LocationService locationService, KeyPointService keyPointService, TourReviewService tourReviewService, User loggedInGuide, TourReservationService tourReservationService, VoucherService voucherService, UserService userService, CountriesAndCitiesService countriesAndCitiesService, TourNotificationService tourNotificationService)
+        public RequestsViewModel(RequestService requestService, TourService tourService, LocationService locationService, KeyPointService keyPointService, TourReviewService tourReviewService, User loggedInGuide, TourReservationService tourReservationService, VoucherService voucherService, UserService userService, CountriesAndCitiesService countriesAndCitiesService, TourNotificationService tourNotificationService, ComplexTourRequestService complexTourRequestService, SubTourRequestService subTourRequestService)
         {
             LocationConfirmCommand = new RelayCommand(Executed_LocationConfirmCommand, CanExecute_LocationConfirmCommand);
             LanguageConfirmCommand = new RelayCommand(Executed_LanguageConfirmCommand, CanExecute_LanguageConfirmCommand);
             AcceptRequestCommand = new RelayCommand(Executed_AcceptRequestCommand, CanExecute_AcceptRequestCommand);
+            AcceptSubTourRequestCommand = new RelayCommand(Executed_AcceptSubTourRequestCommand, CanExecute_AcceptSubTourRequestCommand);
             DeclineRequestCommand = new RelayCommand(Executed_DeclineRequestCommand, CanExecute_DeclineRequestCommand);
+            DeclineSubTourRequestCommand = new RelayCommand(Executed_DeclineSubTourRequestCommand, CanExecute_DeclineSubTourRequestCommand);
+            DisplaySubTourRequestsCommand = new RelayCommand(Executed_DisplaySubTourRequestsCommand, CanExecute_DisplaySubTourRequestsCommand);
             FilterCommand = new RelayCommand(Executed_FilterCommand, CanExecute_FilterCommand);
             HomePageNavigationCommand = new RelayCommand(Executed_HomePageNavigationCommand, CanExecute_HomePageNavigationCommand);
             ToursPageNavigationCommand = new RelayCommand(Executed_ToursPageNavigationCommand, CanExecute_ToursPageNavigationCommand);
@@ -240,6 +267,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _userService = userService;
             _requestService = requestService;
             _tourNotificationService = tourNotificationService;
+            _complexTourRequestService = complexTourRequestService;
+            _subTourRequestService = subTourRequestService;
 
             LoggedInGuide = loggedInGuide;
 
@@ -273,6 +302,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             DisplayTheMostRequestedLocation();
 
             RequestsToDisplay = new ObservableCollection<TourRequest>(_requestService.GetOnHold());
+            ComplexTourRequestsToDisplay = new ObservableCollection<ComplexTourRequest>(_complexTourRequestService.GetOnHold());
+            SubTourRequestsToDisplay = new ObservableCollection<SubTourRequest>();
 
             LanguagesToDisplay = new();
             LanguagesToDisplay = _requestService.GetComboBoxData("languages").Select(Enum.Parse<RequestsLanguage>).ToList();
@@ -306,9 +337,13 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             {
                 ToolTipContent = _tab2ToolTip;
             }
-            else
+            else if (SelectedTabIndex == 2)
             {
                 ToolTipContent = _tab3ToolTip;
+            }
+            else
+            {
+                ToolTipContent = _tab4ToolTip;
             }
         }
 
@@ -450,6 +485,16 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 Update();
             }
         }
+        
+        public void HandleSubTourRequest(bool accepted)
+        {
+            if (SelectedSubTourRequest != null)
+            {
+                var state = accepted ? RequestsState.Accepted : RequestsState.Invalid;
+                _requestService.UpdateState(SelectedSubTourRequest.TourRequest, state);
+                Update();
+            }
+        }
 
         public void Update()
         {
@@ -462,7 +507,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         private void Executed_LanguageConfirmCommand(object obj)
         {
-            CreateTourFromFrequentLanguageView createTourFromFrequentLanguageView = new(TheMostRequestedLanguage, _tourService, _locationService, _keyPointService, _tourReviewService, _requestService, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, LoggedInGuide, _tourNotificationService);
+            CreateTourFromFrequentLanguageView createTourFromFrequentLanguageView = new(TheMostRequestedLanguage, _tourService, _locationService, _keyPointService, _tourReviewService, _requestService, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, LoggedInGuide, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(createTourFromFrequentLanguageView);
         }
 
@@ -473,7 +518,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         private void Executed_LocationConfirmCommand(object obj)
         {
-            CreateTourFromFrequentLocationView createTourFromFrequentLocationView = new(TheMostRequestedLocation, _tourService, _locationService, _keyPointService, _tourReviewService, _requestService, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, LoggedInGuide, _tourNotificationService);
+            CreateTourFromFrequentLocationView createTourFromFrequentLocationView = new(TheMostRequestedLocation, _tourService, _locationService, _keyPointService, _tourReviewService, _requestService, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, LoggedInGuide, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(createTourFromFrequentLocationView);
         }
 
@@ -484,12 +529,24 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         private void Executed_AcceptRequestCommand(object obj)
         {
-            CreateTourFromRequestView createTourFromRequestView = new(SelectedRequest, _tourService, _locationService, _keyPointService, _tourReviewService, _requestService, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, LoggedInGuide, _tourNotificationService);
+            CreateTourFromRequestView createTourFromRequestView = new(SelectedRequest, _tourService, _locationService, _keyPointService, _tourReviewService, _requestService, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, LoggedInGuide, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(createTourFromRequestView);
             HandleRequest(true);
         }
 
         private bool CanExecute_AcceptRequestCommand(object obj)
+        {
+            return true;
+        }
+
+        private void Executed_AcceptSubTourRequestCommand(object obj)
+        {
+            CreateTourFromRequestView createTourFromRequestView = new(SelectedSubTourRequest.TourRequest, _tourService, _locationService, _keyPointService, _tourReviewService, _requestService, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, LoggedInGuide, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(createTourFromRequestView);
+            HandleSubTourRequest(true);
+        }
+
+        private bool CanExecute_AcceptSubTourRequestCommand(object obj)
         {
             return true;
         }
@@ -502,6 +559,41 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         private bool CanExecute_DeclineRequestCommand(object obj)
         {
             return true;
+        }
+
+        private void Executed_DeclineSubTourRequestCommand(object obj)
+        {
+            HandleSubTourRequest(false);
+            SubTourRequestsToDisplay.Clear();
+            foreach (var subTour in _subTourRequestService.GetByComplexTourId(SelectedComplexTourRequest.Id))
+            {
+                if (subTour.TourRequest.State == RequestsState.OnHold)
+                {
+                    SubTourRequestsToDisplay.Add(subTour);
+                }
+            }
+        }
+
+        private bool CanExecute_DeclineSubTourRequestCommand(object obj)
+        {
+            return true;
+        }
+
+        private void Executed_DisplaySubTourRequestsCommand(object obj)
+        {
+            SubTourRequestsToDisplay.Clear();
+            foreach(var subTour in _subTourRequestService.GetByComplexTourId(SelectedComplexTourRequest.Id))
+            {
+                if(subTour.TourRequest.State == RequestsState.OnHold)
+                {
+                    SubTourRequestsToDisplay.Add(subTour);
+                }
+            }
+        }
+
+        private bool CanExecute_DisplaySubTourRequestsCommand(object obj)
+        {
+            return SelectedComplexTourRequest != null;
         }
 
         private void Executed_FilterCommand(object obj)
@@ -539,7 +631,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         private void Executed_ToursPageNavigationCommand(object obj)
         {
-            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService, _tourNotificationService);
+            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
         }
 
@@ -550,7 +642,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         private void Executed_AccountPageNavigationCommand(object obj)
         {
-            GuideAccountView guideAccountView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
+            GuideAccountView guideAccountView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(guideAccountView);
         }
 
@@ -561,7 +653,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         private void Executed_ReviewsPageNavigationCommand(object obj)
         {
-            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
+            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(guestReviewsView);
         }
 
