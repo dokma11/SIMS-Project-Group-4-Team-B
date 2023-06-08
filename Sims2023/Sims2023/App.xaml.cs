@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
+
 namespace Sims2023
 {
     /// <summary>
@@ -13,5 +14,16 @@ namespace Sims2023
     /// </summary>
     public partial class App
     {
+        public void ChangeLanguage(string currLang)
+        {
+            if (currLang.Equals("en-US"))
+            {
+                TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            }
+            else
+            {
+                TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo("sr-LATN");
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
+      xmlns:ns="clr-namespace:Sims2023"
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1024"
       Title="Guest2StartView" >
@@ -19,7 +20,7 @@
             <Image  Source="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/HorizontBW-01.png" />
         </Grid>
         <Grid  Grid.Row="1" Margin="200,0,200,50">
-            <Label  Content="dobrodošli!" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="28" Foreground="#353839" FontFamily="Copperplate Gothic Light" />
+            <Label  Content="{ns:Loc welcomeText}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="28" Foreground="#353839" FontFamily="Copperplate Gothic Light" />
         </Grid>
     </Grid>
 </Page>

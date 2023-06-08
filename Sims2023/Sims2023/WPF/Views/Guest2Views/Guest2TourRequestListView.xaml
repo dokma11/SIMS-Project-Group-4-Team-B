@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
+        xmlns:ns="clr-namespace:Sims2023"
         mc:Ignorable="d"
         Title="Guest2TourRequestListView"  d:DesignHeight="620" d:DesignWidth="1024">
     <Page.Resources>
@@ -55,20 +56,20 @@
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="City" Width="124" Binding="{Binding Location.City}"/>
-                <DataGridTextColumn Header="Country" Width="110" Binding="{Binding Location.Country}"/>
-                <DataGridTextColumn Header="Language" Width="82" Binding="{Binding Language}" />
-                <DataGridTextColumn Header="Guests" Width="90" Binding="{Binding GuestNumber}"/>
-                <DataGridTextColumn Header="Start date" Width="125" Binding="{Binding Start}"/>
-                <DataGridTextColumn Header="End date" Width="125" Binding="{Binding End}"/>
-                <DataGridTextColumn Header="Status" Width="82" Binding="{Binding State}"/>
-                <DataGridTextColumn Header="Description" Width="200" Binding="{Binding Description}"/>
+                <DataGridTextColumn Header="{ns:Loc cityData}" Width="124" Binding="{Binding Location.City}"/>
+                <DataGridTextColumn Header="{ns:Loc countryData}" Width="110" Binding="{Binding Location.Country}"/>
+                <DataGridTextColumn Header="{ns:Loc languageData}" Width="82" Binding="{Binding Language}" />
+                <DataGridTextColumn Header="{ns:Loc guestsData}" Width="90" Binding="{Binding GuestNumber}"/>
+                <DataGridTextColumn Header="{ns:Loc startDateData}" Width="125" Binding="{Binding Start}"/>
+                <DataGridTextColumn Header="{ns:Loc endDateData}" Width="125" Binding="{Binding End}"/>
+                <DataGridTextColumn Header="{ns:Loc stateData}" Width="82" Binding="{Binding State}"/>
+                <DataGridTextColumn Header="{ns:Loc descriptionData}" Width="200" Binding="{Binding Description}"/>
 
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="New request" FontSize="15" Width="147" Height="42" Background="#bcbcbc" HorizontalAlignment="Left" Margin="613,518,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Button Content="Statistics" FontSize="15" Width="147" Height="42"  Background="#bcbcbc" HorizontalAlignment="Left" Margin="820,518,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
-        <Label Content="My tour requests" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
+        <Button Content="{ns:Loc newRequestBtn}" FontSize="15" Width="147" Height="42" Background="#bcbcbc" HorizontalAlignment="Left" Margin="613,518,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="{ns:Loc statisticsBtn}" FontSize="15" Width="147" Height="42"  Background="#bcbcbc" HorizontalAlignment="Left" Margin="820,518,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+        <Label Content="{ns:Loc myTourRequestsLabel}" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

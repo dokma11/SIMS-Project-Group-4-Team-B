@@ -92,5 +92,6 @@ namespace Sims2023.WPF.Views
             MainFrame.Navigate(new Guest2VoucherListView(User));
         }
 
+        
     }
 }

@@ -6,6 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         xmlns:local="clr-namespace:Sims2023.WPF.Views"
+        xmlns:ns="clr-namespace:Sims2023"
         mc:Ignorable="d"
         Title="Horizont" Height="650" Width="1024" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Window.Icon>
@@ -39,20 +40,20 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Margin="0 0 0 0">
                       
-            <MenuItem Style="{StaticResource MenuItemStyle}" Command="cmd:RoutedCommands.OpenHelp" Header="Home" InputGestureText="Ctrl + N"></MenuItem>
-            <MenuItem Header="All tours" Command="cmd:RoutedCommands.Command3View"></MenuItem>
-            <MenuItem Header="My tours" Command="cmd:RoutedCommands.Command1View"></MenuItem>
-            <MenuItem Header="Tour request" Command="cmd:RoutedCommands.Command2View"></MenuItem>
-            <MenuItem Header="Complex tour request" Command="cmd:RoutedCommands.Command5View"></MenuItem>
-            <MenuItem Header="My coupons" Command="cmd:RoutedCommands.Command4View"></MenuItem>
+            <MenuItem Style="{StaticResource MenuItemStyle}" Command="cmd:RoutedCommands.OpenHelp" Header="{ns:Loc homeMenu}" InputGestureText="Ctrl + N"></MenuItem>
+            <MenuItem Header="{ns:Loc allToursMenu}" Command="cmd:RoutedCommands.Command3View"></MenuItem>
+            <MenuItem Header="{ns:Loc myToursMenu}" Command="cmd:RoutedCommands.Command1View"></MenuItem>
+            <MenuItem Header="{ns:Loc tourRequestMenu}" Command="cmd:RoutedCommands.Command2View"></MenuItem>
+            <MenuItem Header="{ns:Loc complexTourRequestMenu}" Command="cmd:RoutedCommands.Command5View"></MenuItem>
+            <MenuItem Header="{ns:Loc myCouponsMenu}" Command="cmd:RoutedCommands.Command4View"></MenuItem>
             <Separator Margin="100,0,0,0"></Separator>
-            <MenuItem Header="Report"></MenuItem>
-            <MenuItem Header="Notifications"></MenuItem>
+            <MenuItem Header="{ns:Loc reportMenu}"></MenuItem>
+            <MenuItem Header="{ns:Loc notificationsMenu}"></MenuItem>
             <Separator Margin="50,0,0,0"></Separator>
-            <MenuItem Header="Serbian"></MenuItem>
-            <MenuItem Header="English"></MenuItem>
-            <MenuItem Header="Theme"></MenuItem>
-            <MenuItem Header="Logout" Command="cmd:RoutedCommands.LogOut"></MenuItem>
+            <MenuItem Header="{ns:Loc serbianMenu}" ></MenuItem>
+            <MenuItem Header="{ns:Loc englishMenu}" ></MenuItem>
+            <MenuItem Header="{ns:Loc themeMenu}"></MenuItem>
+            <MenuItem Header="{ns:Loc logoutMenu}" Command="cmd:RoutedCommands.LogOut"></MenuItem>
         </Menu>
         <Frame Grid.Row="1" x:Name="MainFrame" NavigationUIVisibility="Hidden" TabIndex="13" IsTabStop="False" UseLayoutRounding="True"/>
 

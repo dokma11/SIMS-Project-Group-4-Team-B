@@ -5,6 +5,7 @@
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
+      xmlns:ns="clr-namespace:Sims2023"
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1024"
       Title="TourListView">
@@ -21,7 +22,7 @@
             <ColumnDefinition Width="750"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Find your tour" FontSize="40" Margin="42,25,0,0"></Label>
+        <Label Grid.Row="0" Grid.Column="0" Content="{ns:Loc findYourTourTitle}" FontSize="40" Margin="42,25,0,0"></Label>
         <DataGrid Grid.Row="1" Grid.Column="0" x:Name="dataGridTours" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged }" SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Width="665" Height="478" Margin="0,0,0,0" Background="#bcbcbc">
@@ -72,14 +73,14 @@
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="90" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="City" Width="90" Binding="{Binding Location.City}"/>
-                <DataGridTextColumn Header="Country" Width="80" Binding="{Binding Location.Country}"/>
-                <DataGridTextColumn Header="Language" Width="60" Binding="{Binding GuideLanguage}" />
-                <DataGridTextColumn Header="Start time" Width="145" Binding="{Binding Start}"/>
-                <DataGridTextColumn Header="Duration" Width="50" Binding="{Binding Length}"/>
-                <DataGridTextColumn Header="Max guests" Width="65" Binding="{Binding MaxGuestNumber}"/>
-                <DataGridTextColumn Header="Available" Width="80" Binding="{Binding AvailableSpace}"/>
+                <DataGridTextColumn Header="{ns:Loc nameData}" Width="90" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="{ns:Loc cityData}" Width="90" Binding="{Binding Location.City}"/>
+                <DataGridTextColumn Header="{ns:Loc countryData}" Width="80" Binding="{Binding Location.Country}"/>
+                <DataGridTextColumn Header="{ns:Loc languageData}" Width="60" Binding="{Binding GuideLanguage}" />
+                <DataGridTextColumn Header="{ns:Loc startTimeData}" Width="145" Binding="{Binding Start}"/>
+                <DataGridTextColumn Header="{ns:Loc durationData}" Width="50" Binding="{Binding Length}"/>
+                <DataGridTextColumn Header="{ns:Loc maxGuestsData}" Width="65" Binding="{Binding MaxGuestNumber}"/>
+                <DataGridTextColumn Header="{ns:Loc availableData}" Width="80" Binding="{Binding AvailableSpace}"/>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -96,12 +97,12 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" FontSize="18" Content="Country:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-            <Label Grid.Row="1" FontSize="18" Content="City:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-            <Label Grid.Row="2" FontSize="18" Content="Language:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-            <Label Grid.Row="3" FontSize="18" Content="Duration (in hours):" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-            <Label Grid.Row="4" FontSize="18" Content="Number of guests:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-            <Button Grid.Row="5" Width="146" Height="42" Background="#bcbcbc" FontSize="15" x:Name="SearchTours" Content="Search" HorizontalAlignment="Left" Margin="44,0,0,0" VerticalAlignment="Center" Click="SearchTours_Click"></Button>
+            <Label Grid.Row="0" FontSize="18" Content="{ns:Loc countryLabel}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+            <Label Grid.Row="1" FontSize="18" Content="{ns:Loc cityLabel}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+            <Label Grid.Row="2" FontSize="18" Content="{ns:Loc languageLabel}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+            <Label Grid.Row="3" FontSize="18" Content="{ns:Loc durationLabel}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+            <Label Grid.Row="4" FontSize="18" Content="{ns:Loc guestNumberLabel}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+            <Button Grid.Row="5" Width="146" Height="42" Background="#bcbcbc" FontSize="15" x:Name="SearchTours" Content="{ns:Loc searchBtn}" HorizontalAlignment="Left" Margin="44,0,0,0" VerticalAlignment="Center" Click="SearchTours_Click"></Button>
             <ComboBox Grid.Row="1" x:Name="citySearchBox" HorizontalAlignment="Left" Margin="101,8,0,0"   VerticalAlignment="Top" Width="120" />
             <ComboBox Grid.Row="0" x:Name="countrySearchBox" HorizontalAlignment="Left" Margin="101,8,0,0"   VerticalAlignment="Top" Width="120" SelectionChanged="CountrySearchBox_SelectionChanged"/>
             <xctk:IntegerUpDown Grid.Row="3" x:Name="lengthSearchBox" HorizontalAlignment="Left" Margin="168,10,0,0"  VerticalAlignment="Top" Width="53" Minimum="1" Value="1"/>
@@ -117,7 +118,7 @@
                 <ComboBoxItem>Japanese</ComboBoxItem>
             </ComboBox>
             <xctk:IntegerUpDown Grid.Row="4" Name="guestNumberBox" AllowTextInput="False" HorizontalAlignment="Left" Margin="168,7,0,0" VerticalAlignment="Top" Minimum="1" Value="1" Width="53"/>
-            <Button Grid.Row="6" FontSize="15" Width="146" Height="42" Background="#bcbcbc" x:Name="SeeTourDetails" Content="See more" HorizontalAlignment="Left" Margin="44,0,0,0" VerticalAlignment="Center"  Click="SeeMore_Click"/>
+            <Button Grid.Row="6" FontSize="15" Width="146" Height="42" Background="#bcbcbc" x:Name="SeeTourDetails" Content="{ns:Loc seeMoreBtn}" HorizontalAlignment="Left" Margin="44,0,0,0" VerticalAlignment="Center"  Click="SeeMore_Click"/>
         </Grid>
 
     </Grid>

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
+        xmlns:ns="clr-namespace:Sims2023"
         mc:Ignorable="d"
         Title="Guest2VouchersActivationListView" Height="400" Width="700"  WindowStartupLocation="CenterScreen">
     <Window.Icon>
@@ -58,15 +59,15 @@
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Expiring" Width="150" Binding="{Binding Expired}"/>
-                <DataGridTextColumn Header="Description" Width="320" Binding="{Binding AdditionalComment}"/>
+                <DataGridTextColumn Header="{ns:Loc nameData}" Width="200" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="{ns:Loc expiringData}" Width="150" Binding="{Binding Expired}"/>
+                <DataGridTextColumn Header="{ns:Loc descriptionData}" Width="320" Binding="{Binding AdditionalComment}"/>
 
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Activate" Background="#bcbcbc" Width="147" Height="42" FontSize="17" HorizontalAlignment="Left" Margin="309,315,0,0" VerticalAlignment="Top" Click="ActivateVoucher_Click"/>
-        <Button Content="Skip" Background="#bcbcbc" Width="147" Height="42" FontSize="17" HorizontalAlignment="Left" Margin="520,315,0,0" VerticalAlignment="Top" Click="SkipVoucher_Click"/>
-        <Label Content="My coupons" FontSize="32" HorizontalAlignment="Left" Margin="33,10,0,0" VerticalAlignment="Top"/>
+        <Button Content="{ns:Loc activateBtn}" Background="#bcbcbc" Width="147" Height="42" FontSize="17" HorizontalAlignment="Left" Margin="309,315,0,0" VerticalAlignment="Top" Click="ActivateVoucher_Click"/>
+        <Button Content="{ns:Loc skipBtn}" Background="#bcbcbc" Width="147" Height="42" FontSize="17" HorizontalAlignment="Left" Margin="520,315,0,0" VerticalAlignment="Top" Click="SkipVoucher_Click"/>
+        <Label Content="{ns:Loc myCouponsMenu}" FontSize="32" HorizontalAlignment="Left" Margin="33,10,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
