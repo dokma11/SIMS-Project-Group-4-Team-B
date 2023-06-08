@@ -27,7 +27,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button x:Name="button" Content="Otvori" FontSize="20" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" HorizontalAlignment="Center" Margin="0,497,0,0" Grid.Row="1" VerticalAlignment="Top" Height="63" Width="342"/>
+        <Button x:Name="button" Content="Otvori" Click="OpenForum_Click" FontSize="20" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" HorizontalAlignment="Center" Margin="0,497,0,0" Grid.Row="1" VerticalAlignment="Top" Height="63" Width="342"/>
     </Grid>
 </Page>
 

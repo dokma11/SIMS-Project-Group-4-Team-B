@@ -148,6 +148,9 @@
     <Compile Update="WPF\Views\OwnerViews\AvailableDatesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\OwnerViews\CommentsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\OwnerViews\DetailedGradeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -348,6 +351,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\AvailableDatesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\CommentsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\Guest1GradeView.xaml">
