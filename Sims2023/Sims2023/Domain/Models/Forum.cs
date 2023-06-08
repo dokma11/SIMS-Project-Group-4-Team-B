@@ -1,6 +1,7 @@
 ﻿using Sims2023.Serialization;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ using Xceed.Wpf.AvalonDock.Themes;
 
 namespace Sims2023.Domain.Models
 {
-    public class Forum : ISerializable
+    public class Forum : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public User User { get; set; }
@@ -21,6 +22,12 @@ namespace Sims2023.Domain.Models
         public bool Closed { get; set; }
         public int CountGuestComments { get; set; }
         public int CountOwnerComments { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
 
         public Forum() { }
 

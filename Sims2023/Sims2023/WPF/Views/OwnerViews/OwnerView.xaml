@@ -57,6 +57,7 @@
                 <Button  x:Name="GradeGuestsButton" Content="Ocijeni goste" Click="Grade_Click" Height="35" />
                 <Button x:Name="ReviewButton" Content="Pregled dobijenih ocijena" Click="Grades_Given_From_Guests" Height="35" />
                 <Button  x:Name="RenovationsButton" Content="Renoviranja" Click="Renovations_Click" Height="35" />
+                <Button  x:Name="ForumsButton" Content="Vaši forumi" Click="Forums_Click" Height="35" />
                 
             </StackPanel>
             <Button x:Name="CloseButton" Content="Odjava" Click="Close_Click"  Height="35" Margin="0,650,0,0" />
