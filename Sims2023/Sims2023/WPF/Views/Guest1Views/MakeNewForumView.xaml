@@ -20,7 +20,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Label x:Name="label" Content="Napravi novi forum"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="0"/>

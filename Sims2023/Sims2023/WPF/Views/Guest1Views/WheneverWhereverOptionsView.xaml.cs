@@ -23,11 +23,6 @@ namespace Sims2023.WPF.Views.Guest1Views
     /// </summary>
     public partial class WheneverWhereverOptionsView : Page
     {
-        private DateTime startDateSelected;
-        private DateTime endDateSelected;
-        private int stayLength;
-        private int numberOfGuests;
-        private User user;
         public WheneverWhereverOptionsViewModel WheneverWhereverOptionsViewModel;
 
         public WheneverWhereverOptionsView(DateTime startDateSelected, DateTime endDateSelected, int stayLength, int numberOfGuests, User user,Frame mainFrame)

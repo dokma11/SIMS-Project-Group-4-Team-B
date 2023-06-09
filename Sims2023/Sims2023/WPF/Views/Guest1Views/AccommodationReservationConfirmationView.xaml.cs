@@ -20,6 +20,7 @@ namespace Sims2023.WPF.Views.Guest1Views
         AccommodationReservationReschedulingService _accommodationReservationReschedulingService;
 
         Frame MainFrame;
+        User User;
 
         public AccommodationReservationConfirmationView(int reservationId, Accommodation selectedAccommodation, AccommodationStay selectedAccommodationStay, int daysNumber, int guestsNumber, User guest1, ObservableCollection<AccommodationReservationRescheduling> accommodationReservationReschedulings, AccommodationReservationReschedulingService accommodationReservationReschedulingService, Frame mainFrame)
         {
@@ -29,6 +30,7 @@ namespace Sims2023.WPF.Views.Guest1Views
             MainFrame = mainFrame;
             AccommodationReservationConfirmationViewModel = new AccommodationReservationConfirmationViewModel(this, reservationId, selectedAccommodation, selectedAccommodationStay, daysNumber, guestsNumber, guest1, accommodationReservationReschedulings, _accommodationReservationReschedulingService);
             DataContext = AccommodationReservationConfirmationViewModel;
+            User = guest1;
         }
 
         public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -39,7 +41,7 @@ namespace Sims2023.WPF.Views.Guest1Views
         public void ConfirmReservation(object sender, ExecutedRoutedEventArgs e)
         {
             AccommodationReservationConfirmationViewModel.ReservationButton_Click();
-            MainFrame.Navigate(new GuestOneStartView());
+            MainFrame.Navigate(new GuestOneStartView(User));
         }
 
         public void GoBack(object sender, ExecutedRoutedEventArgs e)

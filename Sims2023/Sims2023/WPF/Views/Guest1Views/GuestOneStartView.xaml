@@ -19,5 +19,7 @@
         <Grid  Grid.Row="1" Margin="200,0,200,50">
             <Label  Content="dobrodošli!" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="28" Foreground="#E0942C" FontFamily="Copperplate Gothic Light" />
         </Grid>
+        <Button x:Name="button" Content="Button" Margin="729,10,100,40" Grid.Row="1" Click="button_Click"/>
+        <Button x:Name="button1" Content="REPORT" Margin="100,40,729,10" Grid.Row="1" Click="button1_Click"/>
     </Grid>
 </Page>

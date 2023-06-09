@@ -108,6 +108,19 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         public void ShutDown()
         {
+            if(OpenedForumView.CloseTheForum.Visibility==Visibility.Visible)
+            {
+                ShutDownTheForum();
+            }
+            else
+            {
+                MessageBox.Show("Forum može ugasiti samo korisnik koji ga je kreirao");
+            }
+           
+        }
+
+        private void ShutDownTheForum()
+        {
             if (!SelectedForum.Closed)
             {
                 MessageBoxResult result = MessageBox.Show("Da li ste sigurni da zelite da nastavite? Nakon sto jednom ugasite forum necete moci ponovo da ga pokrenete",

@@ -130,5 +130,10 @@ namespace Sims2023.Application.Services
         {
             return _accommodationReservation.FindAllGuestsReservations(user);
         }
+
+        public List<AccommodationReservation> FindReservationsInDateFrame(User user, DateTime startDateSelected, DateTime endDateSelected)
+        {
+            return _accommodationReservation.FindReservationsInDateFrame(user, startDateSelected, endDateSelected);
+        }
     }
 }

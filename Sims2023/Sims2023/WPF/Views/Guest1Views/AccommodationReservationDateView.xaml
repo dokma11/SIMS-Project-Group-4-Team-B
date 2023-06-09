@@ -43,8 +43,20 @@
                 <Label x:Name="endDate" Content="Unesite zavrsni datum:" FontSize="20" Grid.Row="2" Margin="100,0,0,0"/>
                 <Label x:Name="numberOfDaysEnter" Content="Broj dana za rezervaciju:" FontSize="20" Grid.Row="4" Margin="100,0,0,0"/>
                 <Label x:Name="numberOfGuestsEnter" Content="Broj gostiju:" FontSize="20" Grid.Row="6" Margin="100,0,0,0"/>
-                <DatePicker x:Name="startDatePicker" Margin="100,0,0,0" TabIndex="15" Grid.Row="1"/>
-                <DatePicker x:Name="endDatePicker" Margin="100,0,0,0" TabIndex="16" Grid.Row="3"/>
+                <DatePicker x:Name="startDatePicker" Margin="100,0,0,0" TabIndex="15" Grid.Row="1">
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="IsReadOnly" Value="True"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+                <DatePicker x:Name="endDatePicker" Margin="100,0,0,0" TabIndex="16" Grid.Row="3">
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="IsReadOnly" Value="True"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
                 <xctk:IntegerUpDown Name="numberOfDays" Grid.Row="5" TabIndex="17" Margin="100,0,0,0" Minimum="0" Value="0" AllowTextInput="False"/>
                 <xctk:IntegerUpDown Name="numberOfGuests" Grid.Row="7" TabIndex="18" Margin="100,0,0,0" Minimum="0" Value="0" AllowTextInput="False"/>
             </Grid>

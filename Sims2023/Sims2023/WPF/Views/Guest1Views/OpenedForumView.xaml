@@ -21,7 +21,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Label x:Name="label" Content="Tema:" Margin="50,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="21" Grid.Row="0"/>
@@ -46,7 +46,7 @@
                                 <Style TargetType="TextBlock">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Special}" Value="True">
-                                            <Setter Property="Foreground" Value="#E0942C" />
+                                            <Setter Property="Foreground" Value="#DDF2FF" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>

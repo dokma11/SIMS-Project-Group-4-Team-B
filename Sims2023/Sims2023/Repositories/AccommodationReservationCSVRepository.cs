@@ -344,5 +344,23 @@ namespace Sims2023.Repositories
             }
             return AllGuestsReservations;
         }
+        public List<AccommodationReservation> FindReservationsInDateFrame(User user, DateTime startDateSelected, DateTime endDateSelected)
+        {
+            List<AccommodationReservation> AllGuestsReservations = new();
+            int i = 0;
+
+            MessageBox.Show($"user: {user.Id} i end {endDateSelected}");
+            MessageBox.Show($"Pocetni datum: {startDateSelected} i end {endDateSelected}");
+            foreach (AccommodationReservation accommodationReservation in _accommodationReservations)
+            {
+                if (accommodationReservation.StartDate > startDateSelected && accommodationReservation.EndDate < endDateSelected)
+                {
+                    AllGuestsReservations.Add(accommodationReservation);
+                    i++;
+                }
+            }
+            MessageBox.Show($"Broj rezervacija: {i}");
+            return AllGuestsReservations;
+        }
     }
 }

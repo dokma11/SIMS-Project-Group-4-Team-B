@@ -15,10 +15,11 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
+            <RowDefinition/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <Label Content="Alt+Enter" Foreground="#E0942C" FontSize="18" Margin="0,0,0,0" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
-        <Label Content="Prikaži" Foreground="#E0942C" FontSize="13"  Margin="0,70,0,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-        <Label Content="Komentar" Foreground="#E0942C" FontSize="12"  Margin="0,100,0,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Width="64"/>
+        <Label Content="Alt+Enter" Foreground="#E0942C" Grid.RowSpan="2" FontSize="18" Margin="0,0,0,0" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+        <Label Content="Prikaži" Foreground="#E0942C" FontSize="13"  Margin="0,50,0,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        <Label Content="Komentar" Foreground="#E0942C" FontSize="12"  Margin="0,10,0,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Width="64"/>
     </Grid>
 </Page>
