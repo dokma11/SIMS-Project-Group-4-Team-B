@@ -12,7 +12,7 @@
 
         <Label x:Name="label" Content="{Binding welcomeString}" DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:CommentsView}}}" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Center" Margin="0,25,0,0" VerticalAlignment="Top" Height="51" Width="344"/>
 
-        <ListBox x:Name="CommentsBox" ItemsSource="{Binding ForumComment}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="40,81,40,169">
+        <ListBox x:Name="CommentsBox" ItemsSource="{Binding ForumComment}" SelectedItem="{Binding SelectedComment}" SelectionMode="Single" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="40,81,40,169" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Width="850">
@@ -42,6 +42,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Button x:Name="button" Content="Komentariši" Click="Comment_Click" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" HorizontalAlignment="Left" Margin="40,610,0,0" VerticalAlignment="Top" Width="115" Height="59"/>
+        <Button x:Name="button1" Content="Nazad" Click="Back_Click" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" HorizontalAlignment="Left" Margin="276,610,0,0" VerticalAlignment="Top" Height="59" Width="114"/>
 
     </Grid>
 </Page>

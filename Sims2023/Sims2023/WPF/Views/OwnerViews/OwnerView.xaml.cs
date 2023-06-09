@@ -112,6 +112,10 @@ namespace Sims2023.View
             ownerViewModel.Renovations_Click();
         }
 
+        private void Notification_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
         private void Statistics_Click(object sender, RoutedEventArgs e)
         {
             MenuButton.IsChecked = false;

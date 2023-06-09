@@ -39,7 +39,16 @@
                 </ToggleButton.ContentTemplate>
             </ToggleButton>
             <TextBlock x:Name="ActionBarTextBlock" Text="Početna stranica" FontSize="20" Foreground="White" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Image Source="pack://application:,,,/Sims2023;component/Resources/OwnerResources/notification.png" Stretch="Fill" Width="45" Grid.Column="1" Margin="375,5,10,5"  />
+            <Button x:Name="NotificationButton" Click="Notification_Click" Grid.ColumnSpan="2" Margin="375,5,10,5" Padding="0">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Image Source="pack://application:,,,/Sims2023;component/Resources/OwnerResources/notification.png" Stretch="Fill" Width="45" />
+
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
         </Grid>
 
         <!-- Define the content area -->
