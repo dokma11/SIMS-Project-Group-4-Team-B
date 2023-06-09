@@ -88,6 +88,12 @@ namespace Sims2023.Application.Services
         {
             _forums.MarkAsSpecial(allComments);
         }
+
+        public List<Forum> GetForumsForParticularOwner(List<Location> _locations)
+        {
+            Save();
+            return _forums.GetForumsForParticularOwner(_locations);
+        }
     }
 
 }
