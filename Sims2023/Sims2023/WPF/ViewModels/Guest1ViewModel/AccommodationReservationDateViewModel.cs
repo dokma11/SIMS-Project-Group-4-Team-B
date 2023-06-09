@@ -70,6 +70,8 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public void MakeReservation_Click()
         {
             _stays.Clear();
+            stays.Clear();
+            int possibleDatesNumber = 0;
             AccommodationReservationDateView.availableDatesGrid.ItemsSource = _stays;
 
             if (!CheckDateRequirments())
@@ -84,7 +86,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             daysNumber = stayLength;
             guestsNumber = numberOfGuests;
 
-            int possibleDatesNumber = _accommodationReservationService.CheckDates(SelectedAccommodation, startDateSelected, endDateSelected, stayLength, AvailableDates, accommodationRenovations);
+            possibleDatesNumber = _accommodationReservationService.CheckDates(SelectedAccommodation, startDateSelected, endDateSelected, stayLength, AvailableDates, accommodationRenovations);
 
             if (AvailableDates.Count > 0)
             {
