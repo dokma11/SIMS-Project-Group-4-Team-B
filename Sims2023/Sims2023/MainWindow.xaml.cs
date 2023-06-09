@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Linq;
+using Sims2023.WPF.Views.Guest2Views;
 
 namespace Sims2023
 {

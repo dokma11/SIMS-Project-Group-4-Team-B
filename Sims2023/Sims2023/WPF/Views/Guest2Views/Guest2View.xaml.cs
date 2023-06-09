@@ -11,7 +11,7 @@ namespace Sims2023.WPF.Views
     /// <summary>
     /// Interaction logic for Guest2View.xaml
     /// </summary>
-    public partial class Guest2View : Window, IObserver
+    public partial class Guest2View : Window
     {
         public Guest2ViewModel Guest2ViewModel { get; set; }
         public User User { get; set; }
@@ -20,6 +20,7 @@ namespace Sims2023.WPF.Views
         public Guest2View(User user)
         {
             InitializeComponent();
+            //this.DataContext = new Guest2ViewModel(this.frame.NavigationService);
             MainFrame.Navigate(new Guest2StartView());
             DataContext = this;
             Guest2ViewModel = new Guest2ViewModel(user,this);
@@ -33,22 +34,7 @@ namespace Sims2023.WPF.Views
 
        
 
-        private void ReserveTour_Click(object sender, RoutedEventArgs e)
-        {
-            //Guest2ViewModel.ReserveTour_Click();
-        }
-
         
-
-        public void Update()
-        {
-            //Guest2ViewModel.Update();
-        }
-
-        private void SeeDetails_Click(object sender, RoutedEventArgs e)
-        {
-            //Guest2ViewModel.SeeDetails_Click();
-        }
 
         
 

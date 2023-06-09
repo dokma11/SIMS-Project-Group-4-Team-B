@@ -65,8 +65,8 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="{ns:Loc activateBtn}" Background="#bcbcbc" Width="147" Height="42" FontSize="17" HorizontalAlignment="Left" Margin="309,315,0,0" VerticalAlignment="Top" Click="ActivateVoucher_Click"/>
-        <Button Content="{ns:Loc skipBtn}" Background="#bcbcbc" Width="147" Height="42" FontSize="17" HorizontalAlignment="Left" Margin="520,315,0,0" VerticalAlignment="Top" Click="SkipVoucher_Click"/>
+        <Button Content="{ns:Loc activateBtn}" Background="#bcbcbc" Width="147" Height="42" FontSize="17" HorizontalAlignment="Left" Margin="309,315,0,0" VerticalAlignment="Top" Command="{Binding ActivateCommand}"/>
+        <Button Content="{ns:Loc skipBtn}" Background="#bcbcbc" Width="147" Height="42" FontSize="17" HorizontalAlignment="Left" Margin="520,315,0,0" VerticalAlignment="Top" Command="{Binding SkipCommand}"/>
         <Label Content="{ns:Loc myCouponsMenu}" FontSize="32" HorizontalAlignment="Left" Margin="33,10,0,0" VerticalAlignment="Top"/>
 
     </Grid>

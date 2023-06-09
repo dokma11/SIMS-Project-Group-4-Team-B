@@ -26,7 +26,7 @@
         <TextBlock x:Name="countryTextBlock" Background="LightGray" Text="{Binding Location.Country}" FontSize="20" HorizontalAlignment="Left" Margin="143,210,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="390" Height="30"/>
         <TextBlock x:Name="cityTextBlock" Background="LightGray" Text="{Binding Location.City}" FontSize="20" HorizontalAlignment="Left" Margin="143,150,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="390" Height="30"/>
         <TextBlock x:Name="nameTextBlock" Background="LightGray" Text="{Binding Name}" FontSize="20" HorizontalAlignment="Left" Margin="143,90,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="390" Height="30"/>
-        <Button Content="{ns:Loc cancelBtn}" Background="#bcbcbc" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="385,370,0,0" VerticalAlignment="Top" Click="Cancel_Click"/>
+        <Button Content="{ns:Loc cancelBtn}" Background="#bcbcbc" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="385,370,0,0" VerticalAlignment="Top" Command="{Binding CancelCommand}"/>
         <Label Content="{ns:Loc liveTrackingTourLabel}" FontSize="32" HorizontalAlignment="Left" Margin="28,10,0,0" VerticalAlignment="Top"/>
 
     </Grid>
