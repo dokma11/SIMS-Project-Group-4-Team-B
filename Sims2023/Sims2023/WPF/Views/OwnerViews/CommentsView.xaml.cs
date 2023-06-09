@@ -42,7 +42,7 @@ namespace Sims2023.WPF.Views.OwnerViews
             _forumService = new ForumService();
             _commentService = new ForumCommentService();
             ForumComment = new ObservableCollection<ForumComment>();
-            ForumComment.Add(new ForumComment { Id = 100, Forum = selectedForum, Comment = selectedForum.MainComment, Special = false, User = selectedForum.User });
+            ForumComment.Add(new ForumComment { Id = 100, Forum = selectedForum, Comment = selectedForum.MainComment, Special = false, User = selectedForum.User, NumberOfReports=0 });
             var filteredComments = _commentService.FilterComments(ForumComment, selectedForum);
             var commentsToAdd = new List<ForumComment>(filteredComments);
 

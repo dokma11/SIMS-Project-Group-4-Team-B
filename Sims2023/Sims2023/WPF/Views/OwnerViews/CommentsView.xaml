@@ -12,7 +12,7 @@
 
         <Label x:Name="label" Content="{Binding welcomeString}" DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:CommentsView}}}" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Center" Margin="0,25,0,0" VerticalAlignment="Top" Height="51" Width="344"/>
 
-        <ListBox x:Name="CommentsBox" ItemsSource="{Binding ForumComment}" SelectedItem="{Binding SelectedComment}" SelectionMode="Single" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="40,81,40,169" >
+        <ListBox x:Name="CommentsBox" ItemsSource="{Binding ForumComment}" SelectedItem="{Binding SelectedComment}" SelectionMode="Single" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="40,81,40,169">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Width="850">
@@ -27,7 +27,32 @@
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
-                        <TextBlock x:Name="TextText" Text="{Binding Comment}" TextWrapping="Wrap" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Broj prijava: " Foreground="Red">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding NumberOfReports}" Value="0">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock Text="{Binding NumberOfReports}" Foreground="Red">
+
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding NumberOfReports}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
+                        <TextBlock x:Name="TextText" Text="{Binding Comment}" TextWrapping="Wrap" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Style.Triggers>
