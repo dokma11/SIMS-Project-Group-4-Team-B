@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sims2023.Application.Services
 {
-    class FakeCommentService
+    public class FakeCommentService
     {
         private IFakeCommentCSVRepository _fakeComment;
         private IUserCSVRepository _users;
