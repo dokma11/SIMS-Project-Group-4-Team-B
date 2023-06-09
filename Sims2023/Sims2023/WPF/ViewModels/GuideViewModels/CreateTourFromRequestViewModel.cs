@@ -18,6 +18,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         private RequestService _requestService;
         private TourNotificationService _tourNotificationService;
         private TourReservationService _tourReservationService;
+
         public CreateTourFromRequestViewModel(TourRequest selectedRequest, User loggedInGuide, TourService tourService, KeyPointService keyPointService, RequestService requestService, TourNotificationService tourNotificationService, TourReservationService tourReservationService)
         {
             SelectedRequest = selectedRequest;

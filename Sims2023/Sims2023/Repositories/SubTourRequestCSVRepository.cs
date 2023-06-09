@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Sims2023.Repositories
 {
-    public class SubTourRequestCSVRepository: ISubTourRequestCSVRepository
+    public class SubTourRequestCSVRepository : ISubTourRequestCSVRepository
     {
         private readonly List<SubTourRequest> _subTourRequests;
         private readonly SubTourRequestFileHandler _fileHandler;
@@ -47,8 +43,6 @@ namespace Sims2023.Repositories
             return _subTourRequests;
         }
 
-
-
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
@@ -60,6 +54,11 @@ namespace Sims2023.Repositories
             {
                 observer.Update();
             }
+        }
+
+        public List<SubTourRequest> GetByComplexTourId(int complexTourId)
+        {
+            return _subTourRequests.Where(s => s.ComplexTourRequest.Id == complexTourId).ToList();
         }
     }
 }

@@ -24,6 +24,7 @@ namespace Sims2023.Domain.Models
         public bool SuperGuest1 { get; set; }
         public int Guest1Points { get; set; }
         public DateTime DateOfBecomingSuperGuest { get; set; }
+        public bool AbleToLogIn { get; set; }
         public User() { }
 
         public User(int id, string username, string password, string name, string surname, int age, string phoneNumber, string email, Type userType, bool superOwner, bool superGuide, bool superGuest1, int guest1Points, DateTime dateOfBecomingSuperGuest)
@@ -42,6 +43,7 @@ namespace Sims2023.Domain.Models
             SuperGuest1 = superGuest1;
             Guest1Points = guest1Points;
             DateOfBecomingSuperGuest = dateOfBecomingSuperGuest;
+            AbleToLogIn = true;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -67,7 +69,8 @@ namespace Sims2023.Domain.Models
                 SuperGuide.ToString(),
                 SuperGuest1.ToString(),
                 Guest1Points.ToString(),
-                DateOfBecomingSuperGuest.ToString()
+                DateOfBecomingSuperGuest.ToString(),
+                AbleToLogIn.ToString()
             };
             return csvValues;
         }
@@ -88,6 +91,7 @@ namespace Sims2023.Domain.Models
             SuperGuest1 = Convert.ToBoolean(values[11]);
             Guest1Points = Convert.ToInt32(values[12]);
             DateOfBecomingSuperGuest = Convert.ToDateTime(values[13]);
+            AbleToLogIn = Convert.ToBoolean(values[14]);
         }
     }
 }
