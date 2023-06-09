@@ -83,7 +83,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
             else
             {
-                MessageBox.Show("Forum je ugasen. Moguc je samo pregled ovog foruma ne i ostavljanje komentara.");
+                MessageBox.Show("Forum je ugašen. Moguć je samo pregled ovog foruma ne i ostavljanje komentara.");
             }
 
         }
@@ -123,7 +123,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             if (!SelectedForum.Closed)
             {
-                MessageBoxResult result = MessageBox.Show("Da li ste sigurni da zelite da nastavite? Nakon sto jednom ugasite forum necete moci ponovo da ga pokrenete",
+                MessageBoxResult result = MessageBox.Show("Da li ste sigurni da zelite da nastavite? Nakon što jednom ugasite forum nećete moći ponovo da ga pokrenete",
                                                           "Confirmation", MessageBoxButton.YesNo);
 
                 if (result == MessageBoxResult.Yes)
@@ -132,7 +132,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Forum nije ugasen, i dalje je aktivan.");
+                    MessageBox.Show("Forum nije ugašen, i dalje je aktivan.");
                 }
             }
             else
@@ -145,7 +145,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             SelectedForum.Closed = true;
             _forumService.Update(SelectedForum);
-            MessageBox.Show("Uspesno ste ugasili forum. Sada je moguc samo pregled ovog foruma ne i ostavljanje komentara.");
+            MessageBox.Show("Uspešno ste ugasili forum. Sada je moguć samo pregled ovog foruma ne i ostavljanje komentara.");
         }
 
         private void FillTheTexts()

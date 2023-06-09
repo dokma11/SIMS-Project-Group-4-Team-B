@@ -104,7 +104,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         public void ExtendedAvailableDatesSearch(DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> availableDates)
         {
-            MessageBox.Show("Za datume koje ste izabrali nismo uspeli da pronademo nijedan slobodan termin.Ukoliko zelite mozete izabrati neki od slobodnih termina koji su najslicniji onima koji ste zeleli.");
+            MessageBox.Show("Za datume koje ste izabrali nismo uspeli da pronađemo nijedan slobodan termin. Ukoliko želite možete izabrati neki od slobodnih termina koji su najsličniji onima koji ste želeli.");
             int datesFound = 0;
 
             while (datesFound < 3)
@@ -141,11 +141,17 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         public bool CheckDateRequirments()
         {
-            if (AccommodationReservationDateView.startDatePicker.SelectedDate == null || AccommodationReservationDateView.endDatePicker.SelectedDate == null)
+            if (AccommodationReservationDateView.startDatePicker.SelectedDate == null)
             {
-                MessageBox.Show("Molimo Vas da selektujete datume.");
+                MessageBox.Show("Molimo Vas da selektujete datum početka.");
                 return false;
             }
+            if (AccommodationReservationDateView.endDatePicker.SelectedDate == null)
+            {
+                MessageBox.Show("Molimo Vas da selektujete datum kraja.");
+                return false;
+            }
+
             DateTime startDateSelected = AccommodationReservationDateView.startDatePicker.SelectedDate.Value;
             DateTime endDateSelected = AccommodationReservationDateView.endDatePicker.SelectedDate.Value;
             int stayLength = (int)AccommodationReservationDateView.numberOfDays.Value;
@@ -159,7 +165,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
             if (numberOfGuests > SelectedAccommodation.MaxGuests)
             {
-                MessageBox.Show($"Ovaj smestaj nije u mogucnosti da primi toliko ljudi. Kapacitet je {SelectedAccommodation.MaxGuests}");
+                MessageBox.Show($"Ovaj smeštaj nije u mogućnosti da primi toliko ljudi. Kapacitet je {SelectedAccommodation.MaxGuests}.");
                 return false;
             }
             if (DateTime.Compare(startDateSelected, endDateSelected) > 0)
@@ -169,12 +175,12 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
             if (stayLength < SelectedAccommodation.MinDays)
             {
-                MessageBox.Show($"Za ovaj smestaj minimalni broj dana koji mozete rezervisati je  {minDays} .");
+                MessageBox.Show($"Za ovaj smeštaj minimalni broj dana koji možete rezervisati je  {minDays}.");
                 return false;
             }
             if ((endDateSelected - startDateSelected).TotalDays < daysNumber)
             {
-                MessageBox.Show($"Niste dobro uneli podatke. Vremensko ogranicenje nije dovoljno da bi se rezervisao {daysNumber} dana");
+                MessageBox.Show($"Niste dobro uneli podatke. Vremensko ograničenje nije dovoljno da bi se rezervisao {daysNumber} dana.");
                 return false;
             }
             return true;
@@ -185,12 +191,12 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             if (selectedAccommodationStay == null)
             {
-                MessageBox.Show("Molimo Vas selektujte datume koje zelite da rezervisete.");
+                MessageBox.Show("Molimo Vas selektujte datume koje zelite da rezervišete.");
                 return false;
             }
             if (SelectedAccommodation == null)
             {
-                MessageBox.Show("Doslo je do greske.");
+                MessageBox.Show("Došlo je do greške.");
                 return false;
             }
             return true;

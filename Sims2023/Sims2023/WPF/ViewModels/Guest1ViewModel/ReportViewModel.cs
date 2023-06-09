@@ -1,19 +1,13 @@
-﻿using Sims2023.Domain.Models;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Sims2023.Application.Services;
+using Sims2023.Domain.Models;
 using Sims2023.WPF.Views.Guest1Views;
 using Sims2023.WPF.Views.Guest1Views.Guest1HelpViews;
 using System;
-using System.Windows;
-using System.Windows.Controls;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using System.IO;
-using Microsoft.Win32;
-using Sims2023.Application.Services;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Reflection;
-using System.Windows.Media.Imaging;
-using Path = System.IO.Path;
+using System.IO;
+using System.Windows;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
@@ -28,8 +22,8 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         public ReportViewModel(User user, ReportView reportView)
         {
-            this.User = user;
-            this.ReportView = reportView;
+            User = user;
+            ReportView = reportView;
 
             _accommodationReservationService = new();
             _accommodationCancellationService = new();
@@ -51,7 +45,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         }
 
         private void GenerateReportFile(String filename)
-        {            
+        {
             string relativePath = $"../../../Resources/GuestOneResources/Report/{filename}";
             //
             Document document = new Document();
@@ -60,7 +54,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             document.Open();
 
-            if(filename == "ReservationsReport.pdf")
+            if (filename == "ReservationsReport.pdf")
             {
                 WriteToReservationsFile(document);
             }
@@ -71,7 +65,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             document.Close();
 
-            MessageBox.Show("Uspešno ste izgenerisali pdf izveštaj");
+            MessageBox.Show("Uspešno ste izgenerisali pdf izveštaj.");
         }
 
         private void WriteToCancellationsFile(Document document)
@@ -82,7 +76,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             Paragraph dateRange = new Paragraph($"Rezervacije otkazane između {startDateSelected:dd/MM/yyyy} i {endDateSelected:dd/MM/yyyy}:", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD, BaseColor.BLACK));
             document.Add(dateRange);
 
-            List<AccommodationCancellation> cancellations = _accommodationCancellationService.FindReservationCancellationsInDateFrame(User,startDateSelected,endDateSelected);
+            List<AccommodationCancellation> cancellations = _accommodationCancellationService.FindReservationCancellationsInDateFrame(User, startDateSelected, endDateSelected);
 
             foreach (AccommodationCancellation reservationCancellation in cancellations)
             {
@@ -111,7 +105,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             Paragraph dateRange = new Paragraph($"Rezervacije napravljene između {startDateSelected:dd/MM/yyyy} i {endDateSelected:dd/MM/yyyy}:", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD, BaseColor.BLACK));
             document.Add(dateRange);
 
-            List<AccommodationReservation> reservations = _accommodationReservationService.FindReservationsInDateFrame(User,startDateSelected,endDateSelected);
+            List<AccommodationReservation> reservations = _accommodationReservationService.FindReservationsInDateFrame(User, startDateSelected, endDateSelected);
 
             foreach (AccommodationReservation reservation in reservations)
             {
@@ -136,19 +130,19 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             if (string.IsNullOrEmpty(ReportView.typeComboBox.Text))
             {
-                MessageBox.Show("Molimo Vas da izaberete tip izvestaja.");
+                MessageBox.Show("Molimo Vas da izaberete tip izveštaja.");
                 return false;
             }
             if (ReportView.startDatePicker.SelectedDate == null || ReportView.endDatePicker.SelectedDate == null)
             {
-                MessageBox.Show("Molimo Vas da selektujete datume.");
+                MessageBox.Show("Molimo Vas da selektujete oba datuma.");
                 return false;
             }
             startDateSelected = ReportView.startDatePicker.SelectedDate.Value;
             endDateSelected = ReportView.endDatePicker.SelectedDate.Value;
             if (DateTime.Compare(startDateSelected, endDateSelected) > 0)
             {
-                MessageBox.Show("Molimo Vas selektujete pravilno datume. Datum kraja ne moze biti pre datuma pocetka");
+                MessageBox.Show("Molimo Vas selektujete pravilno datume. Datum kraja ne može biti pre datuma početka.");
                 return false;
             }
 

@@ -43,7 +43,7 @@ namespace Sims2023.WPF.Views.Guest1Views
 
             if (SelectedAccommodation == null)
             {
-                MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da rezervisete.");
+                MessageBox.Show("Molimo Vas selektujte smeštaj koji želite da rezervišete.");
                 return;
             }
             MainFrame.Navigate(new AccommodationReservationDateView(-1, SelectedAccommodation, User, AccommodationReservationReschedulings, _accommodationReservationReschedulingService, MainFrame));
@@ -55,7 +55,7 @@ namespace Sims2023.WPF.Views.Guest1Views
 
             if (SelectedAccommodation == null)
             {
-                MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da prikazete detaljnije.");
+                MessageBox.Show("Molimo Vas selektujte smeštaj koji želite da prikažete detaljnije.");
                 return;
             }
             MainFrame.Navigate(new AccommodationDetailedView(User, SelectedAccommodation, MainFrame));

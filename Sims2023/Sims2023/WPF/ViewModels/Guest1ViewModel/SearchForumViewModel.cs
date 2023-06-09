@@ -78,9 +78,9 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
             if(location==null)
             {
-                MessageBox.Show("Doslo je do greske prilikom pretrazivanja lokacije");
+                MessageBox.Show("Došlo je do greške prilikom pretrazivanja lokacije");
             }
-            MessageBox.Show("Unesite grad i drzavu za koje zelite da procitate ili otvorite forum");
+            MessageBox.Show("Unesite grad i drzavu za koje želite da pročitate ili otvorite forum.");
         }
 
         private Location findLocation(string countrySearch, string citySearch)
@@ -102,7 +102,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 SearchForumView.ForumsGrid.ItemsSource = FilteredForums;
                 return;
             }
-            MessageBox.Show("Unesite gradove za koje zelite da pronađete ili otvorite forum");
+            MessageBox.Show("Unesite gradove za koje zelite da pronađete ili otvorite forum.");
         }
 
         public void ShowForum()
@@ -113,7 +113,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 MainFrame.Navigate(new OpenedForumView(_forumService, MainFrame, User,SelectedForum,_forumCommentService));
                 return;
             }
-            MessageBox.Show("Selektujte temu koju zelite da prikazete.");
+            MessageBox.Show("Selektujte temu koju želite da prikažete.");
         }
         public void Update()
         {

@@ -44,18 +44,18 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             if (SelectedAccommodationReservation == null)
             {
-                MessageBox.Show("Molimo Vas selektujte smestaj koji zelite da ocenite.");
+                MessageBox.Show("Molimo Vas selektujte smeštaj koji zelite da ocenite.");
                 return false;
             }
             if (SelectedAccommodationReservation.Graded)
             {
-                MessageBox.Show("Vec ste ocenili ovaj smestaj.");
+                MessageBox.Show("Vec ste ocenili ovaj smeštaj.");
                 return false;
             }
             TimeSpan difference = DateTime.Today - selectedAccommodationReservation.EndDate;
             if (difference.TotalDays >= 5)
             {
-                MessageBox.Show($"Rok za ocenjivanje smestaja je pet dana od kraja rezervacije. Proslo je {difference.TotalDays}!");
+                MessageBox.Show($"Rok za ocenjivanje smeštaja je pet dana od kraja rezervacije. Proslo je {difference.TotalDays}!");
                 return false;
             }
             return true;

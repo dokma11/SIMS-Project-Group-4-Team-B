@@ -59,7 +59,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 _accommodationGradeService.Create(accommodationGrade);
                 UpdateAccommodationReservation(SelectedAccommodationReservation);
                 UpdateAccommodationImages(SelectedAccommodationReservation, _addedPictures);
-                MessageBox.Show("Uspesno ste ocenili ovaj smestaj.");
+                MessageBox.Show("Uspešno ste ocenili ovaj smeštaj.");
             }
 
         }
@@ -91,7 +91,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             accommodationGrade.Comfort = (int)_accommodationAndOwnerGradingView.comfortIntegerUpDown.Value;
             accommodationGrade.Location = (int)_accommodationAndOwnerGradingView.locationIntegerUpDown.Value;
             accommodationGrade.Comment = _accommodationAndOwnerGradingView.textBox.Text;
-            accommodationGrade.CurrentAccommodationState = "Korisnik nije uneo podatke o trenutnom stanju smestaja";
+            accommodationGrade.CurrentAccommodationState = "Korisnik nije uneo podatke o trenutnom stanju smeštaja";
             accommodationGrade.RenovationUrgency = "Korisnik nije uneo podatke o hitnosti renoviranja";
             accommodationGrade.ReservationStartDate = selectedAccommodationReservation.StartDate;
             return accommodationGrade;
@@ -160,7 +160,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                     return bitmapImage;
                 }
             }
-            MessageBox.Show("nije pronadena slika");
+            MessageBox.Show("Nije pronađena slika. Došlo je do greške!");
             return null;
         }
 

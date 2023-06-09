@@ -53,7 +53,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             SelectedAccommodationReservation = (AccommodationReservation)AccommodationReservationCancellationView.myDataGrid.SelectedItem;
             if (CheckSelectedAccommodationReservation(SelectedAccommodationReservation))
             {
-                MessageBoxResult result = System.Windows.MessageBox.Show("Da li ste sigurni da zelite da obrisete ovu rezervaciju?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
+                MessageBoxResult result = System.Windows.MessageBox.Show("Da li ste sigurni da želite da obrišete ovu rezervaciju?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
                 if (result == System.Windows.MessageBoxResult.Yes)
                 {
                     AccommodationStatistics statistic = new AccommodationStatistics(SelectedAccommodationReservation.Accommodation, DateTime.Now, true, false, false);
@@ -78,17 +78,17 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             if (selectedAccommodationReservation == null)
             {
-                MessageBox.Show("Molimo Vas selektujte rezervaciju koji zelite obrisete.");
+                MessageBox.Show("Molimo Vas selektujte rezervaciju koji želite obrišete.");
                 return false;
             }
             if (CancellationIsPossible(selectedAccommodationReservation))
             {
-                MessageBox.Show("Nije moguce otkazati rezervaciju. Pocetak boravka je previse blizu");
+                MessageBox.Show("Nije moguće otkazati rezervaciju. Pocetak boravka je previše blizu");
                 return false;
             }
             if (HasActiveReschedulingRequest(SelectedAccommodationReservation))
             {
-                MessageBox.Show("Nije moguce otkazati rezervaciju. Podneli ste zahtev za pomeranje rezervacije.");
+                MessageBox.Show("Nije moguće otkazati rezervaciju. Podneli ste zahtev za pomeranje rezervacije.");
                 return false;
             }
             return true;

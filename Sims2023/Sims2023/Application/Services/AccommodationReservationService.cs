@@ -1,15 +1,9 @@
-﻿using Sims2023.Observer;
+﻿using Sims2023.Application.Injection;
+using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
+using Sims2023.Observer;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sims2023.Domain.Models;
-using Sims2023.Repositories;
-using System.Collections.ObjectModel;
-using Sims2023.Domain.RepositoryInterfaces;
-using Sims2023.Application.Injection;
-using System.Windows;
 
 namespace Sims2023.Application.Services
 {
@@ -113,7 +107,7 @@ namespace Sims2023.Application.Services
 
         public int CheckDates(Accommodation selectedAccommodation, DateTime startDateSelected, DateTime endDateSelected, int stayLength, List<DateTime> datesList, List<AccommodationRenovation> accommodationRenovations)
         {
-            return _accommodationReservation.CheckDates(selectedAccommodation,startDateSelected, endDateSelected, stayLength, datesList, accommodationRenovations);
+            return _accommodationReservation.CheckDates(selectedAccommodation, startDateSelected, endDateSelected, stayLength, datesList, accommodationRenovations);
         }
 
         public void DeleteAccommodationReservation(AccommodationReservation selectedAccommodationReservation)

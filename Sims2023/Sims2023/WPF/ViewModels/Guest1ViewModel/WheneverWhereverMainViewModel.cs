@@ -72,7 +72,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             if (DateTime.Compare(startDateSelected, endDateSelected) > 0)
             {
-                MessageBox.Show("Molimo Vas selektujte pravilno datume. Krajnji datum mora biti posle pocetnog!");
+                MessageBox.Show("Molimo Vas selektujte pravilno datume. Krajnji datum mora biti posle početnog!");
                 return false;
             }
 

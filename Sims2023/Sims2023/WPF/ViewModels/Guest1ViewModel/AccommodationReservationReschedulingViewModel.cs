@@ -51,7 +51,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 MessageBox.Show("Molimo Vas selektujte zahtev.");
                 return;
             }
-            MessageBox.Show($"Komentar Vlasnika smestaja:\n\n{SelectedAccommodationReservationRescheduling.Comment}");
+            MessageBox.Show($"Komentar Vlasnika smeštaja:\n\n{SelectedAccommodationReservationRescheduling.Comment}");
             return;
         }
 

@@ -349,8 +349,6 @@ namespace Sims2023.Repositories
             List<AccommodationReservation> AllGuestsReservations = new();
             int i = 0;
 
-            MessageBox.Show($"user: {user.Id} i end {endDateSelected}");
-            MessageBox.Show($"Pocetni datum: {startDateSelected} i end {endDateSelected}");
             foreach (AccommodationReservation accommodationReservation in _accommodationReservations)
             {
                 if (accommodationReservation.StartDate > startDateSelected && accommodationReservation.EndDate < endDateSelected)
@@ -359,7 +357,6 @@ namespace Sims2023.Repositories
                     i++;
                 }
             }
-            MessageBox.Show($"Broj rezervacija: {i}");
             return AllGuestsReservations;
         }
     }

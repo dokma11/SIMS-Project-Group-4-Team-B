@@ -43,7 +43,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 MakeRenovationRecommodation();
                 _accommodationGradeService.Update(Grade);
                 _accommodationReservationService.Update(SelectedAccommodationReservation);
-                MessageBox.Show("Uspesno ste ocenili ovaj smestaj.");
+                MessageBox.Show("Uspesno ste ocenili ovaj smeštaj.");
             }
         }
 
