@@ -51,9 +51,9 @@ namespace Sims2023.Repositories
         {
             return _subTourRequests.Where(r=>r.ComplexTourRequest.Id==complexTourRequest.Id).ToList();    
         }
-        public DateTime GetEarliestSubTourDateByComplexTourRequest(ComplexTourRequest complexTourRequest)
+        public string GetEarliestSubTourDateByComplexTourRequest(ComplexTourRequest complexTourRequest)
         {
-            return GetByComplexTourRequest(complexTourRequest).Min(t => t.TourRequest.Start);
+            return GetByComplexTourRequest(complexTourRequest).Min(t => t.TourRequest.Start).ToString();
         }
 
         /*public void CheckExpirationDate(ComplexTourRequest complexTourRequest)

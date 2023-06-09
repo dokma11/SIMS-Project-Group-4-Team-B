@@ -27,12 +27,16 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         private SubTourRequestService _subTourRequestService;
         public User User { get; set; }
         public ComplexTourRequest ComplexTourRequest { get; set; }
+        private RequestService _requestService { get; set; }
         public Guest2SubToursRequestListViewModel(ComplexTourRequest complexTourRequest,User user)
         {
             _subTourRequestService = new SubTourRequestService();
+            _requestService=new RequestService();
             ComplexTourRequest = complexTourRequest;
             User = user;
+            _requestService.CheckExpirationDate(complexTourRequest.Guest);
             SubTourRequests = new ObservableCollection<SubTourRequest>(_subTourRequestService.GetByComplexTourRequest(complexTourRequest));
+            
             //SubTourRequests = new ObservableCollection<SubTourRequest>(_subTourRequestService.GetAll());
         }
         public event PropertyChangedEventHandler PropertyChanged;

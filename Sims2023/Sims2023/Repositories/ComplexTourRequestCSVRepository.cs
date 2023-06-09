@@ -51,7 +51,11 @@ namespace Sims2023.Repositories
             return _complexTourRequests.Where(r => r.Guest.Id== user.Id).ToList();
         }
 
-
+        public void UpdateDate(ComplexTourRequest complexTourRequest,string date)
+        {
+            complexTourRequest.Date = date;
+            _fileHandler.Save(_complexTourRequests);
+        }
 
         public void Subscribe(IObserver observer)
         {

@@ -15,7 +15,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void Add(SubTourRequest subTourRequest);
         public List<SubTourRequest> GetAll();
         public List<SubTourRequest> GetByComplexTourRequest(ComplexTourRequest complexTourRequest);
-        //public DateTime GetEarliestSubTourDateByComplexTourRequest(ComplexTourRequest complexTourRequest);
+        public string GetEarliestSubTourDateByComplexTourRequest(ComplexTourRequest complexTourRequest);
         //public void CheckExpirationDate(ComplexTourRequest complexTourRequest);
         //public bool IsComplexTourInvalid(ComplexTourRequest complexTourRequest);
         //public void UpdateComplexTourState(ComplexTourRequest complexTourRequest);

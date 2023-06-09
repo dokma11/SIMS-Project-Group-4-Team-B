@@ -67,6 +67,12 @@ namespace Sims2023.Application.Services
             
             return _subTourRequest.GetByComplexTourRequest(complexTourRequest);
         }
+        public string GetEarliestSubTourDateByComplexTourRequest(ComplexTourRequest complexTourRequest)
+        {
+            GetTourRequestReferences();
+            GetComplexTourRequestReference();
+            return _subTourRequest.GetEarliestSubTourDateByComplexTourRequest(complexTourRequest);
+        }
 
         public void GetTourRequestReferences()
         {
@@ -74,6 +80,7 @@ namespace Sims2023.Application.Services
             {
                 subTourRequest.TourRequest = _tourRequest.GetById(subTourRequest.TourRequest.Id) ?? subTourRequest.TourRequest;
                 subTourRequest.TourRequest.Location = _location.GetById(subTourRequest.TourRequest.Location.Id);
+                subTourRequest.TourRequest.Guest = _user.GetById(subTourRequest.TourRequest.Guest.Id);
             }
         }
 
@@ -82,9 +89,10 @@ namespace Sims2023.Application.Services
             foreach (var subTourRequest in GetAll())
             {
                 subTourRequest.ComplexTourRequest = _complexTourRequest.GetById(subTourRequest.ComplexTourRequest.Id) ?? subTourRequest.ComplexTourRequest;
-                
+                subTourRequest.ComplexTourRequest.Guest = _user.GetById(subTourRequest.ComplexTourRequest.Guest.Id);
             }
         }
+
 
 
 

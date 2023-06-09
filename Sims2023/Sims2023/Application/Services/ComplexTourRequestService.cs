@@ -31,17 +31,20 @@ namespace Sims2023.Application.Services
         {
             return _complexTourRequest.GetById(id);
         }
-
+        public void UpdateDate(ComplexTourRequest complexTourRequest, string date)
+        {
+            _complexTourRequest.UpdateDate(complexTourRequest, date);   
+        }
         public List<ComplexTourRequest> GetByUser(User user)
         {
             //GetUserReferences();
             return _complexTourRequest.GetByUser(user);
         }
 
-        public void Create(ComplexTourRequest subTourRequest)
+        public void Create(ComplexTourRequest complexTourRequest)
         {
 
-            _complexTourRequest.Add(subTourRequest);
+            _complexTourRequest.Add(complexTourRequest);
 
         }
 
