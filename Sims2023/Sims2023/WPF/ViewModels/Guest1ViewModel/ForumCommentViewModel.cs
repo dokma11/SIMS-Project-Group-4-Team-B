@@ -41,6 +41,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             newComment.Forum = SelectedForum;
             newComment.User = User;
             newComment.Comment = comment;
+            newComment.NumberOfReports = 0;
             if (MarkCommentsAsSpecial())
             {
                 newComment.Special = true;

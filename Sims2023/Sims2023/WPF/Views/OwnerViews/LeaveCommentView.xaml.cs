@@ -62,6 +62,7 @@ namespace Sims2023.WPF.Views.OwnerViews
                 newComment.User = Owner;
                 newComment.Comment = comment;
                 newComment.Special = true;
+                newComment.NumberOfReports = 0;
                 _forumCommentService.Create(newComment);
                 SelectedForum.CountOwnerComments++;
                 _forumService.Update(SelectedForum);

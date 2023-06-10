@@ -58,6 +58,31 @@
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Broj prijava: " Foreground="Red">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding NumberOfReports}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock Text="{Binding NumberOfReports}" Foreground="Red">
+
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding NumberOfReports}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
 
                         <TextBlock x:Name="TextText" Text="{Binding Comment}" TextWrapping="Wrap" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}" >
                             <TextBlock.Style>
