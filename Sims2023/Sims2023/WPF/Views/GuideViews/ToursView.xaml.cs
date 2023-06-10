@@ -1,4 +1,5 @@
-﻿using Sims2023.Application.Services;
+﻿using Nevron.Nov.UI;
+using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.GuideViewModels;
 using System;
@@ -57,15 +58,6 @@ namespace Sims2023.WPF.Views.GuideViews
             countryComboBox.SelectedValuePath = "CountryName";
 
             _tourNotificationService = tourNotificationService;
-
-            TextBox[] textBoxes = { toursNameTextBox, keyPointTextBox, picturesTextBox, descriptionTextBox };
-
-            foreach (TextBox textBox in textBoxes)
-            {
-                textBox.GotFocus += TextBox_GotFocus;
-                textBox.LostFocus += TextBox_LostFocus;
-                textBox.Text = textBox.Tag.ToString();
-            }
         }
 
         private void IntegerUpDown_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -73,26 +65,6 @@ namespace Sims2023.WPF.Views.GuideViews
             if (!int.TryParse(e.Text, out _))
             {
                 e.Handled = true;
-            }
-        }
-
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            string placeholderText = textBox.Tag.ToString();
-            if (textBox.Text == placeholderText)
-            {
-                textBox.Text = "";
-            }
-        }
-
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            string placeholderText = textBox.Tag.ToString();
-            if (string.IsNullOrWhiteSpace(textBox.Text))
-            {
-                textBox.Text = placeholderText;
             }
         }
 
@@ -127,10 +99,11 @@ namespace Sims2023.WPF.Views.GuideViews
                        + " Ako ste zadovoljni Vašim unosom i želite da konačno potvrdite tj kreirate turu pritisnite na dugme ,,Potvrdi\" \n"
                        + " Ako niste zadovoljni i želite da otkažete kreiranje ture pritisnite na dugme,, Odustani\" \n";
 
-                /*
+                
                 toursNameTextBox.Text = string.Empty;
                 maximumNumberOfGuests.Value = 1;
                 duration.Value = 1;
+                picturesTextBox.Text = string.Empty;
                 keyPointTextBox.Text = string.Empty;
                 keyPointsOutput.Items.Clear();
                 descriptionTextBox.Text = string.Empty;
@@ -142,7 +115,7 @@ namespace Sims2023.WPF.Views.GuideViews
                 {
                     ToursViewModel.KeyPointsList.Clear();
                 }
-                */
+                
             }
             else
             {
@@ -175,53 +148,14 @@ namespace Sims2023.WPF.Views.GuideViews
                 FrameManagerGuide.Instance.MainFrame.Navigate(liveTourTrackingView);
                 ToursViewModel.Update();
             }
-            /*
-                        if (ToursViewModel.IsTourFinishedProperly())
-                        {
-                            SuccessfulFinishLabelEvent();
-                        }
-                        else
-                        {
-                            SuccessfulInterruptionLabelEvent();
-                        }*/
-        }
-
-        private void SuccessfulFinishLabelEvent()
-        {
-            successfulEventLabel.Content = "Uspešno ste završili turu";
-            successfulEventLabel.Visibility = Visibility.Visible;
-            startTourButton.Margin = new Thickness(20, 20, 0, 0);
-            DispatcherTimer timer = new()
-            {
-                Interval = TimeSpan.FromSeconds(5)
-            };
-            timer.Tick += Timer_Tick;
-            timer.Start();
-        }
-
-        private void SuccessfulInterruptionLabelEvent()
-        {
-            successfulEventLabel.Content = "Uspešno ste prekinuli turu";
-            successfulEventLabel.Visibility = Visibility.Visible;
-            startTourButton.Margin = new Thickness(20, 20, 0, 0);
-            DispatcherTimer timer = new()
-            {
-                Interval = TimeSpan.FromSeconds(5)
-            };
-            timer.Tick += Timer_Tick;
-            timer.Start();
         }
 
         private void CancelTourButton_Click(object sender, RoutedEventArgs e)
         {
             if (ToursViewModel.IsCreatedTourSelected() && ToursViewModel.IsTourEligibleForCancellation())
             {
-                string additionalComment = Microsoft.VisualBasic.Interaction.InputBox("Unesite razlog:", "Input String");
-                if (!string.IsNullOrEmpty(additionalComment))
-                {
-                    ToursViewModel.CancelTour(additionalComment);
-                    SuccessfulCancellationLabelEvent();
-                }
+                ToursViewModel.CancelTour("Otkazujem");
+                SuccessfulCancellationLabelEvent();
             }
         }
 
@@ -260,7 +194,7 @@ namespace Sims2023.WPF.Views.GuideViews
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             if (keyPointsOutput.Items.Count > 1 && toursNameTextBox.Text != "" && toursNameTextBox.Text != "Unesite naziv"
-                && keyPointTextBox.Text != "" && keyPointTextBox.Text != "Unesite ključne tačke" && picturesTextBox.Text != "" && picturesTextBox.Text != "Unesite putanje slika"
+                && picturesTextBox.Text != "" && picturesTextBox.Text != "Unesite putanje slika"
                 && descriptionTextBox.Text != "" && descriptionTextBox.Text != "Unesite opis ture"
                 && maximumNumberOfGuests.Text != "" && duration.Text != ""
                 )
@@ -293,9 +227,10 @@ namespace Sims2023.WPF.Views.GuideViews
             DispatcherTimer timer = (DispatcherTimer)sender;
             timer.Stop();
         }
+
         private void SuccessfulCreationLabelEvent()
         {
-            successfulEventLabel.Content = "Uspešno ste kreirali turu";
+            successfulEventLabel.Content = "Uspešno ste kreirali turu!";
             successfulEventLabel.Visibility = Visibility.Visible;
             startTourButton.Margin = new Thickness(20, 20, 0, 0);
             DispatcherTimer timer = new()
@@ -312,19 +247,15 @@ namespace Sims2023.WPF.Views.GuideViews
             //ovde je mozda problem sto kada klikne na odustani njemu se sacuva ono sto je pisao
         }
 
-        private void ComboBox_SelectionChanged(object sender, RoutedEventArgs e)
-        {
-            ComboBox cBox = (ComboBox)sender;
-            string language = ((ComboBoxItem)cBox.SelectedItem).Content.ToString();
-            ToursViewModel.SetToursLanguage(language);
-        }
-
         private void AddKeyPointsButton_Click(object sender, RoutedEventArgs e)
         {
             string inputText = keyPointTextBox.Text;
-            keyPointsOutput.Items.Add(inputText);
-            ToursViewModel.AddKeyPointsToList(inputText);
-            keyPointTextBox.Clear();
+            if(!string.IsNullOrWhiteSpace(keyPointTextBox.Text) && !keyPointsOutput.Items.Contains(keyPointTextBox.Text))
+            {
+                keyPointsOutput.Items.Add(inputText);
+                ToursViewModel.AddKeyPointsToList(inputText);
+                keyPointTextBox.Clear();
+            }
         }
 
         private void KeyPointTextBox_TextChanged(object sender, TextChangedEventArgs e)

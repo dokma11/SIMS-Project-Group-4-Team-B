@@ -4,11 +4,12 @@ using Sims2023.WPF.Commands;
 using Sims2023.WPF.Views.GuideViews;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Threading;
 
 namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
-    public partial class GuestReviewsViewModel
+    public partial class GuestReviewsViewModel : INotifyPropertyChanged
     {
         public Tour SelectedTour { get; set; }
         public ObservableCollection<Tour> ToursToDisplay { get; set; }
@@ -28,14 +29,33 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         private SubTourRequestService _subTourRequestService;
 
         public User LoggedInGuide;
-        public string LabelContent { get; set; }
-        public bool IsLabelVisible { get; set; }
+        private bool _isLabelVisible;
+        public bool IsLabelVisible
+        {
+            get { return _isLabelVisible; }
+            set
+            {
+                if (_isLabelVisible != value)
+                {
+                    _isLabelVisible = value;
+                    OnPropertyChanged(nameof(IsLabelVisible));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public RelayCommand DisplayReviewsCommand { get; set; }
         public RelayCommand ReportReviewCommand { get; set; }
         public RelayCommand HomePageNavigationCommand { get; set; }
         public RelayCommand ToursPageNavigationCommand { get; set; }
         public RelayCommand RequestsPageNavigationCommand { get; set; }
         public RelayCommand AccountPageNavigationCommand { get; set; }
+
         public GuestReviewsViewModel(TourService tourService, LocationService locationService, KeyPointService keyPointService, TourReviewService tourReviewService, RequestService requestService, TourReservationService tourReservationService, VoucherService voucherService, UserService userService, CountriesAndCitiesService countriesAndCitiesService, User loggedInGuide, TourNotificationService tourNotificationService, ComplexTourRequestService complexTourRequestService, SubTourRequestService subTourRequestService)
         {
             DisplayReviewsCommand = new RelayCommand(Executed_DisplayReviewsCommand, CanExecute_DisplayReviewsCommand);
@@ -86,21 +106,13 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public void Executed_ReportReviewCommand(object obj)
         {
             _tourReviewService.Report(SelectedReview);
-            UpdateReviewsList(); ;
+            UpdateReviewsList();
+            SuccessfulReportLabelEvent();
         }
 
         public bool CanExecute_ReportReviewCommand(object obj)
         {
-            if (SelectedReview != null && SelectedReview.IsValid)
-            {
-                SuccessfulReportLabelEvent();
-                return true;
-            }
-            else
-            {
-                AlreadyReportedLabelEvent();
-                return false;
-            }
+            return SelectedReview != null && SelectedReview.IsValid;
         }
 
         public void UpdateReviewsList()
@@ -115,19 +127,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         private void SuccessfulReportLabelEvent()
         {
-            LabelContent = "Uspešno ste prijavili recenziju!";
-            IsLabelVisible = true;
-            DispatcherTimer timer = new()
-            {
-                Interval = TimeSpan.FromSeconds(5)
-            };
-            timer.Tick += Timer_Tick;
-            timer.Start();
-        }
-
-        private void AlreadyReportedLabelEvent()
-        {
-            LabelContent = "Data recenzija je već prijavljena!";
             IsLabelVisible = true;
             DispatcherTimer timer = new()
             {

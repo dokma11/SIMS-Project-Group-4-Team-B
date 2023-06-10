@@ -107,7 +107,7 @@ namespace Sims2023.Application.Services
         public void UpdateState(Tour selectedTour, ToursState state)
         {
             _tour.UpdateState(selectedTour, state);
-            Save();
+            //Save();
         }
 
         public void SetLanguage(Tour selectedTour, ToursLanguage language)

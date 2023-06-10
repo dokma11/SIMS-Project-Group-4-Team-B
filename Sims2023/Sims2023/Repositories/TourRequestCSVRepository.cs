@@ -115,5 +115,29 @@ namespace Sims2023.Repositories
         {
             return _requests.FirstOrDefault(t => t.Id == id);
         }
+
+        public int GetByLanguageCount(string year, string requestsLanguage)
+        {
+            if(year != "Svih vremena")
+            {
+                return _requests.Count(request => request.Start.Year.ToString() == year && request.Language.ToString() == requestsLanguage);
+            }
+            else
+            {
+                return _requests.Count(request => request.Language.ToString() == requestsLanguage);
+            }
+        }
+
+        public int GetByLocationCount(string year, string location)
+        {
+            if (year != "Svih vremena")
+            {
+                return _requests.Count(request => request.Start.Year.ToString() == year && (request.Location.City + ", " + request.Location.Country) == location);
+            }
+            else
+            {
+                return _requests.Count(request => (request.Location.City + ", " + request.Location.Country) == location);
+            }
+        }
     }
 }
