@@ -51,6 +51,7 @@
     <None Remove="Resources\OwnerResources\menu.png" />
     <None Remove="Resources\OwnerResources\menu2.png" />
     <None Remove="Resources\OwnerResources\menu3.png" />
+    <None Remove="Resources\OwnerResources\New_notification-removebg-preview.png" />
     <None Remove="Resources\OwnerResources\notification.png" />
     <None Remove="Resources\OwnerResources\plus.png" />
     <None Remove="Resources\OwnerResources\prroba.avi" />
@@ -198,6 +199,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\OwnerResources\menu3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\OwnerResources\New_notification-removebg-preview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\OwnerResources\notification.png">

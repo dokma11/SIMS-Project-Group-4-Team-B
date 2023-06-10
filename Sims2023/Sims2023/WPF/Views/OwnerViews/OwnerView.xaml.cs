@@ -20,6 +20,7 @@ namespace Sims2023.View
         public List<AccommodationReservation> Reservatons { get; set; }
         public List<AccommodationReservation> GradableGuests { get; set; }
 
+        public bool newNotification { get; set; }
         public OwnerViewModel ownerViewModel { get; set; }
 
         public User User { get; set; }
@@ -30,6 +31,7 @@ namespace Sims2023.View
             DataContext = this;
             MenuButton.IsChecked = false;
             User = owner;
+            newNotification = true;
             ownerViewModel = new OwnerViewModel(User);
             ToastNotificationService.Initialize(this);
 
@@ -112,9 +114,12 @@ namespace Sims2023.View
             ownerViewModel.Renovations_Click();
         }
 
-        private void Notification_Click(object sender, RoutedEventArgs e)
+        private void Notifications_Click(object sender, RoutedEventArgs e)
         {
-
+            MenuButton.IsChecked = false;
+            ActionBarTextBlock.Text = NotificationsButton.Content.ToString();
+            NotificationView notif = new NotificationView(User);
+            FrameManager.Instance.MainFrame.Navigate(notif);
         }
         private void Statistics_Click(object sender, RoutedEventArgs e)
         {
