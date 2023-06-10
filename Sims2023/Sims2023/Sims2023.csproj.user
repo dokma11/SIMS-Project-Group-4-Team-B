@@ -55,6 +55,9 @@
     <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneReviewsHelpView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneStartHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\MainHelpPageView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -294,6 +297,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneReviewsHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneStartHelpView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\MainHelpPageView.xaml">

@@ -23,7 +23,7 @@
         <StackPanel Grid.Row="2" Grid.Column="0" Margin="50,0,50,30">
             <TextBox x:Name="CommentBox" TabIndex="18" TextWrapping="Wrap"  Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}" Height="165"/>
         </StackPanel>
-        <Button x:Name="postForum"  Content="  Objavi  " TabIndex="19" FontSize="20" Margin="250,0,250,0" Grid.Row="3" Command="cmd:RoutedCommands.Command1View" />
-        <Button x:Name="goBack"  Content="  Nazad  " TabIndex="19" FontSize="18" Margin="520,10,50,0" Grid.Row="3" Command="cmd:RoutedCommands.Command2View"/>
+        <Button x:Name="postForum"  Content="  Objavi  " TabIndex="19" FontSize="20" Margin="275,0,275,0" Grid.Row="3" Command="cmd:RoutedCommands.Command1View" />
+        <Button x:Name="goBack"  Content="  Nazad  " TabIndex="19" FontSize="18" Margin="550,20,50,0" Grid.Row="3" Command="cmd:RoutedCommands.Command2View"/>
     </Grid>
 </Window>

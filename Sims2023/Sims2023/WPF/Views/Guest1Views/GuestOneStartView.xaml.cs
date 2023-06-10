@@ -1,5 +1,7 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Input;
 using Sims2023.Domain.Models;
+using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using Sims2023.WPF.Views.Guest1Views.Guest1Wizard;
 
 namespace Sims2023.WPF.Views.Guest1Views
@@ -13,20 +15,17 @@ namespace Sims2023.WPF.Views.Guest1Views
         public GuestOneStartView(User user)
         {
             InitializeComponent();
-            DataContext = this;
+            this.DataContext = new Guest1StartViewModel(user,this);
             User = user;
         }
-
-        private void button_Click(object sender, System.Windows.RoutedEventArgs e)
+        public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            var i = new WizardMainView();
-            i.Show();
+            e.CanExecute = true;
         }
 
-        private void button1_Click(object sender, System.Windows.RoutedEventArgs e)
+        public void GenerateReport(object sender, ExecutedRoutedEventArgs e)
         {
-            var i = new ReportView(User);
-            i.Show();
+            ((Guest1StartViewModel)this.DataContext).OpenReportView();
         }
     }
 }

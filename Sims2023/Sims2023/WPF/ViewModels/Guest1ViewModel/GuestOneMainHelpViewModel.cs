@@ -1,6 +1,7 @@
 ﻿using Sims2023.WPF.Views;
 using Sims2023.WPF.Views.Guest1Views;
 using Sims2023.WPF.Views.Guest1Views.Guest1HelpViews;
+using Sims2023.WPF.Views.Guest2Views;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -61,18 +62,10 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         private void SetCurrentPageCommands()
         {
-            if (CurrentPage != "GuestOneStartView")
-            {
-                GuestOneMainHelpView.AddedCommandsGrid.Visibility = Visibility.Visible;
-                GuestOneMainHelpView.SpaceFillerGrid.Visibility = Visibility.Collapsed;
+            GuestOneMainHelpView.AddedCommandsGrid.Visibility = Visibility.Visible;
+            GuestOneMainHelpView.SpaceFillerGrid.Visibility = Visibility.Collapsed;
 
-            }
-            else
-            {
-                GuestOneMainHelpView.AddedCommandsGrid.Visibility = Visibility.Collapsed;
-                GuestOneMainHelpView.SpaceFillerGrid.Visibility = Visibility.Visible;
-            }
-            if(RightPage())
+            if (RightPage())
             {
                 GuestOneMainHelpView.MoreButton.Visibility = Visibility.Visible;
                 GuestOneMainHelpView.MoreLabel.Visibility = Visibility.Visible;
@@ -86,10 +79,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         private void SetHelpForThisFrame()
         {
-            if (CurrentPage == "GuestOneStartView")
-            {
-                HelpFrame.Navigate(new MainHelpPageView());
-            }
             if (CurrentPage == "AccommodationAndOwnerGradingView")
             {
                 HelpFrame.Navigate(new AccommodationAndOwnerGradingViewHelp());
@@ -165,6 +154,14 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             if (CurrentPage == "ReportView")
             {
                 HelpFrame.Navigate(new ReportHelpView());
+            }
+            if (CurrentPage == "GuestOneStartView")
+            {
+                HelpFrame.Navigate(new GuestOneStartHelpView());
+            }
+            else
+            {
+                //HelpFrame.Navigate(new MainHelpPageView());
             }
             return;
         }
