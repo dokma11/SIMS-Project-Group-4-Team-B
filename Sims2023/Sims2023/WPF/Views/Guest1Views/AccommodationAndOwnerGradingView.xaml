@@ -8,6 +8,7 @@
         xmlns:vm1="clr-namespace:Sims2023.WPF.ViewModels.Guest1ViewModel"
         xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Title="AccommodationAndOwnerGradingView" Height="400" Width="700" WindowStartupLocation="CenterScreen"  DataContext="{Binding AccommodationAndOwnerGradingViewModel}">
     <Window.CommandBindings>
         <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="CreateRecension"></CommandBinding>

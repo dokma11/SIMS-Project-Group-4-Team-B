@@ -37,7 +37,7 @@
                 </Grid.RowDefinitions>
                 <Label x:Name="label1" Content="Unesite lokaciju koja Vas interesuje:"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Grid.Row="0"/>
                 <Label x:Name="label2" Content="Grad:"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="18" Grid.Row="3"/>
-                <ComboBox x:Name="cityBox" TabIndex="18" Grid.Row="4" Grid.Column="0" Margin="0,0,40,20"/>
+                <ComboBox x:Name="cityBox" TabIndex="19" Grid.Row="4" Grid.Column="0" Margin="0,0,40,20"/>
                 <Label x:Name="label3" Content="Država:"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="18" Grid.Row="1"/>
                 <ComboBox x:Name="countryBox" TabIndex="18" Grid.Row="2" Grid.Column="0" Margin="0,0,40,20" SelectionChanged="CountryComboBox_SelectionChanged"/>
                 <Button x:Name="searchForum"  Content="Pretraži forume" TabIndex="19" FontSize="20" Margin="0,0,250,0" Grid.Row="6" Command="cmd:RoutedCommands.Command1View"/>

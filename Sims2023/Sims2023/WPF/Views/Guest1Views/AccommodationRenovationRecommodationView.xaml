@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views"
         xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Title="AccommodationRenovationRecommodationView" Height="400" Width="700" WindowStartupLocation="CenterScreen"  DataContext="{Binding AccommodationRenovationRecommodationViewModel}">
     <Window.CommandBindings>
         <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="CreateRecommodation"></CommandBinding>

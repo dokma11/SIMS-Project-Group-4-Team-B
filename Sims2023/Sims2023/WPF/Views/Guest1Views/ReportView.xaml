@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views"
         mc:Ignorable="d"
         xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
+        ResizeMode="NoResize"
         Title="ReportView" Height="500" Width="400" WindowStartupLocation="CenterScreen">
     <Window.CommandBindings>
         <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="GenerateReport"></CommandBinding>

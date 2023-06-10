@@ -151,7 +151,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         private void FillTheTexts()
         {
             OpenedForumView.label.Content = SelectedForum.Theme;
-            OpenedForumView.label1.Content = SelectedForum.User.Username;
+            OpenedForumView.label1.Content = SelectedForum.User.Name+" "+SelectedForum.User.Surname;
             OpenedForumView.ThemeBox.Text = SelectedForum.MainComment;
             Comments = new();
             Comments = _forumCommentService.FilterComments(Comments, SelectedForum);

@@ -83,7 +83,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             int numberOfAvailableDates = 0;
             numberOfAvailableDates = _accommodationReservationService.CheckDates(accommodation, startDateSelected, endDateSelected, daysNumber, AvailableDates, accommodationRenovations);
-            if (numberOfAvailableDates > 0 && accommodation.MaxGuests >= guestsNumber)
+            if (numberOfAvailableDates > 0 && accommodation.MaxGuests >= guestsNumber && accommodation.MinDays<=daysNumber)
             {
                 FilteredData.Add(accommodation);
             }
@@ -175,6 +175,25 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             {
                 MessageBox.Show("Izaberite smeštaj koji želite da prikažete.");
             }
+        }
+
+        internal void SelectingFirstDataGrid(object sender, KeyEventArgs e)
+        {
+
+            if (e.Key == Key.Tab && Keyboard.Modifiers == ModifierKeys.None)
+            {
+                e.Handled = true;
+                WheneverWhereverOptionsView.availableDatesGrid.Focus();
+            }
+        }
+
+        internal void SelectingSecondDataGrid(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab && Keyboard.Modifiers == ModifierKeys.None)
+            {
+                e.Handled = true;
+                WheneverWhereverOptionsView.myDataGrid.Focus();
+            }            
         }
     }
 }

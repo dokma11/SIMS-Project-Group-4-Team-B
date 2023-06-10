@@ -1,20 +1,8 @@
-﻿using Sims2023.Application.Services;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest1ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Sims2023.WPF.Views.Guest1Views
 {
@@ -25,10 +13,10 @@ namespace Sims2023.WPF.Views.Guest1Views
     {
         public WheneverWhereverOptionsViewModel WheneverWhereverOptionsViewModel;
 
-        public WheneverWhereverOptionsView(DateTime startDateSelected, DateTime endDateSelected, int stayLength, int numberOfGuests, User user,Frame mainFrame)
+        public WheneverWhereverOptionsView(DateTime startDateSelected, DateTime endDateSelected, int stayLength, int numberOfGuests, User user, Frame mainFrame)
         {
             InitializeComponent();
-            this.DataContext = new WheneverWhereverOptionsViewModel(this, user, stayLength, numberOfGuests, startDateSelected, endDateSelected,mainFrame);
+            this.DataContext = new WheneverWhereverOptionsViewModel(this, user, stayLength, numberOfGuests, startDateSelected, endDateSelected, mainFrame);
         }
         public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -49,10 +37,20 @@ namespace Sims2023.WPF.Views.Guest1Views
         {
             ((WheneverWhereverOptionsViewModel)this.DataContext).GoBack();
         }
-        
+
         public void DetailedView(object sender, ExecutedRoutedEventArgs e)
         {
             ((WheneverWhereverOptionsViewModel)this.DataContext).DetailedView();
         }
+        private void DataGrid1_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            ((WheneverWhereverOptionsViewModel)this.DataContext).SelectingFirstDataGrid(sender,e);
+        }
+
+        private void DataGrid2_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            ((WheneverWhereverOptionsViewModel)this.DataContext).SelectingSecondDataGrid(sender, e);
+        }
+
     }
 }

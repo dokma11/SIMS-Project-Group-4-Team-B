@@ -38,7 +38,7 @@
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <Label x:Name="label11" Content="Izaberite smeštaj" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="18" Grid.Row="1"/>
-                <DataGrid x:Name="myDataGrid" Background="#DDF2FF"  TabIndex="24"
+                <DataGrid x:Name="myDataGrid" Background="#DDF2FF"  TabIndex="24" PreviewKeyDown="DataGrid1_PreviewKeyDown"
           SelectedItem="{Binding Path=SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Margin="50,0,50,0" AutoGenerateColumns="False"
           Grid.Row="2">
                     <DataGrid.RowStyle>
@@ -81,7 +81,7 @@
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <Label x:Name="label1" Content="Izaberite datume" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="18" Grid.Row="1"/>
-                <DataGrid x:Name="availableDatesGrid" TabIndex="20" Background="#DDF2FF"
+                <DataGrid x:Name="availableDatesGrid" TabIndex="25" Background="#DDF2FF" PreviewKeyDown="DataGrid2_PreviewKeyDown"
                   ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedAccommodationStay, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" Margin="50,0,50,0"
