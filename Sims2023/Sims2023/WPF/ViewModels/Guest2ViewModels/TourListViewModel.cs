@@ -52,7 +52,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         {
             string citySearchTerm = TourListView.citySearchBox.Text.ToLower();
             string countrySearchTerm = TourListView.countrySearchBox.Text.ToLower();
-            int lengthSearchTerm = (int)TourListView.lengthSearchBox.Value;
+            string lengthSearchTerm = TourListView.lengthSearchBox.Text;
             string guideLanguageSearchTerm = TourListView.guideLanguageSearchBox.Text.ToLower();
             int maxGuestNumberSearchTerm = (int)TourListView.guestNumberBox.Value;
 

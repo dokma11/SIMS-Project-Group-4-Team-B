@@ -18,5 +18,10 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<TourRequest> GetUsersAccepted(User user);
         public void Save();
         public List<TourRequest> GetAll();
+        public double GetUsersAcceptedPercentageByYearAndLanguage(string year, string language);
+        public double GetUsersDeclinedPercentageByYearAndLanguage(string year, string language);
+        public double GetUsersAcceptedPercentageByYearAndLocation(string year, string location);
+        public double GetUsersDeclinedPercentageByYearAndLocation(string year, string location);
+
     }
 }

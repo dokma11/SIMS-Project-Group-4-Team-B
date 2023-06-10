@@ -5,19 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
         xmlns:loc="clr-namespace:Sims2023.WPF.Templates"
-
+        xmlns:ns="clr-namespace:Sims2023"
         mc:Ignorable="d"
         Title="Guest2TourListView" d:DesignHeight="620" d:DesignWidth="1024">
     <Page.Resources>
         <!-- Define DataTemplates for each possible value of Status -->
         <DataTemplate x:Key="CreatedTemplate">
-            <Button Content="Create" Visibility="Hidden" />
+            <Button Content="{ns:Loc createBtn}" Visibility="Hidden" />
         </DataTemplate>
         <DataTemplate x:Key="StartedTemplate">
-            <Button Content="Join" Visibility="Visible"  Click="SeeActiveTour_Click"/>
+            <Button Content="{ns:Loc joinBtn}" Visibility="Visible"  Click="SeeActiveTour_Click"/>
         </DataTemplate>
         <DataTemplate x:Key="FinishedTemplate">
-            <Button Content="Rate" Visibility="Visible"  Click="RateTour_Click"/>
+            <Button Content="{ns:Loc rateBtn}" Visibility="Visible"  Click="RateTour_Click"/>
         </DataTemplate>
 
         <!-- Define DataTemplateSelector to choose appropriate DataTemplate for each row -->
@@ -65,19 +65,19 @@
             </DataGrid.CellStyle>
             
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="180" Binding="{Binding Tour.Name}"/>
-                <DataGridTextColumn Header="City" Width="135" Binding="{Binding Tour.Location.City}"/>
-                <DataGridTextColumn Header="Country" Width="135" Binding="{Binding Tour.Location.Country}"/>
-                <DataGridTextColumn Header="Language" Width="85" Binding="{Binding Tour.GuideLanguage}" />
-                <DataGridTextColumn Header="Start time" Width="150" Binding="{Binding Tour.Start}"/>
-                <DataGridTextColumn Header="Hours" Width="50" Binding="{Binding Tour.Length}"/>
-                <DataGridTextColumn Header="Reserved for" Width="80" Binding="{Binding GuestNumber}"/>
-                <DataGridTextColumn Header="State" Width="60" Binding="{Binding Tour.CurrentState}"/>
+                <DataGridTextColumn Header="{ns:Loc nameData}" Width="180" Binding="{Binding Tour.Name}"/>
+                <DataGridTextColumn Header="{ns:Loc cityData}" Width="135" Binding="{Binding Tour.Location.City}"/>
+                <DataGridTextColumn Header="{ns:Loc countryData}" Width="135" Binding="{Binding Tour.Location.Country}"/>
+                <DataGridTextColumn Header="{ns:Loc languageData}" Width="85" Binding="{Binding Tour.GuideLanguage}" />
+                <DataGridTextColumn Header="{ns:Loc startTimeData}" Width="150" Binding="{Binding Tour.Start}"/>
+                <DataGridTextColumn Header="{ns:Loc hoursData}" Width="50" Binding="{Binding Tour.Length}"/>
+                <DataGridTextColumn Header="{ns:Loc reservedForData}" Width="80" Binding="{Binding GuestNumber}"/>
+                <DataGridTextColumn Header="{ns:Loc stateData}" Width="60" Binding="{Binding Tour.CurrentState}"/>
                 <DataGridTemplateColumn  Header="" CellTemplateSelector="{StaticResource StatusTemplateSelector}"/>
 
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="My tours" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
+        <Label Content="{ns:Loc myToursMenu}" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 

@@ -3,8 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sims2023.WPF.Views.GuideViews"
         mc:Ignorable="d"
         Title="GuestReviewsView" Height="720" Width="1280">
+
+    <Page.Resources>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Page.Resources>
+
     <StackPanel Background="PeachPuff">
         <DockPanel>
             <ToolBar>
@@ -72,7 +78,7 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.City}" Width="150">
+                    <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.City}" Width="140">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -81,7 +87,7 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage}" Width="80">
+                    <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage}" Width="75">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -177,18 +183,7 @@
         </DockPanel>
         <DockPanel>
             <DockPanel Width="500" Margin="400,0,0,0">
-                <Label x:Name="reportLabel" Content="{Binding LabelContent}" Margin="150,0,0,0" FontSize="24" VerticalAlignment="Center">
-                    <Label.Style>
-                        <Style TargetType="Label">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsLabelVisible}" Value="True">
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Label.Style>
-                </Label>
+                <Label x:Name="reportLabel" Content="Uspešno ste prijavili recenziju!" Margin="150,0,0,0" FontSize="24" Visibility="{Binding IsLabelVisible, Converter={StaticResource BoolToVisibilityConverter}}" Height="46" />
             </DockPanel>
             <DockPanel Width="400">
                 <Button Command="{Binding ReportReviewCommand}" Width="150" Height="50" Margin="0,0,0,0" Content="Prijavi recenziju" ToolTip="Prijavite recenziju kao nevalidnu"/>

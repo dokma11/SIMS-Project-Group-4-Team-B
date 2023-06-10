@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Sims2023.Domain.Models;
+using Sims2023.WPF.ViewModels.Guest2ViewModels;
 
 namespace Sims2023.WPF.Views.Guest2Views
 {
@@ -22,11 +23,14 @@ namespace Sims2023.WPF.Views.Guest2Views
     {
         public User User { get; set; }
         public ComplexTourRequest ComplexTourRequest { get; set; }
+        public Guest2SubToursRequestListViewModel Guest2SubToursRequestListViewModel { get; set; }
         public Guest2SubToursRequestListView(ComplexTourRequest complexTourRequest,User user)
         {
             InitializeComponent();
             User=user;
             ComplexTourRequest=complexTourRequest;
+            Guest2SubToursRequestListViewModel = new Guest2SubToursRequestListViewModel(complexTourRequest,user);
+            DataContext = Guest2SubToursRequestListViewModel;
 
         }
 

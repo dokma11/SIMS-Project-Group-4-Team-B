@@ -35,9 +35,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public List<DateTime> DateTimeList;
         public List<string> KeyPointsList;
         public User LoggedInGuide { get; set; }
-        public Func<ChartPoint, string> PointLabel { get; set; }
-        public Func<int, string> ValuesWith { get; set; }
-        public Func<int, string> ValuesWithout { get; set; }
         public ObservableCollection<string> ComboBoxItems { get; set; }
 
         public ToursViewModel(TourService tourService, VoucherService voucherService, TourReservationService tourReservationService, UserService userService, User loggedInGuide, CountriesAndCitiesService countriesAndCitiesService, LocationService locationService, KeyPointService keyPointService)
@@ -114,24 +111,11 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             return SelectedCreatedTour.Start >= DateTime.Now.AddHours(48);
         }
 
-        public bool IsTourFinishedProperly()
-        {
-            return SelectedCreatedTour.CurrentState != ToursState.Finished;
-        }
-
         //KREIRANJE TURE
 
         public List<CountriesAndCities> GetCitiesAndCountries()
         {
             return _countriesAndCitiesService.GetAllLocations();
-        }
-
-        public void SetToursLanguage(string languageString)
-        {
-            if (Enum.TryParse(languageString, out ToursLanguage language))
-            {
-                _tourService.SetLanguage(NewTour, language);
-            }
         }
 
         public void AddKeyPointsToList(string inputText)

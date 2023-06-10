@@ -38,12 +38,12 @@ namespace Sims2023.WPF.Views.Guest2Views
         
         private void ActivateVoucher_Click(object sender, RoutedEventArgs e)
         {
-            VoucherListViewModel.ActivateVoucher_Click();
+           // VoucherListViewModel.ActivateVoucher_Click();
         }
 
         private void SkipVoucher_Click(object sender, RoutedEventArgs e)
         {
-            VoucherListViewModel.SkipVoucher_Click();
+          //  VoucherListViewModel.SkipVoucher_Click();
         }
 
         

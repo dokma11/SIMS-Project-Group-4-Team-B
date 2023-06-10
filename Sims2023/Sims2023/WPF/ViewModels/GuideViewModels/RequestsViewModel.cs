@@ -1,5 +1,7 @@
 ﻿using LiveCharts;
 using LiveCharts.Wpf;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
 using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.Commands;
@@ -93,6 +95,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public RelayCommand DeclineSubTourRequestCommand { get; set; }
         public RelayCommand FilterCommand { get; set; }
         public RelayCommand DisplaySubTourRequestsCommand { get; set; }
+        public RelayCommand LocationStatisticsReportCommand { get; set; }
+        public RelayCommand LanguageStatisticsReportCommand { get; set; }
         public RelayCommand HomePageNavigationCommand { get; set; }
         public RelayCommand ToursPageNavigationCommand { get; set; }
         public RelayCommand AccountPageNavigationCommand { get; set; }
@@ -190,7 +194,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string _tab1ToolTip = "Dobrodošli na stranicu Zahtevi! \n" 
+        private string _tab1ToolTip = "Dobrodošli na stranicu Zahtevi! \n"
                 + "Sa Vaše leve strane prikazani su svi zahtevi za kreiranje ture.\n\n"
                 + "U tabeli sa leve strane možete prvo videti šest informacija:\n"
                 + "• Korisničko ime korisnika koji je kreirao zahtev\n"
@@ -251,6 +255,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             DeclineSubTourRequestCommand = new RelayCommand(Executed_DeclineSubTourRequestCommand, CanExecute_DeclineSubTourRequestCommand);
             DisplaySubTourRequestsCommand = new RelayCommand(Executed_DisplaySubTourRequestsCommand, CanExecute_DisplaySubTourRequestsCommand);
             FilterCommand = new RelayCommand(Executed_FilterCommand, CanExecute_FilterCommand);
+            LocationStatisticsReportCommand = new RelayCommand(Executed_LocationStatisticsReportCommand, CanExecute_LocationStatisticsReportCommand);
+            LanguageStatisticsReportCommand = new RelayCommand(Executed_LanguageStatisticsReportCommand, CanExecute_LanguageStatisticsReportCommand);
             HomePageNavigationCommand = new RelayCommand(Executed_HomePageNavigationCommand, CanExecute_HomePageNavigationCommand);
             ToursPageNavigationCommand = new RelayCommand(Executed_ToursPageNavigationCommand, CanExecute_ToursPageNavigationCommand);
             AccountPageNavigationCommand = new RelayCommand(Executed_AccountPageNavigationCommand, CanExecute_AccountPageNavigationCommand);
@@ -485,7 +491,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 Update();
             }
         }
-        
+
         public void HandleSubTourRequest(bool accepted)
         {
             if (SelectedSubTourRequest != null)
@@ -582,9 +588,9 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         private void Executed_DisplaySubTourRequestsCommand(object obj)
         {
             SubTourRequestsToDisplay.Clear();
-            foreach(var subTour in _subTourRequestService.GetByComplexTourId(SelectedComplexTourRequest.Id))
+            foreach (var subTour in _subTourRequestService.GetByComplexTourId(SelectedComplexTourRequest.Id))
             {
-                if(subTour.TourRequest.State == RequestsState.OnHold)
+                if (subTour.TourRequest.State == RequestsState.OnHold)
                 {
                     SubTourRequestsToDisplay.Add(subTour);
                 }
@@ -614,6 +620,110 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         private bool CanExecute_FilterCommand(object obj)
         {
             return true;
+        }
+
+        private void Executed_LanguageStatisticsReportCommand(object obj)
+        {
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+            PdfDocument document = new();
+
+            PdfPage page = document.AddPage();
+
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+
+            XFont fontTitle = new("Arial", 14, XFontStyle.Bold);
+            XFont font = new("Arial", 10);
+            XFont fontHeader = new("Arial", 10, XFontStyle.Bold);
+
+            gfx.DrawString("Statistika o svim/prihvaćenim/neprihvaćenim zahtevima za ture", fontTitle, XBrushes.Black,
+                new XRect(0, 10, page.Width, page.Height),
+                XStringFormats.TopCenter);
+
+            gfx.DrawString("Datum izdavanja izveštaja: " + DateTime.Today.ToString("dd-MM-yyyy"), font, XBrushes.Black, new XPoint(20, 60));
+            gfx.DrawString("Primalac izveštaja: " + LoggedInGuide.Name + " " + LoggedInGuide.Surname, font, XBrushes.Black, new XPoint(20, 75));
+            gfx.DrawString("Turistička agencija koja izdaje izveštaj: Horizont", font, XBrushes.Black, new XPoint(20, 90));
+
+            if (SelectedLanguageYearsComboBoxItem.ToString() == "Svih vremena")
+            {
+                gfx.DrawString("Za pregled statistike odabrane su sve godine: ", font, XBrushes.Black, new XPoint(20, 105));
+            }
+            else
+            {
+                gfx.DrawString("Odabrana godina za pregled statistike: " + SelectedLanguageYearsComboBoxItem.ToString(), font, XBrushes.Black, new XPoint(20, 105));
+            }
+
+            //Table header
+            gfx.DrawString("Jezik", fontHeader, XBrushes.Black, new XPoint(20, 150));
+            gfx.DrawString("Broj zahteva", fontHeader, XBrushes.Black, new XPoint(120, 150));
+            gfx.DrawString("Procenat prihvacenih zahteva", fontHeader, XBrushes.Black, new XPoint(220, 150));
+            gfx.DrawString("Procenat neprihvacenih zahteva", fontHeader, XBrushes.Black, new XPoint(420, 150));
+
+            gfx.DrawLine(new XPen(XColor.FromArgb(50, 30, 200)), new XPoint(20, 160), new XPoint(570, 160));
+
+            gfx.DrawString(SelectedLanguagesComboBoxItem.ToString(), font, XBrushes.Black, new XPoint(20, 180));
+            gfx.DrawString(_requestService.GetByLanguageCount(SelectedLanguageYearsComboBoxItem.ToString(), SelectedLanguagesComboBoxItem.ToString()).ToString(), font, XBrushes.Black, new XPoint(120, 180));
+            gfx.DrawString(_requestService.GetUsersAcceptedPercentageByYearAndLanguage(SelectedLanguageYearsComboBoxItem.ToString(), SelectedLanguagesComboBoxItem.ToString()).ToString("0.00") + "%", font, XBrushes.Black, new XPoint(220, 180));
+            gfx.DrawString(_requestService.GetUsersDeclinedPercentageByYearAndLanguage(SelectedLanguageYearsComboBoxItem.ToString(), SelectedLanguagesComboBoxItem.ToString()).ToString("0.00") + "%", font, XBrushes.Black, new XPoint(420, 180));
+
+            document.Save("C:\\Users\\HP Pavilion\\Documents\\GitHub\\SIMS-Project\\Sims2023\\Sims2023\\Resources\\GuideResources\\LanguageRequestStatistics.pdf");
+        }
+
+        private bool CanExecute_LanguageStatisticsReportCommand(object obj)
+        {
+            return SelectedLanguagesComboBoxItem != null && SelectedLanguageYearsComboBoxItem != null;
+        }
+
+        private void Executed_LocationStatisticsReportCommand(object obj)
+        {
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+            PdfDocument document = new();
+
+            PdfPage page = document.AddPage();
+
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+
+            XFont fontTitle = new("Arial", 14, XFontStyle.Bold);
+            XFont font = new("Arial", 10);
+            XFont fontHeader = new("Arial", 10, XFontStyle.Bold);
+
+            gfx.DrawString("Statistika o svim/prihvaćenim/neprihvaćenim zahtevima za ture", fontTitle, XBrushes.Black,
+                new XRect(0, 10, page.Width, page.Height),
+                XStringFormats.TopCenter);
+
+            gfx.DrawString("Datum izdavanja izveštaja: " + DateTime.Today.ToString("dd-MM-yyyy"), font, XBrushes.Black, new XPoint(20, 60));
+            gfx.DrawString("Primalac izveštaja: " + LoggedInGuide.Name + " " + LoggedInGuide.Surname, font, XBrushes.Black, new XPoint(20, 75));
+            gfx.DrawString("Turistička agencija koja izdaje izveštaj: Horizont", font, XBrushes.Black, new XPoint(20, 90));
+            
+            if(SelectedLocationYearsComboBoxItem.ToString() == "Svih vremena")
+            {
+                gfx.DrawString("Za pregled statistike odabrane su sve godine: ", font, XBrushes.Black, new XPoint(20, 105));
+            }
+            else
+            {
+                gfx.DrawString("Odabrana godina za pregled statistike: " + SelectedLocationYearsComboBoxItem.ToString(), font, XBrushes.Black, new XPoint(20, 105));
+            }
+
+            //Table header
+            gfx.DrawString("Lokacija", fontHeader, XBrushes.Black, new XPoint(20, 150));
+            gfx.DrawString("Broj zahteva", fontHeader, XBrushes.Black, new XPoint(120, 150));
+            gfx.DrawString("Procenat prihvacenih zahteva", fontHeader, XBrushes.Black, new XPoint(220, 150));
+            gfx.DrawString("Procenat neprihvacenih zahteva", fontHeader, XBrushes.Black, new XPoint(420, 150));
+
+            gfx.DrawLine(new XPen(XColor.FromArgb(50, 30, 200)), new XPoint(20, 160), new XPoint(570, 160));
+
+            gfx.DrawString(SelectedLocationsComboBoxItem.ToString(), font, XBrushes.Black, new XPoint(20, 180));
+            gfx.DrawString(_requestService.GetByLocationCount(SelectedLocationYearsComboBoxItem.ToString(), SelectedLocationsComboBoxItem.ToString()).ToString(), font, XBrushes.Black, new XPoint(120, 180));
+            gfx.DrawString(_requestService.GetUsersAcceptedPercentageByYearAndLocation(SelectedLocationYearsComboBoxItem.ToString(), SelectedLocationsComboBoxItem.ToString()).ToString("0.00") + "%", font, XBrushes.Black, new XPoint(220, 180));
+            gfx.DrawString(_requestService.GetUsersDeclinedPercentageByYearAndLocation(SelectedLocationYearsComboBoxItem.ToString(), SelectedLocationsComboBoxItem.ToString()).ToString("0.00") + "%", font, XBrushes.Black, new XPoint(420, 180));
+
+            document.Save("C:\\Users\\HP Pavilion\\Documents\\GitHub\\SIMS-Project\\Sims2023\\Sims2023\\Resources\\GuideResources\\LocationRequestStatistics.pdf");
+        }
+
+        private bool CanExecute_LocationStatisticsReportCommand(object obj)
+        {
+            return SelectedLocationsComboBoxItem != null && SelectedLocationYearsComboBoxItem != null;
         }
 
         //TOOLBAR

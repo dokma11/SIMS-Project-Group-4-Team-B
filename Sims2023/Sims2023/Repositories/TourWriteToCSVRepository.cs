@@ -117,6 +117,7 @@ namespace Sims2023.Repository
 
         public void UpdateState(Tour selectedTour, ToursState state)
         {
+            _tours = _fileHandler.Load();
             var tourToUpdate = _tours.FirstOrDefault(t => t.Id == selectedTour.Id);
             if (tourToUpdate != null)
             {

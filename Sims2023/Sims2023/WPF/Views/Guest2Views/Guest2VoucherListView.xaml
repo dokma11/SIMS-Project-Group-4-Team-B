@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
+      xmlns:ns="clr-namespace:Sims2023"
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1024"
       Title="Guest2VoucherListView">
@@ -58,13 +59,13 @@
             </DataGrid.RowStyle>
             <DataGrid.Columns>
                 
-                <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Created" Width="175" Binding="{Binding Created}"/>
-                <DataGridTextColumn Header="Expiring" Width="175" Binding="{Binding Expired}"/>
-                <DataGridTextColumn Header="Description" Width="380" Binding="{Binding AdditionalComment}"/>
+                <DataGridTextColumn Header="{ns:Loc nameData}" Width="200" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="{ns:Loc createdData}" Width="175" Binding="{Binding Created}"/>
+                <DataGridTextColumn Header="{ns:Loc expiringData}" Width="175" Binding="{Binding Expired}"/>
+                <DataGridTextColumn Header="{ns:Loc descriptionData}" Width="380" Binding="{Binding AdditionalComment}"/>
 
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="My coupons" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
+        <Label Content="{ns:Loc myCouponsMenu}" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

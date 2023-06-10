@@ -32,9 +32,6 @@ namespace Sims2023.WPF.Views.Guest2Views
 
         }
 
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            GuestLiveTrackingTourViewModel.Cancel_Click();
-        }
+        
     }
 }

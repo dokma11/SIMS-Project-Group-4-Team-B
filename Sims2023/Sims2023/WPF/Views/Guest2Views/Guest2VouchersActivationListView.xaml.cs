@@ -25,18 +25,9 @@ namespace Sims2023.WPF.Views.Guest2Views
         public Guest2VouchersActivationListView( User user)
         {
             InitializeComponent();
-            Guest2VouchersActivationListViewModel = new Guest2VouchersActivationListViewModel(user, this);
-            DataContext = Guest2VouchersActivationListViewModel;
+            this.DataContext = new Guest2VouchersActivationListViewModel(user,this);
         }
 
-        private void ActivateVoucher_Click(object sender, RoutedEventArgs e)
-        {
-            Guest2VouchersActivationListViewModel.ActivateVoucher_Click();
-        }
-
-        private void SkipVoucher_Click(object sender, RoutedEventArgs e)
-        {
-            Guest2VouchersActivationListViewModel.SkipVoucher_Click();
-        }
+        
     }
 }
