@@ -103,6 +103,52 @@ namespace Sims2023.Repositories
             }
             return filteredForums;
         }
+        public void MarkAsSpecial(List<ForumComment> comments)
+        {
+            List<Forum> forumsCopy = new List<Forum>(_forums);
+            foreach (var forum in forumsCopy)
+            {
+                if (AppropriateNumberOfSpecialComments(forum, comments))
+                {
+                    forum.Special = true;
+                    Update(forum);
+                }
+            }
+        }
+
+        public bool AppropriateNumberOfSpecialComments(Forum forum, List<ForumComment> comments)
+        {
+            if (forum.CountGuestComments>=20)
+            {
+                return true;
+            }
+            if (forum.CountOwnerComments >= 10)
+            {
+                return true;
+            }
+            return false;
+
+
+        }
+        public int CountSpecialComments(Forum forum, List<ForumComment> comments)
+        {
+            int i = 0;
+            foreach (ForumComment comment in comments)
+            {
+                if (comment.Forum.Id == forum.Id && comment.Special == true)
+                {
+                    i++;
+                }
+            }
+            return i;
+        }
+
+        public List<Forum> GetForumsForParticularOwner(List<Location> _locations)
+        {
+            List<Forum> forums = _forums.Where(f => _locations.Any(l => l.Id == f.Location.Id)).ToList();
+            return forums;
+
+        }
     }
 
 }

@@ -83,6 +83,17 @@ namespace Sims2023.Application.Services
         {
             return _forums.FilterForums(filteredForums, citySearch, countrySearch);
         }
+
+        public void MarkAsSpecial(List<ForumComment> allComments)
+        {
+            _forums.MarkAsSpecial(allComments);
+        }
+
+        public List<Forum> GetForumsForParticularOwner(List<Location> _locations)
+        {
+            Save();
+            return _forums.GetForumsForParticularOwner(_locations);
+        }
     }
 
 }

@@ -25,6 +25,11 @@ namespace Sims2023.Application.Services
             GetLocationReferencesForStatistics();
         }
 
+        public TourRequest GetById(int id)
+        {
+            return _tourRequest.GetById(id);
+        }
+
         public void Create(TourRequest request)
         {
             _tourRequest.Add(request);

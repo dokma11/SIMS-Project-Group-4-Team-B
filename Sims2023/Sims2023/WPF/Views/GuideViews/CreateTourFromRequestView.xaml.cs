@@ -4,6 +4,8 @@ using Sims2023.WPF.ViewModels.GuideViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Sims2023.WPF.Views.GuideViews
 {
@@ -23,8 +25,11 @@ namespace Sims2023.WPF.Views.GuideViews
         private RequestService _requestService;
         private CountriesAndCitiesService _countriesAndCitiesService;
         private TourNotificationService _tourNotificationService;
+        private ComplexTourRequestService _complexTourRequestService;
+        private SubTourRequestService _subTourRequestService;
+
         public User LoggedInGuide { get; set; }
-        public CreateTourFromRequestView(TourRequest selectedTourRequest, TourService tourService, LocationService locationService, KeyPointService keyPointService, TourReviewService tourReviewService, RequestService requestService, TourReservationService tourReservationService, VoucherService voucherService, UserService userService, CountriesAndCitiesService countriesAndCitiesService, User loggedInGuide, TourNotificationService tourNotificationService)
+        public CreateTourFromRequestView(TourRequest selectedTourRequest, TourService tourService, LocationService locationService, KeyPointService keyPointService, TourReviewService tourReviewService, RequestService requestService, TourReservationService tourReservationService, VoucherService voucherService, UserService userService, CountriesAndCitiesService countriesAndCitiesService, User loggedInGuide, TourNotificationService tourNotificationService, ComplexTourRequestService complexTourRequestService, SubTourRequestService subTourRequestService)
         {
             InitializeComponent();
 
@@ -38,6 +43,8 @@ namespace Sims2023.WPF.Views.GuideViews
             _userService = userService;
             _countriesAndCitiesService = countriesAndCitiesService;
             _tourNotificationService = tourNotificationService;
+            _complexTourRequestService = complexTourRequestService;
+            _subTourRequestService = subTourRequestService;
 
             LoggedInGuide = loggedInGuide;
 
@@ -51,7 +58,44 @@ namespace Sims2023.WPF.Views.GuideViews
 
             requestDatePicker.DisplayDateStart = CreateTourFromRequestViewModel.SelectedRequest.Start;
 
-            requestDatePicker.BlackoutDates.Add(new CalendarDateRange(CreateTourFromRequestViewModel.SelectedRequest.End.AddDays(1), DateTime.MaxValue)); 
+            requestDatePicker.BlackoutDates.Add(new CalendarDateRange(CreateTourFromRequestViewModel.SelectedRequest.End.AddDays(1), DateTime.MaxValue));
+
+            TextBox[] textBoxes = { toursNameTextBox, keyPointTextBox, picturesTextBox };
+
+            foreach (TextBox textBox in textBoxes)
+            {
+                textBox.GotFocus += TextBox_GotFocus;
+                textBox.LostFocus += TextBox_LostFocus;
+                textBox.Text = textBox.Tag.ToString();
+            }
+        }
+
+        private void IntegerUpDown_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!int.TryParse(e.Text, out _))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            string placeholderText = textBox.Tag.ToString();
+            if (textBox.Text == placeholderText)
+            {
+                textBox.Text = "";
+            }
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            string placeholderText = textBox.Tag.ToString();
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.Text = placeholderText;
+            }
         }
 
         private void RequestDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -70,22 +114,41 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            if (keyPointsOutput.Items.Count > 1)
+            if (keyPointsOutput.Items.Count > 1 && toursNameTextBox.Text != "" && toursNameTextBox.Text != "Unesite naziv"
+                && picturesTextBox.Text != "" && picturesTextBox.Text != "Unesite putanje slika" && duration.Text != "")
             {
                 CreateTourFromRequestViewModel.ConfirmCreation();
-                RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
+                RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
                 FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
             }
             else
             {
-                MessageBox.Show("Popunite sva polja molim Vas");
+                ValidationErrorLabelEvent();
             }
+        }
+
+        public void ValidationErrorLabelEvent()
+        {
+            validationLabel.Visibility = Visibility.Visible;
+            DispatcherTimer timer = new()
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            validationLabel.Visibility = Visibility.Hidden;
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             CreateTourFromRequestViewModel.CancelCreation();
-            RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
+            RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
         }
 
@@ -104,19 +167,19 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void ToursButton_Click(object sender, RoutedEventArgs e)
         {
-            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService, _tourNotificationService);
+            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
         }
 
         private void ReviewsButton_Click(object sender, RoutedEventArgs e)
         {
-            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
+            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(guestReviewsView);
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            GuideAccountView guideAccountView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
+            GuideAccountView guideAccountView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(guideAccountView);
         }
     }

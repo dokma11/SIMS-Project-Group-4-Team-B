@@ -13,6 +13,9 @@
     <Compile Update="WPF\Views\Guest1Views\AccommodationRenovationRecommodationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\Guest1Views\ForumCommentView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationAndOwnerGradingViewHelp.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -148,6 +151,9 @@
     <Compile Update="WPF\Views\OwnerViews\AvailableDatesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\OwnerViews\CommentsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\OwnerViews\DetailedGradeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -158,6 +164,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\OwnerViews\AccommodationRegistrationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\LeaveCommentView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\ListOfForumsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\OwnerViews\MonthlyStatiticsView.xaml.cs">
@@ -198,6 +210,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest1Views\AccommodationReservationCancellationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\ForumCommentView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationAndOwnerGradingViewHelp.xaml">
@@ -353,6 +368,9 @@
     <Page Update="WPF\Views\OwnerViews\AvailableDatesView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\OwnerViews\CommentsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\OwnerViews\Guest1GradeView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -363,6 +381,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\AccommodationRegistrationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\LeaveCommentView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\ListOfForumsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\OwnerViews\MonthlyStatiticsView.xaml">

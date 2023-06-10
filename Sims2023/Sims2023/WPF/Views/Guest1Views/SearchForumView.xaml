@@ -28,19 +28,20 @@
             <Grid Grid.Column="0" Margin="50,0,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition/>
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
-                <Label x:Name="label1" Content="Unesite lokaciju koja Vas interesuje:"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="24" Grid.Row="0"/>
-                <Label x:Name="label2" Content="Grad:"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="21" Grid.Row="3"/>
-                <ComboBox x:Name="cityBox" TabIndex="18" Grid.Row="4" Grid.Column="0" Margin="0,0,50,20"/>
-                <Label x:Name="label3" Content="Država:"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="21" Grid.Row="1"/>
-                <ComboBox x:Name="countryBox" TabIndex="18" Grid.Row="2" Grid.Column="0" Margin="0,0,50,20" SelectionChanged="CountryComboBox_SelectionChanged"/>
-                <Button x:Name="searchForum"  Content="Pretraži forume" TabIndex="19" FontSize="20" Margin="115,0,165,0" Grid.Row="6" Command="cmd:RoutedCommands.Command1View"/>
+                <Label x:Name="label1" Content="Unesite lokaciju koja Vas interesuje:"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Grid.Row="0"/>
+                <Label x:Name="label2" Content="Grad:"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="18" Grid.Row="3"/>
+                <ComboBox x:Name="cityBox" TabIndex="18" Grid.Row="4" Grid.Column="0" Margin="0,0,40,20"/>
+                <Label x:Name="label3" Content="Država:"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="18" Grid.Row="1"/>
+                <ComboBox x:Name="countryBox" TabIndex="18" Grid.Row="2" Grid.Column="0" Margin="0,0,40,20" SelectionChanged="CountryComboBox_SelectionChanged"/>
+                <Button x:Name="searchForum"  Content="Pretraži forume" TabIndex="19" FontSize="20" Margin="0,0,250,0" Grid.Row="6" Command="cmd:RoutedCommands.Command1View"/>
+                <Button x:Name="makeForum"  Content="  Novi forum  " TabIndex="19" FontSize="20" Margin="245,0,35,0" Grid.Row="6" Command="cmd:RoutedCommands.Command2View"/>
             </Grid>
             <Grid Grid.Column="1" Margin="0,0,50,0">
                 <Grid.RowDefinitions>
@@ -52,13 +53,24 @@
                   ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedForum, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True"
-                  Grid.Row="0" HorizontalAlignment="Center" Width="350" Margin="0,30,0,0" CanUserAddRows="False">
+                  Grid.Row="0" HorizontalAlignment="Left" Width="350" Margin="67,30,0,0" CanUserAddRows="False">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="{x:Type DataGridRow}">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Special}" Value="True">
+                                    <Setter Property="Background" Value="#eab676"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Tema" Binding="{Binding Theme}" Width="340"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button x:Name="makeForum"  Content="  Novi forum  " TabIndex="19" FontSize="20" Margin="15,0,265,0" Grid.Row="2" Command="cmd:RoutedCommands.Command2View"/>
-                <Button x:Name="showForum"  Content="  Prikaži forum  " TabIndex="19" FontSize="20" Margin="265,0,15,0" Grid.Row="2" Command="cmd:RoutedCommands.Command3View"/>
+                <Button x:Name="showForum"  Content="  Prikaži forum  " TabIndex="19" FontSize="20" Margin="165,0,115,0" Grid.Row="2" Command="cmd:RoutedCommands.Command3View"/>
             </Grid>
         </Grid>
     </Grid>

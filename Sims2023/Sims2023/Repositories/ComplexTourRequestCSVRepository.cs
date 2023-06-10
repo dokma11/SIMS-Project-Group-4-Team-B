@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Sims2023.Repositories
 {
-    public class ComplexTourRequestCSVRepository:IComplexTourRequestCSVRepository
+    public class ComplexTourRequestCSVRepository : IComplexTourRequestCSVRepository
     {
         private readonly List<ComplexTourRequest> _complexTourRequests;
         private readonly ComplexTourRequestFileHandler _fileHandler;
@@ -48,7 +45,7 @@ namespace Sims2023.Repositories
 
         public List<ComplexTourRequest> GetByUser(User user)
         {
-            return _complexTourRequests.Where(r => r.Guest.Id== user.Id).ToList();
+            return _complexTourRequests.Where(r => r.Guest.Id == user.Id).ToList();
         }
 
         public void UpdateDate(ComplexTourRequest complexTourRequest,string date)
@@ -68,6 +65,11 @@ namespace Sims2023.Repositories
             {
                 observer.Update();
             }
+        }
+
+        public List<ComplexTourRequest> GetOnHold()
+        {
+            return _complexTourRequests.Where(c => c.CurrentState == ComplexRequestsState.OnHold).ToList();
         }
     }
 }

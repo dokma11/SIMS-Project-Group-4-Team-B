@@ -1,11 +1,11 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
-using Sims2023.Observer;
 using Sims2023.View;
 using Sims2023.WPF.Views;
-using Sims2023.WPF.Views.GuideViews;
 using Sims2023.WPF.Views.Guest1Views;
+using Sims2023.WPF.Views.GuideViews;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
@@ -28,7 +28,7 @@ namespace Sims2023
             DataContext = this;
 
             _userService = new UserService();
-            
+
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -47,23 +47,24 @@ namespace Sims2023
 
         private void GetUser(String username, String password)
         {
-            bool loggedIn = false;
-            var users = _userService.GetAllUsers().ToList();
-            foreach (var user in users)
+            var user = _userService.GetAllUsers().FirstOrDefault(u => u.Username == username && u.Password == password);
+
+            if (user != null && user.AbleToLogIn)
             {
-                if (user.Username == username && user.Password == password)
-                {
-                    OpenUserView(user);
-                    loggedIn = true;
-                    Close();
-                }
+                OpenUserView(user);
+                Close();
             }
-            if (!loggedIn)
+            else if (user != null && !user.AbleToLogIn)
             {
-                MessageBox.Show("Data kombinacija ne postoji");
+                MessageBox.Show("Nakon datog otkaza više ne možete da se prijavite na svoj nalog!");
+            }
+            else
+            {
+                MessageBox.Show("Pogrešna kombinacija korisničkog imena i lozinke");
                 UsernameTextBox.Text = "";
                 PasswordBox.Password = "";
             }
+
         }
 
         private void OpenUserView(User user)

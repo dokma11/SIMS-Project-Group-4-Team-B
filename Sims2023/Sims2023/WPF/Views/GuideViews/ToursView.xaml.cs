@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace Sims2023.WPF.Views.GuideViews
@@ -25,11 +25,13 @@ namespace Sims2023.WPF.Views.GuideViews
         private RequestService _requestService;
         private CountriesAndCitiesService _countriesAndCitiesService;
         private TourNotificationService _tourNotificationService;
+        private ComplexTourRequestService _complexTourRequestService;
+        private SubTourRequestService _subTourRequestService;
+
         public ToursViewModel ToursViewModel;
         public User LoggedInGuide { get; set; }
-        private bool addDatesButtonClicked;
 
-        public ToursView(TourService tourService, TourReviewService tourReviewService, TourReservationService tourReservationService, KeyPointService keyPointService, LocationService locationService, VoucherService voucherService, UserService userService, User loggedInGuide, CountriesAndCitiesService countriesAndCitiesService, RequestService requestService, TourNotificationService tourNotificationService)
+        public ToursView(TourService tourService, TourReviewService tourReviewService, TourReservationService tourReservationService, KeyPointService keyPointService, LocationService locationService, VoucherService voucherService, UserService userService, User loggedInGuide, CountriesAndCitiesService countriesAndCitiesService, RequestService requestService, TourNotificationService tourNotificationService, ComplexTourRequestService complexTourRequestService, SubTourRequestService subTourRequestService)
         {
             InitializeComponent();
 
@@ -42,6 +44,8 @@ namespace Sims2023.WPF.Views.GuideViews
             _userService = userService;
             _countriesAndCitiesService = countriesAndCitiesService;
             _requestService = requestService;
+            _complexTourRequestService = complexTourRequestService;
+            _subTourRequestService = subTourRequestService;
 
             LoggedInGuide = loggedInGuide;
 
@@ -52,15 +56,77 @@ namespace Sims2023.WPF.Views.GuideViews
             countryComboBox.DisplayMemberPath = "CountryName";
             countryComboBox.SelectedValuePath = "CountryName";
 
-            addDatesButtonClicked = false;
             _tourNotificationService = tourNotificationService;
+
+            TextBox[] textBoxes = { toursNameTextBox, keyPointTextBox, picturesTextBox, descriptionTextBox };
+
+            foreach (TextBox textBox in textBoxes)
+            {
+                textBox.GotFocus += TextBox_GotFocus;
+                textBox.LostFocus += TextBox_LostFocus;
+                textBox.Text = textBox.Tag.ToString();
+            }
+        }
+
+        private void IntegerUpDown_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!int.TryParse(e.Text, out _))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            string placeholderText = textBox.Tag.ToString();
+            if (textBox.Text == placeholderText)
+            {
+                textBox.Text = "";
+            }
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            string placeholderText = textBox.Tag.ToString();
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.Text = placeholderText;
+            }
         }
 
         private void TabControl_SelectionChanged(object sender, RoutedEventArgs e)
         {
-
-            if (tabControl.SelectedIndex == 1)
+            if (tabControl.SelectedIndex == 0)
             {
+                toolTipButton.ToolTip = "Dobrodošli na stranicu ,,Ture\"!\n\n"
+                + "U tabeli u sredini možete videti listu svih predstojećih tura i njihove informacije. \n"
+                + "Da biste videli ključne tačke ture, morate da odaberetu željenu turu, nakon čega će Vam ispod nje biti izlistane sve ključne tačke\n\n"
+                + "Dole, sa Vaše desne strane, Vam se nalaze dva dugmeta: \n"
+                + "• ,,Započni turu\": kada odaberete turu koju želite da započnete(mora biti današnja), potom pritisnete na ovo dugme,\n"
+                + "bićete preusmereni na prozor ,,Praćenje ture uživo\" preko kojeg ćete pratiti Vašu turu i vršiti željene evidencije vezane za nju\n"
+                + "• ,,Otkaži turu\": kada odaberete turu koju želite da otkažete(mora biti 48 sati unapred), potom pritisnete na ovo dugme,\n"
+                + "izabrana tura će biti otkazana i samim time uklonjena iz liste. Svi gosti koji su rezervisali mesto na toj novootkazanoj turi\n"
+                + "dobiće po jedan vaučer koji će kasnije moći da iskoriste za neku drugu turu.\n";
+            }
+            else if (tabControl.SelectedIndex == 1)
+            {
+                toolTipButton.ToolTip = "Dobrodošli na stranicu ,,Kreiranje ture!\"\n\n"
+                  + "Treba da popunite sva sledeća polja:\n"
+                      + "• Naziv ture: unesite željeni naziv nove ture \n"
+                       + " • Lokacija održavanja ture: iz padajućih menija odaberite prvo državu(levo), zatim grad u toj državi(desno)\n"
+                       + "  • • Jezik na kom se tura održava: iz padajućeg menija odaberite jezik na kojem ćete održati Vašu turu\n"
+                      + "  • Maksimalan broj gostiju: unesite maksimalan broj gostiju koji može da prisustvuje Vašoj turi\n"
+                      + "  • Trajanje ture(u satima): unesite koliko želite da nova tura traje\n"
+                      + "  • Jedna ili više slika: unesite url putanje slika koje će korisnici moći da vide prilikom odabira ture\n"
+                      + "  • Ključne tačke: unesite makar dve ključne tačke iz kojih će Vaša nova tura da se sastoji. U polju ispod možete videti koje ste uneli\n"
+                       + " • Datum i vreme početka ture: klikom na kalendar imaćete priliku da odaberete jedan od datuma koji se nalazi u već unapred zadatom opseg,\n"
+                       + " odaberite onaj datum za koji ste sigurni da Vam je slobodan.\n"
+                       + " • Opis događaja na turi: ukratko opišite šta će se sve dešavati na Vašoj turi, potrudite se da bude interesantno Vašim budućim gostima \n\n"
+                       + " Ako ste zadovoljni Vašim unosom i želite da konačno potvrdite tj kreirate turu pritisnite na dugme ,,Potvrdi\" \n"
+                       + " Ako niste zadovoljni i želite da otkažete kreiranje ture pritisnite na dugme,, Odustani\" \n";
+
                 /*
                 toursNameTextBox.Text = string.Empty;
                 maximumNumberOfGuests.Value = 1;
@@ -78,7 +144,24 @@ namespace Sims2023.WPF.Views.GuideViews
                 }
                 */
             }
-
+            else
+            {
+                toolTipButton.ToolTip = "Dobrodošli na stranicu ,,Statistika tura\"!\n\n"
+                + "Sa Vaše desne strane nalazi se prikaz najposećenije ture. Pored samog naslova ,,Najposećenija tura\" nalazi se padajući meni, \n"
+                + "pomoću kojeg možete da odaberete godinu za koju želite da vidite najposećeniju turu. Isto tako ima i opcija ,,Svih vremena\", \n"
+                + "koja će Vam izlistati najposećeniju turu svih vremena! \n"
+                + "Ispod izlistane ture nalazi se statistika prikazane najposećenije ture: \n"
+                + "• Broj gostiju po starosnoj grupi: prikazuje se broj gostiju, koji su bili prisutni na turi, za svaku starosnu grupu \n"
+                + "• Procenat gostiju sa/bez vaučera: prikazuje se procenat gostiju koji su iskoristili vaučer da bi rezervisali svoje mesto na turi, \n"
+                + "a isto tako i procenat gostiju koji nisu koristili vaučer da bi rezervisali svoje mesto na turi\n\n"
+                + "Sa Vaše leve strane ispod naslova ,,Završene ture\" izlistane su sve završene, otkazane i prekinute ture\n"
+                + "Ako želite da vidite statistiku određene ture morate da je odaberete (levim klikom na nju) i onda da pritisnete na dugme ,,Prikaži statistiku\",\n"
+                + "koje se nalazi ispod same tabele \n"
+                + "Nakon toga, sa Vaše desne strane biće prikazana statistika izabrane ture u kojoj čete moči da vidite ponovo broj gostiju po starosnoj grupi \n"
+                + "i procenat gostiju sa/bez vaučera \n"
+                + "Klikom na dugme, koje se nalazi ispod, ,,Prikaži najposećeniju turu\", ažuriraće se prikaz tako da prikaže najposećeniju turu, a skloniće se \n"
+                + "prikaz statistike Vaše prethodno izabrane ture \n";
+            }
         }
 
         //PREDSTOJECE TURE
@@ -88,19 +171,19 @@ namespace Sims2023.WPF.Views.GuideViews
             if (ToursViewModel.IsCreatedTourSelected())
             {
                 startTourButton.IsEnabled = false;
-                LiveTourTrackingView liveTourTrackingView = new(ToursViewModel.SelectedCreatedTour, _keyPointService, _tourReservationService, _userService, _tourService, _tourReviewService, _requestService, LoggedInGuide, _locationService, _voucherService, _countriesAndCitiesService, _tourNotificationService);
+                LiveTourTrackingView liveTourTrackingView = new(ToursViewModel.SelectedCreatedTour, _keyPointService, _tourReservationService, _userService, _tourService, _tourReviewService, _requestService, LoggedInGuide, _locationService, _voucherService, _countriesAndCitiesService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
                 FrameManagerGuide.Instance.MainFrame.Navigate(liveTourTrackingView);
                 ToursViewModel.Update();
             }
-/*
-            if (ToursViewModel.IsTourFinishedProperly())
-            {
-                SuccessfulFinishLabelEvent();
-            }
-            else
-            {
-                SuccessfulInterruptionLabelEvent();
-            }*/
+            /*
+                        if (ToursViewModel.IsTourFinishedProperly())
+                        {
+                            SuccessfulFinishLabelEvent();
+                        }
+                        else
+                        {
+                            SuccessfulInterruptionLabelEvent();
+                        }*/
         }
 
         private void SuccessfulFinishLabelEvent()
@@ -176,15 +259,40 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            if (addDatesButtonClicked && keyPointsOutput.Items.Count > 1)
+            if (keyPointsOutput.Items.Count > 1 && toursNameTextBox.Text != "" && toursNameTextBox.Text != "Unesite naziv"
+                && keyPointTextBox.Text != "" && keyPointTextBox.Text != "Unesite ključne tačke" && picturesTextBox.Text != "" && picturesTextBox.Text != "Unesite putanje slika"
+                && descriptionTextBox.Text != "" && descriptionTextBox.Text != "Unesite opis ture"
+                && maximumNumberOfGuests.Text != "" && duration.Text != ""
+                )
             {
                 ToursViewModel.ConfirmCreation(countryComboBox.Text, cityComboBox.Text);
                 ToursViewModel.Update();
                 tabControl.SelectedIndex = 0;
                 SuccessfulCreationLabelEvent();
             }
+            else
+            {
+                ValidationErrorLabelEvent();
+            }
         }
 
+        public void ValidationErrorLabelEvent()
+        {
+            validationLabel.Visibility = Visibility.Visible;
+            DispatcherTimer timer = new()
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick_Validation;
+            timer.Start();
+        }
+
+        private void Timer_Tick_Validation(object sender, EventArgs e)
+        {
+            validationLabel.Visibility = Visibility.Hidden;
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
+        }
         private void SuccessfulCreationLabelEvent()
         {
             successfulEventLabel.Content = "Uspešno ste kreirali turu";
@@ -224,15 +332,9 @@ namespace Sims2023.WPF.Views.GuideViews
             addKeyPointsButton.IsEnabled = !string.IsNullOrEmpty(keyPointTextBox.Text);
         }
 
-        private void DateTimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void TourDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            addDatesButton.IsEnabled = !string.IsNullOrEmpty(dateTimeTextBox.Text);
-        }
-
-        private void AddDatesButton_Click(object sender, RoutedEventArgs e)
-        {
-            addDatesButtonClicked = true;
-            ToursViewModel.AddDatesToList(dateTimeTextBox.Text);
+            ToursViewModel.AddDatesToList(tourDatePicker.Text);
         }
 
         //STATISTIKA TURE
@@ -272,7 +374,7 @@ namespace Sims2023.WPF.Views.GuideViews
         private void DisplayTheMostVisitedTourButton(object sender, RoutedEventArgs e)
         {
             //vrati nazad sve
-            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService, _tourNotificationService);
+            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
             toursView.tabControl.SelectedIndex = 2;
         }
@@ -287,19 +389,19 @@ namespace Sims2023.WPF.Views.GuideViews
 
         private void RequestsButton_Click(object sender, RoutedEventArgs e)
         {
-            RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
+            RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
         }
 
         private void ReviewsButton_Click(object sender, RoutedEventArgs e)
         {
-            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
+            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(guestReviewsView);
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            GuideAccountView guideAccountView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService);
+            GuideAccountView guideAccountView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
             FrameManagerGuide.Instance.MainFrame.Navigate(guideAccountView);
         }
     }

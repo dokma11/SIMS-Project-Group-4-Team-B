@@ -44,7 +44,9 @@
     <None Remove="Resources\GuestTwoResources\invertedbackgroundtexture.png" />
     <None Remove="Resources\GuestTwoResources\left.png" />
     <None Remove="Resources\GuestTwoResources\right.png" />
+    <None Remove="Resources\GuideResources\5257500-middle.png" />
     <None Remove="Resources\GuideResources\account-logo.png" />
+    <None Remove="Resources\GuideResources\achievement-icon-png-22.jpg" />
     <None Remove="Resources\GuideResources\Horizont_SRB.png" />
     <None Remove="Resources\GuideResources\icon-account-2.jpg" />
     <None Remove="Resources\OwnerResources\homeOwner.png" />
@@ -189,7 +191,9 @@
     <Resource Include="Resources\GuestTwoResources\invertedbackgroundtexture.png" />
     <Resource Include="Resources\GuestTwoResources\left.png" />
     <Resource Include="Resources\GuestTwoResources\right.png" />
+    <Resource Include="Resources\GuideResources\5257500-middle.png" />
     <Resource Include="Resources\GuideResources\account-logo.png" />
+    <Resource Include="Resources\GuideResources\achievement-icon-png-22.jpg" />
     <Resource Include="Resources\GuideResources\Horizont_SRB.png" />
     <Resource Include="Resources\GuideResources\icon-account-2.jpg" />
     <Resource Include="Resources\OwnerResources\homeOwner.png">

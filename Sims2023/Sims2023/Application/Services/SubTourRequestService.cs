@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sims2023.Domain.Models;
+﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
+using System.Collections.Generic;
 
 namespace Sims2023.Application.Services
 {
@@ -14,22 +10,50 @@ namespace Sims2023.Application.Services
         private readonly ISubTourRequestCSVRepository _subTourRequest;
         private ILocationCSVRepository _location;
         private IUserCSVRepository _user;
-        private ITourRequestCSVRepository _tourRequest;
+        private ITourRequestCSVRepository _request;
         private IComplexTourRequestCSVRepository _complexTourRequest;
 
 
         public SubTourRequestService()
         {
-            _subTourRequest=Injection.Injector.CreateInstance<ISubTourRequestCSVRepository>();
+            _subTourRequest = Injection.Injector.CreateInstance<ISubTourRequestCSVRepository>();
             _location = Injection.Injector.CreateInstance<ILocationCSVRepository>();
             _user = Injection.Injector.CreateInstance<IUserCSVRepository>();
-            _tourRequest=Injection.Injector.CreateInstance<ITourRequestCSVRepository>();
-            _complexTourRequest=Injection.Injector.CreateInstance<IComplexTourRequestCSVRepository>();
+            _request = Injection.Injector.CreateInstance<ITourRequestCSVRepository>();
+            _complexTourRequest = Injection.Injector.CreateInstance<IComplexTourRequestCSVRepository>();
+
             GetTourRequestReferences();
-            GetComplexTourRequestReference();
+            GetComplexTourRequestReferences();
+        }
 
+        private void GetTourRequestReferences()
+        {
+            foreach(var item in GetAll())
+            {
+                var request = _request.GetById(item.TourRequest.Id);
+                var user = _user.GetById(request.Guest.Id);
+                var location = _location.GetById(request.Location.Id);
+                if(request != null)
+                {
+                    item.TourRequest = request;
+                    item.TourRequest.Location = location;
+                    item.TourRequest.Guest = user;
+                }
+            }
+        }
 
-
+        private void GetComplexTourRequestReferences()
+        {
+            foreach (var item in GetAll())
+            {
+                var complexTourRequest = _complexTourRequest.GetById(item.ComplexTourRequest.Id);
+                var user = _user.GetById(complexTourRequest.Guest.Id);
+                if (complexTourRequest != null)
+                {
+                    item.ComplexTourRequest = complexTourRequest;
+                    item.ComplexTourRequest.Guest = user;
+                }
+            }
         }
 
         public List<SubTourRequest> GetAll()
@@ -46,7 +70,7 @@ namespace Sims2023.Application.Services
         {
 
             _subTourRequest.Add(subTourRequest);
-          
+
         }
 
         public void Subscribe(IObserver observer)
@@ -74,29 +98,16 @@ namespace Sims2023.Application.Services
             return _subTourRequest.GetEarliestSubTourDateByComplexTourRequest(complexTourRequest);
         }
 
-        public void GetTourRequestReferences()
+        
+
+
+
+
+
+
+        public List<SubTourRequest> GetByComplexTourId(int complexTourId)
         {
-            foreach (var subTourRequest in GetAll())
-            {
-                subTourRequest.TourRequest = _tourRequest.GetById(subTourRequest.TourRequest.Id) ?? subTourRequest.TourRequest;
-                subTourRequest.TourRequest.Location = _location.GetById(subTourRequest.TourRequest.Location.Id);
-                subTourRequest.TourRequest.Guest = _user.GetById(subTourRequest.TourRequest.Guest.Id);
-            }
+            return _subTourRequest.GetByComplexTourId(complexTourId);
         }
-
-        public void GetComplexTourRequestReference()
-        {
-            foreach (var subTourRequest in GetAll())
-            {
-                subTourRequest.ComplexTourRequest = _complexTourRequest.GetById(subTourRequest.ComplexTourRequest.Id) ?? subTourRequest.ComplexTourRequest;
-                subTourRequest.ComplexTourRequest.Guest = _user.GetById(subTourRequest.ComplexTourRequest.Guest.Id);
-            }
-        }
-
-
-
-
-
-
     }
 }

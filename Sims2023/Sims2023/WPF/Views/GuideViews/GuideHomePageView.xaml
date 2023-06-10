@@ -36,7 +36,23 @@
                     </StackPanel>
                 </DockPanel>
             </StackPanel>
-            <Button Content="?" Width="20" Height="20" Margin="0,0,0,410"/>
+            <Button Content="?" Width="20" Height="20" Margin="0,0,0,410" x:Name="toolTipButton">
+                <Button.ToolTip>
+                    <TextBlock>
+                        Dobrodošli na početnu stranu!
+                        <LineBreak />
+                        <LineBreak />
+                        Gore Vam se nalazi meni preko kojeg možete da odete na željenu stranu
+                        <LineBreak />
+                        U sredini možete videti koliko imate današnjih tura, koliko imate nepregledanih zahteva i prečicu da odete brzo na recenzije
+                        <LineBreak />
+                        Ako Vam je potrebna pomoć na nekoj stranici, uvek možete naći gore u desnom uglu dugme sa natpisom ,,?"
+                        <LineBreak />
+                        na koje kada stavite miš, pojaviće se oblačić koji će Vam pomoći kako da upravljate datom stranicom
+                        <LineBreak />
+                    </TextBlock>
+                </Button.ToolTip>
+            </Button>
         </DockPanel>
     </StackPanel>
 </Page>

@@ -113,5 +113,10 @@ namespace Sims2023.Repositories
         {
             return _requests.Where(req => req.Language.ToString() == language && req.State == RequestsState.OnHold).ToList();
         }
+
+        public TourRequest GetById(int id)
+        {
+            return _requests.FirstOrDefault(t => t.Id == id);
+        }
     }
 }

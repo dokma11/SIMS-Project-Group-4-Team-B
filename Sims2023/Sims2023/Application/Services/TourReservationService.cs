@@ -1,6 +1,7 @@
 using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
+using System;
 using System.Collections.Generic;
 
 namespace Sims2023.Application.Services
@@ -109,6 +110,11 @@ namespace Sims2023.Application.Services
             {
                 reservation.User = _user.GetById(reservation.User.Id) ?? reservation.User;
             }
+        }
+
+        public List<TourReservation> GetUsersTours(User user)
+        {
+            return _tourReservation.GetUsersTours(user);
         }
     }
 }

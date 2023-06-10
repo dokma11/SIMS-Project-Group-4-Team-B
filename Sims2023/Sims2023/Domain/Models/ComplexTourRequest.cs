@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sims2023.Serialization;
+﻿using Sims2023.Serialization;
+using System;
 
 namespace Sims2023.Domain.Models
 {
     public enum ComplexRequestsState { OnHold, Invalid, Accepted }
-    public class ComplexTourRequest: ISerializable
+    public class ComplexTourRequest : ISerializable
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -30,10 +26,10 @@ namespace Sims2023.Domain.Models
             Date = date;
 
         }
-        public ComplexTourRequest(string name,User guest)
+        public ComplexTourRequest(string name, User guest)
         {
             Name = name;
-            Guest= guest;
+            Guest = guest;
             CurrentState = ComplexRequestsState.OnHold;
         }
 

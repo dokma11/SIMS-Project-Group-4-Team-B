@@ -24,10 +24,10 @@ namespace Sims2023.WPF.Views.Guest1Views
     /// </summary>
     public partial class OpenedForumView : Page
     {
-        public OpenedForumView(ForumService forumService, Frame mainFrame, User user, Forum selectedForum)
+        public OpenedForumView(ForumService forumService, Frame mainFrame, User user, Forum selectedForum,ForumCommentService forumCommentService)
         {
             InitializeComponent();
-            this.DataContext = new OpenedForumViewModel(user,mainFrame,selectedForum,this,forumService);
+            this.DataContext = new OpenedForumViewModel(user,mainFrame,selectedForum,this,forumService,forumCommentService);
         }
 
         public void CanExecute(object sender, CanExecuteRoutedEventArgs e)

@@ -33,7 +33,8 @@ namespace Sims2023.Application.Injection
             { typeof(IComplexTourRequestCSVRepository), new ComplexTourRequestCSVRepository()},
             { typeof(ISubTourRequestCSVRepository), new SubTourRequestCSVRepository()},
             { typeof(IForumCSVRepository), new ForumCSVRepository() },
-            { typeof(IForumCommentRepository), new ForumCommentCSVRepository() }
+            { typeof(IForumCommentRepository), new ForumCommentCSVRepository() },
+            { typeof(IFakeCommentCSVRepository), new FakeCommentCSVRepository() }
         };
 
         public static T CreateInstance<T>()
