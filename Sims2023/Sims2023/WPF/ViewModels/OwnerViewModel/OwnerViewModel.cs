@@ -59,7 +59,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         public void Window_Loaded()
         {
-            checkForNotifications();
+         //   checkForNotifications();
             string fileName = "../../../Resources/Data/lastshown.txt";
 
             try
@@ -71,7 +71,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                 {
                     if (_accommodationReservationService.GetGradableGuests(User, Reservations, _gradeService.GetAllGrades()).Count != 0)
                     {
-                              MessageBox.Show(ungradedGuestsNameAndSurrname(Reservations));
+                        ToastNotificationService.ShowInformation("Imate neocijenjene goste");
 
                         // Update the last shown date to today's date
                         File.WriteAllText(fileName, DateTime.Today.ToString());

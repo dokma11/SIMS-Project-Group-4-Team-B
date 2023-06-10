@@ -75,6 +75,11 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             }
         }
 
+        public ObservableCollection<YearlyStatistics> GetStatistics()
+        {
+            return Statistics;
+        }
+
         private int CountReservations(Accommodation accommodation, int year)
         {
             int counter = 0;

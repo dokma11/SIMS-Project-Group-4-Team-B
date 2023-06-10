@@ -1,10 +1,12 @@
-﻿using Sims2023.Domain.Models;
+﻿using Sims2023.Application.Services;
+using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.OwnerViewModel;
 using Sims2023.WPF.Views.Guest2Views;
 using Sims2023.WPF.Views.OwnerViews;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -23,6 +25,16 @@ namespace Sims2023.View
         public bool newNotification { get; set; }
         public OwnerViewModel ownerViewModel { get; set; }
 
+        public LocationService _locationService;
+        public AccommodationService _accommodationService;
+        public ForumService _forumService;
+        public List<Location> locations { get; set; }
+
+        public List<Forum> forums { get; set; }
+        public ObservableCollection<Forum> Forums { get; set; }
+
+
+
         public User User { get; set; }
         public OwnerView(User owner)
         {
@@ -35,6 +47,14 @@ namespace Sims2023.View
             ownerViewModel = new OwnerViewModel(User);
             ToastNotificationService.Initialize(this);
 
+
+            _locationService = new LocationService();
+            _accommodationService = new AccommodationService();
+            _forumService = new ForumService();
+            locations = _accommodationService.GetOwnerLocations(_accommodationService.GetOwnerAccommodations(_accommodationService.GetAllAccommodations(), User));
+            forums = _forumService.GetForumsForParticularOwner(locations);
+            forums.RemoveAll(forum => forum.OwnerOpened == true);
+            //ShowMessage();
         }
 
         private void MenuButton_Checked(object sender, RoutedEventArgs e)
@@ -45,6 +65,10 @@ namespace Sims2023.View
             MenuPanel.BeginAnimation(Grid.WidthProperty, animation);
         }
 
+        private void ShowMessage()
+        {
+            if (forums.Count() != 0) { ToastNotificationService.ShowInformation("Imate novootvorene forume"); }
+        }
         private void MenuButton_Unchecked(object sender, RoutedEventArgs e)
         {
             DoubleAnimation animation = new DoubleAnimation();
