@@ -21,7 +21,7 @@ namespace Sims2023.WPF.Views.GuideViews
                 requestDatePicker.BlackoutDates.Add(new CalendarDateRange(date, date.AddHours(1)));
             }
 
-            requestDatePicker.DisplayDateStart = DateTime.Today.AddDays(1);
+            requestDatePicker.DisplayDateStart = DateTime.Today.AddDays(1);  
         }
     }
 }

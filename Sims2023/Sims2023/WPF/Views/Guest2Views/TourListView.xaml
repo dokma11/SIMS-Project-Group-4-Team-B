@@ -5,11 +5,17 @@
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
+      xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1024"
       Title="TourListView">
     <Page.Resources>
         <ImageBrush x:Key="BackgroundBrush" ImageSource="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/backgroundtexture.jpg" Stretch="UniformToFill" />
+        <CollectionViewSource x:Key="ToursList" Source="{Binding Tours}">
+            <CollectionViewSource.SortDescriptions>
+                <componentModel:SortDescription PropertyName="Guide.SuperGuide" Direction="Descending"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
     </Page.Resources>
     <Grid Background="{StaticResource BackgroundBrush}">
         <Grid.RowDefinitions>
@@ -22,7 +28,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content="Find your tour" FontSize="40" Margin="42,25,0,0"></Label>
-        <DataGrid Grid.Row="1" Grid.Column="0" x:Name="dataGridTours" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid Grid.Row="1" Grid.Column="0" x:Name="dataGridTours" ItemsSource="{Binding Source={StaticResource ToursList}, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged }" SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Width="665" Height="478" Margin="0,0,0,0" Background="#bcbcbc">
 

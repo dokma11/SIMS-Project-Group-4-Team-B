@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
@@ -58,6 +60,20 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
                     _dateTimeList.Add(value);
                     NewTour.Start = value;
+                }
+            }
+        }
+
+        private bool _isLabelVisible;
+        public bool IsLabelVisible
+        {
+            get { return _isLabelVisible; }
+            set
+            {
+                if (_isLabelVisible != value)
+                {
+                    _isLabelVisible = value;
+                    OnPropertyChanged(nameof(IsLabelVisible));
                 }
             }
         }
@@ -130,6 +146,10 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
                 FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
             }
+            else
+            {
+                ValidationErrorLabelEvent();
+            }
         }
 
         public void NotifyGuests()
@@ -146,10 +166,9 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             return true;
         }
 
-        /*
-         public void ValidationErrorLabelEvent()
+        public void ValidationErrorLabelEvent()
         {
-            validationLabel.Visibility = Visibility.Visible;
+            IsLabelVisible = true;
             DispatcherTimer timer = new()
             {
                 Interval = TimeSpan.FromSeconds(5)
@@ -160,12 +179,10 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            validationLabel.Visibility = Visibility.Hidden;
+            IsLabelVisible = false;
             DispatcherTimer timer = (DispatcherTimer)sender;
             timer.Stop();
         }
-         
-         */
 
         public void Executed_CancelCommand(object obj)
         {

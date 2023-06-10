@@ -192,6 +192,36 @@ namespace Sims2023.Application.Services
             return _tourRequestStatistic.GetAll();
         }
 
+        public double GetUsersAcceptedPercentageByYearAndLanguage(string year, string language)
+        {
+            return _tourRequestStatistic.GetUsersAcceptedPercentageByYearAndLanguage(year, language);
+        }
+        
+        public double GetUsersDeclinedPercentageByYearAndLanguage(string year, string language)
+        {
+            return _tourRequestStatistic.GetUsersDeclinedPercentageByYearAndLanguage(year, language);
+        }
+
+        public int GetByLanguageCount(string year, string requestsLanguage)
+        {
+            return _tourRequest.GetByLanguageCount(year, requestsLanguage); 
+        }
+        
+        public double GetUsersAcceptedPercentageByYearAndLocation(string year, string location)
+        {
+            return _tourRequestStatistic.GetUsersAcceptedPercentageByYearAndLocation(year, location);
+        }
+        
+        public double GetUsersDeclinedPercentageByYearAndLocation(string year, string location)
+        {
+            return _tourRequestStatistic.GetUsersDeclinedPercentageByYearAndLocation(year, location);
+        }
+
+        public int GetByLocationCount(string year, string location)
+        {
+            return _tourRequest.GetByLocationCount(year, location); 
+        }
+
         public void Save()
         {
             _tourRequest.Save();

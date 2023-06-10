@@ -2,13 +2,16 @@
 using Sims2023.Domain.Models;
 using Sims2023.WPF.Commands;
 using Sims2023.WPF.Views.GuideViews;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Windows.Threading;
 
 namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
-    public partial class LiveTourTrackingViewModel
+    public partial class LiveTourTrackingViewModel : INotifyPropertyChanged
     {
         public Tour Tour { get; set; }
         public KeyPoint SelectedKeyPoint { get; set; }
@@ -27,13 +30,46 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         public User LoggedInGuide { get; set; }
         public ObservableCollection<KeyPoint> KeyPointsToDisplay { get; set; }
-        List<User> SelectedUsers { get; set; }
+
+        public User SelectedUser { get; set; }
         public int firstKeyPointId = -1;
         public int lastKeyPointId = -1;
         public int lastVisitedKeyPointId = -1;
         public bool LastKeyPointVisited;
         public List<User> MarkedGuests { get; set; }
         public ObservableCollection<User> GuestsToDisplay { get; set; }
+
+        private bool _isLabelVisible;
+        public bool IsLabelVisible
+        {
+            get { return _isLabelVisible; }
+            set
+            {
+                if (_isLabelVisible != value)
+                {
+                    _isLabelVisible = value;
+                    OnPropertyChanged(nameof(IsLabelVisible));
+                }
+            }
+        }
+
+        private string _labelContent;
+        public string LabelContent
+        {
+            get { return _labelContent; }
+            set
+            {
+                _labelContent = value;
+                OnPropertyChanged(nameof(LabelContent));
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public RelayCommand MarkKeyPointCommand { get; set; }
         public RelayCommand MarkGuestPresentCommand { get; set; }
         public RelayCommand CancelTourCommand { get; set; }
@@ -68,7 +104,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _subTourRequestService = subTourRequestService;
 
             LoggedInGuide = loggedInGuide;
-            SelectedUsers = new();
+            SelectedUser = new();
 
             Tour = tour;
             _tourService.UpdateState(Tour, ToursState.Started);
@@ -83,6 +119,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             lastVisitedKeyPointId = firstKeyPointId;
             lastKeyPointId = FindLastKeyPoint();
             LastKeyPointVisited = false;
+
+            IsLabelVisible = false;
         }
 
         private int FindAndMarkFirstKeyPoint()
@@ -119,15 +157,12 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             KeyPointsToDisplay.Single(keyPoint => keyPoint.Id == lastKeyPointId).CurrentState = KeyPointsState.Visited;
         }
 
-        public void AddMarkedGuests(List<User> items)
+        public void AddMarkedGuests(User guest)
         {
-            foreach (User guest in items)
-            {
-                _keyPointService.AddGuestsId(SelectedKeyPoint, guest.Id);
-                MarkedGuests.Add(guest);
-                ShouldConfirmParticipation(guest);
-                GuestsToDisplay.Remove(guest);
-            }
+            _keyPointService.AddGuestsId(SelectedKeyPoint, guest.Id);
+            MarkedGuests.Add(guest);
+            ShouldConfirmParticipation(guest);
+            GuestsToDisplay.Remove(guest);
             _keyPointService.Save();
         }
 
@@ -156,11 +191,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _keyPointService.Save();
         }
 
-        public bool AreAllGuestsAreMarked()
-        {
-            return _tourReservationService.GetByToursid(Tour.Id).Count == MarkedGuests.Count;
-        }
-
         private void Executed_MarkKeyPointCommand(object obj)
         {
             //mark previous key point as visited
@@ -175,6 +205,11 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 _tourService.UpdateState(Tour, ToursState.Finished);
                 MarkLastKeyPoint();
                 LastKeyPointVisited = true;
+                SuccessfulLastKeyPointMarkingLabelEvent();
+            }
+            else
+            {
+                SuccessfulKeyPointMarkingLabelEvent();
             }
 
             UpdateKeyPointList();
@@ -182,48 +217,62 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         private bool CanExecute_MarkKeyPointCommand(object obj)
         {
-            return SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPointsState.Visited && SelectedKeyPoint.Id == lastVisitedKeyPointId + 1;
+            return SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPointsState.NotVisited && SelectedKeyPoint.Id == lastVisitedKeyPointId + 1;
         }
 
-        /*
-         Moram isto pokusati da dodam one uslove tipa, ne mozes na prethodnu ne mozes ovo ono smaranje...
-         
+        //Moram isto pokusati da dodam one uslove tipa, ne mozes na prethodnu ne mozes ovo ono smaranje...
+
         private void SuccessfulKeyPointMarkingLabelEvent()
         {
-            eventLabel.Content = "Uspešno ste označili trenutnu ključnu tačku!";
-            eventLabel.Visibility = Visibility.Visible;
+            LabelContent = "Uspešno ste označili trenutnu ključnu tačku!";
+            IsLabelVisible = true;
             DispatcherTimer timer = new()
             {
                 Interval = TimeSpan.FromSeconds(5)
             };
             timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void SuccessfulLastKeyPointMarkingLabelEvent()
+        {
+            LabelContent = "Uspešno ste završili turu!";
+            IsLabelVisible = true;
+            DispatcherTimer timer = new()
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick_Last_KeyPoint;
             timer.Start();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            eventLabel.Visibility = Visibility.Hidden;
+            IsLabelVisible = false;
             DispatcherTimer timer = (DispatcherTimer)sender;
             timer.Stop();
         }
 
-         */
+        private void Timer_Tick_Last_KeyPoint(object sender, EventArgs e)
+        {
+            IsLabelVisible = false;
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
+            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
+        }
 
         private void Executed_MarkGuestPresentCommand(object obj)
         {
-            AddMarkedGuests(SelectedUsers);
+            AddMarkedGuests(SelectedUser);
             UpdateKeyPointList();
-            if (AreAllGuestsAreMarked())
-            {
-                // markGuestsPresentButton.IsEnabled = false;
-            }
+            SuccessfulGuestMarkingLabelEvent();
         }
 
-        /*
-         private void SuccessfulGuestMarkingLabelEvent()
+        private void SuccessfulGuestMarkingLabelEvent()
         {
-            eventLabel.Content = "Uspešno ste dodali sve izabrane goste na turu!";
-            eventLabel.Visibility = Visibility.Visible;
+            LabelContent = "Uspešno ste dodali sve izabrane goste na turu!";
+            IsLabelVisible = true;
             DispatcherTimer timer = new()
             {
                 Interval = TimeSpan.FromSeconds(5)
@@ -231,11 +280,10 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             timer.Tick += Timer_Tick;
             timer.Start();
         }
-         */
 
         private bool CanExecute_MarkGuestPresentCommand(object obj)
         {
-            return SelectedUsers.Count > 0;
+            return SelectedUser != null && SelectedKeyPoint != null && SelectedUser.Id != 0;
         }
 
         private void Executed_CancelTourCommand(object obj)
@@ -243,8 +291,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             _tourService.UpdateState(Tour, ToursState.Interrupted);
             MarkLastVisitedKeyPoint();
             _keyPointService.Save();
-            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
-            FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
+            SuccessfulCancellationLabelEvent();
         }
 
         private bool CanExecute_CancelTourCommand(object obj)
@@ -252,19 +299,26 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             return true;
         }
 
-        /*
-         private void SuccessfulCancellationLabelEvent()
+        private void SuccessfulCancellationLabelEvent()
         {
-            eventLabel.Content = "Uspešno ste otkazali turu!";
-            eventLabel.Visibility = Visibility.Visible;
+            LabelContent = "Uspešno ste prekinuli turu!";
+            IsLabelVisible = true;
             DispatcherTimer timer = new()
             {
                 Interval = TimeSpan.FromSeconds(5)
             };
-            timer.Tick += Timer_Tick;
+            timer.Tick += Timer_Tick_Cancel;
             timer.Start();
         }
-         */
+
+        private void Timer_Tick_Cancel(object sender, EventArgs e)
+        {
+            IsLabelVisible = false;
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
+            ToursView toursView = new(_tourService, _tourReviewService, _tourReservationService, _keyPointService, _locationService, _voucherService, _userService, LoggedInGuide, _countriesAndCitiesService, _requestService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(toursView);
+        }
 
         private void Executed_GoBackCommand(object obj)
         {

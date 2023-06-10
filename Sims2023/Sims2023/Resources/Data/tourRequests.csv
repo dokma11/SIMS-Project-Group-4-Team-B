@@ -1,6 +1,6 @@
 1|1|ima opis|Serbian|20|4/25/2023 12:00:00 AM|4/30/2023 12:00:00 AM|Accepted|1
 2|2|ima drugi opis|Spanish|10|3/11/2023 12:00:00 AM|3/24/2023 12:00:00 AM|OnHold|3
-3|3|ima treci opis|French|30|5/24/2023 12:00:00 AM|5/30/2023 12:00:00 AM|OnHold|2
+3|3|ima treci opis|French|30|5/24/2023 12:00:00 AM|5/30/2023 12:00:00 AM|Invalid|2
 4|4|ima cetvvrti opis|Chinese|50|5/23/2023 12:00:00 AM|5/27/2023 12:00:00 AM|OnHold|4
 5|5|ima peti opis|Serbian|50|5/24/2023 12:00:00 AM|5/29/2023 12:00:00 AM|Accepted|4
 6|5|ima sesti opis|Japanese|50|2/10/2023 12:00:00 AM|8/15/2023 12:00:00 AM|Accepted|4
@@ -11,18 +11,22 @@
 11|3|ima osmi opis|Chinese|50|5/10/2023 12:00:00 AM|5/25/2023 12:00:00 AM|Invalid|2
 12|3|ima osmi opis|English|50|5/10/2023 12:00:00 AM|5/25/2023 12:00:00 AM|Invalid|2
 13|4|ima osmi opis|Spanish|50|5/10/2023 12:00:00 AM|5/25/2023 12:00:00 AM|Accepted|2
-14|5|ima osmi opis|German|50|5/10/2023 12:00:00 AM|5/25/2023 12:00:00 AM|OnHold|2
+14|5|ima osmi opis|German|50|5/10/2023 12:00:00 AM|5/25/2023 12:00:00 AM|Invalid|2
 15|1|ima osmi opis|French|50|5/10/2023 12:00:00 AM|5/25/2023 12:00:00 AM|Accepted|2
 16|2|ima osmi opis|English|50|5/10/2023 12:00:00 AM|5/25/2023 12:00:00 AM|Accepted|2
 17|45|asd|Chinese|7|5/31/2023 12:00:00 AM|6/9/2023 12:00:00 AM|Accepted|2
 18|5|ima osmi opis|English|50|5/10/2023 12:00:00 AM|5/25/2023 12:00:00 AM|Invalid|2
 19|48|xsax|French|1|6/13/2023 12:00:00 AM|6/21/2023 12:00:00 AM|OnHold|2
 20|35|dacdfcdscda|Spanish|4|6/14/2023 12:00:00 AM|6/26/2023 12:00:00 AM|OnHold|2
-21|49|dasds|Serbian|1|6/13/2023 12:00:00 AM|6/19/2023 12:00:00 AM|OnHold|2
-22|30|sdsadsad|French|2|6/27/2023 12:00:00 AM|7/3/2023 12:00:00 AM|OnHold|2
-23|50|Zahtev|German|1|6/20/2023 12:00:00 AM|6/22/2023 12:00:00 AM|OnHold|2
-24|34|dasdasd|French|3|6/20/2023 12:00:00 AM|6/26/2023 12:00:00 AM|OnHold|2
+21|49|dasds|Serbian|1|6/13/2023 12:00:00 AM|6/19/2023 12:00:00 AM|Invalid|2
+22|30|sdsadsad|French|2|6/27/2023 12:00:00 AM|7/3/2023 12:00:00 AM|Invalid|2
+23|50|Zahtev|German|1|6/20/2023 12:00:00 AM|6/22/2023 12:00:00 AM|Accepted|2
+24|34|dasdasd|French|3|6/20/2023 12:00:00 AM|6/26/2023 12:00:00 AM|Invalid|2
 25|33|Uspeh|Serbian|4|6/9/2023 12:00:00 AM|6/10/2023 12:00:00 AM|Invalid|2
 26|31|ddadds|German|3|6/13/2023 12:00:00 AM|6/21/2023 12:00:00 AM|Invalid|2
 27|51|dsadsad|Serbian|3|6/12/2023 12:00:00 AM|6/21/2023 12:00:00 AM|Invalid|2
 28|33|sdsadsad|German|1|6/13/2023 12:00:00 AM|6/26/2023 12:00:00 AM|Invalid|2
+29|102|asd|Italian|7|6/27/2023 12:00:00 AM|7/8/2023 12:00:00 AM|Accepted|2
+30|103|dasczxcads|Chinese|10|7/4/2023 12:00:00 AM|8/5/2023 12:00:00 AM|Invalid|2
+31|19|dsadaszxczxczxc|Italian|4|6/27/2023 12:00:00 AM|6/30/2023 12:00:00 AM|Accepted|2
+32|104|sadasdas|Spanish|5|7/4/2023 12:00:00 AM|8/4/2023 12:00:00 AM|Invalid|2
