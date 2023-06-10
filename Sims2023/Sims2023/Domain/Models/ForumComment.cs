@@ -16,15 +16,17 @@ namespace Sims2023.Domain.Models
         public string Comment { get; set; }
         public bool Special { get; set; }
 
+        public int NumberOfReports { get; set; }
         public ForumComment() { }
 
-        public ForumComment(int id, User user, Forum forum, string comment, bool special)
+        public ForumComment(int id, User user, Forum forum, string comment, bool special, int numberOfReports)
         {
             Id = id;
             User = user;
             Forum = forum;
             Comment = comment;
             Special = special;
+            NumberOfReports = numberOfReports;
         }
 
         public string[] ToCSV()
@@ -35,7 +37,8 @@ namespace Sims2023.Domain.Models
             User.Id.ToString(),
             Forum.Id.ToString(),
             Comment,
-            Special.ToString()
+            Special.ToString(),
+            NumberOfReports.ToString()
         };
             return csvValues;
         }
@@ -53,6 +56,7 @@ namespace Sims2023.Domain.Models
             };
             Comment = values[3];
             Special = Convert.ToBoolean(values[4]);
+            NumberOfReports = Convert.ToInt32(values[5]);
         }
     }
 

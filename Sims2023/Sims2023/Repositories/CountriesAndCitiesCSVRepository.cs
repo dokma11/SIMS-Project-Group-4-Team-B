@@ -13,13 +13,8 @@ namespace Sims2023.Repositories
 {
     public class CountriesAndCitiesCSVRepository: ICountriesAndCitiesCSVRepository
     {
-        
-
-        private List<IObserver> _observers;
         private CountriesAndCitiesFileHandler _fileHandler;
         private List<CountriesAndCities> _locations;
-
-
         public CountriesAndCitiesCSVRepository()
         {
             _fileHandler = new CountriesAndCitiesFileHandler();

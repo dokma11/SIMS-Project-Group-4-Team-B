@@ -12,22 +12,66 @@
 
         <Label x:Name="label" Content="{Binding welcomeString}" DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:CommentsView}}}" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Center" Margin="0,25,0,0" VerticalAlignment="Top" Height="51" Width="344"/>
 
-        <ListBox x:Name="CommentsBox" ItemsSource="{Binding ForumComment}" SelectedItem="{Binding SelectedComment}" SelectionMode="Single" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="40,81,40,169" >
+        <ListBox x:Name="CommentsBox" ItemsSource="{Binding ForumComment}" SelectedItem="{Binding SelectedComment}" SelectionMode="Single" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="40,81,40,169">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Width="850">
-                        <TextBlock x:Name="UsernameText" Text="{Binding User.Username}" FontWeight="Bold">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Special}" Value="True">
-                                            <Setter Property="Foreground" Value="#E0942C" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                        <TextBlock x:Name="TextText" Text="{Binding Comment}" TextWrapping="Wrap" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}" >
+                    <StackPanel Width="500">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding User.Username}" FontWeight="Bold" Grid.Column="0">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="Black" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Special}" Value="True">
+                                                <Setter Property="Foreground" Value="#E0942C" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock Text="Korisnik nije boravio na ovoj lokaciji" Foreground="Red" Margin="5,0,0,0" Grid.Column="1">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Special}" Value="False">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Broj prijava: " Foreground="Red">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding NumberOfReports}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock Text="{Binding NumberOfReports}" Foreground="Red">
+
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding NumberOfReports}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
+                        <TextBlock x:Name="TextText" Text="{Binding Comment}" TextWrapping="Wrap" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Style.Triggers>
@@ -42,8 +86,9 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button x:Name="button" Content="Komentariši" Click="Comment_Click" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" HorizontalAlignment="Left" Margin="40,610,0,0" VerticalAlignment="Top" Width="115" Height="59"/>
-        <Button x:Name="button1" Content="Nazad" Click="Back_Click" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" HorizontalAlignment="Left" Margin="276,610,0,0" VerticalAlignment="Top" Height="59" Width="114"/>
+        <Button x:Name="button" Content="Komentariši" Click="Comment_Click" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" HorizontalAlignment="Left" Margin="40,610,0,0" VerticalAlignment="Top" Width="98" Height="59"/>
+        <Button x:Name="button1" Content="Nazad" Click="Back_Click" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" HorizontalAlignment="Left" Margin="292,610,0,0" VerticalAlignment="Top" Height="59" Width="98"/>
+        <Button x:Name="button2" Content="Prijavi komentar" Click="ReportComment_Click" HorizontalAlignment="Center" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3"  Margin="0,610,0,0" VerticalAlignment="Top" Height="59" Width="98"/>
 
     </Grid>
 </Page>
