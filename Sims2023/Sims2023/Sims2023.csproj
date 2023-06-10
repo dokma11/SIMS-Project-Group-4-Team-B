@@ -36,9 +36,12 @@
     <None Remove="Images\Guest2Images\Nis2.png" />
     <None Remove="Images\Guest2Images\Nis3.jpg" />
     <None Remove="Resources\GuestTwoResources\backgroundtexture.jpg" />
+    <None Remove="Resources\GuestTwoResources\blackbackgroundtexture.jpg" />
     <None Remove="Resources\GuestTwoResources\HorizontBW-01.png" />
     <None Remove="Resources\GuestTwoResources\HorizontBW-02.ico" />
     <None Remove="Resources\GuestTwoResources\HorizontBW-02.png" />
+    <None Remove="Resources\GuestTwoResources\HorizontWB-01.png" />
+    <None Remove="Resources\GuestTwoResources\invertedbackgroundtexture.png" />
     <None Remove="Resources\GuestTwoResources\left.png" />
     <None Remove="Resources\GuestTwoResources\right.png" />
     <None Remove="Resources\GuideResources\account-logo.png" />
@@ -159,6 +162,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\GuestTwoResources\backgroundtexture.jpg" />
+    <Resource Include="Resources\GuestTwoResources\blackbackgroundtexture.jpg" />
     <Resource Include="Resources\GuestTwoResources\HorizontBW-01.png" />
     <Content Include="Resources\GuestTwoResources\HorizontBW-02.png" />
   </ItemGroup>
@@ -181,6 +185,8 @@
     <Resource Include="Images\OwnerImages\slikaSmestaja7.jpg" />
     <Resource Include="Images\OwnerImages\slikaSmestaja8.jpg" />
     <Resource Include="Resources\GuestTwoResources\HorizontBW-02.ico" />
+    <Resource Include="Resources\GuestTwoResources\HorizontWB-01.png" />
+    <Resource Include="Resources\GuestTwoResources\invertedbackgroundtexture.png" />
     <Resource Include="Resources\GuestTwoResources\left.png" />
     <Resource Include="Resources\GuestTwoResources\right.png" />
     <Resource Include="Resources\GuideResources\account-logo.png" />

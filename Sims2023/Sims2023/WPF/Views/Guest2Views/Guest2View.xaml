@@ -23,36 +23,27 @@
         <CommandBinding Command="cmd:RoutedCommands.Command4View" CanExecute="CanExecute" Executed="VoucherList_Executed"></CommandBinding>
         <CommandBinding Command="cmd:RoutedCommands.Command5View" CanExecute="CanExecute" Executed="ComplexTourRequest_Executed"></CommandBinding>
     </Window.CommandBindings>
-    <Window.Resources>
-        <Style x:Key="MenuItemStyle" TargetType="{x:Type MenuItem}">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="Black"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Margin="0 0 0 0">
+        <Menu Style="{DynamicResource MenuStyle}" Grid.Row="0" Margin="0 0 0 0">
                       
-            <MenuItem Style="{StaticResource MenuItemStyle}" Command="cmd:RoutedCommands.OpenHelp" Header="{ns:Loc homeMenu}" InputGestureText="Ctrl + N"></MenuItem>
+            <MenuItem Command="cmd:RoutedCommands.OpenHelp" Header="{ns:Loc homeMenu}" InputGestureText="Ctrl + N"></MenuItem>
             <MenuItem Header="{ns:Loc allToursMenu}" Command="cmd:RoutedCommands.Command3View"></MenuItem>
             <MenuItem Header="{ns:Loc myToursMenu}" Command="cmd:RoutedCommands.Command1View"></MenuItem>
             <MenuItem Header="{ns:Loc tourRequestMenu}" Command="cmd:RoutedCommands.Command2View"></MenuItem>
             <MenuItem Header="{ns:Loc complexTourRequestMenu}" Command="cmd:RoutedCommands.Command5View"></MenuItem>
             <MenuItem Header="{ns:Loc myCouponsMenu}" Command="cmd:RoutedCommands.Command4View"></MenuItem>
-            <Separator Margin="100,0,0,0"></Separator>
+            <Separator Margin="40,0,0,0"></Separator>
             <MenuItem Header="{ns:Loc reportMenu}"></MenuItem>
             <MenuItem Header="{ns:Loc notificationsMenu}"></MenuItem>
             <Separator Margin="50,0,0,0"></Separator>
-            <MenuItem Header="{ns:Loc serbianMenu}" ></MenuItem>
-            <MenuItem Header="{ns:Loc englishMenu}" ></MenuItem>
-            <MenuItem Header="{ns:Loc themeMenu}"></MenuItem>
+            <MenuItem Header="{ns:Loc serbianMenu}"  Click="Serbian_Click"></MenuItem>
+            <MenuItem Header="{ns:Loc englishMenu}" Click="English_Click"></MenuItem>
+            <MenuItem Header="{ns:Loc themeMenu}" Click="Theme_Click"></MenuItem>
             <MenuItem Header="{ns:Loc logoutMenu}" Command="cmd:RoutedCommands.LogOut"></MenuItem>
         </Menu>
         <Frame Grid.Row="1" x:Name="MainFrame" NavigationUIVisibility="Hidden" TabIndex="13" IsTabStop="False" UseLayoutRounding="True"/>

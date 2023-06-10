@@ -8,19 +8,17 @@
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1024"
       Title="Guest2StartView" >
-    <Page.Resources>
-        <ImageBrush x:Key="BackgroundBrush" ImageSource="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/backgroundtexture.jpg" Stretch="UniformToFill" />
-    </Page.Resources>
-    <Grid Background="{StaticResource BackgroundBrush}">
+    
+    <Grid Background="{DynamicResource BackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Grid  Grid.Row="0" Margin="100,50,100,10">
-            <Image  Source="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/HorizontBW-01.png" />
+            <Image Source="{DynamicResource ImageResource}" />
         </Grid>
         <Grid  Grid.Row="1" Margin="200,0,200,50">
-            <Label  Content="{ns:Loc welcomeText}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="28" Foreground="#353839" FontFamily="Copperplate Gothic Light" />
+            <Label  Content="{ns:Loc welcomeText}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="28" Foreground="{DynamicResource WelcomeLabel}" FontFamily="Copperplate Gothic Light" />
         </Grid>
     </Grid>
 </Page>

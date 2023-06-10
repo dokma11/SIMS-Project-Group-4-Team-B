@@ -296,6 +296,12 @@
     <Page Update="WPF\Views\Guest2Views\Guest2VouchersActivationListView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\Guest2Views\Themes\Dark.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest2Views\Themes\Light.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\Guest2Views\TourDetailedView.xaml">
       <SubType>Designer</SubType>
     </Page>

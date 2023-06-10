@@ -2,6 +2,8 @@
 using Sims2023.Observer;
 using Sims2023.WPF.ViewModels.Guest2ViewModels;
 using Sims2023.WPF.Views.Guest2Views;
+using Sims2023.WPF.Views.Guest2Views.Themes;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,7 +17,12 @@ namespace Sims2023.WPF.Views
     {
         public Guest2ViewModel Guest2ViewModel { get; set; }
         public User User { get; set; }
-       
+        private App app;
+        private const string SRB = "sr-LATN";
+        private const string ENG = "en-US";
+
+
+
 
         public Guest2View(User user)
         {
@@ -25,6 +32,7 @@ namespace Sims2023.WPF.Views
             DataContext = this;
             Guest2ViewModel = new Guest2ViewModel(user,this);
             User= user;
+            app = (App)System.Windows.Application.Current;
 
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -78,6 +86,20 @@ namespace Sims2023.WPF.Views
             MainFrame.Navigate(new Guest2VoucherListView(User));
         }
 
-        
+        private void Serbian_Click(object sender, RoutedEventArgs e)
+        {
+            app.ChangeLanguage(SRB);
+        }
+
+        private void English_Click(object sender, RoutedEventArgs e)
+        {
+            app.ChangeLanguage(ENG);
+
+        }
+
+        private void Theme_Click(object sender, RoutedEventArgs e)
+        {
+            AppTheme.ChangeTheme(new Uri("WPF/Views/Guest2Views/Themes/Dark.xaml", UriKind.Relative));
+        }
     }
 }

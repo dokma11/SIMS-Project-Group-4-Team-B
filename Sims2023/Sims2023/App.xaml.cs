@@ -12,7 +12,7 @@ namespace Sims2023
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App
+    public partial class App : System.Windows.Application
     {
         public void ChangeLanguage(string currLang)
         {

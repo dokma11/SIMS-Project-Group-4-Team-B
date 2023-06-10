@@ -71,12 +71,12 @@ namespace Sims2023.Repositories
             return _tours.Where(tour => tour.CurrentState == ToursState.Created && tour.Guide.Id == loggedInGuide.Id).ToList();
         }
 
-        public List<Tour> GetFiltered(string citySearchTerm, string countrySearchTerm, int lengthSearchTerm, string guideLanguageSearchTerm, int maxGuestNumberSearchTerm)
+        public List<Tour> GetFiltered(string citySearchTerm, string countrySearchTerm, string lengthSearchTerm, string guideLanguageSearchTerm, int maxGuestNumberSearchTerm)
         {
             List<Tour> FilteredData = GetCreated().Where(tour =>
                 (string.IsNullOrEmpty(citySearchTerm) || tour.Location.City.ToLower().Contains(citySearchTerm)) &&
                 (string.IsNullOrEmpty(countrySearchTerm) || tour.Location.Country.ToLower().Contains(countrySearchTerm)) &&
-                tour.Length == lengthSearchTerm &&
+                (string.IsNullOrEmpty(lengthSearchTerm) || tour.Length == int.Parse(lengthSearchTerm)) &&
                 (string.IsNullOrEmpty(guideLanguageSearchTerm) || tour.GuideLanguage.ToString().ToLower().Contains(guideLanguageSearchTerm)) &&
                 tour.MaxGuestNumber >= maxGuestNumberSearchTerm
             ).ToList();
