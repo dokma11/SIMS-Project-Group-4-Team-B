@@ -94,6 +94,9 @@
     <Compile Update="WPF\Views\Guest2Views\Guest2TourRequestStatisticsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\Guest2Views\Guest2View1.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest2Views\Guest2VoucherListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -299,10 +302,19 @@
     <Page Update="WPF\Views\Guest1Views\AccommodationListView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\Guest2Views\Guest2View1.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\Guest2Views\Guest2VoucherListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest2Views\Guest2VouchersActivationListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest2Views\Themes\Dark.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest2Views\Themes\Light.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest2Views\TourDetailedView.xaml">

@@ -26,8 +26,8 @@ namespace Sims2023.WPF.Views.Guest2Views
         public Guest2VoucherListView(User user)
         {
             InitializeComponent();
-            Guest2VoucherListViewModel = new Guest2VoucherListViewModel(user, this);
-            DataContext = Guest2VoucherListViewModel;
+            //Guest2VoucherListViewModel = new Guest2VoucherListViewModel(user, this);
+            DataContext = new Guest2VoucherListViewModel(user, this);
         }
     }
 }

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
+        xmlns:ns="clr-namespace:Sims2023"
         mc:Ignorable="d"
         Title="Guest2SubToursRequestListView" Height="500" Width="800" WindowStartupLocation="CenterScreen">
     <Window.Icon>
@@ -13,12 +14,60 @@
         <ImageBrush x:Key="BackgroundBrush" ImageSource="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/backgroundtexture.jpg" Stretch="UniformToFill" />
     </Window.Resources>
     <Grid Background="{StaticResource BackgroundBrush}">
-        <Label Content="Subtours" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
-        <DataGrid Height="272" Width="752">
+        <Label Content="{ns:Loc subtoursData}" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
+        <DataGrid Height="272" Width="752" x:Name="dataGridGuestSubTourRequests" ItemsSource="{Binding SubTourRequests}"
+                     SelectionMode="Single"
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="43,110,43,110">
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="FontSize" Value="12" />
+
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Gray" />
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#BCBCBC" />
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="BorderBrush" Value="Black" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="FontSize" Value="12" />
+
+                    <Setter Property="FontWeight" Value="DemiBold"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Black" />
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{ns:Loc cityData}" Width="100" Binding="{Binding TourRequest.Location.City}"/>
+                <DataGridTextColumn Header="{ns:Loc countryData}" Width="100" Binding="{Binding TourRequest.Location.Country}"/>
+                <DataGridTextColumn Header="{ns:Loc languageData}" Width="82" Binding="{Binding TourRequest.Language}" />
+                <DataGridTextColumn Header="{ns:Loc guestsData}" Width="50" Binding="{Binding TourRequest.GuestNumber}"/>
+                <DataGridTextColumn Header="{ns:Loc startDateData}" Width="125" Binding="{Binding TourRequest.Start}"/>
+                <DataGridTextColumn Header="{ns:Loc endDateData}" Width="125" Binding="{Binding TourRequest.End}"/>
+                <DataGridTextColumn Header="{ns:Loc stateData}" Width="82" Binding="{Binding TourRequest.State}"/>
+            </DataGrid.Columns>
 
         </DataGrid>
-        <Button Content="New subtour" FontSize="15" Width="147" Height="42"  Background="#bcbcbc" HorizontalAlignment="Left" Margin="435,400,0,0" VerticalAlignment="Top" Click="NewSubtour_Click"/>
-        <Button Content="Back" FontSize="15" Width="147" Height="42"  Background="#bcbcbc" HorizontalAlignment="Left" Margin="629,400,0,0" VerticalAlignment="Top" Click="Back_Click"/>
+        <Button Content="{ns:Loc newSubtourBtn}" FontSize="15" Width="147" Height="42"  Background="#bcbcbc" HorizontalAlignment="Left" Margin="435,400,0,0" VerticalAlignment="Top" Click="NewSubtour_Click"/>
+        <Button Content="{ns:Loc backBtn}" FontSize="15" Width="147" Height="42"  Background="#bcbcbc" HorizontalAlignment="Left" Margin="629,400,0,0" VerticalAlignment="Top" Click="Back_Click"/>
 
     </Grid>
 </Window>

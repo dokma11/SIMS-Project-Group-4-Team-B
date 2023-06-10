@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
+        xmlns:ns="clr-namespace:Sims2023"
         mc:Ignorable="d"
         Title="RateTourView" Height="463" Width="700"  WindowStartupLocation="CenterScreen">
     <Window.Icon>
@@ -14,21 +15,21 @@
         <ImageBrush x:Key="BackgroundBrush" ImageSource="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/backgroundtexture.jpg" Stretch="UniformToFill" />
     </Window.Resources>
     <Grid Background="{StaticResource BackgroundBrush}">
-        <Label Content="Guide's Knowledge:" FontSize="20" HorizontalAlignment="Left" Margin="38,89,0,0" VerticalAlignment="Top"/>
-        <Label Content="Interest of tour:" FontSize="20" HorizontalAlignment="Left" Margin="373,90,0,0" VerticalAlignment="Top"/>
-        <Label Content="Guide's language capabilility:" FontSize="20" HorizontalAlignment="Left" Margin="38,150,0,0" VerticalAlignment="Top"/>
-        <Label Content="Add pictures:" FontSize="20" HorizontalAlignment="Left" Margin="373,152,0,0" VerticalAlignment="Top"/>
+        <Label Content="{ns:Loc guidesKnowledgeLabel}" FontSize="20" HorizontalAlignment="Left" Margin="38,89,0,0" VerticalAlignment="Top"/>
+        <Label Content="{ns:Loc interestOfTourLabel}" FontSize="20" HorizontalAlignment="Left" Margin="373,90,0,0" VerticalAlignment="Top"/>
+        <Label Content="{ns:Loc gudiesLanguageCapabilityLabel}" FontSize="20" HorizontalAlignment="Left" Margin="38,150,0,0" VerticalAlignment="Top"/>
+        <Label Content="{ns:Loc addPicturesLabel}" FontSize="20" HorizontalAlignment="Left" Margin="373,152,0,0" VerticalAlignment="Top"/>
         <xctk:IntegerUpDown Name="guidesKnowledgeBox" AllowTextInput="False" HorizontalAlignment="Left" Margin="226,97,0,0" VerticalAlignment="Top" Minimum="1" Maximum="5" Value="1" Width="41"/>
         <xctk:IntegerUpDown Name="tourInterestBox" AllowTextInput="False" HorizontalAlignment="Left" Margin="525,97,0,0" VerticalAlignment="Top" Minimum="1" Maximum="5" Value="1" Width="41"/>
         <xctk:IntegerUpDown Name="guidesLanguageCapabilityBox" AllowTextInput="False" HorizontalAlignment="Left" Margin="309,160,0,0" VerticalAlignment="Top" Minimum="1" Maximum="5" Value="1" Width="41"/>
-        <Label Content="Leave a comment:" FontSize="20" HorizontalAlignment="Left" Margin="38,210,0,0" VerticalAlignment="Top"/>
+        <Label Content="{ns:Loc leaveACommentLabel}" FontSize="20" HorizontalAlignment="Left" Margin="38,210,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="CommentTextBox" HorizontalAlignment="Left" Margin="38,247,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" Width="628" Height="120"/>
-        <Button Content="Send" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="519,372,0,0" VerticalAlignment="Top" Click="Send_Click"/>
+        <Button Content="{ns:Loc sendBtn}" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="519,372,0,0" VerticalAlignment="Top" Click="Send_Click"/>
         <ListBox x:Name="picturesOutput" Margin="536,162,34,223"/>
         <Button   HorizontalAlignment="Left" Height="19" Margin="500,162,0,0" VerticalAlignment="Top"  Click="AddPicture_Click">
             <Image Source="pack://application:,,,/Sims2023;component/Resources/OwnerResources/plus.png" />
         </Button>
-        <Label Content="Rate" FontSize="32" HorizontalAlignment="Left" Margin="38,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="{ns:Loc rateBtn}" FontSize="32" HorizontalAlignment="Left" Margin="38,10,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>
