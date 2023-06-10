@@ -142,6 +142,13 @@ namespace Sims2023.Repositories
             }
             return i;
         }
+
+        public List<Forum> GetForumsForParticularOwner(List<Location> _locations)
+        {
+            List<Forum> forums = _forums.Where(f => _locations.Any(l => l.Id == f.Location.Id)).ToList();
+            return forums;
+
+        }
     }
 
 }

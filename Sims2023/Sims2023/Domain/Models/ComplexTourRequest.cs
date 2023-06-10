@@ -10,18 +10,20 @@ namespace Sims2023.Domain.Models
         public string Name { get; set; }
         public ComplexRequestsState CurrentState { get; set; }
         public User Guest { get; set; }
+        public string Date { get; set; }
 
         public ComplexTourRequest()
         {
 
         }
 
-        public ComplexTourRequest(int id, string name, User guest)
+        public ComplexTourRequest(int id,string name,User guest,string date)
         {
             Id = id;
             Name = name;
             CurrentState = ComplexRequestsState.OnHold;
             Guest = guest;
+            Date = date;
 
         }
         public ComplexTourRequest(string name, User guest)
@@ -38,7 +40,8 @@ namespace Sims2023.Domain.Models
                 Id.ToString(),
                 Name,
                 CurrentState.ToString(),
-                Guest.Id.ToString()
+                Guest.Id.ToString(),
+                Date
             };
             return csvValues;
         }
@@ -52,7 +55,8 @@ namespace Sims2023.Domain.Models
             {
                 Id = Convert.ToInt32(values[3])
             };
-
+            Date = values[4];
+            
         }
     }
 }

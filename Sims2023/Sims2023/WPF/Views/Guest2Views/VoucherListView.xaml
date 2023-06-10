@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
+        xmlns:ns="clr-namespace:Sims2023"
         mc:Ignorable="d"
         Title="VoucherListView" Height="400" Width="700"  WindowStartupLocation="CenterScreen">
     <Grid>
@@ -13,14 +14,14 @@
                     SelectedItem="{Binding SelectedVoucher, UpdateSourceTrigger=PropertyChanged }" SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Width="634" Height="215" Margin="33,85,33,84">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Expiring" Width="150" Binding="{Binding Expired}"/>
-                <DataGridTextColumn Header="Description" Width="320" Binding="{Binding AdditionalComment}"/>
+                <DataGridTextColumn Header="{ns:Loc nameData}" Width="200" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="{ns:Loc expiringData}" Width="150" Binding="{Binding Expired}"/>
+                <DataGridTextColumn Header="{ns:Loc descriptionData}" Width="320" Binding="{Binding AdditionalComment}"/>
 
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Activate" Width="147" Height="42" HorizontalAlignment="Left" Margin="309,322,0,0" VerticalAlignment="Top" Click="ActivateVoucher_Click"/>
-        <Button Content="Skip" Width="147" Height="42" HorizontalAlignment="Left" Margin="520,322,0,0" VerticalAlignment="Top" Click="SkipVoucher_Click"/>
+        <Button Content="{ns:Loc activateBtn}" Width="147" Height="42" HorizontalAlignment="Left" Margin="309,322,0,0" VerticalAlignment="Top" Click="ActivateVoucher_Click"/>
+        <Button Content="{ns:Loc skipBtn}" Width="147" Height="42" HorizontalAlignment="Left" Margin="520,322,0,0" VerticalAlignment="Top" Click="SkipVoucher_Click"/>
 
     </Grid>
 </Window>

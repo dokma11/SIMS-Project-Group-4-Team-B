@@ -13,6 +13,7 @@ namespace Sims2023.Application.Services
         private ITourRequestCSVRepository _request;
         private IComplexTourRequestCSVRepository _complexTourRequest;
 
+
         public SubTourRequestService()
         {
             _subTourRequest = Injection.Injector.CreateInstance<ISubTourRequestCSVRepository>();
@@ -76,6 +77,33 @@ namespace Sims2023.Application.Services
         {
             _subTourRequest.Subscribe(observer);
         }
+
+        /*public void CheckExpirationDate(ComplexTourRequest complexTourRequest)
+        {
+            GetComplexTourRequestReference();
+            GetTourRequestReferences();
+            _subTourRequest.CheckExpirationDate(complexTourRequest);
+        }*/
+
+        public List<SubTourRequest> GetByComplexTourRequest(ComplexTourRequest complexTourRequest)
+        {
+            GetTourRequestReferences();
+            
+            return _subTourRequest.GetByComplexTourRequest(complexTourRequest);
+        }
+        public string GetEarliestSubTourDateByComplexTourRequest(ComplexTourRequest complexTourRequest)
+        {
+            GetTourRequestReferences();
+            GetComplexTourRequestReferences();
+            return _subTourRequest.GetEarliestSubTourDateByComplexTourRequest(complexTourRequest);
+        }
+
+        
+
+
+
+
+
 
         public List<SubTourRequest> GetByComplexTourId(int complexTourId)
         {

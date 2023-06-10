@@ -4,8 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023"
+        xmlns:ns="clr-namespace:Sims2023"
+        
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    
     <StackPanel>
         <Label FontSize="40" HorizontalAlignment="Center" Margin="0,50,0,0">Dobrodošli u Horizont!</Label>
         <Label FontSize="24" HorizontalAlignment="Center">Prijavite se kako biste nastavili dalje</Label>

@@ -36,10 +36,10 @@ namespace Sims2023.WPF.Views.Guest2Views
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            TourDetailedViewModel.Cancel_Click();
+           // TourDetailedViewModel.Cancel_Click();
         }
 
-        private void NextPicture_Click(object sender, RoutedEventArgs e)
+       /* private void NextPicture_Click(object sender, RoutedEventArgs e)
         {
             TourDetailedViewModel.NextPicture_Click();
         }
@@ -47,7 +47,7 @@ namespace Sims2023.WPF.Views.Guest2Views
         private void PreviousPicture_Click(object sender, RoutedEventArgs e)
         {
             TourDetailedViewModel.PreviousPicture_Click();
-        }
+        }*/
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -58,11 +58,11 @@ namespace Sims2023.WPF.Views.Guest2Views
 
             if (clickPosition < leftSidePosition)
             {
-                TourDetailedViewModel.PreviousPicture_Click();
+                TourDetailedViewModel.PreviousPicture();
             }
             else if (clickPosition > rightSidePosition)
             {
-                TourDetailedViewModel.NextPicture_Click();
+                TourDetailedViewModel.NextPicture();
             }
         }
 
@@ -97,19 +97,19 @@ namespace Sims2023.WPF.Views.Guest2Views
 
         private void NextImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         { 
-                TourDetailedViewModel.NextPicture_Click();
+                TourDetailedViewModel.NextPicture();
             
         }
 
         private void PreviousImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            TourDetailedViewModel.PreviousPicture_Click();
+            TourDetailedViewModel.PreviousPicture();
 
         }
 
         private void Reserve_Click(object sender, RoutedEventArgs e)
         {
-            TourDetailedViewModel.ReserveTour_Click();
+        //    TourDetailedViewModel.ReserveTour_Click();
         }
     }
 }

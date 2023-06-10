@@ -90,6 +90,14 @@ namespace Sims2023.View
             ownerViewModel.Grades_Given_From_Guests();
         }
 
+        private void Forums_Click(object sender, RoutedEventArgs e)
+        {
+            MenuButton.IsChecked = false;
+            ActionBarTextBlock.Text = ForumsButton.Content.ToString();
+            ListOfForumsView list = new ListOfForumsView(User);
+            FrameManager.Instance.MainFrame.Navigate(list);
+        }
+
         private void Reservations_Click(object sender, RoutedEventArgs e)
         {
             MenuButton.IsChecked = false;
@@ -104,6 +112,10 @@ namespace Sims2023.View
             ownerViewModel.Renovations_Click();
         }
 
+        private void Notification_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
         private void Statistics_Click(object sender, RoutedEventArgs e)
         {
             MenuButton.IsChecked = false;
