@@ -94,7 +94,7 @@ namespace Sims2023.Application.Services
         public string GetEarliestSubTourDateByComplexTourRequest(ComplexTourRequest complexTourRequest)
         {
             GetTourRequestReferences();
-            GetComplexTourRequestReference();
+            GetComplexTourRequestReferences();
             return _subTourRequest.GetEarliestSubTourDateByComplexTourRequest(complexTourRequest);
         }
 
