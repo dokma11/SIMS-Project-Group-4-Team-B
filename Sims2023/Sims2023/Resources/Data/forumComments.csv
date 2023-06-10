@@ -27,6 +27,7 @@
 27|9|1|19|True|0
 28|9|1|Proba|True|0
 29|17|7|Vrijeme uopste nije vjetrovito i prejako je|False|1
-30|18|7|Vrijeme je poprilicno vjetrovito i ali prija mi|True|0
-31|3|7|Stvarno nije vjetrovito, laganoo|False|1
+30|3|7|Stvarno nije vjetrovito, laganoo|True|0
+31|18|7|Vrijeme je poprilicno vjetrovito i ali prija mi|False|0
 32|3|7|Aloo lazee jelena |True|0
+33|9|7|Bila sam sjajno je|True|0

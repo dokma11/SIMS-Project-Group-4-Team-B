@@ -47,8 +47,15 @@ namespace Sims2023.WPF.Views.OwnerViews
             _commentService = new ForumCommentService();
             ForumComment = new ObservableCollection<ForumComment>();
             _fakeCommentService = new FakeCommentService();
-            ForumComment.Add(new ForumComment { Id = 100, Forum = selectedForum, Comment = selectedForum.MainComment, Special = false, User = selectedForum.User, NumberOfReports = 0 });
-            var filteredComments = _commentService.FilterComments(ForumComment, selectedForum);
+            FillTheList();
+        }
+
+        public void FillTheList()
+        {
+            ForumComment.Clear();
+
+            ForumComment.Add(new ForumComment { Id = 100, Forum = SelectedForum, Comment = SelectedForum.MainComment, Special = false, User = SelectedForum.User, NumberOfReports = 0 });
+            var filteredComments = _commentService.FilterComments(ForumComment, SelectedForum);
             var commentsToAdd = new List<ForumComment>(filteredComments);
 
             foreach (var comment in commentsToAdd)
@@ -76,15 +83,19 @@ namespace Sims2023.WPF.Views.OwnerViews
 
             if (SelectedComment != null)
             {
-                if (isAlreadyReported(_fakeCommentService.GetAll(), SelectedComment) && SelectedComment.Special == false)
+                if (!isAlreadyReported(_fakeCommentService.GetAll(), SelectedComment) && SelectedComment.Special == false)
                 {
                     ToastNotificationService.ShowInformation("Uspiješno prijavljivanje komentara");
                     FakeComment fake = new FakeComment(owner, SelectedComment);
                     ++SelectedComment.NumberOfReports;
                     _commentService.Update(SelectedComment);
                     _fakeCommentService.Create(fake);
+                    FillTheList();
+
                 }
-                else ToastNotificationService.ShowInformation("Ne možete prijaviti isti komentar više od jednog puta");
+                else if (SelectedComment.User.UserType == User.Type.Owner) ToastNotificationService.ShowInformation("Ne možete prijaviti komentar vlasnika smještaja na ovoj lokaciji");
+                else if (SelectedComment.Special == true) ToastNotificationService.ShowInformation("Ne možete prijaviti korisnika koji je boravio na ovoj lokaciji");
+                
             }
             else ToastNotificationService.ShowInformation("Selektujte komentar koji želite da prijavite");
         }
@@ -95,10 +106,10 @@ namespace Sims2023.WPF.Views.OwnerViews
             {
                 if (fakee.Owner.Id == owner.Id && fakee.Comment.Id == comment.Id)
                 {
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
     }
 }
