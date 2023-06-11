@@ -27,13 +27,13 @@ namespace Sims2023.WPF.Views.OwnerViews
         public string welcomeString { get; set; }
         public StartView(User owner)
         {
-            this.DataContext = this;
-          
-            InitializeComponent();
+           InitializeComponent();
 
             this.user = owner;
 
             welcomeString = welcome_string(user);
+
+            this.DataContext = this;
         }
 
         public string welcome_string(User user)

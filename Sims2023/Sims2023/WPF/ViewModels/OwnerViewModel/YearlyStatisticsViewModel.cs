@@ -27,10 +27,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         public RelayCommand Back { get; set; }
         public RelayCommand Details { get; set; }
         public RelayCommand GeneratePDF { get; set; }
-
-
         public string welcomeString { get; set; }
-
         public string welcomeString2 { get; set; }
 
         public YearlyStatisticsViewModel(Accommodation selectedAccommodation)

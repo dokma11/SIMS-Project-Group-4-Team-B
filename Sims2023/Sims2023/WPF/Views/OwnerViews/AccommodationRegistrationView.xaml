@@ -27,7 +27,7 @@
             <TextBox x:Name="textBox3" HorizontalAlignment="Left" Margin="182,302,0,0" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Center" VerticalAlignment="Top" Width="144" Height="26"/>
             <TextBox x:Name="textBox4" HorizontalAlignment="Left" Margin="182,355,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="144" Height="26"/>
             <TextBox x:Name="textBox5" HorizontalAlignment="Left" Margin="182,403,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="144" Height="26"/>
-            <Button x:Name="button"  HorizontalAlignment="Left" Margin="150,455,0,0" VerticalAlignment="Top" Width="41" Click="SaveButton_Click" Height="35">
+            <Button x:Name="button"  HorizontalAlignment="Left" Margin="150,455,0,0" VerticalAlignment="Top" Width="41" Command="{Binding AddPicture}" Height="35">
                 <Image Source="pack://application:,,,/Sims2023;component/Resources/OwnerResources/plus.png" />
             </Button>
             <ListView x:Name="PicturesListView"  HorizontalAlignment="Left" Margin="10,503,0,0" VerticalAlignment="Top" Width="316" Height="159" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
@@ -46,7 +46,7 @@
             <ComboBox x:Name="countryComboBox" HorizontalAlignment="Left" Margin="182,137,0,0" VerticalAlignment="Top" Width="144" Height="28" SelectionChanged="countryComboBox_SelectionChanged"/>
             <ComboBox x:Name="cityComboBox" HorizontalAlignment="Left" Margin="182,194,0,0" VerticalAlignment="Top" Width="144" Height="26" />
             <Label x:Name="label9" Content="Slike" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,460,0,0" VerticalAlignment="Top" Width="124"/>
-            <Button x:Name="button1" Content="Registruj" HorizontalAlignment="Left" Margin="135,694,0,0" VerticalAlignment="Top" Height="46" Width="143" Click="Registration_Click"  Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3"/>
+            <Button x:Name="button1" Content="Registruj" HorizontalAlignment="Left" Margin="135,694,0,0" VerticalAlignment="Top" Height="46" Width="143" Command="{Binding Register}" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3"/>
 
 
         </Grid>

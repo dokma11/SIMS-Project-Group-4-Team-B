@@ -22,25 +22,11 @@ namespace Sims2023.WPF.Views.OwnerViews
     /// </summary>
     public partial class SchedulingRenovationAppointmentsView : Page
     {
-        public SchedulingRenovationAppointmentsViewModel schedulingRenovationAppointmentsViewModel;
-        public string welcomeString { get; set; }
         public SchedulingRenovationAppointmentsView(Accommodation selectedAccommodation)
         {
             InitializeComponent();
-            schedulingRenovationAppointmentsViewModel = new SchedulingRenovationAppointmentsViewModel(this, selectedAccommodation);
-            DataContext = schedulingRenovationAppointmentsViewModel;
-            welcomeString = selectedAccommodation.Name;
-        }
-
-        private void FindDates(object sender, RoutedEventArgs e)
-        {
-            schedulingRenovationAppointmentsViewModel.FindDates();
-        }
-
-        private void Close_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService navigationService = NavigationService.GetNavigationService(this);
-            navigationService?.GoBack();
+            DataContext = new SchedulingRenovationAppointmentsViewModel(this, selectedAccommodation);
+           
         }
 
     }
