@@ -11,16 +11,14 @@
     <Window.Icon>
         <ImageSource>pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/HorizontBW-02.ico</ImageSource>
     </Window.Icon>
-    <Window.Resources>
-        <ImageBrush x:Key="BackgroundBrush" ImageSource="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/backgroundtexture.jpg" Stretch="UniformToFill" />
-    </Window.Resources>
-    <Grid Background="{StaticResource BackgroundBrush}">
-        <Label Content="{ns:Loc newSubtourRequestLabel}"  FontSize="28" HorizontalAlignment="Left" Margin="25,22,0,0" VerticalAlignment="Top"/>
-        <Label Content="{ns:Loc countryLabel}"  FontSize="20" HorizontalAlignment="Left" Margin="25,82,0,0" VerticalAlignment="Top"/>
+    
+    <Grid Background="{DynamicResource BackgroundBrush}">
+        <Label Foreground="{DynamicResource WelcomeLabel}"  Content="{ns:Loc newSubtourRequestLabel}"  FontSize="28" HorizontalAlignment="Left" Margin="25,22,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="{DynamicResource WelcomeLabel}"  Content="{ns:Loc countryLabel}"  FontSize="20" HorizontalAlignment="Left" Margin="25,82,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="countryComboBox" HorizontalAlignment="Left" Height="27" Width="140" Margin="114,87,0,0" VerticalAlignment="Top" SelectionChanged="CountryComboBox_SelectionChanged"/>
-        <Label Content="{ns:Loc cityLabel}"  FontSize="20" HorizontalAlignment="Left" Margin="270,82,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="{DynamicResource WelcomeLabel}"  Content="{ns:Loc cityLabel}"  FontSize="20" HorizontalAlignment="Left" Margin="270,82,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="cityComboBox" HorizontalAlignment="Left" Height="27" Width="140" Margin="334,87,0,0" VerticalAlignment="Top"/>
-        <Label Content="{ns:Loc languageLabel}"  FontSize="20" HorizontalAlignment="Left" Margin="494,82,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="{DynamicResource WelcomeLabel}"  Content="{ns:Loc languageLabel}"  FontSize="20" HorizontalAlignment="Left" Margin="494,82,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="languageComboBox" HorizontalAlignment="Left" Height="27" Width="140" Margin="600,87,0,0" VerticalAlignment="Top">
             <ComboBoxItem>English</ComboBoxItem>
             <ComboBoxItem>Serbian</ComboBoxItem>
@@ -31,14 +29,14 @@
             <ComboBoxItem>Chinese</ComboBoxItem>
             <ComboBoxItem>Japanese</ComboBoxItem>
         </ComboBox>
-        <Label Content="{ns:Loc guestNumberLabel}"  FontSize="20" HorizontalAlignment="Left" Margin="25,138,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="{DynamicResource WelcomeLabel}"  Content="{ns:Loc guestNumberLabel}"  FontSize="20" HorizontalAlignment="Left" Margin="25,138,0,0" VerticalAlignment="Top"/>
         <xctk:IntegerUpDown Name="guestNumberBox" AllowTextInput="False" HorizontalAlignment="Left" Margin="203,144,0,0" VerticalAlignment="Top" Minimum="1" Value="1" Width="52" Height="24"/>
-        <Label Content="{ns:Loc descriptionLabel}"  FontSize="20" HorizontalAlignment="Left" Margin="25,187,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="{DynamicResource WelcomeLabel}"  Content="{ns:Loc descriptionLabel}"  FontSize="20" HorizontalAlignment="Left" Margin="25,187,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="descriptionTextBox" HorizontalAlignment="Center" Margin="0,229,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="710" Height="140"/>
         <DatePicker  x:Name="startDatePicker"  Width="130" HorizontalAlignment="Left" Margin="370,144,0,0" VerticalAlignment="Top" SelectedDateChanged="StartDatePicker_SelectedDateChanged"></DatePicker>
-        <Label Content="{ns:Loc startDateLabel}"  FontSize="20" HorizontalAlignment="Left" Margin="270,138,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="{DynamicResource WelcomeLabel}"  Content="{ns:Loc startDateLabel}"  FontSize="20" HorizontalAlignment="Left" Margin="270,138,0,0" VerticalAlignment="Top"/>
         <DatePicker x:Name="endDatePicker" DisplayDateStart="{Binding ElementName=StartDatePicker, Path=SelectedDate}" Width="130" HorizontalAlignment="Left" Margin="609,144,0,0" VerticalAlignment="Top"/>
-        <Label Content="{ns:Loc endDateLabel}"  FontSize="20" HorizontalAlignment="Left" Margin="512,138,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="{DynamicResource WelcomeLabel}"  Content="{ns:Loc endDateLabel}"  FontSize="20" HorizontalAlignment="Left" Margin="512,138,0,0" VerticalAlignment="Top"/>
         <Button Content="{ns:Loc cancelBtn}" Background="#bcbcbc" FontSize="17" Width="148" Height="42" HorizontalAlignment="Left" Margin="591,381,0,0" VerticalAlignment="Top" Click="CancelButton_Click"/>
         <Button Content="{ns:Loc addBtn}" Background="#bcbcbc" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="400,381,0,0" VerticalAlignment="Top" Click="CreateButton_Click"/>
 

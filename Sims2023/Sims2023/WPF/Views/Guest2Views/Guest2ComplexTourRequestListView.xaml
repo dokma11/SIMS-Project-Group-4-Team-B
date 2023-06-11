@@ -8,54 +8,12 @@
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1024"
       Title="Guest2ComplexTourRequestListView">
-    <Page.Resources>
-        <ImageBrush x:Key="BackgroundBrush" ImageSource="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/backgroundtexture.jpg" Stretch="UniformToFill" />
-    </Page.Resources>
-    <Grid Background="{StaticResource BackgroundBrush}">
-        <DataGrid x:Name="dataGridGuestComplexTourRequests" ItemsSource="{Binding ComplexTourRequests}"
+    
+    <Grid Background="{DynamicResource BackgroundBrush}">
+        <DataGrid Background="{DynamicResource DataGridBackGround}" x:Name="dataGridGuestComplexTourRequests" ItemsSource="{Binding ComplexTourRequests}"
                     SelectedItem="{Binding SelectedComplexTourRequest, UpdateSourceTrigger=PropertyChanged }" SelectionMode="Single"
-                    IsReadOnly="True" AutoGenerateColumns="False" Width="938" Height="400" Margin="43,110,43,110">
-            <DataGrid.CellStyle>
-                <Style TargetType="DataGridCell">
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                    <Setter Property="FontSize" Value="12" />
-
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="Gray" />
-                            <Setter Property="BorderBrush" Value="Transparent" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.CellStyle>
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#BCBCBC" />
-                    <Setter Property="Foreground" Value="Black" />
-                    <Setter Property="BorderBrush" Value="Black" />
-                    <Setter Property="BorderThickness" Value="1" />
-                    <Setter Property="FontSize" Value="12" />
-
-                    <Setter Property="FontWeight" Value="DemiBold"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="Black" />
-                            <Setter Property="Foreground" Value="White" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
-            <DataGrid.RowStyle>
-                <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="Background" Value="White"/>
-                    <Setter Property="Foreground" Value="Black"/>
-
-
-
-
-                </Style>
-            </DataGrid.RowStyle>
+                    IsReadOnly="True" AutoGenerateColumns="False" Width="938" Height="400" Margin="43,110,43,110" CellStyle="{DynamicResource DataGridCellStyle}"
+                  ColumnHeaderStyle="{DynamicResource DataGridColumnHeadersStyle}" RowStyle="{DynamicResource DataGridRowStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{ns:Loc nameData}" Width="760" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="{ns:Loc stateData}" Width="100" Binding="{Binding CurrentState}"/>
@@ -71,6 +29,6 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="{ns:Loc newRequestBtn}" FontSize="15" Width="147" Height="42"  Background="#bcbcbc" HorizontalAlignment="Left" Margin="820,518,0,0" VerticalAlignment="Top" Click="NewRequest_Click"/>
-        <Label Content="{ns:Loc myComplexTourRequestsLabel}" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="{DynamicResource WelcomeLabel}" Content="{ns:Loc myComplexTourRequestsLabel}" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>
