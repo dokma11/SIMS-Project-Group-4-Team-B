@@ -59,6 +59,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                 SchedulingRenovationAppointmentsView shedule = new SchedulingRenovationAppointmentsView(SelectedAccommodation);
                 FrameManager.Instance.MainFrame.Navigate(shedule);
             }
+            else ToastNotificationService.ShowInformation("Niste selektovali nista");
         }
 
         public void Executed_ReviewCommand(object obj)
@@ -75,6 +76,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                 YearlyStatisticsView statistics = new YearlyStatisticsView(SelectedAccommodation);
                 FrameManager.Instance.MainFrame.Navigate(statistics);
             }
+            else ToastNotificationService.ShowInformation("Niste selektovali nista");
         }
     }
 }

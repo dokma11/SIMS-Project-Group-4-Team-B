@@ -77,30 +77,27 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         public void Window_Loaded()
         {
-         //   checkForNotifications();
+            //   checkForNotifications();
             string fileName = "../../../Resources/Data/lastshown.txt";
-                string lastShownText = System.IO.File.ReadAllText(fileName);
-                DateTime lastShownDate = DateTime.Parse(lastShownText);
+            string lastShownText = System.IO.File.ReadAllText(fileName);
+            DateTime lastShownDate = DateTime.Parse(lastShownText);
 
-                if (lastShownDate < DateTime.Today)
-                {
-                    if (_accommodationReservationService.GetGradableGuests(User, Reservations, _gradeService.GetAllGrades()).Count != 0)
-                    {
-                        ToastNotificationService.ShowInformation("Imate neocijenjene goste");
-                    Task.Run(async () =>
-                    {
-                        await Task.Delay(2000); // 2 seconds
-
-                        // Update the last shown date to today's date
-                        System.IO.File.WriteAllText(fileName, DateTime.Today.ToString());
-                    });
-                }
+            if (lastShownDate < DateTime.Today)
+            {
                 if (forums.Count() != 0)
                 {
-                        ToastNotificationService.ShowInformation("Imate novootvorene forume");
-                        System.IO.File.WriteAllText(fileName, DateTime.Today.ToString());
-                    }
+                    ToastNotificationService.ShowInformation("Imate novootvorene forume");
+                    System.IO.File.WriteAllText(fileName, DateTime.Today.ToString());
                 }
+                else if (_accommodationReservationService.GetGradableGuests(User, Reservations, _gradeService.GetAllGrades()).Count != 0)
+                {
+                    ToastNotificationService.ShowInformation("Imate neocijenjene goste");
+
+
+                    // Update the last shown date to today's date
+                    System.IO.File.WriteAllText(fileName, DateTime.Today.ToString());
+                }
+            }
         }
 
         public string ungradedGuestsNameAndSurrname(List<AccommodationReservation> ungradedGuests)

@@ -28,6 +28,8 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         public Location SelectedLocation { get; set; }
         public UnopularLocationsViewModel(User user)
         {
+            CloseAccommodations = new RelayCommand(Executed_CloseAccommodationsCommand, CanExecute_CloseAccommodationsCommand);
+            Back = new RelayCommand(Executed_BackCommand, CanExecute_BackCommand);
             owner = user;
             _locationService = new LocationService();
             _accommodationService = new AccommodationService();

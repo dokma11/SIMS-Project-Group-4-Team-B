@@ -14,6 +14,8 @@ using System.Windows;
 using Sims2023.WPF.Views.OwnerViews;
 using System.IO;
 using Sims2023.WPF.Commands;
+using System.Windows.Media;
+using System.Drawing;
 
 namespace Sims2023.WPF.ViewModels.OwnerViewModel
 {
@@ -47,23 +49,74 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
     }
         public bool IsValid(string MaxGuests1, string mindays, string CancelDayss, string city, string country, string name, string type)
         {
-        int clean;
-        bool isCleanValid = int.TryParse(MaxGuests1, out clean);
-        int RespectRules;
-        bool isRulesValid = int.TryParse(mindays, out RespectRules);
-        int Communication;
-        bool isCommunicationValid = int.TryParse(CancelDayss, out Communication);
+            int clean;
+            bool isCleanValid = int.TryParse(MaxGuests1, out clean);
+            int RespectRules;
+            bool isRulesValid = int.TryParse(mindays, out RespectRules);
+            int Communication;
+            bool isCommunicationValid = int.TryParse(CancelDayss, out Communication);
 
-        if (!isCleanValid) return false;
-        else if (!isRulesValid) return false;
-        else if (!isCommunicationValid) return false;
-        else if (string.IsNullOrEmpty(city)) return false;
-        else if (string.IsNullOrEmpty(country)) return false;
-        else if (string.IsNullOrEmpty(name)) return false;
-        else if (string.IsNullOrEmpty(type)) return false;
+            List<Control> invalidControls = new List<Control>();
 
-        else return true;
+            // Reset background color of all fields
+            View.textBox3.ClearValue(TextBox.BackgroundProperty);
+            View.textBox4.ClearValue(TextBox.BackgroundProperty);
+            View.textBox5.ClearValue(TextBox.BackgroundProperty);
+            View.textBox2.ClearValue(TextBox.BackgroundProperty);
+            View.textBox1.ClearValue(TextBox.BackgroundProperty);
+            View.textBox.ClearValue(TextBox.BackgroundProperty);
+            View.comboBox.ClearValue(ComboBox.BackgroundProperty);
+
+            if (!isCleanValid)
+            {
+                invalidControls.Add(View.textBox3);
+            }
+            if (!isRulesValid)
+            {
+                invalidControls.Add(View.textBox4);
+            }
+            if (!isCommunicationValid)
+            {
+                invalidControls.Add(View.textBox5);
+            }
+            if (string.IsNullOrEmpty(city))
+            {
+                invalidControls.Add(View.textBox2);
+            }
+            if (string.IsNullOrEmpty(country))
+            {
+                invalidControls.Add(View.textBox1);
+            }
+            if (string.IsNullOrEmpty(name))
+            {
+                invalidControls.Add(View.textBox);
+            }
+            if (string.IsNullOrEmpty(type))
+            {
+                invalidControls.Add(View.comboBox);
+            }
+
+            if (invalidControls.Count > 0)
+            {
+                SetControlsBackground(invalidControls);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
+
+        private void SetControlsBackground(List<Control> controls)
+        {
+            SolidColorBrush redBrush = new SolidColorBrush(Colors.Red);
+            foreach (Control control in controls)
+            {
+                control.Background = redBrush;
+            }
+        }
+
+
 
         private bool CanExecute_AddPictureCommand(object obj)
         {
@@ -130,7 +183,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                 _permanentPictures.Clear();
                 View.PicturesListView.ItemsSource = null;
             }
-        else ToastNotificationService.ShowInformation("Niste unijeli sve podatke");
+        else ToastNotificationService.ShowInformation("Niste dobro popunili sve podatke");
     }
 
 
