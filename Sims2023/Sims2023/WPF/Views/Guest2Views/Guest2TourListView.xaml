@@ -25,46 +25,15 @@
             CreatedTemplate="{StaticResource CreatedTemplate}"
             StartedTemplate="{StaticResource StartedTemplate}"
             FinishedTemplate="{StaticResource FinishedTemplate}" />
-        <ImageBrush x:Key="BackgroundBrush" ImageSource="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/backgroundtexture.jpg" Stretch="UniformToFill" />
-        
     </Page.Resources>
-    <Grid Background="{StaticResource BackgroundBrush}">
+    <Grid Background="{DynamicResource BackgroundBrush}">
         <DataGrid x:Name="dataGridGuestTours" ItemsSource="{Binding TourReservations, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedTourReservation, UpdateSourceTrigger=PropertyChanged }" SelectionMode="Single"
-                    IsReadOnly="True" AutoGenerateColumns="False" Width="940" Margin="44,111,40,59">
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#BCBCBC" />
-                    <Setter Property="Foreground" Value="Black" />
-                    <Setter Property="BorderBrush" Value="Black" />
-                    <Setter Property="BorderThickness" Value="1" />
-                    <Setter Property="FontSize" Value="12" />
-
-                    <Setter Property="FontWeight" Value="DemiBold"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="Black" />
-                            <Setter Property="Foreground" Value="White" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
-            <DataGrid.CellStyle>
-                <Style TargetType="DataGridCell">
-                     
-                    <Setter Property="Foreground" Value="Black" />
-                    
-                    <Setter Property="FontSize" Value="12" />
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="Gray" />
-                            <Setter Property="BorderBrush" Value="Transparent" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.CellStyle>
+                    IsReadOnly="True" AutoGenerateColumns="False" Width="940" Margin="44,111,40,59" Foreground="{DynamicResource DataGridBackGround}"
+                    CellStyle="{DynamicResource DataGridCellStyle}"
+                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeadersStyle}" RowStyle="{DynamicResource DataGridRowStyle}">
             
-            <DataGrid.Columns>
+           <DataGrid.Columns>
                 <DataGridTextColumn Header="{ns:Loc nameData}" Width="180" Binding="{Binding Tour.Name}"/>
                 <DataGridTextColumn Header="{ns:Loc cityData}" Width="135" Binding="{Binding Tour.Location.City}"/>
                 <DataGridTextColumn Header="{ns:Loc countryData}" Width="135" Binding="{Binding Tour.Location.Country}"/>
@@ -77,7 +46,7 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="{ns:Loc myToursMenu}" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="{DynamicResource WelcomeLabel}" Content="{ns:Loc myToursMenu}" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 

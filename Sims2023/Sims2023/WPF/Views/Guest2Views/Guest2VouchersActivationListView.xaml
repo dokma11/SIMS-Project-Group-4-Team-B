@@ -10,54 +10,14 @@
     <Window.Icon>
         <ImageSource>pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/HorizontBW-02.ico</ImageSource>
     </Window.Icon>
-    <Window.Resources>
-        <ImageBrush x:Key="BackgroundBrush" ImageSource="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/backgroundtexture.jpg" Stretch="UniformToFill" />
-    </Window.Resources>
-    <Grid Background="{StaticResource BackgroundBrush}">
+    
+    <Grid Background="{DynamicResource BackgroundBrush}">
         <DataGrid x:Name="dataGridVouchers" ItemsSource="{Binding Vouchers, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedVoucher, UpdateSourceTrigger=PropertyChanged }" SelectionMode="Single"
-                    IsReadOnly="True" AutoGenerateColumns="False" Width="634" Height="215" Margin="33,85,33,84">
-            <DataGrid.CellStyle>
-                <Style TargetType="DataGridCell">
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                    <Setter Property="FontSize" Value="12" />
-
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="Gray" />
-                            <Setter Property="BorderBrush" Value="Transparent" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.CellStyle>
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#BCBCBC" />
-                    <Setter Property="Foreground" Value="Black" />
-                    <Setter Property="BorderBrush" Value="Black" />
-                    <Setter Property="BorderThickness" Value="1" />
-                    <Setter Property="FontSize" Value="12" />
-
-                    <Setter Property="FontWeight" Value="DemiBold"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="Black" />
-                            <Setter Property="Foreground" Value="White" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
-            <DataGrid.RowStyle>
-                <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="Background" Value="White"/>
-                    <Setter Property="Foreground" Value="Black"/>
-
-
-
-
-                </Style>
-            </DataGrid.RowStyle>
+                    IsReadOnly="True" AutoGenerateColumns="False" Width="634" Height="215" Margin="33,85,33,84" CellStyle="{DynamicResource DataGridCellStyle}"
+                  ColumnHeaderStyle="{DynamicResource DataGridColumnHeadersStyle}" RowStyle="{DynamicResource DataGridRowStyle}"
+                  Foreground="{DynamicResource DataGridBackGround}">
+            
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{ns:Loc nameData}" Width="200" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="{ns:Loc expiringData}" Width="150" Binding="{Binding Expired}"/>
@@ -67,7 +27,7 @@
         </DataGrid>
         <Button Content="{ns:Loc activateBtn}" Background="#bcbcbc" Width="147" Height="42" FontSize="17" HorizontalAlignment="Left" Margin="309,315,0,0" VerticalAlignment="Top" Command="{Binding ActivateCommand}"/>
         <Button Content="{ns:Loc skipBtn}" Background="#bcbcbc" Width="147" Height="42" FontSize="17" HorizontalAlignment="Left" Margin="520,315,0,0" VerticalAlignment="Top" Command="{Binding SkipCommand}"/>
-        <Label Content="{ns:Loc myCouponsMenu}" FontSize="32" HorizontalAlignment="Left" Margin="33,10,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="{DynamicResource WelcomeLabel}" Content="{ns:Loc myCouponsMenu}" FontSize="32" HorizontalAlignment="Left" Margin="33,10,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

@@ -7,54 +7,15 @@
         xmlns:ns="clr-namespace:Sims2023"
         mc:Ignorable="d"
         Title="Guest2TourRequestListView"  d:DesignHeight="620" d:DesignWidth="1024">
-    <Page.Resources>
-        <ImageBrush x:Key="BackgroundBrush" ImageSource="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/backgroundtexture.jpg" Stretch="UniformToFill" />
-    </Page.Resources>
-    <Grid Background="{StaticResource BackgroundBrush}">
+    
+    <Grid Background="{DynamicResource BackgroundBrush}">
         <DataGrid x:Name="dataGridGuestTourRequests" ItemsSource="{Binding TourRequests}"
                      SelectionMode="Single"
-                    IsReadOnly="True" AutoGenerateColumns="False" Width="938" Height="400" Margin="43,110,43,110">
-            <DataGrid.CellStyle>
-                <Style TargetType="DataGridCell">
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                    <Setter Property="FontSize" Value="12" />
-
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="Gray" />
-                            <Setter Property="BorderBrush" Value="Transparent" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.CellStyle>
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#BCBCBC" />
-                    <Setter Property="Foreground" Value="Black" />
-                    <Setter Property="BorderBrush" Value="Black" />
-                    <Setter Property="BorderThickness" Value="1" />
-                    <Setter Property="FontSize" Value="12" />
-
-                    <Setter Property="FontWeight" Value="DemiBold"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="Black" />
-                            <Setter Property="Foreground" Value="White" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
-            <DataGrid.RowStyle>
-                <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="Background" Value="White"/>
-                    <Setter Property="Foreground" Value="Black"/>
-
-
-
-
-                </Style>
-            </DataGrid.RowStyle>
+                    IsReadOnly="True" AutoGenerateColumns="False" Width="938" Height="400" Margin="43,110,43,110"
+                  CellStyle="{DynamicResource DataGridCellStyle}"
+                  ColumnHeaderStyle="{DynamicResource DataGridColumnHeadersStyle}" RowStyle="{DynamicResource DataGridRowStyle}"
+                  Foreground="{DynamicResource DataGridBackGround}">
+            
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{ns:Loc cityData}" Width="124" Binding="{Binding Location.City}"/>
                 <DataGridTextColumn Header="{ns:Loc countryData}" Width="110" Binding="{Binding Location.Country}"/>
@@ -69,7 +30,7 @@
         </DataGrid>
         <Button Content="{ns:Loc newRequestBtn}" FontSize="15" Width="147" Height="42" Background="#bcbcbc" HorizontalAlignment="Left" Margin="613,518,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         <Button Content="{ns:Loc statisticsBtn}" FontSize="15" Width="147" Height="42"  Background="#bcbcbc" HorizontalAlignment="Left" Margin="820,518,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
-        <Label Content="{ns:Loc myTourRequestsLabel}" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="{DynamicResource WelcomeLabel}" Content="{ns:Loc myTourRequestsLabel}" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>
