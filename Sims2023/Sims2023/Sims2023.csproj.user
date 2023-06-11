@@ -85,13 +85,13 @@
     <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\WheneverWhereverOptionsHelpView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneFourthView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneMainWizardView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="WPF\Views\Guest1Views\Guest1Wizard\Try1.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="WPF\Views\Guest1Views\Guest1Wizard\Try2.xaml.cs">
+    <Compile Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneThirdView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\Guest1Views\Guest1Wizard\WizardMainView.xaml.cs">
@@ -329,13 +329,13 @@
     <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\WheneverWhereverOptionsHelpView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneFourthView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneMainWizardView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\Views\Guest1Views\Guest1Wizard\Try1.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="WPF\Views\Guest1Views\Guest1Wizard\Try2.xaml">
+    <Page Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneThirdView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest1Views\Guest1Wizard\WizardMainView.xaml">

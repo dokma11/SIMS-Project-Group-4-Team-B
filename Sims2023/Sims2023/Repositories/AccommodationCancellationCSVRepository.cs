@@ -95,7 +95,6 @@ namespace Sims2023.Repositories
                     AllGuestsReservations.Add(accommodationCancellation);
                 }
             }
-            MessageBox.Show($"Broj otkazanih rezervacija: {i}");
             return AllGuestsReservations;
         }
     }

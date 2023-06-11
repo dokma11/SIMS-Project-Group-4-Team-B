@@ -59,7 +59,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             newForum.Closed = false;
             newForum.Theme=theme;
             newForum.MainComment = comment;
-            newForum.NumberOfReports= 0;
             newForum.CountGuestComments= 0;
             newForum.CountOwnerComments= 0;
             _forumService.Create(newForum);

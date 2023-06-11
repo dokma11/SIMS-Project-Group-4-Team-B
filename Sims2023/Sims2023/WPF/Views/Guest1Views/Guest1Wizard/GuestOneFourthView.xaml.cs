@@ -12,20 +12,26 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows;
+using System.Windows.Input;
+using Sims2023.WPF.ViewModels.Guest1ViewModel;
+using System.Diagnostics;
 
 namespace Sims2023.WPF.Views.Guest1Views.Guest1Wizard
 {
     /// <summary>
-    /// Interaction logic for Try2.xaml
+    /// Interaction logic for GuestOneForthView.xaml
     /// </summary>
-    public partial class Try2 : Page
+    public partial class GuestOneFourthView : Page
     {
         Frame MainFrame;
-        public Try2(Frame frame)
+        WizardMainView WizardMainView;
+        public GuestOneFourthView(Frame frame, WizardMainView wizardMainView)
         {
             InitializeComponent();
             DataContext = this;
             MainFrame = frame;
+            WizardMainView = wizardMainView;
 
         }
         public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -35,7 +41,15 @@ namespace Sims2023.WPF.Views.Guest1Views.Guest1Wizard
 
         public void Next(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageBox.Show("Ovde se zatvara tako da u sustini moram svuda da prosledim main prozor");
+            var result = System.Windows.MessageBox.Show("Da li ste sigurni da želite da izađete iz wizard-a? Ukoliko izađete nećete moći ponovo da ga pokrenete.", "Confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (result == System.Windows.MessageBoxResult.Yes)
+            {
+                WizardMainView.Close();
+            }
+            else
+            {
+                return;
+            }
         }
         public void Back(object sender, ExecutedRoutedEventArgs e)
         {

@@ -16,13 +16,13 @@ using System.Windows.Shapes;
 namespace Sims2023.WPF.Views.Guest1Views.Guest1Wizard
 {
     /// <summary>
-    /// Interaction logic for GuestOneMainWizardView.xaml
+    /// Interaction logic for GuestSecondFirstView.xaml
     /// </summary>
-    public partial class GuestOneMainWizardView : Page
+    public partial class GuestSecondFirstView : Page
     {
         Frame MainFrame;
         WizardMainView WizardMainView;
-        public GuestOneMainWizardView(Frame frame, WizardMainView wizardMainView)
+        public GuestSecondFirstView(Frame frame, WizardMainView wizardMainView)
         {
             InitializeComponent();
             DataContext = this;
@@ -36,7 +36,16 @@ namespace Sims2023.WPF.Views.Guest1Views.Guest1Wizard
 
         public void Next(object sender, ExecutedRoutedEventArgs e)
         {
-            MainFrame.Navigate(new GuestOneFirstView(MainFrame, WizardMainView));
+            MainFrame.Navigate(new GuestOneThirdView(MainFrame, WizardMainView));
+        }
+        public void Back(object sender, ExecutedRoutedEventArgs e)
+        {
+            NavigationService navigationService = NavigationService.GetNavigationService(this);
+
+            if (navigationService.CanGoBack)
+            {
+                navigationService.GoBack();
+            }
         }
     }
 }

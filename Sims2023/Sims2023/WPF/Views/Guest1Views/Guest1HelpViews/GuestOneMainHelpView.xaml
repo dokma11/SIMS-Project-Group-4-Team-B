@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views.Guest1HelpViews"
         xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Title="GuestOneMainHelpView" Height="400" Width="700" WindowStartupLocation="CenterScreen">
     <Window.CommandBindings>
         <CommandBinding Command="cmd:RoutedCommands.OpenHelp" CanExecute="CanExecute" Executed="ExitHelp"></CommandBinding>

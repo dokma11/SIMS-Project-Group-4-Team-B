@@ -1,32 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Sims2023.WPF.Views.Guest1Views.Guest1Wizard
 {
     /// <summary>
-    /// Interaction logic for Try1.xaml
+    /// Interaction logic for GuestOneFirstView.xaml
     /// </summary>
-    public partial class Try1 : Page
+    public partial class GuestOneFirstView : Page
     {
         Frame MainFrame;
-        public Try1(Frame frame)
+        WizardMainView WizardMainView;
+        public GuestOneFirstView(Frame frame, WizardMainView wizardMainView)
         {
             InitializeComponent();
             DataContext = this;
             MainFrame = frame;
-
+            WizardMainView = wizardMainView;
         }
         public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -35,7 +25,7 @@ namespace Sims2023.WPF.Views.Guest1Views.Guest1Wizard
 
         public void Next(object sender, ExecutedRoutedEventArgs e)
         {
-            MainFrame.Navigate(new Try2(MainFrame));
+            MainFrame.Navigate(new GuestSecondFirstView(MainFrame, WizardMainView));
         }
         public void Back(object sender, ExecutedRoutedEventArgs e)
         {

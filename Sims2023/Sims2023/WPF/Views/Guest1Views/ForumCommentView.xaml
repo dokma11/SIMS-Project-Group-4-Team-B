@@ -9,7 +9,7 @@
         xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         Title="ForumCommentView" Height="400" Width="700" WindowStartupLocation="CenterScreen">
     <Window.CommandBindings>
-        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="AddComment"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="AddComment"></CommandBinding> 
         <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="GoBack"></CommandBinding>
     </Window.CommandBindings>
     <Grid>

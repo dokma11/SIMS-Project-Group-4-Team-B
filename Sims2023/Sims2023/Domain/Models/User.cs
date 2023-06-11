@@ -17,17 +17,16 @@ namespace Sims2023.Domain.Models
         public string Email { get; set; }
         public enum Type { Owner, Guest1, Guide, Guest2 }
         public Type UserType { get; set; }
-
         public bool superOwner { get; set; }
-        //Treba i sliku dodati
         public bool SuperGuide { get; set; }
         public bool SuperGuest1 { get; set; }
         public int Guest1Points { get; set; }
         public DateTime DateOfBecomingSuperGuest { get; set; }
         public bool AbleToLogIn { get; set; }
+        public bool FirstLogIn { get; set; }
         public User() { }
 
-        public User(int id, string username, string password, string name, string surname, int age, string phoneNumber, string email, Type userType, bool superOwner, bool superGuide, bool superGuest1, int guest1Points, DateTime dateOfBecomingSuperGuest)
+        public User(int id, string username, string password, string name, string surname, int age, string phoneNumber, string email, Type userType, bool superOwner, bool superGuide, bool superGuest1, int guest1Points, DateTime dateOfBecomingSuperGuest, bool firstLogIn)
         {
             Id = id;
             Username = username;
@@ -44,6 +43,7 @@ namespace Sims2023.Domain.Models
             Guest1Points = guest1Points;
             DateOfBecomingSuperGuest = dateOfBecomingSuperGuest;
             AbleToLogIn = true;
+            FirstLogIn = firstLogIn;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -70,7 +70,8 @@ namespace Sims2023.Domain.Models
                 SuperGuest1.ToString(),
                 Guest1Points.ToString(),
                 DateOfBecomingSuperGuest.ToString(),
-                AbleToLogIn.ToString()
+                AbleToLogIn.ToString(),
+                FirstLogIn.ToString(),
             };
             return csvValues;
         }
@@ -92,6 +93,7 @@ namespace Sims2023.Domain.Models
             Guest1Points = Convert.ToInt32(values[12]);
             DateOfBecomingSuperGuest = Convert.ToDateTime(values[13]);
             AbleToLogIn = Convert.ToBoolean(values[14]);
+            FirstLogIn = Convert.ToBoolean(values[15]);
         }
     }
 }

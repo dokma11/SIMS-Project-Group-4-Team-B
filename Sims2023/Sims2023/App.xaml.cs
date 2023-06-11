@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sims2023.WPF.Views.Guest1Views.Guest1Wizard;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,6 @@ namespace Sims2023
     /// </summary>
     public partial class App
     {
+        
     }
 }

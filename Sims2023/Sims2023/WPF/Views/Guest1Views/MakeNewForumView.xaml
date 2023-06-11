@@ -9,7 +9,7 @@
       d:DesignHeight="550" d:DesignWidth="1000"
       Title="MakeNewForumView">
     <Page.CommandBindings>
-        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="NewForum"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="NewForum"></CommandBinding> 
         <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="GoBack"></CommandBinding>
     </Page.CommandBindings>
     <Grid>

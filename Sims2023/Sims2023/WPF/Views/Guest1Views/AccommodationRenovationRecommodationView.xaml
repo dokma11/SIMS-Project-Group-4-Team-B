@@ -22,7 +22,7 @@
             <RowDefinition Height="60"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
-        <Label x:Name="label" Content="Ocenjivanje smestaja i vlasnika" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="0" Margin="0,0,0,0"/>
+        <Label x:Name="label" Content="Preporuka za renoviranje" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="0" Margin="0,0,0,0"/>
         <Label x:Name="currentStateLabel" Content="Trenutno stanje:" FontSize="15" Grid.Row="1" Margin="20,0,20,0"/>
         <TextBox x:Name="textBox" TextWrapping="Wrap" Grid.Row="2" Margin="30,0,30,20" TabIndex="1"/>
         <Label x:Name="renovationUrgencyLabel" Content="Trenutno stanje:" FontSize="15" Grid.Row="3" Margin="20,0,20,0"/>
@@ -43,7 +43,7 @@ renovira"/>
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="accept" Content="Potvrdi" Grid.Column="0" TabIndex="3"  Margin="275,10,75,20" FontSize="20" Command="cmd:RoutedCommands.Command1View"/>
-            <Button x:Name="giveUp" Content="Odustani" Grid.Column="1" TabIndex="4" Margin="70,10,30,0" FontSize="18" VerticalAlignment="Top" Command="cmd:RoutedCommands.Command2View" Height="30"/>
+            <Button x:Name="giveUp" Content="Odustani" Grid.Column="1" TabIndex="4" Margin="70,30,30,0" FontSize="18" VerticalAlignment="Top" Command="cmd:RoutedCommands.Command2View" Height="30"/>
         </Grid>    
     </Grid>
 </Window>

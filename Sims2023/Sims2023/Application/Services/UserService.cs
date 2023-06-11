@@ -1,6 +1,7 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
+using System;
 using System.Collections.Generic;
 
 namespace Sims2023.Application.Services
@@ -61,6 +62,16 @@ namespace Sims2023.Application.Services
         public void MarkDismissal(User loggedInGuide)
         {
             _user.MarkDismissal(loggedInGuide);
+        }
+
+        public void Update(User user)
+        {
+            _user.Update(user);
+        }
+
+        public void AppHasBeenStarted()
+        {
+            _user.AppHasBeenStarted();
         }
     }
 }
