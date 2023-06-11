@@ -13,6 +13,6 @@
         <Button x:Name="button1" Click="Unpopular_Click" Content="Preporuke o zatvarnju postojećih smjštaja" FontSize="20" HorizontalAlignment="Center"  Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" Margin="0,532,0,0" VerticalAlignment="Top" Height="111" Width="368"/>
 
         <Button x:Name="playButton" Content="Teško se snalazite? Pogledajte video" FontSize="20" HorizontalAlignment="Center" Margin="0,400,0,0" VerticalAlignment="Top"  Height="72" Width="366" Click="PlayVideo_Click"/>
-        <MediaElement x:Name="mediaElement" LoadedBehavior="Manual" Visibility="Visible" Source=".\..\..\..\Resources\OwnerResources\rename.mp4" Stretch="Fill" MediaEnded="MediaElement_MediaEnded"/>
+        <MediaElement x:Name="mediaElement" LoadedBehavior="Manual" Visibility="Visible" Source=".\..\..\..\Resources\OwnerResources\tutorijal.wmv" MediaEnded="MediaElement_MediaEnded" Stretch="Fill" Width="430" Height="700"/>
     </Grid>
 </Page>

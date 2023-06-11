@@ -9,7 +9,7 @@
       Title="StartView">
 
     <Grid Background="#B3E5FC">
-        <Label x:Name="label" Content="{Binding welcomeString}" DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:StartView}}}" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top" Height="122" Width="344"/>
+        <Label x:Name="label" Content="{Binding welcomeString}" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top" Height="122" Width="344"/>
         <Image Source="pack://application:,,,/Sims2023;component/Resources/GuestOneResources/Horizont_ICO.png" HorizontalAlignment="Center" Margin="0,302,0,0" VerticalAlignment="Top" Height="178" Width="200" />
         <Image x:Name="image"  Source="pack://application:,,,/Sims2023;component/Resources/GuestOneResources/Horizont_SRB.png" HorizontalAlignment="Left" Height="183" Margin="101,167,0,0" VerticalAlignment="Top" Width="257"/>
         <Label x:Name="label1" Content="    Horizont je zvanična aplikacija&#xD;&#xA; turističke agencije &quot;Well Travelling&quot;" HorizontalContentAlignment="Center" FontSize="25"  HorizontalAlignment="Center" Margin="0,511,0,0" VerticalAlignment="Top" Height="100" Width="410"/>

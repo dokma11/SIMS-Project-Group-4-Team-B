@@ -46,15 +46,6 @@ namespace Sims2023.View
             newNotification = true;
             ownerViewModel = new OwnerViewModel(User);
             ToastNotificationService.Initialize(this);
-
-
-            _locationService = new LocationService();
-            _accommodationService = new AccommodationService();
-            _forumService = new ForumService();
-            locations = _accommodationService.GetOwnerLocations(_accommodationService.GetOwnerAccommodations(_accommodationService.GetAllAccommodations(), User));
-            forums = _forumService.GetForumsForParticularOwner(locations);
-            forums.RemoveAll(forum => forum.OwnerOpened == true);
-            //ShowMessage();
         }
 
         private void MenuButton_Checked(object sender, RoutedEventArgs e)
@@ -65,10 +56,6 @@ namespace Sims2023.View
             MenuPanel.BeginAnimation(Grid.WidthProperty, animation);
         }
 
-        private void ShowMessage()
-        {
-            if (forums.Count() != 0) { ToastNotificationService.ShowInformation("Imate novootvorene forume"); }
-        }
         private void MenuButton_Unchecked(object sender, RoutedEventArgs e)
         {
             DoubleAnimation animation = new DoubleAnimation();

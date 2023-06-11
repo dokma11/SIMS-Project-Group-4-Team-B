@@ -50,16 +50,17 @@ namespace Sims2023.WPF.Views.OwnerViews
 
         private void OpenForum_Click(object sender, RoutedEventArgs e)
         {
-            if(SelectedForum !=null) 
+            if (SelectedForum != null)
             {
-                if (!SelectedForum.OwnerOpened) 
-                { 
-                   SelectedForum.OwnerOpened = true;
+                if (!SelectedForum.OwnerOpened)
+                {
+                    SelectedForum.OwnerOpened = true;
                     _forumService.Update(SelectedForum);
                 }
                 CommentsView comments = new CommentsView(user, SelectedForum);
                 FrameManager.Instance.MainFrame.Navigate(comments);
-            }    
+            }
+            else ToastNotificationService.ShowInformation("Niste selektovali ništa");
         }
     }
 }

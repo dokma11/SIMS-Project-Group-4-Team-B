@@ -22,23 +22,10 @@ namespace Sims2023.WPF.Views.OwnerViews
     /// </summary>
     public partial class AllRenovationsView : Page
     {
-        public AllRenovationsViewModel allRenovationsViewModel; 
         public AllRenovationsView(User user)
         {
             InitializeComponent();
-            allRenovationsViewModel = new AllRenovationsViewModel(user);
-            DataContext = allRenovationsViewModel;
-        }
-
-        private void Close_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService navigationService = NavigationService.GetNavigationService(this);
-            navigationService?.GoBack();
-        }
-
-        private void Delete_Click(object sender, RoutedEventArgs e)
-        {
-            allRenovationsViewModel.Delete_Click();
+            DataContext = new AllRenovationsViewModel(user);
         }
 
     }

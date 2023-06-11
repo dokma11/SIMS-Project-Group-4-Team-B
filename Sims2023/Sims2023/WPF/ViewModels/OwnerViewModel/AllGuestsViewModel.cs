@@ -1,6 +1,7 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.View;
+using Sims2023.WPF.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,10 +21,13 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         public ObservableCollection<AccommodationReservation> Reservatons { get; set; }  //
 
         public AllGuestsView allGuestsView;
-        public User user { get; set; }  //
+        public User user { get; set; } 
+
+        public RelayCommand Grade { get; set; }
 
         public AllGuestsViewModel(AllGuestsView view,User use, List<AccommodationReservation> reserv)
         {
+            Grade = new RelayCommand(Executed_GradeCommand, CanExecute_GradeCommand);
             allGuestsView = view;
             user = use;
             _reservationService = new AccommodationReservationService();
@@ -32,7 +36,21 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             Reservatons = new ObservableCollection<AccommodationReservation>(GetGradableGuests());
         }
 
-       public List<AccommodationReservation> GetGradableGuests()
+        private bool CanExecute_GradeCommand(object obj)
+        {
+            return true;
+        }
+
+        private void Executed_GradeCommand(object obj)
+        {
+
+            if (SelectedGuest != null)
+            {
+                var gradeView = new Guest1GradeView(SelectedGuest, Reservatons);
+                FrameManager.Instance.MainFrame.Navigate(gradeView);
+            }
+        }
+        public List<AccommodationReservation> GetGradableGuests()
         {
             return _reservationService.GetGradableGuests(user, ReservationsList, _gradeService.GetAllGrades());
         }
