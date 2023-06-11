@@ -44,7 +44,7 @@
                 <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.City}" Width="170"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="button" Content="Prikaži statistiku" Click="Statistics_Click" HorizontalAlignment="Left" Margin="44,599,0,0" VerticalAlignment="Top" Width="334" Height="54"  Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3"/>
+        <Button x:Name="button" Content="Prikaži statistiku" Command="{Binding Statistics}" HorizontalAlignment="Left" Margin="44,599,0,0" VerticalAlignment="Top" Width="334" Height="54"  Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3"/>
        
     </Grid>
 </Page>

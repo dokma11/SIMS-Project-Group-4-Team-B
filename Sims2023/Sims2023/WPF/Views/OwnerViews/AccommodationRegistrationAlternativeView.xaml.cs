@@ -26,19 +26,7 @@ namespace Sims2023.WPF.Views.OwnerViews
         public AccommodationRegistrationAlternativeView(User owner, string city, string country)
         {
             InitializeComponent();
-            AccommodationRegistrationViewModel = new AccommodationRegistrationAlternativeViewModel(this, owner,city,country);
-            DataContext = AccommodationRegistrationViewModel;
-
-        }
-
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationRegistrationViewModel.SaveButton_Click(sender, e);
-        }
-
-        private void Registration_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationRegistrationViewModel.Registration_Click(sender, e);
+            DataContext = new AccommodationRegistrationAlternativeViewModel(this, owner, city, country);
         }
     }
 }

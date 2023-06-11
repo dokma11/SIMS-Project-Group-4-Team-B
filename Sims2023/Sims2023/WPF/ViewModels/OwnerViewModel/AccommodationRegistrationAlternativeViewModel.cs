@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows;
 using Sims2023.WPF.Views.OwnerViews;
 using System.IO;
+using Sims2023.WPF.Commands;
+using System.Windows.Media;
+using System.Drawing;
 
 namespace Sims2023.WPF.ViewModels.OwnerViewModel
 {
@@ -28,10 +31,13 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
     private List<string> _addedPictures = new List<string>();
     List<BitmapImage> imageList = new List<BitmapImage>();
     private List<BitmapImage> _permanentPictures = new List<BitmapImage>();
-
+     public RelayCommand Register { get; set; }
+    public RelayCommand AddPicture { get; set; }
     public AccommodationRegistrationAlternativeViewModel(AccommodationRegistrationAlternativeView view, User owner, string city, string country)
     {
-        _accommodationService = new AccommodationService();
+       Register = new RelayCommand(Executed_RegistrationCommand, CanExecute_RegistrationCommand);
+       AddPicture = new RelayCommand(Executed_AddPictureCommand, CanExecute_AddPictureCommand);
+       _accommodationService = new AccommodationService();
         User = owner;
         _locationService = new LocationService();
         View = view;
@@ -41,29 +47,85 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             View.textBox1.Text = country;
             View.textBox2.Text = city;
     }
+        public bool IsValid(string MaxGuests1, string mindays, string CancelDayss, string city, string country, string name, string type)
+        {
+            int clean;
+            bool isCleanValid = int.TryParse(MaxGuests1, out clean);
+            int RespectRules;
+            bool isRulesValid = int.TryParse(mindays, out RespectRules);
+            int Communication;
+            bool isCommunicationValid = int.TryParse(CancelDayss, out Communication);
 
-    public bool IsValid(string MaxGuests1, string mindays, string CancelDayss, string city, string country, string name, string type)
-    {
-        int clean;
-        bool isCleanValid = int.TryParse(MaxGuests1, out clean);
-        int RespectRules;
-        bool isRulesValid = int.TryParse(mindays, out RespectRules);
-        int Communication;
-        bool isCommunicationValid = int.TryParse(CancelDayss, out Communication);
+            List<Control> invalidControls = new List<Control>();
 
-        if (!isCleanValid) return false;
-        else if (!isRulesValid) return false;
-        else if (!isCommunicationValid) return false;
-        else if (string.IsNullOrEmpty(city)) return false;
-        else if (string.IsNullOrEmpty(country)) return false;
-        else if (string.IsNullOrEmpty(name)) return false;
-        else if (string.IsNullOrEmpty(type)) return false;
+            // Reset background color of all fields
+            View.textBox3.ClearValue(TextBox.BackgroundProperty);
+            View.textBox4.ClearValue(TextBox.BackgroundProperty);
+            View.textBox5.ClearValue(TextBox.BackgroundProperty);
+            View.textBox2.ClearValue(TextBox.BackgroundProperty);
+            View.textBox1.ClearValue(TextBox.BackgroundProperty);
+            View.textBox.ClearValue(TextBox.BackgroundProperty);
+            View.comboBox.ClearValue(ComboBox.BackgroundProperty);
 
-        else return true;
-    }
+            if (!isCleanValid)
+            {
+                invalidControls.Add(View.textBox3);
+            }
+            if (!isRulesValid)
+            {
+                invalidControls.Add(View.textBox4);
+            }
+            if (!isCommunicationValid)
+            {
+                invalidControls.Add(View.textBox5);
+            }
+            if (string.IsNullOrEmpty(city))
+            {
+                invalidControls.Add(View.textBox2);
+            }
+            if (string.IsNullOrEmpty(country))
+            {
+                invalidControls.Add(View.textBox1);
+            }
+            if (string.IsNullOrEmpty(name))
+            {
+                invalidControls.Add(View.textBox);
+            }
+            if (string.IsNullOrEmpty(type))
+            {
+                invalidControls.Add(View.comboBox);
+            }
 
-    public void SaveButton_Click(object sender, RoutedEventArgs e)
-    {
+            if (invalidControls.Count > 0)
+            {
+                SetControlsBackground(invalidControls);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void SetControlsBackground(List<Control> controls)
+        {
+            SolidColorBrush redBrush = new SolidColorBrush(Colors.Red);
+            foreach (Control control in controls)
+            {
+                control.Background = redBrush;
+            }
+        }
+
+
+
+        private bool CanExecute_AddPictureCommand(object obj)
+        {
+            return true;
+        }
+
+
+        public void Executed_AddPictureCommand(object obj)
+        {
         OpenFileDialog openFileDialog = new OpenFileDialog();
         openFileDialog.Multiselect = true;
         openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
@@ -83,9 +145,13 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             View.PicturesListView.ItemsSource = null;
             View.PicturesListView.ItemsSource = _permanentPictures;
         }
-    }
+        }
 
-    public void Registration_Click(object sender, RoutedEventArgs e)
+        private bool CanExecute_RegistrationCommand(object obj)
+        {
+            return true;
+        }
+        public void Executed_RegistrationCommand(object obj)
     {
         int Id = 0;
         string Name = View.textBox.Text;
@@ -107,8 +173,17 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             Accommodation = new Accommodation(Id, Name, location, Type, maxguests, mindayss, canceldays, _addedPictures, User);
             CreateAccommodation(Accommodation);
             ToastNotificationService.ShowInformation("Uspiješna registracija smještaja");
-        }
-        else ToastNotificationService.ShowInformation("Niste unijeli sve podatke");
+
+                View.textBox.Text = string.Empty;
+                View.comboBox.SelectedIndex = -1;
+                View.textBox3.Text = string.Empty;
+                View.textBox4.Text = string.Empty;
+                View.textBox5.Text = string.Empty;
+                _addedPictures.Clear();
+                _permanentPictures.Clear();
+                View.PicturesListView.ItemsSource = null;
+            }
+        else ToastNotificationService.ShowInformation("Niste dobro popunili sve podatke");
     }
 
 

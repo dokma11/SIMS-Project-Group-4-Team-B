@@ -3,6 +3,7 @@ using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.FileHandler;
 using Sims2023.View;
+using Sims2023.WPF.Commands;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
@@ -28,13 +29,18 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         public AccommodationRegistrationView _accommodationRegistrationView; 
         private LocationService _locationService;  
         public AccommodationRegistrationView View;
- 
+
+        public RelayCommand Register { get; set; }
+        public RelayCommand AddPicture { get; set; }
+
         private List<string> _addedPictures = new List<string>();
         List<BitmapImage> imageList = new List<BitmapImage>();
         private List<BitmapImage> _permanentPictures = new List<BitmapImage>();
 
         public AccommodationRegistrationViewModel(AccommodationRegistrationView view, User owner)
         {
+            Register = new RelayCommand(Executed_RegistrationCommand, CanExecute_RegistrationCommand);
+            AddPicture = new RelayCommand(Executed_AddPictureCommand, CanExecute_AddPictureCommand);
             _accommodationService = new AccommodationService();
             User = owner;
             _locationService = new LocationService();
@@ -81,8 +87,13 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
             else return true;
         }
+        private bool CanExecute_AddPictureCommand(object obj)
+        {
+            return true;
+        }
 
-        public void SaveButton_Click(object sender, RoutedEventArgs e)
+
+        public void Executed_AddPictureCommand(object obj)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;
@@ -105,7 +116,11 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             }
         }
 
-        public void Registration_Click(object sender, RoutedEventArgs e)
+        private bool CanExecute_RegistrationCommand(object obj)
+        {
+            return true;
+        }
+        public void Executed_RegistrationCommand(object obj)
         {
             int Id = 0;
             string Name = View.textBox.Text;
@@ -126,6 +141,16 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
                 Accommodation = new Accommodation(Id, Name, location, Type, maxguests, mindayss, canceldays, _addedPictures, User);
                 CreateAccommodation(Accommodation);
+                View.textBox.Text = string.Empty;
+            //    View.cityComboBox.Text = string.Empty;
+            //    View.countryComboBox.Text = string.Empty;
+                View.comboBox.SelectedIndex = -1;
+                View.textBox3.Text = string.Empty;
+                View.textBox4.Text = string.Empty;
+                View.textBox5.Text = string.Empty;
+                _addedPictures.Clear();
+                _permanentPictures.Clear();
+                View.PicturesListView.ItemsSource = null;
                 ToastNotificationService.ShowInformation("Uspiješna registracija smještaja");
             }
             else ToastNotificationService.ShowInformation("Niste unijeli sve podatke");

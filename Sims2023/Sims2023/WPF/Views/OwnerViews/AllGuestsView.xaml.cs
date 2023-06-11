@@ -31,17 +31,8 @@ namespace Sims2023.View
         public AllGuestsView(User use, List<AccommodationReservation> reserv)
         {
             InitializeComponent();
-            allGuestsViewModel = new AllGuestsViewModel(this,use, reserv);
-            DataContext = allGuestsViewModel;       
+            DataContext = new AllGuestsViewModel(this, use, reserv);       
         }
-        private void Grade_Click(object sender, EventArgs e)
-        {
-         
-            if (allGuestsViewModel.SelectedGuest != null)
-            {
-                var gradeView = new Guest1GradeView(allGuestsViewModel.SelectedGuest, allGuestsViewModel.Reservatons);
-                FrameManager.Instance.MainFrame.Navigate(gradeView);
-            }
-        }
+
     }
 }

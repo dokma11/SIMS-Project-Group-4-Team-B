@@ -1,5 +1,6 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.WPF.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,10 +22,14 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         public List<Location> locations { get; set; }
         public List<Location> unvisitedLocations{ get; set; }
         public List<AccommodationReservation> reservations { get; set; }
+        public RelayCommand Back { get; set; }
+        public RelayCommand CloseAccommodations { get; set; }
 
         public Location SelectedLocation { get; set; }
         public UnopularLocationsViewModel(User user)
         {
+            CloseAccommodations = new RelayCommand(Executed_CloseAccommodationsCommand, CanExecute_CloseAccommodationsCommand);
+            Back = new RelayCommand(Executed_BackCommand, CanExecute_BackCommand);
             owner = user;
             _locationService = new LocationService();
             _accommodationService = new AccommodationService();
@@ -36,7 +41,20 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         }
 
-        public void DeleteAccommodations_Click(object sender, RoutedEventArgs e)
+        public bool CanExecute_BackCommand(object obj)
+        {
+            return true;
+        }
+
+        public void Executed_BackCommand(object obj)
+        {
+            if (FrameManager.Instance.MainFrame.CanGoBack)
+            {
+                FrameManager.Instance.MainFrame.GoBack();
+            }
+        }
+
+        public void Executed_CloseAccommodationsCommand(object obj)
         {
             if (SelectedLocation != null)
             {
@@ -52,6 +70,11 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                 ToastNotificationService.ShowInformation("Uspiješno brisanje smještaja sa željene lokacije");
             }
 
+        }
+
+        public bool CanExecute_CloseAccommodationsCommand(object obj)
+        {
+            return true;
         }
     }
 }

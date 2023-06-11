@@ -22,24 +22,11 @@ namespace Sims2023.WPF.Views.OwnerViews
     /// </summary>
     public partial class UnopularLocationsView : Page
     {
-        public UnopularLocationsViewModel unopularLocationsViewModel;
         public UnopularLocationsView(User owenr)
         {
-
-            unopularLocationsViewModel = new UnopularLocationsViewModel(owenr);
-            DataContext = unopularLocationsViewModel;
             InitializeComponent();
+            DataContext = new UnopularLocationsViewModel(owenr);
         }
 
-        private void Back_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService navigationService = NavigationService.GetNavigationService(this);
-            navigationService?.GoBack();
-        }
-
-        private void DeleteAccommodations_Click(object sender, RoutedEventArgs e)
-        {
-            unopularLocationsViewModel.DeleteAccommodations_Click(sender, e);
-        }
     }
 }
