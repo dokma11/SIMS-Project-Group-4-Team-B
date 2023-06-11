@@ -16,10 +16,10 @@ namespace Sims2023.WPF.Views
     public partial class Guest2View : Window
     {
         public Guest2ViewModel Guest2ViewModel { get; set; }
-        public User User { get; set; }
-        private App app;
-        private const string SRB = "sr-LATN";
-        private const string ENG = "en-US";
+       // public User User { get; set; }
+       // private App app;
+        //private const string SRB = "sr-LATN";
+        //private const string ENG = "en-US";
 
 
 
@@ -32,7 +32,7 @@ namespace Sims2023.WPF.Views
             //MainFrame.Navigate(new Guest2StartView());
             //DataContext = this;
             //Guest2ViewModel = new Guest2ViewModel(user,this);
-            User= user;
+            //User= user;
             //app = (App)System.Windows.Application.Current;
 
         }
@@ -47,7 +47,7 @@ namespace Sims2023.WPF.Views
 
         
 
-        private void MyTours_Executed(object sender, RoutedEventArgs e)
+        /*private void MyTours_Executed(object sender, RoutedEventArgs e)
         {
             //MainFrame.Navigate(new Guest2TourListView(User));//list of guests reserved tours
         }
@@ -101,6 +101,6 @@ namespace Sims2023.WPF.Views
         private void Theme_Click(object sender, RoutedEventArgs e)
         {
             AppTheme.ChangeTheme(new Uri("WPF/Views/Guest2Views/Themes/Dark.xaml", UriKind.Relative));
-        }
+        }*/
     }
 }
