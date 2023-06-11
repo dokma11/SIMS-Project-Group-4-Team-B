@@ -48,8 +48,8 @@
         <Setter Property="Foreground" Value="White"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Guide.SuperGuide}" Value="True">
-                <Setter Property="Background" Value="#654321"/>
-                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="#eab676"/>
+                <Setter Property="Foreground" Value="Black"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>

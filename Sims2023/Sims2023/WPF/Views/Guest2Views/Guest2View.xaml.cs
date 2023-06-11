@@ -27,12 +27,13 @@ namespace Sims2023.WPF.Views
         public Guest2View(User user)
         {
             InitializeComponent();
-            //this.DataContext = new Guest2ViewModel(this.frame.NavigationService);
-            MainFrame.Navigate(new Guest2StartView());
-            DataContext = this;
-            Guest2ViewModel = new Guest2ViewModel(user,this);
+            Guest2ViewModel= new Guest2ViewModel(user, this.MainFrameGuest2.NavigationService,this);
+            this.DataContext = Guest2ViewModel;
+            //MainFrame.Navigate(new Guest2StartView());
+            //DataContext = this;
+            //Guest2ViewModel = new Guest2ViewModel(user,this);
             User= user;
-            app = (App)System.Windows.Application.Current;
+            //app = (App)System.Windows.Application.Current;
 
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -48,26 +49,26 @@ namespace Sims2023.WPF.Views
 
         private void MyTours_Executed(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new Guest2TourListView(User));//list of guests reserved tours
+            //MainFrame.Navigate(new Guest2TourListView(User));//list of guests reserved tours
         }
 
         public void TourRequest_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            MainFrame.Navigate(new Guest2TourRequestListView(User));//list of guests tour requests 
+            //MainFrame.Navigate(new Guest2TourRequestListView(User));//list of guests tour requests 
         }
 
         public void ComplexTourRequest_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-           MainFrame.Navigate(new Guest2ComplexTourRequestListView(User));//list of guests tour requests 
+           //MainFrame.Navigate(new Guest2ComplexTourRequestListView(User));//list of guests tour requests 
         }
 
         public void Home_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            MainFrame.Navigate(new Guest2StartView());//start view
+            //MainFrame.Navigate(new Guest2StartView());//start view
         }
         public void TourList_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            MainFrame.Navigate(new TourListView(User));//all tours view
+            //MainFrame.Navigate(new TourListView(User));//all tours view
         }
         public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -83,17 +84,17 @@ namespace Sims2023.WPF.Views
 
         public void VoucherList_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            MainFrame.Navigate(new Guest2VoucherListView(User));
+            //MainFrame.Navigate(new Guest2VoucherListView(User));
         }
 
         private void Serbian_Click(object sender, RoutedEventArgs e)
         {
-            app.ChangeLanguage(SRB);
+            //app.ChangeLanguage(SRB);
         }
 
         private void English_Click(object sender, RoutedEventArgs e)
         {
-            app.ChangeLanguage(ENG);
+          //  app.ChangeLanguage(ENG);
 
         }
 

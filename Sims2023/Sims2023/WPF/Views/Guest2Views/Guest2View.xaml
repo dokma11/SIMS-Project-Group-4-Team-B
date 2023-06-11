@@ -13,40 +13,29 @@
         <ImageSource>pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/HorizontBW-02.ico</ImageSource>
     </Window.Icon>
     
-    <Window.CommandBindings>
-
-        <CommandBinding Command="cmd:RoutedCommands.OpenHelp" CanExecute="CanExecute" Executed="Home_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommands.LogOut" CanExecute="CanExecute" Executed="LogOut_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="MyTours_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="TourRequest_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommands.Command3View" CanExecute="CanExecute" Executed="TourList_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommands.Command4View" CanExecute="CanExecute" Executed="VoucherList_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommands.Command5View" CanExecute="CanExecute" Executed="ComplexTourRequest_Executed"></CommandBinding>
-    </Window.CommandBindings>
-    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Menu Style="{DynamicResource MenuStyle}" Grid.Row="0" Margin="0 0 0 0">
-                      
-            <MenuItem Command="cmd:RoutedCommands.OpenHelp" Header="{ns:Loc homeMenu}" InputGestureText="Ctrl + N"></MenuItem>
-            <MenuItem Header="{ns:Loc allToursMenu}" Command="cmd:RoutedCommands.Command3View"></MenuItem>
-            <MenuItem Header="{ns:Loc myToursMenu}" Command="cmd:RoutedCommands.Command1View"></MenuItem>
-            <MenuItem Header="{ns:Loc tourRequestMenu}" Command="cmd:RoutedCommands.Command2View"></MenuItem>
-            <MenuItem Header="{ns:Loc complexTourRequestMenu}" Command="cmd:RoutedCommands.Command5View"></MenuItem>
-            <MenuItem Header="{ns:Loc myCouponsMenu}" Command="cmd:RoutedCommands.Command4View"></MenuItem>
+
+            <MenuItem Header="{ns:Loc homeMenu}" Command="{Binding NavigateToStartPageCommand}"></MenuItem>
+            <MenuItem Header="{ns:Loc allToursMenu}" Command="{Binding NavigateToTourListPageCommand}"></MenuItem>
+            <MenuItem Header="{ns:Loc myToursMenu}"  Command="{Binding NavigateToGuest2TourListPageCommand}"></MenuItem>
+            <MenuItem Header="{ns:Loc tourRequestMenu}" Command="{Binding NavigateToGuest2TourRequestListPageCommand}"></MenuItem>
+            <MenuItem Header="{ns:Loc complexTourRequestMenu}"  Command="{Binding NavigateToGuest2ComplexTourRequestListPageCommand}"></MenuItem>
+            <MenuItem Header="{ns:Loc myCouponsMenu}" Command="{Binding NavigateToGuest2VoucherListPageCommand}"></MenuItem>
             <Separator Margin="40,0,0,0"></Separator>
-            <MenuItem Header="{ns:Loc reportMenu}"></MenuItem>
-            <MenuItem Header="{ns:Loc notificationsMenu}"></MenuItem>
+            <MenuItem Header="{ns:Loc reportMenu}" Command="{Binding OpenReportCommand}"></MenuItem>
+            <MenuItem Header="{ns:Loc notificationsMenu}" Command="{Binding OpenNotificationWindowCommand}"></MenuItem>
             <Separator Margin="50,0,0,0"></Separator>
-            <MenuItem Header="{ns:Loc serbianMenu}"  Click="Serbian_Click"></MenuItem>
-            <MenuItem Header="{ns:Loc englishMenu}" Click="English_Click"></MenuItem>
-            <MenuItem Header="{ns:Loc themeMenu}" Click="Theme_Click"></MenuItem>
-            <MenuItem Header="{ns:Loc logoutMenu}" Command="cmd:RoutedCommands.LogOut"></MenuItem>
+            <MenuItem Header="{ns:Loc serbianMenu}"   Command="{Binding SwitchToSerbianLanguageCommand}"></MenuItem>
+            <MenuItem Header="{ns:Loc englishMenu}" Command="{Binding SwitchToEnglishLanguageCommand}"></MenuItem>
+            <MenuItem Header="{ns:Loc themeMenu}" Command="{Binding SwitchThemeCommand}"></MenuItem>
+            <MenuItem Header="{ns:Loc logoutMenu}" Command="{Binding LogoutCommand}"></MenuItem>
         </Menu>
-        <Frame Grid.Row="1" x:Name="MainFrame" NavigationUIVisibility="Hidden" TabIndex="13" IsTabStop="False" UseLayoutRounding="True"/>
+        <Frame Grid.Row="1" x:Name="MainFrameGuest2" NavigationUIVisibility="Hidden" TabIndex="13" IsTabStop="False" UseLayoutRounding="True"/>
 
         
     </Grid>
