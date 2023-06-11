@@ -19,7 +19,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="button" Content="Nazad" Click="Close_Click" HorizontalAlignment="Left" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" Margin="250,573,0,0" VerticalAlignment="Top" Height="62" Width="140"/>
-        <Button x:Name="button1" Content="Otkaži renoviranje" Click="Delete_Click" HorizontalAlignment="Left" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" Margin="40,573,0,0" VerticalAlignment="Top" Height="62" Width="140"/>
+        <Button x:Name="button" Content="Nazad" Command="{Binding Back}" HorizontalAlignment="Left" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" Margin="250,573,0,0" VerticalAlignment="Top" Height="62" Width="140"/>
+        <Button x:Name="button1" Content="Otkaži renoviranje" Command="{Binding CancelRenovation}" HorizontalAlignment="Left" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" Margin="40,573,0,0" VerticalAlignment="Top" Height="62" Width="140"/>
     </Grid>
 </Page>
