@@ -20,16 +20,17 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Page.Resources>
 
     <StackPanel Background="PeachPuff">
         <DockPanel>
             <ToolBar>
-                <Button x:Name="homePageButton" Click="HomePageButton_Click" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
+                <Button x:Name="homePageButton" Command="{Binding HomePageNavigationCommand}" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
                 <Button x:Name="toursButton" Content="Ture" IsEnabled="False" Margin="150,0"/>
-                <Button x:Name="requestsButton" Click="RequestsButton_Click" Content="Zahtevi" ToolTip="Idite na zahteve" Margin="150,0"/>
-                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
-                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
+                <Button x:Name="requestsButton" Command="{Binding RequestsPageNavigationCommand}" Content="Zahtevi" ToolTip="Idite na zahteve" Margin="150,0"/>
+                <Button x:Name="reviewsButton" Command="{Binding ReviewsPageNavigationCommand}" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
+                <Button x:Name="accountButton" Command="{Binding AccountPageNavigationCommand}" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
             </ToolBar>
         </DockPanel>
         <Button Content="?" Width="20" Height="20" Margin="1180,15,0,-25" x:Name="toolTipButton" />
@@ -110,9 +111,18 @@
                         </DataGrid.RowDetailsTemplate>
                     </DataGrid>
                     <DockPanel>
-                        <Label x:Name="successfulEventLabel" FontSize="24" Margin="450,20,40,0" Visibility="Hidden"/>
-                        <Button x:Name="startTourButton" Click="StartTourButton_Click" Content="Započni turu" Width="150" Height="50" Margin="295,20,0,0" ToolTip="Pritisnite da biste započeli izabranu turu"/>
-                        <Button x:Name="cancelTourButton" Click="CancelTourButton_Click" Content="Otkaži turu" Width="150" Height="50" Margin="5,20,0,0" ToolTip="Pritisnite da biste otkazali izabranu turu"/>
+                        <DockPanel Width="400">
+                            <Label x:Name="successfulEventLabel" FontSize="24" Margin="50,20,40,0" Visibility="Hidden"/>
+                        </DockPanel>
+                        <DockPanel Width="722">
+                            <DockPanel Width="280" Margin="62,0,0,0">
+                                <Button x:Name="returnToTourButton" Click="returnToTourButton_Click" Content="Vrati se na turu" Width="150" Height="50" Margin="70,20,0,0" ToolTip="Pritisnite kako biste se vratili na započetu turu" Visibility="{Binding IsLabelVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                            </DockPanel>
+                            <DockPanel Width="380" Margin="20,0,0,0">
+                                <Button x:Name="startTourButton" Click="StartTourButton_Click" Content="Započni turu" Width="150" Height="50" Margin="0,20,0,0" ToolTip="Pritisnite da biste započeli izabranu turu"/>
+                                <Button x:Name="cancelTourButton" Click="CancelTourButton_Click" Content="Otkaži turu" Width="150" Height="50" Margin="16,20,0,0" ToolTip="Pritisnite da biste otkazali izabranu turu"/>
+                            </DockPanel>
+                        </DockPanel>
                     </DockPanel>
                 </StackPanel>
             </TabItem>
@@ -142,7 +152,7 @@
                         </Grid.RowDefinitions>
                         <!--Leva kolona-->
                         <Label Grid.Column="0" Grid.Row="0" Content="Naziv ture:" FontSize="16"/>
-                        <xctk:WatermarkTextBox x:Name="toursNameTextBox" Watermark="Unesite naziv" Grid.Column="0" Width="230" Height="30" Margin="4,35,133,10" Grid.RowSpan="2" Text="{Binding Path=NewTour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                        <xctk:WatermarkTextBox x:Name="toursNameTextBox" Watermark="Unesite naziv" Grid.Column="0" Width="230" Height="30" Margin="4,35,133,10" Grid.RowSpan="2" Text="{Binding Path=NewTour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                         <Label Grid.Column="0" Grid.Row="2" Content="Lokacija održavanja:" FontSize="16"/>
                         <ComboBox x:Name="countryComboBox" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" Height="28" SelectionChanged="CountryComboBox_SelectionChanged" Margin="4,2,0,0"/>
                         <ComboBox x:Name="cityComboBox" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Width="110" Height="28" Margin="124,2,133,0" />

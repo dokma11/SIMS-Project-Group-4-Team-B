@@ -50,9 +50,48 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public TourRequest SelectedRequest { get; set; }
         public ComplexTourRequest SelectedComplexTourRequest { get; set; }
         public SubTourRequest SelectedSubTourRequest { get; set; }
-        public string LocationTextBox { get; set; }
-        public string LanguageTextBox { get; set; }
-        public string GuestNumberTextBox { get; set; }
+
+        private string _locationTextBox;
+        public string LocationTextBox
+        {
+            get { return _locationTextBox; }
+            set
+            {
+                if (_locationTextBox != value)
+                {
+                    _locationTextBox = value;
+                    OnPropertyChanged(nameof(LocationTextBox));
+                }
+            }
+        }
+
+        private string _languageTextBox;
+        public string LanguageTextBox
+        {
+            get { return _languageTextBox; }
+            set
+            {
+                if (_languageTextBox != value)
+                {
+                    _languageTextBox = value;
+                    OnPropertyChanged(nameof(LanguageTextBox));
+                }
+            }
+        }
+
+        private string _guestNumberTextBox;
+        public string GuestNumberTextBox
+        {
+            get { return _guestNumberTextBox; }
+            set
+            {
+                if (_guestNumberTextBox != value)
+                {
+                    _guestNumberTextBox = value;
+                    OnPropertyChanged(nameof(GuestNumberTextBox));
+                }
+            }
+        }
 
         private string _dateStartTextBox = DateTime.Today.AddDays(1).ToString();
         public string DateStartTextBox
@@ -64,11 +103,11 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 {
                     _dateStartTextBox = value;
                     OnPropertyChanged(nameof(DateStartTextBox));
-
                     UpdateDatePickerBlackoutDates();
                 }
             }
         }
+
         private string _dateEndTextBox = DateTime.Today.AddDays(2).ToString();
         public string DateEndTextBox
         {
@@ -79,14 +118,53 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 {
                     _dateEndTextBox = value;
                     OnPropertyChanged(nameof(DateEndTextBox));
-
                     UpdateDatePickerBlackoutDates();
                 }
             }
         }
-        public DateTime DateStartDisplayDateStart { get; set; }
-        public DateTime DateStartDisplayDateEnd { get; set; }
-        public DateTime DateEndDisplayDateStart { get; set; }
+
+        private DateTime _dateStartDisplayDateStart;
+        public DateTime DateStartDisplayDateStart
+        {
+            get { return _dateStartDisplayDateStart; }
+            set
+            {
+                if (_dateStartDisplayDateStart != value)
+                {
+                    _dateStartDisplayDateStart = value;
+                    OnPropertyChanged(nameof(DateStartDisplayDateStart));
+                }
+            }
+        }
+
+        private DateTime _dateStartDisplayDateEnd;
+        public DateTime DateStartDisplayDateEnd
+        {
+            get { return _dateStartDisplayDateEnd; }
+            set
+            {
+                if (_dateStartDisplayDateEnd != value)
+                {
+                    _dateStartDisplayDateEnd = value;
+                    OnPropertyChanged(nameof(DateStartDisplayDateEnd));
+                }
+            }
+        }
+
+        private DateTime _dateEndDisplayDateStart;
+        public DateTime DateEndDisplayDateStart
+        {
+            get { return _dateEndDisplayDateStart; }
+            set
+            {
+                if (_dateEndDisplayDateStart != value)
+                {
+                    _dateEndDisplayDateStart = value;
+                    OnPropertyChanged(nameof(DateEndDisplayDateStart));
+                }
+            }
+        }
+
         public RelayCommand LocationConfirmCommand { get; set; }
         public RelayCommand LanguageConfirmCommand { get; set; }
         public RelayCommand AcceptRequestCommand { get; set; }
@@ -104,7 +182,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private string _selectedLanguagesComboBoxItem;
-
         public string SelectedLanguagesComboBoxItem
         {
             get { return _selectedLanguagesComboBoxItem; }
@@ -120,7 +197,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         }
 
         private string _selectedLanguageYearsComboBoxItem;
-
         public string SelectedLanguageYearsComboBoxItem
         {
             get { return _selectedLanguageYearsComboBoxItem; }
@@ -136,7 +212,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         }
 
         private string _selectedLocationsComboBoxItem;
-
         public string SelectedLocationsComboBoxItem
         {
             get { return _selectedLocationsComboBoxItem; }
@@ -152,7 +227,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         }
 
         private string _selectedLocationYearsComboBoxItem;
-
         public string SelectedLocationYearsComboBoxItem
         {
             get { return _selectedLocationYearsComboBoxItem; }
@@ -166,6 +240,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 }
             }
         }
+
         private string _toolTipContent { get; set; }
         public string ToolTipContent
         {
@@ -176,8 +251,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                 OnPropertyChanged(nameof(ToolTipContent));
             }
         }
-        private int _selectedTabIndex;
 
+        private int _selectedTabIndex;
         public int SelectedTabIndex
         {
             get { return _selectedTabIndex; }
@@ -325,6 +400,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             ToolTipContent = _tab1ToolTip;
 
             DateStartDisplayDateStart = DateTime.Today.AddDays(1);
+            DateStartDisplayDateEnd = DateTime.MaxValue;
             DateEndDisplayDateStart = DateTime.Today.AddDays(2);
         }
 
@@ -604,11 +680,11 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         private void Executed_FilterCommand(object obj)
         {
-            string locationSearchTerm = LocationTextBox == "Unesite lokaciju" ? "" : LocationTextBox;
-            string guestNumberSearchTerm = GuestNumberTextBox == "Unesite broj gostiju" ? "" : GuestNumberTextBox;
-            string languageSearchTerm = LanguageTextBox == "Unesite jezik" ? "" : LanguageTextBox;
-            string dateStartSearchTerm = DateStartTextBox;
-            string dateEndSearchTerm = DateEndTextBox;
+            string locationSearchTerm = LocationTextBox ?? "";
+            string guestNumberSearchTerm = GuestNumberTextBox ?? "";
+            string languageSearchTerm = LanguageTextBox ?? "";
+            string dateStartSearchTerm = DateStartTextBox ?? "";
+            string dateEndSearchTerm = DateEndTextBox ?? "";
 
             RequestsToDisplay.Clear();
             foreach (var filteredRequest in FilterRequests(locationSearchTerm, guestNumberSearchTerm, languageSearchTerm, dateStartSearchTerm, dateEndSearchTerm))
@@ -695,8 +771,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             gfx.DrawString("Datum izdavanja izveštaja: " + DateTime.Today.ToString("dd-MM-yyyy"), font, XBrushes.Black, new XPoint(20, 60));
             gfx.DrawString("Primalac izveštaja: " + LoggedInGuide.Name + " " + LoggedInGuide.Surname, font, XBrushes.Black, new XPoint(20, 75));
             gfx.DrawString("Turistička agencija koja izdaje izveštaj: Horizont", font, XBrushes.Black, new XPoint(20, 90));
-            
-            if(SelectedLocationYearsComboBoxItem.ToString() == "Svih vremena")
+
+            if (SelectedLocationYearsComboBoxItem.ToString() == "Svih vremena")
             {
                 gfx.DrawString("Za pregled statistike odabrane su sve godine: ", font, XBrushes.Black, new XPoint(20, 105));
             }

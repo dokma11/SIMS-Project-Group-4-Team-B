@@ -10,10 +10,10 @@
         <DockPanel>
             <ToolBar>
                 <Button x:Name="homePageButton" Content="Početna stranica" IsEnabled="False"/>
-                <Button x:Name="toursButton" Click="ToursButton_Click" Content="Ture" ToolTip="Idite na ture" Margin="150,0"/>
-                <Button x:Name="requestsButton" Click="RequestsButton_Click" Content="Zahtevi" ToolTip="Idite na zahteve" Margin="150,0"/>
-                <Button x:Name="reviewsButton" Click="ReviewsButton_Click" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
-                <Button x:Name="accountButton" Click="AccountButton_Click" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
+                <Button x:Name="toursButton" Command="{Binding ToursPageNavigationCommand}" Content="Ture" ToolTip="Idite na ture" Margin="150,0"/>
+                <Button x:Name="requestsButton" Command="{Binding RequestsPageNavigationCommand}" Content="Zahtevi" ToolTip="Idite na zahteve" Margin="150,0"/>
+                <Button x:Name="reviewsButton" Command="{Binding ReviewsPageNavigationCommand}" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
+                <Button x:Name="accountButton" Command="{Binding AccountPageNavigationCommand}" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
             </ToolBar>
         </DockPanel>
         <DockPanel>
@@ -30,9 +30,9 @@
                         <Label x:Name="tourReviewsLabel" FontSize="18"/>
                     </StackPanel>
                     <StackPanel Margin="0,50">
-                        <Button x:Name="goToToursButton" Content="Odvedi me na ture" Click="GoToToursButton_Click" Width="130" Height="40"/>
-                        <Button x:Name="goToRequestsButton" Content="Odvedi me na zahteve" Click="GoToRequestsButton_Click" Width="130" Height="40" Margin="0,30"/>
-                        <Button x:Name="goToReviewsButton" Content="Odvedi me na recenzije" Click="GoToReviewsButton_Click" Width="130" Height="40"/>
+                        <Button x:Name="goToToursButton" Content="Odvedi me na ture" Command="{Binding ToursPageNavigationCommand}" Width="130" Height="40"/>
+                        <Button x:Name="goToRequestsButton" Content="Odvedi me na zahteve" Command="{Binding RequestsPageNavigationCommand}" Width="130" Height="40" Margin="0,30"/>
+                        <Button x:Name="goToReviewsButton" Content="Odvedi me na recenzije" Command="{Binding ReviewsPageNavigationCommand}" Width="130" Height="40"/>
                     </StackPanel>
                 </DockPanel>
             </StackPanel>

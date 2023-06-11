@@ -47,6 +47,7 @@ namespace Sims2023.Repositories
         {
             return _subTourRequests.Where(r=>r.ComplexTourRequest.Id==complexTourRequest.Id).ToList();    
         }
+
         public string GetEarliestSubTourDateByComplexTourRequest(ComplexTourRequest complexTourRequest)
         {
             return GetByComplexTourRequest(complexTourRequest).Min(t => t.TourRequest.Start).ToString();
@@ -108,10 +109,12 @@ namespace Sims2023.Repositories
                 observer.Update();
             }
         }
+
         public void Save()
         {
             _fileHandler.Save(_subTourRequests);
         }
+
         public List<SubTourRequest> GetByComplexTourId(int complexTourId)
         {
             return _subTourRequests.Where(s => s.ComplexTourRequest.Id == complexTourId).ToList();

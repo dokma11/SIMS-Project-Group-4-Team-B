@@ -4,7 +4,7 @@
 4|tura preko novog|5|das|Chinese|32|32|s,d|1/1/0001 12:00:00 AM|2|slike|Finished|6|0
 5|naziv preko jezika|28|das|Chinese|44|40|s,d|1/1/3001 12:00:00 AM|11|slike|Created|6|0
 6|n|3|o|Serbian|110|6|s,d|4/9/2023 12:00:00 AM|2|asd, asd, asd, asd|Created|6|0
-7|n|3|o|Serbian|15|11|s,d|4/12/2022 12:00:00 AM|2|asd, asd, asd, asd|Started|6|10
+7|n|3|o|Serbian|15|11|s,d|4/12/2022 12:00:00 AM|2|asd, asd, asd, asd|Created|6|10
 8|n|3|o|Serbian|21|11|s,d|4/11/2021 12:00:00 AM|2|asd, asd, asd, asd|Finished|6|0
 9|n|3|o|Serbian|11|11|s,d|4/20/2020 12:00:00 AM|2|asd, asd, asd, asd|Finished|6|0
 10|n|3|o|Serbian|11|11|s,d|4/26/2020 12:00:00 AM|2|asd, asd, asd, asd|Finished|6|0
@@ -47,9 +47,9 @@
 47|asdasd|28|das|English|3|3|a,s|6/23/2023 12:00:00 AM|3|dsa|Finished|6|0
 48|asdasd|28|das|English|3|3|a,s|6/23/2023 12:00:00 AM|3|dsa|Finished|6|0
 49|asdasd|28|das|English|3|3|a,s|6/23/2023 12:00:00 AM|3|dsa|Finished|6|0
-50|asd|5|dsa|Serbian|3|3||6/19/2023 12:00:00 AM|3|das|Started|6|0
-51|asd|5|dsa|Serbian|3|3||6/28/2023 12:00:00 AM|3|das|Started|6|0
-52|asd|5|dsa|Serbian|3|3||6/30/2023 12:00:00 AM|3|das|Started|6|0
+50|asd|5|dsa|Serbian|3|3||6/19/2023 12:00:00 AM|3|das|Created|6|0
+51|asd|5|dsa|Serbian|3|3||6/28/2023 12:00:00 AM|3|das|Created|6|0
+52|asd|5|dsa|Serbian|3|3||6/30/2023 12:00:00 AM|3|das|Created|6|0
 53|MOLIM TE MVVM|5|asd|Chinese|20|20|1,2,3|6/18/2023 12:00:00 AM|5|FOIUVNFONOV|Finished|6|0
 54|MOLIM TE MVVM|5|asd|Chinese|20|20|1,2,3|6/24/2023 12:00:00 AM|5|FOIUVNFONOV|Created|6|0
 55|MOLIM TE MVVM|5|asd|Chinese|20|20|1,2,3|6/29/2023 12:00:00 AM|5|FOIUVNFONOV|Finished|6|0
@@ -57,8 +57,17 @@
 57|SUBTOURREQUEST|1|ima opis|Serbian|20|20|a,s|4/28/2023 12:00:00 AM|4|asd|Created|6|0
 58|PREKO LOKACIJE|5|Ima neki opisasd|Serbian|5|5|1,2,3,4,5|6/26/2023 12:00:00 AM|8|slikeneke|Interrupted|6|0
 59|Preko lokacije poonovo|5|asd|Japanese|67|67|z,x,c,v|6/29/2023 12:00:00 AM|3|putanja1, putanja2|Interrupted|6|0
-60|Preko lokacije poonovo|5|asd|Japanese|67|67|z,x,c,v|6/28/2023 12:00:00 AM|3|putanja1, putanja2|Started|6|0
+60|Preko lokacije poonovo|5|asd|Japanese|67|67|z,x,c,v|6/28/2023 12:00:00 AM|3|putanja1, putanja2|Created|6|0
 61|NOAV TURA|47|dsa|Chinese|33|33|a,s|6/19/2023 12:00:00 AM|44|asd|Created|6|0
 62|NOVI NIZAIVCDSNPV|101|dsa|English|7|7|a,asd, a|6/12/2023 12:00:00 AM|98|asd|Finished|6|0
-63|neki naziv nebitan|102|asd|Italian|7|7|a,s|7/4/2023 12:00:00 AM|23|asdasdas|Created|6|0
-64|neki naziv|19|dsadaszxczxczxc|Italian|4|4|a,s,d,f|6/29/2023 12:00:00 AM|43|asdasdasd|Created|6|0
+63|neki naziv nebitan|102|asd|Italian|7|7|a,s|7/4/2023 12:00:00 AM|23|asdasdas|Finished|6|0
+64|neki naziv|19|dsadaszxczxczxc|Italian|4|4|a,s,d,f|6/29/2023 12:00:00 AM|43|asdasdasd|Interrupted|6|0
+65|NOVA TURA VALIDACIJA|105|dasdadads|Chinese|5|5|a,s,d|6/15/2023 12:00:00 AM|5|asd|Created|6|0
+66|a|31|ddadds|German|3|3|d,a|6/16/2023 12:00:00 AM|2|s|Created|6|0
+67|anianisds|5|asdasdadsasds|Italian|2|2|a,s,d|6/13/2023 12:00:00 AM|2|asd|Created|6|0
+68|asd|5|dsa|English|2|2|a,s,d|6/14/2023 12:00:00 AM|2|dsa|Created|6|0
+69|asd|5|dasdaszxcas|Chinese|2|2|s,d,x,cz|6/17/2023 12:00:00 AM|2|sad|Created|6|0
+70|asd|5|daszxc|Spanish|2|2|a,s|7/25/2023 12:00:00 AM|2|das|Created|6|0
+71|asd|5|daszxc|Spanish|2|2|a,s|7/26/2023 12:00:00 AM|2|das|Finished|6|0
+72|a|67|sdsadsa|German|1|1|a,d|6/18/2023 12:00:00 AM|2|s|Finished|6|0
+73|VALIDACIJA NA LOKACIJI|5|das|Italian|3|3|a,ds,fas|8/3/2023 12:00:00 AM|3|asd|Interrupted|6|0

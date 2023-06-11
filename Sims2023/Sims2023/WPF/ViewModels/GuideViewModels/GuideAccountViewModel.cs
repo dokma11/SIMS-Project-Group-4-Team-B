@@ -82,6 +82,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             }
             _userService.MarkDismissal(LoggedInGuide);
             _tourService.CancelAll(LoggedInGuide);
+            MainWindow main = new();
+            main.Show();
         }
 
         public bool CanExecute_DismissalCommand(object obj)

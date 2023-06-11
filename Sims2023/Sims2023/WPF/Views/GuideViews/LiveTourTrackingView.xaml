@@ -1,9 +1,11 @@
 ﻿<Page x:Class="Sims2023.WPF.Views.GuideViews.LiveTourTrackingView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:local="clr-namespace:Sims2023.WPF.Views.GuideViews"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="LiveTourTrackingView" Height="720" Width="1280">
 
@@ -13,13 +15,13 @@
 
     <StackPanel Background="PeachPuff">
         <DockPanel>
-            <Menu>
-                <MenuItem x:Name="homePageButton" Command="{Binding HomePageNavigationCommand}" Header="naziv" />
-                <MenuItem x:Name="toursButton"  IsEnabled="False" Margin="150,0"/>
-                <MenuItem x:Name="requestsButton" Command="{Binding RequestsPageNavigationCommand}"  Margin="150,0"/>
-                <MenuItem x:Name="reviewsButton" Command="{Binding ReviewsPageNavigationCommand}" Margin="150,0"/>
-                <MenuItem x:Name="accountButton" Command="{Binding AccountPageNavigationCommand}" Margin="40,0"/>
-            </Menu>
+            <ToolBar>
+                <Button x:Name="homePageButton" Command="{Binding HomePageNavigationCommand}" Content="Početna stranica"/>
+                <Button x:Name="toursButton" IsEnabled="False" Content="Ture" ToolTip="Idite na ture" Margin="150,0"/>
+                <Button x:Name="requestsButton" Command="{Binding RequestsPageNavigationCommand}" Content="Zahtevi" ToolTip="Idite na zahteve" Margin="150,0"/>
+                <Button x:Name="reviewsButton" Command="{Binding ReviewsPageNavigationCommand}" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
+                <Button x:Name="accountButton" Command="{Binding AccountPageNavigationCommand}" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
+            </ToolBar>
         </DockPanel>
         <DockPanel>
             <Label Content="Ključne tačke ture" FontSize="28" Margin="50,20,0,0"/>
