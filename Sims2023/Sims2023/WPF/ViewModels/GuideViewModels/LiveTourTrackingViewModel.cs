@@ -220,8 +220,6 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             return SelectedKeyPoint != null && SelectedKeyPoint.CurrentState == KeyPointsState.NotVisited && SelectedKeyPoint.Id == lastVisitedKeyPointId + 1;
         }
 
-        //Moram isto pokusati da dodam one uslove tipa, ne mozes na prethodnu ne mozes ovo ono smaranje...
-
         private void SuccessfulKeyPointMarkingLabelEvent()
         {
             LabelContent = "Uspešno ste označili trenutnu ključnu tačku!";

@@ -6,10 +6,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
       xmlns:ns="clr-namespace:Sims2023"
+      xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1024"
       Title="TourListView">
-    
     <Grid Background="{DynamicResource BackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="111"></RowDefinition>
@@ -24,7 +24,19 @@
         <DataGrid Grid.Row="1" Grid.Column="0" x:Name="dataGridTours" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged }" SelectionMode="Single"
                    IsReadOnly="True" AutoGenerateColumns="False" Width="665" Height="478" Margin="0,0,0,0" Background="{DynamicResource DataGridBackGround }" CellStyle="{DynamicResource DataGridCellStyle}"
-                  ColumnHeaderStyle="{DynamicResource DataGridColumnHeadersStyle}" RowStyle="{DynamicResource DataGridRowStyle}">
+                  ColumnHeaderStyle="{DynamicResource DataGridColumnHeadersStyle}">
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Guide.SuperGuide}" Value="True">
+                            <Setter Property="Background" Value="#eab676"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{ns:Loc nameData}" Width="90" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="{ns:Loc cityData}" Width="90" Binding="{Binding Location.City}"/>

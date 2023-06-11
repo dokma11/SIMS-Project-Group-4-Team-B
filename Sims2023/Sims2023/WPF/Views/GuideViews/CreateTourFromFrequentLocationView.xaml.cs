@@ -1,7 +1,6 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.GuideViewModels;
-using System;
 using System.Windows.Controls;
 
 namespace Sims2023.WPF.Views.GuideViews
@@ -15,13 +14,6 @@ namespace Sims2023.WPF.Views.GuideViews
         {
             InitializeComponent();
             DataContext = new CreateTourFromFrequentLocationViewModel(selectedLocation, tourService, locationService, keyPointService, tourReviewService, requestService, tourReservationService, voucherService, userService, countriesAndCitiesService, loggedInGuide, tourNotificationService, complexTourRequestService, subTourRequestService);
-
-            foreach (var date in tourService.GetBusyDates(loggedInGuide))
-            {
-                requestDatePicker.BlackoutDates.Add(new CalendarDateRange(date, date.AddHours(1)));
-            }
-
-            requestDatePicker.DisplayDateStart = DateTime.Today.AddDays(1);  
         }
     }
 }

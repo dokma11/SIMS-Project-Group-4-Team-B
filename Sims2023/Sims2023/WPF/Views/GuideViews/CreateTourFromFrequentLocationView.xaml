@@ -81,7 +81,7 @@
             </Grid.RowDefinitions>
             <!--Leva kolona-->
             <Label Grid.Column="0" Grid.Row="0" Content="Naziv ture:" FontSize="16"/>
-            <xctk:WatermarkTextBox x:Name="toursNameTextBox" Watermark="Unesite naziv" Grid.Column="0" Width="230" Height="30" Margin="4,35,133,10" Grid.RowSpan="2" Text="{Binding Path=NewTour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+            <xctk:WatermarkTextBox x:Name="toursNameTextBox" Watermark="Unesite naziv" Grid.Column="0" Width="230" Height="30" Margin="4,35,133,10" Grid.RowSpan="2" Text="{Binding Path=NewTour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" BorderBrush="{Binding NameTextBoxBorderBrush}"/>
             <Label Grid.Column="0" Grid.Row="2" Content="Lokacija održavanja:" FontSize="16"/>
             <TextBox Grid.Column="0" Grid.Row="3" Width="110" Text="{Binding SelectedLocation.City}" Margin="4,0,253,10" IsReadOnly="True"/>
             <TextBox Grid.Column="0" Grid.Row="3" Width="110" Text="{Binding SelectedLocation.Country}" Margin="124,0,133,10" IsReadOnly="True"/>
@@ -101,14 +101,14 @@
             <Label Grid.Column="0" Grid.Row="8" Content="Trajanje ture(u satima):" FontSize="16"/>
             <xctk:IntegerUpDown Watermark="Unesite trajanje" Name="duration" Grid.Row="9" Grid.Column="0" Minimum="1" Value="1" AllowTextInput="True" Width="230" Margin="4,0,133,0" Text="{Binding Path=NewTour.Length, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
             <Label Grid.Column="0" Grid.Row="10" Content="Jedna ili više slika:" FontSize="16"/>
-            <xctk:WatermarkTextBox x:Name="picturesTextBox" Watermark="Unesite putanje slika" Grid.Column="0" Grid.Row="10" Width="230" Height="30" Margin="4,37,133,8" Text="{Binding Path=NewTour.ConcatenatedPictures, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.RowSpan="2"/>
+            <xctk:WatermarkTextBox x:Name="picturesTextBox" Watermark="Unesite putanje slika" Grid.Column="0" Grid.Row="10" Width="230" Height="30" Margin="4,37,133,8" Text="{Binding Path=NewTour.ConcatenatedPictures, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.RowSpan="2" BorderBrush="{Binding PicturesTextBoxBorderBrush}"/>
             <!--Kolona u sredini-->
             <Label Grid.Column="1" Grid.Row="0" Content="Ključne tačke" FontSize="16"/>
-            <xctk:WatermarkTextBox x:Name="keyPointTextBox" Text="{Binding KeyPointTextBoxText, Mode=TwoWay}" Watermark="Unesite ključne tačke" Width="230" Height="30" Margin="0,35,136,10" Grid.RowSpan="2" Grid.Column="1"/>
+            <xctk:WatermarkTextBox x:Name="keyPointTextBox" Text="{Binding KeyPointTextBoxText, Mode=TwoWay}" Watermark="Unesite ključne tačke" Width="230" Height="30" Margin="0,35,136,10" Grid.RowSpan="2" Grid.Column="1" BorderBrush="{Binding KeyPointTextBoxBorderBrush}"/>
             <Button x:Name="addKeyPointsButton" Command="{Binding AddItemCommand}" Grid.Column="1" Width="130" Height="30" Margin="240,36,363,9" Grid.RowSpan="2" Grid.ColumnSpan="2" Content="Dodaj ključnu tačku"/>
-            <ListBox x:Name="keyPointsOutput" ItemsSource="{Binding ListBoxItems}" Grid.Column="1" Width="370" Height="92" Grid.ColumnSpan="2" Margin="0,0,363,20" Grid.RowSpan="3" Grid.Row="2"/>
+            <ListBox x:Name="keyPointsOutput" ItemsSource="{Binding ListBoxItems}" Grid.Column="1" Width="370" Height="92" Grid.ColumnSpan="2" Margin="0,0,363,20" Grid.RowSpan="3" Grid.Row="2" BorderBrush="{Binding ListBoxBorderBrush}"/>
             <Label Grid.Column="1" Grid.Row="6" Content="Datum i vreme početka ture" FontSize="16"/>
-            <DatePicker x:Name="requestDatePicker" SelectedDate="{Binding SelectedDate}" Width="230" Height="30" Grid.Row="8" Grid.Column="1" Margin="5,4,131,4">
+            <DatePicker x:Name="requestDatePicker" SelectedDate="{Binding SelectedDate}" Width="230" Height="30" Grid.Row="8" Grid.Column="1" Margin="5,4,131,4" DisplayDateStart="{Binding DisplayDateStart}" BorderBrush="{Binding DatePickerBorderBrush}">
                 <DatePicker.Resources>
                     <Style TargetType="{x:Type DatePickerTextBox}">
                         <Setter Property="Text" Value="Unesite datum početka ture"/>
@@ -117,7 +117,7 @@
             </DatePicker>
             <!--Desna kolona-->
             <Label Grid.Column="2" Grid.Row="2" Content="Opis događaja na turi" Margin="122,0,-122,0" FontSize="16"/>
-            <xctk:WatermarkTextBox Watermark="Unesite opis ture" x:Name="descriptionTextBox" Grid.Column="2" Grid.Row="2" Margin="122,29,-69,11" Height="NaN" Grid.RowSpan="9" Text="{Binding Path=NewTour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+            <xctk:WatermarkTextBox Watermark="Unesite opis ture" x:Name="descriptionTextBox" Grid.Column="2" Grid.Row="2" Margin="122,29,-69,11" Height="NaN" Grid.RowSpan="9" Text="{Binding Path=NewTour.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" BorderBrush="{Binding DescriptionBorderBrush}"/>
             <Button x:Name="confirmButton" Command="{Binding CreateCommand}" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Potvrdi" Margin="122,23,61,-5" Grid.RowSpan="2"/>
             <Button x:Name="cancelButton" Command="{Binding CancelCommand}" Grid.Column="2" Grid.Row="10" Width="100" Height="40" Content="Odustani" Margin="252,23,-69,-5" Grid.RowSpan="2"/>
         </Grid>
