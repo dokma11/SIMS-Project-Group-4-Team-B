@@ -116,5 +116,10 @@ namespace Sims2023.Application.Services
         {
             return _tourReservation.GetUsersTours(user);
         }
+
+        public List<TourReservation> GetReportsTourReservation(User user, DateTime start, DateTime end)
+        {
+            return _tourReservation.GetReportsTourReservation(user, start, end);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Sims2023.Domain.Models;
 using Sims2023.Observer;
+using System;
 using System.Collections.Generic;
 
 namespace Sims2023.Domain.RepositoryInterfaces
@@ -23,5 +24,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void CalculateAttendedGuestsNumber(User loggedInGuide, List<Tour> tours);
         public List<User> GetGuestsWithReservations(KeyPoint keyPoint, List<User> markedGuests, List<User> users);
         public List<TourReservation> GetUsersTours(User user);
+        public List<TourReservation> GetReportsTourReservation(User user, DateTime start, DateTime end);
     }
 }

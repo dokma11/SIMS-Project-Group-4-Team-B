@@ -2,6 +2,7 @@
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -187,6 +188,11 @@ namespace Sims2023.Repositories
                 }
             }
             return allUserTours;
+        }
+
+        public List<TourReservation> GetReportsTourReservation(User user,DateTime start,DateTime end)
+        {
+            return _tourReservations.Where(t=> t.User.Id == user.Id && t.Tour.Start>start && t.Tour.Start < end).ToList();
         }
     }
 }

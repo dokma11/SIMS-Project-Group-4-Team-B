@@ -71,6 +71,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             this.SwitchToSerbianLanguageCommand=new RelayCommand(Execute_SwitchToSerbianLanguageCommand, CanExecute_NavigateCommand);
             this.SwitchToEnglishLanguageCommand=new RelayCommand(Execute_SwitchToEnglishLanguageCommand, CanExecute_NavigateCommand); 
             this.SwitchThemeCommand=new RelayCommand(Execute_SwichThemeCommand, CanExecute_NavigateCommand);
+            this.OpenReportCommand=new RelayCommand(Execute_OpenReportCommand, CanExecute_NavigateCommand);
 
             app = (App)System.Windows.Application.Current;
             Guest2View = guest2View;
@@ -206,6 +207,12 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
                 AppTheme.ChangeTheme(new Uri("WPF/Views/Guest2Views/Themes/Dark.xaml", UriKind.Relative));
                 CurrentTheme = "DARK";
             }
+        }
+
+        private void Execute_OpenReportCommand(object obj)
+        {
+            Guest2ReportView Guest2ReportView = new Guest2ReportView(User);
+            Guest2ReportView.Show();
         }
         private bool CanExecute_NavigateCommand(object obj)
         {
