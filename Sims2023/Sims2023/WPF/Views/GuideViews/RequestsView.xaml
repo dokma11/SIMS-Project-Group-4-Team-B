@@ -177,7 +177,7 @@
                                         </Style>
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
-                                <DataGridTextColumn Header="Korisničko ime" Binding="{Binding Guest.Username}" Width="230">
+                                <DataGridTextColumn Header="Korisničko ime" Binding="{Binding Guest.Username}" Width="222">
                                     <DataGridTextColumn.ElementStyle>
                                         <Style TargetType="TextBlock">
                                             <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -272,7 +272,7 @@
                         <DockPanel>
                             <ComboBox x:Name="locationComboBox" ItemsSource="{Binding LocationsToDisplay}" SelectedItem="{Binding SelectedLocationsComboBoxItem, Mode=TwoWay}" Width="150"  Margin="25,10,0,0" ToolTip="Odaberite lokaciju za koju želite želite da vidite statistiku"/>
                             <ComboBox x:Name="locationYearComboBox" ItemsSource="{Binding LocationYearsToDisplay}" SelectedItem="{Binding SelectedLocationYearsComboBoxItem, Mode=TwoWay}" Width="150" Margin="50,10,0,0" ToolTip="Odaberite godinu za koju želite želite da vidite statistiku"/>
-                            <Button Content="Istampaj statistiku" Width="150" Margin="0,10,0,0">
+                            <Button Content="Ištampaj statistiku" Width="150" Margin="0,10,0,0" Command="{Binding LocationStatisticsReportCommand}">
                                 <Button.ToolTip>
                                     Ištampajte statistiku o zahtevima za ture na izabranoj lokaciji
                                 </Button.ToolTip>
@@ -318,7 +318,7 @@
                         <DockPanel>
                             <ComboBox x:Name="languageComboBox" ItemsSource="{Binding LanguagesToDisplay}" SelectedItem="{Binding SelectedLanguagesComboBoxItem, Mode=TwoWay}" Width="150"  Margin="25,10,0,0" ToolTip="Odaberite jezik za koji želite da vidite statistiku"/>
                             <ComboBox x:Name="languageYearComboBox" ItemsSource="{Binding LanguageYearsToDisplay}" SelectedItem="{Binding SelectedLanguageYearsComboBoxItem, Mode=TwoWay}" Width="150" Margin="50,10,0,0" ToolTip="Odaberite godinu za koju želite želite da vidite statistiku"/>
-                            <Button Content="Istampaj statistiku" Width="150" Margin="0,10,0,0">
+                            <Button Content="Ištampaj statistiku" Width="150" Margin="0,10,0,0" Command="{Binding LanguageStatisticsReportCommand}">
                                 <Button.ToolTip>
                                     Ištampajte statistiku o zahtevima za ture na izabranom jeziku
                                 </Button.ToolTip>

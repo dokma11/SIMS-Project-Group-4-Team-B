@@ -19,7 +19,6 @@ namespace Sims2023.Repositories
             _observers = new List<IObserver>();
             _fileHandler = new UserFileHandler();
             _users = _fileHandler.Load();
-
         }
 
         public int NextId()

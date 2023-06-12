@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.WPF.Commands;
 using Sims2023.WPF.Views.Guest2Views;
 
 namespace Sims2023.WPF.ViewModels.Guest2ViewModels
@@ -24,6 +25,8 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         private VoucherService _voucherService;
         
         public int currentIndex;
+        public RelayCommand CancelCommand { get; set; }
+        public RelayCommand ReserveCommand { get; set; }    
         public TourDetailedViewModel(TourDetailedView tourDetailedView,Tour tour,User user)
         {
             TourDetailedView = tourDetailedView;
@@ -32,6 +35,8 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             _tourReservationService = new TourReservationService();
             _voucherService = new VoucherService();
             User = user;
+            this.CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
+            this.ReserveCommand= new RelayCommand(Execute_ReserveCommand, CanExecute_Command);
             
 
             currentIndex = 0;
@@ -53,7 +58,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
            
         }
 
-        public void NextPicture_Click()
+        public void NextPicture()
         {
             
             if (currentIndex < Tour.Pictures.Count - 1)
@@ -64,7 +69,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
               
 
         }
-        public void PreviousPicture_Click()
+        public void PreviousPicture()
         {
             if (currentIndex > 0)
             {
@@ -72,8 +77,24 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             }
             TourDetailedView.tourImage.Source = new BitmapImage(_tourService.GetPictureUri(Tour, currentIndex));
         }
+        private void Execute_ReserveCommand(object obj)
+        {
+            int reservedSpace = TourDetailedView.GuestNumber;
 
-        public void ReserveTour_Click()
+
+
+
+            TourReservation tourReservation = new TourReservation(Tour, User, reservedSpace);
+            _tourReservationService.Create(tourReservation);
+            _tourService.UpdateAvailableSpace(reservedSpace, Tour);
+
+
+            MessageBox.Show("Uspesna rezervacija");
+            CheckVouchers(tourReservation);
+
+            ShowVoucherListView();
+        }
+        /*public void ReserveTour_Click()
         {
             int reservedSpace = TourDetailedView.GuestNumber;
 
@@ -93,7 +114,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             
 
             
-        }
+        }*/
 
         public void ShowVoucherListView()
         {
@@ -124,9 +145,18 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
                 _voucherService.Create(Voucher);
             }
         }
-        public void Cancel_Click()
+        /*public void Cancel_Click()
+        {
+            TourDetailedView.Close();
+        }*/
+        private void Execute_CancelCommand(object obj)
         {
             TourDetailedView.Close();
         }
+        private bool CanExecute_Command(object obj)
+        {
+            return true;
+        }
+
     }
 }

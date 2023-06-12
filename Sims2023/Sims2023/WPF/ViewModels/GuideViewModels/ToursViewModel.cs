@@ -3,17 +3,47 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.WPF.Commands;
+using Sims2023.WPF.Views.GuideViews;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 
 namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
-    public partial class ToursViewModel
+    public partial class ToursViewModel: INotifyPropertyChanged
     {
         public Tour SelectedCreatedTour { get; set; }
+        public Tour StartedTour { get; set; }
         public Tour SelectedFinishedTour { get; set; }
-        public Tour NewTour { get; set; }
+        private Tour _newTour;
+
+        public Tour NewTour
+        {
+            get { return _newTour; }
+            set
+            {
+                _newTour = value;
+                OnPropertyChanged(nameof(NewTour));
+            }
+        }
+
+        private bool _isLabelVisible;
+        public bool IsLabelVisible
+        {
+            get { return _isLabelVisible; }
+            set
+            {
+                if (_isLabelVisible != value)
+                {
+                    _isLabelVisible = value;
+                    OnPropertyChanged(nameof(IsLabelVisible));
+                }
+            }
+        }
+
         public Location NewLocation { get; set; }
         public KeyPoint NewKeyPoint { get; set; }
         public ObservableCollection<Tour> CreatedToursToDisplay { get; set; }
@@ -25,36 +55,61 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public Func<int, string> Values { get; set; }
 
         private TourService _tourService;
-        private VoucherService _voucherService;
-        private TourReservationService _tourReservationService;
-        private UserService _userService;
-        private CountriesAndCitiesService _countriesAndCitiesService;
         private LocationService _locationService;
         private KeyPointService _keyPointService;
+        private TourReviewService _tourReviewService;
+        private RequestService _requestService;
+        private TourReservationService _tourReservationService;
+        private VoucherService _voucherService;
+        private UserService _userService;
+        private CountriesAndCitiesService _countriesAndCitiesService;
+        private TourNotificationService _tourNotificationService;
+        private ComplexTourRequestService _complexTourRequestService;
+        private SubTourRequestService _subTourRequestService;
 
         public List<DateTime> DateTimeList;
         public List<string> KeyPointsList;
         public User LoggedInGuide { get; set; }
-        public Func<ChartPoint, string> PointLabel { get; set; }
-        public Func<int, string> ValuesWith { get; set; }
-        public Func<int, string> ValuesWithout { get; set; }
         public ObservableCollection<string> ComboBoxItems { get; set; }
 
-        public ToursViewModel(TourService tourService, VoucherService voucherService, TourReservationService tourReservationService, UserService userService, User loggedInGuide, CountriesAndCitiesService countriesAndCitiesService, LocationService locationService, KeyPointService keyPointService)
+        public RelayCommand HomePageNavigationCommand { get; set; }
+        public RelayCommand RequestsPageNavigationCommand { get; set; }
+        public RelayCommand ReviewsPageNavigationCommand { get; set; }
+        public RelayCommand AccountPageNavigationCommand { get; set; }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
         {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public ToursViewModel(TourService tourService, LocationService locationService, KeyPointService keyPointService, TourReviewService tourReviewService, RequestService requestService, TourReservationService tourReservationService, VoucherService voucherService, UserService userService, CountriesAndCitiesService countriesAndCitiesService, User loggedInGuide, TourNotificationService tourNotificationService, ComplexTourRequestService complexTourRequestService, SubTourRequestService subTourRequestService)
+        {
+            HomePageNavigationCommand = new RelayCommand(Executed_HomePageNavigationCommand, CanExecute_HomePageNavigationCommand);
+            RequestsPageNavigationCommand = new RelayCommand(Executed_RequestsPageNavigationCommand, CanExecute_RequestsPageNavigationCommand);
+            ReviewsPageNavigationCommand = new RelayCommand(Executed_ReviewsPageNavigationCommand, CanExecute_ReviewsPageNavigationCommand);
+            AccountPageNavigationCommand = new RelayCommand(Executed_AccountPageNavigationCommand, CanExecute_AccountPageNavigationCommand);
+
             _tourService = tourService;
-            _voucherService = voucherService;
-            _tourReservationService = tourReservationService;
-            _userService = userService;
-            _countriesAndCitiesService = countriesAndCitiesService;
             _locationService = locationService;
             _keyPointService = keyPointService;
+            _tourReviewService = tourReviewService;
+            _requestService = requestService;
+            _tourReservationService = tourReservationService;
+            _voucherService = voucherService;
+            _userService = userService;
+            _countriesAndCitiesService = countriesAndCitiesService;
+            _tourNotificationService = tourNotificationService;
+            _countriesAndCitiesService = new CountriesAndCitiesService();
+            _complexTourRequestService = complexTourRequestService;
+            _subTourRequestService = subTourRequestService;
 
             LoggedInGuide = loggedInGuide;
 
             NewTour = new();
             NewLocation = new();
             NewKeyPoint = new();
+            StartedTour = new();
 
             GetAttendedGuestsNumber();
 
@@ -81,6 +136,13 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
             ComboBoxItems = new ObservableCollection<string>();
             GetYearsForComboBox();
+
+            IsLabelVisible = _tourService.GetAll().Any(tour => tour.CurrentState == ToursState.Started);
+            
+            if(IsLabelVisible)
+            {
+                StartedTour = _tourService.GetAll().FirstOrDefault(tour => tour.CurrentState == ToursState.Started);
+            }
         }
 
         public void CancelTour(string additionalComment)
@@ -114,24 +176,11 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             return SelectedCreatedTour.Start >= DateTime.Now.AddHours(48);
         }
 
-        public bool IsTourFinishedProperly()
-        {
-            return SelectedCreatedTour.CurrentState != ToursState.Finished;
-        }
-
         //KREIRANJE TURE
 
         public List<CountriesAndCities> GetCitiesAndCountries()
         {
             return _countriesAndCitiesService.GetAllLocations();
-        }
-
-        public void SetToursLanguage(string languageString)
-        {
-            if (Enum.TryParse(languageString, out ToursLanguage language))
-            {
-                _tourService.SetLanguage(NewTour, language);
-            }
         }
 
         public void AddKeyPointsToList(string inputText)
@@ -298,6 +347,52 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             {
                 CreatedToursToDisplay.Add(tour);
             }
+        }
+
+        //TOOLBAR
+
+        private void Executed_HomePageNavigationCommand(object obj)
+        {
+            GuideHomePageView guideHomePageView = new(LoggedInGuide);
+            FrameManagerGuide.Instance.MainFrame.Navigate(guideHomePageView);
+        }
+
+        private bool CanExecute_HomePageNavigationCommand(object obj)
+        {
+            return true;
+        }
+
+        private void Executed_RequestsPageNavigationCommand(object obj)
+        {
+            RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
+        }
+
+        private bool CanExecute_RequestsPageNavigationCommand(object obj)
+        {
+            return true;
+        }
+
+        private void Executed_ReviewsPageNavigationCommand(object obj)
+        {
+            GuestReviewsView guestReviewsView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(guestReviewsView);
+        }
+
+        private bool CanExecute_ReviewsPageNavigationCommand(object obj)
+        {
+            return true;
+        }
+
+        private void Executed_AccountPageNavigationCommand(object obj)
+        {
+            GuideAccountView guideAccountView = new(_tourService, _tourReviewService, _locationService, _requestService, _keyPointService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
+            FrameManagerGuide.Instance.MainFrame.Navigate(guideAccountView);
+        }
+
+        private bool CanExecute_AccountPageNavigationCommand(object obj)
+        {
+            return true;
         }
     }
 }

@@ -164,5 +164,73 @@ namespace Sims2023.Repositories
         {
             _fileHandler.Save(_requests);
         }
+
+        public double GetUsersAcceptedPercentageByYearAndLanguage(string year, string language)
+        {
+            if (year != "Svih vremena")
+            {
+                int counter = _requests.Count(req => req.Start.Year.ToString() == year && req.Language.ToString() == language
+                                         && req.State == RequestsState.Accepted);
+                int allcounter = _requests.Count(req => req.Start.Year.ToString() == year && req.Language.ToString() == language);
+                return (double)counter / allcounter;
+            }
+            else
+            {
+                int counter = _requests.Count(req => req.Language.ToString() == language && req.State == RequestsState.Accepted);
+                int allcounter = _requests.Count(req => req.Start.Year.ToString() == year && req.Language.ToString() == language);
+                return (double)counter / allcounter;
+            }
+        }
+
+        public double GetUsersDeclinedPercentageByYearAndLanguage(string year, string language)
+        {
+            if (year != "Svih vremena")
+            {
+                int counter = _requests.Count(req => req.Start.Year.ToString() == year && req.Language.ToString() == language
+                                                          && req.State != RequestsState.Accepted);
+                int allcounter = _requests.Count(req => req.Start.Year.ToString() == year && req.Language.ToString() == language);
+                return (double)counter / allcounter;
+            }
+            else
+            {
+                int counter = _requests.Count(req => req.Language.ToString() == language&& req.State != RequestsState.Accepted);
+                int allcounter = _requests.Count(req => req.Start.Year.ToString() == year && req.Language.ToString() == language);
+                return (double)counter / allcounter;
+            }
+        }
+
+        public double GetUsersAcceptedPercentageByYearAndLocation(string year, string location)
+        {
+            if (year != "Svih vremena")
+            {
+                int counter = _requests.Count(req => req.Start.Year.ToString() == year && (req.Location.City + ", " + req.Location.Country) == location
+                                          && req.State == RequestsState.Accepted);
+                int allcounter = _requests.Count(req => req.Start.Year.ToString() == year && (req.Location.City + ", " + req.Location.Country) == location);
+                return (double)counter / allcounter;
+            }
+            else
+            {
+                int counter = _requests.Count(req => (req.Location.City + ", " + req.Location.Country) == location && req.State == RequestsState.Accepted);
+                int allcounter = _requests.Count(req => (req.Location.City + ", " + req.Location.Country) == location);
+                return (double)counter / allcounter;
+            }
+        }
+
+        public double GetUsersDeclinedPercentageByYearAndLocation(string year, string location)
+        {
+            if(year != "Svih vremena")
+            {
+                int counter = _requests.Count(req => req.Start.Year.ToString() == year && (req.Location.City + ", " + req.Location.Country) == location
+                                          && req.State != RequestsState.Accepted);
+                int allcounter = _requests.Count(req => req.Start.Year.ToString() == year && (req.Location.City + ", " + req.Location.Country) == location);
+                return (double)counter / allcounter;
+            }
+            else
+            {
+                int counter = _requests.Count(req => (req.Location.City + ", " + req.Location.Country) == location && req.State != RequestsState.Accepted);
+                int allcounter = _requests.Count(req => (req.Location.City + ", " + req.Location.Country) == location);
+                return (double)counter / allcounter;
+            }
+        }
     }
 }

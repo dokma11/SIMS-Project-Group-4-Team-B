@@ -22,17 +22,10 @@ namespace Sims2023.WPF.Views.OwnerViews
     /// </summary>
     public partial class AllAccommodationStatisticsView : Page
     {
-        public AllAccommodationsViewModel AllAccommodationsViewModel;
         public AllAccommodationStatisticsView(User user)
         {
-            AllAccommodationsViewModel = new AllAccommodationsViewModel(user);
             InitializeComponent();
-            DataContext = AllAccommodationsViewModel;
-        }
-
-        private void Statistics_Click(object sender, RoutedEventArgs e)
-        {
-            AllAccommodationsViewModel.Statistics_Click();
+            DataContext = new AllAccommodationsViewModel(user);
         }
     }
 }

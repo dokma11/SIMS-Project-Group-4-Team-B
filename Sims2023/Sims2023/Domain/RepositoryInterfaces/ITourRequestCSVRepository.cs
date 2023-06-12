@@ -20,5 +20,7 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public List<TourRequest> GetByLocation(Location location);
         public List<TourRequest> GetByLanguage(string language);
         public TourRequest GetById(int id);
+        public int GetByLanguageCount(string year, string requestsLanguage);
+        public int GetByLocationCount(string year, string location);
     }
 }

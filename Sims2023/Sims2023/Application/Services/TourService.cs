@@ -107,7 +107,6 @@ namespace Sims2023.Application.Services
         public void UpdateState(Tour selectedTour, ToursState state)
         {
             _tour.UpdateState(selectedTour, state);
-            Save();
         }
 
         public void SetLanguage(Tour selectedTour, ToursLanguage language)
@@ -116,7 +115,7 @@ namespace Sims2023.Application.Services
             Save();
         }
 
-        public List<Tour> GetFiltered(string citySearchTerm, string countrySearchTerm, int lengthSearchTerm, string guideLanguageSearchTerm, int maxGuestNumberSearchTerm)
+        public List<Tour> GetFiltered(string citySearchTerm, string countrySearchTerm, string lengthSearchTerm, string guideLanguageSearchTerm, int maxGuestNumberSearchTerm)
         {
             return _tourReadFromCSVRepository.GetFiltered(citySearchTerm, countrySearchTerm, lengthSearchTerm, guideLanguageSearchTerm, maxGuestNumberSearchTerm);
         }
@@ -137,7 +136,6 @@ namespace Sims2023.Application.Services
         public void CancelAll(User loggedInGuide)
         {
             _tour.CancelAll(loggedInGuide);
-            Save();
         }
 
         public void GetLocationReferences()

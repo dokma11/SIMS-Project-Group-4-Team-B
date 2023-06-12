@@ -38,10 +38,7 @@ namespace Sims2023.WPF.Views.OwnerViews
                 return message;
 
             }
-
         }
-
-
         public string isAccommodationFree
         {
             get

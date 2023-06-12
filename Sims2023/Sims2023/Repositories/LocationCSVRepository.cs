@@ -85,7 +85,7 @@ namespace Sims2023.Repositories
 
                 unpopularLocations.AddRange(locations);
                 unpopularLocations.AddRange(leastReservedLocations);
-                unpopularLocations = unpopularLocations.Take(5).ToList();
+                unpopularLocations = unpopularLocations.Take(3).ToList();
             }
 
             return unpopularLocations;

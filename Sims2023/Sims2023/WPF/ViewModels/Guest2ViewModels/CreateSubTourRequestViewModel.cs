@@ -17,6 +17,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         public LocationService _locationService { get; set; }
         public RequestService _requestService { get; set; }
         public SubTourRequestService _subTourRequestService { get; set; }
+        public ComplexTourRequestService _complexTourRequestService { get; set; }
         public SubTourRequest SubTourRequest { get; set; }
         public ComplexTourRequest ComplexTourRequest { get; set; }
 
@@ -34,7 +35,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             Location = new Location();
             ComplexTourRequest = complexTourRequest;
 
-            _requestService.CheckExpirationDate(user);
+            
 
 
 
@@ -55,14 +56,33 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             _requestService.Create(Request);
             
             SubTourRequest SubTourRequest = new SubTourRequest(Request,ComplexTourRequest);
-           
-            
+            //UpdateDate(SubTourRequest);
+
             _subTourRequestService.Create(SubTourRequest);
-           
+            //UpdateDate(SubTourRequest);
+            
+            
+        }
 
-
-
-
+        public bool IsEarliest(SubTourRequest subTourRequest)
+        {
+            if (subTourRequest.ComplexTourRequest.Date==null)
+                return true;
+            foreach(var subrequest in _subTourRequestService.GetByComplexTourRequest(ComplexTourRequest))
+            {
+                if (DateTime.Parse(subTourRequest.ComplexTourRequest.Date) > DateTime.Parse(subrequest.ComplexTourRequest.Date))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public void UpdateDate(SubTourRequest subTourRequest)
+        {
+            if (IsEarliest(subTourRequest))
+            {
+                _complexTourRequestService.UpdateDate(subTourRequest.ComplexTourRequest, subTourRequest.TourRequest.Start.ToLongDateString());
+            }
         }
     }
 }

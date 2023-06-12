@@ -21,16 +21,6 @@ namespace Sims2023.View
 
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationRegistrationViewModel.SaveButton_Click(sender, e);
-        }
-
-        private void Registration_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationRegistrationViewModel.Registration_Click(sender, e);
-        }
-
         private void countryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             AccommodationRegistrationViewModel.countryComboBox_SelectionChanged(sender, e);

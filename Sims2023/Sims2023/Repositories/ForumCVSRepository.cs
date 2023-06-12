@@ -145,9 +145,18 @@ namespace Sims2023.Repositories
 
         public List<Forum> GetForumsForParticularOwner(List<Location> _locations)
         {
-            List<Forum> forums = _forums.Where(f => _locations.Any(l => l.Id == f.Location.Id)).ToList();
-            return forums;
+            List<Forum> forums = _forums
+           .Where(f => _locations.Any(l => l.City == f.Location.City && l.Country == f.Location.Country))
+            .ToList();
 
+            List<Location> uniqueLocations = forums.Select(f => f.Location).Distinct().ToList();
+
+            List<Forum> filteredForums = forums
+                .GroupBy(f => f.Location)
+                .Select(g => g.First())
+                .ToList();
+
+            return filteredForums;
         }
     }
 

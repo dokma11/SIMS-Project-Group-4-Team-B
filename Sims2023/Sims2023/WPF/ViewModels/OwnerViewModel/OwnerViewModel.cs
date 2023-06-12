@@ -6,9 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using static System.Net.WebRequestMethods;
 
 namespace Sims2023.WPF.ViewModels.OwnerViewModel
 {
@@ -25,6 +28,15 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
         public ObservableCollection<AccommodationCancellation> AccommodationCancellations { get; set; }
         public List<AccommodationReservation> GradableGuests { get; set; }
 
+
+        public LocationService _locationService;
+        public ForumService _forumService;
+        public List<Location> locations { get; set; }
+
+        public List<Forum> forums { get; set; }
+        public ObservableCollection<Forum> Forums { get; set; }
+
+
         public User User { get; set; }
         // constructor for the class goes here
 
@@ -37,8 +49,14 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             _gradeService = new GuestGradeService();
             Reservations = new List<AccommodationReservation>(_accommodationReservationService.GetAllReservations());
             AccommodationCancellations = new ObservableCollection<AccommodationCancellation>(_accommodationCancellationService.GetAllAccommodationCancellations());
-        }
 
+            _locationService = new LocationService();
+            _forumService = new ForumService();
+            locations = _accommodationService.GetOwnerLocations(_accommodationService.GetOwnerAccommodations(_accommodationService.GetAllAccommodations(), User));
+            forums = _forumService.GetForumsForParticularOwner(locations);
+            forums.RemoveAll(forum => forum.OwnerOpened == true);
+            //ShowMessage();
+        }
         public List<AccommodationReservation> GetGradableGuests()
         {
             return _accommodationReservationService.GetGradableGuests(User, Reservations, _gradeService.GetAllGrades());
@@ -59,29 +77,26 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         public void Window_Loaded()
         {
-            checkForNotifications();
+            //   checkForNotifications();
             string fileName = "../../../Resources/Data/lastshown.txt";
+            string lastShownText = System.IO.File.ReadAllText(fileName);
+            DateTime lastShownDate = DateTime.Parse(lastShownText);
 
-            try
+            if (lastShownDate < DateTime.Today)
             {
-                string lastShownText = File.ReadAllText(fileName);
-                DateTime lastShownDate = DateTime.Parse(lastShownText);
-
-                if (lastShownDate < DateTime.Today)
+                if (forums.Count() != 0)
                 {
-                    if (_accommodationReservationService.GetGradableGuests(User, Reservations, _gradeService.GetAllGrades()).Count != 0)
-                    {
-                              MessageBox.Show(ungradedGuestsNameAndSurrname(Reservations));
-
-                        // Update the last shown date to today's date
-                        File.WriteAllText(fileName, DateTime.Today.ToString());
-                    }
+                    ToastNotificationService.ShowInformation("Imate novootvorene forume");
+                    System.IO.File.WriteAllText(fileName, DateTime.Today.ToString());
                 }
-            }
-            catch (FileNotFoundException)
-            {
+                else if (_accommodationReservationService.GetGradableGuests(User, Reservations, _gradeService.GetAllGrades()).Count != 0)
+                {
+                    ToastNotificationService.ShowInformation("Imate neocijenjene goste");
 
-                File.WriteAllText(fileName, DateTime.Today.ToString());
+
+                    // Update the last shown date to today's date
+                    System.IO.File.WriteAllText(fileName, DateTime.Today.ToString());
+                }
             }
         }
 

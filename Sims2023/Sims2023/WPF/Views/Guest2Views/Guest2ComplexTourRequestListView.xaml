@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
+      xmlns:ns="clr-namespace:Sims2023"
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1024"
       Title="Guest2ComplexTourRequestListView">
@@ -56,12 +57,12 @@
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="760" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Status" Width="100" Binding="{Binding CurrentState}"/>
-                <DataGridTemplateColumn Header="Subtours">
+                <DataGridTextColumn Header="{ns:Loc nameData}" Width="760" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="{ns:Loc stateData}" Width="100" Binding="{Binding CurrentState}"/>
+                <DataGridTemplateColumn Header="{ns:Loc subtoursData}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Show" Click="Show_Click"/>
+                            <Button Content="{ns:Loc showBtn}" Click="Show_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -69,7 +70,7 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="New request" FontSize="15" Width="147" Height="42"  Background="#bcbcbc" HorizontalAlignment="Left" Margin="820,518,0,0" VerticalAlignment="Top" Click="NewRequest_Click"/>
-        <Label Content="My complex tour requests" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
+        <Button Content="{ns:Loc newRequestBtn}" FontSize="15" Width="147" Height="42"  Background="#bcbcbc" HorizontalAlignment="Left" Margin="820,518,0,0" VerticalAlignment="Top" Click="NewRequest_Click"/>
+        <Label Content="{ns:Loc myComplexTourRequestsLabel}" FontSize="40" HorizontalAlignment="Left" Margin="44,23,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

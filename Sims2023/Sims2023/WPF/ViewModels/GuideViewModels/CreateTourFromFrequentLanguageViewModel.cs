@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
@@ -30,6 +32,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public RequestsLanguage SelectedLanguage { get; set; }
         private List<DateTime> _dateTimeList;
         private List<string> _keyPointsList;
+
         private DateTime _selectedDate = DateTime.Today.AddDays(1);
         public DateTime SelectedDate
         {
@@ -41,11 +44,15 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                     _selectedDate = value;
                     OnPropertyChanged(nameof(SelectedDate));
 
-                    _dateTimeList.Add(value);
-                    NewTour.Start = value;
+                    if (!_tourService.GetBusyDates(LoggedInGuide).Contains(value))
+                    {
+                        _dateTimeList.Add(value);
+                        NewTour.Start = value;
+                    }
                 }
             }
         }
+
         public User LoggedInGuide { get; set; }
 
         private string _countryComboBoxText;
@@ -54,27 +61,32 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             get { return _countryComboBoxText; }
             set
             {
-                _countryComboBoxText = value;
-                OnPropertyChanged(nameof(CountryComboBoxText));
-
-                CountriesAndCities temp = new();
-                foreach (var c in _countriesAndCitiesService.GetAllLocations())
+                if (_countryComboBoxText != value)
                 {
-                    if (c.CountryName == _countryComboBoxText)
+                    _countryComboBoxText = value;
+                    OnPropertyChanged(nameof(CountryComboBoxText));
+
+                    CountriesAndCities temp = null;
+                    foreach (var c in _countriesAndCitiesService.GetAllLocations())
                     {
-                        temp = c;
-                        break;
+                        if (c.CountryName == _countryComboBoxText)
+                        {
+                            temp = c;
+                            break;
+                        }
                     }
-                }
 
-                var cities = new List<string> { temp.City1, temp.City2, temp.City3, temp.City4, temp.City5 };
-                CityComboBoxSource.Clear();
-                foreach (var city in cities)
-                {
-                    CityComboBoxSource.Add(city);
+                    var cities = new List<string>();
+                    if (temp != null)
+                    {
+                        cities = new List<string> { temp.City1, temp.City2, temp.City3, temp.City4, temp.City5 };
+                    }
+
+                    CityComboBoxSource = cities;
                 }
             }
         }
+
 
         private string _cityComboBoxText;
         public string CityComboBoxText
@@ -87,10 +99,115 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             }
         }
 
-        public List<string> CityComboBoxSource { get; set; }
+        private bool _isLabelVisible;
+        public bool IsLabelVisible
+        {
+            get { return _isLabelVisible; }
+            set
+            {
+                if (_isLabelVisible != value)
+                {
+                    _isLabelVisible = value;
+                    OnPropertyChanged(nameof(IsLabelVisible));
+                }
+            }
+        }
+
+        private Brush _nameTextBoxBorderBrush;
+        public Brush NameTextBoxBorderBrush
+        {
+            get { return _nameTextBoxBorderBrush; }
+            set
+            {
+                _nameTextBoxBorderBrush = value;
+                OnPropertyChanged(nameof(NameTextBoxBorderBrush));
+            }
+        }
+
+        private Brush _keyPointTextBoxBorderBrush;
+        public Brush KeyPointTextBoxBorderBrush
+        {
+            get { return _keyPointTextBoxBorderBrush; }
+            set
+            {
+                _keyPointTextBoxBorderBrush = value;
+                OnPropertyChanged(nameof(KeyPointTextBoxBorderBrush));
+            }
+        }
+
+        private Brush _picturesTextBoxBorderBrush;
+        public Brush PicturesTextBoxBorderBrush
+        {
+            get { return _picturesTextBoxBorderBrush; }
+            set
+            {
+                _picturesTextBoxBorderBrush = value;
+                OnPropertyChanged(nameof(PicturesTextBoxBorderBrush));
+            }
+        }
+
+        private Brush _listBoxBorderBrush;
+        public Brush ListBoxBorderBrush
+        {
+            get { return _listBoxBorderBrush; }
+            set
+            {
+                _listBoxBorderBrush = value;
+                OnPropertyChanged(nameof(ListBoxBorderBrush));
+            }
+        }
+
+        private Brush _datePickerBorderBrush;
+        public Brush DatePickerBorderBrush
+        {
+            get { return _datePickerBorderBrush; }
+            set
+            {
+                _datePickerBorderBrush = value;
+                OnPropertyChanged(nameof(DatePickerBorderBrush));
+            }
+        }
+
+        private Brush _descriptionBorderBrush;
+        public Brush DescriptionBorderBrush
+        {
+            get { return _descriptionBorderBrush; }
+            set
+            {
+                _descriptionBorderBrush = value;
+                OnPropertyChanged(nameof(DescriptionBorderBrush));
+            }
+        }
+
+        private List<string> _cityComboBoxSource;
+        public List<string> CityComboBoxSource
+        {
+            get { return _cityComboBoxSource; }
+            set
+            {
+                _cityComboBoxSource = value;
+                OnPropertyChanged(nameof(CityComboBoxSource));
+            }
+        }
         public List<string> CountryComboBoxSource { get; set; }
-        public string KeyPointTextBoxText { get; set; }
+
+        private string _keyPointTextBoxText;
+        public string KeyPointTextBoxText
+        {
+            get { return _keyPointTextBoxText; }
+            set
+            {
+                if (_keyPointTextBoxText != value)
+                {
+                    _keyPointTextBoxText = value;
+                    OnPropertyChanged(nameof(KeyPointTextBoxText));
+                }
+            }
+        }
+
         public ObservableCollection<string> ListBoxItems { get; set; }
+        public DateTime DisplayDateStart { get; set; }
+
         public RelayCommand CreateCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand AddItemCommand { get; set; }
@@ -98,6 +215,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public RelayCommand ToursPageNavigationCommand { get; set; }
         public RelayCommand ReviewsPageNavigationCommand { get; set; }
         public RelayCommand AccountPageNavigationCommand { get; set; }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
@@ -141,6 +259,15 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             CityComboBoxSource = new();
 
             LoggedInGuide = loggedInGuide;
+
+            DisplayDateStart = DateTime.Today.AddDays(1);
+
+            NameTextBoxBorderBrush = Brushes.Gray;
+            KeyPointTextBoxBorderBrush = Brushes.Gray;
+            ListBoxBorderBrush = Brushes.Gray;
+            PicturesTextBoxBorderBrush = Brushes.Gray;
+            DatePickerBorderBrush = Brushes.Gray;
+            DescriptionBorderBrush = Brushes.Gray;
         }
 
         public List<string> GetCitiesAndCountries()
@@ -156,7 +283,8 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
         public void Executed_CreateCommand(object obj)
         {
             if (NewTour.Name != "" && NewTour.MaxGuestNumber > 0 && NewTour.Length > 0 && NewTour.ConcatenatedPictures != ""
-                && _dateTimeList.Count > 0 && ListBoxItems.Count > 1 && NewTour.Description != "")
+                && _dateTimeList.Count > 0 && ListBoxItems.Count > 1 && NewTour.Description != ""
+                && !_tourService.GetBusyDates(LoggedInGuide).Contains(NewTour.Start))
             {
                 NewLocation.City = CityComboBoxText;
                 NewLocation.Country = CountryComboBoxText;
@@ -172,6 +300,10 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
                 RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
                 FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
+            }
+            else
+            {
+                ValidationErrorLabelEvent();
             }
         }
 
@@ -189,10 +321,36 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             return true;
         }
 
-        /*
-         public void ValidationErrorLabelEvent()
+        public void ValidationErrorLabelEvent()
         {
-            validationLabel.Visibility = Visibility.Visible;
+            IsLabelVisible = true;
+
+            if (NewTour.Name == null)
+            {
+                NameTextBoxBorderBrush = Brushes.Red;
+            }
+
+            if (ListBoxItems.Count <= 1)
+            {
+                KeyPointTextBoxBorderBrush = Brushes.Red;
+                ListBoxBorderBrush = Brushes.Red;
+            }
+
+            if (NewTour.ConcatenatedPictures == null)
+            {
+                PicturesTextBoxBorderBrush = Brushes.Red;
+            }
+
+            if (SelectedDate == DateTime.MinValue || _tourService.GetBusyDates(LoggedInGuide).Contains(NewTour.Start))
+            {
+                DatePickerBorderBrush = Brushes.Red;
+            }
+
+            if (NewTour.Description == null)
+            {
+                DescriptionBorderBrush = Brushes.Red;
+            }
+
             DispatcherTimer timer = new()
             {
                 Interval = TimeSpan.FromSeconds(5)
@@ -203,12 +361,18 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            validationLabel.Visibility = Visibility.Hidden;
+            IsLabelVisible = false;
+
+            NameTextBoxBorderBrush = Brushes.Gray;
+            KeyPointTextBoxBorderBrush = Brushes.Gray;
+            ListBoxBorderBrush = Brushes.Gray;
+            PicturesTextBoxBorderBrush = Brushes.Gray;
+            DatePickerBorderBrush = Brushes.Gray;
+            DescriptionBorderBrush = Brushes.Gray;
+
             DispatcherTimer timer = (DispatcherTimer)sender;
             timer.Stop();
         }
-         
-         */
 
         public void Executed_CancelCommand(object obj)
         {

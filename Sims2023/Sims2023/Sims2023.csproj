@@ -41,9 +41,12 @@
     <None Remove="Resources\GuestOneResources\Wizard\3.png" />
     <None Remove="Resources\GuestOneResources\Wizard\4.png" />
     <None Remove="Resources\GuestTwoResources\backgroundtexture.jpg" />
+    <None Remove="Resources\GuestTwoResources\blackbackgroundtexture.jpg" />
     <None Remove="Resources\GuestTwoResources\HorizontBW-01.png" />
     <None Remove="Resources\GuestTwoResources\HorizontBW-02.ico" />
     <None Remove="Resources\GuestTwoResources\HorizontBW-02.png" />
+    <None Remove="Resources\GuestTwoResources\HorizontWB-01.png" />
+    <None Remove="Resources\GuestTwoResources\invertedbackgroundtexture.png" />
     <None Remove="Resources\GuestTwoResources\left.png" />
     <None Remove="Resources\GuestTwoResources\right.png" />
     <None Remove="Resources\GuideResources\5257500-middle.png" />
@@ -56,10 +59,10 @@
     <None Remove="Resources\OwnerResources\menu.png" />
     <None Remove="Resources\OwnerResources\menu2.png" />
     <None Remove="Resources\OwnerResources\menu3.png" />
+    <None Remove="Resources\OwnerResources\New_notification-removebg-preview.png" />
     <None Remove="Resources\OwnerResources\notification.png" />
     <None Remove="Resources\OwnerResources\plus.png" />
-    <None Remove="Resources\OwnerResources\prroba.avi" />
-    <None Remove="Resources\OwnerResources\rename.mp4" />
+    <None Remove="Resources\OwnerResources\tutorijal.wmv" />
   </ItemGroup>
 
   <ItemGroup>
@@ -70,6 +73,8 @@
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
     <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="PdfSharp" Version="1.50.5147" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
     <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
   </ItemGroup>
@@ -172,11 +177,17 @@
     <Resource Include="Resources\GuestOneResources\Wizard\3.png" />
     <Resource Include="Resources\GuestOneResources\Wizard\4.png" />
     <Resource Include="Resources\GuestTwoResources\backgroundtexture.jpg" />
+    <Resource Include="Resources\GuestTwoResources\blackbackgroundtexture.jpg" />
     <Resource Include="Resources\GuestTwoResources\HorizontBW-01.png" />
     <Content Include="Resources\GuestTwoResources\HorizontBW-02.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Update="WPF\ViewModels\Guest1ViewModel\AccommodationReservationCancellationViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -189,6 +200,8 @@
     <Resource Include="Images\OwnerImages\slikaSmestaja7.jpg" />
     <Resource Include="Images\OwnerImages\slikaSmestaja8.jpg" />
     <Resource Include="Resources\GuestTwoResources\HorizontBW-02.ico" />
+    <Resource Include="Resources\GuestTwoResources\HorizontWB-01.png" />
+    <Resource Include="Resources\GuestTwoResources\invertedbackgroundtexture.png" />
     <Resource Include="Resources\GuestTwoResources\left.png" />
     <Resource Include="Resources\GuestTwoResources\right.png" />
     <Resource Include="Resources\GuideResources\5257500-middle.png" />
@@ -211,6 +224,9 @@
     <Resource Include="Resources\OwnerResources\menu3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\OwnerResources\New_notification-removebg-preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\OwnerResources\notification.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -221,10 +237,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\GuestOneResources\Horizont_SRB.png" />
-    <Resource Include="Resources\OwnerResources\prroba.avi">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\OwnerResources\rename.mp4">
+    <Resource Include="Resources\OwnerResources\tutorijal.wmv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

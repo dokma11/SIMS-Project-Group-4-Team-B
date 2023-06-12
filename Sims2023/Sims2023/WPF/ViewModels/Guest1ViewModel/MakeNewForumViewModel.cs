@@ -60,6 +60,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             newForum.MainComment = comment;
             newForum.CountGuestComments= 0;
             newForum.CountOwnerComments= 0;
+            newForum.OwnerOpened = false;
             _forumService.Create(newForum);
             MessageBox.Show("Uspešno ste otvorili forum: " + newForum.Theme);
             GoBack();

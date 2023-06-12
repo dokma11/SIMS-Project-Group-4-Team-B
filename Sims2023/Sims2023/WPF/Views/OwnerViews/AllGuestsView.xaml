@@ -25,23 +25,6 @@
             <Setter Property="Width" Value="Auto"/>
             <Setter Property="Height" Value="Auto"/>
         </Style>
-
-        <Style TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#4FC3F7"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Width" Value="325"/>
-            <Setter Property="Height" Value="60"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="Margin" Value="60,536,0,0"/>
-        </Style>
-
-        <Style TargetType="{x:Type Label}">
-            <Setter Property="FontSize" Value="25"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-        </Style>
     </Page.Resources>
 
     <Grid Background="#B3E5FC">
@@ -66,7 +49,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name="button" Content="Ocijeni" Click="Grade_Click" HorizontalAlignment="Center" Margin="0,534,0,0" Width="325" Height="60"/>
+        <Button x:Name="button" Content="Ocijeni" Command="{Binding Grade}"  Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" HorizontalAlignment="Center" Margin="0,534,0,0" Width="325" Height="60"/>
         <Label x:Name="label" Content="Gosti koji su odsjeli kod vas u skorije vrijeme" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Left" Margin="60,27,0,0" VerticalAlignment="Top" Width="321" Height="45"/>
         <Label x:Name="label1" Content="u skorije vrijeme" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Center" Margin="0,61,0,0" VerticalAlignment="Top" Width="206"/>
     </Grid>

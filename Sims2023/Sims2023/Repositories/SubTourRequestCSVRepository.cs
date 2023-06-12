@@ -43,6 +43,60 @@ namespace Sims2023.Repositories
             return _subTourRequests;
         }
 
+        public List<SubTourRequest> GetByComplexTourRequest(ComplexTourRequest complexTourRequest)
+        {
+            return _subTourRequests.Where(r=>r.ComplexTourRequest.Id==complexTourRequest.Id).ToList();    
+        }
+
+        public string GetEarliestSubTourDateByComplexTourRequest(ComplexTourRequest complexTourRequest)
+        {
+            return GetByComplexTourRequest(complexTourRequest).Min(t => t.TourRequest.Start).ToString();
+        }
+
+        /*public void CheckExpirationDate(ComplexTourRequest complexTourRequest)
+        {
+            DateTime FirstDate  = GetEarliestSubTourDateByComplexTourRequest(complexTourRequest);
+            if (FirstDate != null)
+                return;
+            
+            TimeSpan tillExpiration = FirstDate - DateTime.Now;
+            if (tillExpiration.TotalHours < 48 && IsComplexTourInvalid(complexTourRequest))
+            {
+                UpdateComplexTourState(complexTourRequest);
+                UpdateSubTourRequestStates(complexTourRequest);
+            }
+            
+        }
+        public bool IsComplexTourInvalid(ComplexTourRequest complexTourRequest)
+        {
+            foreach(SubTourRequest subTourRequest in GetByComplexTourRequest(complexTourRequest))
+            {
+                if (subTourRequest.TourRequest.State == RequestsState.Accepted)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        public void UpdateComplexTourState(ComplexTourRequest complexTourRequest)
+        {
+            complexTourRequest.CurrentState = ComplexRequestsState.Invalid;
+            Save();
+        }
+
+        public void UpdateSubTourRequestStates(ComplexTourRequest complexTourRequest)
+        {
+            foreach (SubTourRequest subTourRequest in GetByComplexTourRequest(complexTourRequest))
+            {
+                subTourRequest.TourRequest.State = RequestsState.Invalid;
+                Save();
+            }
+        }*/
+
+
+
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
@@ -54,6 +108,11 @@ namespace Sims2023.Repositories
             {
                 observer.Update();
             }
+        }
+
+        public void Save()
+        {
+            _fileHandler.Save(_subTourRequests);
         }
 
         public List<SubTourRequest> GetByComplexTourId(int complexTourId)

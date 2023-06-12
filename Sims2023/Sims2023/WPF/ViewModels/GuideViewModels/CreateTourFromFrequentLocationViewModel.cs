@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
@@ -56,11 +58,96 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
                     _selectedDate = value;
                     OnPropertyChanged(nameof(SelectedDate));
 
-                    _dateTimeList.Add(value);
-                    NewTour.Start = value;
+                    if (!_tourService.GetBusyDates(LoggedInGuide).Contains(value))
+                    {
+                        _dateTimeList.Add(value);
+                        NewTour.Start = value;
+                    }
                 }
             }
         }
+
+        private bool _isLabelVisible;
+        public bool IsLabelVisible
+        {
+            get { return _isLabelVisible; }
+            set
+            {
+                if (_isLabelVisible != value)
+                {
+                    _isLabelVisible = value;
+                    OnPropertyChanged(nameof(IsLabelVisible));
+                }
+            }
+        }
+
+        private Brush _nameTextBoxBorderBrush;
+        public Brush NameTextBoxBorderBrush
+        {
+            get { return _nameTextBoxBorderBrush; }
+            set
+            {
+                _nameTextBoxBorderBrush = value;
+                OnPropertyChanged(nameof(NameTextBoxBorderBrush));
+            }
+        }
+
+        private Brush _keyPointTextBoxBorderBrush;
+        public Brush KeyPointTextBoxBorderBrush
+        {
+            get { return _keyPointTextBoxBorderBrush; }
+            set
+            {
+                _keyPointTextBoxBorderBrush = value;
+                OnPropertyChanged(nameof(KeyPointTextBoxBorderBrush));
+            }
+        }
+
+        private Brush _picturesTextBoxBorderBrush;
+        public Brush PicturesTextBoxBorderBrush
+        {
+            get { return _picturesTextBoxBorderBrush; }
+            set
+            {
+                _picturesTextBoxBorderBrush = value;
+                OnPropertyChanged(nameof(PicturesTextBoxBorderBrush));
+            }
+        }
+
+        private Brush _listBoxBorderBrush;
+        public Brush ListBoxBorderBrush
+        {
+            get { return _listBoxBorderBrush; }
+            set
+            {
+                _listBoxBorderBrush = value;
+                OnPropertyChanged(nameof(ListBoxBorderBrush));
+            }
+        }
+
+        private Brush _datePickerBorderBrush;
+        public Brush DatePickerBorderBrush
+        {
+            get { return _datePickerBorderBrush; }
+            set
+            {
+                _datePickerBorderBrush = value;
+                OnPropertyChanged(nameof(DatePickerBorderBrush));
+            }
+        }
+
+        private Brush _descriptionBorderBrush;
+        public Brush DescriptionBorderBrush
+        {
+            get { return _descriptionBorderBrush; }
+            set
+            {
+                _descriptionBorderBrush = value;
+                OnPropertyChanged(nameof(DescriptionBorderBrush));
+            }
+        }
+
+        public DateTime DisplayDateStart { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
@@ -110,12 +197,22 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             ListBoxItems = new();
 
             LoggedInGuide = loggedInGuide;
+
+            DisplayDateStart = DateTime.Today.AddDays(1);
+
+            NameTextBoxBorderBrush = Brushes.Gray;
+            KeyPointTextBoxBorderBrush = Brushes.Gray;
+            ListBoxBorderBrush = Brushes.Gray;
+            PicturesTextBoxBorderBrush = Brushes.Gray;
+            DatePickerBorderBrush = Brushes.Gray;
+            DescriptionBorderBrush = Brushes.Gray;
         }
 
         public void Executed_CreateCommand(object obj)
         {
             if (NewTour.Name != "" && NewTour.MaxGuestNumber > 0 && NewTour.Length > 0 && NewTour.ConcatenatedPictures != ""
-                && _dateTimeList.Count > 0 && ListBoxItems.Count > 1 && NewTour.Description != "")
+                && _dateTimeList.Count > 0 && ListBoxItems.Count > 1 && NewTour.Description != ""
+                && !_tourService.GetBusyDates(LoggedInGuide).Contains(NewTour.Start))
             {
                 NewTour.Location = SelectedLocation;
                 NewTour.GuideLanguage = (ToursLanguage)NewTour.GuideLanguage;
@@ -129,6 +226,10 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
                 RequestsView requestsView = new(_requestService, _tourService, _locationService, _keyPointService, _tourReviewService, LoggedInGuide, _tourReservationService, _voucherService, _userService, _countriesAndCitiesService, _tourNotificationService, _complexTourRequestService, _subTourRequestService);
                 FrameManagerGuide.Instance.MainFrame.Navigate(requestsView);
+            }
+            else
+            {
+                ValidationErrorLabelEvent();
             }
         }
 
@@ -146,10 +247,36 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             return true;
         }
 
-        /*
-         public void ValidationErrorLabelEvent()
+        public void ValidationErrorLabelEvent()
         {
-            validationLabel.Visibility = Visibility.Visible;
+            IsLabelVisible = true;
+
+            if (NewTour.Name == null)
+            {
+                NameTextBoxBorderBrush = Brushes.Red;
+            }
+
+            if (ListBoxItems.Count <= 1)
+            {
+                KeyPointTextBoxBorderBrush = Brushes.Red;
+                ListBoxBorderBrush = Brushes.Red;
+            }
+
+            if (NewTour.ConcatenatedPictures == null)
+            {
+                PicturesTextBoxBorderBrush = Brushes.Red;
+            }
+
+            if (SelectedDate == DateTime.MinValue || _tourService.GetBusyDates(LoggedInGuide).Contains(NewTour.Start))
+            {
+                DatePickerBorderBrush = Brushes.Red;
+            }
+
+            if (NewTour.Description == null)
+            {
+                DescriptionBorderBrush = Brushes.Red;
+            }
+
             DispatcherTimer timer = new()
             {
                 Interval = TimeSpan.FromSeconds(5)
@@ -160,12 +287,18 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            validationLabel.Visibility = Visibility.Hidden;
+            IsLabelVisible = false;
+
+            NameTextBoxBorderBrush = Brushes.Gray;
+            KeyPointTextBoxBorderBrush = Brushes.Gray;
+            ListBoxBorderBrush = Brushes.Gray;
+            PicturesTextBoxBorderBrush = Brushes.Gray;
+            DatePickerBorderBrush = Brushes.Gray;
+            DescriptionBorderBrush = Brushes.Gray;
+
             DispatcherTimer timer = (DispatcherTimer)sender;
             timer.Stop();
         }
-         
-         */
 
         public void Executed_CancelCommand(object obj)
         {
