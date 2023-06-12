@@ -68,9 +68,14 @@ namespace Sims2023.WPF.Views.OwnerViews
         }
         private void Comment_Click(object sender, RoutedEventArgs e)
         {
-            LeaveCommentView comments = new LeaveCommentView(SelectedForum, owner, ForumComment);
-            FrameManager.Instance.MainFrame.Navigate(comments);
+            if (SelectedForum != null && SelectedForum.Closed == false)
+            {
+                LeaveCommentView comments = new LeaveCommentView(SelectedForum, owner, ForumComment);
+                FrameManager.Instance.MainFrame.Navigate(comments);
+            }
+            else ToastNotificationService.ShowInformation("Forum je zatvoren, ne možete ostavljati komentare");
         }
+
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
