@@ -21,37 +21,14 @@ namespace Sims2023.WPF.Views.Guest2Views
     /// </summary>
     public partial class CreateComplexTourRequestView : Window
     {
-        private User User { get; set; }
         public CreateComplexTourRequestViewModel CreateComplexTourRequestViewModel { get; set; }
         public CreateComplexTourRequestView(User user)
         {
             InitializeComponent();
-            User = user;
-            CreateComplexTourRequestViewModel = new CreateComplexTourRequestViewModel();
+            CreateComplexTourRequestViewModel = new CreateComplexTourRequestViewModel(this,user);
+            this.DataContext=CreateComplexTourRequestViewModel;
         }
 
-        private void CreateButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (IsFilled())
-            {
-                CreateComplexTourRequestViewModel.ConfirmCreation(nameTextBox.Text, User);
-                MessageBox.Show("Uspesno kreiranje");
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Molim Vas popunite sva polja");
-            }
-        }
-
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private bool IsFilled()
-        {
-            return !string.IsNullOrWhiteSpace(nameTextBox.Text);
-        }
+        
     }
 }

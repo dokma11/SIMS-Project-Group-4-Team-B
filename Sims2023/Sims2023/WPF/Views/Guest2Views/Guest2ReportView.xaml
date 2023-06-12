@@ -12,50 +12,26 @@
         <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="GoBack"></CommandBinding>
     </Window.CommandBindings>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="55"/>
-            <RowDefinition />
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="40"/>
-        </Grid.RowDefinitions>
-        <Label x:Name="label" Content="Izveštaj" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="0" Margin="0,0,0,0"/>
-        
-        <Button x:Name="giveUp" Content="Odustani" Grid.Row="2" Margin="280,10,30,0" FontSize="18" VerticalAlignment="Top" Height="30" Command="cmd:RoutedCommands.Command2View"/>
-        <Grid Grid.Row="1" Margin="0,0,0,0">
-            <Grid Grid.Column="0" Margin="0,0,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition />
-                    <RowDefinition Height="30"/>
-                    <RowDefinition />
-                    <RowDefinition Height="30"/>
-                    <RowDefinition />
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
-                <Label Content="Generisanje izveštaja o otkazanim ili zakazanim" FontSize="13" Grid.Row="0" Margin="50,0,50,0"/>
-                <Label Content="rezervacijama u određenom vremenskom periodu" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" FontSize="13" Grid.Row="1" Margin="20,0,20,0"/>
-                <Label Content="Tip izveštaja:" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Grid.Row="2" Margin="20,0,20,0"/>
-                
-                <Label Content="Datum početka:" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Grid.Row="4" Margin="20,0,20,0"/>
-                <DatePicker x:Name="startDatePicker" Margin="50,0,50,0" TabIndex="16" Grid.Row="5">
-                    <DatePicker.Resources>
-                        <Style TargetType="DatePickerTextBox">
-                            <Setter Property="IsReadOnly" Value="True"/>
-                        </Style>
-                    </DatePicker.Resources>
-                </DatePicker>
-                <Label Content="Datum kraja:" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" FontSize="13" Grid.Row="6" Margin="20,0,20,0"/>
-                <DatePicker x:Name="endDatePicker" Margin="50,0,50,0" TabIndex="16" Grid.Row="7">
-                    <DatePicker.Resources>
-                        <Style TargetType="DatePickerTextBox">
-                            <Setter Property="IsReadOnly" Value="True"/>
-                        </Style>
-                    </DatePicker.Resources>
-                </DatePicker>
-                <Button x:Name="generate" Content="Generiši" Grid.Row="8" Margin="150,20,150,0" FontSize="18" VerticalAlignment="Top" Height="30" Command="cmd:RoutedCommands.Command1View"/>
-            </Grid>
-        </Grid>
+        <Label x:Name="label" Content="Izveštaj o prisutnosti na turama"  FontSize="28"  Margin="0,35,0,392"/>
+        <Button x:Name="giveUp" Content="Odustani" Margin="250,277,60,0" FontSize="18" VerticalAlignment="Top" Height="30" Command="cmd:RoutedCommands.Command2View"/>
+        <Label Content="Datum početka:" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"  Margin="10,138,240,315"/>
+        <DatePicker x:Name="startDatePicker" Margin="158,135,59,312"  >
+            <DatePicker.Resources>
+                <Style TargetType="DatePickerTextBox">
+                    <Setter Property="IsReadOnly" Value="True"/>
+                </Style>
+            </DatePicker.Resources>
+        </DatePicker>
+        <Label Content="Datum kraja:" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" FontSize="13"  Margin="0,194,272,265" />
+        <DatePicker x:Name="endDatePicker" Margin="158,184,59,265"  >
+            <DatePicker.Resources>
+                <Style TargetType="DatePickerTextBox">
+                    <Setter Property="IsReadOnly" Value="True"/>
+                </Style>
+            </DatePicker.Resources>
+        </DatePicker>
+        <Button x:Name="generate" Content="Generiši" Margin="48,269,252,0" FontSize="18" VerticalAlignment="Top" Height="30" Command="cmd:RoutedCommands.Command1View"/>
     </Grid>
+
+
 </Window>

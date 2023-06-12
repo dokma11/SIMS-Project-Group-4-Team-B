@@ -22,6 +22,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         {
             User = user;
             Guest2ReportView = reportView;
+            //startDateSelected = Guest2ReportView.startDatePicker.Text;
 
             _tourReservationService= new TourReservationService();
         }

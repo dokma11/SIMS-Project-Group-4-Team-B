@@ -187,7 +187,7 @@
     <value>Krajnji datum</value>
   </data>
   <data name="endDateLabel" xml:space="preserve">
-    <value>Krajnji datum:</value>
+    <value>Do:</value>
   </data>
   <data name="englishMenu" xml:space="preserve">
     <value>Engleski</value>
@@ -325,7 +325,7 @@
     <value>Početni datum</value>
   </data>
   <data name="startDateLabel" xml:space="preserve">
-    <value>Početni datum:</value>
+    <value>Od:</value>
   </data>
   <data name="startTimeData" xml:space="preserve">
     <value>Početak</value>

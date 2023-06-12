@@ -14,9 +14,9 @@
     <Grid Background="{DynamicResource BackgroundBrush}">
         <Label Foreground="{DynamicResource WelcomeLabel}" Content="{ns:Loc newTourRequestLabel}"  FontSize="28" HorizontalAlignment="Left" Margin="25,22,0,0" VerticalAlignment="Top"/>
         <Label Foreground="{DynamicResource WelcomeLabel}"   Content="{ns:Loc nameLabel}" FontSize="20" HorizontalAlignment="Left" Margin="25,105,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="nameTextBox" HorizontalAlignment="Left" Margin="103,108,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="248" Height="30"/>
-        <Button Content="{ns:Loc createBtn}" Background="#bcbcbc" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="34,162,0,0" VerticalAlignment="Top" Click="CreateButton_Click" RenderTransformOrigin="0.494,0.525"/>
-        <Button Content="{ns:Loc cancelBtn}" Background="#bcbcbc" FontSize="17" Width="148" Height="42" HorizontalAlignment="Left" Margin="203,162,0,0" VerticalAlignment="Top" Click="CancelButton_Click"/>
+        <TextBox x:Name="nameTextBox" HorizontalAlignment="Left" Margin="103,108,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="248" Height="30" />
+        <Button Content="{ns:Loc createBtn}" Command="{Binding CreateCommand}" Background="#bcbcbc" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="34,162,0,0" VerticalAlignment="Top"  RenderTransformOrigin="0.494,0.525"/>
+        <Button Content="{ns:Loc cancelBtn}" Command="{Binding CancelCommand}" Background="#bcbcbc" FontSize="17" Width="148" Height="42" HorizontalAlignment="Left" Margin="203,162,0,0" VerticalAlignment="Top" />
 
     </Grid>
 </Window>

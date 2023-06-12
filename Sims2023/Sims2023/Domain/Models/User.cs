@@ -90,7 +90,7 @@ namespace Sims2023.Domain.Models
             SuperGuide = Convert.ToBoolean(values[10]);
             SuperGuest1 = Convert.ToBoolean(values[11]);
             Guest1Points = Convert.ToInt32(values[12]);
-            DateOfBecomingSuperGuest = Convert.ToDateTime(values[13]);
+            
             AbleToLogIn = Convert.ToBoolean(values[14]);
         }
     }

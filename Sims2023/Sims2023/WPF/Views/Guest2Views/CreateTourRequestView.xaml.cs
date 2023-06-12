@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest2ViewModels;
 using System.Windows.Controls;
+using System.Globalization;
 
 namespace Sims2023.WPF.Views.Guest2Views
 {
@@ -66,23 +67,90 @@ namespace Sims2023.WPF.Views.Guest2Views
             if (IsFilled() && IsStartBeforeEnd())
             {
                 CreateTourRequestViewModel.ConfirmCreation(countryComboBox.Text, cityComboBox.Text, DateTime.Parse(startDatePicker.Text), DateTime.Parse(endDatePicker.Text), descriptionTextBox.Text, User, (RequestsLanguage)Enum.Parse(typeof(RequestsLanguage), languageComboBox.Text), int.Parse(guestNumberBox.Text));
-                MessageBox.Show("Uspesno kreiranje");
+                if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
+                {
+                    MessageBox.Show("Uspešno kreiranje");
+                }
+                else
+                {
+                    MessageBox.Show("Creating successfully");
+                }
                 this.Close();
             }
-            else
-            {
-                MessageBox.Show("Molim Vas popunite sva polja");
-            }
+            
         }
 
         private bool IsFilled()
         {
-            return !string.IsNullOrWhiteSpace(countryComboBox.Text) &&
-                   !string.IsNullOrWhiteSpace(cityComboBox.Text) &&
-                   !string.IsNullOrWhiteSpace(languageComboBox.Text) &&
-                    startDatePicker.SelectedDate.HasValue &&
-                    endDatePicker.SelectedDate.HasValue &&
-                   !string.IsNullOrWhiteSpace(descriptionTextBox.Text);
+            if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
+            {
+
+                if (string.IsNullOrWhiteSpace(countryComboBox.Text))
+                {
+                    MessageBox.Show("Molimo izaberite državu");
+                    return false;
+                }
+                if (string.IsNullOrWhiteSpace(cityComboBox.Text))
+                {
+                    MessageBox.Show("Molimo izaberite grad");
+                    return false;
+                }
+                if (string.IsNullOrWhiteSpace(languageComboBox.Text))
+                {
+                    MessageBox.Show("Molimo izaberite jezik");
+                    return false;
+                }
+                if (!startDatePicker.SelectedDate.HasValue)
+                {
+                    MessageBox.Show("Molimo izaberite početni datum");
+                    return false;
+                }
+                if (!endDatePicker.SelectedDate.HasValue)
+                {
+                    MessageBox.Show("Molimo izaberite krajnji datum");
+                    return false;
+                }
+                if (string.IsNullOrWhiteSpace(descriptionTextBox.Text))
+                {
+                    MessageBox.Show("Molimo upišite opis zahteva za turu");
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(countryComboBox.Text))
+                {
+                    MessageBox.Show("Choose country please");
+                    return false;
+                }
+                if (string.IsNullOrWhiteSpace(cityComboBox.Text))
+                {
+                    MessageBox.Show("Choose city please");
+                    return false;
+                }
+                if (string.IsNullOrWhiteSpace(languageComboBox.Text))
+                {
+                    MessageBox.Show("Choose language please");
+                    return false;
+                }
+                if (!startDatePicker.SelectedDate.HasValue)
+                {
+                    MessageBox.Show("Choose start date please");
+                    return false;
+                }
+                if (!endDatePicker.SelectedDate.HasValue)
+                {
+                    MessageBox.Show("Choose end date please");
+                    return false;
+                }
+                if (string.IsNullOrWhiteSpace(descriptionTextBox.Text))
+                {
+                    MessageBox.Show("Write desription of tour request please");
+                    return false;
+                }
+                return true;
+            }
         }
 
         private bool IsStartBeforeEnd()
@@ -92,7 +160,14 @@ namespace Sims2023.WPF.Views.Guest2Views
                 return true;
             else
             {
-                MessageBox.Show("Startni datum mora biti manji od krajnjeg datuma");
+                if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
+                {
+                    MessageBox.Show("Startni datum mora biti pre krajnjeg datuma");
+                }
+                else
+                {
+                    MessageBox.Show("Start date must be before end date");
+                }
                 return false;
             }
         }

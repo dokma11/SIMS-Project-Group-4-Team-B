@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,7 +65,14 @@ namespace Sims2023.WPF.Views.Guest2Views
             }
             else
             {
-                MessageBox.Show("Izaberite turu");
+                if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
+                {
+                    MessageBox.Show("Izaberite turu");
+                }
+                else
+                {
+                    MessageBox.Show("Choose the tour");
+                }
             }
         }
     }

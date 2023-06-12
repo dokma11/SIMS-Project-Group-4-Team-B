@@ -106,13 +106,13 @@
     <Compile Update="WPF\Views\Guest2Views\Guest2VouchersActivationListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\Guest2Views\ReportView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest2Views\TourDetailedView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\Guest2Views\TourListView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="WPF\Views\Guest2Views\VoucherListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\GuideViews\CreateTourFromFrequentLanguageView.xaml.cs">
@@ -317,6 +317,9 @@
     <Page Update="WPF\Views\Guest2Views\Guest2VouchersActivationListView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\Guest2Views\ReportView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\Guest2Views\Themes\Dark.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -327,9 +330,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest2Views\TourListView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="WPF\Views\Guest2Views\VoucherListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\GuideViews\CreateTourFromFrequentLanguageView.xaml">
