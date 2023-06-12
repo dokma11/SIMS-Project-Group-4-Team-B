@@ -77,6 +77,7 @@ namespace Sims2023.Application.Services
             foreach (var voucher in GetAll())
             {
                 voucher.Tour = _tour.GetById(voucher.Tour.Id) ?? voucher.Tour;
+                voucher.Tour.Guide = _user.GetById(voucher.Tour.Guide.Id);
             }
         }
     }

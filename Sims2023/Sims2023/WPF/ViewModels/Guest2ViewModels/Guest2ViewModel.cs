@@ -12,10 +12,11 @@ using Sims2023.WPF.Commands;
 using System;
 using System.Windows.Controls;
 using Sims2023.WPF.Views.Guest2Views.Themes;
+using System.Globalization;
 
 namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 {   
-    public class Guest2ViewModel//IObserver
+    public class Guest2ViewModel
     {
         private string currentTheme;
         public string CurrentTheme
@@ -109,44 +110,95 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         public void DisplayAcceptedTourMessageBox()
         {
-            foreach(TourNotification tourNotification in _tourNotificationService.GetAcceptedTourRequest(User))
+            if (CultureInfo.CurrentCulture.ToString() == "en-US")
             {
-                _tourNotificationService.SetIsNotified(tourNotification);
-                string message = $"Name: {tourNotification.Tour.Name}\nLocation: {tourNotification.Tour.Location.City},{tourNotification.Tour.Location.Country}\nLanguage:{tourNotification.Tour.GuideLanguage}\nStart:{tourNotification.Tour.Start}";
-                MessageBox.Show(message, "Accepted tour request");
+                foreach (TourNotification tourNotification in _tourNotificationService.GetAcceptedTourRequest(User))
+                {
+                    _tourNotificationService.SetIsNotified(tourNotification);
+                    string message = $"Name: {tourNotification.Tour.Name}\nLocation: {tourNotification.Tour.Location.City},{tourNotification.Tour.Location.Country}\nLanguage:{tourNotification.Tour.GuideLanguage}\nStart:{tourNotification.Tour.Start}";
+                    MessageBox.Show(message, "Accepted tour request");
+                }
+            }
+            else
+            {
+                foreach (TourNotification tourNotification in _tourNotificationService.GetAcceptedTourRequest(User))
+                {
+                    _tourNotificationService.SetIsNotified(tourNotification);
+                    string message = $"Ime: {tourNotification.Tour.Name}\nLokacija: {tourNotification.Tour.Location.City},{tourNotification.Tour.Location.Country}\nJezik:{tourNotification.Tour.GuideLanguage}\nPočetak:{tourNotification.Tour.Start}";
+                    MessageBox.Show(message, "Prihvaćen zahtev za turu");
+                }
             }
         }
 
         public void DisplayMatchedTourRequestsLocationMessageBox()
         {
-            foreach (TourNotification tourNotification in _tourNotificationService.GetMatchedTourRequestsLocation(User))
+            if (CultureInfo.CurrentCulture.ToString() == "en-US")
             {
-                _tourNotificationService.SetIsNotified(tourNotification);
-                string message = $"Name: {tourNotification.Tour.Name}\nLocation: {tourNotification.Tour.Location.City},{tourNotification.Tour.Location.Country}\nLanguage:{tourNotification.Tour.GuideLanguage}\nStart:{tourNotification.Tour.Start}";
-                MessageBox.Show(message, "New tour with location same as your request");
+                foreach (TourNotification tourNotification in _tourNotificationService.GetMatchedTourRequestsLocation(User))
+                {
+                    _tourNotificationService.SetIsNotified(tourNotification);
+                    string message = $"Name: {tourNotification.Tour.Name}\nLocation: {tourNotification.Tour.Location.City},{tourNotification.Tour.Location.Country}\nLanguage:{tourNotification.Tour.GuideLanguage}\nStart:{tourNotification.Tour.Start}";
+                    MessageBox.Show(message, "New tour with location same as your request");
+                }
+            }
+            else
+            {
+                foreach (TourNotification tourNotification in _tourNotificationService.GetMatchedTourRequestsLocation(User))
+                {
+                    _tourNotificationService.SetIsNotified(tourNotification);
+                    string message = $"Ime: {tourNotification.Tour.Name}\nLokacija: {tourNotification.Tour.Location.City},{tourNotification.Tour.Location.Country}\nJezik:{tourNotification.Tour.GuideLanguage}\nPočetak:{tourNotification.Tour.Start}";
+                    MessageBox.Show(message, "Nova tura sa istom lokacijom kao na tvom zahtevu");
+                }
             }
         }
 
         public void DisplayMatchedTourRequestsLanguageMessageBox()
         {
-            foreach (TourNotification tourNotification in _tourNotificationService.GetMatchedTourRequestsLanguage(User))
+            if (CultureInfo.CurrentCulture.ToString() == "en-US")
             {
-                _tourNotificationService.SetIsNotified(tourNotification);
-                string message = $"Name: {tourNotification.Tour.Name}\nLocation: {tourNotification.Tour.Location.City},{tourNotification.Tour.Location.Country}\nLanguage:{tourNotification.Tour.GuideLanguage}\nStart:{tourNotification.Tour.Start}";
-                MessageBox.Show(message, "New tour with language same as your request");
+                foreach (TourNotification tourNotification in _tourNotificationService.GetMatchedTourRequestsLanguage(User))
+                {
+                    _tourNotificationService.SetIsNotified(tourNotification);
+                    string message = $"Name: {tourNotification.Tour.Name}\nLocation: {tourNotification.Tour.Location.City},{tourNotification.Tour.Location.Country}\nLanguage:{tourNotification.Tour.GuideLanguage}\nStart:{tourNotification.Tour.Start}";
+                    MessageBox.Show(message, "New tour with language same as your request");
+                }
+            }
+            else
+            {
+                foreach (TourNotification tourNotification in _tourNotificationService.GetMatchedTourRequestsLanguage(User))
+                {
+                    _tourNotificationService.SetIsNotified(tourNotification);
+                    string message = $"Ime: {tourNotification.Tour.Name}\nLokacija: {tourNotification.Tour.Location.City},{tourNotification.Tour.Location.Country}\nJezik:{tourNotification.Tour.GuideLanguage}\nPočetak:{tourNotification.Tour.Start}";
+                    MessageBox.Show(message, "Nova tura sa istim jezikom kao na tvom zahtevu");
+                }
             }
         }
 
         public bool DisplayReservationConfirmationMessageBox(TourReservation tourReservation)
         {
-            string messageBoxText = "Do you want to confirm your participation?";
-            string caption = "Confirmation";
-            MessageBoxButton button = MessageBoxButton.YesNo;
-            MessageBoxImage icon = MessageBoxImage.Question;
+            if (CultureInfo.CurrentCulture.ToString() == "en-US")
+            {
+                string messageBoxText = "Do you want to confirm your participation?";
+                string caption = "Confirmation";
+                MessageBoxButton button = MessageBoxButton.YesNo;
+                MessageBoxImage icon = MessageBoxImage.Question;
 
-            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
 
-            return (result == MessageBoxResult.Yes);
+                return (result == MessageBoxResult.Yes);
+            }
+            else
+            {
+                string messageBoxText = "Da li želite da potvrdite početak ture";
+                string caption = "Potvrda";
+                
+                MessageBoxButton button = MessageBoxButton.YesNo;
+                MessageBoxImage icon = MessageBoxImage.Question;
+
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                return (result == MessageBoxResult.Yes);
+            }
         }
 
         private void Execute_NavigateToStartPageCommand(object obj)

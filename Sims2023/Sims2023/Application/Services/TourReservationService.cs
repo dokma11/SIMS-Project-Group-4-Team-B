@@ -11,12 +11,14 @@ namespace Sims2023.Application.Services
         private ITourReservationCSVRepository _tourReservation;
         private ITourReadFromCSVRepository _tour;
         private IUserCSVRepository _user;
+        private ILocationCSVRepository _location;
 
         public TourReservationService()
         {
             _tourReservation = Injection.Injector.CreateInstance<ITourReservationCSVRepository>();
             _tour = Injection.Injector.CreateInstance<ITourReadFromCSVRepository>();
             _user = Injection.Injector.CreateInstance<IUserCSVRepository>();
+            _location = Injection.Injector.CreateInstance<ILocationCSVRepository>();
 
             GetUserReferences();
             GetTourReferences();
@@ -51,6 +53,8 @@ namespace Sims2023.Application.Services
 
         public List<TourReservation> GetByUser(User user)//new method for guest2
         {
+            GetTourReferences();
+            GetUserReferences();
             return _tourReservation.GetByUser(user);
         }
 
@@ -101,6 +105,9 @@ namespace Sims2023.Application.Services
             foreach (var reservation in GetAll())
             {
                 reservation.Tour = _tour.GetById(reservation.Tour.Id) ?? reservation.Tour;
+                reservation.Tour.Guide = _user.GetById(reservation.Tour.Guide.Id);
+                reservation.Tour.Location= _location.GetById(reservation.Tour.Location.Id);
+                
             }
         }
 

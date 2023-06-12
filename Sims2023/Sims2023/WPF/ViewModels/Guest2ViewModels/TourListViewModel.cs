@@ -10,6 +10,7 @@ using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.Observer;
 using Sims2023.WPF.Views.Guest2Views;
+using System.Globalization;
 
 namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 {
@@ -66,42 +67,23 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         }
 
 
-        /* public void ReserveTour_Click()
-         {
-             int reservedSpace = (int)TourListView.guestNumberBox.Value;
-
-             if (IsNull(SelectedTour))
-                 return;
-
-             if (SelectedTour.AvailableSpace >= reservedSpace)
-             {
-                 TourReservation tourReservation = new TourReservation(SelectedTour, User, reservedSpace);
-                 _tourReservationService.Create(tourReservation);
-                 _tourService.UpdateAvailableSpace(reservedSpace, SelectedTour);
-
-                 Update();
-                 MessageBox.Show("Uspesna rezervacija");
-                 CheckVouchers(tourReservation);
-
-                 ShowVoucherListView();
-
-             }
-             else if (SelectedTour.AvailableSpace > 0)
-             {
-                 DisplaySelectedTour();
-             }
-             else
-             {
-                 DisplayAlternativeTours(reservedSpace, SelectedTour);
-             }
-         }*/
-
+        
         public bool IsNull(Tour selectedTour)
         {
+            
+            
             if (selectedTour == null)
             {
-                MessageBox.Show("Izaberite turu");
-                return true;
+                if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
+                {
+                    MessageBox.Show("Izaberite turu");
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Choose the tour");
+                    return true;
+                }
             }
 
             return false;
@@ -115,30 +97,31 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             FilteredData.Clear();
             FilteredData.Add(SelectedTour);
             TourListView.dataGridTours.ItemsSource = FilteredData;
-
-            MessageBox.Show($"U ponudi je ostalo još {SelectedTour.AvailableSpace} slobodnih mesta.");
+            if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
+            {
+                MessageBox.Show($"U ponudi je ostalo još {SelectedTour.AvailableSpace} slobodnih mesta.");
+            }
+            else
+            {
+                MessageBox.Show($"There are still  vacancies left {SelectedTour.AvailableSpace}  vacancies left");
+            }
         }
 
         public void DisplayAlternativeTours(int reservedSpace, Tour selectedTour)
         {
             TourListView.dataGridTours.ItemsSource = _tourService.GetAlternatives(reservedSpace, selectedTour);
-            MessageBox.Show("Nema slobodnih mesta, ali imamo na istoj lokaciji u ponudi:");
-        }
-
-        /*public void ShowVoucherListView()
-        {
-            var voucherListView = new VoucherListView(User);
-            voucherListView.Show();
-        }
-
-        public void CheckVouchers(TourReservation tourReservation)
-        {
-            if (_tourReservationService.CheckVouchers(tourReservation))
+            if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
             {
-                Voucher Voucher = new Voucher(Voucher.VoucherType.FiveReservations, User, SelectedTour);
-                _voucherService.Create(Voucher);
+                MessageBox.Show("Nema slobodnih mesta, ali imamo na istoj lokaciji u ponudi:");
             }
-        }*/
+            else
+            {
+                MessageBox.Show("There are no vacancies, but we have in the same location on offer:");
+            }
+            
+        }
+
+        
 
         public void SeeDetails_Click()
         {

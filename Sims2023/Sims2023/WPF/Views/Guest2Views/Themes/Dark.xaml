@@ -18,8 +18,8 @@
     <!--DataGrid-->
     <SolidColorBrush x:Key="DataGridBackGround">#cccccc</SolidColorBrush>
     <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
-        <Setter Property="Background" Value="DarkGray" />
-        <Setter Property="BorderBrush" Value="DarkGray" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="FontSize" Value="12" />
 
         <Style.Triggers>
@@ -48,8 +48,8 @@
         <Setter Property="Foreground" Value="White"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Guide.SuperGuide}" Value="True">
-                <Setter Property="Background" Value="#eab676"/>
-                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Background" Value="DarkGray"/>
+                <Setter Property="Foreground" Value="White"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>

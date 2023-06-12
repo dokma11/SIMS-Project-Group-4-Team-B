@@ -9,6 +9,7 @@ using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.Observer;
 using Sims2023.WPF.Views.Guest2Views;
+using System.Globalization;
 
 namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 {

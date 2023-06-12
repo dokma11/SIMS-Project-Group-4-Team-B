@@ -42,7 +42,8 @@
 
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="Gray" />
+                <Setter Property="Background" Value="LightGray" />
+                <Setter Property="Foreground" Value="Black"/>
                 <Setter Property="BorderBrush" Value="Transparent" />
             </Trigger>
         </Style.Triggers>
@@ -68,7 +69,7 @@
         <Setter Property="Foreground" Value="Black"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Guide.SuperGuide}" Value="True">
-                <Setter Property="Background" Value="#eab676"/>
+                <Setter Property="Background" Value="DimGray"/>
                 <Setter Property="Foreground" Value="Black"/>
             </DataTrigger>
         </Style.Triggers>
