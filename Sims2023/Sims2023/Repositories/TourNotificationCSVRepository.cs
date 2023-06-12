@@ -75,6 +75,8 @@ namespace Sims2023.Repositories
                 .ToList();
         }
 
+        
+
         public void SetIsNotified(TourNotification tourNotification)
         {
             tourNotification.IsNotified=true;

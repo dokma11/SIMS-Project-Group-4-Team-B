@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -88,33 +89,19 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             _tourReservationService.Create(tourReservation);
             _tourService.UpdateAvailableSpace(reservedSpace, Tour);
 
-
-            MessageBox.Show("Uspesna rezervacija");
+            if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
+            {
+                MessageBox.Show("Uspešna rezervacija");
+            }
+            else
+            {
+                MessageBox.Show("Successful reservation");
+            }
             CheckVouchers(tourReservation);
 
             ShowVoucherListView();
         }
-        /*public void ReserveTour_Click()
-        {
-            int reservedSpace = TourDetailedView.GuestNumber;
-
-            
-
-           
-                TourReservation tourReservation = new TourReservation(Tour, User, reservedSpace);
-                _tourReservationService.Create(tourReservation);
-                _tourService.UpdateAvailableSpace(reservedSpace, Tour);
-
-               
-                MessageBox.Show("Uspesna rezervacija");
-                CheckVouchers(tourReservation);
-
-                ShowVoucherListView();
-
-            
-
-            
-        }*/
+        
 
         public void ShowVoucherListView()
         {
@@ -145,10 +132,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
                 _voucherService.Create(Voucher);
             }
         }
-        /*public void Cancel_Click()
-        {
-            TourDetailedView.Close();
-        }*/
+        
         private void Execute_CancelCommand(object obj)
         {
             TourDetailedView.Close();

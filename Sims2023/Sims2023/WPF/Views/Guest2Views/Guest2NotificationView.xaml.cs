@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.Guest2ViewModels;
@@ -18,15 +17,15 @@ using Sims2023.WPF.ViewModels.Guest2ViewModels;
 namespace Sims2023.WPF.Views.Guest2Views
 {
     /// <summary>
-    /// Interaction logic for Guest2VoucherListView.xaml
+    /// Interaction logic for Guest2NotificationView.xaml
     /// </summary>
-    public partial class Guest2VoucherListView : Page
+    public partial class Guest2NotificationView : Window
     {
-        public Guest2VoucherListViewModel Guest2VoucherListViewModel; 
-        public Guest2VoucherListView(User user)
+
+        public Guest2NotificationView(User user)
         {
             InitializeComponent();
-            DataContext = new Guest2VoucherListViewModel(user, this);
+            this.DataContext = new Guest2NotificationViewModel(user, this);
         }
     }
 }

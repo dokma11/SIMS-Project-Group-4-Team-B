@@ -3,6 +3,7 @@ using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Sims2023.Repositories
@@ -94,7 +95,14 @@ namespace Sims2023.Repositories
         {
             if (purpose == "years")
             {
-                return _requests.Select(r => r.Start.Year.ToString()).Distinct().Prepend("Svih vremena").ToList();
+                if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
+                {
+                    return _requests.Select(r => r.Start.Year.ToString()).Distinct().Prepend("Svih vremena").ToList();
+                }
+                else
+                {
+                    return _requests.Select(r => r.Start.Year.ToString()).Distinct().Prepend("All time").ToList();
+                }
             }
             else if (purpose == "locations")
             {

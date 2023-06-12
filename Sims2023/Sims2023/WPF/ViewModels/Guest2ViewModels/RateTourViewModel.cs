@@ -5,6 +5,7 @@ using Sims2023.Observer;
 using Sims2023.WPF.Views.Guest2Views;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -46,7 +47,14 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             TourReview = new TourReview(User, Tour, KeyPoint, (int)RateTourView.guidesKnowledgeBox.Value, (int)RateTourView.tourInterestBox.Value, (int)RateTourView.guidesLanguageCapabilityBox.Value, (string)RateTourView.CommentTextBox.Text);
             _tourReviewService.Create(TourReview);
             _tourReviewService.AddReviewsPictures(_picturesList, TourReview);
-            MessageBox.Show("Hvala na recenziji");
+            if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
+            {
+                MessageBox.Show("Hvala na recenziji");
+            }
+            else
+            {
+                MessageBox.Show("Thank you for the review");
+            }
             RateTourView.Close();
 
         }

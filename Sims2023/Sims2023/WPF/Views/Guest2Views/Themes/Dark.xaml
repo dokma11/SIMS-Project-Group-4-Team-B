@@ -61,4 +61,7 @@
     <ImageBrush x:Key="BackgroundBrush" ImageSource="pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/blackbackgroundtexture.jpg" Stretch="UniformToFill" />
     <ImageSource x:Key="ImageResource">pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/HorizontWB-01.png</ImageSource>
 
+    <!--PieChart-->
+    <SolidColorBrush x:Key="AcceptedFillColor">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="NotAcceptedFillColor">LightGray</SolidColorBrush>
 </ResourceDictionary>

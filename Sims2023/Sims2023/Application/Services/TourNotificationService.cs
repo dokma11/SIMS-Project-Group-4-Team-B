@@ -74,6 +74,10 @@ namespace Sims2023.Application.Services
             GetTourReferences();
             GetUserReferences();
         }
+        public List<TourNotification> GetByUser(User user)
+        {
+            return _tourNotification.GetByUser(user);
+        }
 
         public void GetTourReferences()
         {
@@ -81,6 +85,7 @@ namespace Sims2023.Application.Services
             {
                 notification.Tour = _tour.GetById(notification.Tour.Id) ?? notification.Tour;
                 notification.Tour.Location = _location.GetById(notification.Tour.Location.Id);
+                notification.Tour.Guide = _user.GetById(notification.Tour.Guide.Id);
             }
 
             

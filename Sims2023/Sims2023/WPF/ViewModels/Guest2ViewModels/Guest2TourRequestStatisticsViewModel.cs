@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,7 +90,14 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
                 yearlyStats.Add(_requestService.GetYearlyStatisticByUser(User,l,year,"location"));
               
             }
-            LocationSeriesCollection.Add(new ColumnSeries { Values = yearlyStats, Title = "Broj zahteva u " + year + ":" });
+            if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
+            {
+                LocationSeriesCollection.Add(new ColumnSeries { Values = yearlyStats, Title = "Broj zahteva u " + year + ":" });
+            }
+            else
+            {
+                LocationSeriesCollection.Add(new ColumnSeries { Values = yearlyStats, Title = "Number of requests in " + year + ":" });
+            }
             
             Values = value => value.ToString("D");
         }
@@ -103,14 +111,20 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             {
                 allTimeStats.Add(_requestService.GetAllTimeStatisticByUser(User,l,"location"));
             }
-            LocationSeriesCollection.Add(new ColumnSeries { Values = allTimeStats, Title = "Broj zahteva po godinama" });
-            
+            if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
+            {
+                LocationSeriesCollection.Add(new ColumnSeries { Values = allTimeStats, Title = "Broj zahteva ikada" });
+            }
+            else
+            {
+                LocationSeriesCollection.Add(new ColumnSeries { Values = allTimeStats, Title = "Number of requests all time" });
+            }
             Values = value => value.ToString("D");
         }
 
         public void DisplayLanguageStatistics(string year)
         {
-            if (year == "Svih vremena")
+            if (year == "Svih vremena" || year == "All time" )
             {
                 DisplayAllTimeLanguageStatistics();
             }
@@ -129,8 +143,14 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
                 allTimeStats.Add(_requestService.GetAllTimeStatisticByUser(User,l,"language"));
                 
             }
-            LanguageSeriesCollection.Add(new ColumnSeries { Values = allTimeStats, Title = "Broj zahteva po godinama" });
-            
+            if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
+            {
+                LanguageSeriesCollection.Add(new ColumnSeries { Values = allTimeStats, Title = "Broj zahteva ikada" });
+            }
+            else
+            {
+                LanguageSeriesCollection.Add(new ColumnSeries { Values = allTimeStats, Title = "Number of requests for all time" });
+            }
             LanguageValues = value => value.ToString("D");
         }
 
@@ -142,14 +162,20 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             {
                 yearlyStats.Add(_requestService.GetYearlyStatisticByUser(User,l,year,"language"));
             }
-            LanguageSeriesCollection.Add(new ColumnSeries { Values = yearlyStats, Title = "Broj zahteva u " + year + ":" });
-            
+            if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
+            {
+                LanguageSeriesCollection.Add(new ColumnSeries { Values = yearlyStats, Title = "Broj zahteva za " + year + ":" });
+            }
+            else
+            {
+                LanguageSeriesCollection.Add(new ColumnSeries { Values = yearlyStats, Title = "Number of requests for " + year + ":" });
+            }
             Values = value => value.ToString("D");
         }
 
         public void DisplayTourRequestStatistics(string year)
         {
-            if(year=="Svih vremena")
+            if(year=="Svih vremena" || year=="All time")
             {
                 DisplayAllTimeTourRequestStatistic();
             }
@@ -193,7 +219,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         public void GetAverageYearlyAcceptedRequestsGuestNumber(string year)
         {
-            if (year == "Svih vremena")
+            if (year == "Svih vremena" || year=="All time")
             {
                 AverageAcceptedRequestsGuestNumber =Convert.ToInt32(_requestService.GetAverageAllTimeAcceptedTourRequestGuestNumber(User));
             }

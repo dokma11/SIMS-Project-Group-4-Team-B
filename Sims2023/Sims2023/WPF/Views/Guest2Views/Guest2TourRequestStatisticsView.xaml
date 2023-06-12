@@ -8,8 +8,8 @@
         xmlns:ns="clr-namespace:Sims2023"
         mc:Ignorable="d"
         Title="Guest2TourRequestStatisticsView" Height="450" Width="800">
-    <Grid>
-        <TabControl Height="350" Width="750">
+    <Grid Background="{DynamicResource BackgroundBrush}">
+        <TabControl Height="350" Width="750" >
             <TabItem Header="{ns:Loc statisticsOnAcceptedToursTab}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -31,11 +31,11 @@
                                 <lvc:PieSeries 
                                 Title="{ns:Loc acceptedTitle}"
                                Values="{Binding AcceptedRequests}"
-                               Fill="#FF00BFFF" />
+                               Fill="{DynamicResource AcceptedFillColor}" />
                                 <lvc:PieSeries
                                 Title="{ns:Loc declinedTitle}"
                                Values="{Binding NotAcceptedRequests}"
-                               Fill="#FFFFA500" />
+                               Fill="{DynamicResource NotAcceptedFillColor}" />
                             </lvc:PieChart.Series>
                         </lvc:PieChart>
 
@@ -47,7 +47,7 @@
                         <ComboBox x:Name="yearComboBox" Margin="60,90,252,211" SelectionChanged="YearComboBox_SelectionChanged" ToolTip="Odaberite godinu za koju želite želite da vidite statistiku"/>
                         <Label Content="{ns:Loc averageNumberLabel}" FontSize="17" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top"/>
                         <TextBox x:Name="averageNumberTextBox" HorizontalAlignment="Left" IsReadOnly="True" Margin="381,39,0,0" TextWrapping="Wrap" Text="{Binding AverageAcceptedRequestsGuestNumber}" VerticalAlignment="Top" Width="34" SelectionChanged="YearComboBox_SelectionChanged"/>
-                        <Label Content="{ns:Loc yearLabel}" FontSize="17" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top"/>
+                        <Label Content="{ns:Loc yearStatisticLabel}" FontSize="17" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top"/>
                         <Label Content="{ns:Loc acceptedRequestsLabel}" FontSize="17" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
                         <Label Content="{ns:Loc notAcceptedRequestsLabel}" FontSize="17" HorizontalAlignment="Left" Margin="10,194,0,0" VerticalAlignment="Top"/>
                         <TextBox x:Name="acceptedRequestsTextBox" HorizontalAlignment="Left" Margin="198,0,0,0" TextWrapping="Wrap" Text="{Binding NotAcceptedPercentage}" IsReadOnly="True" VerticalAlignment="Center" Width="103" SelectionChanged="YearComboBox_SelectionChanged"/>
@@ -66,8 +66,9 @@
 
                     </DockPanel>
                     <lvc:CartesianChart Series="{Binding LocationSeriesCollection}" Height="200" LegendLocation="Bottom" Width="580" Margin="0,20,0,0">
+                        
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="{ns:Loc timeTitle}" Labels="{Binding Labels}"/>
+                            <lvc:Axis Title="{ns:Loc locationTitle}" Labels="{Binding Labels}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
                             <lvc:Axis Title="{ns:Loc requestNumberTitle}" Labels="{Binding Values}"/>

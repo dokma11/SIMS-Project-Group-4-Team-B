@@ -160,7 +160,7 @@
     <value>Država</value>
   </data>
   <data name="countryLabel" xml:space="preserve">
-    <value>Drzava:</value>
+    <value>Država:</value>
   </data>
   <data name="createBtn" xml:space="preserve">
     <value>Napravi</value>
@@ -243,6 +243,9 @@
   <data name="liveTrackingTourLabel" xml:space="preserve">
     <value>Uživo praćenje ture</value>
   </data>
+  <data name="locationTitle" xml:space="preserve">
+    <value>Lokacije</value>
+  </data>
   <data name="logoutMenu" xml:space="preserve">
     <value>Odjavi se</value>
   </data>
@@ -299,6 +302,9 @@
   </data>
   <data name="requestNumberTitle" xml:space="preserve">
     <value>Broj zahteva</value>
+  </data>
+  <data name="requiredGuestNumber" xml:space="preserve">
+    <value>Broj gostiju je neophodan</value>
   </data>
   <data name="reserveBtn" xml:space="preserve">
     <value>Rezervišite</value>
@@ -366,10 +372,16 @@
   <data name="tourRequestsStatisticsForLocationTab" xml:space="preserve">
     <value>Statistika zahteva za ture po lokaciji</value>
   </data>
+  <data name="typeData" xml:space="preserve">
+    <value>Tip</value>
+  </data>
   <data name="welcomeText" xml:space="preserve">
     <value>Dobrodošli</value>
   </data>
   <data name="yearLabel" xml:space="preserve">
     <value>Godina:</value>
+  </data>
+  <data name="yearStatisticLabel" xml:space="preserve">
+    <value>Dob:</value>
   </data>
 </root>

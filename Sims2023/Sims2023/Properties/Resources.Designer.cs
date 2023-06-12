@@ -439,6 +439,15 @@ namespace Sims2023.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Locations.
+        /// </summary>
+        internal static string locationTitle {
+            get {
+                return ResourceManager.GetString("locationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logout.
         /// </summary>
         internal static string logoutMenu {
@@ -606,6 +615,15 @@ namespace Sims2023.Properties {
         internal static string requestNumberTitle {
             get {
                 return ResourceManager.GetString("requestNumberTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of guests is required.
+        /// </summary>
+        internal static string requiredGuestNumber {
+            get {
+                return ResourceManager.GetString("requiredGuestNumber", resourceCulture);
             }
         }
         
@@ -808,6 +826,15 @@ namespace Sims2023.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        internal static string typeData {
+            get {
+                return ResourceManager.GetString("typeData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome!.
         /// </summary>
         internal static string welcomeText {
@@ -822,6 +849,15 @@ namespace Sims2023.Properties {
         internal static string yearLabel {
             get {
                 return ResourceManager.GetString("yearLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Year:.
+        /// </summary>
+        internal static string yearStatisticLabel {
+            get {
+                return ResourceManager.GetString("yearStatisticLabel", resourceCulture);
             }
         }
     }

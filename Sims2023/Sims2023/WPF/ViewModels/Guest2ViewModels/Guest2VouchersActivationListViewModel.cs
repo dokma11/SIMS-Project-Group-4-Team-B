@@ -36,14 +36,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             this.SkipCommand = new RelayCommand(Execute_SkipCommand, CanExecute_Command);
         }
 
-        /*public void ActivateVoucher_Click()
-        {
-            if(IsNull(SelectedVoucher))
-                return;
-            _voucherService.UpdateIsUsed(SelectedVoucher);
-            Guest2VouchersActivationListView.Close();
-        }*/
-
+        
         private void Execute_ActivateCommand(object obj)
         {
             if (IsNull(SelectedVoucher))
@@ -58,7 +51,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             {
                 if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
                 {
-                    MessageBox.Show("Izaberite vaucer");
+                    MessageBox.Show("Izaberite vaučer");
                 }
                 else
                 {
@@ -70,7 +63,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             {
                 if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
                 {
-                    MessageBox.Show("Iskoristili ste vaucer");
+                    MessageBox.Show("Iskoristili ste vaučer");
                 }
                 else
                 {
@@ -81,10 +74,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             
         }
 
-        /*public void SkipVoucher_Click()
-        {
-            Guest2VouchersActivationListView.Close();
-        }*/
+        
 
         private void Execute_SkipCommand(object obj)
         {

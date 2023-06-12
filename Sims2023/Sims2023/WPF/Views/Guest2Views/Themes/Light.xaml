@@ -74,5 +74,9 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    
+
+    <!--PieChart-->
+    <SolidColorBrush x:Key="AcceptedFillColor">LightGray</SolidColorBrush>
+    <SolidColorBrush x:Key="NotAcceptedFillColor">DimGray</SolidColorBrush>
+
 </ResourceDictionary>

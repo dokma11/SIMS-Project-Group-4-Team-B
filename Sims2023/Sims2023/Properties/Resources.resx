@@ -243,6 +243,9 @@
   <data name="liveTrackingTourLabel" xml:space="preserve">
     <value>Live tracking tour</value>
   </data>
+  <data name="locationTitle" xml:space="preserve">
+    <value>Locations</value>
+  </data>
   <data name="logoutMenu" xml:space="preserve">
     <value>Logout</value>
   </data>
@@ -299,6 +302,9 @@
   </data>
   <data name="requestNumberTitle" xml:space="preserve">
     <value>Number of requests</value>
+  </data>
+  <data name="requiredGuestNumber" xml:space="preserve">
+    <value>Number of guests is required</value>
   </data>
   <data name="reserveBtn" xml:space="preserve">
     <value>Reserve</value>
@@ -366,10 +372,16 @@
   <data name="tourRequestsStatisticsForLocationTab" xml:space="preserve">
     <value>Tour request's statistics for location </value>
   </data>
+  <data name="typeData" xml:space="preserve">
+    <value>Type</value>
+  </data>
   <data name="welcomeText" xml:space="preserve">
     <value>Welcome!</value>
   </data>
   <data name="yearLabel" xml:space="preserve">
+    <value>Year:</value>
+  </data>
+  <data name="yearStatisticLabel" xml:space="preserve">
     <value>Year:</value>
   </data>
 </root>

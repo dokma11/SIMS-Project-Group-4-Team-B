@@ -71,7 +71,7 @@
                 <ComboBoxItem>Japanese</ComboBoxItem>
             </ComboBox>
             <xctk:IntegerUpDown Grid.Row="4" Name="guestNumberBox" AllowTextInput="False" HorizontalAlignment="Left" Margin="168,7,0,0" VerticalAlignment="Top" Minimum="1" Value="1" Width="53"/>
-            <Button Grid.Row="6" FontSize="15" Width="146" Height="42" Background="#bcbcbc" x:Name="SeeTourDetails" Content="{ns:Loc seeMoreBtn}" HorizontalAlignment="Left" Margin="44,0,0,0" VerticalAlignment="Center"  Click="SeeMore_Click"/>
+            <Button Grid.Row="6" FontSize="15" Width="146" Height="42" Background="#bcbcbc" x:Name="SeeTourDetails" Content="{ns:Loc seeMoreBtn}" HorizontalAlignment="Left" Margin="44,0,0,0" VerticalAlignment="Center"  Click="SeeMore_Click" ToolTip="{ns:Loc requiredGuestNumber}"/>
         </Grid>
 
     </Grid>

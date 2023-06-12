@@ -73,6 +73,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             this.SwitchToEnglishLanguageCommand=new RelayCommand(Execute_SwitchToEnglishLanguageCommand, CanExecute_NavigateCommand); 
             this.SwitchThemeCommand=new RelayCommand(Execute_SwichThemeCommand, CanExecute_NavigateCommand);
             this.OpenReportCommand=new RelayCommand(Execute_OpenReportCommand, CanExecute_NavigateCommand);
+            this.OpenNotificationWindowCommand=new RelayCommand(Execute_OpenNotificationWindow,CanExecute_NavigateCommand); 
 
             app = (App)System.Windows.Application.Current;
             Guest2View = guest2View;
@@ -265,6 +266,11 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         {
             ReportView Guest2ReportView = new ReportView(User);
             Guest2ReportView.Show();
+        }
+        private void Execute_OpenNotificationWindow(object obj)
+        {
+            Guest2NotificationView guest2NotificationView = new Guest2NotificationView(User);
+            guest2NotificationView.Show();
         }
         private bool CanExecute_NavigateCommand(object obj)
         {
