@@ -196,7 +196,7 @@
                 <DockPanel Background="White">
                     <StackPanel Width="640">
                         <Label Content="Završene ture" FontSize="32" Margin="20,10,0,0"/>
-                        <DataGrid Width="625" Height="440" ItemsSource="{Binding FinishedToursToDisplay, UpdateSourceTrigger=PropertyChanged}"
+                        <DataGrid Width="612" Height="440" ItemsSource="{Binding FinishedToursToDisplay, UpdateSourceTrigger=PropertyChanged}"
                         SelectedItem="{Binding SelectedFinishedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" Margin="25,10,0,0">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Naziv" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="150">

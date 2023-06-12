@@ -24,7 +24,7 @@
         <Button Content="?" Width="20" Height="20" Margin="1100,50,0,-50" x:Name="toolTipButton">
             <Button.ToolTip>
                 <TextBlock>
-                    Dobrodošli na stranicu Nalog!
+                    Dobrodošli na stranicu ,,Nalog"!
                     <LineBreak />
                     <LineBreak />
                     Na ovoj stranici možete videti osnovne informacije o svom nalogu.
@@ -41,6 +41,7 @@
                     • ,,Odjavi se": pritiskom na ovo dugme Vi ćete se odjaviti sa Vašeg naloga, 
                     <LineBreak />
                     samim time, bićete vraćeni na početni ekran za prijavljivanje
+                    <LineBreak />
                 </TextBlock>
             </Button.ToolTip>
         </Button>

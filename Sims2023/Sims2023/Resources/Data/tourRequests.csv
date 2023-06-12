@@ -6,8 +6,8 @@
 6|5|ima sesti opis|Japanese|50|2/10/2023 12:00:00 AM|8/15/2023 12:00:00 AM|OnHold|4
 7|5|ima sedmi opis|Chinese|50|5/25/2023 12:00:00 AM|5/30/2023 12:00:00 AM|OnHold|4
 8|5|ima osmi opis|English|50|5/10/2023 12:00:00 AM|5/25/2023 12:00:00 AM|OnHold|4
-9|5|ima osmi opis|Serbian|50|5/10/2023 12:00:00 AM|5/25/2023 12:00:00 AM|OnHold|2
-10|4|ima osmi opis|English|50|5/10/2023 12:00:00 AM|5/25/2023 12:00:00 AM|OnHold|2
+9|5|ima osmi opis|Serbian|50|5/10/2023 12:00:00 AM|5/25/2023 12:00:00 AM|Invalid|2
+10|4|ima osmi opis|English|50|5/10/2023 12:00:00 AM|5/25/2023 12:00:00 AM|Invalid|2
 11|3|ima osmi opis|Chinese|50|5/10/2023 12:00:00 AM|5/25/2023 12:00:00 AM|Invalid|2
 12|3|ima osmi opis|English|50|5/10/2023 12:00:00 AM|5/25/2023 12:00:00 AM|Invalid|2
 13|4|ima osmi opis|Spanish|50|5/10/2023 12:00:00 AM|5/25/2023 12:00:00 AM|Accepted|2

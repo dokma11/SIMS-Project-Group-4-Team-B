@@ -59,6 +59,7 @@
                         <LineBreak />
                         <LineBreak />
                         Za sam kraj: kada označite poslednju ključnu tačku kao posećenu, Vaša tura će se završiti i bićete vraćeni na prehodnu stranicu. Time ste označili da je tura uspešno završena
+                        <LineBreak />
                     </TextBlock>
                 </Button.ToolTip>
             </Button>
@@ -140,7 +141,7 @@
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
-        <DockPanel Margin="40,35">
+        <DockPanel Margin="40,15">
             <DockPanel Width="577">
                 <Label x:Name="eventLabel" Content="{Binding LabelContent}" FontSize="20" Visibility="{Binding IsLabelVisible, Converter={StaticResource BoolToVisibilityConverter}}" Margin="150,0,0,0"/>
             </DockPanel>

@@ -54,8 +54,9 @@
                         • Opis događaja na turi: ukratko opišite šta će se sve dešavati na Vašoj turi, potrudite se da bude interesantno Vašim budućim gostima
                         <LineBreak />
                         <LineBreak />
-                        Ako ste zadovoljni Vašim unosom i želite da konačno potvrdite tj kreirate turu pritisnite na dugme ,,Potvrdi"
+                        Ako ste zadovoljni Vašim unosom i želite da konačno potvrdite tj. kreirate turu pritisnite na dugme ,,Potvrdi"
                         Ako niste zadovoljni i želite da otkažete kreiranje ture pritisnite na dugme ,,Odustani"
+                        <LineBreak />
                     </TextBlock>
                     </TextBlock>
                 </Button.ToolTip>

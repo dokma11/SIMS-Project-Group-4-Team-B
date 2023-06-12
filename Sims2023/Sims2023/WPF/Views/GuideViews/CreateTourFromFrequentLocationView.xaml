@@ -55,6 +55,7 @@
                         <LineBreak />
                         Ako ste zadovoljni Vašim unosom i želite da konačno potvrdite tj kreirate turu pritisnite na dugme ,,Potvrdi"
                         Ako niste zadovoljni i želite da otkažete kreiranje ture pritisnite na dugme ,,Odustani"
+                        <LineBreak />
                     </TextBlock>
                 </Button.ToolTip>
             </Button>

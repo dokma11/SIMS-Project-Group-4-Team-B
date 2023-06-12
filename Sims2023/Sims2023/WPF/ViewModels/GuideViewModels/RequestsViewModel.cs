@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Threading;
 
 namespace Sims2023.WPF.ViewModels.GuideViewModels
 {
@@ -264,6 +265,22 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             }
         }
 
+        private bool _isLabelVisible;
+        public bool IsLabelVisible
+        {
+            get { return _isLabelVisible; }
+            set
+            {
+                if (_isLabelVisible != value)
+                {
+                    _isLabelVisible = value;
+                    OnPropertyChanged(nameof(IsLabelVisible));
+                }
+            }
+        }
+
+        private bool _filteringEnabled;
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -402,11 +419,43 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
             DateStartDisplayDateStart = DateTime.Today.AddDays(1);
             DateStartDisplayDateEnd = DateTime.MaxValue;
             DateEndDisplayDateStart = DateTime.Today.AddDays(2);
+
+            _filteringEnabled = true;
         }
 
         private void UpdateDatePickerBlackoutDates()
         {
-            DateEndDisplayDateStart = DateStartDisplayDateStart.AddDays(1);
+            DateTime dateStart, dateEnd;
+            if (DateTime.TryParse(DateStartTextBox, out dateStart) && DateTime.TryParse(DateEndTextBox, out dateEnd))
+            {
+                if (dateStart > dateEnd)
+                {
+                    LabelEvent();
+                    _filteringEnabled = false;
+                }
+                else
+                {
+                    _filteringEnabled = true;
+                }
+            }
+        }
+
+        private void LabelEvent()
+        {
+            IsLabelVisible = true;
+            DispatcherTimer timer = new()
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            IsLabelVisible = false;
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
         }
 
         private void UpdateToolTipContent()
@@ -695,7 +744,7 @@ namespace Sims2023.WPF.ViewModels.GuideViewModels
 
         private bool CanExecute_FilterCommand(object obj)
         {
-            return true;
+            return _filteringEnabled;
         }
 
         private void Executed_LanguageStatisticsReportCommand(object obj)

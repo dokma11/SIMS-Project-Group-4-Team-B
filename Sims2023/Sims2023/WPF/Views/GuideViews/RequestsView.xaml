@@ -19,6 +19,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Page.Resources>
 
     <Grid Background="PeachPuff">
@@ -154,6 +155,7 @@
                                 Filtriraj zahteve u tabeli pored
                             </Button.ToolTip>
                         </Button>
+                        <Label Content="Početak opsega mora biti pre kraja opsega!" Visibility="{Binding IsLabelVisible, Converter={StaticResource BoolToVisibilityConverter}}" Margin="20,5,0,0" />
                     </StackPanel>
                 </DockPanel>
             </TabItem>

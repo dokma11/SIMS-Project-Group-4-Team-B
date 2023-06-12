@@ -1,5 +1,4 @@
-﻿//using Nevron.Nov.UI;
-using Sims2023.Application.Services;
+﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.GuideViewModels;
 using System;
@@ -98,7 +97,6 @@ namespace Sims2023.WPF.Views.GuideViews
                        + " • Opis događaja na turi: ukratko opišite šta će se sve dešavati na Vašoj turi, potrudite se da bude interesantno Vašim budućim gostima \n\n"
                        + " Ako ste zadovoljni Vašim unosom i želite da konačno potvrdite tj kreirate turu pritisnite na dugme ,,Potvrdi\" \n"
                        + " Ako niste zadovoljni i želite da otkažete kreiranje ture pritisnite na dugme,, Odustani\" \n";
-
 
                 toursNameTextBox.Text = string.Empty;
                 maximumNumberOfGuests.Value = 1;

@@ -37,9 +37,9 @@
 37|69|4|MatchedTourRequestsLocation|False
 38|71|4|MatchedTourRequestsLocation|False
 39|71|4|MatchedTourRequestsLocation|False
-40|72|2|AcceptedTourRequest|False
+40|72|2|AcceptedTourRequest|True
 41|73|4|MatchedTourRequestsLocation|False
 42|73|4|MatchedTourRequestsLocation|False
 43|73|4|MatchedTourRequestsLocation|False
 44|73|4|MatchedTourRequestsLocation|False
-45|73|2|MatchedTourRequestsLocation|False
+45|73|2|MatchedTourRequestsLocation|True
