@@ -182,6 +182,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             document.Add(new iText.Layout.Element.Paragraph());
             document.Add(new iText.Layout.Element.Paragraph("Zauzetost se gleda kao broj dana kada je smeštaj bio zauzet u odnosu na ukupan broj dana u mesecu ili godini."));
 
+            ToastNotificationService.ShowInformation("Uspiješno generisanje PDF");
             // Close the document
             document.Close();
 
