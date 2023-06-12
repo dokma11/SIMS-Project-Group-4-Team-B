@@ -1,0 +1,56 @@
+﻿<Page x:Class="Sims2023.View.AllGuestsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sims2023.View"
+        mc:Ignorable="d"
+        Title="AllGuestsView" Height="700" Width="430">
+
+    <Page.Resources>
+        <Style TargetType="{x:Type DataGrid}">
+            <Setter Property="Background" Value="#E1F5FE"/>
+            <Setter Property="BorderBrush" Value="#4FC3F7"/>
+            <Setter Property="AlternatingRowBackground" Value="#BDE2FF"/>
+            <Setter Property="RowBackground" Value="#E1F5FE"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Margin" Value="60,126,45,200"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="Grid.Row" Value="0"/>
+            <Setter Property="Grid.Column" Value="0"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Height" Value="Auto"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="#B3E5FC">
+        <DataGrid x:Name="myDataGrid" 
+          ItemsSource="{Binding Path=Reservatons, UpdateSourceTrigger=PropertyChanged}"
+          SelectedItem="{Binding Path=SelectedGuest, UpdateSourceTrigger=PropertyChanged}"
+          AutoGenerateColumns="False" IsReadOnly="True" Margin="52,126,52,200"
+          Grid.Row="0" Grid.Column="0" 
+          AlternatingRowBackground="#BDE2FF" 
+          Background="#E1F5FE" 
+          BorderBrush="#4FC3F7" 
+          RowBackground="#E1F5FE" 
+          SelectionMode="Single" 
+          SelectionUnit="FullRow" 
+          VerticalContentAlignment="Center" 
+          HorizontalContentAlignment="Stretch">
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Ime" Binding="{Binding Guest.Name}" Width="70"></DataGridTextColumn>
+                <DataGridTextColumn Header="Prezime" Binding="{Binding Guest.Surname}" Width="80"></DataGridTextColumn>
+                <DataGridTextColumn Header="Boravak" Binding="{Binding Accommodation.Name}" Width="*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button x:Name="button" Content="Ocijeni" Command="{Binding Grade}"  Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" HorizontalAlignment="Center" Margin="0,534,0,0" Width="325" Height="60"/>
+        <Label x:Name="label" Content="Gosti koji su odsjeli kod vas u skorije vrijeme" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Left" Margin="60,27,0,0" VerticalAlignment="Top" Width="321" Height="45"/>
+        <Label x:Name="label1" Content="u skorije vrijeme" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Center" Margin="0,61,0,0" VerticalAlignment="Top" Width="206"/>
+    </Grid>
+</Page>

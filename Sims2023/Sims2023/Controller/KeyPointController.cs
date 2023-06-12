@@ -1,19 +1,23 @@
-﻿using Sims2023.Model;
-using Sims2023.Model.DAO;
+﻿using Sims2023.Domain.Models;
+using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using System.Collections.Generic;
 
-namespace Sims2023.Controller
+namespace Sims2023.Application.Services
 {
-    public class KeyPointController
+    public class KeyPointService
     {
-        private KeyPointDAO _keyPoint;
-        public KeyPointController()
+        private IKeyPointCSVRepository _keyPoint;
+        private ITourReadFromCSVRepository _tour;
+        public KeyPointService()
         {
-            _keyPoint = new KeyPointDAO();
+            _keyPoint = Injection.Injector.CreateInstance<IKeyPointCSVRepository>();
+            _tour = Injection.Injector.CreateInstance<ITourReadFromCSVRepository>();
+
+            GetTourReferences();
         }
 
-        public List<KeyPoint> GetAllKeyPoints()
+        public List<KeyPoint> GetAll()
         {
             return _keyPoint.GetAll();
         }
@@ -23,14 +27,15 @@ namespace Sims2023.Controller
             return _keyPoint.GetById(id);
         }
 
+        public KeyPoint GetCurrentKeyPoint(Tour tour)//added for guest2
+        {
+            return _keyPoint.GetCurrentKeyPoint(tour);
+        }
+
         public void Create(KeyPoint keyPoint, List<string> keyPointNames, int toursId, int newToursNumber)
         {
             _keyPoint.Add(keyPoint, keyPointNames, toursId, newToursNumber);
-        }
-
-        public void Delete(KeyPoint keyPoint)
-        {
-            _keyPoint.Remove(keyPoint);
+            Save();
         }
 
         public void Subscribe(IObserver observer)
@@ -41,6 +46,37 @@ namespace Sims2023.Controller
         public void Save()
         {
             _keyPoint.Save();
+            GetTourReferences();
+        }
+
+        public List<KeyPoint> GetByToursId(int id)
+        {
+            return _keyPoint.GetByToursId(id);
+        }
+
+        public void ChangeKeyPointsState(KeyPoint keyPoint, KeyPointsState state)
+        {
+            _keyPoint.ChangeState(keyPoint, state);
+            Save();
+        }
+
+        public void AddGuestsId(KeyPoint selectedKeyPoint, int guestsId)
+        {
+            _keyPoint.AddGuestsId(selectedKeyPoint, guestsId);
+            Save();
+        }
+
+        public KeyPoint GetWhereGuestJoined(Tour selectedTour, User loggedInGuest)
+        {
+            return _keyPoint.GetWhereGuestJoined(selectedTour, loggedInGuest);
+        }
+
+        public void GetTourReferences()
+        {
+            foreach (var keyPoint in GetAll())
+            {
+                keyPoint.Tour = _tour.GetById(keyPoint.Tour.Id) ?? keyPoint.Tour;
+            }
         }
     }
 }

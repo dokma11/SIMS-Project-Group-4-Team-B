@@ -1,0 +1,195 @@
+﻿<Page x:Class="Sims2023.WPF.Views.GuideViews.GuestReviewsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sims2023.WPF.Views.GuideViews"
+        mc:Ignorable="d"
+        Title="GuestReviewsView" Height="720" Width="1280">
+
+    <Page.Resources>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Page.Resources>
+
+    <StackPanel Background="PeachPuff">
+        <DockPanel>
+            <ToolBar>
+                <Button x:Name="homePageButton" Command="{Binding HomePageNavigationCommand}" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
+                <Button x:Name="toursButton" Command="{Binding ToursPageNavigationCommand}" Content="Ture" ToolTip="Idite na ture" Margin="150,0"/>
+                <Button x:Name="requestsButton" Command="{Binding RequestsPageNavigationCommand}" Content="Zahtevi" ToolTip="Idite na zahteve" Margin="150,0"/>
+                <Button x:Name="reviewsButton" Content="Recenzije" IsEnabled="False" Margin="150,0"/>
+                <Button x:Name="accountButton" Command="{Binding AccountPageNavigationCommand}" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
+            </ToolBar>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="Recenzije" FontSize="40" Width="190" HorizontalAlignment="Center" Margin="550,0,0,0"/>
+            <Button Content="?" Width="20" Height="20" Margin="450,0,0,0">
+                <Button.ToolTip>
+                    <TextBlock>
+                        Dobrodošli na stranicu ,,Recenzije"!
+                        <LineBreak />
+                        <LineBreak />
+                        Sa Vaše leve strane prikazana je tabela u kojoj se nalaze završene ture.
+                        <LineBreak />
+                        Da biste videli recenzije za određenu turu:
+                        <LineBreak />
+                        • Prvo morate da pritisnete levim klikom na turu za koju želite da vidite recenzije
+                        <LineBreak />
+                        • Potom da pritisnete na dugme ,,Pikaži recenzije"
+                        <LineBreak />
+                        Nakon toga će u tabeli sa Vaše desne strane biti prikazane sve recenzije koje su ostavili gosti koji su prisustvovali odabranoj turi
+                        <LineBreak />
+                        <LineBreak />
+                        Za svaku recenziju možete videti:
+                        <LineBreak />
+                        • Ime, prezime i korisničko ime korisnika koji je napisao recenziju
+                        <LineBreak />
+                        • Ključnu tačku na kojoj se priključio, to Vam služi najviše da biste imali uvid u to da li je validna recenzija
+                        <LineBreak />
+                        • Ocenu koju Vam je dao
+                        <LineBreak />
+                        • Oznaku da li je data recenzija validna.
+                        <LineBreak />
+                        • Ako želite da vidite dodatni komentar morate da pritisnete na samu recenziju nakon čega će Vam ispod nje biti prikazan dodatni komentar koji je gost ostavio
+                        <LineBreak />
+                        <LineBreak />
+                        Ako mislite da je recenzija nevalidna, možete je prijaviti tako što ćete:
+                        <LineBreak />
+                        • Odabrati sumnjivu recenziju
+                        <LineBreak />
+                        • Pritisnuti na dugme ,,Prijavi recenziju"
+                        <LineBreak />
+                        Nakon ove dve radnje primetićete u koloni ,,Validna recenzija" da odabrana recenzija više nije validna
+                        <LineBreak />
+                    </TextBlock>
+                </Button.ToolTip>
+            </Button>
+        </DockPanel>
+        <Label Content="Odaberire turu za koju želite da vidite sve recenzije gostiju" FontSize="24" HorizontalAlignment="Center"></Label>
+        <DockPanel Height="460">
+            <DataGrid x:Name="TourDataGrid" Width="625" Height="375" ItemsSource="{Binding ToursToDisplay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" Margin="15,0,-10,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Naziv" Binding="{Binding Name}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.City}" Width="140">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Jezik" Binding="{Binding GuideLanguage}" Width="75">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Datum i vreme početka ture" Binding="{Binding Start}" Width="165">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Broj gostiju" Binding="{Binding AttendedGuestsNumber}" Width="70">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid x:Name="ReviewDataGrid" Width="590" Height="375" ItemsSource="{Binding ReviewsToDisplay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding Path=SelectedReview, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Ime" Binding="{Binding Guest.Name}" Width="115">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Prezime" Binding="{Binding Guest.Surname}" Width="115">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Korsničko ime" Binding="{Binding Guest.Username}" Width="100">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Gde se priključio" Binding="{Binding KeyPointJoined.Name}" Width="100">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Ocena" Binding="{Binding AverageGrade}" Width="50">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Validna recenzija" Binding="{Binding IsValid}" Width="100">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Comment}" Padding="5,5,0,5"/>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+            </DataGrid>
+        </DockPanel>
+        <DockPanel>
+            <DockPanel Width="500" Margin="400,0,0,0">
+                <Label x:Name="reportLabel" Content="Uspešno ste prijavili recenziju!" Margin="150,0,0,0" FontSize="24" Visibility="{Binding IsLabelVisible, Converter={StaticResource BoolToVisibilityConverter}}" Height="46" />
+            </DockPanel>
+            <DockPanel Width="400">
+                <Button Command="{Binding ReportReviewCommand}" Width="150" Height="50" Margin="0,0,0,0" Content="Prijavi recenziju" ToolTip="Prijavite recenziju kao nevalidnu"/>
+                <Button Command="{Binding DisplayReviewsCommand}" Width="150" Height="50" Margin="0,0,0,0" Content="Prikaži recenzije" ToolTip="Prikažite recenzije za odabranu turu"/>
+            </DockPanel>
+        </DockPanel>
+    </StackPanel>
+</Page>

@@ -8,13 +8,242 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Guest1Images\add.jpg" />
+    <None Remove="Images\Guest1Images\help.png" />
+    <None Remove="Images\Guest1Images\Horizont_ICO.png" />
+    <None Remove="Images\Guest1Images\Horizont_SRB.png" />
+    <None Remove="Images\Guest1Images\slikaSmestaja3.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja6.jpg" />
+    <None Remove="Images\OwnerImages\slikaSmestaja3.jpg" />
+    <None Remove="Images\OwnerImages\slikaSmestaja4.jpg" />
+    <None Remove="Images\OwnerImages\slikaSmestaja5.jpg" />
+    <None Remove="Images\OwnerImages\slikaSmestaja6.jpg" />
+    <None Remove="Images\OwnerImages\slikaSmestaja7.jpg" />
+    <None Remove="Images\OwnerImages\slikaSmestaja8.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja1.jpeg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja10.jpeg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja2.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja3.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja4.jpeg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja5.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja6.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja7.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja8.jpg" />
+    <None Remove="Images\Guest1Images\slikaSmestaja9.jpg" />
+    <None Remove="Images\Guest2Images\budva1.jpg" />
+    <None Remove="Images\Guest2Images\budva2.jpg" />
+    <None Remove="Images\Guest2Images\Nis1.jpg" />
+    <None Remove="Images\Guest2Images\Nis2.png" />
+    <None Remove="Images\Guest2Images\Nis3.jpg" />
+    <None Remove="Resources\GuestOneResources\Wizard\0.png" />
+    <None Remove="Resources\GuestOneResources\Wizard\1.png" />
+    <None Remove="Resources\GuestOneResources\Wizard\2.png" />
+    <None Remove="Resources\GuestOneResources\Wizard\3.png" />
+    <None Remove="Resources\GuestOneResources\Wizard\4.png" />
+    <None Remove="Resources\GuestTwoResources\backgroundtexture.jpg" />
+    <None Remove="Resources\GuestTwoResources\blackbackgroundtexture.jpg" />
+    <None Remove="Resources\GuestTwoResources\HorizontBW-01.png" />
+    <None Remove="Resources\GuestTwoResources\HorizontBW-02.ico" />
+    <None Remove="Resources\GuestTwoResources\HorizontBW-02.png" />
+    <None Remove="Resources\GuestTwoResources\HorizontWB-01.png" />
+    <None Remove="Resources\GuestTwoResources\invertedbackgroundtexture.png" />
+    <None Remove="Resources\GuestTwoResources\left.png" />
+    <None Remove="Resources\GuestTwoResources\right.png" />
+    <None Remove="Resources\GuideResources\5257500-middle.png" />
+    <None Remove="Resources\GuideResources\account-logo.png" />
+    <None Remove="Resources\GuideResources\achievement-icon-png-22.jpg" />
+    <None Remove="Resources\GuideResources\Horizont_SRB.png" />
+    <None Remove="Resources\GuideResources\icon-account-2.jpg" />
+    <None Remove="Resources\OwnerResources\homeOwner.png" />
+    <None Remove="Resources\OwnerResources\lol.png" />
+    <None Remove="Resources\OwnerResources\menu.png" />
+    <None Remove="Resources\OwnerResources\menu2.png" />
+    <None Remove="Resources\OwnerResources\menu3.png" />
+    <None Remove="Resources\OwnerResources\New_notification-removebg-preview.png" />
+    <None Remove="Resources\OwnerResources\notification.png" />
+    <None Remove="Resources\OwnerResources\plus.png" />
+    <None Remove="Resources\OwnerResources\tutorijal.wmv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="PdfSharp" Version="1.50.5147" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+    <PackageReference Include="ToastNotifications" Version="2.5.1" />
+    <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Nevron.Nov.Barcode">
+      <HintPath>..\..\..\..\..\.nuget\packages\nevronopenvision\22.10.17.12\lib\net6.0-windows7.0\Nevron.Nov.Barcode.dll</HintPath>
+    </Reference>
+    <Reference Include="Nevron.Nov.Chart">
+      <HintPath>..\..\..\..\..\.nuget\packages\nevronopenvision\22.10.17.12\lib\net6.0-windows7.0\Nevron.Nov.Chart.dll</HintPath>
+    </Reference>
+    <Reference Include="Nevron.Nov.Diagram">
+      <HintPath>..\..\..\..\..\.nuget\packages\nevronopenvision\22.10.17.12\lib\net6.0-windows7.0\Nevron.Nov.Diagram.dll</HintPath>
+    </Reference>
+    <Reference Include="Nevron.Nov.Grid">
+      <HintPath>..\..\..\..\..\.nuget\packages\nevronopenvision\22.10.17.12\lib\net6.0-windows7.0\Nevron.Nov.Grid.dll</HintPath>
+    </Reference>
+    <Reference Include="Nevron.Nov.Host.Wpf">
+      <HintPath>..\..\..\..\..\.nuget\packages\nevronopenvision\22.10.17.12\lib\net6.0-windows7.0\Nevron.Nov.Host.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Nevron.Nov.Presentation">
+      <HintPath>..\..\..\..\..\.nuget\packages\nevronopenvision\22.10.17.12\lib\net6.0-windows7.0\Nevron.Nov.Presentation.dll</HintPath>
+    </Reference>
+    <Reference Include="Nevron.Nov.Schedule">
+      <HintPath>..\..\..\..\..\.nuget\packages\nevronopenvision\22.10.17.12\lib\net6.0-windows7.0\Nevron.Nov.Schedule.dll</HintPath>
+    </Reference>
+    <Reference Include="Nevron.Nov.Text">
+      <HintPath>..\..\..\..\..\.nuget\packages\nevronopenvision\22.10.17.12\lib\net6.0-windows7.0\Nevron.Nov.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="Nevron.Nov.WpfControls">
+      <HintPath>..\..\..\..\..\.nuget\packages\nevronopenvision\22.10.17.12\lib\net6.0-windows7.0\Nevron.Nov.WpfControls.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
     <None Update="Resources\Data\accommodations.csv">
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <None Update="Resources\Data\accommodationStatistics.csv">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\GuestOneResources\add.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\GuestOneResources\help.png">
+      <Generator>Resource</Generator>
+    </Resource>
+    <Resource Include="Resources\GuestOneResources\Horizont_ICO.png" />
+    <Resource Include="Images\Guest1Images\slikaSmestaja1.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja10.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja4.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja8.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Guest1Images\slikaSmestaja9.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Images\Guest2Images\budva1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Guest2Images\budva2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Guest2Images\Nis1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Guest2Images\Nis2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Guest2Images\Nis3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\GuestOneResources\Wizard\0.png" />
+    <Resource Include="Resources\GuestOneResources\Wizard\1.png" />
+    <Resource Include="Resources\GuestOneResources\Wizard\2.png" />
+    <Resource Include="Resources\GuestOneResources\Wizard\3.png" />
+    <Resource Include="Resources\GuestOneResources\Wizard\4.png" />
+    <Resource Include="Resources\GuestTwoResources\backgroundtexture.jpg" />
+    <Resource Include="Resources\GuestTwoResources\blackbackgroundtexture.jpg" />
+    <Resource Include="Resources\GuestTwoResources\HorizontBW-01.png" />
+    <Content Include="Resources\GuestTwoResources\HorizontBW-02.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="WPF\ViewModels\Guest1ViewModel\AccommodationReservationCancellationViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Resource Include="Images\OwnerImages\slikaSmestaja1.jpg" />
+    <Resource Include="Images\OwnerImages\slikaSmestaja2.jpg" />
+    <Resource Include="Images\OwnerImages\slikaSmestaja3.jpg" />
+    <Resource Include="Images\OwnerImages\slikaSmestaja4.jpg" />
+    <Resource Include="Images\OwnerImages\slikaSmestaja5.jpg" />
+    <Resource Include="Images\OwnerImages\slikaSmestaja6.jpg" />
+    <Resource Include="Images\OwnerImages\slikaSmestaja7.jpg" />
+    <Resource Include="Images\OwnerImages\slikaSmestaja8.jpg" />
+    <Resource Include="Resources\GuestTwoResources\HorizontBW-02.ico" />
+    <Resource Include="Resources\GuestTwoResources\HorizontWB-01.png" />
+    <Resource Include="Resources\GuestTwoResources\invertedbackgroundtexture.png" />
+    <Resource Include="Resources\GuestTwoResources\left.png" />
+    <Resource Include="Resources\GuestTwoResources\right.png" />
+    <Resource Include="Resources\GuideResources\5257500-middle.png" />
+    <Resource Include="Resources\GuideResources\account-logo.png" />
+    <Resource Include="Resources\GuideResources\achievement-icon-png-22.jpg" />
+    <Resource Include="Resources\GuideResources\Horizont_SRB.png" />
+    <Resource Include="Resources\GuideResources\icon-account-2.jpg" />
+    <Resource Include="Resources\OwnerResources\homeOwner.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\OwnerResources\lol.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\OwnerResources\menu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\OwnerResources\menu2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\OwnerResources\menu3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\OwnerResources\New_notification-removebg-preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\OwnerResources\notification.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\OwnerResources\plus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\GuestOneResources\Horizont_SRB.png" />
+    <Resource Include="Resources\OwnerResources\tutorijal.wmv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\GuestOneResources\Report\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,363 @@
+﻿<Page x:Class="Sims2023.WPF.Views.GuideViews.RequestsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sims2023.WPF.Views.GuideViews"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="RequestStatisticsView" Height="720" Width="1280">
+    
+    <Page.Resources>
+        <Style TargetType="{x:Type Label}" x:Key="HyperlinkStyle">
+            <Setter Property="Foreground" Value="Blue" />
+            <Setter Property="TextBlock.TextDecorations" Value="Underline" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Page.Resources>
+
+    <Grid Background="PeachPuff">
+        <DockPanel Margin="0,0,0,690">
+            <ToolBar>
+                <Button x:Name="homePageButton" Command="{Binding HomePageNavigationCommand}" Content="Početna stranica" ToolTip="Idite na početnu stranicu"/>
+                <Button x:Name="toursButton" Command="{Binding ToursPageNavigationCommand}" Content="Ture" ToolTip="Idite na ture" Margin="150,0"/>
+                <Button x:Name="requestsButton" Content="Zahtevi" IsEnabled="False" Margin="150,0"/>
+                <Button x:Name="reviewsButton" Command="{Binding ReviewsPageNavigationCommand}" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
+                <Button x:Name="accountButton" Command="{Binding AccountPageNavigationCommand}" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
+            </ToolBar>
+        </DockPanel>
+        <Button Content="?" Width="20" Height="20" Margin="1170,0,0,610" x:Name="toolTipButton" >
+            <Button.ToolTip>
+                <ToolTip Content="{Binding ToolTipContent}"/>
+            </Button.ToolTip>
+        </Button>
+        <TabControl Height="600" Width="1200" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}" x:Name="TabControl">
+            <TabItem Header="Zahtevi za kreiranje ture">
+                <DockPanel>
+                    <StackPanel>
+                        <Label Content="Zahtevi za kreiranje ture" FontSize="32" Margin="20,20,0,0"/>
+                        <DataGrid x:Name="requestDataGrid" Height="448" Width="850" ItemsSource="{Binding RequestsToDisplay, UpdateSourceTrigger=PropertyChanged}" 
+                        SelectedItem="{Binding SelectedRequest, UpdateSourceTrigger=PropertyChanged}" 
+                        IsReadOnly="True" AutoGenerateColumns="False" Margin="20,10,0,0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Korisničko ime" Binding="{Binding Guest.Username}" Width="90">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Lokacija" Binding="{Binding Location.City}" Width="80">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Broj gostiju" Binding="{Binding GuestNumber}" Width="70">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Jezik" Binding="{Binding Language}" Width="70">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Početak opsega" Binding="{Binding Start}" Width="140">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Kraj opsega" Binding="{Binding End}" Width="140">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Opis" Width="100">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="Prikaži opis ture" Style="{StaticResource HyperlinkStyle}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Prihvati" Width="150">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="Prihvati" Command="{Binding DataContext.AcceptRequestCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" ToolTip="Prihvati odabrani zahtev" Width="70"/>
+                                                <Button Content="Odbij" Command="{Binding DataContext.DeclineRequestCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" ToolTip="Odbij odabrani zahtev" Width="70" Margin="5,0"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Description}" Padding="5,5,0,5"/>
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+                        </DataGrid>
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Content="Filtriraj prema" FontSize="32" Margin="20,20,0,0"/>
+                        <Label Content="Lokaciji:" FontSize="16" Margin="20,20,0,0"/>
+                        <xctk:WatermarkTextBox x:Name="locationTextBox" Text="{Binding LocationTextBox}" Watermark="Unesite lokaciju" Width="150" Height="30" HorizontalAlignment="Left" Margin="25,0,0,0" ToolTip="Unesite lokaciju prema kojoj želite da filtrirate ture" />
+                        <Label Content="Broju gostiju:" FontSize="16" Margin="20,10,0,0"/>
+                        <xctk:WatermarkTextBox x:Name="guestNumberTextBox" Text="{Binding GuestNumberTextBox}" Watermark="Unesite broj gostiju" Width="150" Height="30" HorizontalAlignment="Left" Margin="25,0,0,0" ToolTip="Unesite broj gostiju prema kojem želite da filtrirate ture"/>
+                        <Label Content="Jeziku:" FontSize="16" Margin="20,10,0,0"/>
+                        <xctk:WatermarkTextBox x:Name="languageTextBox" Text="{Binding LanguageTextBox}" Watermark="Unesite jezik" Width="150" Height="30" HorizontalAlignment="Left" Margin="25,0,0,0" ToolTip="Unesite jezik prema kojem želite da filtrirate ture"/>
+                        <Label Content="Opsegu datuma:" FontSize="16" Margin="20,10,0,0"/>
+                        <Label Content="Početak opsega:" FontSize="16" Margin="20,0,0,0"/>
+                        <DatePicker x:Name="dateStartTextBox" SelectedDate="{Binding DateStartTextBox, Mode=TwoWay}" DisplayDateStart="{Binding DateStartDisplayDateStart}" DisplayDateEnd="{Binding DateStartDisplayDateEnd}" Margin="-125,0,0,0" Width="150" Height="30" ToolTip="Unesite početak opsega datuma prema kojem želite da filtrirate ture">
+                            <DatePicker.Resources>
+                                <Style TargetType="{x:Type DatePickerTextBox}">
+                                    <Setter Property="Text" Value="Unesite početak opsega"/>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>
+                        <Label Content="Kraj opsega:" FontSize="16" Margin="20,5,0,0"/>
+                        <DatePicker x:Name="dateEndTextBox" SelectedDate="{Binding DateEndTextBox, Mode=TwoWay}" DisplayDateStart="{Binding DateEndDisplayDateStart}" Margin="-125,0,0,0" Width="150" Height="30" ToolTip="Unesite kraj opsega datuma prema kojem želite da filtrirate ture">
+                            <DatePicker.Resources>
+                                <Style TargetType="{x:Type DatePickerTextBox}">
+                                    <Setter Property="Text" Value="Unesite kraj opsega"/>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>
+                        <Button x:Name="filterButton" Command="{Binding FilterCommand}" Content="Filtriraj" Width="150" Height="50" HorizontalAlignment="Left" Margin="25,15,0,0">
+                            <Button.ToolTip>
+                                Filtriraj zahteve u tabeli pored
+                            </Button.ToolTip>
+                        </Button>
+                        <Label Content="Početak opsega mora biti pre kraja opsega!" Visibility="{Binding IsLabelVisible, Converter={StaticResource BoolToVisibilityConverter}}" Margin="20,5,0,0" />
+                    </StackPanel>
+                </DockPanel>
+            </TabItem>
+            
+            <TabItem Header="Zahtevi za kreiranje složene ture">
+                <StackPanel>
+                    <DockPanel>
+                        <Label Content="Zahtevi za kreiranje složene ture" FontSize="32" Margin="15,10"/>
+                        <Label Content="Delovi složene ture" FontSize="32" Margin="0,10"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <DataGrid Height="450" Width="470" Margin="15,0" ItemsSource="{Binding ComplexTourRequestsToDisplay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding SelectedComplexTourRequest, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Naziv" Binding="{Binding Name}" Width="240">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Korisničko ime" Binding="{Binding Guest.Username}" Width="222">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <DataGrid ItemsSource="{Binding SubTourRequestsToDisplay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding SelectedSubTourRequest, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" Margin="0,0,15,0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Lokacija" Binding="{Binding TourRequest.Location.City}" Width="100">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Broj gostiju" Binding="{Binding TourRequest.GuestNumber}" Width="70">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Jezik" Binding="{Binding TourRequest.Language}" Width="70">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Početak opsega" Binding="{Binding TourRequest.Start}" Width="130">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Kraj opsega" Binding="{Binding TourRequest.End}" Width="130">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5,0,0,0"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Opis" Width="100">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="Prikaži opis ture" Style="{StaticResource HyperlinkStyle}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Prihvati" Width="70">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="Da" Command="{Binding DataContext.AcceptSubTourRequestCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" ToolTip="Prihvati odabrani zahtev" Width="30"/>
+                                                <Button Content="Ne" Command="{Binding DataContext.DeclineSubTourRequestCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" ToolTip="Odbij odabrani zahtev" Width="30" Margin="5,0"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding TourRequest.Description}" Padding="5,5,0,5"/>
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+                        </DataGrid>
+                    </DockPanel>
+                    <Button Content="Prikaži delove ture" Command="{Binding DisplaySubTourRequestsCommand}" Width="150" Height="30" Margin="1014,10,0,0"/>
+                </StackPanel>
+            </TabItem>
+            
+            <TabItem Header="Statistika zahteva za ture na lokaciji">
+                <DockPanel>
+                    <StackPanel Width="600">
+                        <Label Content="Statistika o zahtevima za ture na lokaciji" FontSize="32" Margin="20,10,0,0"/>
+                        <DockPanel>
+                            <ComboBox x:Name="locationComboBox" ItemsSource="{Binding LocationsToDisplay}" SelectedItem="{Binding SelectedLocationsComboBoxItem, Mode=TwoWay}" Width="150"  Margin="25,10,0,0" ToolTip="Odaberite lokaciju za koju želite želite da vidite statistiku"/>
+                            <ComboBox x:Name="locationYearComboBox" ItemsSource="{Binding LocationYearsToDisplay}" SelectedItem="{Binding SelectedLocationYearsComboBoxItem, Mode=TwoWay}" Width="150" Margin="50,10,0,0" ToolTip="Odaberite godinu za koju želite želite da vidite statistiku"/>
+                            <Button Content="Ištampaj statistiku" Width="150" Margin="0,10,0,0" Command="{Binding LocationStatisticsReportCommand}">
+                                <Button.ToolTip>
+                                    Ištampajte statistiku o zahtevima za ture na izabranoj lokaciji
+                                </Button.ToolTip>
+                            </Button>
+                        </DockPanel>
+                        <lvc:CartesianChart Series="{Binding LocationSeriesCollection}" Height="430" LegendLocation="Bottom" Width="580" Margin="0,20,0,0">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Mesec" Labels="{Binding Labels}"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Broj zahteva" Labels="{Binding Values}"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Content="Najtraženija lokacija" FontSize="32" Height="55" Margin="20,10,0,0"/>
+                        <Label Content="u proteklih godinu dana" FontSize="32" Height="67" Margin="20,-15,0,0"/>
+                        <TextBox Text="{Binding TheMostRequestedLocationString}" IsReadOnly="True" Margin="25,10,0,0" ToolTip="Najtraženija lokacija u poslednjih godinu dana"/>
+                        <lvc:CartesianChart Series="{Binding TheMostRequestedLocationSeriesCollection}" Height="347" LegendLocation="Bottom" Margin="20,10,0,0">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Mesec" Labels="{Binding LabelsForTheMostRequested}"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Broj zahteva" Labels="{Binding Values}"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                        <DockPanel>
+                            <Label Content="Da li želite da kreirate novu turu na najtraženijoj lokaciji?" Margin="25,10,0,0"/>
+                            <Button x:Name="locationConfirmButton" Command="{Binding LocationConfirmCommand}" Content="Da" Width="50" Height="30" Margin="-100,10,0,0">
+                                <Button.ToolTip>
+                                    Kreirajte novu turu na najtraženijoj lokaciji
+                                </Button.ToolTip>
+                            </Button>
+                        </DockPanel>
+                    </StackPanel>
+                </DockPanel>
+            </TabItem>
+            
+            <TabItem Header="Statistika zahteva za ture na jeziku">
+                <DockPanel>
+                    <StackPanel Width="600">
+                        <Label Content="Statistika o zahtevima za ture na jeziku" FontSize="32" Margin="20,10,0,0"/>
+                        <DockPanel>
+                            <ComboBox x:Name="languageComboBox" ItemsSource="{Binding LanguagesToDisplay}" SelectedItem="{Binding SelectedLanguagesComboBoxItem, Mode=TwoWay}" Width="150"  Margin="25,10,0,0" ToolTip="Odaberite jezik za koji želite da vidite statistiku"/>
+                            <ComboBox x:Name="languageYearComboBox" ItemsSource="{Binding LanguageYearsToDisplay}" SelectedItem="{Binding SelectedLanguageYearsComboBoxItem, Mode=TwoWay}" Width="150" Margin="50,10,0,0" ToolTip="Odaberite godinu za koju želite želite da vidite statistiku"/>
+                            <Button Content="Ištampaj statistiku" Width="150" Margin="0,10,0,0" Command="{Binding LanguageStatisticsReportCommand}">
+                                <Button.ToolTip>
+                                    Ištampajte statistiku o zahtevima za ture na izabranom jeziku
+                                </Button.ToolTip>
+                            </Button>
+                        </DockPanel>
+                        <lvc:CartesianChart Series="{Binding LanguageSeriesCollection}" Height="430" Width="580" LegendLocation="Bottom" Margin="0,20,0,0">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Mesec" Labels="{Binding Labels}"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Broj zahteva" Labels="{Binding Values}"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Content="Najtraženiji jezik" FontSize="32" Height="55" Margin="20,10,0,0"/>
+                        <Label Content="u proteklih godinu dana" FontSize="32" Height="67" Margin="20,-15,0,0"/>
+                        <TextBox Text="{Binding TheMostRequestedLanguage}" IsReadOnly="True" Margin="25,10,0,0" ToolTip="Najtraženiji jezik u poslednjih godinu dana"/>
+                        <lvc:CartesianChart Series="{Binding TheMostRequestedLanguageSeriesCollection}" Height="347" LegendLocation="Bottom" Margin="20,10,0,0">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Mesec" Labels="{Binding LabelsForTheMostRequested}"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Broj zahteva" Labels="{Binding Values}"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                        <DockPanel>
+                            <Label Content="Da li želite da kreirate novu turu na najtraženijem jeziku?" Margin="25,10,0,0"/>
+                            <Button x:Name="languageConfirmButton" Command="{Binding LanguageConfirmCommand}" Content="Da" Width="50" Height="30" Margin="-100,10,0,0">
+                                <Button.ToolTip>
+                                    Kreirajte novu turu na najtraženijem jeziku
+                                </Button.ToolTip>
+                            </Button>
+                        </DockPanel>
+                    </StackPanel>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

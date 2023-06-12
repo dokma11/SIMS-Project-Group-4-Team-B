@@ -1,0 +1,100 @@
+﻿<Window x:Class="Sims2023.WPF.Views.Guest2Views.Guest2TourRequestStatisticsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:ns="clr-namespace:Sims2023"
+        mc:Ignorable="d"
+        Title="Guest2TourRequestStatisticsView" Height="450" Width="800">
+    <Grid>
+        <TabControl Height="350" Width="750">
+            <TabItem Header="{ns:Loc statisticsOnAcceptedToursTab}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="0,0,95,0">
+                        <lvc:PieChart Height="278"
+                      LegendLocation="Right" Width="312" RenderTransformOrigin="0.5,0.5" >
+                            <lvc:PieChart.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform AngleX="0.14"/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="0.331"/>
+                                </TransformGroup>
+                            </lvc:PieChart.RenderTransform>
+                            <lvc:PieChart.Series>
+                                <lvc:PieSeries 
+                                Title="{ns:Loc acceptedTitle}"
+                               Values="{Binding AcceptedRequests}"
+                               Fill="#FF00BFFF" />
+                                <lvc:PieSeries
+                                Title="{ns:Loc declinedTitle}"
+                               Values="{Binding NotAcceptedRequests}"
+                               Fill="#FFFFA500" />
+                            </lvc:PieChart.Series>
+                        </lvc:PieChart>
+
+
+                    </StackPanel>
+                    <Grid HorizontalAlignment="Left" Width="425" Grid.ColumnSpan="2" Margin="319,0,0,0">
+
+
+                        <ComboBox x:Name="yearComboBox" Margin="60,90,252,211" SelectionChanged="YearComboBox_SelectionChanged" ToolTip="Odaberite godinu za koju želite želite da vidite statistiku"/>
+                        <Label Content="{ns:Loc averageNumberLabel}" FontSize="17" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="averageNumberTextBox" HorizontalAlignment="Left" IsReadOnly="True" Margin="381,39,0,0" TextWrapping="Wrap" Text="{Binding AverageAcceptedRequestsGuestNumber}" VerticalAlignment="Top" Width="34" SelectionChanged="YearComboBox_SelectionChanged"/>
+                        <Label Content="{ns:Loc yearLabel}" FontSize="17" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top"/>
+                        <Label Content="{ns:Loc acceptedRequestsLabel}" FontSize="17" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                        <Label Content="{ns:Loc notAcceptedRequestsLabel}" FontSize="17" HorizontalAlignment="Left" Margin="10,194,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="acceptedRequestsTextBox" HorizontalAlignment="Left" Margin="198,0,0,0" TextWrapping="Wrap" Text="{Binding NotAcceptedPercentage}" IsReadOnly="True" VerticalAlignment="Center" Width="103" SelectionChanged="YearComboBox_SelectionChanged"/>
+                        <TextBox x:Name="notAcceptedRequestsTextBox" HorizontalAlignment="Left" Margin="198,201,0,0" TextWrapping="Wrap" Text="{Binding AcceptedPercentage}" IsReadOnly="True" VerticalAlignment="Top" Width="103" SelectionChanged="YearComboBox_SelectionChanged"/>
+
+
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{ns:Loc tourRequestsStatisticsForLocationTab}">
+                <StackPanel Width="600">
+                    <Label Content="{ns:Loc tourRequestsStatisticsForLocationTab}" FontSize="32" Margin="20,10,0,0"/>
+                    <DockPanel>
+
+                        <ComboBox x:Name="locationYearComboBox" Width="150" Margin="50,10,0,0" SelectionChanged="LocationComboBox_SelectionChanged" />
+
+                    </DockPanel>
+                    <lvc:CartesianChart Series="{Binding LocationSeriesCollection}" Height="200" LegendLocation="Bottom" Width="580" Margin="0,20,0,0">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="{ns:Loc timeTitle}" Labels="{Binding Labels}"/>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="{ns:Loc requestNumberTitle}" Labels="{Binding Values}"/>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="{ns:Loc tourRequestsStatisticsForLanguageTab}">
+                <StackPanel Width="600">
+                    <Label Content="{ns:Loc tourRequestsStatisticsForLanguageTab}" FontSize="32" Margin="20,10,0,0"/>
+                    <DockPanel>
+
+                        <ComboBox x:Name="languageYearComboBox" Width="150" Margin="50,10,0,0" SelectionChanged="LanguageComboBox_SelectionChanged" />
+
+                    </DockPanel>
+                    <lvc:CartesianChart Series="{Binding LanguageSeriesCollection}" Height="200" LegendLocation="Bottom" Width="580" Margin="0,20,0,0">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="{ns:Loc languagesTitle}" Labels="{Binding LabelsLanguage}"/>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="{ns:Loc requestNumberTitle}" Labels="{Binding LanguageValues}"/>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </StackPanel>
+            </TabItem>
+
+        </TabControl>
+
+    </Grid>
+</Window>

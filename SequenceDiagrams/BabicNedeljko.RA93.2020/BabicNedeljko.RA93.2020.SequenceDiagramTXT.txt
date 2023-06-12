@@ -1,0 +1,245 @@
+@startuml
+participant "User" as U
+participant "View layer" as View
+participant "Accommodation Service" as AS
+participant "Reservation Service" as RS
+participant "Renovation Service" as RES
+participant "Accommodation Repository" as AR
+participant "Reservation Repository" as RR
+participant "Renovation Repository" as RER
+
+U -> View: ViewAllAccommodations
+activate View
+View -> AS: GetOwnerAccommodations()
+activate AS
+AS -> AR: GetOwnerAccommodations(accommodations, user)
+activate AR
+AR --> AS: List<Accommodation> 
+deactivate AR
+AS --> View: List<Accommodation>
+deactivate AS
+View -> View: Shedule_Click(SelectedAccommodation)
+activate View
+View -> View: ClickFindDates()
+note left
+selectedAccommodation, startDateSelected, 
+endDateSelected, stayLength
+end note
+activate View
+View -> View: CheckDateRequirments()
+View -> RS: CheckDates()
+note left
+selectedAccommodation, startDateSelected, 
+endDateSelected, stayLength, AvailableDates, RenovationsList
+end note
+activate RS 
+participant DatesList as "List<DateTime>"
+
+RS ->> RR: CheckDates(selectedAccommodation, startDateSelected, endDateSelected, stayLength, datesList, accommodationRenovations)
+activate RR 
+RR -> RR: endDate = startDateSelected.AddDays(stayLength)
+
+RR -> RR: startDate = startDateSelected
+
+loop for startDate <= endDateSelected.AddDays(-stayLength)
+    activate RR
+
+    RR -> RR: isAvailable = IsDateSpanAvailable(selectedAccommodation, startDate, endDate, accommodationRenovations)
+
+    alt isAvailable is true
+        alt datesList is empty
+
+            RR -> DatesList: datesList.Add(startDate)
+            activate DatesList
+
+            DatesList --> RR: datesList
+
+            else datesList is not empty
+
+            opt startDate not in datesList
+                RR -> DatesList: datesList.Add(startDate)
+                activate DatesList
+
+                DatesList --> RR: datesList
+            end
+        end
+    end
+
+end
+deactivate DatesList
+deactivate DatesList
+
+RR --> RS: return datesList.Count
+deactivate RR
+deactivate RR
+RS -->> View: return datesList.Count
+deactivate RS
+View -> View:  OriginalAvailableDatesFound(AvailableDates, stayLength);
+activate View
+View -> View: Navigate(dates)
+activate View
+View -> View: Schedule_Click(Selected Date)
+activate View
+View ->> RES: Create
+note left
+selectedAccommodation, startDateSelected, 
+endDateSelected, stayLength, AvailableDates, RenovationsList
+end note
+activate RES 
+RES -> RER: Add(renovation)
+activate RER
+RER --> RES: 
+deactivate RER
+RES --> View: 
+deactivate RES 
+deactivate View 
+deactivate View 
+deactivate View 
+deactivate View 
+deactivate View 
+deactivate View 
+@enduml
+
+@startuml
+participant "User" as U
+participant "View layer" as View
+participant "Renovation Service" as RES
+participant "Renovation Repository" as RER
+participant "Accommodation Service" as AS
+participant "Accommodation Repository" as AR
+participant "Reservation Service" as RS
+participant "Reservation Repository" as RR
+
+U -> View: Accommodation Click
+activate View
+View -> RES: GetAll()
+activate RES
+RES -> RER: GetAll()
+activate RER
+RER --> RES : List<AccommodationRenovation>
+deactivate RER 
+RES --> View: List<Accommodation>
+deactivate RES 
+View -> AS: MarkRenovated(renovations)
+activate AS
+
+AS -> AR: MarkRenovated(renovations)
+activate AR
+
+loop for each Accommodation in _accommodations
+  activate AR
+
+  AR-> AR: AccommodationNeedsRenovation(accommodation, renovations)
+
+  alt AccommodationNeedsRenovation = true
+    AR--> AR: Set Renovated = true
+    AR--> AR: accommodationsToUpdate.Add(accommodation)
+  else
+    AR--> AR: Set Renovated = false
+    AR--> AR: accommodationsToUpdate.Add(accommodation)
+  end
+end
+
+loop for each Accommodation in accommodationsToUpdate
+  AR-> AR: Update(accommodation)
+end
+
+AR--> AS :
+deactivate AR
+deactivate AR
+
+AS --> View: 
+deactivate AS 
+
+U -> View: AccommodationReservationClick
+activate View
+View -> AS: GetAll()
+activate AS
+AS -> AR: GetAll()
+activate AR
+AR --> AS: List<Accommodation>
+deactivate AR
+AS --> View: List<Accommodation>
+deactivate AS
+View -> View: MakeReservationClick
+activate View
+View -> View: ClickFindDates()
+note left
+selectedAccommodation, startDateSelected, 
+endDateSelected, stayLength
+end note
+activate View
+View -> View: CheckDateRequirements()
+View -> RS: CheckDates()
+note left
+selectedAccommodation, startDateSelected, 
+endDateSelected, stayLength, AvailableDates, RenovationsList
+end note
+activate RS 
+participant DatesList as "List<DateTime>"
+
+RS ->> RR: CheckDates(selectedAccommodation, startDateSelected, endDateSelected, stayLength, datesList, accommodationRenovations)
+activate RR 
+RR -> RR: endDate = startDateSelected.AddDays(stayLength)
+
+RR -> RR: startDate = startDateSelected
+
+loop for startDate <= endDateSelected.AddDays(-stayLength)
+    activate RR
+
+    RR -> RR: isAvailable = IsDateSpanAvailable(selectedAccommodation, startDate, endDate, accommodationRenovations)
+
+    alt isAvailable is true
+        alt datesList is empty
+
+            RR -> DatesList: datesList.Add(startDate)
+            activate DatesList
+
+            DatesList --> RR: datesList
+
+            else datesList is not empty
+
+            opt startDate not in datesList
+                RR -> DatesList: datesList.Add(startDate)
+                activate DatesList
+
+                DatesList --> RR: datesList
+            end
+        end
+    end
+
+end
+deactivate DatesList
+deactivate DatesList
+
+RR --> RS: return datesList.Count
+deactivate RR
+deactivate RR
+RS --> View: return datesList.Count
+deactivate RS
+View -> View: AvailableDates.Count > 0
+activate View
+
+alt AvailableDates.Count > 0
+    View -> View: OriginalAvailableDatesFound(AvailableDates, stayLength)
+    activate View
+    View --> View: OriginalAvailableDatesFound(AvailableDates, stayLength)
+    deactivate View
+    View --> U: AvailableDates
+else
+    View--> View: ExtendedAvailableDatesSearch(startDateSelected, endDateSelected, stayLength, AvailableDates)
+    activate View
+    View --> View: ExtendedAvailableDatesSearch(startDateSelected, endDateSelected, stayLength, AvailableDates)
+    deactivate View
+    View --> U: AvailableDates
+end
+
+deactivate AvailableDates
+deactivate View
+deactivate View
+deactivate View
+deactivate View
+deactivate View
+
+
+@enduml

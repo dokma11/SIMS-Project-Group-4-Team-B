@@ -1,0 +1,17 @@
+﻿<Page x:Class="Sims2023.WPF.Views.OwnerViews.StartView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Sims2023.WPF.Views.OwnerViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="430"
+      Title="StartView">
+
+    <Grid Background="#B3E5FC">
+        <Label x:Name="label" Content="{Binding welcomeString}" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top" Height="122" Width="344"/>
+        <Image Source="pack://application:,,,/Sims2023;component/Resources/GuestOneResources/Horizont_ICO.png" HorizontalAlignment="Center" Margin="0,302,0,0" VerticalAlignment="Top" Height="178" Width="200" />
+        <Image x:Name="image"  Source="pack://application:,,,/Sims2023;component/Resources/GuestOneResources/Horizont_SRB.png" HorizontalAlignment="Left" Height="183" Margin="101,167,0,0" VerticalAlignment="Top" Width="257"/>
+        <Label x:Name="label1" Content="    Horizont je zvanična aplikacija&#xD;&#xA; turističke agencije &quot;Well Travelling&quot;" HorizontalContentAlignment="Center" FontSize="25"  HorizontalAlignment="Center" Margin="0,511,0,0" VerticalAlignment="Top" Height="100" Width="410"/>
+    </Grid>
+</Page>

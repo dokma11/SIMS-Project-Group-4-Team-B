@@ -1,40 +1,180 @@
-1|most|NotVisited||1
-2|tvrdjava|NotVisited||1
-3|sat na tvrdjavi|NotVisited||1
-4|kej|NotVisited||1
-5|most|NotVisited||2
-6|tvrdjava|NotVisited||2
-7|sat na tvrdjavi|NotVisited||2
-8|kej|NotVisited||2
-9|most|NotVisited||3
-10|tvrdjava|NotVisited||3
-11|sat na tvrdjavi|NotVisited||3
-12|kej|NotVisited||3
-13|velika trznica|NotVisited||4
-14|sveto  brdo gelerta|NotVisited||4
-15|budimski dvor|NotVisited||4
-16|ribarski bastion|NotVisited||4
-17|madjarska narodna opera|NotVisited||4
-18|milenijumski spomenik|NotVisited||4
-19|velika trznica|NotVisited||5
-20|sveto  brdo gelerta|NotVisited||5
-21|budimski dvor|NotVisited||5
-22|ribarski bastion|NotVisited||5
-23|madjarska narodna opera|NotVisited||5
-24|milenijumski spomenik|NotVisited||5
-25|liman 1|NotVisited||6
-26|liman 2|NotVisited||6
-27|liman 3|NotVisited||6
-28|liman 4|NotVisited||6
-29|liman 1|NotVisited||7
-30|liman 2|NotVisited||7
-31|liman 3|NotVisited||7
-32|liman 4|NotVisited||7
-33|liman 1|NotVisited||8
-34|liman 2|NotVisited||8
-35|liman 3|NotVisited||8
-36|liman 4|NotVisited||8
-37|liman 1|NotVisited||9
-38|liman 2|NotVisited||9
-39|liman 3|NotVisited||9
-40|liman 4|NotVisited||9
+1|c|NotVisited|2|0|1
+2|x|NotVisited|2|0|1
+3|d|NotVisited|2|0|2
+4|s|NotVisited|2|0|2
+5|c|Visited|1,2,5|3|3
+6|x|NotVisited|7,8|2|3
+7|1|Visited||0|4
+8|2|NotVisited||0|4
+9|2|Visited||0|5
+10|3|Visited||0|5
+11|1|NotVisited||0|11
+12|2|NotVisited||0|11
+13|a|Visited||0|12
+14|s|Visited||0|12
+15|d|Visited||0|12
+16|z|Visited||0|13
+17|x|Visited||0|13
+18|c|Visited||0|13
+19|asd|NotVisited||0|14
+20|dsa|NotVisited||0|14
+21|1|NotVisited||0|15
+22|2|NotVisited||0|15
+23|d|NotVisited||0|16
+24|s|NotVisited||0|16
+25|das|NotVisited||0|17
+26|s|NotVisited||0|17
+27|d|NotVisited||0|18
+28|s|NotVisited||0|18
+29|a|NotVisited||0|19
+30|s|NotVisited||0|19
+31|d|NotVisited||0|20
+32|a|NotVisited||0|20
+33|2|Visited|2|1|21
+34|3|Visited||0|21
+35|A|NotVisited||0|22
+36|S|NotVisited||0|22
+37|f|NotVisited||0|23
+38|d|NotVisited||0|23
+39|D|NotVisited||0|24
+40|a|NotVisited||0|24
+41|S|NotVisited||0|25
+42|D|NotVisited||0|25
+43|v|NotVisited||0|26
+44|b|NotVisited||0|26
+45||NotVisited||0|27
+46|s|NotVisited||0|27
+47|d|NotVisited||0|27
+48|d|NotVisited||0|28
+49|a|NotVisited||0|28
+50||NotVisited||0|29
+51|s|NotVisited||0|29
+52|d|NotVisited||0|29
+53|d|NotVisited||0|30
+54|s|NotVisited||0|30
+55|2|NotVisited||0|31
+56|1|NotVisited||0|31
+57|d|NotVisited||0|32
+58|s|NotVisited||0|32
+59|d|NotVisited||0|33
+60|s|NotVisited||0|33
+61|s|NotVisited||0|34
+62|c|NotVisited||0|34
+63|d|NotVisited||0|35
+64|s|NotVisited||0|35
+65|sda|NotVisited||0|36
+66|d|NotVisited||0|36
+67|s|NotVisited||0|37
+68|d|NotVisited||0|37
+69|1|NotVisited||0|11
+70|2|NotVisited||0|11
+71|1|NotVisited||0|12
+72|2|NotVisited||0|12
+73|1|NotVisited||0|13
+74|2|NotVisited||0|13
+75|1|NotVisited||0|14
+76|2|NotVisited||0|14
+77|d|NotVisited||0|11
+78|s|NotVisited||0|11
+79|d|NotVisited||0|12
+80|a|NotVisited||0|12
+81|x|NotVisited||0|13
+82|c|NotVisited||0|13
+83|asd|NotVisited||0|40
+84|a|NotVisited||0|40
+85|a|NotVisited||0|41
+86|s|NotVisited||0|41
+87|a|Visited||0|42
+88|s|Visited||0|42
+89|a|Visited|0,0,0,0,0,0,0|7|43
+90|s|Visited|0,0|2|43
+91|a|Visited||0|44
+92|s|NotVisited||0|44
+93|a|Visited||0|45
+94|s|Visited||0|45
+95|a|NotVisited||0|46
+96|s|NotVisited||0|46
+97|a|Visited||0|47
+98|s|Visited||0|47
+99|a|Visited||0|48
+100|s|Visited||0|48
+101|a|Visited||0|49
+102|s|Visited||0|49
+103|1|Visited|3|1|53
+104|2|Visited|1,2|2|53
+105|3|Visited||0|53
+106|1|Visited|0,0,0|3|54
+107|2|BeingVisited|0|1|54
+108|3|NotVisited||0|54
+109|1|Visited||0|55
+110|2|Visited||0|55
+111|3|Visited||0|55
+112|a|Visited||0|56
+113|as|NotVisited||0|56
+114|a|NotVisited||0|57
+115|s|NotVisited||0|57
+116|1|Visited|0|1|58
+117|2|Visited||0|58
+118|3|NotVisited|0|1|58
+119|4|NotVisited||0|58
+120|5|NotVisited||0|58
+121|z|Visited|0,0,0,0,0|5|59
+122|x|Visited|0|1|59
+123|c|Visited|0,0,0|3|59
+124|v|NotVisited||0|59
+125|z|Visited|0,0,0,0,0,0|6|60
+126|x|BeingVisited|0|1|60
+127|c|NotVisited||0|60
+128|v|NotVisited||0|60
+129|a|NotVisited||0|61
+130|s|NotVisited||0|61
+131|a|Visited||0|62
+132|asd|Visited||0|62
+133| a|Visited||0|62
+134|a|Visited||0|63
+135|s|Visited||0|63
+136|a|Visited||0|64
+137|s|Visited||0|64
+138|d|Visited||0|64
+139|f|NotVisited||0|64
+140|a|NotVisited||0|65
+141|s|NotVisited||0|65
+142|d|NotVisited||0|65
+143|d|NotVisited||0|66
+144|a|NotVisited||0|66
+145|a|NotVisited||0|67
+146|s|NotVisited||0|67
+147|d|NotVisited||0|67
+148|a|NotVisited||0|68
+149|s|NotVisited||0|68
+150|d|NotVisited||0|68
+151|s|Visited||0|69
+152|d|Visited||0|69
+153|x|NotVisited||0|69
+154|cz|NotVisited||0|69
+155|a|Visited||0|70
+156|s|Visited||0|70
+157|a|Visited||0|71
+158|s|Visited||0|71
+159|a|Visited||0|72
+160|d|Visited||0|72
+161|a|Visited||0|73
+162|ds|Visited||0|73
+163|fas|Visited||0|73
+164|a|Visited|1,2,3|3|74
+165|ds|Visited||0|74
+166|fas|Visited||0|74
+167|a|Visited|1,2|2|75
+168|ds|Visited|3|1|75
+169|fas|Visited||0|75
+170|KP1|NotVisited||0|76
+171|KP2|NotVisited||0|76
+172|KP3|NotVisited||0|76
+173|KP4|NotVisited||0|76
+174|KP5|NotVisited||0|76
+175|a|NotVisited||0|77
+176|s|NotVisited||0|77
+177|d|NotVisited||0|77
+178|a|NotVisited||0|78
+179|s|NotVisited||0|78
+180|d|NotVisited||0|78

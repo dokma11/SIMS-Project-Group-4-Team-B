@@ -1,0 +1,46 @@
+﻿<Page x:Class="Sims2023.WPF.Views.Guest1Views.GuestOneReviewsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views"
+      mc:Ignorable="d"
+      xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
+      Title="GuestOneReviewsView" Height="515" Width="1000">
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="ShowComment"></CommandBinding>
+    </Page.CommandBindings>
+    <Grid Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="label" Content="Vaše ocene od strane vlasnika smeštaja" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="0"/>
+        <DataGrid x:Name="myDataGrid" Background="#DDF2FF" TabIndex="15"
+                  ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedGuestGrade, UpdateSourceTrigger=PropertyChanged}"
+                  AutoGenerateColumns="False" IsReadOnly="True" Margin="50,10,50,30"
+                  Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Ime smeštaja" Binding="{Binding Accommodation.Name}" Width="140"></DataGridTextColumn>
+                <DataGridTextColumn Header="Vlasnik" Width="140">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="Accommodation.Owner.Name"/>
+                            <Binding Path="Accommodation.Owner.Surname"/>
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Datum pocetka" Binding="{Binding StartDate, StringFormat={}{0:d}}" Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum kraja" Binding="{Binding EndDate, StringFormat={}{0:d}}" Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Čistoća" Binding="{Binding Cleanliness}" Width="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Poštovanje pravila" Binding="{Binding RespectRules}" Width="120"></DataGridTextColumn>
+                <DataGridTextColumn Header="Komunikacija" Binding="{Binding Communication}" Width="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Komentar" Binding="{Binding Comment}" Width="100"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="commentShow" TabIndex="16" Content="Prikaži komentar" Margin="420,0,420,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2" FontSize="20" Command="cmd:RoutedCommands.Command1View"/>
+    </Grid>
+</Page>

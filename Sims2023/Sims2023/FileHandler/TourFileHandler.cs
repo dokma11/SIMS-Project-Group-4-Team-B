@@ -3,7 +3,7 @@ using Sims2023.Serialization;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sims2023.Repository
+namespace Sims2023.FileHandler
 {
     public class TourFileHandler
     {
@@ -22,6 +22,8 @@ namespace Sims2023.Repository
             _tours = _serializer.FromCSV(FilePath);
             return _tours.FirstOrDefault(t => t.Id == id);
         }
+
+        
 
         public List<Tour> Load()
         {

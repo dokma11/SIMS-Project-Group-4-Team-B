@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
@@ -7,70 +7,512 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="View\AllGuestsView.xaml.cs">
+    <Compile Update="WPF\Views\Guest1Views\AccommodationDetailedView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\CreateTourView.xaml.cs">
+    <Compile Update="WPF\Views\Guest1Views\AccommodationRenovationRecommodationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\Guest1GradeView.xaml.cs">
+    <Compile Update="WPF\Views\Guest1Views\ForumCommentView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\GuideView.xaml.cs">
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationAndOwnerGradingViewHelp.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\AccommodationRegistrationView.xaml.cs">
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationDetailedViewHelp.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\OwnerView.xaml.cs">
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationListViewHelp.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationRenovationRecommodationHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationCancellationViewHelp.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationConfirmationHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationDateHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationReschedulingHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AllGuestOneReservationsHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\DateTimeHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\ForumCommentHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneMainHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneReviewsHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneStartHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\MainHelpPageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\MakeNewForumHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\NewAccommodationReservationReschedulingRequestHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\OpenedForumHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\ReportHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\SearchForumHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\WheneverWhereverDetailedHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\WheneverWhereverMainHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\WheneverWhereverOptionsHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneFourthView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneMainWizardView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneThirdView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1Wizard\WizardMainView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\GuestOneReviewsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\GuestOneStartView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\MakeNewForumView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\OpenedForumView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\ReportView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\SearchForumView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\WheneverWhereverMainView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\WheneverWhereverOptionsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\WhereverWheneverDetailedView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest2Views\CreateTourRequestView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest2Views\Guest2ComplexTourRequestListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest2Views\Guest2StartView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest2Views\Guest2SubToursRequestListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest2Views\Guest2TourRequestListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest2Views\Guest2TourRequestStatisticsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest2Views\Guest2View1.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest2Views\Guest2VoucherListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest2Views\Guest2VouchersActivationListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest2Views\TourDetailedView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest2Views\TourListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest2Views\VoucherListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\GuideViews\CreateTourFromFrequentLanguageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\GuideViews\CreateTourFromFrequentLocationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\GuideViews\CreateTourFromRequestView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\GuideViews\GuideAccountView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\GuideViews\GuideView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\GuideViews\RequestsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\GuideViews\ToursView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\AccommodationRegistrationAlternativeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\AllAccommodationStatisticsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\AllAccommodationsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\AllGuestsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\AllRenovationsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\AvailableDatesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\CommentsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\DetailedGradeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\GradesFromGuestsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\AccommodationReservationCancellationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\AccommodationRegistrationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\LeaveCommentView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\ListOfForumsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\MonthlyStatiticsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\NotificationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\OwnerView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="View\Guest2View.xaml.cs">
+    <Compile Update="WPF\Views\Guest2Views\Guest2View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\SearchToursView.xaml.cs">
+    <Compile Update="WPF\Views\OwnerViews\PopularLocationsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\TourLocationsView.xaml.cs">
+    <Compile Update="WPF\Views\OwnerViews\RecommendationTabsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\SchedulingRenovationAppointmentsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\StartView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\UnopularLocationsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\OwnerViews\YearlyStatisticsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="View\Guest2View.xaml">
+    <Page Update="WPF\Views\Guest1Views\AccommodationDetailedView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\AccommodationRenovationRecommodationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\AccommodationReservationCancellationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\ForumCommentView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationAndOwnerGradingViewHelp.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationDetailedViewHelp.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationListViewHelp.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationRenovationRecommodationHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationCancellationViewHelp.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationConfirmationHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationDateHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AccommodationReservationReschedulingHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AllGuestOneReservationsHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\DateTimeHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\ForumCommentHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneMainHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneReviewsHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneStartHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\MainHelpPageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\MakeNewForumHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\NewAccommodationReservationReschedulingRequestHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\OpenedForumHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\ReportHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\SearchForumHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\WheneverWhereverDetailedHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\WheneverWhereverMainHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\WheneverWhereverOptionsHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneFourthView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneMainWizardView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneThirdView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1Wizard\WizardMainView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\GuestOneReviewsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\GuestOneStartView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\MakeNewForumView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\OpenedForumView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\ReportView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\SearchForumView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\WheneverWhereverMainView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\WheneverWhereverOptionsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\WhereverWheneverDetailedView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest2Views\CreateTourRequestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest2Views\Guest2ComplexTourRequestListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest2Views\Guest2StartView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest2Views\Guest2SubToursRequestListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest2Views\Guest2TourRequestListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest2Views\Guest2TourRequestStatisticsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest2Views\Guest2View.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\AccommodationListView.xaml">
+    <Page Update="WPF\Views\Guest1Views\AccommodationListView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\AllGuestsView.xaml">
+    <Page Update="WPF\Views\Guest2Views\Guest2View1.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\CreateTourView.xaml">
+    <Page Update="WPF\Views\Guest2Views\Guest2VoucherListView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\Guest1GradeView.xaml">
+    <Page Update="WPF\Views\Guest2Views\Guest2VouchersActivationListView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\Guest1MainView.xaml">
+    <Page Update="WPF\Views\Guest2Views\Themes\Dark.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\GuideView.xaml">
-    </Page>
-    <Page Update="View\AccommodationRegistrationView.xaml">
+    <Page Update="WPF\Views\Guest2Views\Themes\Light.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\OwnerView.xaml">
+    <Page Update="WPF\Views\Guest2Views\TourDetailedView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\SearchToursView.xaml">
+    <Page Update="WPF\Views\Guest2Views\TourListView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\TourLocationsView.xaml">
+    <Page Update="WPF\Views\Guest2Views\VoucherListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\GuideViews\CreateTourFromFrequentLanguageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\GuideViews\CreateTourFromFrequentLocationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\GuideViews\CreateTourFromRequestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\GuideViews\GuideAccountView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\GuideViews\GuideView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\GuideViews\RequestsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\AccommodationRegistrationAlternativeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\AllAccommodationStatisticsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\AllAccommodationsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\GuideViews\ToursView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\AllAccommodationsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\AllGuestsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\AllRenovationsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\AvailableDatesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\CommentsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\Guest1GradeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1MainView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\GuideViews\GuestReviewsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\AccommodationRegistrationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\LeaveCommentView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\ListOfForumsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\MonthlyStatiticsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\NotificationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\OwnerView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\PopularLocationsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\RecommendationTabsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\SchedulingRenovationAppointmentsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\StartView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\UnopularLocationsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\OwnerViews\YearlyStatisticsView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

@@ -1,0 +1,156 @@
+﻿<Page x:Class="Sims2023.WPF.Views.GuideViews.LiveTourTrackingView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:Sims2023.WPF.Views.GuideViews"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="LiveTourTrackingView" Height="720" Width="1280">
+
+    <Page.Resources>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Page.Resources>
+
+    <StackPanel Background="PeachPuff">
+        <DockPanel>
+            <ToolBar>
+                <Button x:Name="homePageButton" Command="{Binding HomePageNavigationCommand}" Content="Početna stranica"/>
+                <Button x:Name="toursButton" IsEnabled="False" Content="Ture" ToolTip="Idite na ture" Margin="150,0"/>
+                <Button x:Name="requestsButton" Command="{Binding RequestsPageNavigationCommand}" Content="Zahtevi" ToolTip="Idite na zahteve" Margin="150,0"/>
+                <Button x:Name="reviewsButton" Command="{Binding ReviewsPageNavigationCommand}" Content="Recenzije" ToolTip="Idite na recenzije" Margin="150,0"/>
+                <Button x:Name="accountButton" Command="{Binding AccountPageNavigationCommand}" Content="Nalog" ToolTip="Idite na nalog" Margin="40,0"/>
+            </ToolBar>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="Ključne tačke ture" FontSize="28" Margin="50,20,0,0"/>
+            <Label Content="Gosti sa rezervacijama" FontSize="28" Margin="400,20,0,0"/>
+            <Button Content="?" Width="20" Height="20" Margin="212,0,0,0">
+                <Button.ToolTip>
+                    <TextBlock>
+                        Dobrodošli na stranicu ,,Praćenje ture uživo"!
+                        <LineBreak />
+                        Nakon što ste započeli turu, možete da pratite dešavanja na njoj i vodite evidenciju prisutnih gostiju
+                        <LineBreak />
+                        <LineBreak />
+                        Sa Vaše leve strane prikazane su ključne tačke započete ture, tu se nalaze tri kolone:
+                        <LineBreak />
+                        • Naziv: predstavlja naziv same ključne tačke
+                        <LineBreak />
+                        • Trenutno stanje: može biti posećena, neposećena, i trenutno posećena (u zavisnosti od toga da li ste bili na njoj, tek treba da budete ili ste trenutno na njoj)
+                        <LineBreak />
+                        Da biste označili ključnu tačku kao trenutnu treba da prvo pritisnete na nju levim klikom a zatim isto tako pritisnete na dugme ,,Označi ključnu tačku".
+                        <LineBreak />
+                        Nakon toga prethodna ključna tačka će biti označena kao posećena, dok nova ključna tačka će biti označena kao trenutna
+                        <LineBreak />
+                        • Broj priključenih gostiju: predstavlja broj gostiju koji su se priključili na datu ključnu tačku. Vi vodite datu evidenciju
+                        <LineBreak />
+                        Da biste dodali nekog gosta kao prisutnog na ključnu tačku morate da odaberete prvo ključnu tačku, a zatim iz kolone sa Vaše leve strane ,,Gosti sa rezervacijama",
+                        <LineBreak />
+                        odaberete gosta kojeg želite da označite kao prisutnog. U datoj koloni će biti izlistani svi gosti koji su rezervisali svoje mesto na Vašoj turi
+                        <LineBreak />
+                        Nakon što se odabrali gosta, pritisnete na dugme ,,Dodaj prisutne goste" (možete istovremeno da odaberete više gostiu) i oni će biti označeni kao prisutni na trenutnoj ključnoj tački
+                        <LineBreak />
+                        <LineBreak />
+                        Pritiskom na dugme ,,Prekini turu" koje kada kliknete prekinuće turu automatski i ona će samim time biti gotova. Koristi se u slučajevima kada se nešto neočekivano dogodi
+                        <LineBreak />
+                        Pritiskom na dugme ,,Nazad" bićete vraćeni na prethodni prozor, sa kojeg ćete kasnije moći da se vratite na ovaj
+                        <LineBreak />
+                        <LineBreak />
+                        Za sam kraj: kada označite poslednju ključnu tačku kao posećenu, Vaša tura će se završiti i bićete vraćeni na prehodnu stranicu. Time ste označili da je tura uspešno završena
+                        <LineBreak />
+                    </TextBlock>
+                </Button.ToolTip>
+            </Button>
+        </DockPanel>
+        <DockPanel Height="510">
+            <DataGrid ItemsSource="{Binding KeyPointsToDisplay, UpdateSourceTrigger=PropertyChanged}" 
+            SelectedItem="{Binding Path=SelectedKeyPoint, UpdateSourceTrigger=PropertyChanged}" 
+            Height="500" IsReadOnly="True" Width="560" Margin="53,0,0,0" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Naziv" Binding="{Binding Name}" Width="200">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Trenutno stanje" Binding="{Binding CurrentState}" Width="200">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Broj priključenih gostiju" Binding="{Binding PresentGuestsNumber}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid x:Name="guestDataGrid" ItemsSource="{Binding GuestsToDisplay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+            Height="500" Width="560" Margin="24,0,0,0" IsReadOnly="True" AutoGenerateColumns="False"
+            SelectedItem="{Binding Path=SelectedUser, UpdateSourceTrigger=PropertyChanged}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Ime" Binding="{Binding Name}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Prezime" Binding="{Binding Surname}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Korisničko ime" Binding="{Binding Username}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Godine" Binding="{Binding Age}" Width="100">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+        <DockPanel Margin="40,15">
+            <DockPanel Width="577">
+                <Label x:Name="eventLabel" Content="{Binding LabelContent}" FontSize="20" Visibility="{Binding IsLabelVisible, Converter={StaticResource BoolToVisibilityConverter}}" Margin="150,0,0,0"/>
+            </DockPanel>
+            <DockPanel Width="600" Margin="75,0,0,0">
+                <Button x:Name="markKeyPointButton" Command="{Binding MarkKeyPointCommand}" Content="Označi ključnu tačku" Width="120" Height="40"/>
+                <Button x:Name="markGuestsPresentButton" Command="{Binding MarkGuestPresentCommand}" Content="Dodaj prisutne goste" Width="120" Height="40" Margin="20,0,0,0"/>
+                <Button x:Name="cancelTourButton" Command="{Binding CancelTourCommand}" Content="Prekini turu" Width="120" Height="40" Margin="20,0,0,0"/>
+                <Button x:Name="goBackButton" Command="{Binding GoBackCommand}" Content="Nazad" Width="120" Height="40" Margin="-30,0,0,0"/>
+            </DockPanel>
+        </DockPanel>
+    </StackPanel>
+</Page>

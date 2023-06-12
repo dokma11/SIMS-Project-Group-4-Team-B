@@ -1,0 +1,42 @@
+﻿<Page x:Class="Sims2023.WPF.Views.OwnerViews.MonthlyStatiticsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Sims2023.WPF.Views.OwnerViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="430" >
+
+    <Grid  Background="#B3E5FC">
+        <Label x:Name="label"  Content="{Binding welcomeString}" DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthlyStatiticsView}}}" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="416" Height="141"/>
+        <DataGrid x:Name="myDataGrid" 
+          ItemsSource="{Binding Path=Statistics, UpdateSourceTrigger=PropertyChanged}"  AutoGenerateColumns="False" 
+          IsReadOnly="True" Margin="10,156,10,207" Grid.Row="0" Grid.Column="0" AlternatingRowBackground="#BDE2FF" Background="#E1F5FE" BorderBrush="#4FC3F7" 
+          RowBackground="#E1F5FE" SelectionMode="Single" SelectionUnit="FullRow" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch"
+          GridLinesVisibility="None">
+
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Style>
+            </DataGrid.RowStyle>
+
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </DataGrid.CellStyle>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Mjesec" Binding="{Binding Month}" />
+                <DataGridTextColumn Header="Br. rezervacija" Width="84" Binding="{Binding NumReservations}" />
+                <DataGridTextColumn Header="Otkazivano" Width="70"  Binding="{Binding NumCanceled}" />
+                <DataGridTextColumn Header="Pomjerano" Width="75" Binding="{Binding NumRescheduled}" />
+                <DataGridTextColumn Header="Preporuka o renoviranju" Binding="{Binding NumRenovationRecommendation}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="button" Content="Nazad" HorizontalAlignment="Left" Click="Close_Click" Margin="265,604,0,0" VerticalAlignment="Top" Height="66" Width="136"  Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3"/>
+        <Label x:Name="label1" Content="{Binding welcomeString2}" DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthlyStatiticsView}}}" FontSize="22" HorizontalAlignment="Center" Margin="0,498,0,0" VerticalAlignment="Top" Height="101" Width="410"/>
+
+    </Grid>
+</Page>

@@ -1,0 +1,107 @@
+﻿<Page x:Class="Sims2023.WPF.Views.Guest1Views.OpenedForumView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views"
+      xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="1000"
+      Title="OpenedForumView">
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="AddComment"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="GoBack"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command3View" CanExecute="CanExecute" Executed="ShutDown"></CommandBinding>
+    </Page.CommandBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="label" Content="Tema:" Margin="50,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="21" Grid.Row="0"/>
+        <Rectangle x:Name="Overlay1" Panel.ZIndex="1" Visibility="Collapsed" Grid.RowSpan="8">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#E0942C" Opacity="0.65" />
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label x:Name="label1" Content="Korisnik:" Margin="50,0,0,0" FontSize="21" Grid.Row="1"/>
+        <Label x:Name="label2" Content="Komentari:" Margin="50,0,0,0" FontSize="21" Grid.Row="3"/>
+        <ScrollViewer Grid.Row="2" Grid.Column="0" Margin="50,0,50,0" VerticalScrollBarVisibility="Visible">
+            <StackPanel>
+                <TextBox x:Name="ThemeBox" TextWrapping="Wrap" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}" Height="60" IsReadOnly="True" />
+            </StackPanel>
+        </ScrollViewer>
+        <ListBox x:Name="CommentsBox" ItemsSource="{Binding ForumComment}" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="4" Margin="50,0,50,30">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Width="850">
+                        <TextBlock FontWeight="Bold">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="User.Name"/>
+                                    <Binding Path="User.Surname"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Special}" Value="True">
+                                            <Setter Property="Foreground" Value="#E0942C"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Broj prijava: " Foreground="Red">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding NumberOfReports}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock Text="{Binding NumberOfReports}" Foreground="Red">
+
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding NumberOfReports}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <TextBlock x:Name="TextText" Text="{Binding Comment}" TextWrapping="Wrap" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}" >
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Special}" Value="True">
+                                            <Setter Property="Background" Value="#4CE0942C" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button x:Name="postForum"  Content="  Ostavi komentar  " TabIndex="19" FontSize="20" Margin="390,0,390,0" Grid.Row="5" Command="cmd:RoutedCommands.Command1View"/>
+        <Button x:Name="goBack"  Content="  Nazad  " TabIndex="19" FontSize="20" Margin="800,0,50,0" Grid.Row="6" Command="cmd:RoutedCommands.Command2View"/>
+        <Button x:Name="CloseTheForum" Visibility="Collapsed" Content="Zatvori forum" TabIndex="19" FontSize="18" Margin="50,0,800,0" Grid.Row="6" Command="cmd:RoutedCommands.Command3View"/>
+        <Label x:Name="Label1"  Visibility="Collapsed" Content="  Forum je zatvoren, ostavljanje komentara je onemoguceno.  " VerticalContentAlignment="Bottom" TabIndex="19" FontSize="15" Margin="30,10,500,40" Grid.Row="6" Foreground="#E0942C" FontWeight="Bold" FontStyle="Italic" Grid.RowSpan="2" />
+    </Grid>
+</Page>
