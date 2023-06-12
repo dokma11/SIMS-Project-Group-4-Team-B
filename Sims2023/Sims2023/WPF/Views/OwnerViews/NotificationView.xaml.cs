@@ -1,5 +1,7 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
+using Sims2023.View;
+using Sims2023.WPF.ViewModels.OwnerViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -85,32 +87,19 @@ namespace Sims2023.WPF.Views.OwnerViews
             }
         }  */
 
-        public void Window_Loaded()
+         private void Grade_Click(object sender, EventArgs e)
         {
-         //   checkForNotifications();
-            string fileName = "../../../Resources/Data/lastshown.txt";
+            var guestss = new AllGuestsView(User, Reservationss);
+            FrameManager.Instance.MainFrame.Navigate(guestss);
 
-            try
-            {
-                string lastShownText = File.ReadAllText(fileName);
-                DateTime lastShownDate = DateTime.Parse(lastShownText);
-
-                if (lastShownDate < DateTime.Today)
-                {
-                    if (_reservationService.GetGradableGuests(User, Reservationss, _gradeService.GetAllGrades()).Count != 0)
-                    {
-
-                        
-                        // Update the last shown date to today's date
-                        File.WriteAllText(fileName, DateTime.Today.ToString());
-                    }
-                }
-            }
-            catch (FileNotFoundException)
-            {
-
-                File.WriteAllText(fileName, DateTime.Today.ToString());
-            }
         }
+
+        private void OpenForum_Click(object sender, EventArgs e)
+        {
+            ListOfForumsView list = new ListOfForumsView(User);
+            FrameManager.Instance.MainFrame.Navigate(list);
+        }
+
+
+    }
      }  
-}

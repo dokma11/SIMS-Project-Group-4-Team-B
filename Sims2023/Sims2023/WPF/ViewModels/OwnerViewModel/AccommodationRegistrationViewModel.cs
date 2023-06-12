@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Sims2023.WPF.ViewModels.OwnerViewModel
@@ -21,13 +22,13 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
     public class AccommodationRegistrationViewModel
     {
         private AccommodationService _accommodationService;
-        private List<CountriesAndCities> _countries;        
-        private CountriesAndCitiesService _allCountriesService; 
+        private List<CountriesAndCities> _countries;
+        private CountriesAndCitiesService _allCountriesService;
 
         private Accommodation Accommodation { get; set; }
         public User User { get; set; }
-        public AccommodationRegistrationView _accommodationRegistrationView; 
-        private LocationService _locationService;  
+        public AccommodationRegistrationView _accommodationRegistrationView;
+        private LocationService _locationService;
         public AccommodationRegistrationView View;
 
         public RelayCommand Register { get; set; }
@@ -48,7 +49,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             Accommodation = new Accommodation();
             _addedPictures = new List<string>();
             imageList = new List<BitmapImage>();
-            _allCountriesService = new CountriesAndCitiesService(); 
+            _allCountriesService = new CountriesAndCitiesService();
             _countries = _allCountriesService.GetAllLocations();
 
             View.countryComboBox.ItemsSource = _countries;
@@ -58,8 +59,7 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
 
         public void countryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Retrieve the list of cities for the selected country
+        { 
             var selectedCountry = (CountriesAndCities)View.countryComboBox.SelectedItem;
             var cities = new List<string> { selectedCountry.City1, selectedCountry.City2, selectedCountry.City3, selectedCountry.City4, selectedCountry.City5 };
 
@@ -77,15 +77,62 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             int Communication;
             bool isCommunicationValid = int.TryParse(CancelDayss, out Communication);
 
-            if (!isCleanValid) return false;
-            else if (!isRulesValid) return false;
-            else if (!isCommunicationValid) return false;
-            else if (string.IsNullOrEmpty(city)) return false;
-            else if (string.IsNullOrEmpty(country)) return false;
-            else if (string.IsNullOrEmpty(name)) return false;
-            else if (string.IsNullOrEmpty(type)) return false;
+            List<Control> invalidControls = new List<Control>();
 
-            else return true;
+            // Reset background color of all fields
+            View.textBox3.ClearValue(TextBox.BackgroundProperty);
+            View.textBox4.ClearValue(TextBox.BackgroundProperty);
+            View.textBox5.ClearValue(TextBox.BackgroundProperty);
+            View.textBox.ClearValue(TextBox.BackgroundProperty);
+            View.comboBox.ClearValue(ComboBox.BackgroundProperty);
+
+            if (!isCleanValid)
+            {
+                invalidControls.Add(View.textBox3);
+            }
+            if (!isRulesValid)
+            {
+                invalidControls.Add(View.textBox4);
+            }
+            if (!isCommunicationValid)
+            {
+                invalidControls.Add(View.textBox5);
+            }
+            if (string.IsNullOrEmpty(city))
+            {
+                invalidControls.Add(View.countryComboBox);
+            }
+            if (string.IsNullOrEmpty(country))
+            {
+                invalidControls.Add(View.cityComboBox);
+            }
+            if (string.IsNullOrEmpty(name))
+            {
+                invalidControls.Add(View.textBox);
+            }
+            if (string.IsNullOrEmpty(type))
+            {
+                invalidControls.Add(View.comboBox);
+            }
+
+            if (invalidControls.Count > 0)
+            {
+                SetControlsBackground(invalidControls);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void SetControlsBackground(List<Control> controls)
+        {
+            SolidColorBrush redBrush = new SolidColorBrush(Colors.Red);
+            foreach (Control control in controls)
+            {
+                control.Background = redBrush;
+            }
         }
         private bool CanExecute_AddPictureCommand(object obj)
         {
@@ -152,6 +199,15 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                 _permanentPictures.Clear();
                 View.PicturesListView.ItemsSource = null;
                 ToastNotificationService.ShowInformation("Uspiješna registracija smještaja");
+
+                View.textBox.Text = string.Empty;
+                View.comboBox.SelectedIndex = -1;
+                View.textBox3.Text = string.Empty;
+                View.textBox4.Text = string.Empty;
+                View.textBox5.Text = string.Empty;
+                _addedPictures.Clear();
+                _permanentPictures.Clear();
+                View.PicturesListView.ItemsSource = null;
             }
             else ToastNotificationService.ShowInformation("Niste unijeli sve podatke");
         }

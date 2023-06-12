@@ -119,27 +119,22 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
 
         public void Executed_GeneratePDFCommand(object obj)
         {
-
-            // Define the file path
             string relativePath = $"../../../Resources/OwnerResources/ReservationsReport.pdf";
 
             string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             string filePath = Path.Combine(projectDirectory, "Resources", "OwnerResources", "ReservationsReport.pdf");
 
-            // Create a new PDF document
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(filePath));
 
 
             // Create a document
             Document document = new Document(pdfDocument);
 
-            // Define the header text
             string headerText = "          Izvještaj za statistiku o smještaju";
 
-            // Create a bold font for the header
+     
             PdfFont boldFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
 
-            // Create a paragraph with the header text and apply the bold font
             iText.Layout.Element.Paragraph headerParagraph = new iText.Layout.Element.Paragraph(headerText)
                 .SetFont(boldFont)
                 .SetFontSize(16f);
@@ -150,10 +145,9 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             // Add a blank line as a separator
             document.Add(new iText.Layout.Element.Paragraph());
 
-            // Add the welcome string to the document
+            
             document.Add(new iText.Layout.Element.Paragraph(welcomeString));
 
-            // Create a table with 5 columns
             iText.Layout.Element.Table table = new iText.Layout.Element.Table(5);
 
             // Add table headers
@@ -174,7 +168,6 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             }
 
 
-            // Add the table to the document
             document.Add(table);
             document.Add(new iText.Layout.Element.Paragraph());
             document.Add(new iText.Layout.Element.Paragraph());
@@ -187,9 +180,6 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             document.Close();
 
         }
-
-
-
 
         public ObservableCollection<YearlyStatistics> GetStatistics()
         {

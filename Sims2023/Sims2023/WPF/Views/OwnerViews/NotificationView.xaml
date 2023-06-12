@@ -40,8 +40,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button x:Name="button" Content="Ocijeni" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" HorizontalAlignment="Center" Margin="0,277,0,0" VerticalAlignment="Top" Height="48" Width="342"/>
-        <Button x:Name="button1" Content="Pregledaj" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" HorizontalAlignment="Center" Margin="0,617,0,0" VerticalAlignment="Top" Height="48" Width="342"/>
+        <Button x:Name="button" Content="Ocijeni" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" HorizontalAlignment="Center" Margin="0,277,0,0" Click="Grade_Click" VerticalAlignment="Top" Height="48" Width="342"/>
+        <Button x:Name="button1" Content="Pregledaj" Background="#2196F3" Foreground="#FFFFFF" BorderBrush="#2196F3" HorizontalAlignment="Center" Margin="0,617,0,0" Click="OpenForum_Click"  VerticalAlignment="Top" Height="48" Width="342"/>
 
     </Grid>
 </Page>

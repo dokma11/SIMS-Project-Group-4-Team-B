@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Navigation;
 
 namespace Sims2023.WPF.ViewModels.OwnerViewModel
@@ -59,25 +60,63 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             else ToastNotificationService.ShowInformation("Popunite sve podatke");
         }
 
-        public bool IsValid(string cleaN, string Respectrules, string Communicationn, string comment)
+        public bool IsValid(string clean, string respectrules, string communication, string comment)
         {
-            int clean;
-            bool isCleanValid = int.TryParse(cleaN, out clean);
+            int cleann;
+            bool isCleanValid = int.TryParse(clean, out cleann);
             int RespectRules;
-            bool isRulesValid = int.TryParse(Respectrules, out RespectRules);
+            bool isRulesValid = int.TryParse(respectrules, out RespectRules);
             int Communication;
-            bool isCommunicationValid = int.TryParse(Communicationn, out Communication);
+            bool isCommunicationValid = int.TryParse(communication, out Communication);
 
-            if (!isCleanValid) return false;
+            List<Control> invalidControls = new List<Control>();
 
-            else if (!isRulesValid) return false;
+            // Reset background color of all fields
+            View.comboBox.ClearValue(ComboBox.BackgroundProperty);
+            View.comboBox1.ClearValue(ComboBox.BackgroundProperty);
+            View.comboBox2.ClearValue(ComboBox.BackgroundProperty);
+            View.textBox.ClearValue(TextBox.BackgroundProperty);
 
-            else if (!isCommunicationValid) return false;
+            if (!isCleanValid)
+            {
+                invalidControls.Add(View.comboBox);
+            }
+            if (!isRulesValid)
+            {
+                invalidControls.Add(View.comboBox1);
+            }
+            if (!isCommunicationValid)
+            {
+                invalidControls.Add(View.comboBox2);
+            }
+            if (string.IsNullOrEmpty(comment))
+            {
+                invalidControls.Add(View.textBox);
+            }
 
-            else if (string.IsNullOrEmpty(comment)) return false;
-
-            else return true;
+            if (invalidControls.Count > 0)
+            {
+                SetControlsBackground(invalidControls);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
+
+        private void SetControlsBackground(List<Control> controls)
+        {
+            SolidColorBrush redBrush = new SolidColorBrush(Colors.Red);
+            foreach (Control control in controls)
+            {
+                control.Background = redBrush;
+            }
+        }
+
+
+
+
 
         public void CreateGrade(GuestGrade Grade)
         {

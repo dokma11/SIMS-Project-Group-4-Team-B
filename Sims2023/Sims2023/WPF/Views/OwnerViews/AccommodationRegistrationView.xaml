@@ -17,7 +17,7 @@
             <Label x:Name="label5" Content="Max. broj gostiju" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top" Width="124"/>
             <Label x:Name="label6" Content="Min. broj dana za rezervaciju" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.345,0.059" Width="164"/>
             <Label x:Name="label7" Content="Dani pred otkaz rezervacije" HorizontalAlignment="Left" Margin="10,403,0,0" VerticalAlignment="Top" Width="164"/>
-            <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="182,84,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="144" Height="26"/>
+            <TextBox x:Name="textBox" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="182,84,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="144" Height="26"/>
             <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="182,252,0,0" VerticalAlignment="Top" Width="144" Height="26">
                 <ComboBoxItem Content="apartman"/>
                 <ComboBoxItem Content="kuća"/>
