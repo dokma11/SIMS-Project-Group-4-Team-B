@@ -31,7 +31,7 @@ namespace Sims2023.Domain.Models
 
         public Forum() { }
 
-        public Forum(int id, User user, string theme, string mainComment, Location location, bool special,  bool closed, int countGuestComments, int countOwnerComments)
+        public Forum(int id, User user, string theme, string mainComment, Location location, bool special,  bool closed, int countGuestComments, int countOwnerComments,bool ownerOpened)
         {
             Id = id;
             User = user;

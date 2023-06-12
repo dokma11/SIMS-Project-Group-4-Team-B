@@ -1,7 +1,5 @@
-﻿using iText.IO.Font.Constants;
-using iText.Kernel.Font;
-using iText.Kernel.Pdf;
-using iText.Layout.Element;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.Commands;
@@ -9,7 +7,6 @@ using Sims2023.WPF.Views.OwnerViews;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using iText.Layout;
 
 namespace Sims2023.WPF.ViewModels.OwnerViewModel
 {
@@ -127,20 +124,18 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             string filePath = Path.Combine(projectDirectory, "Resources", "OwnerResources", "ReservationsReport.pdf");
 
             // Create a new PDF document
-            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(filePath));
-
-
-            // Create a document
-            Document document = new Document(pdfDocument);
+            Document document = new Document();
+            FileStream fs = new FileStream(relativePath, FileMode.Create);
+            PdfWriter writer = PdfWriter.GetInstance(document, fs);
 
             // Define the header text
             string headerText = "          Izvještaj za statistiku o smještaju";
-
+            /*
             // Create a bold font for the header
             PdfFont boldFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
 
             // Create a paragraph with the header text and apply the bold font
-            iText.Layout.Element.Paragraph headerParagraph = new iText.Layout.Element.Paragraph(headerText)
+            Paragraph headerParagraph = new Paragraph(headerText)
                 .SetFont(boldFont)
                 .SetFontSize(16f);
 
@@ -148,20 +143,20 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
             document.Add(headerParagraph);
 
             // Add a blank line as a separator
-            document.Add(new iText.Layout.Element.Paragraph());
+            document.Add(new Paragraph());
 
             // Add the welcome string to the document
-            document.Add(new iText.Layout.Element.Paragraph(welcomeString));
+            document.Add(new Paragraph(welcomeString));
 
             // Create a table with 5 columns
             iText.Layout.Element.Table table = new iText.Layout.Element.Table(5);
 
             // Add table headers
-            table.AddHeaderCell(new Cell().Add(new iText.Layout.Element.Paragraph("Godina")));
-            table.AddHeaderCell(new Cell().Add(new iText.Layout.Element.Paragraph("Br. rezervacija")));
-            table.AddHeaderCell(new Cell().Add(new iText.Layout.Element.Paragraph("Otkazivano")));
-            table.AddHeaderCell(new Cell().Add(new iText.Layout.Element.Paragraph("Pomjerano")));
-            table.AddHeaderCell(new Cell().Add(new iText.Layout.Element.Paragraph("Preporuka o renoviranju")));
+            table.AddHeaderCell(new Cell().Add(new Paragraph("Godina")));
+            table.AddHeaderCell(new Cell().Add(new Paragraph("Br. rezervacija")));
+            table.AddHeaderCell(new Cell().Add(new Paragraph("Otkazivano")));
+            table.AddHeaderCell(new Cell().Add(new Paragraph("Pomjerano")));
+            table.AddHeaderCell(new Cell().Add(new Paragraph("Preporuka o renoviranju")));
 
             // Add table content
             foreach (var statistic in GetStatistics())
@@ -173,14 +168,14 @@ namespace Sims2023.WPF.ViewModels.OwnerViewModel
                 table.AddCell(new Cell().Add(new iText.Layout.Element.Paragraph(statistic.NumRenovationRecommendation.ToString())));
             }
 
-
+            */
             // Add the table to the document
-            document.Add(table);
-            document.Add(new iText.Layout.Element.Paragraph());
-            document.Add(new iText.Layout.Element.Paragraph());
-            document.Add(new iText.Layout.Element.Paragraph(welcomeString2));
-            document.Add(new iText.Layout.Element.Paragraph());
-            document.Add(new iText.Layout.Element.Paragraph("Zauzetost se gleda kao broj dana kada je smeštaj bio zauzet u odnosu na ukupan broj dana u mesecu ili godini."));
+            //document.Add(table);
+            document.Add(new Paragraph());
+            document.Add(new Paragraph());
+            document.Add(new Paragraph(welcomeString2));
+            document.Add(new Paragraph());
+            document.Add(new Paragraph("Zauzetost se gleda kao broj dana kada je smeštaj bio zauzet u odnosu na ukupan broj dana u mesecu ili godini."));
 
             // Close the document
             document.Close();
