@@ -36,10 +36,10 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             _complexRequestService = new ComplexTourRequestService();
             _subTourRequestService = new SubTourRequestService();
             User = user;
-            //_complexRequestService.CheckExpirationDate(user);
+          
             ComplexTourRequests = new ObservableCollection<ComplexTourRequest>(_complexRequestService.GetByUser(user));
             SelectedComplexTourRequest = null;
-            //CheckComplexTourRequests();
+           
 
 
         }
@@ -67,13 +67,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             return tour.CurrentState == ToursState.Finished;
         }
 
-        /*public void CheckComplexTourRequests()
-        {
-            foreach(var complexTourRequest in ComplexTourRequests)
-            {
-                _subTourRequestService.CheckExpirationDate(complexTourRequest);
-            }
-        }*/
+       
 
         public event PropertyChangedEventHandler PropertyChanged;
 
