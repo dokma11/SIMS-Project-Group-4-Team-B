@@ -52,7 +52,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
                 ConfirmCreation(CreateComplexTourRequestView.nameTextBox.Text, User);
                 if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
                 {
-                    MessageBox.Show("Uspesno kreiranje");
+                    MessageBox.Show("Uspešno kreiranje");
                 }
                 else
                 {

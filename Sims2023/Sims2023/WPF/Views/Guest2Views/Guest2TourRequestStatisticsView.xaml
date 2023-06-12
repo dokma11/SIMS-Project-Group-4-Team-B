@@ -8,6 +8,9 @@
         xmlns:ns="clr-namespace:Sims2023"
         mc:Ignorable="d"
         Title="Guest2TourRequestStatisticsView" Height="450" Width="800">
+    <Window.Icon>
+        <ImageSource>pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/HorizontBW-02.ico</ImageSource>
+    </Window.Icon>
     <Grid Background="{DynamicResource BackgroundBrush}">
         <TabControl Height="350" Width="750" >
             <TabItem Header="{ns:Loc statisticsOnAcceptedToursTab}">
