@@ -26,6 +26,7 @@ namespace Sims2023
             {
                 TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo("sr-LATN");
                 CultureInfo.CurrentCulture=TranslationSource.Instance.CurrentCulture;
+                CultureInfo.CurrentCulture.DateTimeFormat = new CultureInfo("en-US").DateTimeFormat;
             }
         }
     }

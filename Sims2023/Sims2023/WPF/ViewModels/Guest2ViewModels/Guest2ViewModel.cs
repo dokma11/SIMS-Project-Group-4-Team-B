@@ -263,7 +263,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         private void Execute_OpenReportCommand(object obj)
         {
-            Guest2ReportView Guest2ReportView = new Guest2ReportView(User);
+            ReportView Guest2ReportView = new ReportView(User);
             Guest2ReportView.Show();
         }
         private bool CanExecute_NavigateCommand(object obj)

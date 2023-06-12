@@ -291,6 +291,9 @@
   <data name="rateBtn" xml:space="preserve">
     <value>Rate</value>
   </data>
+  <data name="reportLabel" xml:space="preserve">
+    <value>Report</value>
+  </data>
   <data name="reportMenu" xml:space="preserve">
     <value>Report</value>
   </data>

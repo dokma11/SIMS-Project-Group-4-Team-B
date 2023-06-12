@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Sims2023.Domain.Models;
+using Sims2023.WPF.ViewModels.Guest2ViewModels;
 
 namespace Sims2023.WPF.Views.Guest2Views
 {
@@ -19,9 +21,23 @@ namespace Sims2023.WPF.Views.Guest2Views
     /// </summary>
     public partial class ReportView : Window
     {
-        public ReportView()
+        public ReportView(User user)
         {
             InitializeComponent();
+            this.DataContext = new Guest2ReportViewModel(user, this);
+        }
+
+        public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        public void GenerateReport(object sender, RoutedEventArgs e)
+        {
+            ((Guest2ReportViewModel)this.DataContext).GenerateReport();
+        }
+        public void GoBack(object sender, RoutedEventArgs e)
+        {
+            ((Guest2ReportViewModel)this.DataContext).GoBack();
         }
     }
 }

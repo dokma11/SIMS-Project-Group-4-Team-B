@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using iTextSharp.text;
@@ -13,16 +14,15 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
     internal class Guest2ReportViewModel
     {
         private User User;
-        private Guest2ReportView Guest2ReportView;
+        private ReportView Guest2ReportView;
         DateTime startDateSelected;
         DateTime endDateSelected;
         private TourReservationService _tourReservationService { get; set; }
 
-        public Guest2ReportViewModel(User user, Guest2ReportView reportView)
+        public Guest2ReportViewModel(User user, ReportView reportView)
         {
             User = user;
             Guest2ReportView = reportView;
-            //startDateSelected = Guest2ReportView.startDatePicker.Text;
 
             _tourReservationService= new TourReservationService();
         }
@@ -37,14 +37,15 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         private void GenerateReportFile(String filename)
         {
-            try
+
+            if (CheckFields())
             {
                 string relativePath = $"../../../Resources/GuestTwoResources/Report/{filename}";
                 string absolutePath = Path.GetFullPath(relativePath);
                 Document document = new Document();
                 FileStream fs = new FileStream(absolutePath, FileMode.Create);
                 PdfWriter pdfWriter = PdfWriter.GetInstance(document, fs);
-                
+
                 document.Open();
 
 
@@ -53,12 +54,17 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
                 document.Close();
 
-                MessageBox.Show("Uspešno ste izgenerisali pdf izveštaj.");
+
+                if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
+                {
+                    MessageBox.Show("Uspešno ste izgenerisali pdf izveštaj.");
+                }
+                else
+                {
+                    MessageBox.Show("You succesfully generated pdf report");
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred while generating the PDF report: {ex.Message}");
-            }
+            
         }
 
         
@@ -93,21 +99,51 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 
         private bool CheckFields()
         {
-            
-            if (Guest2ReportView.startDatePicker.SelectedDate == null || Guest2ReportView.endDatePicker.SelectedDate == null)
+            if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
             {
-                MessageBox.Show("Molimo Vas da selektujete oba datuma.");
-                return false;
-            }
-            startDateSelected = Guest2ReportView.startDatePicker.SelectedDate.Value;
-            endDateSelected = Guest2ReportView.endDatePicker.SelectedDate.Value;
-            if (DateTime.Compare(startDateSelected, endDateSelected) > 0)
-            {
-                MessageBox.Show("Molimo Vas selektujete pravilno datume. Datum kraja ne može biti pre datuma početka.");
-                return false;
-            }
 
-            return true;
+                if (Guest2ReportView.startDatePicker.SelectedDate == null)
+                {
+                    MessageBox.Show("Molimo Vas da selektujete početni datum");
+                    return false;
+                }
+                if (Guest2ReportView.endDatePicker.SelectedDate == null)
+                {
+                    MessageBox.Show("Molimo Vas da selektujete krajnji datum");
+                    return false;
+                }
+                startDateSelected = Guest2ReportView.startDatePicker.SelectedDate.Value;
+                endDateSelected = Guest2ReportView.endDatePicker.SelectedDate.Value;
+                if (DateTime.Compare(startDateSelected, endDateSelected) > 0)
+                {
+                    MessageBox.Show("Početni datum mora biti pre krajnjeg datuma");
+                    return false;
+                }
+
+                return true;
+            }
+            else
+            {
+                if (Guest2ReportView.startDatePicker.SelectedDate == null)
+                {
+                    MessageBox.Show("Please select start date");
+                    return false;
+                }
+                if(Guest2ReportView.endDatePicker.SelectedDate == null)
+                {
+                    MessageBox.Show("Please select end date");
+                    return false;
+                }
+                startDateSelected = Guest2ReportView.startDatePicker.SelectedDate.Value;
+                endDateSelected = Guest2ReportView.endDatePicker.SelectedDate.Value;
+                if (DateTime.Compare(startDateSelected, endDateSelected) > 0)
+                {
+                    MessageBox.Show("Start date must be before end date");
+                    return false;
+                }
+
+                return true;
+            }
         }
 
         internal void GoBack()

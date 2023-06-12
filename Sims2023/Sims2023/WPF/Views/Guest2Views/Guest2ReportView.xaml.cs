@@ -24,7 +24,7 @@ namespace Sims2023.WPF.Views.Guest2Views
         public Guest2ReportView(User user)
         {
             InitializeComponent();
-            this.DataContext = new Guest2ReportViewModel(user, this);
+            //this.DataContext = new Guest2ReportViewModel(user, this);
         }
         public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {

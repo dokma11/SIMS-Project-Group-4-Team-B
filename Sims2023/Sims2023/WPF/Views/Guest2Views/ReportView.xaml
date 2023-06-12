@@ -4,9 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views"
+        xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
+        xmlns:ns="clr-namespace:Sims2023"
         mc:Ignorable="d"
-        Title="ReportView" Height="450" Width="800">
-    <Grid>
-        
+        Title="ReportView" Height="350" Width="400" WindowStartupLocation="CenterScreen">
+    <Window.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="GenerateReport"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="GoBack"></CommandBinding>
+    </Window.CommandBindings>
+    <Window.Icon>
+        <ImageSource>pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/HorizontBW-02.ico</ImageSource>
+    </Window.Icon>
+    <Grid Background="{DynamicResource BackgroundBrush}">
+        <Label Foreground="{DynamicResource WelcomeLabel}" Content="{ns:Loc reportLabel}"  FontSize="28" HorizontalAlignment="Left" Margin="25,22,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="{DynamicResource WelcomeLabel}"   Content="{ns:Loc startDateLabel}" FontSize="20" HorizontalAlignment="Left" Margin="25,105,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="startDatePicker" HorizontalAlignment="Left" Width="232" Margin="130,111,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="{DynamicResource WelcomeLabel}"   Content="{ns:Loc endDateLabel}" FontSize="20" HorizontalAlignment="Left" Margin="29,163,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="endDatePicker" HorizontalAlignment="Left" Width="232" Margin="130,169,0,0" VerticalAlignment="Top"/>
+        <Button Command="cmd:RoutedCommands.Command1View" x:Name="generate" Content="{ns:Loc createBtn}" Background="#bcbcbc" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="35,220,0,0" VerticalAlignment="Top"  RenderTransformOrigin="0.494,0.525"/>
+        <Button x:Name="giveUp" Command="cmd:RoutedCommands.Command2View" Content="{ns:Loc cancelBtn}"  Background="#bcbcbc" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="215,220,0,0" VerticalAlignment="Top"  RenderTransformOrigin="0.494,0.525"/>
+
+
     </Grid>
 </Window>

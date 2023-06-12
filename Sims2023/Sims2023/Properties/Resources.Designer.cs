@@ -585,6 +585,15 @@ namespace Sims2023.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Report.
         /// </summary>
+        internal static string reportLabel {
+            get {
+                return ResourceManager.GetString("reportLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report.
+        /// </summary>
         internal static string reportMenu {
             get {
                 return ResourceManager.GetString("reportMenu", resourceCulture);
