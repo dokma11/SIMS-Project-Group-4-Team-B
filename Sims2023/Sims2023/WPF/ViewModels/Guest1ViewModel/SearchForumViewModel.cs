@@ -38,7 +38,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             User = user;
             MainFrame = mainFrame;
             SearchForumView= searchForumView;
-            NewLocation = new();
+            //NewLocation = new();
             _forumService =new ForumService();
             _forumService.Subscribe(this);
             _forumCommentService = new ForumCommentService();
