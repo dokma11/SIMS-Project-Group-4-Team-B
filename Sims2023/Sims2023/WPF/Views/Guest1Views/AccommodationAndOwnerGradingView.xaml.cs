@@ -36,15 +36,22 @@ namespace Sims2023.WPF.Views.Guest1Views
 
         public void CreateRecension(object sender, ExecutedRoutedEventArgs e)
         {
-            var result = System.Windows.MessageBox.Show("Da li ste sigurni da zelite da ostavite ovu recenziju?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
-            if (result == System.Windows.MessageBoxResult.Yes)
+            if (!string.IsNullOrEmpty(textBox.Text))
             {
-                AccommodationAndOwnerGradingViewModel.AddCreatedGrade(Grade);
-                Close();
+                var result = System.Windows.MessageBox.Show("Da li ste sigurni da želite da ostavite ovu recenziju?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
+                if (result == System.Windows.MessageBoxResult.Yes)
+                {
+                    AccommodationAndOwnerGradingViewModel.AddCreatedGrade(Grade);
+                    Close();
+                }
+                else
+                {
+                    return;
+                }
             }
             else
             {
-                return;
+                MessageBox.Show("Molimo Vas popunite polje za komentar.");
             }
         }
 

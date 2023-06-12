@@ -15,7 +15,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
@@ -56,7 +56,7 @@
             </ListView>
         </Grid>
         <Label x:Name="reservationConfirmation" Content="Potvrda rezervacije:" FontSize="25" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="0"/>
-        <Button x:Name="reservationButton" Content="Rezerviši" FontSize="25" Margin="415,0,415,0" Grid.Row="2" Command="cmd:RoutedCommands.Command1View"/>
-        <Button x:Name="buttonDateCancelation" Content="Odustani" Height="30" Margin="750,0,0,0" FontSize="15" Grid.Row="3" Width="150" Command="cmd:RoutedCommands.Command2View"/>
+        <Button x:Name="reservationButton" Content="Rezerviši" FontSize="25" Margin="425,0,425,0" Grid.Row="2" Command="cmd:RoutedCommands.Command1View"/>
+        <Button x:Name="buttonDateCancelation" Content="Odustani" Height="30" Margin="750,0,0,0" FontSize="15" Grid.Row="3" Width="100" Command="cmd:RoutedCommands.Command2View"/>
     </Grid>
 </Page>

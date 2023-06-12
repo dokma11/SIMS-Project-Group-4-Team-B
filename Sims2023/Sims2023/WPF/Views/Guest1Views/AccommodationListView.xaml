@@ -68,7 +68,7 @@
                 <RowDefinition Height="20"/>
                 <RowDefinition />
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <DataGrid x:Name="myDataGrid" Background="#DDF2FF"  TabIndex="24"
@@ -106,7 +106,7 @@
                     <DataGridTextColumn Header="Minimalni broj dana za rezervaciju" Binding="{Binding MinDays}" Width="210"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button x:Name="DetailViewbutton" TabIndex="25" Content="Prikaži smeštaj" FontSize="20" Margin="485,0,50,0" Grid.Row="2" Command="cmd:RoutedCommands.Command2View" />
+            <Button x:Name="DetailViewbutton" TabIndex="25" Content="Prikaži smeštaj" FontSize="20" Margin="500,0,50,0" Grid.Row="2" Command="cmd:RoutedCommands.Command2View" />
             <Button x:Name="button" TabIndex="26" Content="    Rezerviši    " FontSize="26" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Command="cmd:RoutedCommands.Command1View"/>
         </Grid>
     </Grid>

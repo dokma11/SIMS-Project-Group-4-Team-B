@@ -43,13 +43,58 @@
     <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\AllGuestOneReservationsHelpView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\DateTimeHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\ForumCommentHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneMainHelpView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneReviewsHelpView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneStartHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\MainHelpPageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\MakeNewForumHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\NewAccommodationReservationReschedulingRequestHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\OpenedForumHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\ReportHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\SearchForumHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\WheneverWhereverDetailedHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\WheneverWhereverMainHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1HelpViews\WheneverWhereverOptionsHelpView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneFourthView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneMainWizardView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneThirdView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\Guest1Wizard\WizardMainView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\Guest1Views\GuestOneReviewsView.xaml.cs">
@@ -62,6 +107,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\Guest1Views\OpenedForumView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\Guest1Views\ReportView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\Views\Guest1Views\SearchForumView.xaml.cs">
@@ -245,13 +293,58 @@
     <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\AllGuestOneReservationsHelpView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\DateTimeHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\ForumCommentHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneMainHelpView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneReviewsHelpView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\GuestOneStartHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\MainHelpPageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\MakeNewForumHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\NewAccommodationReservationReschedulingRequestHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\OpenedForumHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\ReportHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\SearchForumHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\WheneverWhereverDetailedHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\WheneverWhereverMainHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1HelpViews\WheneverWhereverOptionsHelpView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneFourthView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneMainWizardView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1Wizard\GuestOneThirdView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\Guest1Wizard\WizardMainView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest1Views\GuestOneReviewsView.xaml">
@@ -264,6 +357,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest1Views\OpenedForumView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\Guest1Views\ReportView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\Views\Guest1Views\SearchForumView.xaml">

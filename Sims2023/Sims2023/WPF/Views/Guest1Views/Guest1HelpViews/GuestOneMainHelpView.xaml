@@ -6,9 +6,11 @@
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views.Guest1HelpViews"
         xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Title="GuestOneMainHelpView" Height="400" Width="700" WindowStartupLocation="CenterScreen">
     <Window.CommandBindings>
         <CommandBinding Command="cmd:RoutedCommands.OpenHelp" CanExecute="CanExecute" Executed="ExitHelp"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.MoreView" CanExecute="CanExecute" Executed="ShowMore"></CommandBinding>
     </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -43,6 +45,7 @@
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Label Content="Glavne komande: " FontSize="18" Margin="20,0,0,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold"/>
                     <Label Content="Alt+M" FontSize="18" Margin="20,0,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
@@ -50,11 +53,13 @@
                     <Label Content="Alt+L" FontSize="18" Margin="20,0,0,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
                     <Label Content="Ctrl+A" FontSize="18" Margin="20,0,0,0" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
                     <Label Content="Ctrl+B" FontSize="18" Margin="20,0,0,0" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"/>
+                    <Label Content="Ctrl+C" FontSize="18" Margin="20,0,0,0" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"/>
                     <Label Content="Meni" FontSize="15"  Margin="0,0,0,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
                     <Label Content="Pomoć" FontSize="15" Margin="0,0,0,0" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
                     <Label Content="Odjava sa profila" FontSize="15" Margin="0,0,0,0" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"/>
                     <Label Content="Početna stranica" FontSize="13" Margin="0,0,0,0" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"/>
                     <Label Content="Prikaz smeštaja i rezervacija" FontSize="13" Margin="0,0,0,0" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center"/>
+                    <Label Content="Pomeri rezervaciju" FontSize="13" Margin="0,0,0,0" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center"/>
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
@@ -71,21 +76,21 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Label Content="Ctrl+C" FontSize="18" Margin="10,0,0,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-                    <Label Content="Ctrl+D" FontSize="18" Margin="10,0,0,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
-                    <Label Content="Ctrl+E" FontSize="18" Margin="10,0,0,0" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
-                    <Label Content="Ctrl+F" FontSize="18" Margin="10,0,0,0" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"/>
-                    <Label Content="Ctrl+G" FontSize="18" Margin="10,0,0,0" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"/>
-                    <Label Content="Ctrl+H" FontSize="18" Margin="10,0,0,0" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center"/>
-                    <Label Content="Pomeri rezervaciju" FontSize="13" Margin="0,0,0,0" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
-                    <Label Content="Otkazivanje rezervacija" FontSize="13" Margin="0,0,0,0" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"/>
-                    <Label Content="Ocenjivanje boravka" FontSize="13" Margin="0,0,0,0" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"/>
-                    <Label Content="Prikaz Vaših ocena" FontSize="13" Margin="0,0,0,0" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center"/>
-                    <Label Content="Bilo kada,bilo gde" FontSize="13" Margin="0,0,0,0" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center"/>
-                    <Label Content="Otvaranje foruma" FontSize="13" Margin="0,0,0,0" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center"/>
+                    <Label Content="Ctrl+D" FontSize="18" Margin="10,0,0,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+                    <Label Content="Ctrl+E" FontSize="18" Margin="10,0,0,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+                    <Label Content="Ctrl+F" FontSize="18" Margin="10,0,0,0" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+                    <Label Content="Ctrl+G" FontSize="18" Margin="10,0,0,0" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"/>
+                    <Label Content="Ctrl+H" FontSize="18" Margin="10,0,0,0" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"/>
+                    <Label x:Name="MoreLabel" Content="Ctrl+M" FontSize="18" Visibility="Collapsed" Margin="10,0,0,0" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center"/>
+                    <Button x:Name="MoreButton" Content="Više informacija" Visibility="Collapsed" FontSize="15" Margin="10,10,10,0" Grid.Row="7" Grid.Column="1" Command="cmd:RoutedCommands.MoreView"/>
+                    <Label Content="Otkazivanje rezervacija" FontSize="13" Margin="0,0,0,0" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
+                    <Label Content="Ocenjivanje boravka" FontSize="13" Margin="0,0,0,0" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"/>
+                    <Label Content="Prikaz Vaših ocena" FontSize="13" Margin="0,0,0,0" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"/>
+                    <Label Content="Bilo kada,bilo gde" FontSize="13" Margin="0,0,0,0" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center"/>
+                    <Label Content="Otvaranje foruma" FontSize="13" Margin="0,0,0,0" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center"/>
                 </Grid>
             </Grid>
-            <Grid x:Name="SpaceFillerGrid" Visibility="Collapsed" Grid.Column="1" Margin="50,0,50,0">
+            <Grid x:Name="SpaceFillerGrid" Grid.Column="1" Margin="50,0,50,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="100"/>

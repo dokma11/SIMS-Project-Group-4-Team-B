@@ -344,5 +344,20 @@ namespace Sims2023.Repositories
             }
             return AllGuestsReservations;
         }
+        public List<AccommodationReservation> FindReservationsInDateFrame(User user, DateTime startDateSelected, DateTime endDateSelected)
+        {
+            List<AccommodationReservation> AllGuestsReservations = new();
+            int i = 0;
+
+            foreach (AccommodationReservation accommodationReservation in _accommodationReservations)
+            {
+                if (accommodationReservation.StartDate > startDateSelected && accommodationReservation.EndDate < endDateSelected)
+                {
+                    AllGuestsReservations.Add(accommodationReservation);
+                    i++;
+                }
+            }
+            return AllGuestsReservations;
+        }
     }
 }

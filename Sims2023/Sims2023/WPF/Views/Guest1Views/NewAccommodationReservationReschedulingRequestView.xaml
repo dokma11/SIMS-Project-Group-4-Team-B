@@ -16,8 +16,8 @@
             <RowDefinition Height="0" />
             <RowDefinition Height="80"/>
             <RowDefinition/>
+            <RowDefinition Height="30" />
             <RowDefinition Height="50" />
-            <RowDefinition Height="70" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Label x:Name="label" Content="Pomeranje rezervacije" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="1"/>
@@ -41,7 +41,7 @@
                 <DataGridTextColumn Header="Datum kraja" Binding="{Binding EndDate, StringFormat={}{0:d}}" Width="190"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="makeRequest" Content="Podnesi zahtev" Margin="350,0,350,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="4" FontSize="20" Command="cmd:RoutedCommands.Command1View" TabIndex="16"/>
+        <Button x:Name="makeRequest" Content="Podnesi zahtev" Margin="375,0,375,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="4" FontSize="20" Command="cmd:RoutedCommands.Command1View" TabIndex="16"/>
         <Button x:Name="back" Content="Nazad" Margin="800,0,50,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="3" FontSize="20" Command="cmd:RoutedCommands.Command2View" TabIndex="17"/>
     </Grid>
 </Page>

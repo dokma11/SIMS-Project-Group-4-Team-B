@@ -26,7 +26,7 @@ namespace Sims2023.WPF.Views.Guest1Views.Guest1HelpViews
         public GuestOneMainHelpView(String currentPageTitle)
         {
             InitializeComponent();
-            GuestOneMainHelpViewModel = new(this, currentPageTitle,HelpFrame);
+            this.DataContext = new GuestOneMainHelpViewModel(this, currentPageTitle);
         }
         public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -36,6 +36,10 @@ namespace Sims2023.WPF.Views.Guest1Views.Guest1HelpViews
         public void ExitHelp(object sender, ExecutedRoutedEventArgs e)
         {
             Close();   
+        }
+        public void ShowMore(object sender, ExecutedRoutedEventArgs e)
+        {
+            ((GuestOneMainHelpViewModel)this.DataContext).ShowMore();
         }
     }
 }

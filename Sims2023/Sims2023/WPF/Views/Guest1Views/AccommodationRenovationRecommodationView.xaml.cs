@@ -35,7 +35,7 @@ namespace Sims2023.WPF.Views.Guest1Views
         public void CreateRecommodation(object sender, ExecutedRoutedEventArgs e)
         {   if(AccommodationRenovationRecommodationViewModel.CheckIfAllFiledsFilled())
             {
-                var result = System.Windows.MessageBox.Show("Da li ste sigurni da zelite da ostavite ovu preporuku?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
+                var result = System.Windows.MessageBox.Show("Da li ste sigurni da želite da ostavite ovu preporuku?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
                 if (result == System.Windows.MessageBoxResult.Yes)
                 {
                     AccommodationRenovationRecommodationViewModel.AddRenovationRecommodation();
@@ -44,7 +44,7 @@ namespace Sims2023.WPF.Views.Guest1Views
             }
             else
             {
-                MessageBox.Show("Molimo Vas popunite sva polja");
+                AccommodationRenovationRecommodationViewModel.NotAllFieldsAreFiled();
             }
             
         }

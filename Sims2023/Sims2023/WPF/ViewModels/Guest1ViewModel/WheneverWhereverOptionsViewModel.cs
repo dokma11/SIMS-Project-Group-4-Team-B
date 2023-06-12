@@ -83,7 +83,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             int numberOfAvailableDates = 0;
             numberOfAvailableDates = _accommodationReservationService.CheckDates(accommodation, startDateSelected, endDateSelected, daysNumber, AvailableDates, accommodationRenovations);
-            if (numberOfAvailableDates > 0 && accommodation.MaxGuests >= guestsNumber)
+            if (numberOfAvailableDates > 0 && accommodation.MaxGuests >= guestsNumber && accommodation.MinDays<=daysNumber)
             {
                 FilteredData.Add(accommodation);
             }
@@ -117,11 +117,11 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
                 if (AvailableDates.Count == 0)
                 {
-                    MessageBox.Show("Za datume koje ste izabrali nismo uspeli da pronademo nijedan slobodan termin. Doslo je do greske.");
+                    MessageBox.Show("Za datume koje ste izabrali nismo uspeli da pronađemo nijedan slobodan termin. Došlo je do greške.");
                 }
                 return;
             }
-            MessageBox.Show("Izaberite smestaj za koji zelite da pretrazite rezervacije");
+            MessageBox.Show("Izaberite smeštaj za koji želite da pretražite rezervacije.");
         }
 
         public void OriginalAvailableDatesFound(List<DateTime> availableDates, int stayLength)
@@ -145,12 +145,12 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             if (selectedAccommodationStay == null)
             {
-                MessageBox.Show("Molimo Vas selektujte datume koje zelite da rezervisete.");
+                MessageBox.Show("Molimo Vas selektujte datume koje zelite da rezervišete.");
                 return false;
             }
             if (SelectedAccommodation == null)
             {
-                MessageBox.Show("Doslo je do greske.");
+                MessageBox.Show("Doslo je do greške.");
                 return false;
             }
             return true;
@@ -173,8 +173,27 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
             else
             {
-                MessageBox.Show("Izaberite smestaj koji zelite da prikazete");
+                MessageBox.Show("Izaberite smeštaj koji želite da prikažete.");
             }
+        }
+
+        internal void SelectingFirstDataGrid(object sender, KeyEventArgs e)
+        {
+
+            if (e.Key == Key.Tab && Keyboard.Modifiers == ModifierKeys.None)
+            {
+                e.Handled = true;
+                WheneverWhereverOptionsView.availableDatesGrid.Focus();
+            }
+        }
+
+        internal void SelectingSecondDataGrid(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab && Keyboard.Modifiers == ModifierKeys.None)
+            {
+                e.Handled = true;
+                WheneverWhereverOptionsView.myDataGrid.Focus();
+            }            
         }
     }
 }

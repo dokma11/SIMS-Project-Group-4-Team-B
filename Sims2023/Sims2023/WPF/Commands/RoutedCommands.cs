@@ -103,6 +103,15 @@ namespace Sims2023.WPF.Commands
                 new KeyGesture(Key.H, ModifierKeys.Control)
             }
             );
+        public static readonly RoutedUICommand MoreView = new RoutedUICommand(
+            "Forum View",
+            "Forum View",
+            typeof(RoutedCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.M, ModifierKeys.Control)
+            }
+            );
         public static readonly RoutedUICommand Command1View = new RoutedUICommand(
             "Forum View",
             "Forum View",
@@ -146,6 +155,24 @@ namespace Sims2023.WPF.Commands
             new InputGestureCollection()
             {
                 new KeyGesture(Key.D, ModifierKeys.Alt)
+            }
+            );
+        public static readonly RoutedUICommand NextCommand = new RoutedUICommand(
+            "Next",
+            "Next",
+            typeof(RoutedCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.Right, ModifierKeys.None)
+            }
+            );
+        public static readonly RoutedUICommand BackCommand = new RoutedUICommand(
+            "Next",
+            "Next",
+            typeof(RoutedCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.Left, ModifierKeys.None)
             }
             );
     }

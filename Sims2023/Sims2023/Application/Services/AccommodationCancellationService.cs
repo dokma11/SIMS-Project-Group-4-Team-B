@@ -3,6 +3,7 @@ using Sims2023.Domain.Models;
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.Observer;
 using Sims2023.Repositories;
+using System;
 using System.Collections.Generic;
 
 namespace Sims2023.Application.Services
@@ -58,6 +59,11 @@ namespace Sims2023.Application.Services
         public void Update(AccommodationCancellation cancellation)
         {
             _accommodationCancellation.Update(cancellation);
+        }
+
+        public List<AccommodationCancellation> FindReservationCancellationsInDateFrame(User user, DateTime startDateSelected, DateTime endDateSelected)
+        {
+            return _accommodationCancellation.FindReservationCancellationsInDateFrame(user, startDateSelected, endDateSelected);
         }
     }
 }

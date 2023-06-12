@@ -18,7 +18,6 @@ namespace Sims2023.Domain.Models
         public string MainComment { get; set; }
         public Location Location { get; set; }
         public bool Special { get; set; }
-        public int NumberOfReports { get; set; }
         public bool Closed { get; set; }
         public int CountGuestComments { get; set; }
         public int CountOwnerComments { get; set; }
@@ -32,7 +31,7 @@ namespace Sims2023.Domain.Models
 
         public Forum() { }
 
-        public Forum(int id, User user, string theme, string mainComment, Location location, bool special, int numberOfReports, bool closed, int countGuestComments, int countOwnerComments, bool ownerOpened)
+        public Forum(int id, User user, string theme, string mainComment, Location location, bool special,  bool closed, int countGuestComments, int countOwnerComments,bool ownerOpened)
         {
             Id = id;
             User = user;
@@ -40,7 +39,6 @@ namespace Sims2023.Domain.Models
             MainComment = mainComment;
             Location = location;
             Special = special;
-            NumberOfReports = numberOfReports;
             Closed = closed;
             CountGuestComments = countGuestComments;
             CountOwnerComments = countOwnerComments;
@@ -56,7 +54,6 @@ namespace Sims2023.Domain.Models
             MainComment,
             Location.Id.ToString(),
             Special.ToString(),
-            NumberOfReports.ToString(),
             Closed.ToString(),
             CountGuestComments.ToString(),
             CountOwnerComments.ToString(),
@@ -79,11 +76,10 @@ namespace Sims2023.Domain.Models
                 Id = Convert.ToInt32(values[4])
             };
             Special=Convert.ToBoolean(values[5]);
-            NumberOfReports = Convert.ToInt32(values[6]);
-            Closed = Convert.ToBoolean(values[7]);
-            CountGuestComments= Convert.ToInt32(values[8]);
-            CountOwnerComments= Convert.ToInt32(values[9]);
-            OwnerOpened = Convert.ToBoolean(values[10]);
+            Closed = Convert.ToBoolean(values[6]);
+            CountGuestComments= Convert.ToInt32(values[7]);
+            CountOwnerComments= Convert.ToInt32(values[8]);
+            OwnerOpened = Convert.ToBoolean(values[9]);
         }
     }
 

@@ -15,8 +15,7 @@ namespace Sims2023.WPF.Views.Guest1Views
         public GuestOneReviewsView(User guest)
         {
             InitializeComponent();
-            GuestOneReviewsViewModel = new GuestOneReviewsViewModel(this, guest);
-            DataContext = GuestOneReviewsViewModel;
+            this.DataContext = new GuestOneReviewsViewModel(this, guest);
         }
 
         public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -26,7 +25,7 @@ namespace Sims2023.WPF.Views.Guest1Views
 
         public void ShowComment(object sender, ExecutedRoutedEventArgs e)
         {
-            GuestOneReviewsViewModel.ShowComment();
+            ((GuestOneReviewsViewModel)this.DataContext).ShowComment();
         }
     }
 }

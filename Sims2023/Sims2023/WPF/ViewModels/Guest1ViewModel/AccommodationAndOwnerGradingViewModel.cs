@@ -5,6 +5,7 @@ using Sims2023.WPF.Views.Guest1Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,8 +17,26 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
     /// <summary>
     /// Interaction logic for AccommodationAndOwnerGradingView.xaml
     /// </summary>
-    public partial class AccommodationAndOwnerGradingViewModel
+    public partial class AccommodationAndOwnerGradingViewModel : INotifyPropertyChanged
     {
+        private string _keyPointTextBoxText;
+        public string KeyPointTextBoxText
+        {
+            get { return _keyPointTextBoxText; }
+            set
+            {
+                if (_keyPointTextBoxText != value)
+                {
+                    _keyPointTextBoxText = value;
+                    OnPropertyChanged(nameof(KeyPointTextBoxText));
+                }
+            }
+        }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         private AccommodationAndOwnerGradingView _accommodationAndOwnerGradingView;
 
         private List<string> _addedPictures = new List<string>();
@@ -59,7 +78,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 _accommodationGradeService.Create(accommodationGrade);
                 UpdateAccommodationReservation(SelectedAccommodationReservation);
                 UpdateAccommodationImages(SelectedAccommodationReservation, _addedPictures);
-                MessageBox.Show("Uspesno ste ocenili ovaj smestaj.");
+                MessageBox.Show("Uspešno ste ocenili ovaj smeštaj.");
             }
 
         }
@@ -91,7 +110,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             accommodationGrade.Comfort = (int)_accommodationAndOwnerGradingView.comfortIntegerUpDown.Value;
             accommodationGrade.Location = (int)_accommodationAndOwnerGradingView.locationIntegerUpDown.Value;
             accommodationGrade.Comment = _accommodationAndOwnerGradingView.textBox.Text;
-            accommodationGrade.CurrentAccommodationState = "Korisnik nije uneo podatke o trenutnom stanju smestaja";
+            accommodationGrade.CurrentAccommodationState = "Korisnik nije uneo podatke o trenutnom stanju smeštaja";
             accommodationGrade.RenovationUrgency = "Korisnik nije uneo podatke o hitnosti renoviranja";
             accommodationGrade.ReservationStartDate = selectedAccommodationReservation.StartDate;
             return accommodationGrade;
@@ -160,7 +179,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                     return bitmapImage;
                 }
             }
-            MessageBox.Show("nije pronadena slika");
+            MessageBox.Show("Nije pronađena slika. Došlo je do greške!");
             return null;
         }
 

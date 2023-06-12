@@ -2,6 +2,7 @@
 using Sims2023.Domain.Models;
 using Sims2023.WPF.ViewModels.OwnerViewModel;
 using Sims2023.WPF.Views.Guest1Views;
+using Sims2023.WPF.Views.Guest1Views.Guest1Wizard;
 using Sims2023.WPF.Views.OwnerViews;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,19 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             _accommodationReservationService = new AccommodationReservationService();
             _userService= new UserService();
             AccommodationReservationReschedulings = new ObservableCollection<AccommodationReservationRescheduling>(_accommodationReservationReschedulingService.GetAllReservationReschedulings());
+            CheckIfFirstLogIn();
+        }
+
+        private void CheckIfFirstLogIn()
+        {
+            if(User.FirstLogIn)
+            {
+                //User.FirstLogIn = false;
+                //_userService.Update(User);
+                _userService.AppHasBeenStarted();
+                var Wizard = new WizardMainView();
+                Wizard.ShowDialog();
+            }
         }
 
         public void Window_Loaded(object sender, RoutedEventArgs e)

@@ -15,7 +15,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
     public class MakeNewForumViewModel
     {
-        public event Action GoBackRequested;
         public Location Location;
         private ObservableCollection<Forum> FilteredForums;
         private ForumService _forumService;
@@ -49,7 +48,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             String comment = MakeNewForumView.CommentBox.Text;
             if(theme==null || comment == null)
             {
-                MessageBox.Show("Oba polja je potrebno popuniti da bi se forum aktivirao");
+                MessageBox.Show("Sva polja je potrebno popuniti kako biste aktivirali forum");
                 return;
             }
             Forum newForum = new();
@@ -59,12 +58,11 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             newForum.Closed = false;
             newForum.Theme=theme;
             newForum.MainComment = comment;
-            newForum.NumberOfReports= 0;
             newForum.CountGuestComments= 0;
             newForum.CountOwnerComments= 0;
             newForum.OwnerOpened = false;
             _forumService.Create(newForum);
-            MessageBox.Show("Uspesno ste otvorili forum: " + newForum.Theme);
+            MessageBox.Show("Uspešno ste otvorili forum: " + newForum.Theme);
             GoBack();
     }
     }

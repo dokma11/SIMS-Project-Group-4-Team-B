@@ -38,6 +38,6 @@
                 <DataGridTextColumn Header="Datum kraja" Binding="{Binding EndDate, StringFormat={}{0:d}}" Width="190"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="cancellation" TabIndex="16" Content="Otkaži" Margin="375,0,375,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2" FontSize="20" Command="cmd:RoutedCommands.Command1View"/>
+        <Button x:Name="cancellation" TabIndex="16" Content="Otkaži" Margin="425,0,425,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2" FontSize="20" Command="cmd:RoutedCommands.Command1View"/>
     </Grid>
 </Page>

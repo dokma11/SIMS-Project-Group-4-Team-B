@@ -37,21 +37,21 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             AccommodationReservationReschedulingView.myDataGrid.ItemsSource = FilteredData;
         }
 
-        public void report_Click(object sender, RoutedEventArgs e)
+        public void Report_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Ova funkcionalnost jos uvek nije implementirana.");
         }
 
-        public void comment_Click(object sender, RoutedEventArgs e)
+        public void Comment_Click(object sender, RoutedEventArgs e)
         {
             SelectedAccommodationReservationRescheduling = (AccommodationReservationRescheduling)AccommodationReservationReschedulingView.myDataGrid.SelectedItem;
 
             if (SelectedAccommodationReservationRescheduling == null)
             {
-                MessageBox.Show("Molimo Vas selektujte zahtev.");
+                MessageBox.Show("Molimo Vas selektujte zahtev za koji želite da prikažete komentar.");
                 return;
             }
-            MessageBox.Show($"Komentar Vlasnika smestaja:\n\n{SelectedAccommodationReservationRescheduling.Comment}");
+            MessageBox.Show($"Komentar Vlasnika smeštaja:\n\n{SelectedAccommodationReservationRescheduling.Comment}");
             return;
         }
 

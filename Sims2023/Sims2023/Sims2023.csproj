@@ -35,6 +35,11 @@
     <None Remove="Images\Guest2Images\Nis1.jpg" />
     <None Remove="Images\Guest2Images\Nis2.png" />
     <None Remove="Images\Guest2Images\Nis3.jpg" />
+    <None Remove="Resources\GuestOneResources\Wizard\0.png" />
+    <None Remove="Resources\GuestOneResources\Wizard\1.png" />
+    <None Remove="Resources\GuestOneResources\Wizard\2.png" />
+    <None Remove="Resources\GuestOneResources\Wizard\3.png" />
+    <None Remove="Resources\GuestOneResources\Wizard\4.png" />
     <None Remove="Resources\GuestTwoResources\backgroundtexture.jpg" />
     <None Remove="Resources\GuestTwoResources\blackbackgroundtexture.jpg" />
     <None Remove="Resources\GuestTwoResources\HorizontBW-01.png" />
@@ -66,9 +71,7 @@
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
-    <PackageReference Include="itext7" Version="8.0.0" />
-    <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.0" />
-    <PackageReference Include="itext7.bouncy-castle-fips-adapter" Version="8.0.0" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="PdfSharp" Version="1.50.5147" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
@@ -168,6 +171,11 @@
     <Content Include="Images\Guest2Images\Nis3.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\GuestOneResources\Wizard\0.png" />
+    <Resource Include="Resources\GuestOneResources\Wizard\1.png" />
+    <Resource Include="Resources\GuestOneResources\Wizard\2.png" />
+    <Resource Include="Resources\GuestOneResources\Wizard\3.png" />
+    <Resource Include="Resources\GuestOneResources\Wizard\4.png" />
     <Resource Include="Resources\GuestTwoResources\backgroundtexture.jpg" />
     <Resource Include="Resources\GuestTwoResources\blackbackgroundtexture.jpg" />
     <Resource Include="Resources\GuestTwoResources\HorizontBW-01.png" />
@@ -235,10 +243,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <Folder Include="Resources\GuestOneResources\Report\" />
   </ItemGroup>
 
 </Project>

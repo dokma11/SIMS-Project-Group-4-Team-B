@@ -43,10 +43,10 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
             if (SelectedGuestGrade == null)
             {
-                MessageBox.Show("Molimo Vas selektujte ocenu");
+                MessageBox.Show("Molimo Vas selektujte ocenu.");
                 return false;
             }
-            MessageBox.Show($"Komentar Vlasnika smestaja:\n\n{SelectedGuestGrade.Comment}");
+            MessageBox.Show($"Komentar Vlasnika smeštaja:\n\n{SelectedGuestGrade.Comment}");
             return true;
         }
     }

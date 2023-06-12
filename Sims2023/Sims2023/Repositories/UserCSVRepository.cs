@@ -151,5 +151,15 @@ namespace Sims2023.Repositories
             _fileHandler.Save(_users);
             NotifyObservers();
         }
+        public void AppHasBeenStarted()
+        {
+            List <User> usersCopy = new List<User>(_users);
+            foreach(User user in usersCopy)
+            {
+                user.FirstLogIn = false;
+                Update(user);
+            }
+        }
+
     }
 }

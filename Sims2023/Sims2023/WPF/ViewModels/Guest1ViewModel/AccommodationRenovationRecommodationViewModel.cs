@@ -43,7 +43,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 MakeRenovationRecommodation();
                 _accommodationGradeService.Update(Grade);
                 _accommodationReservationService.Update(SelectedAccommodationReservation);
-                MessageBox.Show("Uspesno ste ocenili ovaj smestaj.");
+                MessageBox.Show("Uspesno ste ocenili ovaj smeštaj.");
             }
         }
 
@@ -59,6 +59,20 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             if (string.IsNullOrEmpty(_accommodationRenovationRecommodationView.textBox.Text)) return false;
             else if (string.IsNullOrEmpty(_accommodationRenovationRecommodationView.typeComboBox.Text)) return false;
             else return true;
+        }
+
+        internal void NotAllFieldsAreFiled()
+        {
+            if (string.IsNullOrEmpty(_accommodationRenovationRecommodationView.textBox.Text))
+            {
+                MessageBox.Show("Unesite opis trenutnog stanja smestaja.");
+                return;
+            }
+            else if (string.IsNullOrEmpty(_accommodationRenovationRecommodationView.typeComboBox.Text))
+            {
+                MessageBox.Show("Unesite ocenu hitnosti renoviranja.");
+                return;
+            }
         }
     }
 }

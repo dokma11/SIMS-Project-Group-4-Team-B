@@ -42,5 +42,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void DeleteAccommodationReservation(AccommodationReservation selectedAccommodationReservation);
         public List<GuestGrade> FindSuitableGrades(User user, List<GuestGrade> guestGrades);
         public List<AccommodationReservation> FindAllGuestsReservations(User user);
+        public List<AccommodationReservation> FindReservationsInDateFrame(User user, DateTime startDateSelected, DateTime endDateSelected);
     }
 }

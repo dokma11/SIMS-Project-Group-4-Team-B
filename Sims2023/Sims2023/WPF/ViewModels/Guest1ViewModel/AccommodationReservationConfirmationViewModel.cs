@@ -1,8 +1,6 @@
 ﻿using Sims2023.Application.Services;
 using Sims2023.Domain.Models;
 using Sims2023.WPF.Views.Guest1Views;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -79,11 +77,11 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         public void MakeNewAccommodationReservation()
         {
             RegulateUserStatus();
-            
+
             AccommodationReservation accommodationReservation = new AccommodationReservation(-1, User, SelectedAccommodation, SelectedAccommodationStay.StartDate, SelectedAccommodationStay.EndDate, days, guests, false, false);
             _accommodationReservationService.Create(accommodationReservation);
 
-            MessageBox.Show("Uspesno ste rezervisali objekat!");
+            MessageBox.Show("Uspešno ste rezervisali objekat!");
         }
 
         private void RegulateUserStatus()
@@ -105,7 +103,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             accommodationReservationRescheduling.Comment = "Trenutno nema komentara";
             _accommodationReservationReschedulingService.Create(accommodationReservationRescheduling);
             AccommodationReservationReschedulings.Add(accommodationReservationRescheduling);
-            MessageBox.Show("Uspesno ste podneli zahtev za pomeranje rezervacije!");
+            MessageBox.Show("Uspešno ste podneli zahtev za pomeranje rezervacije!");
         }
     }
 }

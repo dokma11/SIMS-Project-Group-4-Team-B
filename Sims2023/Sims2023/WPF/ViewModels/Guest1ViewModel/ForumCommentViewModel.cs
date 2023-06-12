@@ -4,11 +4,7 @@ using Sims2023.WPF.Views.Guest1Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using ToastNotifications.Lifetime;
 
 namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
@@ -22,10 +18,10 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         List<TourReservation> tourReservations = new();
         List<AccommodationReservation> accommodationReservations = new();
 
-        public ForumCommentViewModel(User user, ForumCommentView forumCommentView, ForumCommentService commentService,Forum selectedForum,ForumService forumService)
+        public ForumCommentViewModel(User user, ForumCommentView forumCommentView, ForumCommentService commentService, Forum selectedForum, ForumService forumService)
         {
             User = user;
-            SelectedForum=selectedForum;
+            SelectedForum = selectedForum;
             ForumCommentView = forumCommentView;
             tourReservations = new();
             accommodationReservations = new();
@@ -35,13 +31,13 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         internal void AddComment()
         {
-            String comment=ForumCommentView.CommentBox.Text;
+            String comment = ForumCommentView.CommentBox.Text;
             if (string.IsNullOrEmpty(comment))
             {
                 MessageBox.Show("Molimo Vas unesite komentar prvo.");
                 return;
             }
-            ForumComment newComment=new ForumComment();
+            ForumComment newComment = new ForumComment();
             newComment.Forum = SelectedForum;
             newComment.User = User;
             newComment.Comment = comment;
@@ -67,8 +63,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             TourReservationService _tourReservationService = new TourReservationService();
             tourReservations = FindTourReservationsOnThisLocation(_tourReservationService.GetUsersTours(User));
             _tourReservationService.GetUsersTours(User);
-
-            MessageBox.Show($"smestaja: {accommodationReservations.Count} ,  tura: {tourReservations.Count()}");
             if (accommodationReservations.Count > 0 || tourReservations.Count() > 0)
             {
                 return true;
@@ -79,9 +73,9 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         private List<AccommodationReservation> FindAccommodationReservationsOnThisLocation(List<AccommodationReservation> accommodationReservations)
         {
             List<AccommodationReservation> reservations = new();
-            foreach(AccommodationReservation reservation in accommodationReservations)
+            foreach (AccommodationReservation reservation in accommodationReservations)
             {
-                if(reservation.Accommodation.Location.Country==SelectedForum.Location.Country && reservation.Accommodation.Location.City==SelectedForum.Location.City)
+                if (reservation.Accommodation.Location.Country == SelectedForum.Location.Country && reservation.Accommodation.Location.City == SelectedForum.Location.City)
                 {
                     reservations.Add(reservation);
                 }

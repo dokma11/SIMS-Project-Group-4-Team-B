@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views"
         xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Title="AccommodationRenovationRecommodationView" Height="400" Width="700" WindowStartupLocation="CenterScreen"  DataContext="{Binding AccommodationRenovationRecommodationViewModel}">
     <Window.CommandBindings>
         <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="CreateRecommodation"></CommandBinding>
@@ -21,10 +22,10 @@
             <RowDefinition Height="60"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
-        <Label x:Name="label" Content="Ocenjivanje smestaja i vlasnika" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="0" Margin="0,0,0,0"/>
-        <Label x:Name="currentStateLabel" Content="Trenutno stanje:" FontSize="15" Grid.Row="1" Margin="20,0,20,0"/>
+        <Label x:Name="label" Content="Preporuka za renoviranje" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="0" Margin="0,0,0,0"/>
+        <Label x:Name="currentStateLabel" Content="Opis trenutnog stanja smeštaja:" FontSize="15" Grid.Row="1" Margin="20,0,20,0"/>
         <TextBox x:Name="textBox" TextWrapping="Wrap" Grid.Row="2" Margin="30,0,30,20" TabIndex="1"/>
-        <Label x:Name="renovationUrgencyLabel" Content="Trenutno stanje:" FontSize="15" Grid.Row="3" Margin="20,0,20,0"/>
+        <Label x:Name="renovationUrgencyLabel" Content="Ocena hitnosti renoviranja:" FontSize="15" Grid.Row="3" Margin="20,0,20,0"/>
         <ComboBox x:Name="typeComboBox" Grid.Row="4" Grid.Column="0" Margin="30,0,30,30" TabIndex="2">
             <ComboBoxItem Content="Nivo 1 - bilo bi lepo renovirati neke sitnice, ali sve funkcioniše kako treba i bez toga"/>
             <ComboBoxItem Content="Nivo 2 - male zamerke na smeštaj koje kada bi se uklonile bi ga učinile savršenim"/>
@@ -41,8 +42,8 @@ renovira"/>
                 <ColumnDefinition  />
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="accept" Content="Potvrdi" Grid.Column="0" TabIndex="3"  Margin="288,20,88,25" FontSize="20" Command="cmd:RoutedCommands.Command1View"/>
-            <Button x:Name="giveUp" Content="Odustani" Grid.Column="1" TabIndex="4" Margin="70,10,30,0" FontSize="18" VerticalAlignment="Top" Command="cmd:RoutedCommands.Command2View" Height="30"/>
+            <Button x:Name="accept" Content="Potvrdi" Grid.Column="0" TabIndex="3"  Margin="275,10,75,20" FontSize="20" Command="cmd:RoutedCommands.Command1View"/>
+            <Button x:Name="giveUp" Content="Odustani" Grid.Column="1" TabIndex="4" Margin="70,30,30,0" FontSize="18" VerticalAlignment="Top" Command="cmd:RoutedCommands.Command2View" Height="30"/>
         </Grid>    
     </Grid>
 </Window>

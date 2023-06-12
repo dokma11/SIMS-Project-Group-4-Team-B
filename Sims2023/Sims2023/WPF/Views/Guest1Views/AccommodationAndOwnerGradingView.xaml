@@ -8,6 +8,7 @@
         xmlns:vm1="clr-namespace:Sims2023.WPF.ViewModels.Guest1ViewModel"
         xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Title="AccommodationAndOwnerGradingView" Height="400" Width="700" WindowStartupLocation="CenterScreen"  DataContext="{Binding AccommodationAndOwnerGradingViewModel}">
     <Window.CommandBindings>
         <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="CreateRecension"></CommandBinding>
@@ -30,8 +31,8 @@
                 <ColumnDefinition  />
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="accept" Content="Potvrdi" Grid.Column="0" Margin="288,20,88,25" FontSize="20" Command="cmd:RoutedCommands.Command1View"/>
-            <Button x:Name="giveUp" Content="Odustani" Grid.Column="1" Margin="70,10,30,0" FontSize="18" VerticalAlignment="Top" Command="cmd:RoutedCommands.Command3View" Height="30"/>
+            <Button x:Name="accept" Content="Potvrdi" Grid.Column="0" Margin="275,10,75,20" FontSize="20" Command="cmd:RoutedCommands.Command1View"/>
+            <Button x:Name="giveUp" Content="Odustani" Grid.Column="1" Margin="70,40,30,0" FontSize="18" VerticalAlignment="Top" Command="cmd:RoutedCommands.Command3View" Height="30"/>
         </Grid>
         <Grid Grid.Row="1" Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
@@ -97,7 +98,7 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <TextBox x:Name="textBox" Text="Unesite komentar!" TextWrapping="Wrap" Grid.Row="3" Margin="20,0,30,0"/>
+                <TextBox x:Name="textBox" TextWrapping="Wrap" Grid.Row="3" Margin="20,0,30,0"/>
                 <Image x:Name="image" HorizontalAlignment="Left" Margin="275,0,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="100" Height="97"/>
                 <ListView x:Name="PicturesListView"  HorizontalAlignment="Left" Margin="275,0,0,0" Grid.RowSpan="2" VerticalAlignment="Center" Width="100" Height="94" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListView.ItemsPanel>

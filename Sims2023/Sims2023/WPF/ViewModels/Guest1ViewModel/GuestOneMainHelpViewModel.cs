@@ -1,4 +1,7 @@
-﻿using Sims2023.WPF.Views.Guest1Views.Guest1HelpViews;
+﻿using Sims2023.WPF.Views;
+using Sims2023.WPF.Views.Guest1Views;
+using Sims2023.WPF.Views.Guest1Views.Guest1HelpViews;
+using Sims2023.WPF.Views.Guest2Views;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,31 +12,68 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
     {
         GuestOneMainHelpView GuestOneMainHelpView;
 
-        Frame HelpFrame;
+        Frame HelpFrame = new();
 
         String CurrentPage;
 
-        public GuestOneMainHelpViewModel(GuestOneMainHelpView guestOneMainHelpView, String currentPage, Frame helpFrame)
+        public GuestOneMainHelpViewModel(GuestOneMainHelpView guestOneMainHelpView, String currentPage)
         {
             GuestOneMainHelpView = guestOneMainHelpView;
-            HelpFrame = helpFrame;
+            HelpFrame = GuestOneMainHelpView.HelpFrame;
             CurrentPage = currentPage;
             SetCurrentPageCommands();
             SetHelpForThisFrame();
         }
 
+        internal void ShowMore()
+        {
+            if (RightPage())
+            {
+                Page currentPage = new();
+                currentPage = HelpFrame.Content as Page;
+                if (currentPage.Title != "DateTimeHelpView")
+                {
+                    GuestOneMainHelpView.AddedCommandsGrid.Visibility = Visibility.Visible;
+                    HelpFrame.Navigate(new DateTimeHelpView());
+                }
+                else
+                {
+                    SetCurrentPageCommands();
+                    SetHelpForThisFrame();
+                }
+            }
+        }
+
+        private bool RightPage()
+        {
+            switch (CurrentPage)
+            {
+                case "AccommodationListView":
+                case "AccommodationReservationDateView":
+                case "AccommodationRenovationRecommodationView":
+                case "WheneverWhereverMainView":
+                case "SearchForumView":
+                case "ReportView":
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         private void SetCurrentPageCommands()
         {
-            if (CurrentPage != "GuestOneStartView")
-            {
-                GuestOneMainHelpView.AddedCommandsGrid.Visibility = Visibility.Visible;
-                GuestOneMainHelpView.SpaceFillerGrid.Visibility = Visibility.Collapsed;
+            GuestOneMainHelpView.AddedCommandsGrid.Visibility = Visibility.Visible;
+            GuestOneMainHelpView.SpaceFillerGrid.Visibility = Visibility.Collapsed;
 
+            if (RightPage())
+            {
+                GuestOneMainHelpView.MoreButton.Visibility = Visibility.Visible;
+                GuestOneMainHelpView.MoreLabel.Visibility = Visibility.Visible;
             }
             else
             {
-                GuestOneMainHelpView.AddedCommandsGrid.Visibility = Visibility.Collapsed;
-                GuestOneMainHelpView.SpaceFillerGrid.Visibility = Visibility.Visible;
+                GuestOneMainHelpView.MoreButton.Visibility = Visibility.Collapsed;
+                GuestOneMainHelpView.MoreLabel.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -79,6 +119,47 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             {
                 HelpFrame.Navigate(new AccommodationRenovationRecommodationHelpView());
             }
+            if (CurrentPage == "WheneverWhereverMainView")
+            {
+                HelpFrame.Navigate(new WheneverWhereverMainHelpView());
+            }
+            if (CurrentPage == "GuestOneReviewsView")
+            {
+                HelpFrame.Navigate(new GuestOneReviewsHelpView());
+            }            
+            if (CurrentPage == "WheneverWhereverOptionsView")
+            {
+                HelpFrame.Navigate(new WheneverWhereverOptionsHelpView());
+            }
+            if (CurrentPage == "WhereverWheneverDetailedView")
+            {
+                HelpFrame.Navigate(new WheneverWhereverDetailedHelpView());
+            }
+            if (CurrentPage == "SearchForumView")
+            {
+                HelpFrame.Navigate(new SearchForumHelpView());
+            }
+            if (CurrentPage == "OpenedForumView")
+            {
+                HelpFrame.Navigate(new OpenedForumHelpView());
+            }
+            if (CurrentPage == "MakeNewForumView")
+            {
+                HelpFrame.Navigate(new MakeNewForumHelpView());
+            }
+            if (CurrentPage == "ForumCommentView")
+            {
+                HelpFrame.Navigate(new ForumCommentHelpView());
+            }
+            if (CurrentPage == "ReportView")
+            {
+                HelpFrame.Navigate(new ReportHelpView());
+            }
+            if (CurrentPage == "GuestOneStartView")
+            {
+                HelpFrame.Navigate(new GuestOneStartHelpView());
+            }
+            return;
         }
     }
 }

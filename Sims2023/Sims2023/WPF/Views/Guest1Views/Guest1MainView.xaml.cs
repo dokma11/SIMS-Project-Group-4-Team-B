@@ -13,16 +13,15 @@ namespace Sims2023.WPF.Views.Guest1Views
     public partial class Guest1MainView : Window
     {
         Guest1MainViewModel Guest1MainViewModel;
-        public User User { get; set; }
+        User User;
 
         public Guest1MainView(User guest1)
         {
             InitializeComponent();
-            MainFrame.Navigate(new GuestOneStartView());
+            User = guest1;
+            MainFrame.Navigate(new GuestOneStartView(User));
             Guest1MainViewModel = new Guest1MainViewModel(this, guest1);
             DataContext = Guest1MainViewModel;
-
-            User = guest1;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -61,7 +60,7 @@ namespace Sims2023.WPF.Views.Guest1Views
         public void GuestOneMainView_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Guest1MainViewModel.HideMainMenu();
-            MainFrame.Navigate(new GuestOneStartView());
+            MainFrame.Navigate(new GuestOneStartView(User));
         }
 
         public void AccommodationListView_Executed(object sender, ExecutedRoutedEventArgs e)

@@ -21,5 +21,6 @@ namespace Sims2023.Domain.RepositoryInterfaces
         public void Subscribe(IObserver observer);
         public void Unsubscribe(IObserver observer);
         public void NotifyObservers();
+        public List<AccommodationCancellation> FindReservationCancellationsInDateFrame(User user, DateTime startDateSelected, DateTime endDateSelected);
     }
 }

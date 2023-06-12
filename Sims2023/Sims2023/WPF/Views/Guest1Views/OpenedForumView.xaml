@@ -21,7 +21,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Label x:Name="label" Content="Tema:" Margin="50,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="21" Grid.Row="0"/>
@@ -41,12 +41,18 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Width="850">
-                        <TextBlock x:Name="UsernameText" Text="{Binding User.Username}" FontWeight="Bold">
+                        <TextBlock FontWeight="Bold">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="User.Name"/>
+                                    <Binding Path="User.Surname"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Special}" Value="True">
-                                            <Setter Property="Foreground" Value="#E0942C" />
+                                            <Setter Property="Foreground" Value="#E0942C"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -77,12 +83,13 @@
                                 </TextBlock.Style>
                             </TextBlock>
                         </StackPanel>
+
                         <TextBlock x:Name="TextText" Text="{Binding Comment}" TextWrapping="Wrap" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}" >
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Special}" Value="True">
-                                            <Setter Property="Background" Value="#DDF2FF" />
+                                            <Setter Property="Background" Value="#4CE0942C" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -93,8 +100,8 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Button x:Name="postForum"  Content="  Ostavi komentar  " TabIndex="19" FontSize="20" Margin="390,0,390,0" Grid.Row="5" Command="cmd:RoutedCommands.Command1View"/>
-        <Button x:Name="goBack"  Content="  Nazad  " TabIndex="19" FontSize="20" Margin="750,0,50,0" Grid.Row="6" Command="cmd:RoutedCommands.Command2View"/>
-        <Button x:Name="CloseTheForum" Visibility="Collapsed" Content="  Zatvori forum  " TabIndex="19" FontSize="20" Margin="50,0,750,0" Grid.Row="6" Command="cmd:RoutedCommands.Command3View"/>
+        <Button x:Name="goBack"  Content="  Nazad  " TabIndex="19" FontSize="20" Margin="800,0,50,0" Grid.Row="6" Command="cmd:RoutedCommands.Command2View"/>
+        <Button x:Name="CloseTheForum" Visibility="Collapsed" Content="Zatvori forum" TabIndex="19" FontSize="18" Margin="50,0,800,0" Grid.Row="6" Command="cmd:RoutedCommands.Command3View"/>
         <Label x:Name="Label1"  Visibility="Collapsed" Content="  Forum je zatvoren, ostavljanje komentara je onemoguceno.  " VerticalContentAlignment="Bottom" TabIndex="19" FontSize="15" Margin="30,10,500,40" Grid.Row="6" Foreground="#E0942C" FontWeight="Bold" FontStyle="Italic" Grid.RowSpan="2" />
     </Grid>
 </Page>

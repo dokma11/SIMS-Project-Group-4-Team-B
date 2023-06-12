@@ -2,8 +2,10 @@
 using Sims2023.Domain.RepositoryInterfaces;
 using Sims2023.FileHandler;
 using Sims2023.Observer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace Sims2023.Repositories
 {
@@ -80,6 +82,20 @@ namespace Sims2023.Repositories
             {
                 observer.Update();
             }
+        }
+        public List<AccommodationCancellation> FindReservationCancellationsInDateFrame(User user, DateTime startDateSelected, DateTime endDateSelected)
+        {
+            List<AccommodationCancellation> AllGuestsReservations = new();
+            int i = 0;
+            foreach (AccommodationCancellation accommodationCancellation in _accommodationCancellations)
+            {
+                if (accommodationCancellation.Guest.Id == user.Id && accommodationCancellation.StartDate > startDateSelected && accommodationCancellation.EndDate < endDateSelected)
+                {
+                    i++;
+                    AllGuestsReservations.Add(accommodationCancellation);
+                }
+            }
+            return AllGuestsReservations;
         }
     }
 }

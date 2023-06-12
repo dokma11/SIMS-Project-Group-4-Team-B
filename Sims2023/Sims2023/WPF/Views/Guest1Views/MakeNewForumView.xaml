@@ -9,7 +9,7 @@
       d:DesignHeight="550" d:DesignWidth="1000"
       Title="MakeNewForumView">
     <Page.CommandBindings>
-        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="NewForum"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="NewForum"></CommandBinding> 
         <CommandBinding Command="cmd:RoutedCommands.Command2View" CanExecute="CanExecute" Executed="GoBack"></CommandBinding>
     </Page.CommandBindings>
     <Grid>
@@ -20,7 +20,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Label x:Name="label" Content="Napravi novi forum"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="0"/>

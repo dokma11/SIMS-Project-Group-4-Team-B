@@ -4,9 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views"
+      xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
       mc:Ignorable="d" 
       d:DesignHeight="515" d:DesignWidth="1000"
       Title="GuestOneStartView">
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommands.Command1View" CanExecute="CanExecute" Executed="GenerateReport"></CommandBinding>
+    </Page.CommandBindings>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -16,8 +20,9 @@
         <Grid  Grid.Row="0" Margin="100,50,100,10">
             <Image  Source="pack://application:,,,/Sims2023;component/Resources/GuestOneResources/Horizont_SRB.png"/>
         </Grid>
-        <Grid  Grid.Row="1" Margin="200,0,200,50">
+        <Grid  Grid.Row="1" Margin="300,0,300,50">
             <Label  Content="dobrodošli!" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="28" Foreground="#E0942C" FontFamily="Copperplate Gothic Light" />
         </Grid>
+        <Button x:Name="button1" Content="Generisanje izveštaja" Margin="700,0,50,40" Grid.Row="1" FontSize="20" Command="cmd:RoutedCommands.Command1View" Background="{x:Null}" Foreground="#E0942C" BorderThickness="0,1,0,1" BorderBrush="#E0942C"/>
     </Grid>
 </Page>

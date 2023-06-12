@@ -1,0 +1,25 @@
+﻿<Page x:Class="Sims2023.WPF.Views.Guest1Views.Guest1Wizard.GuestOneMainWizardView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest1Views.Guest1Wizard"
+      xmlns:cmd="clr-namespace:Sims2023.WPF.Commands"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="900" 
+      Title="GuestOneMainWizardView">
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommands.NextCommand" CanExecute="CanExecute" Executed="Next"></CommandBinding>
+    </Page.CommandBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid  Grid.Row="0" Margin="0,0,0,0">
+            <Image  Source="pack://application:,,,/Sims2023;component/Resources/GuestOneResources/Wizard/0.png"/>
+        </Grid>
+        <Button x:Name="next" TabIndex="16"  Content="Dalje" Margin="600,0,150,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2" FontSize="20" Command="cmd:RoutedCommands.NextCommand" BorderThickness="1,1,1,1" Foreground="#E0942C"/>
+    </Grid>
+</Page>
