@@ -43,4 +43,5 @@
 43|73|4|MatchedTourRequestsLocation|False
 44|73|4|MatchedTourRequestsLocation|False
 45|73|2|MatchedTourRequestsLocation|True
-46|77|2|AcceptedTourRequest|False
+46|77|2|AcceptedTourRequest|True
+47|78|2|AcceptedTourRequest|False
