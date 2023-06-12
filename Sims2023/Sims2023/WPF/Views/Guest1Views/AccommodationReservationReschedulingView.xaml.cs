@@ -47,12 +47,12 @@ namespace Sims2023.WPF.Views.Guest1Views
 
         public void GetReport(object sender, ExecutedRoutedEventArgs e)
         {
-            AccommodationReservationReschedulingViewModel.report_Click(sender, e);
+            AccommodationReservationReschedulingViewModel.Report_Click(sender, e);
         }
 
         public void ShowComment(object sender, ExecutedRoutedEventArgs e)
         {
-            AccommodationReservationReschedulingViewModel.comment_Click(sender, e);
+            AccommodationReservationReschedulingViewModel.Comment_Click(sender, e);
         }
     }
 }

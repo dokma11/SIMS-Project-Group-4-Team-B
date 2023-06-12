@@ -11,12 +11,10 @@ namespace Sims2023.WPF.Views.Guest1Views
     /// </summary>
     public partial class GuestOneStartView : Page
     {
-        User User { get; set; }
         public GuestOneStartView(User user)
         {
             InitializeComponent();
             this.DataContext = new Guest1StartViewModel(user,this);
-            User = user;
         }
         public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {

@@ -133,9 +133,14 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 MessageBox.Show("Molimo Vas da izaberete tip izveštaja.");
                 return false;
             }
-            if (ReportView.startDatePicker.SelectedDate == null || ReportView.endDatePicker.SelectedDate == null)
+            if (ReportView.startDatePicker.SelectedDate == null)
             {
-                MessageBox.Show("Molimo Vas da selektujete oba datuma.");
+                MessageBox.Show("Molimo Vas da selektujete početni datum.");
+                return false;
+            }
+            if(ReportView.endDatePicker.SelectedDate == null)
+            {
+                MessageBox.Show("Molimo Vas da selektujete krajnji datum.");
                 return false;
             }
             startDateSelected = ReportView.startDatePicker.SelectedDate.Value;

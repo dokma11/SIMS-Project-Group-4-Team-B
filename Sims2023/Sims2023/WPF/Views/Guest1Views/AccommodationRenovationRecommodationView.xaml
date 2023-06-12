@@ -23,9 +23,9 @@
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
         <Label x:Name="label" Content="Preporuka za renoviranje" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" Grid.Row="0" Margin="0,0,0,0"/>
-        <Label x:Name="currentStateLabel" Content="Trenutno stanje:" FontSize="15" Grid.Row="1" Margin="20,0,20,0"/>
+        <Label x:Name="currentStateLabel" Content="Opis trenutnog stanja smeštaja:" FontSize="15" Grid.Row="1" Margin="20,0,20,0"/>
         <TextBox x:Name="textBox" TextWrapping="Wrap" Grid.Row="2" Margin="30,0,30,20" TabIndex="1"/>
-        <Label x:Name="renovationUrgencyLabel" Content="Trenutno stanje:" FontSize="15" Grid.Row="3" Margin="20,0,20,0"/>
+        <Label x:Name="renovationUrgencyLabel" Content="Ocena hitnosti renoviranja:" FontSize="15" Grid.Row="3" Margin="20,0,20,0"/>
         <ComboBox x:Name="typeComboBox" Grid.Row="4" Grid.Column="0" Margin="30,0,30,30" TabIndex="2">
             <ComboBoxItem Content="Nivo 1 - bilo bi lepo renovirati neke sitnice, ali sve funkcioniše kako treba i bez toga"/>
             <ComboBoxItem Content="Nivo 2 - male zamerke na smeštaj koje kada bi se uklonile bi ga učinile savršenim"/>

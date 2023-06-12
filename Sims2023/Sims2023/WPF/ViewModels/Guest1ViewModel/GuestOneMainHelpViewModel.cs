@@ -159,10 +159,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             {
                 HelpFrame.Navigate(new GuestOneStartHelpView());
             }
-            else
-            {
-                //HelpFrame.Navigate(new MainHelpPageView());
-            }
             return;
         }
     }

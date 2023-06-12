@@ -48,7 +48,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 
         }
 
-        public bool cancellation_Click()
+        public bool Cancellation_Click()
         {
             SelectedAccommodationReservation = (AccommodationReservation)AccommodationReservationCancellationView.myDataGrid.SelectedItem;
             if (CheckSelectedAccommodationReservation(SelectedAccommodationReservation))

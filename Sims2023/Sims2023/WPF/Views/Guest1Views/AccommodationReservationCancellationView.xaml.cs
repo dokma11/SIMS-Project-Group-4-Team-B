@@ -26,7 +26,7 @@ namespace Sims2023.WPF.Views.Guest1Views
 
         public void CancelReservation(object sender, ExecutedRoutedEventArgs e)
         {
-            if (AccommodationReservationCancellationViewModel.cancellation_Click())
+            if (AccommodationReservationCancellationViewModel.Cancellation_Click())
             {
                 NavigationService navigationService = NavigationService.GetNavigationService(this);
 

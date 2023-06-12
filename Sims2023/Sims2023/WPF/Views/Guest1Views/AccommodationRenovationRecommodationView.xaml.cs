@@ -44,7 +44,7 @@ namespace Sims2023.WPF.Views.Guest1Views
             }
             else
             {
-                MessageBox.Show("Molimo Vas popunite sva polja.");
+                AccommodationRenovationRecommodationViewModel.NotAllFieldsAreFiled();
             }
             
         }

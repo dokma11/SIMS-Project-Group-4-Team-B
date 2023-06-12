@@ -53,12 +53,12 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
         {
             if (selectedAccommodationReservation == null)
             {
-                MessageBox.Show("Molimo Vas selektujte rezervaciju koji zelite obrisete.");
+                MessageBox.Show("Molimo Vas selektujte rezervaciju koji zelite obrišete.");
                 return false;
             }
             if (_accommodationReservationReschedulingService.CheckForActiveRequest(selectedAccommodationReservation))
             {
-                MessageBox.Show("Vec ste podneli zahtev za pomeranje ove rezervacije");
+                MessageBox.Show("Već ste podneli zahtev za pomeranje ove rezervacije.");
                 return false;
             }
             return true;

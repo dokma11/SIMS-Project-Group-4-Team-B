@@ -15,7 +15,6 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
 {
     public class MakeNewForumViewModel
     {
-        public event Action GoBackRequested;
         public Location Location;
         private ObservableCollection<Forum> FilteredForums;
         private ForumService _forumService;

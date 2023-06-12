@@ -80,7 +80,22 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             {
                 MessageBox.Show("Došlo je do greške prilikom pretrazivanja lokacije");
             }
-            MessageBox.Show("Unesite grad i drzavu za koje želite da pročitate ili otvorite forum.");
+            FieldsnNotFiled();
+            
+        }
+
+        private void FieldsnNotFiled()
+        {
+            if (string.IsNullOrEmpty(CountrySearch))
+            {
+                MessageBox.Show("Unesite državu za koju želite da pročitate ili otvorite forum da biste mogli da izaberete grad.");
+                return;
+            }
+            if (string.IsNullOrEmpty(CitySearch))
+            {
+                MessageBox.Show("Unesite grad za koji želite da pročitate ili otvorite forum.");
+                return;
+            }
         }
 
         private Location findLocation(string countrySearch, string citySearch)
@@ -102,7 +117,8 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
                 SearchForumView.ForumsGrid.ItemsSource = FilteredForums;
                 return;
             }
-            MessageBox.Show("Unesite gradove za koje zelite da pronađete ili otvorite forum.");
+            FieldsnNotFiled();
+
         }
 
         public void ShowForum()

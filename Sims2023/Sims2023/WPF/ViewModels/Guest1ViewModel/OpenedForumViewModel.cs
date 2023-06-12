@@ -114,7 +114,7 @@ namespace Sims2023.WPF.ViewModels.Guest1ViewModel
             }
             else
             {
-                MessageBox.Show("Forum može ugasiti samo korisnik koji ga je kreirao");
+                MessageBox.Show("Forum može ugasiti samo korisnik koji ga je kreirao.");
             }
            
         }
