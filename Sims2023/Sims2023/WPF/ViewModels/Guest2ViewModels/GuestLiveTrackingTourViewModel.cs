@@ -18,10 +18,12 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         
         private KeyPointService _keyPointService;
         public RelayCommand CancelCommand { get; set; }
+        public Tour Tour { get; set; }
         #endregion
         #region Konstruktori
         public GuestLiveTrackingTourViewModel(Tour tour,GuestLiveTrackingTourView guestLiveTrackingTourView)
         {
+            Tour=tour;
             GuestLiveTrackingTourView = guestLiveTrackingTourView;
 
             _keyPointService = new KeyPointService();

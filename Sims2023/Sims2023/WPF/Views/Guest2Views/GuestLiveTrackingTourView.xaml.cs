@@ -28,7 +28,7 @@ namespace Sims2023.WPF.Views.Guest2Views
         {
             InitializeComponent();
             GuestLiveTrackingTourViewModel = new GuestLiveTrackingTourViewModel(tour,this);
-            DataContext = tour;
+            DataContext = GuestLiveTrackingTourViewModel;
 
         }
 

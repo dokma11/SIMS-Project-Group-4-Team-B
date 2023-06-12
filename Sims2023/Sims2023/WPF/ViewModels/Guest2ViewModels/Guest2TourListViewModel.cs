@@ -11,6 +11,7 @@ using Sims2023.Observer;
 using Sims2023.WPF.Views.Guest2Views;
 using System.Globalization;
 using Sims2023.WPF.Commands;
+using System.Windows.Input;
 
 namespace Sims2023.WPF.ViewModels.Guest2ViewModels
 {
@@ -19,13 +20,13 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         public TourReservation SelectedTourReservation { get; set; }
         public User User { get; set; }
 
-        public ObservableCollection<TourReservation> TourReservations;   
+        public ObservableCollection<TourReservation> TourReservations; 
+        public Guest2TourListView Guest2TourListView { get; set; }
 
 
         public TourService _tourService;
         public TourReservationService _tourReservationService;
-        public RelayCommand RateTour_Click { get; set; }
-        public RelayCommand SeeActive_Click { get; set; }
+       
 
         
         public Guest2TourListViewModel(User user,Guest2TourListView guest2TourListView)
@@ -36,12 +37,12 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             TourReservations =new ObservableCollection<TourReservation>( _tourReservationService.GetByUser(user));
 
             User = user;
+            Guest2TourListView = guest2TourListView;
             SelectedTourReservation = null;
-            this.SeeActive_Click = new RelayCommand(Execute_SeeActive_Click, CanExecute_NavigateCommand);
-            this.RateTour_Click = new RelayCommand(Execute_RateTour_Click, CanExecute_NavigateCommand);
+            
             
         }
-        public void Execute_RateTour_Click(object obj)
+        public void RateTour_Click()
         {
             if (IsNull(SelectedTourReservation))
                 return;
@@ -63,7 +64,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             }
         }
 
-        private void Execute_SeeActive_Click(object obj)
+        public void SeeActiveTour_Click()
         {
             if(IsNull(SelectedTourReservation))
                 return ;
@@ -85,10 +86,7 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
             }
         }
 
-        private bool CanExecute_NavigateCommand(object obj)
-        {
-            return true;
-        }
+       
 
 
         public bool IsNull(TourReservation tourReservation)

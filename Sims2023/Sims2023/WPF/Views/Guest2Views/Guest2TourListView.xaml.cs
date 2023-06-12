@@ -38,7 +38,7 @@ namespace Sims2023.WPF.Views.Guest2Views
         }
 
         
-        /*private void RateTour_Click(object sender, RoutedEventArgs e)
+        private void RateTour_Click(object sender, RoutedEventArgs e)
         {
             Guest2TourListViewModel.RateTour_Click();
         }
@@ -46,7 +46,7 @@ namespace Sims2023.WPF.Views.Guest2Views
         private void SeeActiveTour_Click(object sender, RoutedEventArgs e)
         {
             Guest2TourListViewModel.SeeActiveTour_Click();
-        }*/
+        }
 
     }
 

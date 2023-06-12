@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sims2023.WPF.Views.Guest2Views" 
         xmlns:ns="clr-namespace:Sims2023"
-        xmlns:models="clr-namespace:Sims2023.Domain.Models" d:DataContext="{d:DesignInstance Type=models:Tour}"
+        xmlns:models="clr-namespace:Sims2023.Domain.Models" 
         mc:Ignorable="d"
         
         Title="GuestLiveTrackingTourView" Height="463" Width="561"  WindowStartupLocation="CenterScreen">
@@ -19,11 +19,11 @@
         <Label Foreground="{DynamicResource WelcomeLabel}" Content="{ns:Loc countryLabel}" FontSize="20" HorizontalAlignment="Left" Margin="28,210,0,0" VerticalAlignment="Top"/>
         <Label Foreground="{DynamicResource WelcomeLabel}" Content="{ns:Loc keyPointLabel}" FontSize="20" HorizontalAlignment="Left" Margin="28,270,0,0" VerticalAlignment="Top"/>
         <Label Foreground="{DynamicResource WelcomeLabel}" Content="{ns:Loc languageLabel}" FontSize="20" HorizontalAlignment="Left" Margin="26,330,0,0" VerticalAlignment="Top"/>
-        <TextBlock Background="LightGray" x:Name="languageTextBlock" Text="{Binding GuideLanguage}"  FontSize="20" HorizontalAlignment="Left" Margin="143,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390" Height="30"/>
+        <TextBlock Background="LightGray" x:Name="languageTextBlock" Text="{Binding Tour.GuideLanguage}"  FontSize="20" HorizontalAlignment="Left" Margin="143,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390" Height="30"/>
         <TextBlock x:Name="keyPointTextBlock" Background="LightGray" FontSize="20" HorizontalAlignment="Left" Margin="143,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390" Height="30"/>
-        <TextBlock x:Name="countryTextBlock" Background="LightGray" Text="{Binding Location.Country}" FontSize="20" HorizontalAlignment="Left" Margin="143,210,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="390" Height="30"/>
-        <TextBlock x:Name="cityTextBlock" Background="LightGray" Text="{Binding Location.City}" FontSize="20" HorizontalAlignment="Left" Margin="143,150,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="390" Height="30"/>
-        <TextBlock x:Name="nameTextBlock" Background="LightGray" Text="{Binding Name}" FontSize="20" HorizontalAlignment="Left" Margin="143,90,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="390" Height="30"/>
+        <TextBlock x:Name="countryTextBlock" Background="LightGray" Text="{Binding Tour.Location.Country}" FontSize="20" HorizontalAlignment="Left" Margin="143,210,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="390" Height="30"/>
+        <TextBlock x:Name="cityTextBlock" Background="LightGray" Text="{Binding Tour.Location.City}" FontSize="20" HorizontalAlignment="Left" Margin="143,150,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="390" Height="30"/>
+        <TextBlock x:Name="nameTextBlock" Background="LightGray" Text="{Binding Tour.Name}" FontSize="20" HorizontalAlignment="Left" Margin="143,90,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="390" Height="30"/>
         <Button Content="{ns:Loc cancelBtn}" Background="#bcbcbc" FontSize="17" Width="147" Height="42" HorizontalAlignment="Left" Margin="385,370,0,0" VerticalAlignment="Top" Command="{Binding CancelCommand}"/>
         <Label Foreground="{DynamicResource WelcomeLabel}" Content="{ns:Loc liveTrackingTourLabel}" FontSize="32" HorizontalAlignment="Left" Margin="28,10,0,0" VerticalAlignment="Top"/>
 

@@ -12,7 +12,8 @@
     <Window.Icon>
         <ImageSource>pack://application:,,,/Sims2023;component/Resources/GuestTwoResources/HorizontBW-02.ico</ImageSource>
     </Window.Icon>
-    
+
+   
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
@@ -20,7 +21,7 @@
         </Grid.RowDefinitions>
         <Menu Style="{DynamicResource MenuStyle}" Grid.Row="0" Margin="0 0 0 0">
 
-            <MenuItem Header="{ns:Loc homeMenu}" Command="{Binding NavigateToStartPageCommand}"></MenuItem>
+            <MenuItem Header="{ns:Loc homeMenu}"  Command="{Binding NavigateToStartPageCommand}"></MenuItem>
             <MenuItem Header="{ns:Loc allToursMenu}" Command="{Binding NavigateToTourListPageCommand}"></MenuItem>
             <MenuItem Header="{ns:Loc myToursMenu}"  Command="{Binding NavigateToGuest2TourListPageCommand}"></MenuItem>
             <MenuItem Header="{ns:Loc tourRequestMenu}" Command="{Binding NavigateToGuest2TourRequestListPageCommand}"></MenuItem>

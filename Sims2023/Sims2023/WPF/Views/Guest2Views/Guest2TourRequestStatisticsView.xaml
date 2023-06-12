@@ -66,7 +66,11 @@
 
                     </DockPanel>
                     <lvc:CartesianChart Series="{Binding LocationSeriesCollection}" Height="200" LegendLocation="Bottom" Width="580" Margin="0,20,0,0">
-                        
+                        <lvc:CartesianChart.Resources>
+                            <Style TargetType="lvc:ColumnSeries">
+                                <Setter Property="Fill" Value="{DynamicResource AcceptedFillColor}"/>
+                            </Style>
+                        </lvc:CartesianChart.Resources>
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="{ns:Loc locationTitle}" Labels="{Binding Labels}"/>
                         </lvc:CartesianChart.AxisX>
@@ -91,6 +95,11 @@
                         <lvc:CartesianChart.AxisY>
                             <lvc:Axis Title="{ns:Loc requestNumberTitle}" Labels="{Binding LanguageValues}"/>
                         </lvc:CartesianChart.AxisY>
+                        <lvc:CartesianChart.Resources>
+                            <Style TargetType="lvc:ColumnSeries">
+                                <Setter Property="Fill" Value="{DynamicResource AcceptedFillColor}"/>
+                            </Style>
+                        </lvc:CartesianChart.Resources>
                     </lvc:CartesianChart>
                 </StackPanel>
             </TabItem>
