@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,12 +56,26 @@ namespace Sims2023.WPF.ViewModels.Guest2ViewModels
         {
             if(voucher == null)
             {
-                MessageBox.Show("Izaberite vaucer");
+                if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
+                {
+                    MessageBox.Show("Izaberite vaucer");
+                }
+                else
+                {
+                    MessageBox.Show("Choose a coupon");
+                }
                 return true;
             }
             else
             {
-                MessageBox.Show("Iskoristili ste vaucer");
+                if (CultureInfo.CurrentCulture.ToString() == "sr-Latn")
+                {
+                    MessageBox.Show("Iskoristili ste vaucer");
+                }
+                else
+                {
+                    MessageBox.Show("You used a coupon");
+                }
                 return false;
             }
             

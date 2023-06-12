@@ -14,10 +14,10 @@
             <Button Content="{ns:Loc createBtn}" Visibility="Hidden" />
         </DataTemplate>
         <DataTemplate x:Key="StartedTemplate">
-            <Button Content="{ns:Loc joinBtn}" Visibility="Visible"  Click="SeeActiveTour_Click"/>
+            <Button Content="{ns:Loc joinBtn}" Visibility="Visible"  Command="{Binding SeeActiveTour_Click}"/>
         </DataTemplate>
         <DataTemplate x:Key="FinishedTemplate">
-            <Button Content="{ns:Loc rateBtn}" Visibility="Visible"  Click="RateTour_Click"/>
+            <Button Content="{ns:Loc rateBtn}" Visibility="Visible"  Command="{Binding RateTour_Click}"/>
         </DataTemplate>
 
         <!-- Define DataTemplateSelector to choose appropriate DataTemplate for each row -->

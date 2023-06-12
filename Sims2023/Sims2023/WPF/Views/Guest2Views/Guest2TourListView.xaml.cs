@@ -26,7 +26,7 @@ namespace Sims2023.WPF.Views.Guest2Views
         public Guest2TourListView(User user)
         {
             InitializeComponent();
-            DataContext = this;
+            //DataContext = this;
 
             Guest2TourListViewModel = new Guest2TourListViewModel(user, this);
 
@@ -37,11 +37,8 @@ namespace Sims2023.WPF.Views.Guest2Views
 
         }
 
-        private void RateSeeTour_Click(object sender,RoutedEventArgs e)
-        {
-            
-        }
-        private void RateTour_Click(object sender, RoutedEventArgs e)
+        
+        /*private void RateTour_Click(object sender, RoutedEventArgs e)
         {
             Guest2TourListViewModel.RateTour_Click();
         }
@@ -49,7 +46,7 @@ namespace Sims2023.WPF.Views.Guest2Views
         private void SeeActiveTour_Click(object sender, RoutedEventArgs e)
         {
             Guest2TourListViewModel.SeeActiveTour_Click();
-        }
+        }*/
 
     }
 

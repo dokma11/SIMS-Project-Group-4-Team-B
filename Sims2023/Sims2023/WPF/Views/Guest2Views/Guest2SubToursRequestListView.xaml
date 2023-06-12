@@ -29,8 +29,8 @@
             </DataGrid.Columns>
 
         </DataGrid>
-        <Button Content="{ns:Loc newSubtourBtn}" FontSize="15" Width="147" Height="42"  Background="#bcbcbc" HorizontalAlignment="Left" Margin="435,400,0,0" VerticalAlignment="Top" Click="NewSubtour_Click"/>
-        <Button Content="{ns:Loc backBtn}" FontSize="15" Width="147" Height="42"  Background="#bcbcbc" HorizontalAlignment="Left" Margin="629,400,0,0" VerticalAlignment="Top" Click="Back_Click"/>
+        <Button Content="{ns:Loc newSubtourBtn}" FontSize="15" Width="147" Height="42"  Background="#bcbcbc" HorizontalAlignment="Left" Margin="435,400,0,0" VerticalAlignment="Top" Command="{Binding NewSubtour_Click}"/>
+        <Button Content="{ns:Loc backBtn}" FontSize="15" Width="147" Height="42"  Background="#bcbcbc" HorizontalAlignment="Left" Margin="629,400,0,0" VerticalAlignment="Top" Command="{Binding Back_Click}"/>
 
     </Grid>
 </Window>
