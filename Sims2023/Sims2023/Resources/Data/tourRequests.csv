@@ -1,6 +1,6 @@
 1|1|ima opis|Serbian|20|4/25/2023 12:00:00 AM|4/30/2023 12:00:00 AM|OnHold|1
 2|2|ima drugi opis|Spanish|10|3/11/2023 12:00:00 AM|3/24/2023 12:00:00 AM|OnHold|3
-3|3|ima treci opis|French|30|5/24/2023 12:00:00 AM|5/30/2023 12:00:00 AM|OnHold|2
+3|3|ima treci opis|French|30|5/24/2023 12:00:00 AM|5/30/2023 12:00:00 AM|Invalid|2
 4|4|ima cetvvrti opis|Chinese|50|5/23/2023 12:00:00 AM|5/27/2023 12:00:00 AM|OnHold|4
 5|5|ima peti opis|Serbian|50|5/24/2023 12:00:00 AM|5/29/2023 12:00:00 AM|OnHold|4
 6|5|ima sesti opis|Japanese|50|2/10/2023 12:00:00 AM|8/15/2023 12:00:00 AM|OnHold|4
@@ -36,3 +36,7 @@
 36|34|dsadasd|German|3|6/18/2023 12:00:00 AM|6/21/2023 12:00:00 AM|Accepted|2
 37|31|dasdasd|Spanish|3|6/20/2023 12:00:00 AM|6/27/2023 12:00:00 AM|Accepted|2
 38|33| jbvhj|Spanish|2|6/19/2023 12:00:00 AM|6/27/2023 12:00:00 AM|Accepted|2
+39|45|opis za argentinu|English|10|6/27/2023 12:00:00 AM|7/8/2023 12:00:00 AM|OnHold|2
+40|15|opis za bahame|Japanese|11|7/1/2023 12:00:00 AM|7/10/2023 12:00:00 AM|OnHold|2
+41|54|volimo belize|Chinese|12|7/8/2023 12:00:00 AM|7/11/2023 12:00:00 AM|OnHold|2
+42|106|Najjace |Spanish|5|6/15/2023 12:00:00 AM|6/18/2023 12:00:00 AM|OnHold|2
